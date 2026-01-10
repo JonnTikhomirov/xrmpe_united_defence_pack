@@ -1,0 +1,24 @@
+{
+    "name":
+        {
+            "en": "United Pack",
+            "ru": "United Pack",
+            "ua": "United Pack",
+            "by": "United Pack",
+            "pl": "United Pack"
+        },
+    "description":
+        {
+            "en": "United Pack: Seven pack + DMR Pack + another",
+            "ru": "Объединенный пак: Seven pack + DMR Pack + другой",
+            "ua": "United Pack: Seven pack + DMR Pack + another",
+            "by": "United Pack: Seven pack + DMR Pack + another",
+            "pl": "United Pack: Seven pack + DMR Pack + another"
+        },
+    "modes": ["defence"],
+    "author": "JohnTikhomirov",
+    "icon": "icon",
+    "addonVersion": "0.1",
+    "coopStartupArgs": ["-noprefetch"],
+    "manifestVersion": "0.9"
+	}
