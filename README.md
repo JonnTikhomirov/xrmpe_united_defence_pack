@@ -25,6 +25,14 @@ Addon for **X-Ray Multiplayer Extension**
 
 ---
 
+## Включенные аддоны
+- [SevenPack 1.6](https://ap-pro.ru/forums/topic/4177-seven-pack-16/) (частично)
+
+
+[Подробности](https://github.com/xrmpe/xrMPE_United_Pack/blob/main/CHANGES.md)
+
+---
+
 ## Назначение
 
 United Pack предназначен для:
