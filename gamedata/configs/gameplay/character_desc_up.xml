@@ -338,7 +338,7 @@
 	</specific_character>	
 
 	<specific_character id="df_default_stalker_master_5" team_default = "1">
-		<name>Неизвестный мастер</name>
+		<name>Сталкер мастер</name>
 		<icon x="20" y="8"></icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
