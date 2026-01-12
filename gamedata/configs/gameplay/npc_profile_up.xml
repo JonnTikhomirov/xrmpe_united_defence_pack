@@ -1,22 +1,19 @@
-﻿<?xml version='1.0' encoding="UTF-8"?>
-<xml>
-	<character id="stalker_normal">
-		<class>stalker_normal</class>
-	</character>
-	<character id="stalker_veteran">
-		<class>stalker_veteran</class>
-	</character>
-	<character id="stalker_master">
-		<class>stalker_master</class>
-	</character>
-	
-	<character id="military_normal">
-		<class>military_normal</class>
-	</character>
-	<character id="military_veteran">
-		<class>military_veteran</class>
-	</character>
-	<character id="military_master">
-		<class>military_master</class>
-	</character>
-</xml>
+﻿<character id="stalker_normal">
+	<class>stalker_normal</class>
+</character>
+<character id="stalker_veteran">
+	<class>stalker_veteran</class>
+</character>
+<character id="stalker_master">
+	<class>stalker_master</class>
+</character>
+
+<character id="military_normal">
+	<class>military_normal</class>
+</character>
+<character id="military_veteran">
+	<class>military_veteran</class>
+</character>
+<character id="military_master">
+	<class>military_master</class>
+</character>
