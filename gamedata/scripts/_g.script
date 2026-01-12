@@ -132,7 +132,15 @@ end
 
 ---@param fmt string
 function printf_msg(fmt, ...)
-	print_msg(string.format(fmt, ...))
+	-- + UP надежный вывод сообщений, не роняем игру
+	-- print_msg(string.format(fmt, ...))
+	local status, result = pcall(string.format, fmt, ...);
+	if status then
+		print_msg(result);
+	else
+		print_msg(fmt .. " <" .. ... .. ">");
+	end
+	-- - UP
 end
 
 ----------------------------------------------------------------------
@@ -561,9 +569,9 @@ function abort(fmt, ...)
 	-- local reason = string.format(fmt, ...)
 	local status, result = pcall(string.format, fmt, ...);
 	if status then
-		printf_msg(result);
+		print_msg(result);
 	else
-		printf_msg(fmt);
+		print_msg(fmt .. " <" .. ... .. ">");
 	end
 	-- - UP
 	--error_log(reason)
