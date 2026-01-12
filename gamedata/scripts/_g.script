@@ -1108,10 +1108,23 @@ function string_format_fallback(fmt, mark_errors, ...)
 		local t = type(v)
 
         if(t == "userdata") then
-			if v.name then 
-				return v:name()
+			local res = "<"
+			if v.clsid then
+				res = res .. "clsid=" .. v:clsid() .. ";"
 			end
-			return "<userdata>"
+			if v.name then
+				res = res .. "name=" .. v:name() .. ";"
+			end
+			if v.NameShort then
+				res = res .. "NameShort=" .. v:NameShort() .. ";"
+			end
+			if v.type then
+				res = res .. "type=" .. v:type() .. ";"
+			end
+			if res == "" then
+				res ="userdata"
+			end
+			return res .. ">"
 		end
 
 		local ok, res = pcall(string.format, spec, v)
