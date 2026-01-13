@@ -1,0 +1,175 @@
+--[[ ----------------------------------------------------------------------------------------------
+ File       : tool_weather.script
+ Description: Инструмент разработчика
+            : Модуль "Погода"
+ Copyright  : 2025 © The Tool
+ Author     : Kirgudu, monk
+            : Использованы материалы GOD of the zone MOD v3.0 by Shoker
+ Last edit  : 08.02.2025
+--]] ----------------------------------------------------------------------------------------------
+
+local sModule = script_name() --/ строковое имя файла-модуля
+
+class "weather"
+
+function weather:__init(owner_name)
+	to_log(sModule..":> __init") --/#~#
+	self.owner_script = _G[owner_name]
+	self.iSurgeTimeout = 30 -- таймаут принудительного выброса по умолчанию
+	self.tWeather = {} -- список типов погоды
+	self.color = { --/ цветовое оформление списка
+		[0] = GetARGB(255, 216, 186, 140), --/ элемент списка
+		[1] = GetARGB(255,  49, 174,  66)  --/ заголовок
+	}
+end
+
+function weather:__finalize() end
+
+-- инициализация элементов
+function weather:InitControls(owner, xml)
+	to_log(sModule..":> InitControls") --/#~#
+
+	-- список типов погоды
+	self.weather_frame = xml:InitFrame("frame_right_weather:weather_frame", owner.frame_right)
+	self.weather_list = xml:InitListBox("frame_right_weather:weather_frame:weather_list", self.weather_frame)
+	self.weather_list:ShowSelectedItem(true)
+	owner:Register(self.weather_list, "weather_weather_list")
+	self.weather_frame_controls = { self.weather_list }
+
+	-- кнопки
+	self.weather_frame_buttons = xml:InitFrame("frame_right_weather:weather_frame_buttons", owner.frame_right)
+	-- чекбокс
+	self.checkbox_now = xml:InitCheck("frame_right_weather:weather_frame_buttons:checkbox_now", self.weather_frame_buttons)
+	self.checkbox_now_enabled = true
+	owner:Register(self.checkbox_now, "weather_checkbox_now")
+	-- кнопка Установить
+	self.btn_set = xml:Init3tButton("frame_right_weather:weather_frame_buttons:btn_set", self.weather_frame_buttons)
+	owner:Register(self.btn_set, "weather_btn_set")
+	-- кнопка Выброс
+	self.btn_surge = xml:Init3tButton("frame_right_weather:weather_frame_buttons:btn_surge", self.weather_frame_buttons)
+	owner:Register(self.btn_surge, "weather_btn_surge")
+	self.weather_frame_buttons_controls = { self.checkbox_now, self.btn_set, self.btn_surge }
+end
+
+-- инициализация событий
+function weather:InitCallbacks(owner)
+	to_log(sModule..":> InitCallbacks") --/#~#
+	owner:AddCallback("weather_weather_list", ui_events.WINDOW_LBUTTON_DB_CLICK, self.OnWeatherListMouseDblClicked, self)
+	owner:AddCallback("weather_checkbox_now", ui_events.BUTTON_CLICKED, self.OnCheckboxNowClick, self)
+	owner:AddCallback("weather_btn_set", ui_events.BUTTON_CLICKED, self.OnBtnSet, self)
+	owner:AddCallback("weather_btn_surge", ui_events.BUTTON_CLICKED, self.OnBtnSurge, self)
+end
+
+-- подготовка данных при загрузке (объекты недоступны)
+function weather:PrepareData(ltx)
+	to_log(sModule..":> PrepareData start")
+	local trim, iCntWeather = string.trim, 0
+
+	--/ чтение таймаута выброса по умолчанию
+	self.iSurgeTimeout = Get_Cfg_Num32(ltx, "weather_settings", "surge_timeout", "J")
+
+	--/ чтение списка погоды
+	local weathers = Get_IniSection(ltx, "weather", "list", nil, ",")
+	local sWeatherCaption = game.translate_string("tool_weather_item_caption")
+	for _,v in pairs(weathers) do
+		if v and v[1] and v[2] then
+			iCntWeather = iCntWeather + 1
+			local item = {
+				section = string.gsub(trim(v[1]), "\"", ""),
+				fx = v[2] == "fx",
+				name = v[3] and string.gsub(trim(v[3]), "\"", "") or string.format("%s %d", sWeatherCaption, iCntWeather)
+			}
+			table.insert(self.tWeather, item)
+		end
+	end
+	self.tWeather = self.owner_script.SortTableByValue(self.tWeather, "asc", "section")
+
+	to_log(sModule..":> PrepareData weather sections=[%d]", iCntWeather)
+end
+
+-- открытие и инициализация раздела
+function weather:OnTabChange()
+	to_log(sModule..":> OnTabChange start")
+	self.owner:SetFrameShowState(true, self.weather_frame, self.weather_frame_controls)
+	self.owner:SetFrameShowState(true, self.weather_frame_buttons, self.weather_frame_buttons_controls)
+	self.checkbox_now:SetCheck(true)
+	for _,v in ipairs(self.tWeather) do
+		self.owner:AddSecondaryListItem(self.weather_list, v.section, v.name, v.section, self.color[0])
+	end
+end
+
+-- двойной клик на элементе списка типов погоды
+function weather:OnWeatherListMouseDblClicked()
+	to_log(sModule..":> OnWeatherListMouseDblClicked start")
+	self:OnBtnSet()
+end
+
+-- очистка полей
+function weather:ClearFields()
+	to_log(sModule..":> ClearFields start")
+	self.weather_list:ScrollToBegin()
+	self.weather_list:RemoveAll()
+	self.checkbox_now:SetCheck(false)
+end
+
+-- скрытие полей
+function weather:HideFields()
+	to_log(sModule..":> HideFields start")
+	self.owner:SetFrameShowState(false, self.weather_frame)
+	self.owner:SetFrameShowState(false, self.weather_frame_buttons)
+end
+
+-- кнопка Установить
+function weather:OnBtnSet()
+	to_log(sModule..":> OnBtnSet start")
+
+	local section = self.owner:GetListItemSelectedValue(self.weather_list)
+	-- + UP
+	-- if not section or section == "null" or not db.actor then return end --/>
+	if not section or section == "null" or not getLocalActor() then return end --/>
+	-- - UP
+
+	for _,v in ipairs(self.tWeather) do
+		if v.section == section then
+			if v.fx then level.set_weather_fx(section) else level.set_weather(section, self.checkbox_now:GetCheck()) end
+			break
+		end
+	end
+end
+
+-- чекбокс, клик
+function weather:OnCheckboxNowClick()
+	to_log(sModule..":> OnCheckboxNowClick start", tostring(self.checkbox_now:GetCheck()))
+	if not self.checkbox_now_enabled then self.checkbox_now:SetCheck(not self.checkbox_now:GetCheck()) end
+end
+
+-- установка состояния органов управления под доп. диалогом
+function weather:SetControlsState(enable)
+	self.weather_list:Enable(enable)
+	self.checkbox_now_enabled = enable -- для (раз)блокировки чекбокса, чтобы не сбрасывалось состояние
+	self.btn_set:Enable(enable)
+	self.btn_surge:Enable(enable)
+end
+
+-- кнопка Выброс
+function weather:OnBtnSurge()
+	to_log(sModule..":> OnBtnSurge start")
+
+	-- местная блокировка органов управления под доп. диалогом
+	self:SetControlsState(false)
+	-- показ диалога с установкой коллбэка на закрытие
+	self.owner:SetMessageDialog(
+		game.translate_string("tool_weather_set_surge"),
+		{ func = self.SetControlsState, data = true, userobj = self }, -- продолжить
+		{ func = self.StartSurge, data = nil, userobj = self } -- отменить
+	)
+end
+
+function weather:StartSurge()
+	-- местная разблокировка органов управления под доп. диалогом
+	self:SetControlsState(true)
+	-- запуск выброса, если он ещё не запущен
+	if not surge_manager.is_started() then
+		surge_manager.start_surge()
+	end
+end

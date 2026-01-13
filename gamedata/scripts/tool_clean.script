@@ -1,0 +1,695 @@
+--[[ ----------------------------------------------------------------------------------------------
+ File       : tool_clean.script
+ Description: Инструмент разработчика
+            : Модуль "Очистка"
+ Copyright  : 2025 © The Tool
+ Author     : Kirgudu, monk
+ Last edit  : 18.09.2025
+--]] ----------------------------------------------------------------------------------------------
+
+local sModule = script_name() --/ строковое имя файла-модуля
+local sim = alife() --/ кеширование алайфа
+local sNoValue = game.translate_string("tool_no_value") --/ стандартный текст для отсутствия чего-либо (прочерк)
+
+class "clean"
+
+function clean:__init(owner_name)
+	to_log(sModule..":> __init") --/#~#
+	self.owner_script = _G[owner_name]
+	self.tSmarts = {} --/ массив смартов для поиска удаляемых объектов
+	self.tObjects = {} --/ массив найденных объектов для удаления
+	self.tCategoriesChecked = {} --/ массив начального состояния чекбоксов выбора категории
+	self.checkbox_current_location_default = false --/ флаг состояния чекбокса "искать на текущей локации" по умолчанию
+	self.checkbox_other_locations_default = false --/ флаг состояния чекбокса "искать на других локациях" по умолчанию
+	self.checkbox_in_boxes_default = false --/ флаг состояния чекбокса "искать в контейнерах" по умолчанию
+	self.checkbox_out_of_boxes_default = false --/ флаг состояния чекбокса "искать вне контейнеров" по умолчанию
+	self.color = { --/ цветовое оформление списка точек
+		[0] = GetARGB(255, 216, 186, 140), --/ точка
+		[1] = GetARGB(255,  49, 174,  66)  --/ заголовок
+	}
+end
+
+function clean:__finalize() end
+
+-- инициализация элементов
+function clean:InitControls(owner, xml)
+	to_log(sModule..":> InitControls") --/#~#
+
+	-- список поиска объектов
+	self.find_object_frame = xml:InitFrame("frame_right_clean:find_object_frame", owner.frame_right)
+	self.find_object_list = xml:InitListBox("frame_right_clean:find_object_frame:find_object_list", self.find_object_frame)
+	self.find_object_list:ShowSelectedItem(true)
+	owner:Register(self.find_object_list, "clean_find_object_list")
+
+	self.find_object_frame_controls = { self.find_object_list }
+
+	-- раздел поиска объекта, информации об объекте, удаления выбранного объекта
+	self.find_object_info = xml:InitFrame("frame_right_clean:find_object_info", owner.frame_right)
+	self.info_location_caption = xml:InitStatic("frame_right_clean:find_object_info:info_location_caption", self.find_object_info)
+	self.info_location_text = xml:InitStatic("frame_right_clean:find_object_info:info_location_text", self.find_object_info)
+	self.info_smart_caption = xml:InitStatic("frame_right_clean:find_object_info:info_smart_caption", self.find_object_info)
+	self.info_smart_text = xml:InitStatic("frame_right_clean:find_object_info:info_smart_text", self.find_object_info)
+
+	-- разделитель
+	self.separator = xml:InitFrameLine("frame_right_clean:separator", owner.frame_right)
+
+	self.find_object_info_controls = { self.info_location_caption, self.info_location_text, self.info_smart_caption, self.info_smart_text, self.separator }
+
+	-- раздел поиска объекта, кнопки
+	self.find_object_buttons = xml:InitFrame("frame_right_clean:find_object_buttons", owner.frame_right)
+	-- текстовое поле
+	self.textbox_find = xml:InitEditBox("frame_right_clean:find_object_buttons:textbox_find", self.find_object_buttons)
+	owner:Register(self.textbox_find, "clean_textbox_find")
+	-- кнопка Поиск
+	self.btn_find = xml:Init3tButton("frame_right_clean:find_object_buttons:btn_find", self.find_object_buttons)
+	owner:Register(self.btn_find, "clean_btn_find")
+	-- кнопка Сброс
+	self.btn_reset = xml:Init3tButton("frame_right_clean:find_object_buttons:btn_reset", self.find_object_buttons)
+	owner:Register(self.btn_reset, "clean_btn_reset")
+
+	self.find_object_buttons_controls = { self.textbox_find, self.btn_find, self.btn_reset }
+
+	-- раздел настроек поиска и группового удаления
+	self.remove_objects_buttons = xml:InitFrame("frame_right_clean:remove_objects_buttons", owner.frame_right)
+	-- выбор категории
+	self.remove_category_caption = xml:InitStatic("frame_right_clean:remove_objects_buttons:remove_category_caption", self.remove_objects_buttons)
+	self.remove_category_text = xml:InitStatic("frame_right_clean:remove_objects_buttons:remove_category_text", self.remove_objects_buttons)
+	self.btn_select_categories = xml:Init3tButton("frame_right_clean:remove_objects_buttons:btn_select_categories", self.remove_objects_buttons)
+	owner:Register(self.btn_select_categories, "clean_btn_select_categories")
+	-- чекбоксы учёта локаций и контейнеров
+	self.checkbox_current_location = xml:InitCheck("frame_right_clean:remove_objects_buttons:checkbox_current_location", self.remove_objects_buttons)
+	owner:Register(self.checkbox_current_location, "clean_checkbox_current_location")
+	self.checkbox_other_locations = xml:InitCheck("frame_right_clean:remove_objects_buttons:checkbox_other_locations", self.remove_objects_buttons)
+	owner:Register(self.checkbox_other_locations, "clean_checkbox_other_locations")
+	self.checkbox_in_boxes = xml:InitCheck("frame_right_clean:remove_objects_buttons:checkbox_in_boxes", self.remove_objects_buttons)
+	owner:Register(self.checkbox_in_boxes, "clean_checkbox_in_boxes")
+	self.checkbox_out_of_boxes = xml:InitCheck("frame_right_clean:remove_objects_buttons:checkbox_out_of_boxes", self.remove_objects_buttons)
+	owner:Register(self.checkbox_out_of_boxes, "clean_checkbox_out_of_boxes")
+	self.checkbox_mode_enabled = true
+	-- кнопка Удалить (выбранный в списке объект)
+	self.btn_remove = xml:Init3tButton("frame_right_clean:remove_objects_buttons:btn_remove", self.remove_objects_buttons)
+	owner:Register(self.btn_remove, "clean_btn_remove")
+	-- кнопка Удалить (групповая)
+	self.btn_remove_all = xml:Init3tButton("frame_right_clean:remove_objects_buttons:btn_remove_all", self.remove_objects_buttons)
+	owner:Register(self.btn_remove_all, "clean_btn_remove_all")
+
+	self.remove_objects_buttons_controls = { self.remove_category_caption, self.remove_category_text, self.btn_select_categories, self.checkbox_current_location, self.checkbox_other_locations, self.checkbox_in_boxes, self.checkbox_out_of_boxes, self.btn_remove, self.btn_remove_all }
+
+	-- диалог выбора категорий удаляемых объектов
+	self.dlg_clean_category_frame = xml:InitFrame("frame_right_clean:dlg_clean_category_frame", owner.frame_right)
+	-- рамка, фон, заголовок диалога
+	self.background_1 = xml:InitStatic("frame_right_clean:dlg_clean_category_frame:background_1", self.dlg_clean_category_frame)
+	self.background_2 = xml:InitStatic("frame_right_clean:dlg_clean_category_frame:background_2", self.dlg_clean_category_frame)
+	self.dlg_caption = xml:InitStatic("frame_right_clean:dlg_clean_category_frame:caption", self.dlg_clean_category_frame)
+	-- чекбоксы категорий удаляемых объектов
+	self.checkbox_category_all = xml:InitCheck("frame_right_clean:dlg_clean_category_frame:checkbox_category_all", self.dlg_clean_category_frame)
+	owner:Register(self.checkbox_category_all, "clean_checkbox_category_all")
+	self.checkbox_category_stalkers = xml:InitCheck("frame_right_clean:dlg_clean_category_frame:checkbox_category_stalkers", self.dlg_clean_category_frame)
+	owner:Register(self.checkbox_category_stalkers, "clean_checkbox_category_stalkers")
+	self.checkbox_category_monsters = xml:InitCheck("frame_right_clean:dlg_clean_category_frame:checkbox_category_monsters", self.dlg_clean_category_frame)
+	owner:Register(self.checkbox_category_monsters, "clean_checkbox_category_monsters")
+	self.checkbox_category_outfit = xml:InitCheck("frame_right_clean:dlg_clean_category_frame:checkbox_category_outfit", self.dlg_clean_category_frame)
+	owner:Register(self.checkbox_category_outfit, "clean_checkbox_category_outfit")
+	self.checkbox_category_weapon = xml:InitCheck("frame_right_clean:dlg_clean_category_frame:checkbox_category_weapon", self.dlg_clean_category_frame)
+	owner:Register(self.checkbox_category_weapon, "clean_checkbox_category_weapon")
+	self.checkbox_category_ammo = xml:InitCheck("frame_right_clean:dlg_clean_category_frame:checkbox_category_ammo", self.dlg_clean_category_frame)
+	owner:Register(self.checkbox_category_ammo, "clean_checkbox_category_ammo")
+	self.checkbox_category_detector = xml:InitCheck("frame_right_clean:dlg_clean_category_frame:checkbox_category_detector", self.dlg_clean_category_frame)
+	owner:Register(self.checkbox_category_detector, "clean_checkbox_category_detector")
+	self.checkbox_category_food = xml:InitCheck("frame_right_clean:dlg_clean_category_frame:checkbox_category_food", self.dlg_clean_category_frame)
+	owner:Register(self.checkbox_category_food, "clean_checkbox_category_food")
+	self.checkbox_category_medical = xml:InitCheck("frame_right_clean:dlg_clean_category_frame:checkbox_category_medical", self.dlg_clean_category_frame)
+	owner:Register(self.checkbox_category_medical, "clean_checkbox_category_medical")
+	self.checkbox_category_anomalies = xml:InitCheck("frame_right_clean:dlg_clean_category_frame:checkbox_category_anomalies", self.dlg_clean_category_frame)
+	owner:Register(self.checkbox_category_anomalies, "clean_checkbox_category_anomalies")
+	self.checkbox_category_artefact = xml:InitCheck("frame_right_clean:dlg_clean_category_frame:checkbox_category_artefact", self.dlg_clean_category_frame)
+	owner:Register(self.checkbox_category_artefact, "clean_checkbox_category_artefact")
+	self.checkbox_category_other = xml:InitCheck("frame_right_clean:dlg_clean_category_frame:checkbox_category_other", self.dlg_clean_category_frame)
+	owner:Register(self.checkbox_category_other, "clean_checkbox_category_other")
+	self.partial_category_checkboxes = { self.checkbox_category_stalkers, self.checkbox_category_monsters, self.checkbox_category_outfit, self.checkbox_category_weapon, self.checkbox_category_ammo, self.checkbox_category_detector, self.checkbox_category_food, self.checkbox_category_medical, self.checkbox_category_anomalies, self.checkbox_category_artefact, self.checkbox_category_other }
+	-- кнопка диалога Выбрать 
+	self.dlg_btn_continue = xml:Init3tButton("frame_right_clean:dlg_clean_category_frame:btn_continue", self.dlg_clean_category_frame)
+	owner:Register(self.dlg_btn_continue, "clean_categories_btn_continue")
+	-- кнопка диалога Отменить
+	self.dlg_btn_cancel = xml:Init3tButton("frame_right_clean:dlg_clean_category_frame:btn_cancel", self.dlg_clean_category_frame)
+	owner:Register(self.dlg_btn_cancel, "clean_categories_btn_cancel")
+
+	self.dlg_clean_category_frame_controls = { self.background_1, self.background_2, self.dlg_caption, self.checkbox_category_all, self.checkbox_category_stalkers, self.checkbox_category_monsters, self.checkbox_category_outfit, self.checkbox_category_weapon, self.checkbox_category_ammo, self.checkbox_category_detector, self.checkbox_category_food, self.checkbox_category_medical, self.checkbox_category_anomalies, self.checkbox_category_artefact, self.checkbox_category_other, self.dlg_btn_continue, self.dlg_btn_cancel }
+end
+
+-- инициализация событий
+function clean:InitCallbacks(owner)
+	to_log(sModule..":> InitCallbacks") --/#~#
+	owner:AddCallback("clean_find_object_list", ui_events.LIST_ITEM_CLICKED, self.OnFindObjectListItemClicked, self)
+	owner:AddCallback("clean_find_object_list", ui_events.WINDOW_LBUTTON_DB_CLICK, self.OnFindObjectListMouseDblClicked, self)
+	owner:AddCallback("clean_textbox_find", ui_events.EDIT_TEXT_COMMIT, self.OnBtnFind, self)
+	owner:AddCallback("clean_btn_find", ui_events.BUTTON_CLICKED, self.OnBtnFind, self)
+	owner:AddCallback("clean_btn_reset", ui_events.BUTTON_CLICKED, self.OnBtnReset, self)
+	owner:AddCallback("clean_btn_select_categories", ui_events.BUTTON_CLICKED, self.OnBtnSelectCategories, self)
+	owner:AddCallback("clean_checkbox_current_location", ui_events.BUTTON_CLICKED, self.OnCheckboxCurrentLocationClick, self)
+	owner:AddCallback("clean_checkbox_other_locations", ui_events.BUTTON_CLICKED, self.OnCheckboxOtherLocationsClick, self)
+	owner:AddCallback("clean_checkbox_in_boxes", ui_events.BUTTON_CLICKED, self.OnCheckboxInBoxesClick, self)
+	owner:AddCallback("clean_checkbox_out_of_boxes", ui_events.BUTTON_CLICKED, self.OnCheckboxOutOfBoxesClick, self)
+	owner:AddCallback("clean_btn_remove", ui_events.BUTTON_CLICKED, self.OnBtnRemove, self)
+	owner:AddCallback("clean_btn_remove_all", ui_events.BUTTON_CLICKED, self.OnBtnRemoveAll, self)
+	owner:AddCallback("clean_categories_btn_continue", ui_events.BUTTON_CLICKED, self.OnBtnContinue, self)
+	owner:AddCallback("clean_categories_btn_cancel", ui_events.BUTTON_CLICKED, self.OnBtnCancel, self)
+	owner:AddCallback("clean_checkbox_category_all", ui_events.BUTTON_CLICKED, self.OnCheckboxCategoryAllClick, self)
+	owner:AddCallback("clean_checkbox_category_stalkers", ui_events.BUTTON_CLICKED, self.OnCheckboxCategoryClick, self)
+	owner:AddCallback("clean_checkbox_category_monsters", ui_events.BUTTON_CLICKED, self.OnCheckboxCategoryClick, self)
+	owner:AddCallback("clean_checkbox_category_outfit", ui_events.BUTTON_CLICKED, self.OnCheckboxCategoryClick, self)
+	owner:AddCallback("clean_checkbox_category_weapon", ui_events.BUTTON_CLICKED, self.OnCheckboxCategoryClick, self)
+	owner:AddCallback("clean_checkbox_category_ammo", ui_events.BUTTON_CLICKED, self.OnCheckboxCategoryClick, self)
+	owner:AddCallback("clean_checkbox_category_detector", ui_events.BUTTON_CLICKED, self.OnCheckboxCategoryClick, self)
+	owner:AddCallback("clean_checkbox_category_food", ui_events.BUTTON_CLICKED, self.OnCheckboxCategoryClick, self)
+	owner:AddCallback("clean_checkbox_category_medical", ui_events.BUTTON_CLICKED, self.OnCheckboxCategoryClick, self)
+	owner:AddCallback("clean_checkbox_category_anomalies", ui_events.BUTTON_CLICKED, self.OnCheckboxCategoryClick, self)
+	owner:AddCallback("clean_checkbox_category_artefact", ui_events.BUTTON_CLICKED, self.OnCheckboxCategoryClick, self)
+	owner:AddCallback("clean_checkbox_category_other", ui_events.BUTTON_CLICKED, self.OnCheckboxCategoryClick, self)
+end
+
+-- подготовка данных при загрузке (объекты недоступны)
+function clean:PrepareData(ltx)
+	to_log(sModule..":> PrepareData start, IO = [%s]", type(io))
+
+	--/ чтение состояния чекбоксов по умолчанию
+	self.checkbox_current_location_default = Get_Cfg_Bool(ltx, "clean_settings", "checkbox_current_location_default", false)
+	self.checkbox_other_locations_default = Get_Cfg_Bool(ltx, "clean_settings", "checkbox_other_locations_default", false)
+	self.checkbox_in_boxes_default = Get_Cfg_Bool(ltx, "clean_settings", "checkbox_in_boxes_default", false)
+	self.checkbox_out_of_boxes_default = Get_Cfg_Bool(ltx, "clean_settings", "checkbox_out_of_boxes_default", false)
+
+	-- отмеченные по умолчанию категории
+	self.tCategoriesChecked = GetVar("tool_clean_categories_checked", Get_IniSection(ltx, "clean_categories", "bool")) or Get_IniSection(ltx, "clean_categories", "bool")
+end
+
+function clean:OnLoad(ltx)
+	to_log(sModule..":> OnLoad start")
+
+	-- удаление объектов по их story_id
+	local tRemove = Get_IniSection(ltx, "clean_by_story_id")
+	local iCnt, iCntAll, story_id, sobj = 0, 0, nil, nil
+	for _,v in ipairs(tRemove) do
+		story_id = tonumber(v) or story_ids[v]
+		if story_id then
+			sobj = sim:story_object(story_id)
+			if sobj then
+				-- to_log(sModule..":> OnLoad remove by story_ids.%s=[%s]", v, story_ids[v])
+				sim:release(sobj, true)
+				iCnt = iCnt + 1
+			end
+		end
+		iCntAll = iCntAll + 1
+	end
+	tRemove = nil
+	to_log(sModule..":> OnLoad objects_removed_by_story_id=[%s/%s]", iCnt, iCntAll)
+
+	-- удаление объектов по их name
+	tRemove = Get_IniSection(ltx, "clean_by_name")
+	iCnt, iCntAll, sobj = 0, 0, nil
+	local board = sim_board.get_sim_board()
+	for _,v in ipairs(tRemove) do
+		sobj = sim:object(v)
+		if sobj then
+			-- to_log(sModule..":> OnLoad remove by name=[%s]", v)
+			if sobj.squad_id == nil or sobj.sim_type ~= nil or not board.squads[sobj.squad_id] then
+				alife():release(sobj, true)
+			else
+				board.squads[sobj.squad_id]:remove_npc(sobj.id)
+			end
+			iCnt = iCnt + 1
+		end
+		iCntAll = iCntAll + 1
+	end
+	tRemove = nil
+
+	to_log(sModule..":> OnLoad objects_removed_by_name=[%s/%s]", iCnt, iCntAll)
+end
+
+-- подготовка данных при открытии диалога в игре (объекты доступны)
+function clean:PrepareRuntimeData(ltx)
+	if self.bSmartsLoaded then return end --/>
+	to_log(sModule..":> PrepareRuntimeData start")
+
+	local gg, iCntSmarts = game_graph(), 0
+
+	-- чтение списка смартов
+	local board = sim_board.get_sim_board()
+	for obj_name, smart in pairs(board.smarts_by_names) do
+		iCntSmarts = iCntSmarts + 1
+		table.insert(self.tSmarts, {
+			id = obj_name,
+			location = sim:level_name(gg:vertex(smart.m_game_vertex_id):level_id()),
+			name = smart_names.get_smart_terrain_name(smart),
+			pos = smart.position,
+			lvid = smart.m_level_vertex_id,
+			gvid = smart.m_game_vertex_id
+		})
+	end
+	self.tSmarts = self.owner_script.SortTableByValue(self.tSmarts, "asc", "id")
+	to_log(sModule..":> PrepareRuntimeData smarts=[%d]", iCntSmarts)
+
+	self.bSmartsLoaded = true
+end
+
+-- установка состояния органов управления под доп. диалогом
+function clean:SetControlsState(enable)
+	self.find_object_list:Enable(enable)
+	self.textbox_find:Enable(enable)
+	self.btn_find:Enable(enable)
+	self.btn_reset:Enable(enable)
+	self.btn_select_categories:Enable(enable)
+	self.checkbox_mode_enabled = enable -- для (раз)блокировки чекбоксов, чтобы не сбрасывалось состояние
+	self.btn_remove:Enable(enable)
+	self.btn_remove_all:Enable(enable)
+end
+
+-- установка состояния доп. диалога выбора категорий и органов управления под ним
+function clean:SetCategoriesDialog(show)
+	-- (раз)блокировка органов управления под доп. диалогом
+	self:SetControlsState(not show)
+	-- показ/скрытие диалога
+	self.dlg_clean_category_frame:Show(show)
+	self.owner:SetFrameShowState(show, self.dlg_clean_category_frame, self.dlg_clean_category_frame_controls)
+end
+
+-- нажатия на кнопки
+function clean:OnKeyboard(activeTab, dik, keyboard_action)
+	if activeTab ~= sModule then return true end --/>
+	if keyboard_action == ui_events.WINDOW_KEY_PRESSED then
+		if dik == DIK_keys.DIK_ESCAPE then
+			if self.dlg_clean_category_frame:IsShown() then
+				self:SetCategoriesDialog(false)
+				return false --/>
+			end
+		end
+	end
+	return true --/>
+end
+
+-- открытие и инициализация раздела
+function clean:OnTabChange()
+	to_log(sModule..":> OnTabChange start")
+	-- подраздел "Поиск"
+	self.owner:SetFrameShowState(true, self.find_object_frame, self.find_object_frame_controls)
+	self.owner:SetFrameShowState(true, self.find_object_info, self.find_object_info_controls)
+	self.owner:SetFrameShowState(true, self.find_object_buttons, self.find_object_buttons_controls)
+	-- предзаполнение списка объектов
+	self.owner:AddSecondaryListItem(self.find_object_list, game.translate_string("tool_clean_filter"), nil, "null", self.color[0])
+	self.find_object_list:Enable(false)
+	self.info_location_text:TextControl():SetText(sNoValue)
+	self.info_smart_text:TextControl():SetText(sNoValue)
+	-- разделитель
+	self.separator:Show(true)
+	-- подраздел "Групповое удаление"
+	self.owner:SetFrameShowState(true, self.remove_objects_buttons, self.remove_objects_buttons_controls)
+	self.remove_category_text:TextControl():SetText(sNoValue)
+	self:SetCategoriesDialog(false)
+	-- информация о выбранных категориях
+	self:RefreshCategoryInfo()
+	-- отметка нужных чекбоксов (по конфигу или предыдущему выбору после загрузки)
+	local check_all = true
+	for k,v in pairs(self.tCategoriesChecked) do
+		if not v then check_all = false end
+		self[k]:SetCheck(v)
+	end
+	self.checkbox_category_all:SetCheck(check_all)
+end
+
+-- кнопка Поиск (фильтр)
+function clean:OnBtnFind()
+	to_log(sModule..":> OnBtnFind start")
+	self.find_object_list:ScrollToBegin()
+	self.find_object_list:RemoveAll()
+
+	self.tObjects = {}
+	local iCntObjectsAdded, iCntObjectsAll, obj = 0, 0, nil
+	local sFilter = self.owner_script.StringLowerRus(self.textbox_find:GetText():trim())
+	to_log(sModule..":> OnBtnFind filter=[%s]", sFilter)
+
+	if sFilter:len() >= 3 then
+		local bFindInBoxes = self.checkbox_in_boxes:GetCheck()
+		local bFindOutOfBoxes = self.checkbox_out_of_boxes:GetCheck()
+		local bFindAtCurrentLocation = self.checkbox_current_location:GetCheck()
+		local bFindAtOtherLocations = self.checkbox_other_locations:GetCheck()
+		local sCurrentLevelName = level.name()
+		local gg = game_graph()
+		for i = 1, 65535 do
+			obj = sim:object(i)
+			if obj then
+				if bFindInBoxes and obj.parent_id ~= 65535 or bFindOutOfBoxes and obj.parent_id == 65535 then
+					-- ищем истинные локацию и координаты, если объект находится в контейнере
+					local obj_location, obj_pos = nil, nil
+					if obj.parent_id ~= 65535 then
+						-- объект в контейнере
+						local parent_obj = sim:object(obj.parent_id)
+						if parent_obj then -- если контейнер найден, берём его показатели
+							obj_location = sim:level_name(gg:vertex(parent_obj.m_game_vertex_id):level_id())
+							obj_pos = parent_obj.position
+						end
+					else
+						-- объект не в контейнере
+						obj_location = sim:level_name(gg:vertex(obj.m_game_vertex_id):level_id())
+						obj_pos = obj.position
+					end
+					if obj_location and (bFindAtCurrentLocation and sCurrentLevelName == obj_location or bFindAtOtherLocations and sCurrentLevelName ~= obj_location) then
+						-- определяем имя объекта
+						local obj_name, name = obj:name(), nil
+						if self.checkbox_category_stalkers:GetCheck() and ObjIsHuman(obj) then
+							name = Get_CharName(obj)
+						elseif self.checkbox_category_monsters:GetCheck() and ObjIsMonster(obj) then
+							name = Get_MobClass(obj)
+						elseif self.checkbox_category_outfit:GetCheck() and ObjIsOutfit(obj)
+						    or self.checkbox_category_weapon:GetCheck() and ObjIsWeapon(obj)
+						    or self.checkbox_category_ammo:GetCheck() and ObjIsAmmo(obj)
+						    or self.checkbox_category_detector:GetCheck() and ObjIsDetector(obj)
+						    or self.checkbox_category_food:GetCheck() and ObjIsFood(obj)
+						    or self.checkbox_category_medical:GetCheck() and ObjIsMedical(obj)
+						    or self.checkbox_category_anomalies:GetCheck() and ObjIsAnomaly(obj)
+						    or self.checkbox_category_artefact:GetCheck() and ObjIsArtefact(obj)
+						    or self.checkbox_category_other:GetCheck() and not (ObjIsHuman(obj) or ObjIsMonster(obj) or ObjIsOutfit(obj) or ObjIsWeapon(obj) or ObjIsAmmo(obj) or ObjIsDetector(obj) or ObjIsFood(obj) or ObjIsMedical(obj) or ObjIsAnomaly(obj) or ObjIsArtefact(obj)) then
+							name = Get_InvName(obj:section_name())
+						end
+						if name then
+							name = game.translate_string(name)
+							if string.find(self.owner_script.StringLowerRus(name), sFilter, 1, true) or string.find(self.owner_script.StringLowerRus(obj_name), sFilter, 1, true) then
+								-- to_log(sModule..":> OnBtnFind check object name=[%s], obj_name=[%s], id=[%s]", tostring(name), obj_name, tostring(i))
+								iCntObjectsAdded = iCntObjectsAdded + 1
+								local item = { object_id = i, name1 = obj_name, name2 = name, location = obj_location, position = obj_pos }
+								table.insert(self.tObjects, item)
+							end
+							iCntObjectsAll = iCntObjectsAll + 1
+						end
+					end
+				end
+			end
+			-- больше 100 объектов не выводим
+			if iCntObjectsAdded >= 100 then break end
+		end
+	end
+
+	self.tObjects = self.owner_script.SortTableByValue(self.tObjects, "asc", "name1")
+
+	for k,v in ipairs(self.tObjects) do
+		self.owner:AddSecondaryListItem(self.find_object_list, v.name1, v.name2, k, self.color[0])
+	end
+
+	if self.find_object_list:GetSize() == 0 then
+		self.owner:AddSecondaryListItem(self.find_object_list, game.translate_string(sFilter:len() >= 3 and "tool_clean_empty" or "tool_clean_filter"), nil, "null", self.color[0])
+		self.find_object_list:Enable(false)
+		self.info_location_text:TextControl():SetText(sNoValue)
+		self.info_smart_text:TextControl():SetText(sNoValue)
+	else
+		self.find_object_list:Enable(true)
+	end
+	to_log(sModule..":> OnBtnFind objects=[%d/%d]", iCntObjectsAdded, iCntObjectsAll)
+end
+
+-- кнопка Сброс (фильтр)
+function clean:OnBtnReset()
+	to_log(sModule..":> OnBtnReset start")
+	self.textbox_find:SetText("")
+	self:OnBtnFind()
+end
+
+-- выбор элемента списка объектов
+function clean:OnFindObjectListItemClicked()
+	local item_id = self.owner:GetListItemSelectedValue(self.find_object_list)
+	if not item_id or item_id == "null" then return end --/>
+
+	local item = self.tObjects[tonumber(item_id)]
+	local obj = sim:object(item.object_id) -- ищем исходный объект
+	if obj then
+		self.info_location_text:TextControl():SetText(game.translate_string(item.location))
+		-- поиск смарта, ближайшего к текущей позиции выбранного предмета
+		local min_dist, smart_name = 100000000, nil
+		for _,v in ipairs(self.tSmarts) do
+			if item.location == v.location then
+				local dist = item.position:distance_to_sqr(v.pos)
+				if dist < min_dist then
+					min_dist = dist
+					smart_name = v.name
+				end
+			end
+		end
+		if smart_name then
+			self.info_smart_text:TextControl():SetText(smart_name)
+		else
+			self.info_smart_text:TextControl():SetText(sNoValue)
+		end
+	else
+		self.info_location_text:TextControl():SetText(sNoValue)
+		self.info_smart_text:TextControl():SetText(sNoValue)
+	end
+end
+
+-- очистка полей
+function clean:ClearFields()
+	to_log(sModule..":> ClearFields start")
+	self.find_object_list:ScrollToBegin()
+	self.find_object_list:RemoveAll()
+	self.info_location_text:TextControl():SetText(sNoValue)
+	self.info_smart_text:TextControl():SetText(sNoValue)
+	self.checkbox_current_location:SetCheck(self.checkbox_current_location_default)
+	self.checkbox_other_locations:SetCheck(self.checkbox_other_locations_default)
+	self.checkbox_in_boxes:SetCheck(self.checkbox_in_boxes_default)
+	self.checkbox_out_of_boxes:SetCheck(self.checkbox_out_of_boxes_default)
+	self.remove_category_text:TextControl():SetText(sNoValue)
+	self.textbox_find:SetText("")
+end
+
+-- скрытие полей
+function clean:HideFields()
+	to_log(sModule..":> HideFields start")
+	self.owner:SetFrameShowState(false, self.find_object_frame)
+	self.owner:SetFrameShowState(false, self.find_object_info)
+	self.owner:SetFrameShowState(false, self.find_object_buttons)
+	self.separator:Show(false)
+	self.owner:SetFrameShowState(false, self.remove_objects_buttons)
+	self:SetCategoriesDialog(false)
+end
+
+-- двойной клик на элементе списка объектов
+function clean:OnFindObjectListMouseDblClicked()
+	to_log(sModule..":> OnFindObjectListMouseDblClicked start")
+	self:OnBtnRemove()
+end
+
+-- чекбокс На текущей локации
+function clean:OnCheckboxCurrentLocationClick()
+	to_log(sModule..":> OnCheckboxCurrentLocationClick start")
+	if not self.checkbox_mode_enabled then
+		self.checkbox_current_location:SetCheck(not self.checkbox_current_location:GetCheck())
+	end
+end
+
+-- чекбокс На других локациях
+function clean:OnCheckboxOtherLocationsClick()
+	to_log(sModule..":> OnCheckboxOtherLocationsClick start")
+	if not self.checkbox_mode_enabled then
+		self.checkbox_other_locations:SetCheck(not self.checkbox_other_locations:GetCheck())
+	end
+end
+
+-- чекбокс В контейнерах
+function clean:OnCheckboxInBoxesClick()
+	to_log(sModule..":> OnCheckboxInBoxesClick start")
+	if not self.checkbox_mode_enabled then
+		self.checkbox_in_boxes:SetCheck(not self.checkbox_in_boxes:GetCheck())
+	end
+end
+
+-- чекбокс Вне контейнеров
+function clean:OnCheckboxOutOfBoxesClick()
+	to_log(sModule..":> OnCheckboxOutOfBoxesClick start")
+	if not self.checkbox_mode_enabled then
+		self.checkbox_out_of_boxes:SetCheck(not self.checkbox_out_of_boxes:GetCheck())
+	end
+end
+
+-- кнопка Удалить
+function clean:OnBtnRemove()
+	to_log(sModule..":> OnBtnRemove start")
+
+	-- переход к объекту
+	local item_id = self.owner:GetListItemSelectedValue(self.find_object_list)
+	if not item_id or item_id == "null" then return end --/>
+
+	local item = self.tObjects[tonumber(item_id)]
+	local obj = sim:object(item.object_id) -- ищем исходный объект
+	if obj then
+		local board = sim_board.get_sim_board()
+		if obj.squad_id ~= nil and obj.sim_type == nil and board.squads[obj.squad_id] then
+			to_log(sModule..":> remove [%s]", obj:name())
+			board.squads[obj.squad_id]:remove_npc(obj.id)
+		else
+			to_log(sModule..":> remove [%s]", obj:name())
+			sim:release(obj, true)
+		end
+		self:OnBtnFind()
+	end
+end
+
+-- кнопка Выбрать категории
+function clean:OnBtnSelectCategories()
+	to_log(sModule..":> OnBtnSelectCategories start")
+	self:SetCategoriesDialog(true)
+end
+
+-- чекбокс Все категории
+function clean:OnCheckboxCategoryAllClick()
+	to_log(sModule..":> OnCheckboxCategoryAllClick start")
+	local check = self.checkbox_category_all:GetCheck()
+	for _,checkbox in ipairs(self.partial_category_checkboxes) do
+		checkbox:SetCheck(check)
+	end
+end
+
+-- чекбокс конкретной категории
+function clean:OnCheckboxCategoryClick()
+	to_log(sModule..":> OnCheckboxCategoryClick start")
+	local check = true
+	for _,checkbox in ipairs(self.partial_category_checkboxes) do
+		if not checkbox:GetCheck() then
+			check = false
+			break
+		end
+	end
+	self.checkbox_category_all:SetCheck(check)
+end
+
+-- кнопка диалога Продолжить
+function clean:OnBtnContinue()
+	to_log(sModule..":> OnBtnContinue start")
+	if self.dlg_clean_category_frame:IsShown() then
+		self:SetCategoriesDialog(false)
+	end
+
+	for k in pairs(self.tCategoriesChecked) do
+		self.tCategoriesChecked[k] = self[k]:GetCheck()
+	end
+	self:RefreshCategoryInfo()
+
+	-- запоминаем отмеченные категории для выбора по умолчанию
+	SetVar("tool_clean_categories_checked", self.tCategoriesChecked)
+end
+
+-- обновление информации о выбранных категориях
+function clean:RefreshCategoryInfo()
+	local category_cnt, category_text = 0, nil
+	for k,v in pairs(self.tCategoriesChecked) do
+		if v then
+			category_cnt = category_cnt + 1
+			if category_text == nil then category_text = self[k]:TextControl():GetText() end
+		end
+	end
+
+	if category_cnt >= 5 then
+		self.remove_category_text:TextControl():SetText(game.translate_string("tool_clean_categories_chosen").." "..category_cnt.." "..game.translate_string("tool_clean_many_categories"))
+	elseif category_cnt >= 2 then
+		self.remove_category_text:TextControl():SetText(game.translate_string("tool_clean_categories_chosen").." "..category_cnt.." "..game.translate_string("tool_clean_several_categories"))
+	elseif category_cnt == 1 then
+		self.remove_category_text:TextControl():SetText(game.translate_string("tool_clean_category_chosen").." \""..category_text.."\"")
+	else
+		self.remove_category_text:TextControl():SetText(sNoValue)
+	end
+end
+
+-- кнопка диалога Отменить
+function clean:OnBtnCancel()
+	to_log(sModule..":> OnBtnCancel start")
+	if self.dlg_clean_category_frame:IsShown() then
+		self:SetCategoriesDialog(false)
+	end
+end
+
+-- кнопка Удалить все
+function clean:OnBtnRemoveAll()
+	to_log(sModule..":> OnBtnRemoveAll start")
+
+	-- местная блокировка органов управления под доп. диалогом
+	self:SetControlsState(false)
+	-- показ диалога с установкой коллбэка на закрытие
+	self.owner:SetMessageDialog(
+		game.translate_string("tool_clean_remove_all_sure"),
+		{ func = self.SetControlsState, data = true, userobj = self }, -- продолжить
+		{ func = self.RemoveAll, data = nil, userobj = self } -- отменить
+	)
+end
+
+function clean:RemoveAll()
+	-- местная разблокировка органов управления под доп. диалогом
+	self:SetControlsState(true)
+
+	-- удаление объектов
+	local iCntObjectsRemoved, iCntObjectsAll, obj = 0, 0, nil
+	local sFilter = self.owner_script.StringLowerRus(self.textbox_find:GetText():trim())
+	to_log(sModule..":> RemoveAll filter=[%s]", sFilter)
+
+	if sFilter:len() == 0 or sFilter:len() >= 3 then
+		local bFindInBoxes = self.checkbox_in_boxes:GetCheck()
+		local bFindOutOfBoxes = self.checkbox_out_of_boxes:GetCheck()
+		local bFindAtCurrentLocation = self.checkbox_current_location:GetCheck()
+		local bFindAtOtherLocations = self.checkbox_other_locations:GetCheck()
+		local sCurrentLevelName = level.name()
+		local gg, board = game_graph(), sim_board.get_sim_board()
+		for i = 1, 65535 do
+			obj = sim:object(i)
+			if obj then
+				if bFindInBoxes and obj.parent_id ~= 65535 or bFindOutOfBoxes and obj.parent_id == 65535 then
+					-- ищем истинные локацию и координаты, если объект находится в контейнере
+					local obj_location, obj_pos = nil, nil
+					if obj.parent_id ~= 65535 then
+						-- объект в контейнере
+						local parent_obj = sim:object(obj.parent_id)
+						if parent_obj then -- если контейнер найден, берём его показатели
+							obj_location = sim:level_name(gg:vertex(parent_obj.m_game_vertex_id):level_id())
+							obj_pos = parent_obj.position
+						end
+					else
+						-- объект не в контейнере
+						obj_location = sim:level_name(gg:vertex(obj.m_game_vertex_id):level_id())
+						obj_pos = obj.position
+					end
+					if obj_location and (bFindAtCurrentLocation and sCurrentLevelName == obj_location or bFindAtOtherLocations and sCurrentLevelName ~= obj_location) then
+						-- определяем имя объекта
+						local obj_name, name = obj:name(), nil
+						if self.checkbox_category_stalkers:GetCheck() and ObjIsHuman(obj) then
+							name = Get_CharName(obj)
+						elseif self.checkbox_category_monsters:GetCheck() and ObjIsMonster(obj) then
+							name = Get_MobClass(obj)
+						elseif self.checkbox_category_outfit:GetCheck() and ObjIsOutfit(obj)
+						    or self.checkbox_category_weapon:GetCheck() and ObjIsWeapon(obj)
+						    or self.checkbox_category_ammo:GetCheck() and ObjIsAmmo(obj)
+						    or self.checkbox_category_detector:GetCheck() and ObjIsDetector(obj)
+						    or self.checkbox_category_food:GetCheck() and ObjIsFood(obj)
+						    or self.checkbox_category_medical:GetCheck() and ObjIsMedical(obj)
+						    or self.checkbox_category_anomalies:GetCheck() and ObjIsAnomaly(obj)
+						    or self.checkbox_category_artefact:GetCheck() and ObjIsArtefact(obj)
+						    or self.checkbox_category_other:GetCheck() and not (ObjIsHuman(obj) or ObjIsMonster(obj) or ObjIsOutfit(obj) or ObjIsWeapon(obj) or ObjIsAmmo(obj) or ObjIsDetector(obj) or ObjIsFood(obj) or ObjIsMedical(obj) or ObjIsAnomaly(obj) or ObjIsArtefact(obj)) then
+							name = Get_InvName(obj:section_name())
+						end
+						if name then
+							name = game.translate_string(name)
+							if sFilter:len() == 0 or string.find(self.owner_script.StringLowerRus(name), sFilter, 1, true) or string.find(self.owner_script.StringLowerRus(obj_name), sFilter, 1, true) then
+								-- to_log(sModule..":> RemoveAll check object name=[%s], obj_name=[%s], id=[%s]", tostring(name), obj_name, tostring(i))
+								iCntObjectsRemoved = iCntObjectsRemoved + 1
+								if obj.squad_id ~= nil and obj.sim_type == nil and board.squads[obj.squad_id] then
+									to_log(sModule..":> remove [%s]", obj:name())
+									board.squads[obj.squad_id]:remove_npc(obj.id)
+								else
+									to_log(sModule..":> remove [%s]", obj:name())
+									sim:release(obj, true)
+								end
+							end
+							iCntObjectsAll = iCntObjectsAll + 1
+						end
+					end
+				end
+			end
+		end
+	end
+
+	self:OnBtnFind()
+
+	to_log(sModule..":> RemoveAll objects=[%d/%d]", iCntObjectsRemoved, iCntObjectsAll)
+end

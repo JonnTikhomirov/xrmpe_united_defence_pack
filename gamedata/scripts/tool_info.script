@@ -1,0 +1,222 @@
+--[[ ----------------------------------------------------------------------------------------------
+ File       : tool_info.script
+ Description: Инструмент разработчика
+            : Модуль "Инфо"
+ Copyright  : 2025 © The Tool
+ Author     : Kirgudu, monk
+ Last edit  : 08.02.2025
+--]] ----------------------------------------------------------------------------------------------
+
+local sModule = script_name() --/ строковое имя файла-модуля
+
+class "info"
+
+function info:__init(owner_name)
+	to_log(sModule..":> __init") --/#~#
+	self.owner_script = _G[owner_name]
+	self.tInfos = {} -- массив идентификаторов локаций
+	self.sInfoConfigRoot = Get_Cfg_String(ltx, "info_config_settings", "config_root", "$tool_gameplay$")
+	self.color = { --/ цветовое оформление инфопорций в разных статусах
+		[0] = GetARGB(255, 216, 186, 140), --/ статус неизвестен, не выдана
+		[1] = GetARGB(255,  49, 174,  66)  --/ выдана
+	}
+end
+
+function info:__finalize() end
+
+-- инициализация элементов
+function info:InitControls(owner, xml)
+	to_log(sModule..":> InitControls") --/#~#
+
+	-- список инфопорций
+	self.info_frame = xml:InitFrame("frame_right_info:info_frame", owner.frame_right)
+	self.info_list = xml:InitListBox("frame_right_info:info_frame:info_list", self.info_frame)
+	self.info_list:ShowSelectedItem(true)
+	owner:Register(self.info_list, "info_info_list")
+	self.info_frame_controls = { self.info_list }
+
+	-- кнопки
+	self.info_frame_buttons = xml:InitFrame("frame_right_info:info_frame_buttons", owner.frame_right)
+	-- текстовое поле
+	self.textbox_find = xml:InitEditBox("frame_right_info:info_frame_buttons:textbox_find", self.info_frame_buttons)
+	owner:Register(self.textbox_find, "info_textbox_find")
+	-- кнопка Поиск
+	self.btn_find = xml:Init3tButton("frame_right_info:info_frame_buttons:btn_find", self.info_frame_buttons)
+	owner:Register(self.btn_find, "info_btn_find")
+	-- кнопка Выдать
+	self.btn_give = xml:Init3tButton("frame_right_info:info_frame_buttons:btn_give", self.info_frame_buttons)
+	owner:Register(self.btn_give, "info_btn_give")
+	-- кнопка Отменить
+	self.btn_disable = xml:Init3tButton("frame_right_info:info_frame_buttons:btn_disable", self.info_frame_buttons)
+	owner:Register(self.btn_disable, "info_btn_disable")
+	self.info_frame_buttons_controls = { self.textbox_find, self.btn_find, self.btn_give, self.btn_disable }
+end
+
+-- инициализация событий
+function info:InitCallbacks(owner)
+	to_log(sModule..":> InitCallbacks") --/#~#
+	owner:AddCallback("info_info_list", ui_events.WINDOW_LBUTTON_DB_CLICK, self.OnInfoListMouseDblClicked, self)
+	owner:AddCallback("info_textbox_find", ui_events.EDIT_TEXT_COMMIT, self.OnBtnFind, self)
+	owner:AddCallback("info_btn_find", ui_events.BUTTON_CLICKED, self.OnBtnFind, self)
+	owner:AddCallback("info_btn_give", ui_events.BUTTON_CLICKED, self.OnBtnGive, self)
+	owner:AddCallback("info_btn_disable", ui_events.BUTTON_CLICKED, self.OnBtnDisable, self)
+end
+
+-- подготовка данных при загрузке (объекты недоступны)
+function info:PrepareData(ltx)
+	to_log(sModule..":> PrepareData start, IO = [%s]", type(io))
+	local iCntInfos, tInfoIds = 0, {}
+
+	--/ чтение инфопорций из конфигурационного файла модуля
+	local ilist = Get_IniSection(ltx, "game_information_portions", "list")
+	for _,v in ipairs(ilist) do
+		if not tInfoIds[v] and not string.find(v, "^ui_") then
+			tInfoIds[v] = true
+			iCntInfos = iCntInfos + 1
+			table.insert(self.tInfos, { info = v })
+		end
+	end
+
+	to_log(sModule..":> PrepareData from module config, infos=[%d]", iCntInfos)
+
+	-- проверка доступности пространства имён IO (движок) и выход в случае отсутствия
+	if type(io) ~= "table" then
+		self.tInfos = self.owner_script.SortTableByValue(self.tInfos, "asc", "info")
+		return --/>
+	end
+
+	--/ дополнительное чтение инфопорций из конфигурационных файлов игры при их наличии и доступности IO
+	iCntInfos = 0
+	local xml2lua, handler_tree = xml_utils.get_xml2lua(), xml_utils.get_tree_handler()
+	local flist = self.owner_script.GetFilesList(self.sInfoConfigRoot, "info_*.xml", FS.FS_ListFiles + FS.FS_RootOnly)
+	for _,v in ipairs(flist) do
+		to_log(sModule..":> parsing xml [%s]", v.filename)
+		local handler = handler_tree:new()
+		local parser = xml2lua.parser(handler)
+		parser:parse(xml2lua.loadFile(v.filepath))
+		local infos = handler.root.game_information_portions
+		if type(infos.info_portion) == "table" and table.size(infos.info_portion) > 1 then infos = infos.info_portion end
+		if infos then
+			local iInfosCnt = table.size(infos)
+			if iInfosCnt > 1 then
+				for k, v in ipairs(infos) do
+					if not tInfoIds[v._attr.id] and not string.find(v._attr.id, "^ui_") then
+						tInfoIds[v._attr.id] = true
+						iCntInfos = iCntInfos + 1
+						table.insert(self.tInfos, { info = v._attr.id, has_article = v.article ~= nil, has_action = v.action ~= nil })
+						-- to_log("%d. Id: [%s], article: [%s], action: [%s], disable: [%s]", k, v._attr.id, v.article or "", v.action or "", v.disable or "")
+					end
+				end
+			elseif iInfosCnt == 1 then
+				if not tInfoIds[infos.info_portion._attr.id] and not string.find(infos.info_portion._attr.id, "^ui_") then
+					tInfoIds[infos.info_portion._attr.id] = true
+					iCntInfos = iCntInfos + 1
+					table.insert(self.tInfos, { info = infos.info_portion._attr.id, has_article = infos.info_portion.article ~= nil, has_action = infos.info_portion.action ~= nil })
+					-- to_log("%d. Id: [%s], article: [%s], action: [%s], disable: [%s]", 1, infos.info_portion._attr.id, infos.info_portion.article or "", infos.info_portion.action or "", infos.info_portion.disable or "")
+				end
+			end
+		end
+	end
+
+	self.tInfos = self.owner_script.SortTableByValue(self.tInfos, "asc", "info")
+
+	to_log(sModule..":> PrepareData from game xml, additional infos=[%d]", iCntInfos)
+end
+
+-- открытие и инициализация раздела
+function info:OnTabChange()
+	to_log(sModule..":> OnTabChange start")
+	self.owner:SetFrameShowState(true, self.info_frame, self.info_frame_controls)
+	self.owner:SetFrameShowState(true, self.info_frame_buttons, self.info_frame_buttons_controls)
+	self.owner:AddSecondaryListItem(self.info_list, game.translate_string("tool_info_filter"), nil, "null", self.color[0])
+	self.info_list:Enable(false)
+end
+
+-- очистка полей
+function info:ClearFields()
+	to_log(sModule..":> ClearFields start")
+	self.info_list:ScrollToBegin()
+	self.info_list:RemoveAll()
+	self.textbox_find:SetText("")
+end
+
+-- скрытие полей
+function info:HideFields()
+	to_log(sModule..":> HideFields start")
+	self.owner:SetFrameShowState(false, self.info_frame)
+	self.owner:SetFrameShowState(false, self.info_frame_buttons)
+end
+
+-- кнопка Поиск (фильтр)
+function info:OnBtnFind()
+	to_log(sModule..":> OnBtnFind start")
+	self.info_list:ScrollToBegin()
+	self.info_list:RemoveAll()
+
+	local sFilter = self.textbox_find:GetText():trim()
+	if sFilter:len() >= 3 then
+		for _,v in ipairs(self.tInfos) do
+			if string.find(v.info, sFilter, 1, true) then
+				self.owner:AddSecondaryListItem(self.info_list, v.info, nil, v.info, self.color[has_info(v.info) and 1 or 0])
+			end
+		end
+	end
+	if self.info_list:GetSize() == 0 then
+		self.owner:AddSecondaryListItem(self.info_list, game.translate_string(sFilter:len() >= 3 and "tool_info_empty" or "tool_info_filter"), nil, "null", self.color[0])
+		self.info_list:Enable(false)
+	else
+		self.info_list:Enable(true)
+	end
+end
+
+-- двойной клик на элементе списка инфопорций
+function info:OnInfoListMouseDblClicked()
+	to_log(sModule..":> OnInfoListMouseDblClicked start")
+
+	local info, oListItem = self.owner:GetListItemSelectedValue(self.info_list)
+	if not info or info == "null" then return end --/>
+
+	if has_info(info) then
+		-- + UP
+		-- db.actor:disable_info_portion(info)
+		getLocalActor():disable_info_portion(info)
+		-- - UP
+		oListItem.fn1:SetTextColor(self.color[0])
+	else
+		-- + UP
+		-- db.actor:give_info_portion(info)
+		getLocalActor():give_info_portion(info)
+		-- - UP
+		oListItem.fn1:SetTextColor(self.color[1])
+	end
+end
+
+-- кнопка Выдать
+function info:OnBtnGive()
+	to_log(sModule..":> OnBtnGive start")
+
+	local info, oListItem = self.owner:GetListItemSelectedValue(self.info_list)
+	if not info or info == "null" then return end --/>
+
+	-- + UP
+	-- if not has_info(info) then db.actor:give_info_portion(info) end
+	if not has_alife_info(info) then getLocalActor():give_info_portion(info) end
+	-- - UP
+
+	oListItem.fn1:SetTextColor(self.color[1])
+end
+
+-- кнопка Отменить
+function info:OnBtnDisable()
+	to_log(sModule..":> OnBtnDisable start")
+
+	local info, oListItem = self.owner:GetListItemSelectedValue(self.info_list)
+	if not info or info == "null" then return end --/>
+	
+	-- + UP
+	-- if has_info(info) then db.actor:disable_info_portion(info) end
+	if has_alife_info(info) then getLocalActor():disable_info_portion(info) end
+	-- - UP
+
+	oListItem.fn1:SetTextColor(self.color[0])
+end

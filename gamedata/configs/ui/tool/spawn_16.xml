@@ -1,0 +1,239 @@
+<!-- File       : spawn_16.xml            -->
+<!-- Description: Инструмент разработчика -->
+<!--            : Модуль "Объекты"        -->
+<!-- Copyright  : 2025 © The Tool         -->
+<!-- Author     : Kirgudu, monk           -->
+<!-- Last edit  : 16.09.2025              -->
+
+<!-- frame_left -->
+<frame_left_spawn>
+	<group_list x="5" y="42" width="161" height="415" item_height="20" always_show_scroll="0" can_select="1">
+		<font font="letterica16" r="216" g="186" b="140"/>
+	</group_list>
+</frame_left_spawn>
+<!-- frame_right -->
+<frame_right_spawn>
+	<section_frame x="0" y="0" width="425" height="360">
+		<texture>ui_stroketextbox</texture>
+		<section_list x="1" y="10" width="423" height="340" item_height="20" always_show_scroll="0" can_select="1">
+			<font font="letterica16" r="216" g="186" b="140"/>
+		</section_list>
+	</section_frame>
+	<squad_frame x="0" y="0" width="425" height="210">
+		<texture>ui_stroketextbox</texture>
+		<squad_caption x="10" y="21" width="100" height="22" stretch="1">
+			<text font="letterica18" align="l" r="49" g="174" b="66">tool_spawn_squad_squad_caption</text>
+		</squad_caption>
+		<textbox_find_squad x="180" y="17" width="145" height="22">
+			<texture>ui_linetext2_e</texture>
+			<text x="5" y="2" font="letterica18" r="240" g="217" b="182"/>
+		</textbox_find_squad>
+		<btn_find_squad x="330" y="17" width="90" height="26">
+			<texture_e>ui_button_ordinary_e</texture_e>
+			<texture_t>ui_button_ordinary_t</texture_t>
+			<texture_h>ui_button_ordinary_h</texture_h>
+			<text font="letterica18" x="0" y="0" align="c" vert_align="c" color="ui_6">tool_spawn_filter_apply</text>
+		</btn_find_squad>
+		<squad_list x="1" y="60" width="423" height="149" item_height="20" always_show_scroll="0" can_select="1">
+			<font font="letterica16" r="216" g="186" b="140"/>
+		</squad_list>
+	</squad_frame>
+	<smart_frame x="0" y="210" width="425" height="210">
+		<texture>ui_stroketextbox</texture>
+		<smart_caption x="10" y="21" width="100" height="22" stretch="1">
+			<text font="letterica18" align="l" r="49" g="174" b="66">tool_spawn_squad_smart_caption</text>
+		</smart_caption>
+		<btn_select_nearest x="85" y="17" width="90" height="26">
+			<texture_e>ui_button_ordinary_e</texture_e>
+			<texture_t>ui_button_ordinary_t</texture_t>
+			<texture_h>ui_button_ordinary_h</texture_h>
+			<text font="letterica18" x="0" y="0" align="c" vert_align="c" color="ui_6">tool_spawn_squad_select_nearest_smart</text>
+		</btn_select_nearest>
+		<textbox_find_smart x="180" y="17" width="145" height="22">
+			<texture>ui_linetext2_e</texture>
+			<text x="5" y="2" font="letterica18" r="240" g="217" b="182"/>
+		</textbox_find_smart>
+		<btn_find_smart x="330" y="17" width="90" height="26">
+			<texture_e>ui_button_ordinary_e</texture_e>
+			<texture_t>ui_button_ordinary_t</texture_t>
+			<texture_h>ui_button_ordinary_h</texture_h>
+			<text font="letterica18" x="0" y="0" align="c" vert_align="c" color="ui_6">tool_spawn_filter_apply</text>
+		</btn_find_smart>
+		<smart_list x="1" y="60" width="423" height="149" item_height="20" always_show_scroll="0" can_select="1">
+			<font font="letterica16" r="216" g="186" b="140"/>
+		</smart_list>
+	</smart_frame>
+	<buttons_frame_1 x="0" y="360" width="425" height="60">
+		<!-- строка 1 -->
+		<caption_shift x="8" y="8" width="37" height="22" stretch="1">
+			<text font="letterica18" align="l" r="216" g="186" b="140">tool_spawn_shift_caption</text>
+		</caption_shift>
+		<textbox_shift x="45" y="3" width="30" height="22">
+			<texture>ui_linetext2_e</texture>
+			<text x="5" y="2" font="letterica18" r="240" g="217" b="182"/>
+			<btn_shift_plus x="77" y="3" width="10" height="12">
+				<texture_e>ui_button_ordinary_e</texture_e>
+				<texture_t>ui_button_ordinary_t</texture_t>
+				<texture_h>ui_button_ordinary_h</texture_h>
+				<text font="letterica16" x="0" y="-1" align="c" vert_align="c" color="ui_6">+</text>
+			</btn_shift_plus>
+			<btn_shift_minus x="77" y="17" width="10" height="12">
+				<texture_e>ui_button_ordinary_e</texture_e>
+				<texture_t>ui_button_ordinary_t</texture_t>
+				<texture_h>ui_button_ordinary_h</texture_h>
+				<text font="letterica16" x="0" y="-1" align="c" vert_align="c" color="ui_6">-</text>
+			</btn_shift_minus>
+		</textbox_shift>
+		<unit_shift x="90" y="8" width="8" height="22" stretch="1">
+			<text font="letterica18" align="l" r="216" g="186" b="140">tool_spawn_shift_unit</text>
+		</unit_shift>
+		<btn_shift_left x="105" y="10" width="10" height="10" stretch="1" hint="tool_spawn_shift_hint_left">
+			<texture_e>ui_mnav_bt_left_e</texture_e>
+			<texture_t>ui_mnav_bt_left_t</texture_t>
+			<texture_h>ui_mnav_bt_left_h</texture_h>
+			<texture_d>ui_mnav_bt_left_d</texture_d>
+		</btn_shift_left>
+		<btn_shift_forward x="115" y="3" width="10" height="10" stretch="1" hint="tool_spawn_shift_hint_forward">
+			<texture_e>ui_mnav_bt_up_e</texture_e>
+			<texture_t>ui_mnav_bt_up_t</texture_t>
+			<texture_h>ui_mnav_bt_up_h</texture_h>
+			<texture_d>ui_mnav_bt_up_d</texture_d>
+		</btn_shift_forward>
+		<btn_shift_back x="115" y="16" width="10" height="10" stretch="1" hint="tool_spawn_shift_hint_back">
+			<texture_e>ui_mnav_bt_down_e</texture_e>
+			<texture_t>ui_mnav_bt_down_t</texture_t>
+			<texture_h>ui_mnav_bt_down_h</texture_h>
+			<texture_d>ui_mnav_bt_down_d</texture_d>
+		</btn_shift_back>
+		<btn_shift_right x="125" y="10" width="10" height="10" stretch="1" hint="tool_spawn_shift_hint_right">
+			<texture_e>ui_mnav_bt_right_e</texture_e>
+			<texture_t>ui_mnav_bt_right_t</texture_t>
+			<texture_h>ui_mnav_bt_right_h</texture_h>
+			<texture_d>ui_mnav_bt_right_d</texture_d>
+		</btn_shift_right>
+		<textbox_find x="180" y="3" width="145" height="22">
+			<texture>ui_linetext2_e</texture>
+			<text x="5" y="2" font="letterica18" r="240" g="217" b="182"/>
+		</textbox_find>
+		<btn_find x="330" y="3" width="90" height="26">
+			<texture_e>ui_button_ordinary_e</texture_e>
+			<texture_t>ui_button_ordinary_t</texture_t>
+			<texture_h>ui_button_ordinary_h</texture_h>
+			<text font="letterica18" x="0" y="0" align="c" vert_align="c" color="ui_6">tool_spawn_filter_apply</text>
+		</btn_find>
+		<!-- строка 2 -->
+		<btn_current x="32" y="35" width="21" height="21" hint="tool_spawn_current">
+			<texture_e>ui_task_bt_center_e</texture_e>
+			<texture_t>ui_task_bt_center_t</texture_t>
+			<texture_h>ui_task_bt_center_h</texture_h>
+			<texture_d>ui_task_bt_center_d</texture_d>
+		</btn_current>
+		<caption_gv x="55" y="38" width="19" height="22" stretch="1">
+			<text font="letterica18" align="r" r="216" g="186" b="140">GV:</text>
+		</caption_gv>
+		<textbox_gv x="76" y="33" width="55" height="22">
+			<texture>ui_linetext2_e</texture>
+			<text x="5" y="2" font="letterica18" r="240" g="217" b="182"/>
+		</textbox_gv>
+		<caption_lv x="131" y="38" width="19" height="22" stretch="1">
+			<text font="letterica18" align="r" r="216" g="186" b="140">LV:</text>
+		</caption_lv>
+		<textbox_lv x="152" y="33" width="55" height="22">
+			<texture>ui_linetext2_e</texture>
+			<text x="5" y="2" font="letterica18" r="240" g="217" b="182"/>
+		</textbox_lv>
+		<caption_x x="203" y="38" width="19" height="22" stretch="1">
+			<text font="letterica18" align="r" r="216" g="186" b="140">X:</text>
+		</caption_x>
+		<textbox_x x="224" y="33" width="55" height="22">
+			<texture>ui_linetext2_e</texture>
+			<text x="5" y="2" font="letterica18" r="240" g="217" b="182"/>
+		</textbox_x>
+		<caption_y x="273" y="38" width="19" height="22" stretch="1">
+			<text font="letterica18" align="r" r="216" g="186" b="140">Y:</text>
+		</caption_y>
+		<textbox_y x="294" y="33" width="55" height="22">
+			<texture>ui_linetext2_e</texture>
+			<text x="5" y="2" font="letterica18" r="240" g="217" b="182"/>
+		</textbox_y>
+		<caption_z x="343" y="38" width="19" height="22" stretch="1">
+			<text font="letterica18" align="r" r="216" g="186" b="140">Z:</text>
+		</caption_z>
+		<textbox_z x="364" y="33" width="55" height="22">
+			<texture>ui_linetext2_e</texture>
+			<text x="5" y="2" font="letterica18" r="240" g="217" b="182"/>
+		</textbox_z>
+	</buttons_frame_1>
+	<buttons_frame_2 x="0" y="420" width="425" height="30">
+		<!-- строка 3 -->
+		<checkbox_mode x="10" y="6" width="22" height="22">
+			<text font="letterica18" align="l" x="-10" y="-1" r="216" g="186" b="140" complex_mode="0"/>
+			<!-- + UP -->
+			<check_mark anchor="mid-center" width="30" height="22"/>
+			<!-- - UP -->
+		</checkbox_mode>
+		<checkbox_mode_2 x="180" y="6" width="22" height="22">
+			<text font="letterica18" align="l" x="-10" y="-1" r="216" g="186" b="140" complex_mode="0">tool_spawn_wounded</text>
+			<!-- + UP -->
+			<check_mark anchor="mid-center" width="30" height="22"/>
+			<!-- - UP -->
+		</checkbox_mode_2>
+		<caption_count x="198" y="8" width="55" height="22" stretch="1">
+			<text font="letterica18" align="l" r="216" g="186" b="140"/>
+		</caption_count>
+		<textbox_count x="238" y="3" width="40" height="22">
+			<texture>ui_linetext2_e</texture>
+			<text x="5" y="2" font="letterica18" r="240" g="217" b="182"/>
+			<btn_count_plus x="280" y="3" width="10" height="12">
+				<texture_e>ui_button_ordinary_e</texture_e>
+				<texture_t>ui_button_ordinary_t</texture_t>
+				<texture_h>ui_button_ordinary_h</texture_h>
+				<text font="letterica16" x="0" y="-1" align="c" vert_align="c" color="ui_6">+</text>
+			</btn_count_plus>
+			<btn_count_minus x="280" y="17" width="10" height="12">
+				<texture_e>ui_button_ordinary_e</texture_e>
+				<texture_t>ui_button_ordinary_t</texture_t>
+				<texture_h>ui_button_ordinary_h</texture_h>
+				<text font="letterica16" x="0" y="-1" align="c" vert_align="c" color="ui_6">-</text>
+			</btn_count_minus>
+		</textbox_count>
+		<btn_spawn x="330" y="3" width="90" height="26">
+			<texture_e>ui_button_ordinary_e</texture_e>
+			<texture_t>ui_button_ordinary_t</texture_t>
+			<texture_h>ui_button_ordinary_h</texture_h>
+			<text font="letterica18" x="0" y="0" align="c" vert_align="c" color="ui_6">tool_spawn_make</text>
+		</btn_spawn>
+	</buttons_frame_2>
+	<!-- Диалог выбора режима создания отряда -->
+	<dlg_spawn_mode_frame x="80" y="75" width="264" height="180">
+		<background_1 x="0" y="0" width="264" height="180" stretch="1">
+			<texture>ui_message_back</texture>
+		</background_1>
+		<background_2 x="0" y="0" width="264" height="180" stretch="1">
+			<texture x="432" y="452" width="588" height="284">ui_hud_frame_voting</texture>
+		</background_2>
+		<caption x="15" y="20" width="234" height="47" complex_mode="1">
+			<text font="letterica18" align="l" r="216" g="186" b="140">tool_spawn_squad_id_exists</text>
+		</caption>
+		<mode_tab x="14" y="70" width="200" height="50" radio="1">
+			<button x="0" y="2" width="24" height="21" id="squad_auto_id">
+				<text font="letterica16" r="115" g="114" b="112" complex_mode="0">tool_spawn_squad_auto_id</text>
+			</button>
+			<button x="0" y="27" width="24" height="21" id="squad_clear_existing">
+				<text font="letterica16" r="115" g="114" b="112" complex_mode="0">tool_spawn_squad_clear_existing</text>
+			</button>
+		</mode_tab>
+		<btn_continue x="11" y="135" width="100" height="26">
+			<texture_e>ui_button_ordinary_e</texture_e>
+			<texture_t>ui_button_ordinary_t</texture_t>
+			<texture_h>ui_button_ordinary_h</texture_h>
+			<text font="letterica18" x="0" y="0" align="c" vert_align="c" color="ui_6">tool_spawn_continue</text>
+		</btn_continue>
+		<btn_cancel x="151" y="135" width="100" height="26">
+			<texture_e>ui_button_ordinary_e</texture_e>
+			<texture_t>ui_button_ordinary_t</texture_t>
+			<texture_h>ui_button_ordinary_h</texture_h>
+			<text font="letterica18" x="0" y="0" align="c" vert_align="c" color="ui_6">ui_inv_cancel</text>
+		</btn_cancel>
+	</dlg_spawn_mode_frame>
+</frame_right_spawn>

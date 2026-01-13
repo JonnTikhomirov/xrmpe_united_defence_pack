@@ -1,0 +1,349 @@
+--[[ ----------------------------------------------------------------------------------------------
+ File       : tool_inventory.script
+ Description: Инструмент разработчика
+            : Модуль "Инвентарь"
+ Copyright  : 2025 © The Tool
+ Author     : Kirgudu, monk
+ Last edit  : 18.09.2025
+--]] ----------------------------------------------------------------------------------------------
+
+local sModule = script_name() --/ строковое имя файла-модуля
+
+class "inventory"
+
+function inventory:__init(owner_name)
+	to_log(sModule..":> __init") --/#~#
+	self.owner_script = _G[owner_name]
+	self.condition_min = 0 --/ минимальное состояние предмета
+	self.condition_max = 1 --/ максимальное состояние предмета
+	self.condition_pin = {} --/ перечень предметов с зафиксированным состоянием
+	self.tInventoryItems = { slot = {}, inventory = {} } -- массив предметов в слотах и инвентаре
+	self.weapon_classes = {
+		[clsid.wpn_vintorez_s] = true,
+		[clsid.wpn_ak74_s] = true,
+		[clsid.wpn_lr300_s] = true,
+		[clsid.wpn_hpsa_s] = true,
+		[clsid.wpn_pm_s] = true,
+		[clsid.wpn_shotgun_s] = true,
+		[clsid.wpn_auto_shotgun_s] = true,
+		[clsid.wpn_bm16_s] = true,
+		[clsid.wpn_svd_s] = true,
+		[clsid.wpn_svu_s] = true,
+		[clsid.wpn_rg6_s] = true,
+		[clsid.wpn_rpg7_s] = true,
+		[clsid.wpn_val_s] = true,
+		[clsid.wpn_walther_s] = true,
+		[clsid.wpn_usp45_s] = true,
+		[clsid.wpn_groza_s] = true,
+		[clsid.wpn_grenade_launcher] = true
+	}
+	self.outfit_classes = {
+		[clsid.equ_exo] = true,
+		[clsid.equ_military] = true,
+		[clsid.equ_scientific] = true,
+		[clsid.equ_stalker] = true,
+		[clsid.equ_stalker_s] = true,
+		[clsid.equ_helmet_s] = true
+	}
+	self.color = { --/ цветовое оформление списка подразделов
+		[0] = GetARGB(255, 216, 186, 140),  --/ подраздел
+		[1] = GetARGB(255,  49, 174,  66),  --/ элемент (зелёный)
+		[2] = GetARGB(255, 174, 174,  66),  --/ элемент (жёлтый)
+		[3] = GetARGB(255, 174,  49,  66)   --/ элемент (красный)
+	}
+end
+
+function inventory:__finalize() end
+
+-- инициализация элементов
+function inventory:InitControls(owner, xml)
+	to_log(sModule..":> InitControls") --/#~#
+
+	-- настройки инвентарных предметов
+	self.inventory_frame = xml:InitFrame("frame_right_inventory:inventory_frame", owner.frame_right)
+	self.inventory_list = xml:InitListBox("frame_right_inventory:inventory_frame:inventory_list", self.inventory_frame)
+	self.inventory_list:ShowSelectedItem(true)
+	owner:Register(self.inventory_list, "inventory_inventory_list")
+	-- настройки инвентарных кнопок
+	self.inventory_frame_buttons = xml:InitFrame("frame_right_inventory:inventory_frame_buttons", owner.frame_right)
+	-- группа элементов Состояние
+	self.condition_caption = xml:InitStatic("frame_right_inventory:inventory_frame_buttons:condition_caption", self.inventory_frame_buttons)
+	self.condition_value = xml:InitEditBox("frame_right_inventory:inventory_frame_buttons:condition_value", self.inventory_frame_buttons)
+	self.owner_script.AddToFilter(sModule, "condition_value", self.condition_value, self.owner_script.filter_patterns.decimal_positive)
+	self.btn_condition_plus = xml:Init3tButton("frame_right_inventory:inventory_frame_buttons:condition_value:btn_condition_plus", self.inventory_frame_buttons)
+	owner:Register(self.btn_condition_plus, "inventory_btn_condition_plus")
+	self.btn_condition_minus = xml:Init3tButton("frame_right_inventory:inventory_frame_buttons:condition_value:btn_condition_minus", self.inventory_frame_buttons)
+	owner:Register(self.btn_condition_minus, "inventory_btn_condition_minus")
+	-- чекбокс Заморозить состояние
+	self.checkbox_condition_pin = xml:InitCheck("frame_right_inventory:inventory_frame_buttons:checkbox_condition_pin", self.inventory_frame_buttons)
+	-- кнопка Установить состояние
+	self.btn_condition_set = xml:Init3tButton("frame_right_inventory:inventory_frame_buttons:btn_condition_set", self.inventory_frame_buttons)
+	owner:Register(self.btn_condition_set, "inventory_btn_condition_set")
+	-- кнопка Починить
+	self.btn_repair = xml:Init3tButton("frame_right_inventory:inventory_frame_buttons:btn_repair", self.inventory_frame_buttons)
+	owner:Register(self.btn_repair, "inventory_btn_repair")
+	-- кнопка Удалить объект
+	self.btn_remove = xml:Init3tButton("frame_right_inventory:inventory_frame_buttons:btn_remove_object", self.inventory_frame_buttons)
+	owner:Register(self.btn_remove, "inventory_btn_remove_object")
+end
+
+-- инициализация событий
+function inventory:InitCallbacks(owner)
+	to_log(sModule..":> InitCallbacks") --/#~#
+	owner:AddCallback("inventory_inventory_list", ui_events.LIST_ITEM_CLICKED, self.OnInventoryListItemClicked, self)
+	owner:AddCallback("inventory_btn_condition_plus", ui_events.BUTTON_CLICKED, self.OnBtnConditionPlus, self)
+	owner:AddCallback("inventory_btn_condition_minus", ui_events.BUTTON_CLICKED, self.OnBtnConditionMinus, self)
+	owner:AddCallback("inventory_btn_condition_set", ui_events.BUTTON_CLICKED, self.OnBtnConditionSet, self)
+	owner:AddCallback("inventory_btn_repair", ui_events.BUTTON_CLICKED, self.OnBtnRepair, self)
+	owner:AddCallback("inventory_btn_remove_object", ui_events.BUTTON_CLICKED, self.OnBtnRemoveObject, self)
+end
+
+-- нажатия на кнопки
+function inventory:OnKeyboard(activeTab, dik, keyboard_action)
+	if activeTab ~= sModule then return true end --/>
+	if keyboard_action == ui_events.WINDOW_KEY_PRESSED then
+		self.owner_script.FilterTextboxes(sModule)
+	end
+	return true --/>
+end
+
+-- открытие и инициализация раздела
+function inventory:OnTabChange()
+	to_log(sModule..":> OnTabChange start")
+	self.inventory_frame:Show(true)
+	self.inventory_list:Show(true)
+	self:FillInventoryList()
+end
+
+function inventory:IsConditionChangeable(obj)
+	local clsid = obj and obj:clsid()
+	return clsid and (self.weapon_classes[clsid] == true or self.outfit_classes[clsid] == true)
+end
+
+-- заполнение списка предметов в слотах и инвентаре
+function inventory:FillInventoryList()
+	to_log(sModule..":> FillInventoryList start")
+	-- заполнение списка предметов инвентаря
+	local sini = system_ini()
+	self.tInventoryItems = { slot = {}, inventory = {} }
+	-- + UP
+	-- db.actor:iterate_inventory(
+	getLocalActor():iterate_inventory(
+	-- - UP
+		function(dummy, oItem)
+			local sSection = oItem:section()
+			local sName = game.translate_string(Get_Cfg_String(sini, sSection, "inv_name", game.translate_string(sSection)))
+			local fCondition = self:IsConditionChangeable(oItem) and oItem:condition() or nil
+			if sSection ~= "bolt" and sSection ~= "device_torch" and sSection ~= "wpn_binoc" and sSection ~= "device_pda" and sSection ~= "wpn_knife" then
+				for i = 1, 12 do
+					-- + UP
+					-- local oItemInSlot = db.actor:item_in_slot(i)
+					local oItemInSlot = getLocalActor():item_in_slot(i)
+					-- - UP
+					if oItemInSlot ~= nil and oItemInSlot:id() == oItem:id() then
+						table.insert(self.tInventoryItems.slot, { section = sSection, name = sName, id = oItem:id(), condition = fCondition })
+						return
+					end
+				end
+				table.insert(self.tInventoryItems.inventory, { section = sSection, name = sName, id = oItem:id(), condition = fCondition })
+			end
+		end
+	,nil)
+	to_log(sModule..":> FillInventoryList slot items = [%d]", table.size(self.tInventoryItems.slot))
+	to_log(sModule..":> FillInventoryList inventory items = [%d]", table.size(self.tInventoryItems.inventory))
+	self.tInventoryItems.slot = self.owner_script.SortTableByValue(self.tInventoryItems.slot, "asc", "section")
+	self.tInventoryItems.inventory = self.owner_script.SortTableByValue(self.tInventoryItems.inventory, "asc", "section")
+	for _,v in ipairs(self.tInventoryItems.slot) do
+		self.owner:AddSecondaryListItem(self.inventory_list, v.section, v.name, v.id, self:GetConditionColor(v.condition))
+	end
+	self.owner:AddSecondaryListItem(self.inventory_list, "", "", "null", self.color[0])
+	for _,v in ipairs(self.tInventoryItems.inventory) do
+		self.owner:AddSecondaryListItem(self.inventory_list, v.section, v.name, v.id, self:GetConditionColor(v.condition))
+	end
+	to_log(sModule..":> FillInventoryList list size = [%d]", self.inventory_list:GetSize())
+end
+
+-- цветовая дифференциация состояний предмета
+function inventory:GetConditionColor(condition)
+	if type(condition) ~= "number" then return self.color[1] end --/>
+	return condition >= 0.95 and self.color[1] or condition >= 0.65 and self.color[0] or condition >= 0.35 and self.color[2] or self.color[3] --/>
+end
+
+-- выбор элемента списка предметов
+function inventory:OnInventoryListItemClicked()
+	to_log(sModule..":> OnInventoryListItemClicked start")
+
+	local obj_id = self.owner:GetListItemSelectedValue(self.inventory_list)
+	if not obj_id then return end --/>
+	if obj_id == "null" then
+		self:SetVisibility(false, false)
+		return --/>
+	end
+
+	obj_id = tonumber(obj_id)
+	self.inventory_frame_buttons:Show(true)
+	self:SetFieldsState(self.tInventoryItems.slot, obj_id)
+	self:SetFieldsState(self.tInventoryItems.inventory, obj_id)
+end
+
+-- установка видимости элементов
+function inventory:SetVisibility(state, state2)
+	self.btn_condition_plus:Show(state)
+	self.btn_condition_minus:Show(state)
+	self.btn_condition_set:Show(state)
+	self.btn_repair:Show(state)
+	self.condition_caption:Show(state)
+	self.condition_value:Show(state)
+	self.checkbox_condition_pin:Show(state)
+
+	self.btn_remove:Show(state2)
+end
+
+-- проверка наличия объекта в списке и настройка полей
+function inventory:SetFieldsState(list, obj_id)
+	for _,v in ipairs(list) do
+		if v.id == obj_id then
+			if v.condition then
+				self:SetVisibility(true, true)
+				self.condition_value:SetText(string.format("%.2f", v.condition))
+				self.checkbox_condition_pin:SetCheck(self.condition_pin[obj_id] ~= nil)
+			else
+				self:SetVisibility(false, true)
+			end
+			return --/>
+		end
+	end
+end
+
+-- очистка полей
+function inventory:ClearFields()
+	to_log(sModule..":> ClearFields start, clear_all=[%s]", tostring(clear_all))
+
+	self.inventory_list:ScrollToBegin()
+	self.inventory_list:RemoveAll()
+	self.condition_value:SetText("")
+	self.checkbox_condition_pin:SetCheck(false)
+end
+
+-- скрытие полей
+function inventory:HideFields()
+	to_log(sModule..":> HideFields start")
+	self.inventory_frame:Show(false)
+	self.inventory_frame_buttons:Show(false)
+end
+
+-- кнопка Плюс состояние
+function inventory:OnBtnConditionPlus()
+	to_log(sModule..":> OnBtnConditionPlus start")
+	local value = tonumber(self.condition_value:GetText()) or self.condition_min
+	if value < self.condition_min then value = self.condition_min else value = value + 0.05 end
+	if value > self.condition_max then value = self.condition_max end
+	self.condition_value:SetText(string.format("%.2f", value))
+end
+
+-- кнопка Минус состояние
+function inventory:OnBtnConditionMinus()
+	to_log(sModule..":> OnBtnConditionMinus start")
+	local value = tonumber(self.condition_value:GetText()) or self.condition_max
+	if value > self.condition_max then value = self.condition_max else value = value - 0.05 end
+	if value < self.condition_min then value = self.condition_min end
+	self.condition_value:SetText(string.format("%.2f", value))
+end
+
+-- кнопка Установить состояние
+function inventory:OnBtnConditionSet()
+	to_log(sModule..":> OnBtnConditionSet start")
+
+	local obj_id, oListItem = self.owner:GetListItemSelectedValue(self.inventory_list)
+	if not obj_id or obj_id == "null" then return end --/>
+	obj_id = tonumber(obj_id)
+
+	-- коррекция (при необходимости) значения состояния
+	local value = tonumber(self.condition_value:GetText())
+	if not value or value > self.condition_max then value = self.condition_max end
+	if value < self.condition_min then value = self.condition_min end
+	local st_value = string.format("%.2f", value)
+	self.condition_value:SetText(st_value)
+	value = tonumber(st_value)
+
+	-- установка состояния
+	local obj = level.object_by_id(obj_id)
+	if obj then obj:set_condition(value) end
+
+	-- запуск или остановка фиксации состояния
+	if self.checkbox_condition_pin:GetCheck() then
+		self.condition_pin[obj_id] = value
+		xr_s.register_callback("update", self.FixCondition, self)
+	else
+		self.condition_pin[obj_id] = nil
+		if table.size(self.condition_pin) == 0 then xr_s.unregister_callback("update", self.FixCondition) end
+	end
+
+	-- подсветка элемента в списке диалога
+	local color = self:GetConditionColor(value)
+	oListItem.fn1:SetTextColor(color)
+	oListItem.fn2:SetTextColor(color)
+
+	-- обновление элемента в массиве
+	for _,v in ipairs(self.tInventoryItems.slot) do
+		if v.id == obj_id then
+			v.condition = value
+			return
+		end
+	end
+	for _,v in ipairs(self.tInventoryItems.inventory) do
+		if v.id == obj_id then
+			v.condition = value
+			return
+		end
+	end
+end
+
+-- кнопка Починить
+function inventory:OnBtnRepair()
+	to_log(sModule..":> OnBtnRepair start")
+
+	self.condition_value:SetText(string.format("%.2f", 1))
+	self:OnBtnConditionSet()
+end
+
+-- кнопка Удалить предмет
+function inventory:OnBtnRemoveObject()
+	to_log(sModule..":> OnBtnRemove start")
+
+	local obj_id, oListItem = self.owner:GetListItemSelectedValue(self.inventory_list)
+	if not obj_id or obj_id == "null" then return end --/>
+	if self.condition_pin[obj_id] then self.condition_pin[obj_id] = nil end
+	if table.size(self.condition_pin) == 0 then xr_s.unregister_callback("update", self.FixCondition) end
+	alife():release(alife():object(tonumber(obj_id)), true)
+
+	-- удаление элемента из списка
+	self.inventory_list:RemoveItem(oListItem)
+	-- удаление элемента из массива
+	for k,v in ipairs(self.tInventoryItems.slot) do
+		if v.id == obj_id then
+			table.remove(self.tInventoryItems.slot, k)
+			return
+		end
+	end
+	for k,v in ipairs(self.tInventoryItems.inventory) do
+		if v.id == obj_id then
+			table.remove(self.tInventoryItems.inventory, k)
+			return
+		end
+	end
+end
+
+-- постоянная фиксация состояния предметов
+function inventory:FixCondition()
+	for obj_id, condition_value in pairs(self.condition_pin) do
+		local obj = level.object_by_id(obj_id)
+		if obj then
+			obj:set_condition(condition_value)
+		else
+			-- если предмет вышел из онлайна (пропал из инвентаря), удаляем его из списка фиксации состояния
+			self.condition_pin[obj_id] = nil
+			if table.size(self.condition_pin) == 0 then xr_s.unregister_callback("update", self.FixCondition) end
+		end
+	end
+end

@@ -1,0 +1,650 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<string_table>
+	<!-- Tool common -->
+	<string id="tool_no_value">
+		<text>–</text>
+	</string>
+	<string id="tool_continue">
+		<text>Продолжить</text>
+	</string>
+	<!-- Teleport tab -->
+	<string id="tool_tab_teleport">
+		<text>Переход</text>
+	</string>
+	<string id="tool_tab_teleport_hint">
+		<text>Быстрый переход игрока</text>
+	</string>
+	<string id="tool_teleport_caption">
+		<text>Быстрый переход</text>
+	</string>
+	<string id="tool_teleport_simulate_story_on_jumping">
+		<text>Симулировать историю при смене локации</text>
+	</string>
+	<string id="tool_teleport_smarts_caption">
+		<text>Территории</text>
+	</string>
+	<string id="tool_teleport_points_caption">
+		<text>Произвольные точки</text>
+	</string>
+	<string id="tool_teleport_point_caption">
+		<text>Точка</text>
+	</string>
+	<string id="tool_teleport_go">
+		<text>Перейти</text>
+	</string>
+	<string id="tool_teleport_custom">
+		<text>Телепорт</text>
+	</string>
+	<string id="tool_teleport_observe">
+		<text>Обзор локации</text>
+	</string>
+	<string id="tool_teleport_current">
+		<text>Центрировать на игроке</text>
+	</string>
+	<string id="tool_teleport_save">
+		<text>Сохранить</text>
+	</string>
+	<string id="tool_teleport_load">
+		<text>Загрузить</text>
+	</string>
+	<string id="tool_teleport_delete">
+		<text>Удалить</text>
+	</string>
+	<string id="tool_teleport_move">
+		<text>Сдвинуть в метрах</text>
+	</string>
+	<string id="tool_teleport_name_caption">
+		<text>Введите наименование точки:</text>
+	</string>
+	<string id="tool_teleport_jump_caption">
+		<text>Прыжок:</text>
+	</string>
+	<string id="tool_teleport_jump_unit">
+		<text>м.</text>
+	</string>
+	<string id="tool_teleport_jump_hint_forward">
+		<text>Прыгнуть вперёд</text>
+	</string>
+	<string id="tool_teleport_jump_hint_back">
+		<text>Прыгнуть назад</text>
+	</string>
+	<string id="tool_teleport_jump_hint_right">
+		<text>Прыгнуть вправо</text>
+	</string>
+	<string id="tool_teleport_jump_hint_left">
+		<text>Прыгнуть влево</text>
+	</string>
+	<string id="tool_teleport_find_object">
+		<text>Поиск объекта</text>
+	</string>
+	<string id="tool_teleport_filter">
+		<text>Введите минимум 3 символа и начните поиск для загрузки списка</text>
+	</string>
+	<string id="tool_teleport_empty">
+		<text>Объектов, соответствующих указанному фильтру, не найдено</text>
+	</string>
+	<string id="tool_teleport_info_location">
+		<text>Локация:</text>
+	</string>
+	<string id="tool_teleport_info_smart">
+		<text>Территория:</text>
+	</string>
+	<string id="tool_teleport_find_at_current_location">
+		<text>на текущей локации</text>
+	</string>
+	<string id="tool_teleport_find_at_other_locations">
+		<text>на других локациях</text>
+	</string>
+	<string id="tool_teleport_find_in_boxes">
+		<text>в контейнерах</text>
+	</string>
+	<string id="tool_teleport_filter_apply">
+		<text>Поиск</text>
+	</string>
+	<string id="tool_teleport_filter_reset">
+		<text>Сброс</text>
+	</string>
+	<!-- Spawn tab -->
+	<string id="tool_tab_spawn">
+		<text>Объекты</text>
+	</string>
+	<string id="tool_tab_spawn_hint">
+		<text>Создание игровых объектов</text>
+	</string>
+	<string id="tool_spawn_caption">
+		<text>Создание объектов</text>
+	</string>
+	<string id="tool_spawn_group_squads">
+		<text>Отряды</text>
+	</string>
+	<string id="tool_spawn_group_stalkers">
+		<text>Персонажи</text>
+	</string>
+	<string id="tool_spawn_group_outfit">
+		<text>Броня</text>
+	</string>
+	<string id="tool_spawn_group_weapon">
+		<text>Оружие</text>
+	</string>
+	<string id="tool_spawn_group_ammo">
+		<text>Боеприпасы</text>
+	</string>
+	<string id="tool_spawn_group_addons">
+		<text>Аддоны</text>
+	</string>
+	<string id="tool_spawn_group_items">
+		<text>Предметы</text>
+	</string>
+	<string id="tool_spawn_group_quest_items">
+		<text>Квестовые предметы</text>
+	</string>
+	<string id="tool_spawn_group_monsters">
+		<text>Монстры</text>
+	</string>
+	<string id="tool_spawn_group_monster_parts">
+		<text>Части монстров</text>
+	</string>
+	<string id="tool_spawn_group_anomalies">
+		<text>Аномалии</text>
+	</string>
+	<string id="tool_spawn_group_artefacts">
+		<text>Артефакты</text>
+	</string>
+	<string id="tool_spawn_group_other">
+		<text>Прочее</text>
+	</string>
+	<string id="tool_spawn_squad_caption">
+		<text>Отряд фракции</text>
+	</string>
+	<string id="tool_spawn_squad_squad_caption">
+		<text>Отряд</text>
+	</string>
+	<string id="tool_spawn_squad_smart_caption">
+		<text>Территория</text>
+	</string>
+	<string id="tool_spawn_squad_select_nearest_smart">
+		<text>Найти рядом</text>
+	</string>
+	<string id="tool_spawn_shift_caption">
+		<text>Сдвиг:</text>
+	</string>
+	<string id="tool_spawn_shift_unit">
+		<text>м.</text>
+	</string>
+	<string id="tool_spawn_shift_hint_forward">
+		<text>Сдвинуть вперёд</text>
+	</string>
+	<string id="tool_spawn_shift_hint_back">
+		<text>Сдвинуть назад</text>
+	</string>
+	<string id="tool_spawn_shift_hint_right">
+		<text>Сдвинуть вправо</text>
+	</string>
+	<string id="tool_spawn_shift_hint_left">
+		<text>Сдвинуть влево</text>
+	</string>
+	<string id="tool_spawn_filter_apply">
+		<text>Поиск</text>
+	</string>
+	<string id="tool_spawn_empty">
+		<text>Объектов, соответствующих указанным критериям, не найдено</text>
+	</string>
+	<string id="tool_spawn_current">
+		<text>Центрировать на игроке</text>
+	</string>
+	<string id="tool_spawn_make">
+		<text>Создать</text>
+	</string>
+	<string id="tool_spawn_to_inventory">
+		<text>Положить в инвентарь</text>
+	</string>
+	<string id="tool_spawn_dead">
+		<text>Создать мёртвым</text>
+	</string>
+	<string id="tool_spawn_wounded">
+		<text>Создать раненым</text>
+	</string>
+	<string id="tool_spawn_count">
+		<text>Кол-во:</text>
+	</string>
+	<string id="tool_spawn_radius">
+		<text>Радиус:</text>
+	</string>
+	<string id="tool_spawn_clear_smart">
+		<text>Очистить территорию</text>
+	</string>
+	<string id="tool_spawn_squad_id_exists">
+		<text>Отряд с таким же id уже существует, для создания отряда выберите режим</text>
+	</string>
+	<string id="tool_spawn_squad_smart_not_found">
+		<text>Не найдена территория для создания нового отряда</text>
+	</string>
+	<string id="tool_spawn_squad_section_not_found">
+		<text>Не найдена секция отряда с указанным идентификатором</text>
+	</string>
+	<string id="tool_spawn_squad_wrong_smart_player">
+		<text>На одной территории нельзя создавать отряды разных группировок</text>
+	</string>
+	<string id="tool_spawn_squad_smart_population_reached_maximum">
+		<text>Популяция территории уже достигла или превысила допустимый максимум</text>
+	</string>
+	<string id="tool_spawn_squad_auto_id">
+		<text>Присвоить новому отряду случайный id</text>
+	</string>
+	<string id="tool_spawn_squad_clear_existing">
+		<text>Удалить существующий отряд с тем же id</text>
+	</string>
+	<string id="tool_spawn_continue">
+		<text>Продолжить</text>
+	</string>
+	<!-- Inventory tab -->
+	<string id="tool_tab_inventory">
+		<text>Инвентарь</text>
+	</string>
+	<string id="tool_tab_inventory_hint">
+		<text>Управление объектами в инвентаре</text>
+	</string>
+	<string id="tool_inventory_caption">
+		<text>Инвентарь</text>
+	</string>
+	<string id="tool_inventory_frame">
+		<text>Настройки инвентарных предметов</text>
+	</string>
+	<string id="tool_inventory_condition_caption">
+		<text>Состояние:</text>
+	</string>
+	<string id="tool_inventory_pin_value">
+		<text>Фиксировать</text>
+	</string>
+	<string id="tool_inventory_remove_object">
+		<text>Удалить</text>
+	</string>
+	<string id="tool_inventory_set">
+		<text>Установить</text>
+	</string>
+	<string id="tool_inventory_repair">
+		<text>Починить</text>
+	</string>
+	<!-- Factions tab -->
+	<string id="tool_tab_factions">
+		<text>Фракции</text>
+	</string>
+	<string id="tool_tab_factions_hint">
+		<text>Управление группировками</text>
+	</string>
+	<string id="tool_factions_caption">
+		<text>Группировки</text>
+	</string>
+	<string id="tool_factions_join">
+		<text>Вступить</text>
+	</string>
+	<string id="tool_factions_exit">
+		<text>Покинуть</text>
+	</string>
+	<string id="tool_factions_primary">
+		<text>Основные группировки</text>
+	</string>
+	<string id="tool_factions_secondary">
+		<text>Прочие группировки</text>
+	</string>
+	<string id="tool_factions_war_caption">
+		<text>Война группировок:</text>
+	</string>
+	<string id="tool_factions_war_active">
+		<text>Активная фаза</text>
+	</string>
+	<string id="tool_factions_war_disabled">
+		<text>Перемирие</text>
+	</string>
+	<string id="tool_factions_war_start">
+		<text>Начать</text>
+	</string>
+	<string id="tool_factions_war_stop">
+		<text>Остановить</text>
+	</string>
+	<string id="tool_factions_expansion_caption">
+		<text>Уровень группировки:</text>
+	</string>
+	<string id="tool_factions_expansion_decrease">
+		<text>Понизить</text>
+	</string>
+	<string id="tool_factions_expansion_increase">
+		<text>Повысить</text>
+	</string>
+	<string id="tool_factions_current_caption">
+		<text>Группировка игрока:</text>
+	</string>
+	<string id="tool_factions_goodwill_caption">
+		<text>Отношение к игроку:</text>
+	</string>
+	<string id="tool_factions_goodwill_set">
+		<text>Установить</text>
+	</string>
+	<!-- Actor tab -->
+	<string id="tool_tab_actor">
+		<text>Игрок</text>
+	</string>
+	<string id="tool_tab_actor_hint">
+		<text>Управление параметрами игрока</text>
+	</string>
+	<string id="tool_actor_caption">
+		<text>Управление игроком</text>
+	</string>
+	<string id="tool_actor_frame">
+		<text>Настройки игрока</text>
+	</string>
+	<string id="tool_actor_money_caption">
+		<text>Деньги:</text>
+	</string>
+	<string id="tool_actor_rank_caption">
+		<text>Ранг:</text>
+	</string>
+	<string id="tool_actor_reputation_caption">
+		<text>Репутация:</text>
+	</string>
+	<string id="tool_actor_health_caption">
+		<text>Здоровье:</text>
+	</string>
+	<string id="tool_actor_psy_caption">
+		<text>Пси-здоровье:</text>
+	</string>
+	<string id="tool_actor_power_caption">
+		<text>Энергия:</text>
+	</string>
+	<string id="tool_actor_radiation_caption">
+		<text>Радиация:</text>
+	</string>
+	<string id="tool_actor_pin_value">
+		<text>Фиксировать</text>
+	</string>
+	<string id="tool_actor_set">
+		<text>Установить</text>
+	</string>
+	<string id="tool_actor_cheat_spawn">
+		<text>ЧИТБОКС</text>
+	</string>
+	<!-- Clean tab -->
+	<string id="tool_tab_clean">
+		<text>Очистка</text>
+	</string>
+	<string id="tool_tab_clean_hint">
+		<text>Удаление игровых объектов</text>
+	</string>
+	<string id="tool_clean_caption">
+		<text>Удаление объектов</text>
+	</string>
+	<string id="tool_clean_filter">
+		<text>Введите минимум 3 символа и начните поиск для загрузки списка</text>
+	</string>
+	<string id="tool_clean_empty">
+		<text>Объектов, соответствующих указанному фильтру, не найдено</text>
+	</string>
+	<string id="tool_clean_point_caption">
+		<text>Точка</text>
+	</string>
+	<string id="tool_clean_info_location">
+		<text>Локация:</text>
+	</string>
+	<string id="tool_clean_info_smart">
+		<text>Территория:</text>
+	</string>
+	<string id="tool_clean_choose_category">
+		<text>Выберите категории объектов для поиска или массового удаления</text>
+	</string>
+	<string id="tool_clean_category_all">
+		<text>все категории</text>
+	</string>
+	<string id="tool_clean_category_stalkers">
+		<text>сталкеры</text>
+	</string>
+	<string id="tool_clean_category_monsters">
+		<text>монстры</text>
+	</string>
+	<string id="tool_clean_category_outfit">
+		<text>броня</text>
+	</string>
+	<string id="tool_clean_category_weapon">
+		<text>оружие</text>
+	</string>
+	<string id="tool_clean_category_ammo">
+		<text>боеприпасы</text>
+	</string>
+	<string id="tool_clean_category_detector">
+		<text>детекторы</text>
+	</string>
+	<string id="tool_clean_category_food">
+		<text>еда и напитки</text>
+	</string>
+	<string id="tool_clean_category_medical">
+		<text>медицинские препараты</text>
+	</string>
+	<string id="tool_clean_category_anomalies">
+		<text>аномалии</text>
+	</string>
+	<string id="tool_clean_category_artefact">
+		<text>артефакты</text>
+	</string>
+	<string id="tool_clean_category_other">
+		<text>прочие типы объектов</text>
+	</string>
+	<string id="tool_clean_find_at_current_location">
+		<text>на текущей локации</text>
+	</string>
+	<string id="tool_clean_find_at_other_locations">
+		<text>на других локациях</text>
+	</string>
+	<string id="tool_clean_find_in_boxes">
+		<text>в контейнерах</text>
+	</string>
+	<string id="tool_clean_find_out_of_boxes">
+		<text>вне контейнеров</text>
+	</string>
+	<string id="tool_clean_filter_apply">
+		<text>Поиск</text>
+	</string>
+	<string id="tool_clean_filter_reset">
+		<text>Сброс</text>
+	</string>
+	<string id="tool_clean_remove">
+		<text>Удалить</text>
+	</string>
+	<string id="tool_clean_remove_all">
+		<text>Удалить все</text>
+	</string>
+	<string id="tool_clean_remove_all_sure">
+		<text>Удалить все объекты, удовлетворяющие выбранным условиям?</text>
+	</string>
+	<string id="tool_clean_remove_category">
+		<text>Категория:</text>
+	</string>
+	<string id="tool_clean_category_chosen">
+		<text>Выбрана категория </text>
+	</string>
+	<string id="tool_clean_categories_chosen">
+		<text>Выбрано </text>
+	</string>
+	<string id="tool_clean_several_categories">
+		<text> категории</text>
+	</string>
+	<string id="tool_clean_many_categories">
+		<text> категорий</text>
+	</string>
+	<string id="tool_clean_select_categories">
+		<text>Выбрать</text>
+	</string>
+	<!-- Info tab -->
+	<string id="tool_tab_info">
+		<text>Инфо</text>
+	</string>
+	<string id="tool_tab_info_hint">
+		<text>Управление сюжетными инфопорциями</text>
+	</string>
+	<string id="tool_info_caption">
+		<text>Инфопорции</text>
+	</string>
+	<string id="tool_info_give">
+		<text>Выдать</text>
+	</string>
+	<string id="tool_info_disable">
+		<text>Отменить</text>
+	</string>
+	<string id="tool_info_filter">
+		<text>Введите минимум 3 символа и начните поиск для загрузки списка</text>
+	</string>
+	<string id="tool_info_empty">
+		<text>Инфопорций, соответствующих указанному фильтру, не найдено</text>
+	</string>
+	<string id="tool_info_filter_apply">
+		<text>Поиск</text>
+	</string>
+	<!-- Timers tab -->
+	<string id="tool_tab_timers">
+		<text>Таймеры</text>
+	</string>
+	<string id="tool_tab_timers_hint">
+		<text>Управление таймерами</text>
+	</string>
+	<string id="tool_timers_caption">
+		<text>Таймеры</text>
+	</string>
+	<string id="tool_timers_timer_caption">
+		<text>Диапазон:</text>
+	</string>
+	<string id="tool_timers_parameters_caption">
+		<text>Остаток:</text>
+	</string>
+	<string id="tool_timers_reload">
+		<text>Обновить</text>
+	</string>
+	<string id="tool_timers_trigger">
+		<text>Завершить</text>
+	</string>
+	<string id="tool_timers_restart">
+		<text>Перезапустить</text>
+	</string>
+	<string id="tool_timers_stop">
+		<text>Отменить</text>
+	</string>
+	<string id="tool_timers_real">
+		<text>Таймеры реального времени</text>
+	</string>
+	<string id="tool_timers_game">
+		<text>Таймеры игрового времени</text>
+	</string>
+	<string id="tool_timers_quick">
+		<text>Быстрые таймеры</text>
+	</string>
+	<string id="tool_timers_hud">
+		<text>Таймеры реального времени с индикатором</text>
+	</string>
+	<string id="tool_timers_multi">
+		<text>Цикличные таймеры</text>
+	</string>
+	<string id="tool_timers_none">
+		<text>Таймеры реального времени с индикатором</text>
+	</string>
+	<!-- Weather tab -->
+	<string id="tool_tab_weather">
+		<text>Погода</text>
+	</string>
+	<string id="tool_tab_weather_hint">
+		<text>Управление погодой</text>
+	</string>
+	<string id="tool_weather_caption">
+		<text>Управление погодой</text>
+	</string>
+	<string id="tool_weather_item_caption">
+		<text>Погода</text>
+	</string>
+	<string id="tool_weather_set_now">
+		<text>Установить немедленно</text>
+	</string>
+	<string id="tool_weather_set">
+		<text>Установить</text>
+	</string>
+	<string id="tool_weather_surge">
+		<text>Выброс</text>
+	</string>
+	<string id="tool_weather_set_surge">
+		<text>Запустить выброс немедленно?</text>
+	</string>
+	<!-- Misc tab -->
+	<string id="tool_tab_misc">
+		<text>Разное</text>
+	</string>
+	<string id="tool_tab_misc_hint">
+		<text>Разное</text>
+	</string>
+	<string id="tool_misc_caption">
+		<text>Разное</text>
+	</string>
+	<string id="tool_misc_subsection_time">
+		<text>Время</text>
+	</string>
+	<string id="tool_misc_subsection_music">
+		<text>Музыка</text>
+	</string>
+	<string id="tool_misc_subsection_video">
+		<text>Видео</text>
+	</string>
+	<!-- Misc timefactor subcategory -->
+	<string id="tool_misc_time_frame">
+		<text>Настройки времени</text>
+	</string>
+	<string id="tool_misc_timefactor_caption">
+		<text>Таймфактор:</text>
+	</string>
+	<string id="tool_misc_timefactor_set">
+		<text>Установить</text>
+	</string>
+	<string id="tool_misc_timefactor_reset">
+		<text>Сбросить</text>
+	</string>
+	<string id="tool_misc_timefactor_coeff_caption">
+		<text>Коэффициент:</text>
+	</string>
+	<string id="tool_misc_timefactor_increase">
+		<text>Ускорить</text>
+	</string>
+	<string id="tool_misc_timefactor_decrease">
+		<text>Замедлить</text>
+	</string>
+	<!-- Misc music subcategory -->
+	<string id="tool_tab_music">
+		<text>Музыка</text>
+	</string>
+	<string id="tool_tab_music_hint">
+		<text>Управление музыкой</text>
+	</string>
+	<string id="tool_music_caption">
+		<text>Управление музыкой</text>
+	</string>
+	<string id="tool_music_start">
+		<text>Проиграть</text>
+	</string>
+	<string id="tool_music_stop">
+		<text>Остановить</text>
+	</string>
+	<string id="tool_music_item_caption">
+		<text>Музыка</text>
+	</string>
+	<string id="tool_music_plays_now">
+		<text>Сейчас играет:</text>
+	</string>
+	<!-- Misc video subcategory -->
+	<string id="tool_tab_video">
+		<text>Видео</text>
+	</string>
+	<string id="tool_tab_video_hint">
+		<text>Управление видео</text>
+	</string>
+	<string id="tool_video_caption">
+		<text>Управление видео</text>
+	</string>
+	<string id="tool_video_start">
+		<text>Запустить</text>
+	</string>
+	<string id="tool_video_item_caption">
+		<text>Видео</text>
+	</string>
+</string_table>

@@ -1,0 +1,61 @@
+<!-- File       : inventory.xml           -->
+<!-- Description: Инструмент разработчика -->
+<!--            : Модуль "Инвентарь"      -->
+<!-- Copyright  : 2025 © The Tool         -->
+<!-- Author     : Kirgudu, monk           -->
+<!-- Last edit  : 18.09.2025              -->
+
+<!-- frame_right -->
+<frame_right_inventory>
+	<inventory_frame x="0" y="0" width="518" height="390">
+		<texture>ui_stroketextbox</texture>
+		<inventory_list x="1" y="10" width="516" height="370" item_height="20" always_show_scroll="0" can_select="1">
+			<font font="letterica16" r="216" g="186" b="140"/>
+		</inventory_list>
+	</inventory_frame>
+	<inventory_frame_buttons x="0" y="390" width="518" height="60">
+		<condition_caption x="10" y="8" width="85" height="22" stretch="1">
+			<text font="letterica18" align="l" r="216" g="186" b="140">tool_inventory_condition_caption</text>
+		</condition_caption>
+		<condition_value x="100" y="3" width="48" height="22">
+			<texture>ui_linetext2_e</texture>
+			<text x="5" y="2" font="letterica18" r="240" g="217" b="182"/>
+			<btn_condition_plus x="150" y="3" width="10" height="12">
+				<texture_e>ui_button_ordinary_e</texture_e>
+				<texture_t>ui_button_ordinary_t</texture_t>
+				<texture_h>ui_button_ordinary_h</texture_h>
+				<text font="letterica16" x="0" y="-1" align="c" vert_align="c" color="ui_6">+</text>
+			</btn_condition_plus>
+			<btn_condition_minus x="150" y="17" width="10" height="12">
+				<texture_e>ui_button_ordinary_e</texture_e>
+				<texture_t>ui_button_ordinary_t</texture_t>
+				<texture_h>ui_button_ordinary_h</texture_h>
+				<text font="letterica16" x="0" y="-1" align="c" vert_align="c" color="ui_6">-</text>
+			</btn_condition_minus>
+		</condition_value>
+		<checkbox_condition_pin x="170" y="6" width="22" height="22">
+			<text font="letterica18" align="l" x="-10" y="-1" r="216" g="186" b="140" complex_mode="0">tool_inventory_pin_value</text>
+			<!-- + UP -->
+			<check_mark anchor="mid-center" width="30" height="22"/>
+			<!-- - UP -->
+		</checkbox_condition_pin>
+		<btn_condition_set x="329" y="3" width="90" height="26">
+			<texture_e>ui_button_ordinary_e</texture_e>
+			<texture_t>ui_button_ordinary_t</texture_t>
+			<texture_h>ui_button_ordinary_h</texture_h>
+			<text font="letterica18" x="0" y="0" align="c" vert_align="c" color="ui_6">tool_inventory_set</text>
+		</btn_condition_set>
+		<btn_repair x="424" y="3" width="90" height="26">
+			<texture_e>ui_button_ordinary_e</texture_e>
+			<texture_t>ui_button_ordinary_t</texture_t>
+			<texture_h>ui_button_ordinary_h</texture_h>
+			<text font="letterica18" x="0" y="0" align="c" vert_align="c" color="ui_6">tool_inventory_repair</text>
+		</btn_repair>
+		<btn_remove_object x="424" y="33" width="90" height="26">
+			<texture_e>ui_button_ordinary_e</texture_e>
+			<texture_t>ui_button_ordinary_t</texture_t>
+			<texture_h>ui_button_ordinary_h</texture_h>
+			<text font="letterica18" x="0" y="0" align="c" vert_align="c" color="ui_6">tool_inventory_remove_object</text>
+		</btn_remove_object>
+	</inventory_frame_buttons>
+</frame_right_inventory>

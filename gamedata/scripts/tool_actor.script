@@ -1,0 +1,481 @@
+--[[ ----------------------------------------------------------------------------------------------
+ File       : tool_actor.script
+ Description: Инструмент разработчика
+            : Модуль "Игрок"
+ Copyright  : 2025 © The Tool
+ Author     : Kirgudu, monk
+ Last edit  : 08.02.2025
+--]] ----------------------------------------------------------------------------------------------
+
+local sModule = script_name() --/ строковое имя файла-модуля
+
+class "actor"
+
+function actor:__init(owner_name)
+	to_log(sModule..":> __init") --/#~#
+	self.owner_script = _G[owner_name]
+	self.rank_min = 0 --/ минимальный ранг игрока
+	self.rank_max = 1000 --/ максимальный ранг игрока
+	self.reputation_min = -2000 --/ минимальная репутация игрока
+	self.reputation_max = 2000 --/ максимальная репутация игрока
+	self.actor_powers_min = 0.1 --/ минимальный жизненный показатель игрока
+	self.actor_powers_max = 1 --/ максимальный жизненный показатель игрока
+	self.actor_radiation_min = 0 --/ минимальное радиационное заражение игрока
+	self.actor_radiation_max = 1 --/ максимальное радиационное заражение игрока
+	self.fixed_health = nil --/ значение замороженного здоровья
+	self.fixed_psy = nil --/ значение замороженного пси-здоровья
+	self.fixed_power = nil --/ значение замороженной энергии
+	self.fixed_radiation = nil --/ значение замороженной энергии
+	self.cheat_spawn = {} --/  список для пакетного спавна предметов в инвентарь игрока
+	self.color = { --/ цветовое оформление списка подразделов
+		[0] = {255, 216, 186, 140},
+		[1] = {255,  49, 174,  66}
+	}
+end
+
+function actor:__finalize() end
+
+-- инициализация элементов
+function actor:InitControls(owner, xml)
+	to_log(sModule..":> InitControls") --/#~#
+
+	-- настройки игрока
+	self.actor_frame = xml:InitFrame("frame_right_actor:actor_frame", owner.frame_right)
+	xml:InitStatic("frame_right_actor:actor_frame:actor_frame_caption", self.actor_frame)
+
+	-- группа элементов Деньги
+	xml:InitStatic("frame_right_actor:actor_frame:money_caption", self.actor_frame)
+	self.money_value = xml:InitEditBox("frame_right_actor:actor_frame:money_value", self.actor_frame)
+	self.owner_script.AddToFilter(sModule, "money_value", self.money_value, self.owner_script.filter_patterns.integer_positive)
+	owner:Register(xml:Init3tButton("frame_right_actor:actor_frame:money_value:btn_money_plus", self.actor_frame), "actor_btn_money_plus")
+	owner:Register(xml:Init3tButton("frame_right_actor:actor_frame:money_value:btn_money_minus", self.actor_frame), "actor_btn_money_minus")
+	-- денежная единица
+	xml:InitStatic("frame_right_actor:actor_frame:money_unit", self.actor_frame)
+	-- кнопка Установить деньги
+	owner:Register(xml:Init3tButton("frame_right_actor:actor_frame:btn_money_set", self.actor_frame), "actor_btn_money_set")
+
+	-- группа элементов Ранг
+	xml:InitStatic("frame_right_actor:actor_frame:rank_caption", self.actor_frame)
+	self.rank_value = xml:InitEditBox("frame_right_actor:actor_frame:rank_value", self.actor_frame)
+	self.owner_script.AddToFilter(sModule, "rank_value", self.rank_value, self.owner_script.filter_patterns.integer_positive)
+	owner:Register(xml:Init3tButton("frame_right_actor:actor_frame:rank_value:btn_rank_plus", self.actor_frame), "actor_btn_rank_plus")
+	owner:Register(xml:Init3tButton("frame_right_actor:actor_frame:rank_value:btn_rank_minus", self.actor_frame), "actor_btn_rank_minus")
+	-- кнопка Установить ранг
+	owner:Register(xml:Init3tButton("frame_right_actor:actor_frame:btn_rank_set", self.actor_frame), "actor_btn_rank_set")
+
+	-- группа элементов Репутация
+	xml:InitStatic("frame_right_actor:actor_frame:reputation_caption", self.actor_frame)
+	self.reputation_value = xml:InitEditBox("frame_right_actor:actor_frame:reputation_value", self.actor_frame)
+	self.owner_script.AddToFilter(sModule, "reputation_value", self.reputation_value, self.owner_script.filter_patterns.integer_positive)
+	owner:Register(xml:Init3tButton("frame_right_actor:actor_frame:reputation_value:btn_reputation_plus", self.actor_frame), "actor_btn_reputation_plus")
+	owner:Register(xml:Init3tButton("frame_right_actor:actor_frame:reputation_value:btn_reputation_minus", self.actor_frame), "actor_btn_reputation_minus")
+	-- кнопка Установить репутацию
+	owner:Register(xml:Init3tButton("frame_right_actor:actor_frame:btn_reputation_set", self.actor_frame), "actor_btn_reputation_set")
+
+	-- группа элементов Здоровье
+	xml:InitStatic("frame_right_actor:actor_frame:health_caption", self.actor_frame)
+	self.health_value = xml:InitEditBox("frame_right_actor:actor_frame:health_value", self.actor_frame)
+	self.owner_script.AddToFilter(sModule, "health_value", self.health_value, self.owner_script.filter_patterns.decimal_positive)
+	owner:Register(xml:Init3tButton("frame_right_actor:actor_frame:health_value:btn_health_plus", self.actor_frame), "actor_btn_health_plus")
+	owner:Register(xml:Init3tButton("frame_right_actor:actor_frame:health_value:btn_health_minus", self.actor_frame), "actor_btn_health_minus")
+	-- чекбокс Заморозить здоровье
+	self.checkbox_health_pin = xml:InitCheck("frame_right_actor:actor_frame:checkbox_health_pin", self.actor_frame)
+	-- кнопка Установить здоровье
+	owner:Register(xml:Init3tButton("frame_right_actor:actor_frame:btn_health_set", self.actor_frame), "actor_btn_health_set")
+
+	-- группа элементов Пси-здоровье
+	xml:InitStatic("frame_right_actor:actor_frame:psy_caption", self.actor_frame)
+	self.psy_value = xml:InitEditBox("frame_right_actor:actor_frame:psy_value", self.actor_frame)
+	self.owner_script.AddToFilter(sModule, "psy_value", self.psy_value, self.owner_script.filter_patterns.decimal_positive)
+	owner:Register(xml:Init3tButton("frame_right_actor:actor_frame:psy_value:btn_psy_plus", self.actor_frame), "actor_btn_psy_plus")
+	owner:Register(xml:Init3tButton("frame_right_actor:actor_frame:psy_value:btn_psy_minus", self.actor_frame), "actor_btn_psy_minus")
+	-- чекбокс Заморозить Пси-здоровье
+	self.checkbox_psy_pin = xml:InitCheck("frame_right_actor:actor_frame:checkbox_psy_pin", self.actor_frame)
+	-- кнопка Установить пси-здоровье
+	owner:Register(xml:Init3tButton("frame_right_actor:actor_frame:btn_psy_set", self.actor_frame), "actor_btn_psy_set")
+
+	-- группа элементов Энергия
+	xml:InitStatic("frame_right_actor:actor_frame:power_caption", self.actor_frame)
+	self.power_value = xml:InitEditBox("frame_right_actor:actor_frame:power_value", self.actor_frame)
+	self.owner_script.AddToFilter(sModule, "power_value", self.power_value, self.owner_script.filter_patterns.decimal_positive)
+	owner:Register(xml:Init3tButton("frame_right_actor:actor_frame:power_value:btn_power_plus", self.actor_frame), "actor_btn_power_plus")
+	owner:Register(xml:Init3tButton("frame_right_actor:actor_frame:power_value:btn_power_minus", self.actor_frame), "actor_btn_power_minus")
+	-- чекбокс Заморозить энергию
+	self.checkbox_power_pin = xml:InitCheck("frame_right_actor:actor_frame:checkbox_power_pin", self.actor_frame)
+	-- кнопка Установить энергию
+	owner:Register(xml:Init3tButton("frame_right_actor:actor_frame:btn_power_set", self.actor_frame), "actor_btn_power_set")
+
+	-- группа элементов Радиация
+	xml:InitStatic("frame_right_actor:actor_frame:radiation_caption", self.actor_frame)
+	self.radiation_value = xml:InitEditBox("frame_right_actor:actor_frame:radiation_value", self.actor_frame)
+	self.owner_script.AddToFilter(sModule, "radiation_value", self.radiation_value, self.owner_script.filter_patterns.decimal_positive)
+	owner:Register(xml:Init3tButton("frame_right_actor:actor_frame:radiation_value:btn_radiation_plus", self.actor_frame), "actor_btn_radiation_plus")
+	owner:Register(xml:Init3tButton("frame_right_actor:actor_frame:radiation_value:btn_radiation_minus", self.actor_frame), "actor_btn_radiation_minus")
+	-- чекбокс Заморозить радиацию
+	self.checkbox_radiation_pin = xml:InitCheck("frame_right_actor:actor_frame:checkbox_radiation_pin", self.actor_frame)
+	-- кнопка Установить радиацию
+	owner:Register(xml:Init3tButton("frame_right_actor:actor_frame:btn_radiation_set", self.actor_frame), "actor_btn_radiation_set")
+
+	-- кнопка Читбокс
+	owner:Register(xml:Init3tButton("frame_right_actor:actor_frame:btn_cheat_spawn", self.actor_frame), "actor_btn_cheat_spawn")
+end
+
+-- инициализация событий
+function actor:InitCallbacks(owner)
+	to_log(sModule..":> InitCallbacks") --/#~#
+	owner:AddCallback("actor_btn_money_plus", ui_events.BUTTON_CLICKED, self.OnBtnMoneyPlus, self)
+	owner:AddCallback("actor_btn_money_minus", ui_events.BUTTON_CLICKED, self.OnBtnMoneyMinus, self)
+	owner:AddCallback("actor_btn_money_set", ui_events.BUTTON_CLICKED, self.OnBtnMoneySet, self)
+	owner:AddCallback("actor_btn_rank_plus", ui_events.BUTTON_CLICKED, self.OnBtnRankPlus, self)
+	owner:AddCallback("actor_btn_rank_minus", ui_events.BUTTON_CLICKED, self.OnBtnRankMinus, self)
+	owner:AddCallback("actor_btn_rank_set", ui_events.BUTTON_CLICKED, self.OnBtnRankSet, self)
+	owner:AddCallback("actor_btn_reputation_plus", ui_events.BUTTON_CLICKED, self.OnBtnReputationPlus, self)
+	owner:AddCallback("actor_btn_reputation_minus", ui_events.BUTTON_CLICKED, self.OnBtnReputationMinus, self)
+	owner:AddCallback("actor_btn_reputation_set", ui_events.BUTTON_CLICKED, self.OnBtnReputationSet, self)
+	owner:AddCallback("actor_btn_health_plus", ui_events.BUTTON_CLICKED, self.OnBtnHealthPlus, self)
+	owner:AddCallback("actor_btn_health_minus", ui_events.BUTTON_CLICKED, self.OnBtnHealthMinus, self)
+	owner:AddCallback("actor_btn_health_set", ui_events.BUTTON_CLICKED, self.OnBtnHealthSet, self)
+	owner:AddCallback("actor_btn_psy_plus", ui_events.BUTTON_CLICKED, self.OnBtnPsyPlus, self)
+	owner:AddCallback("actor_btn_psy_minus", ui_events.BUTTON_CLICKED, self.OnBtnPsyMinus, self)
+	owner:AddCallback("actor_btn_psy_set", ui_events.BUTTON_CLICKED, self.OnBtnPsySet, self)
+	owner:AddCallback("actor_btn_power_plus", ui_events.BUTTON_CLICKED, self.OnBtnPowerPlus, self)
+	owner:AddCallback("actor_btn_power_minus", ui_events.BUTTON_CLICKED, self.OnBtnPowerMinus, self)
+	owner:AddCallback("actor_btn_power_set", ui_events.BUTTON_CLICKED, self.OnBtnPowerSet, self)
+	owner:AddCallback("actor_btn_radiation_plus", ui_events.BUTTON_CLICKED, self.OnBtnRadiationPlus, self)
+	owner:AddCallback("actor_btn_radiation_minus", ui_events.BUTTON_CLICKED, self.OnBtnRadiationMinus, self)
+	owner:AddCallback("actor_btn_radiation_set", ui_events.BUTTON_CLICKED, self.OnBtnRadiationSet, self)
+	owner:AddCallback("actor_btn_cheat_spawn", ui_events.BUTTON_CLICKED, self.OnBtnCheatSpawn, self)
+end
+
+-- подготовка данных при загрузке (объекты недоступны)
+function actor:PrepareData(ltx)
+	to_log(sModule..":> PrepareData start")
+	local iCntSections = 0
+	local trim, sini = string.trim, system_ini()
+	self.cheat_spawn = {}
+
+	local sections = Get_IniSection(ltx, "actor_spawn", "list", nil, ",")
+	for _,v in ipairs(sections) do
+		if v and v[1] then
+			iCntSections = iCntSections + 1
+			local section = trim(v[1])
+			local number = v[2] and tonumber(trim(v[2]))
+			local item = { section = section, number = number or 1 }
+			table.insert(self.cheat_spawn, item)
+		end
+	end
+
+	to_log(sModule..":> PrepareData spawn sections=[%d]", iCntSections)
+end
+
+-- нажатия на кнопки
+function actor:OnKeyboard(activeTab, dik, keyboard_action)
+	if activeTab ~= sModule then return true end --/>
+	if keyboard_action == ui_events.WINDOW_KEY_PRESSED then
+		self.owner_script.FilterTextboxes(sModule)
+	end
+	return true --/>
+end
+
+-- открытие и инициализация раздела
+function actor:OnTabChange()
+	to_log(sModule..":> OnTabChange start")
+	self.actor_frame:Show(true)
+end
+
+-- очистка полей
+function actor:ClearFields()
+	to_log(sModule..":> ClearFields start, clear_all=[%s]", tostring(clear_all))
+	-- + UP
+	-- self.money_value:SetText(tostring(db.actor and db.actor:money() or 0))
+	-- self.rank_value:SetText(tostring(db.actor and db.actor:character_rank() or 0))
+	-- self.reputation_value:SetText(tostring(db.actor and db.actor:character_reputation() or 0))
+	-- self.health_value:SetText(string.format("%.2f", db.actor and db.actor.health or 1))
+	-- self.psy_value:SetText(string.format("%.2f", db.actor and db.actor.psy_health or 1))
+	-- self.power_value:SetText(string.format("%.2f", db.actor and db.actor.power or 1))
+	-- self.radiation_value:SetText(string.format("%.2f", db.actor and db.actor.radiation or 0))
+	self.money_value:SetText(tostring(getLocalActor() and getLocalActor():money() or 0))
+	self.rank_value:SetText(tostring(getLocalActor() and getLocalActor():character_rank() or 0))
+	self.reputation_value:SetText(tostring(getLocalActor() and getLocalActor():character_reputation() or 0))
+	self.health_value:SetText(string.format("%.2f", getLocalActor() and getLocalActor().health or 1))
+	self.psy_value:SetText(string.format("%.2f", getLocalActor() and getLocalActor().psy_health or 1))
+	self.power_value:SetText(string.format("%.2f", getLocalActor() and getLocalActor().power or 1))
+	self.radiation_value:SetText(string.format("%.2f", getLocalActor() and getLocalActor().radiation or 0))
+	-- - UP
+	self.checkbox_health_pin:SetCheck(self.fixed_health ~= nil)
+	self.checkbox_psy_pin:SetCheck(self.fixed_psy ~= nil)
+	self.checkbox_power_pin:SetCheck(self.fixed_power ~= nil)
+	self.checkbox_radiation_pin:SetCheck(self.fixed_radiation ~= nil)
+end
+
+-- скрытие полей
+function actor:HideFields()
+	to_log(sModule..":> HideFields start")
+	self.actor_frame:Show(false)
+end
+
+-- кнопка Плюс деньги
+function actor:OnBtnMoneyPlus()
+	to_log(sModule..":> OnBtnMoneyPlus start")
+	local value = tonumber(self.money_value:GetText()) or 0
+	self.money_value:SetText(string.format("%d", math.floor(value) + 1000))
+end
+
+-- кнопка Минус деньги
+function actor:OnBtnMoneyMinus()
+	to_log(sModule..":> OnBtnMoneyMinus start")
+	local value = tonumber(self.money_value:GetText()) or 0
+	if math.floor(value) < value then value = math.floor(value) else value = value - 1000 end
+	if value < 0 then value = 0 end
+	self.money_value:SetText(string.format("%d", value))
+end
+
+-- кнопка Установить деньги
+function actor:OnBtnMoneySet()
+	to_log(sModule..":> OnBtnMoneySet start")
+	local value = tonumber(self.money_value:GetText())
+	if not value or value < 0 then value = 0 end
+	value = math.floor(value)
+	self.money_value:SetText(string.format("%d", value))
+	-- + UP
+	-- db.actor:give_money(value - db.actor:money())
+	getLocalActor():give_money(value - getLocalActor():money())
+	-- - UP
+end
+
+-- кнопка Плюс ранг
+function actor:OnBtnRankPlus()
+	to_log(sModule..":> OnBtnRankPlus start")
+	local value = tonumber(self.rank_value:GetText()) or -50
+	if math.floor(value) < value then value = math.floor(value) + 50 else value = value + 50 end
+	if value < self.rank_min then value = self.rank_min end
+	if value > self.rank_max then value = self.rank_max end
+	self.rank_value:SetText(string.format("%d", value))
+end
+
+-- кнопка Минус ранг
+function actor:OnBtnRankMinus()
+	to_log(sModule..":> OnBtnRankMinus start")
+	local value = tonumber(self.rank_value:GetText()) or 50
+	if math.floor(value) < value then value = math.floor(value) else value = value - 50 end
+	if value < self.rank_min then value = self.rank_min end
+	if value > self.rank_max then value = self.rank_max end
+	self.rank_value:SetText(string.format("%d", value))
+end
+
+-- кнопка Установить ранг
+function actor:OnBtnRankSet()
+	to_log(sModule..":> OnBtnRankSet start")
+	local rank = tonumber(self.rank_value:GetText()) or 0
+	if rank < self.rank_min then rank = self.rank_min end
+	if rank > self.rank_max then rank = self.rank_max end
+	rank = math.floor(rank)
+	self.rank_value:SetText(string.format("%d", rank))
+	-- + UP
+	-- db.actor:set_character_rank(rank)
+	getLocalActor():set_character_rank(rank)
+	-- - UP
+end
+
+-- кнопка Плюс репутация
+function actor:OnBtnReputationPlus()
+	to_log(sModule..":> OnBtnReputationPlus start")
+	local value = tonumber(self.reputation_value:GetText()) or -100
+	if math.floor(value) < value then value = math.floor(value) + 100 else value = value + 100 end
+	if value < self.reputation_min then value = self.reputation_min end
+	if value > self.reputation_max then value = self.reputation_max end
+	self.reputation_value:SetText(string.format("%d", value))
+end
+
+-- кнопка Минус репутация
+function actor:OnBtnReputationMinus()
+	to_log(sModule..":> OnBtnReputationMinus start")
+	local value = tonumber(self.reputation_value:GetText()) or 100
+	if math.floor(value) < value then value = math.floor(value) else value = value - 100 end
+	if value < self.reputation_min then value = self.reputation_min end
+	if value > self.reputation_max then value = self.reputation_max end
+	self.reputation_value:SetText(string.format("%d", value))
+end
+
+-- кнопка Установить репутацию
+function actor:OnBtnReputationSet()
+	to_log(sModule..":> OnBtnReputationSet start")
+	local reputation = tonumber(self.reputation_value:GetText()) or 0
+	if reputation < self.reputation_min then reputation = self.reputation_min end
+	if reputation > self.reputation_max then reputation = self.reputation_max end
+	reputation = math.floor(reputation)
+	self.reputation_value:SetText(string.format("%d", reputation))
+	-- + UP
+	-- db.actor:change_character_reputation(reputation - db.actor:character_reputation())
+	getLocalActor():change_character_reputation(reputation - getLocalActor():character_reputation())
+	-- - UP
+end
+
+-- кнопка Плюс здоровье
+function actor:OnBtnHealthPlus()
+	to_log(sModule..":> OnBtnHealthPlus start")
+	local value = tonumber(self.health_value:GetText()) or self.actor_powers_min
+	if value < self.actor_powers_min then value = self.actor_powers_min else value = value + 0.05 end
+	if value > self.actor_powers_max then value = self.actor_powers_max end
+	self.health_value:SetText(string.format("%.2f", value))
+end
+
+-- кнопка Минус здоровье
+function actor:OnBtnHealthMinus()
+	to_log(sModule..":> OnBtnHealthMinus start")
+	local value = tonumber(self.health_value:GetText()) or self.actor_powers_max
+	if value > self.actor_powers_max then value = self.actor_powers_max else value = value - 0.05 end
+	if value < self.actor_powers_min then value = self.actor_powers_min end
+	self.health_value:SetText(string.format("%.2f", value))
+end
+
+-- кнопка Установить здоровье
+function actor:OnBtnHealthSet()
+	to_log(sModule..":> OnBtnHealthSet start")
+	local value = tonumber(self.health_value:GetText())
+	if not value or value > self.actor_powers_max then value = self.actor_powers_max end
+	if value < self.actor_powers_min then value = self.actor_powers_min end
+	self.health_value:SetText(string.format("%.2f", value))
+	-- + UP
+	-- db.actor.health = value - db.actor.health
+	getLocalActor().health = value - getLocalActor().health
+	-- - UP
+	self:SetActorParameterFix("fixed_health", self.checkbox_health_pin:GetCheck(), value)
+end
+
+-- кнопка Плюс пси-здоровье
+function actor:OnBtnPsyPlus()
+	to_log(sModule..":> OnBtnPsyPlus start")
+	local value = tonumber(self.psy_value:GetText()) or self.actor_powers_min
+	if value < self.actor_powers_min then value = self.actor_powers_min else value = value + 0.05 end
+	if value > self.actor_powers_max then value = self.actor_powers_max end
+	self.psy_value:SetText(string.format("%.2f", value))
+end
+
+-- кнопка Минус пси-здоровье
+function actor:OnBtnPsyMinus()
+	to_log(sModule..":> OnBtnPsyMinus start")
+	local value = tonumber(self.psy_value:GetText()) or self.actor_powers_max
+	if value > self.actor_powers_max then value = self.actor_powers_max else value = value - 0.05 end
+	if value < self.actor_powers_min then value = self.actor_powers_min end
+	self.psy_value:SetText(string.format("%.2f", value))
+end
+
+-- кнопка Установить пси-здоровье
+function actor:OnBtnPsySet()
+	to_log(sModule..":> OnBtnPsySet start")
+	local value = tonumber(self.psy_value:GetText())
+	if not value or value > self.actor_powers_max then value = self.actor_powers_max end
+	if value < self.actor_powers_min then value = self.actor_powers_min end
+	self.psy_value:SetText(string.format("%.2f", value))
+	-- + UP
+	-- db.actor.psy_health = value - db.actor.psy_health
+	getLocalActor().psy_health = value - getLocalActor().psy_health
+	-- - UP
+	self:SetActorParameterFix("fixed_psy", self.checkbox_psy_pin:GetCheck(), value)
+end
+
+-- кнопка Плюс энергия
+function actor:OnBtnPowerPlus()
+	to_log(sModule..":> OnBtnPowerPlus start")
+	local value = tonumber(self.power_value:GetText()) or self.actor_powers_min
+	if value < self.actor_powers_min then value = self.actor_powers_min else value = value + 0.05 end
+	if value > self.actor_powers_max then value = self.actor_powers_max end
+	self.power_value:SetText(string.format("%.2f", value))
+end
+
+-- кнопка Минус энергия
+function actor:OnBtnPowerMinus()
+	to_log(sModule..":> OnBtnPowerMinus start")
+	local value = tonumber(self.power_value:GetText()) or self.actor_powers_max
+	if value > self.actor_powers_max then value = self.actor_powers_max else value = value - 0.05 end
+	if value < self.actor_powers_min then value = self.actor_powers_min end
+	self.power_value:SetText(string.format("%.2f", value))
+end
+
+-- кнопка Установить энергию
+function actor:OnBtnPowerSet()
+	to_log(sModule..":> OnBtnPowerSet start")
+	local value = tonumber(self.power_value:GetText())
+	if not value or value > self.actor_powers_max then value = self.actor_powers_max end
+	if value < self.actor_powers_min then value = self.actor_powers_min end
+	self.power_value:SetText(string.format("%.2f", value))
+	self:SetActorParameterFix("fixed_power", self.checkbox_power_pin:GetCheck(), value)
+end
+
+-- кнопка Плюс радиация
+function actor:OnBtnRadiationPlus()
+	to_log(sModule..":> OnBtnRadiationPlus start")
+	local value = tonumber(self.radiation_value:GetText()) or self.actor_radiation_min
+	if value < self.actor_radiation_min then value = self.actor_radiation_min else value = value + 0.05 end
+	if value > self.actor_radiation_max then value = self.actor_radiation_max end
+	self.radiation_value:SetText(string.format("%.2f", value))
+end
+
+-- кнопка Минус радиация
+function actor:OnBtnRadiationMinus()
+	to_log(sModule..":> OnBtnRadiationMinus start")
+	local value = tonumber(self.radiation_value:GetText()) or self.actor_radiation_max
+	if value > self.actor_radiation_max then value = self.actor_radiation_max else value = value - 0.05 end
+	if value < self.actor_radiation_min then value = self.actor_radiation_min end
+	self.radiation_value:SetText(string.format("%.2f", value))
+end
+
+-- кнопка Установить радиацию
+function actor:OnBtnRadiationSet()
+	to_log(sModule..":> OnBtnRadiationSet start")
+	local value = tonumber(self.radiation_value:GetText())
+	if not value or value > self.actor_radiation_max then value = self.actor_radiation_max end
+	if value < self.actor_radiation_min then value = self.actor_radiation_min end
+	self.radiation_value:SetText(string.format("%.2f", value))
+	self:SetActorParameterFix("fixed_radiation", self.checkbox_radiation_pin:GetCheck(), value)
+end
+
+-- постоянная фиксация жизненных показателей игрока (апдейт)
+function actor:FixActorPowers()
+	-- + UP
+	-- if self.fixed_health then db.actor.health = self.fixed_health - db.actor.health end
+	-- if self.fixed_psy then db.actor.psy_health = self.fixed_psy - db.actor.psy_health end
+	-- if self.fixed_power then db.actor.power = self.fixed_power - db.actor.power end
+	-- if self.fixed_radiation then db.actor.radiation = self.fixed_radiation - db.actor.radiation end
+	if self.fixed_health then getLocalActor().health = self.fixed_health - getLocalActor().health end
+	if self.fixed_psy then getLocalActor().psy_health = self.fixed_psy - getLocalActor().psy_health end
+	if self.fixed_power then getLocalActor().power = self.fixed_power - getLocalActor().power end
+	if self.fixed_radiation then getLocalActor().radiation = self.fixed_radiation - getLocalActor().radiation end
+	-- - UP
+end
+
+-- установка/снятие постоянной фиксации жизненного показателя игрока
+function actor:SetActorParameterFix(parameter, enable, value)
+	if enable then
+		if not (self.fixed_health or self.fixed_psy or self.fixed_power or self.fixed_radiation) then xr_s.register_callback("update", self.FixActorPowers, self) end
+		self[parameter] = value
+	else
+		self[parameter] = nil
+		if not (self.fixed_health or self.fixed_psy or self.fixed_power or self.fixed_radiation) then xr_s.unregister_callback("update", self.FixActorPowers) end
+	end
+end
+
+-- кнопка Читбокс
+function actor:OnBtnCheatSpawn()
+	to_log(sModule..":> OnBtnCheatSpawn start")
+
+	-- cпавним объекты из списка в инвентарь игрока
+	for _,v in ipairs(self.cheat_spawn) do
+		if v.number > 0 then
+			if v.section == "money" then
+				-- + UP
+				-- db.actor:give_money(v.number)
+				getLocalActor():give_money(v.number)
+				-- - UP
+			else
+				for i = 1,v.number,1 do
+					-- + UP
+					-- alife():create(v.section, vector(), 0, 0, db.actor:id())
+					alife():create(v.section, vector(), 0, 0, LocalActor())
+					-- - UP
+				end
+			end
+		end
+	end
+end

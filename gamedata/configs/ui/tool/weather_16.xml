@@ -1,0 +1,36 @@
+<!-- File       : weather_16.xml          -->
+<!-- Description: Инструмент разработчика -->
+<!--            : Модуль "Погода"         -->
+<!-- Copyright  : 2025 © The Tool         -->
+<!-- Author     : Kirgudu, monk           -->
+<!-- Last edit  : 16.09.2025              -->
+
+<!-- frame_right -->
+<frame_right_weather>
+	<weather_frame x="0" y="0" width="425" height="420">
+		<texture>ui_stroketextbox</texture>
+		<weather_list x="1" y="10" width="423" height="400" item_height="20" always_show_scroll="0" can_select="1">
+			<font font="letterica16" r="216" g="186" b="140"/>
+		</weather_list>
+	</weather_frame>
+	<weather_frame_buttons x="0" y="420" width="425" height="30">
+		<checkbox_now x="10" y="6" width="22" height="22">
+			<text font="letterica18" align="l" x="-10" y="-1" r="216" g="186" b="140" complex_mode="0">tool_weather_set_now</text>
+			<!-- + UP -->
+			<check_mark anchor="mid-center" width="30" height="22"/>
+			<!-- - UP -->
+		</checkbox_now>
+		<btn_set x="235" y="3" width="90" height="26">
+			<texture_e>ui_button_ordinary_e</texture_e>
+			<texture_t>ui_button_ordinary_t</texture_t>
+			<texture_h>ui_button_ordinary_h</texture_h>
+			<text font="letterica18" x="0" y="0" align="c" vert_align="c" color="ui_6">tool_weather_set</text>
+		</btn_set>
+		<btn_surge x="330" y="3" width="90" height="26">
+			<texture_e>ui_button_ordinary_e</texture_e>
+			<texture_t>ui_button_ordinary_t</texture_t>
+			<texture_h>ui_button_ordinary_h</texture_h>
+			<text font="letterica18" x="0" y="0" align="c" vert_align="c" color="ui_6">tool_weather_surge</text>
+		</btn_surge>
+	</weather_frame_buttons>
+</frame_right_weather>

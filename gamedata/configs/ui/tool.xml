@@ -1,0 +1,205 @@
+<!-- File       : tool.xml                -->
+<!-- Description: Инструмент разработчика -->
+<!-- Copyright  : 2025 © The Tool         -->
+<!-- Author     : Kirgudu, monk           -->
+<!-- Last edit  : 11.09.2025              -->
+
+<?xml version="1.0" encoding="windows-1251" ?>
+<debug>
+	<background x="0" y="0" width="950" height="1000" stretch="1">
+		<texture>ui\ui_notepad_2</texture>
+	</background>
+	<!-- Main buttons background line 1 -->
+	<mbbackground_frame_line x="95" y="556" width="625" height="32">
+		<texture>ui_string_01</texture>
+	</mbbackground_frame_line>
+	<!-- Main buttons background line 2 -->
+	<mbbackground_frame_line2 x="95" y="593" width="625" height="32">
+		<texture>ui_string_01</texture>
+	</mbbackground_frame_line2>
+	<!-- Time Display Background line 1 -->
+	<timer_frame_line x="722" y="556" width="91" height="32">
+		<texture>ui_string_01</texture>
+		<title x="7" y="8" width="90" height="18">
+			<text font="letterica18" r="255" g="255" b="255" complex_mode="0"/>
+		</title>
+	</timer_frame_line>
+	<!-- Data Display Background line 2 -->
+	<timer_frame_line2 x="722" y="593" width="91" height="32">
+		<texture>ui_string_01</texture>
+		<title x="7" y="8" width="90" height="18">
+			<text font="letterica18" r="255" g="255" b="255" complex_mode="0"/>
+		</title>
+	</timer_frame_line2>
+	<!-- TAB Control -->
+	<tab x="110" y="555" width="800" height="60">
+		<!-- Tab buttons line 1 -->
+		<button x="0" width="75" y="6" height="20" id="teleport" hint="tool_tab_teleport_hint" frame_mode="0">
+			<auto_static x="0" y="5" width="9" height="11">
+				<texture>ui_pda_m_update</texture>
+			</auto_static>
+			<text align="l" x="11" y="1" font="letterica18" r="255" g="255" b="255">tool_tab_teleport</text>
+			<text_color>
+				<t r="231" g="168" b="12"/>
+				<d r="181" g="170" b="148"/>
+				<e r="127" g="127" b="127"/>
+				<h r="255" g="255" b="255"/>
+			</text_color>
+		</button>
+		<button x="105" width="75" y="6" height="20" id="spawn" hint="tool_tab_spawn_hint" frame_mode="0">
+			<auto_static x="0" y="5" width="9" height="11">
+				<texture>ui_pda_m_update</texture>
+			</auto_static>
+			<text align="l" x="11" y="1" font="letterica18" r="255" g="255" b="255">tool_tab_spawn</text>
+			<text_color>
+				<t r="231" g="168" b="12"/>
+				<d r="181" g="170" b="148"/>
+				<e r="127" g="127" b="127"/>
+				<h r="255" g="255" b="255"/>
+			</text_color>
+		</button>
+		<button x="210" width="75" y="6" height="20" id="inventory" hint="tool_tab_inventory_hint" frame_mode="0">
+			<auto_static x="0" y="5" width="9" height="11">
+				<texture>ui_pda_m_update</texture>
+			</auto_static>
+			<text align="l" x="11" y="1" font="letterica18" r="255" g="255" b="255">tool_tab_inventory</text>
+			<text_color>
+				<t r="231" g="168" b="12"/>
+				<d r="181" g="170" b="148"/>
+				<e r="127" g="127" b="127"/>
+				<h r="255" g="255" b="255"/>
+			</text_color>
+		</button>
+		<button x="315" width="75" y="6" height="20" id="factions" hint="tool_tab_factions_hint" frame_mode="0">
+			<auto_static x="0" y="5" width="9" height="11">
+				<texture>ui_pda_m_update</texture>
+			</auto_static>
+			<text align="l" x="11" y="1" font="letterica18" r="255" g="255" b="255">tool_tab_factions</text>
+			<text_color>
+				<t r="231" g="168" b="12"/>
+				<d r="181" g="170" b="148"/>
+				<e r="127" g="127" b="127"/>
+				<h r="255" g="255" b="255"/>
+			</text_color>
+		</button>
+		<button x="420" width="75" y="6" height="20" id="actor" hint="tool_tab_actor_hint" frame_mode="0">
+			<auto_static x="0" y="5" width="9" height="11">
+				<texture>ui_pda_m_update</texture>
+			</auto_static>
+			<text align="l" x="11" y="1" font="letterica18" r="255" g="255" b="255">tool_tab_actor</text>
+			<text_color>
+				<t r="231" g="168" b="12"/>
+				<d r="181" g="170" b="148"/>
+				<e r="127" g="127" b="127"/>
+				<h r="255" g="255" b="255"/>
+			</text_color>
+		</button>
+		<!-- Tab buttons line 2 -->
+		<button x="0" width="75" y="43" height="20" id="clean" hint="tool_tab_clean_hint" frame_mode="0">
+			<auto_static x="0" y="5" width="9" height="11">
+				<texture>ui_pda_m_update</texture>
+			</auto_static>
+			<text align="l" x="11" y="1" font="letterica18" r="255" g="255" b="255">tool_tab_clean</text>
+			<text_color>
+				<t r="231" g="168" b="12"/>
+				<d r="181" g="170" b="148"/>
+				<e r="127" g="127" b="127"/>
+				<h r="255" g="255" b="255"/>
+			</text_color>
+		</button>
+		<button x="105" width="75" y="43" height="20" id="info" hint="tool_tab_info_hint" frame_mode="0">
+			<auto_static x="0" y="5" width="9" height="11">
+				<texture>ui_pda_m_update</texture>
+			</auto_static>
+			<text align="l" x="11" y="1" font="letterica18" r="255" g="255" b="255">tool_tab_info</text>
+			<text_color>
+				<t r="231" g="168" b="12"/>
+				<d r="181" g="170" b="148"/>
+				<e r="127" g="127" b="127"/>
+				<h r="255" g="255" b="255"/>
+			</text_color>
+		</button>
+		<button x="210" width="75" y="43" height="20" id="weather" hint="tool_tab_weather_hint" frame_mode="0">
+			<auto_static x="0" y="5" width="9" height="11">
+				<texture>ui_pda_m_update</texture>
+			</auto_static>
+			<text align="l" x="11" y="1" font="letterica18" r="255" g="255" b="255">tool_tab_weather</text>
+			<text_color>
+				<t r="231" g="168" b="12"/>
+				<d r="181" g="170" b="148"/>
+				<e r="127" g="127" b="127"/>
+				<h r="255" g="255" b="255"/>
+			</text_color>
+		</button>
+		<button x="315" width="75" y="43" height="20" id="misc" hint="tool_tab_misc_hint" frame_mode="0">
+			<auto_static x="0" y="5" width="9" height="11">
+				<texture>ui_pda_m_update</texture>
+			</auto_static>
+			<text align="l" x="11" y="1" font="letterica18" r="255" g="255" b="255">tool_tab_misc</text>
+			<text_color>
+				<t r="231" g="168" b="12"/>
+				<d r="181" g="170" b="148"/>
+				<e r="127" g="127" b="127"/>
+				<h r="255" g="255" b="255"/>
+			</text_color>
+		</button>
+	</tab>
+	<frame_left x="95" y="103" width="200" height="451">
+		<texture>ui_notepad_frame2</texture>
+		<title x="10" y="10" width="190" height="20">
+			<text font="letterica18" r="255" g="255" b="255" complex_mode="0"/>
+		</title>
+		<primary_list_item>
+			<main width="190" height="20"/>
+			<fn width="190" height="20"/>
+		</primary_list_item>
+	</frame_left>
+	<frame_right x="297" y="103" width="518" height="451">
+		<texture>ui_stroketextbox</texture>
+		<secondary_list_item>
+			<main width="496" height="20"/>
+			<fn width="496" height="20"/>
+			<fn1 width="244" height="20"/>
+			<fn2 width="244" height="20"/>
+		</secondary_list_item>
+		<!-- Message dialog -->
+		<dlg_message x="97" y="75" width="324" height="180">
+			<background_1 x="0" y="0" width="324" height="180" stretch="1">
+				<texture>ui_message_back</texture>
+			</background_1>
+			<background_2 x="0" y="0" width="324" height="180" stretch="1">
+				<texture x="432" y="452" width="588" height="284">ui_hud_frame_voting</texture>
+			</background_2>
+			<caption x="15" y="20" width="294" height="120" complex_mode="1">
+				<text font="letterica18" align="l" r="216" g="186" b="140"></text>
+			</caption>
+			<btn_ok x="111" y="135" width="100" height="26">
+				<texture_e>ui_button_ordinary_e</texture_e>
+				<texture_t>ui_button_ordinary_t</texture_t>
+				<texture_h>ui_button_ordinary_h</texture_h>
+				<text font="letterica18" x="0" y="0" align="c" vert_align="c" color="ui_6">Btn_OK</text>
+			</btn_ok>
+			<btn_continue x="11" y="135" width="100" height="26">
+				<texture_e>ui_button_ordinary_e</texture_e>
+				<texture_t>ui_button_ordinary_t</texture_t>
+				<texture_h>ui_button_ordinary_h</texture_h>
+				<text font="letterica18" x="0" y="0" align="c" vert_align="c" color="ui_6">tool_continue</text>
+			</btn_continue>
+			<btn_cancel x="211" y="135" width="100" height="26">
+				<texture_e>ui_button_ordinary_e</texture_e>
+				<texture_t>ui_button_ordinary_t</texture_t>
+				<texture_h>ui_button_ordinary_h</texture_h>
+				<text font="letterica18" x="0" y="0" align="c" vert_align="c" color="ui_6">ui_inv_cancel</text>
+			</btn_cancel>
+		</dlg_message>
+	</frame_right>
+#include "ui\tool\teleport.xml"
+#include "ui\tool\spawn.xml"
+#include "ui\tool\inventory.xml"
+#include "ui\tool\factions.xml"
+#include "ui\tool\actor.xml"
+#include "ui\tool\clean.xml"
+#include "ui\tool\info.xml"
+#include "ui\tool\weather.xml"
+#include "ui\tool\misc.xml"
+</debug>

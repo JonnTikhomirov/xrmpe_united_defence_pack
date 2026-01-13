@@ -1,0 +1,883 @@
+--[[ ----------------------------------------------------------------------------------------------
+ File       : tool_teleport.script
+ Description: Инструмент разработчика
+            : Модуль "Переход"
+ Copyright  : 2025 © The Tool
+ Author     : Kirgudu, monk
+            : Использованы материалы GOD of the zone MOD v3.0 by Shoker
+ Last edit  : 18.09.2025
+--]] ----------------------------------------------------------------------------------------------
+
+local sModule = script_name() --/ строковое имя файла-модуля
+local sim = alife() --/ кеширование алайфа
+local sNoValue = game.translate_string("tool_no_value") --/ стандартный текст для отсутствия чего-либо (прочерк)
+
+class "teleport"
+
+function teleport:__init(owner_name)
+	to_log(sModule..":> __init") --/#~#
+	self.owner_script = _G[owner_name]
+	self.ltx_path_save = self.owner_script.GetFullPath("$tool_misc$", owner_name.."\\teleport_custom.ltx")
+	self.tLocations = {} --/ массив идентификаторов локаций
+	self.tSmarts = {} --/ массив смартов для перехода
+	self.tPoints = {} --/ массив произвольных точек для перехода (конфиг)
+	self.tObjects = {} --/ массив найденных объектов для перехода
+	self.tCustomPoints = {} --/ массив произвольных точек в разделе телепорта
+	self.bSmartsLoaded = false --/ флаг загрузки информации о смартах
+	self.checkbox_boxes_default = false --/ флаг состояния чекбокса "искать в контейнерах" по умолчанию
+	self.checkbox_current_location_default = false --/ флаг состояния чекбокса "искать на текущей локации" по умолчанию
+	self.checkbox_other_locations_default = false --/ флаг состояния чекбокса "искать на других локациях" по умолчанию
+	self.color = { --/ цветовое оформление списка точек
+		[0] = GetARGB(255, 216, 186, 140), --/ точка
+		[1] = GetARGB(255,  49, 174,  66)  --/ заголовок
+	}
+end
+
+function teleport:__finalize() end
+
+-- инициализация элементов
+function teleport:InitControls(owner, xml)
+	to_log(sModule..":> InitControls") --/#~#
+
+	-- список локаций
+	self.location_list = xml:InitListBox("frame_left_teleport:location_list", owner.frame_left)
+	self.location_list:ShowSelectedItem(true)
+	owner:Register(self.location_list, "teleport_location_list")
+
+	-- список редактируемых произвольных точек
+	self.custom_frame = xml:InitFrame("frame_right_teleport:custom_frame", owner.frame_right)
+	self.custom_list = xml:InitListBox("frame_right_teleport:custom_frame:custom_list", self.custom_frame)
+	self.custom_list:ShowSelectedItem(true)
+	owner:Register(self.custom_list, "teleport_custom_list")
+	self.custom_frame_controls = { self.custom_list }
+
+	-- список поиска объектов
+	self.find_object_frame = xml:InitFrame("frame_right_teleport:find_object_frame", owner.frame_right)
+	self.find_object_list = xml:InitListBox("frame_right_teleport:find_object_frame:find_object_list", self.find_object_frame)
+	self.find_object_list:ShowSelectedItem(true)
+	owner:Register(self.find_object_list, "teleport_find_object_list")
+	self.find_object_frame_controls = { self.find_object_list }
+
+	-- список заранее подготовленных произвольных точек
+	self.point_frame = xml:InitFrame("frame_right_teleport:point_frame", owner.frame_right)
+	self.point_list = xml:InitListBox("frame_right_teleport:point_frame:point_list", self.point_frame)
+	self.point_list:ShowSelectedItem(true)
+	owner:Register(self.point_list, "teleport_point_list")
+	self.point_frame_controls = { self.point_list }
+
+	-- кнопки списка подраздела Телепорт
+	self.custom_frame_buttons = xml:InitFrame("frame_right_teleport:custom_frame_buttons", owner.frame_right)
+
+	-- кнопки блока Прыжок
+	self.caption_jump = xml:InitStatic("frame_right_teleport:custom_frame_buttons:caption_jump", self.custom_frame_buttons)
+	self.textbox_jump = xml:InitEditBox("frame_right_teleport:custom_frame_buttons:textbox_jump", self.custom_frame_buttons)
+	self.owner_script.AddToFilter(sModule, "textbox_jump", self.textbox_jump, self.owner_script.filter_patterns.integer_positive)
+	self.btn_jump_plus = xml:Init3tButton("frame_right_teleport:custom_frame_buttons:textbox_jump:btn_jump_plus", self.custom_frame_buttons)
+	owner:Register(self.btn_jump_plus, "teleport_btn_jump_plus")
+	self.btn_jump_minus = xml:Init3tButton("frame_right_teleport:custom_frame_buttons:textbox_jump:btn_jump_minus", self.custom_frame_buttons)
+	owner:Register(self.btn_jump_minus, "teleport_btn_jump_minus")
+	self.unit_jump = xml:InitStatic("frame_right_teleport:custom_frame_buttons:unit_jump", self.custom_frame_buttons)
+	self.btn_jump_left = xml:Init3tButton("frame_right_teleport:custom_frame_buttons:btn_jump_left", self.custom_frame_buttons)
+	owner:Register(self.btn_jump_left, "teleport_btn_jump_left")
+	self.btn_jump_forward = xml:Init3tButton("frame_right_teleport:custom_frame_buttons:btn_jump_forward", self.custom_frame_buttons)
+	owner:Register(self.btn_jump_forward, "teleport_btn_jump_forward")
+	self.btn_jump_back = xml:Init3tButton("frame_right_teleport:custom_frame_buttons:btn_jump_back", self.custom_frame_buttons)
+	owner:Register(self.btn_jump_back, "teleport_btn_jump_back")
+	self.btn_jump_right = xml:Init3tButton("frame_right_teleport:custom_frame_buttons:btn_jump_right", self.custom_frame_buttons)
+	owner:Register(self.btn_jump_right, "teleport_btn_jump_right")
+
+	-- кнопка Загрузить
+	self.btn_load = xml:Init3tButton("frame_right_teleport:custom_frame_buttons:btn_load", self.custom_frame_buttons)
+	owner:Register(self.btn_load, "teleport_btn_load")
+	-- кнопка Сохранить
+	self.btn_save = xml:Init3tButton("frame_right_teleport:custom_frame_buttons:btn_save", self.custom_frame_buttons)
+	owner:Register(self.btn_save, "teleport_btn_save")
+	-- кнопка Удалить
+	self.btn_delete = xml:Init3tButton("frame_right_teleport:custom_frame_buttons:btn_delete", self.custom_frame_buttons)
+	owner:Register(self.btn_delete, "teleport_btn_delete")
+	-- кнопка Центрировать на игроке
+	self.btn_current = xml:Init3tButton("frame_right_teleport:custom_frame_buttons:btn_current", self.custom_frame_buttons)
+	owner:Register(self.btn_current, "teleport_btn_current")
+	-- заголовок и текстовое поле GV
+	self.caption_gv = xml:InitStatic("frame_right_teleport:custom_frame_buttons:caption_gv", self.custom_frame_buttons)
+	self.textbox_gv = xml:InitEditBox("frame_right_teleport:custom_frame_buttons:textbox_gv", self.custom_frame_buttons)
+	self.owner_script.AddToFilter(sModule, "textbox_gv", self.textbox_gv, self.owner_script.filter_patterns.integer_positive)
+	-- заголовок и текстовое поле LV
+	self.caption_lv = xml:InitStatic("frame_right_teleport:custom_frame_buttons:caption_lv", self.custom_frame_buttons)
+	self.textbox_lv = xml:InitEditBox("frame_right_teleport:custom_frame_buttons:textbox_lv", self.custom_frame_buttons)
+	self.owner_script.AddToFilter(sModule, "textbox_lv", self.textbox_lv, self.owner_script.filter_patterns.integer_positive)
+	-- заголовок и текстовое поле X
+	self.caption_x = xml:InitStatic("frame_right_teleport:custom_frame_buttons:caption_x", self.custom_frame_buttons)
+	self.textbox_x = xml:InitEditBox("frame_right_teleport:custom_frame_buttons:textbox_x", self.custom_frame_buttons)
+	self.owner_script.AddToFilter(sModule, "textbox_x", self.textbox_x, self.owner_script.filter_patterns.decimal)
+	-- заголовок и текстовое поле Y
+	self.caption_y = xml:InitStatic("frame_right_teleport:custom_frame_buttons:caption_y", self.custom_frame_buttons)
+	self.textbox_y = xml:InitEditBox("frame_right_teleport:custom_frame_buttons:textbox_y", self.custom_frame_buttons)
+	self.owner_script.AddToFilter(sModule, "textbox_y", self.textbox_y, self.owner_script.filter_patterns.decimal)
+	-- заголовок и текстовое поле Z
+	self.caption_z = xml:InitStatic("frame_right_teleport:custom_frame_buttons:caption_z", self.custom_frame_buttons)
+	self.textbox_z = xml:InitEditBox("frame_right_teleport:custom_frame_buttons:textbox_z", self.custom_frame_buttons)
+	self.owner_script.AddToFilter(sModule, "textbox_z", self.textbox_z, self.owner_script.filter_patterns.decimal)
+
+	self.custom_frame_buttons_controls = { self.caption_jump, self.textbox_jump, self.btn_jump_plus, self.btn_jump_minus, self.unit_jump, self.btn_jump_left, self.btn_jump_forward, self.btn_jump_back, self.btn_jump_right, self.btn_load, self.btn_save, self.btn_delete, self.btn_current, self.caption_gv, self.textbox_gv, self.caption_lv, self.textbox_lv, self.caption_x, self.textbox_x, self.caption_y, self.textbox_y, self.caption_z, self.textbox_z }
+
+	-- общие кнопки разделов редактируемых и заранее подготовленных точек
+	self.common_buttons = xml:InitFrame("frame_right_teleport:common_buttons", owner.frame_right)
+	-- кнопка Перейти
+	self.btn_go = xml:Init3tButton("frame_right_teleport:common_buttons:btn_go", self.common_buttons)
+	owner:Register(self.btn_go, "teleport_btn_go")
+
+	self.common_buttons_controls = { self.btn_go }
+
+	-- раздел поиска объекта, информация
+	self.find_object_info = xml:InitFrame("frame_right_teleport:find_object_info", owner.frame_right)
+	self.info_location_caption = xml:InitStatic("frame_right_teleport:find_object_info:info_location_caption", self.find_object_info)
+	self.info_location_text = xml:InitStatic("frame_right_teleport:find_object_info:info_location_text", self.find_object_info)
+	self.info_smart_caption = xml:InitStatic("frame_right_teleport:find_object_info:info_smart_caption", self.find_object_info)
+	self.info_smart_text = xml:InitStatic("frame_right_teleport:find_object_info:info_smart_text", self.find_object_info)
+
+	self.find_object_info_controls = { self.info_location_caption, self.info_location_text, self.info_smart_caption, self.info_smart_text }
+
+	-- раздел поиска объекта, кнопки
+	self.find_object_buttons = xml:InitFrame("frame_right_teleport:find_object_buttons", owner.frame_right)
+	-- чекбоксы искать на текущей и других локациях и искать в контейнерах
+	self.checkbox_current_location = xml:InitCheck("frame_right_teleport:find_object_buttons:checkbox_current_location", self.find_object_buttons)
+	self.checkbox_other_locations = xml:InitCheck("frame_right_teleport:find_object_buttons:checkbox_other_locations", self.find_object_buttons)
+	self.checkbox_boxes = xml:InitCheck("frame_right_teleport:find_object_buttons:checkbox_boxes", self.find_object_buttons)
+	-- текстовое поле
+	self.textbox_find = xml:InitEditBox("frame_right_teleport:find_object_buttons:textbox_find", self.find_object_buttons)
+	owner:Register(self.textbox_find, "teleport_textbox_find")
+	-- кнопка Поиск
+	self.btn_find = xml:Init3tButton("frame_right_teleport:find_object_buttons:btn_find", self.find_object_buttons)
+	owner:Register(self.btn_find, "teleport_btn_find")
+	-- кнопка Сброс
+	self.btn_reset = xml:Init3tButton("frame_right_teleport:find_object_buttons:btn_reset", self.find_object_buttons)
+	owner:Register(self.btn_reset, "teleport_btn_reset")
+	-- кнопка Перейти 2
+	self.btn_go_2 = xml:Init3tButton("frame_right_teleport:find_object_buttons:btn_go_2", self.find_object_buttons)
+	owner:Register(self.btn_go_2, "teleport_btn_go_2")
+
+	self.find_object_buttons_controls = { self.checkbox_current_location, self.checkbox_other_locations, self.checkbox_boxes, self.textbox_find, self.btn_find, self.btn_reset, self.btn_go_2 }
+
+	-- диалог ввода наименования при сохранении точки
+	self.dlg_name_frame = xml:InitFrame("frame_right_teleport:dlg_name_frame", owner.frame_right)
+	-- рамка, фон, заголовок диалога
+	self.dlg_name_background_1 = xml:InitStatic("frame_right_teleport:dlg_name_frame:dlg_name_background_1", self.dlg_name_frame)
+	self.dlg_name_background_2 = xml:InitStatic("frame_right_teleport:dlg_name_frame:dlg_name_background_2", self.dlg_name_frame)
+	self.caption_name = xml:InitStatic("frame_right_teleport:dlg_name_frame:caption_name", self.dlg_name_frame)
+	-- поле редактирования наименования точки
+	self.textbox_name = xml:InitEditBox("frame_right_teleport:dlg_name_frame:textbox_name", self.dlg_name_frame)
+	owner:Register(self.textbox_name, "teleport_textbox_name")
+	-- кнопка диалога Сохранить
+	self.btn_name_ok = xml:Init3tButton("frame_right_teleport:dlg_name_frame:btn_name_ok", self.dlg_name_frame)
+	owner:Register(self.btn_name_ok, "teleport_btn_name_ok")
+	-- кнопка диалога Отменить
+	self.btn_name_cancel = xml:Init3tButton("frame_right_teleport:dlg_name_frame:btn_name_cancel", self.dlg_name_frame)
+	owner:Register(self.btn_name_cancel, "teleport_btn_name_cancel")
+
+	self.dlg_name_frame_controls = { self.dlg_name_background_1, self.dlg_name_background_2, self.caption_name, self.textbox_name, self.btn_name_ok, self.btn_name_cancel }
+end
+
+-- инициализация событий
+function teleport:InitCallbacks(owner)
+	to_log(sModule..":> InitCallbacks") --/#~#
+	owner:AddCallback("teleport_location_list", ui_events.LIST_ITEM_CLICKED, self.OnLocationListItemClicked, self)
+	owner:AddCallback("teleport_custom_list", ui_events.WINDOW_LBUTTON_DB_CLICK, self.OnCustomListMouseDblClicked, self)
+	owner:AddCallback("teleport_find_object_list", ui_events.LIST_ITEM_CLICKED, self.OnFindObjectListItemClicked, self)
+	owner:AddCallback("teleport_find_object_list", ui_events.WINDOW_LBUTTON_DB_CLICK, self.OnFindObjectListMouseDblClicked, self)
+	owner:AddCallback("teleport_point_list", ui_events.WINDOW_LBUTTON_DB_CLICK, self.OnPointListMouseDblClicked, self)
+	owner:AddCallback("teleport_btn_save", ui_events.BUTTON_CLICKED, self.OnBtnSave, self)
+	owner:AddCallback("teleport_btn_load", ui_events.BUTTON_CLICKED, self.OnBtnLoad, self)
+	owner:AddCallback("teleport_btn_delete", ui_events.BUTTON_CLICKED, self.OnBtnDelete, self)
+	owner:AddCallback("teleport_btn_current", ui_events.BUTTON_CLICKED, self.OnBtnCurrent, self)
+	owner:AddCallback("teleport_btn_go", ui_events.BUTTON_CLICKED, self.OnBtnGo, self)
+	owner:AddCallback("teleport_btn_name_ok", ui_events.BUTTON_CLICKED, self.OnBtnNameOk, self)
+	owner:AddCallback("teleport_btn_name_cancel", ui_events.BUTTON_CLICKED, self.OnBtnNameCancel, self)
+	owner:AddCallback("teleport_textbox_name", ui_events.EDIT_TEXT_COMMIT, self.OnBtnNameOk, self)
+	owner:AddCallback("teleport_btn_jump_plus", ui_events.BUTTON_CLICKED, self.OnBtnJumpPlus, self)
+	owner:AddCallback("teleport_btn_jump_minus", ui_events.BUTTON_CLICKED, self.OnBtnJumpMinus, self)
+	owner:AddCallback("teleport_btn_jump_left", ui_events.BUTTON_CLICKED, self.OnBtnJumpLeft, self)
+	owner:AddCallback("teleport_btn_jump_forward", ui_events.BUTTON_CLICKED, self.OnBtnJumpForward, self)
+	owner:AddCallback("teleport_btn_jump_back", ui_events.BUTTON_CLICKED, self.OnBtnJumpBack, self)
+	owner:AddCallback("teleport_btn_jump_right", ui_events.BUTTON_CLICKED, self.OnBtnJumpRight, self)
+	owner:AddCallback("teleport_textbox_find", ui_events.EDIT_TEXT_COMMIT, self.OnBtnFind, self)
+	owner:AddCallback("teleport_btn_find", ui_events.BUTTON_CLICKED, self.OnBtnFind, self)
+	owner:AddCallback("teleport_btn_reset", ui_events.BUTTON_CLICKED, self.OnBtnReset, self)
+	owner:AddCallback("teleport_btn_go_2", ui_events.BUTTON_CLICKED, self.OnBtnGo, self)
+end
+
+-- подготовка данных при загрузке (объекты недоступны)
+function teleport:PrepareData(ltx)
+	to_log(sModule..":> PrepareData start")
+	local iCntLocations, iCntPoints = 0, 0
+	local trim = string.trim
+	local sPointCaption = game.translate_string("tool_teleport_point_caption")
+
+	--/ чтение состояния чекбоксов по умолчанию
+	self.checkbox_boxes_default = Get_Cfg_Bool(ltx, "teleport_settings", "checkbox_boxes_default", false)
+	self.checkbox_current_location_default = Get_Cfg_Bool(ltx, "teleport_settings", "checkbox_current_location_default", false)
+	self.checkbox_other_locations_default = Get_Cfg_Bool(ltx, "teleport_settings", "checkbox_other_locations_default", false)
+
+	--/ чтение таблицы локаций
+	local locations = Get_IniSection(ltx, "locations", "table", "key2num")
+	for i = 1, table.size(locations) do
+		local item = locations[i]
+		local location = trim(item[1])
+		iCntLocations = iCntLocations + 1
+		table.insert(self.tLocations, { id = location, name = item[2] and string.gsub(trim(item[2]), "\"", "") or game.translate_string(location) })
+
+		if Get_Cfg_Bool(ltx, "teleport_settings", "load_static_points", true) then
+			--/ чтение таблицы возможных точек телепорта по локации
+			local points = Get_IniSection(ltx, location, "list", nil, ",")
+			for _,v in pairs(points) do
+				if v and v[1] and v[2] and v[3] and v[4] and v[5] then
+					iCntPoints = iCntPoints + 1
+					local point = {
+						id = iCntPoints,
+						location = location,
+						name = v[6] and string.format("%s", game.translate_string(trim(v[6]))) or string.format("%s %d", sPointCaption, iCntPoints),
+						pos = vector():set(tonumber(trim(v[1])),tonumber(trim(v[2])),tonumber(trim(v[3]))),
+						lvid = tonumber(trim(v[4])),
+						gvid = tonumber(trim(v[5]))
+					}
+					table.insert(self.tPoints, point)
+				end
+			end
+		end
+	end
+	self.tPoints = self.owner_script.SortTableByValue(self.tPoints, "asc", "name")
+
+	to_log(sModule..":> PrepareData locations=[%d], points=[%d]", iCntLocations, iCntPoints)
+
+	-- проверка доступности пространства имён IO (OGSR)
+	if type(io) ~= "table" then return end --/>
+
+	--/ чтение редактируемых точек из файла
+	iCntPoints = 0
+	local points = Get_IniSection(ltx, "custom_points", "list", nil, ",")
+	for _,v in pairs(points) do
+		if v and #v == 7 and v[1] and v[2] and v[3] and v[4] then
+			iCntPoints = iCntPoints + 1
+			local point = {
+				location = trim(v[1]),
+				name = v[7] and string.gsub(trim(v[7]), "\"", "") or string.format("%s - %s %d", game.translate_string(v[1]), sPointCaption, iCntPoints),
+				pos = vector():set(tonumber(trim(v[2])),tonumber(trim(v[3])),tonumber(trim(v[4]))),
+				lvid = v[5] and tonumber(trim(v[5])),
+				gvid = v[6] and tonumber(trim(v[6]))
+			}
+			table.insert(self.tCustomPoints, point)
+		end
+	end
+	self.tCustomPoints = self.owner_script.SortTableByValue(self.tCustomPoints, "asc", "name")
+
+	to_log(sModule..":> PrepareData custom points=[%d]", iCntPoints)
+end
+
+-- подготовка данных при открытии диалога в игре (объекты доступны)
+function teleport:PrepareRuntimeData(ltx)
+	if self.bSmartsLoaded then return end --/>
+	to_log(sModule..":> PrepareRuntimeData start")
+
+	local gg, iCntSmarts = game_graph(), 0
+
+	if Get_Cfg_Bool(ltx, "teleport_settings", "load_smarts", true) then
+		-- чтение списка смартов
+		local board = sim_board.get_sim_board()
+		for obj_name, smart in pairs(board.smarts_by_names) do
+			iCntSmarts = iCntSmarts + 1
+			table.insert(self.tSmarts, {
+				id = obj_name,
+				location = sim:level_name(gg:vertex(smart.m_game_vertex_id):level_id()),
+				name = smart_names.get_smart_terrain_name(smart),
+				pos = smart.position,
+				lvid = smart.m_level_vertex_id,
+				gvid = smart.m_game_vertex_id
+			})
+		end
+		self.tSmarts = self.owner_script.SortTableByValue(self.tSmarts, "asc", "id")
+		to_log(sModule..":> PrepareRuntimeData smarts=[%d]", iCntSmarts)
+	end
+
+	self.bSmartsLoaded = true
+end
+
+-- запись редактируемых точек в файл
+function teleport:SaveCustomPoints()
+	-- проверка доступности пространства имён IO (OGSR)
+	if type(io) ~= "table" then return end --/>
+	to_log(sModule..":> SaveCustomPoints start to %s", self.ltx_path_save)
+
+	local iCntPoints = 0
+	local file = io.open(self.ltx_path_save, "w")
+	if file ~= nil then
+		file:write("[custom_points]\n")
+		if next(self.tCustomPoints) then
+			local tPoints = self.owner_script.SortTableByValue(self.tCustomPoints, "asc", "location")
+			for _, v in ipairs(tPoints) do
+				iCntPoints = iCntPoints + 1
+				file:write(string.format("%s, %.3f, %.3f, %.3f, %s, %s, \"%s\"\n", v.location, v.pos.x, v.pos.y, v.pos.z, v.lvid or "", v.gvid or "", v.name))
+			end
+		end
+		file:close()
+	end
+
+	to_log(sModule..":> SaveCustomPoints points=[%d]", iCntPoints)
+end
+
+-- установка состояния доп. диалога и органов управления под ним
+function teleport:SetNameDialog(show)
+	-- (раз)блокировка органов управления под доп. диалогом
+	local enable = not show
+	self.custom_list:Enable(enable)
+	self.textbox_jump:Enable(enable)
+	self.btn_jump_plus:Enable(enable)
+	self.btn_jump_minus:Enable(enable)
+	self.btn_jump_left:Enable(enable)
+	self.btn_jump_forward:Enable(enable)
+	self.btn_jump_back:Enable(enable)
+	self.btn_jump_right:Enable(enable)
+	self.btn_load:Enable(enable)
+	self.btn_save:Enable(enable)
+	self.btn_delete:Enable(enable)
+	self.btn_current:Enable(enable)
+	self.textbox_gv:Enable(enable)
+	self.textbox_lv:Enable(enable)
+	self.textbox_x:Enable(enable)
+	self.textbox_y:Enable(enable)
+	self.textbox_z:Enable(enable)
+	self.btn_go:Enable(enable)
+
+	-- показ/скрытие диалога
+	self.owner:SetFrameShowState(show, self.dlg_name_frame, self.dlg_name_frame_controls)
+end
+
+-- нажатия на кнопки
+function teleport:OnKeyboard(activeTab, dik, keyboard_action)
+	if activeTab ~= sModule then return true end --/>
+	if keyboard_action == ui_events.WINDOW_KEY_PRESSED then
+		if dik == DIK_keys.DIK_ESCAPE then
+			if self.dlg_name_frame:IsShown() then
+				self:SetNameDialog(false)
+				return false --/>
+			end
+		end
+		self.owner_script.FilterTextboxes(sModule)
+	end
+	return true --/>
+end
+
+-- открытие и инициализация раздела
+function teleport:OnTabChange()
+	to_log(sModule..":> OnTabChange start")
+	self.location_list:Show(true)
+	-- первый элемент (телепорт) добавляем и далее выбираем по умолчанию
+	self.owner:AddPrimaryListItem(self.location_list, game.translate_string("tool_teleport_custom"), "custom", self.color[0])
+	-- разделительная пустая строка
+	self.owner:AddPrimaryListItem(self.location_list, "", "null", self.color[0])
+	-- второй элемент (поиск объекта) добавляем также вручную
+	self.owner:AddPrimaryListItem(self.location_list, game.translate_string("tool_teleport_find_object"), "find_object", self.color[0])
+	-- разделительная пустая строка
+	self.owner:AddPrimaryListItem(self.location_list, "", "null", self.color[0])
+	-- остальные элементы списка локаций
+	for _,location in ipairs(self.tLocations) do
+		self.owner:AddPrimaryListItem(self.location_list, location.name, location.id, self.color[0])
+	end
+end
+
+-- установка выбранной локации
+function teleport:SetLocation(location)
+	self:HideFields()
+	self:ClearFields()
+
+	if location == "custom" then
+		-- подраздел "Телепорт"
+		self.owner:SetFrameShowState(true, self.custom_frame, self.custom_frame_controls)
+		self.owner:SetFrameShowState(true, self.custom_frame_buttons, self.custom_frame_buttons_controls)
+		self.owner:SetFrameShowState(true, self.common_buttons, self.common_buttons_controls)
+		self.textbox_jump:SetText("5")
+		-- заполнение списка редактируемых точек
+		for key, point in ipairs(self.tCustomPoints) do
+			self.owner:AddSecondaryListItem(self.custom_list, string.format("%s; %s; %.1f, %.1f, %.1f", point.gvid or sNoValue, point.lvid or sNoValue, point.pos.x, point.pos.y, point.pos.z), point.name, key, self.color[0])
+		end
+	elseif location == "find_object" then
+		-- подраздел "Поиск"
+		self.owner:SetFrameShowState(true, self.find_object_frame, self.find_object_frame_controls)
+		self.owner:SetFrameShowState(true, self.find_object_info, self.find_object_info_controls)
+		self.owner:SetFrameShowState(true, self.find_object_buttons, self.find_object_buttons_controls)
+		-- предзаполнение списка объектов
+		self.owner:AddSecondaryListItem(self.find_object_list, game.translate_string("tool_teleport_filter"), nil, "null", self.color[0])
+		self.find_object_list:Enable(false)
+		self.info_location_text:TextControl():SetText(sNoValue)
+		self.info_smart_text:TextControl():SetText(sNoValue)
+	else
+		-- подразделы локаций
+		self.owner:SetFrameShowState(true, self.point_frame, self.point_frame_controls)
+		self.owner:SetFrameShowState(true, self.common_buttons, self.common_buttons_controls)
+		-- заполнение списка смартов
+		self.owner:AddSecondaryListItem(self.point_list, game.translate_string("tool_teleport_smarts_caption"), nil, "null", self.color[1])
+		for _, point in ipairs(self.tSmarts) do
+			if point.location == location then
+				self.owner:AddSecondaryListItem(self.point_list, point.id, point.name, point.id, self.color[0])
+			end
+		end
+		-- заполнение списка произвольных точек
+		self.owner:AddSecondaryListItem(self.point_list, "", nil, "null", self.color[1])
+		self.owner:AddSecondaryListItem(self.point_list, game.translate_string("tool_teleport_points_caption"), nil, "null", self.color[1])
+		for _, point in ipairs(self.tPoints) do
+			if point.location == location then
+				self.owner:AddSecondaryListItem(self.point_list, string.format("%d; %d; %.1f, %.1f, %.1f", point.gvid, point.lvid, point.pos.x, point.pos.y, point.pos.z), point.name, point.id, self.color[0])
+			end
+		end
+	end
+end
+
+-- выбор локации
+function teleport:OnLocationListItemClicked()
+	to_log(sModule..":> OnLocationListItemClicked start")
+
+	local location = self.owner:GetListItemSelectedValue(self.location_list)
+	if not location or location == "null" then return end --/>
+
+	self:SetLocation(location)
+end
+
+-- кнопка Поиск (фильтр)
+function teleport:OnBtnFind()
+	to_log(sModule..":> OnBtnFind start")
+	self.find_object_list:ScrollToBegin()
+	self.find_object_list:RemoveAll()
+
+	self.tObjects = {}
+	local iCntObjectsAdded, iCntObjectsAll, obj = 0, 0, nil
+	local sFilter = self.owner_script.StringLowerRus(self.textbox_find:GetText():trim())
+	to_log(sModule..":> OnBtnFind filter=[%s]", sFilter)
+
+	if sFilter:len() >= 3 then
+		local bFindInBoxes = self.checkbox_boxes:GetCheck()
+		local bFindAtCurrentLocation = self.checkbox_current_location:GetCheck()
+		local bFindAtOtherLocations = self.checkbox_other_locations:GetCheck()
+		local sCurrentLevelName = level.name()
+		local gg = game_graph()
+		for i = 1, 65535 do
+			obj = sim:object(i)
+			if obj then
+				if bFindInBoxes and obj.parent_id ~= 0 or obj.parent_id == 65535 then
+					-- ищем истинные локацию и координаты, если объект находится в контейнере
+					local obj_location, obj_pos = nil, nil
+					if obj.parent_id ~= 65535 then
+						-- объект в контейнере
+						local parent_obj = sim:object(obj.parent_id)
+						if parent_obj then -- если контейнер найден, берём его показатели
+							obj_location = sim:level_name(gg:vertex(parent_obj.m_game_vertex_id):level_id())
+							obj_pos = parent_obj.position
+						end
+					else
+						-- объект не в контейнере
+						obj_location = sim:level_name(gg:vertex(obj.m_game_vertex_id):level_id())
+						obj_pos = obj.position
+					end
+					if obj_location and (bFindAtCurrentLocation and sCurrentLevelName == obj_location or bFindAtOtherLocations and sCurrentLevelName ~= obj_location) then
+						-- определяем имя объекта
+						local obj_name, name = obj:name(), nil
+						if ObjIsHuman(obj) then
+							name = Get_CharName(obj)
+						elseif ObjIsMonster(obj) then
+							name = Get_MobClass(obj)
+						elseif ObjIsOutfit(obj) or ObjIsWeapon(obj) or ObjIsAmmo(obj) or ObjIsDetector(obj) or ObjIsFood(obj) or ObjIsMedical(obj) or ObjIsArtefact(obj) then
+							name = Get_InvName(obj:section_name())
+						end
+						if name then
+							name = game.translate_string(name)
+							if string.find(self.owner_script.StringLowerRus(name), sFilter, 1, true) or string.find(self.owner_script.StringLowerRus(obj_name), sFilter, 1, true) then
+								-- to_log(sModule..":> OnBtnFind check object name=[%s], obj_name=[%s], id=[%s]", tostring(name), obj_name, tostring(i))
+								iCntObjectsAdded = iCntObjectsAdded + 1
+								local item = { object_id = i, name1 = obj_name, name2 = name, location = obj_location, position = obj_pos }
+								table.insert(self.tObjects, item)
+							end
+							iCntObjectsAll = iCntObjectsAll + 1
+						end
+					end
+				end
+			end
+			-- больше 100 объектов не выводим
+			if iCntObjectsAdded >= 100 then break end
+		end
+	end
+
+	self.tObjects = self.owner_script.SortTableByValue(self.tObjects, "asc", "name1")
+
+	for k,v in ipairs(self.tObjects) do
+		self.owner:AddSecondaryListItem(self.find_object_list, v.name1, v.name2, k, self.color[0])
+	end
+
+	if self.find_object_list:GetSize() == 0 then
+		self.owner:AddSecondaryListItem(self.find_object_list, game.translate_string(sFilter:len() >= 3 and "tool_teleport_empty" or "tool_teleport_filter"), nil, "null", self.color[0])
+		self.find_object_list:Enable(false)
+		self.info_location_text:TextControl():SetText(sNoValue)
+		self.info_smart_text:TextControl():SetText(sNoValue)
+	else
+		self.find_object_list:Enable(true)
+	end
+	to_log(sModule..":> OnBtnFind objects=[%d/%d]", iCntObjectsAdded, iCntObjectsAll)
+end
+
+-- кнопка Сброс (фильтр)
+function teleport:OnBtnReset()
+	to_log(sModule..":> OnBtnReset start")
+	self.textbox_find:SetText("")
+	self:OnBtnFind()
+end
+
+-- выбор элемента списка объектов
+function teleport:OnFindObjectListItemClicked()
+	local item_id = self.owner:GetListItemSelectedValue(self.find_object_list)
+	if not item_id or item_id == "null" then return end --/>
+
+	local item = self.tObjects[tonumber(item_id)]
+	local obj = sim:object(item.object_id) -- ищем исходный объект
+	if obj then
+		self.info_location_text:TextControl():SetText(game.translate_string(item.location))
+		-- поиск смарта, ближайшего к текущей позиции выбранного предмета
+		local min_dist, smart_name = 100000000, nil
+		for _,v in ipairs(self.tSmarts) do
+			if item.location == v.location then
+				local dist = item.position:distance_to_sqr(v.pos)
+				if dist < min_dist then
+					min_dist = dist
+					smart_name = v.name
+				end
+			end
+		end
+		if smart_name then
+			self.info_smart_text:TextControl():SetText(smart_name)
+		else
+			self.info_smart_text:TextControl():SetText(sNoValue)
+		end
+	else
+		self.info_location_text:TextControl():SetText(sNoValue)
+		self.info_smart_text:TextControl():SetText(sNoValue)
+	end
+end
+
+-- двойной клик на элементе списка редактируемых точек
+function teleport:OnCustomListMouseDblClicked()
+	to_log(sModule..":> OnCustomListMouseDblClicked start")
+	self:OnBtnLoad()
+end
+
+-- очистка полей
+function teleport:ClearFields(clear_all)
+	to_log(sModule..":> ClearFields start, clear_all=[%s]", tostring(clear_all))
+	if clear_all then
+		self.location_list:ScrollToBegin()
+		self.location_list:RemoveAll()
+	end
+	self.custom_list:ScrollToBegin()
+	self.custom_list:RemoveAll()
+	self.find_object_list:ScrollToBegin()
+	self.find_object_list:RemoveAll()
+	self.info_location_text:TextControl():SetText("")
+	self.info_smart_text:TextControl():SetText("")
+	self.point_list:ScrollToBegin()
+	self.point_list:RemoveAll()
+	self.textbox_gv:SetText("")
+	self.textbox_lv:SetText("")
+	self.textbox_x:SetText("")
+	self.textbox_y:SetText("")
+	self.textbox_z:SetText("")
+	self.checkbox_boxes:SetCheck(self.checkbox_boxes_default)
+	self.checkbox_current_location:SetCheck(self.checkbox_current_location_default)
+	self.checkbox_other_locations:SetCheck(self.checkbox_other_locations_default)
+	self.textbox_find:SetText("")
+end
+
+-- скрытие полей
+function teleport:HideFields(hide_all)
+	to_log(sModule..":> HideFields start")
+	if hide_all then
+		self.location_list:Show(false)
+	end
+	self.owner:SetFrameShowState(false, self.point_frame)
+	self.owner:SetFrameShowState(false, self.find_object_frame)
+	self.owner:SetFrameShowState(false, self.custom_frame)
+	self.owner:SetFrameShowState(false, self.custom_frame_buttons)
+	self.owner:SetFrameShowState(false, self.common_buttons)
+	self.owner:SetFrameShowState(false, self.find_object_info)
+	self.owner:SetFrameShowState(false, self.find_object_buttons)
+	self:SetNameDialog(false)
+end
+
+-- двойной клик на элементе списка точек
+function teleport:OnPointListMouseDblClicked()
+	to_log(sModule..":> OnPointListMouseDblClicked start")
+	self:OnBtnGo()
+end
+
+-- двойной клик на элементе списка объектов
+function teleport:OnFindObjectListMouseDblClicked()
+	to_log(sModule..":> OnFindObjectListMouseDblClicked start")
+	self:OnBtnGo()
+end
+
+-- кнопка Перейти
+function teleport:OnBtnGo()
+	to_log(sModule..":> OnBtnGo start")
+	local location = self.owner:GetListItemSelectedValue(self.location_list, true) -- сфокусированный элемент в приоритете
+	if not location or location == "null" then return end --/>
+
+	if location == "custom" then
+		-- телепорт по координатам
+		local pos_x = tonumber(self.textbox_x:GetText())
+		local pos_y = tonumber(self.textbox_y:GetText())
+		local pos_z = tonumber(self.textbox_z:GetText())
+		if not (pos_x and pos_y and pos_z) then return end --/>
+		local gvid = tonumber(self.textbox_gv:GetText())
+		local lvid = tonumber(self.textbox_lv:GetText())
+		location = gvid and sim:level_name(game_graph():vertex(gvid):level_id()) or level.name()
+		self:MakeJump(location, gvid, lvid, vector():set(pos_x, pos_y, pos_z))
+	elseif location == "find_object" then
+		-- переход к объекту
+		local item_id = self.owner:GetListItemSelectedValue(self.find_object_list)
+		if not item_id or item_id == "null" then return end --/>
+
+		local item = self.tObjects[tonumber(item_id)]
+		local obj = sim:object(item.object_id) -- ищем исходный объект
+		if obj and obj.parent_id ~= 65535 then obj = sim:object(obj.parent_id) or obj end -- если объект в контейнере, получаем контейнер
+		if obj then -- если объект или контейнер найден, перемещаемся к нему
+			local location = sim:level_name(game_graph():vertex(obj.m_game_vertex_id):level_id())
+			self:MakeJump(location, obj.m_game_vertex_id, obj.m_level_vertex_id, obj.position)
+		end
+	else
+		-- переход на смарты и сконфигурированные точки
+		local point_id = self.owner:GetListItemSelectedValue(self.point_list)
+		if not point_id or point_id == "null" then return end --/>
+
+		local point, id = nil, tonumber(point_id)
+		if id then
+			-- тип точки - произвольная
+			for _, item in ipairs(self.tPoints) do
+				if item.id == id then
+					point = item
+					break
+				end
+			end
+		else
+			-- тип точки - смарт
+			for _, item in ipairs(self.tSmarts) do
+				if item.id == point_id then
+					point = item
+					break
+				end
+			end
+		end
+		if not point then return end --/>
+
+		self:MakeJump(location, point.gvid, point.lvid, point.pos)
+	end
+
+	self.owner:OnQuit()
+end
+
+-- кнопка Сохранить
+function teleport:OnBtnSave()
+	to_log(sModule..":> OnBtnSave start")
+	if self.dlg_name_frame:IsShown() then return end
+
+	local pos_x = tonumber(self.textbox_x:GetText())
+	local pos_y = tonumber(self.textbox_y:GetText())
+	local pos_z = tonumber(self.textbox_z:GetText())
+	if not (pos_x and pos_y and pos_z) then return end --/>
+
+	self.textbox_name:SetText(string.format("%s - ", game.translate_string(level.name())))
+
+	self:SetNameDialog(true)
+end
+
+-- кнопка диалога Сохранить
+function teleport:OnBtnNameOk()
+	to_log(sModule..":> OnBtnNameOk start")
+	if self.dlg_name_frame:IsShown() then
+		self:SetNameDialog(false)
+	end
+
+	local name = self.textbox_name:GetText():trim()
+	if not name then return end --/>
+
+	local pos_x = tonumber(self.textbox_x:GetText())
+	local pos_y = tonumber(self.textbox_y:GetText())
+	local pos_z = tonumber(self.textbox_z:GetText())
+	if not (pos_x and pos_y and pos_z) then return end --/>
+
+	local point = {
+		location = level.name(),
+		name = name,
+		pos = vector():set(pos_x, pos_y, pos_z),
+		lvid = tonumber(self.textbox_lv:GetText()),
+		gvid = tonumber(self.textbox_gv:GetText())
+	}
+	table.insert(self.tCustomPoints, point)
+
+	self.tCustomPoints = self.owner_script.SortTableByValue(self.tCustomPoints, "asc", "name")
+
+	self:SaveCustomPoints()
+	self:SetLocation("custom")
+end
+
+-- кнопка Загрузить
+function teleport:OnBtnLoad()
+	to_log(sModule..":> OnBtnLoad start")
+
+	local point_id = self.owner:GetListItemSelectedValue(self.custom_list)
+	if not point_id or point_id == "null" then return end --/>
+
+	local id = tonumber(point_id)
+	local point = id and self.tCustomPoints[id] or nil
+	if not point then return end --/>
+
+	self.textbox_gv:SetText(point.gvid and tostring(point.gvid) or "")
+	self.textbox_lv:SetText(point.lvid and tostring(point.lvid) or "")
+	self.textbox_x:SetText(string.format("%.3f", point.pos.x))
+	self.textbox_y:SetText(string.format("%.3f", point.pos.y))
+	self.textbox_z:SetText(string.format("%.3f", point.pos.z))
+end
+
+-- кнопка Удалить
+function teleport:OnBtnDelete()
+	to_log(sModule..":> OnBtnDelete start")
+
+	local point_id = self.owner:GetListItemSelectedValue(self.custom_list)
+	if not point_id or point_id == "null" then return end --/>
+
+	local id = tonumber(point_id)
+	for k, item in ipairs(self.tCustomPoints) do
+		if k == id then
+			table.remove(self.tCustomPoints, k)
+			self.tCustomPoints = self.owner_script.SortTableByValue(self.tCustomPoints, "asc", "name")
+			self:SaveCustomPoints()
+			self:SetLocation("custom")
+			break
+		end
+	end
+end
+
+-- кнопка Центрировать на игроке
+function teleport:OnBtnCurrent()
+	to_log(sModule..":> OnBtnCurrent start")
+	-- + UP
+	-- self.textbox_gv:SetText(string.format("%d", db.actor:game_vertex_id()))
+	-- self.textbox_lv:SetText(string.format("%d", db.actor:level_vertex_id()))
+	-- local pos = db.actor:position()
+	self.textbox_gv:SetText(string.format("%d", getLocalActor():game_vertex_id()))
+	self.textbox_lv:SetText(string.format("%d", getLocalActor():level_vertex_id()))
+	local pos = getLocalActor():position()
+	-- - UP
+	self.textbox_x:SetText(string.format("%.3f", pos.x))
+	self.textbox_y:SetText(string.format("%.3f", pos.y))
+	self.textbox_z:SetText(string.format("%.3f", pos.z))
+end
+
+-- кнопка диалога Отменить
+function teleport:OnBtnNameCancel()
+	to_log(sModule..":> OnBtnNameCancel start")
+	if self.dlg_name_frame:IsShown() then
+		self:SetNameDialog(false)
+	end
+end
+
+-- переход на выбранную точку
+function teleport:MakeJump(sMap, idGv, idLv, pos)
+	to_log(sModule..":> MakeJump start sMap=[%s], gv=[%d], lv=[%d], pos=[%s]", sMap, idGv, idLv, string.format("%.3f, %.3f, %.3f", pos.x, pos.y, pos.z))
+	if not pos then return end --/>
+
+	if not sMap or sMap == level.name() then
+		-- перемещение в пределах текущей локации
+		-- + UP
+		-- db.actor:set_actor_position(pos)
+		getLocalActor():set_actor_position(pos)
+		-- - UP
+		return --/>
+	end
+
+	if not (idGv and idLv) then return end --/>
+
+	-- перемещение на другую локацию
+	-- + UP
+	-- local sobj = alife():create("level_changer", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id())
+	local sobj = alife():create("level_changer", getLocalActor():position(), getLocalActor():level_vertex_id(), getLocalActor():game_vertex_id())
+	-- - UP
+	local pk = get_netpk(sobj)
+	local data = pk:get()
+	data.shapes:addSphere(3)
+	data.dest_game_vertex_id = idGv
+	data.dest_level_vertex_id = idLv
+	data.dest_position = pos
+	data.dest_level_name = sMap
+	data.silent_mode = 1
+	pk:set(data)
+
+	-- самоудаление точки перехода при срабатывании
+	xr_s.register_callback("actor_save", function() alife():release(sobj, true) end)
+end
+
+-- кнопка Прыжок плюс
+function teleport:OnBtnJumpPlus()
+	to_log(sModule..":> OnBtnJumpPlus start")
+	local value = tonumber(self.textbox_jump:GetText()) or 1
+	if math.ceil(value) > value then value = math.ceil(value) else value = value + 1 end
+	if value > 9999 then value = 9999 end
+	self.textbox_jump:SetText(string.format("%d", value))
+end
+
+-- кнопка Прыжок минус
+function teleport:OnBtnJumpMinus()
+	to_log(sModule..":> OnBtnJumpMinus start")
+	local value = tonumber(self.textbox_jump:GetText()) or 1
+	if math.floor(value) < value then value = math.floor(value) else value = value - 1 end
+	if value < 1 then value = 1 end
+	self.textbox_jump:SetText(string.format("%d", value))
+end
+
+-- кнопка Прыжок влево
+function teleport:OnBtnJumpLeft()
+	to_log(sModule..":> OnBtnJumpLeft start")
+	local value = tonumber(self.textbox_jump:GetText())
+	if not value then return end --/>
+	-- + UP
+	-- db.actor:set_actor_position(self.owner_script.MoveAtDirection(db.actor:position(), db.actor:direction(), -90, value))
+	getLocalActor():set_actor_position(self.owner_script.MoveAtDirection(getLocalActor():position(), getLocalActor():direction(), -90, value))
+	-- - UP	
+end
+
+-- кнопка Прыжок вперёд
+function teleport:OnBtnJumpForward()
+	to_log(sModule..":> OnBtnJumpForward start")
+	local value = tonumber(self.textbox_jump:GetText())
+	if not value then return end --/>
+	-- db.actor:set_actor_position(self.owner_script.MoveAtDirection(db.actor:position(), db.actor:direction(), 0, value))
+	-- + UP
+	-- db.actor:set_actor_position(self.owner_script.MoveAtDirection(db.actor:position(), device().cam_dir, 0, value))
+	getLocalActor():set_actor_position(self.owner_script.MoveAtDirection(getLocalActor():position(), device().cam_dir, 0, value))
+	-- - UP
+end
+
+-- кнопка Прыжок назад
+function teleport:OnBtnJumpBack()
+	to_log(sModule..":> OnBtnJumpBack start")
+	local value = tonumber(self.textbox_jump:GetText())
+	if not value then return end --/>
+	-- + UP
+	-- db.actor:set_actor_position(self.owner_script.MoveAtDirection(db.actor:position(), db.actor:direction(), 180, value))
+	getLocalActor():set_actor_position(self.owner_script.MoveAtDirection(getLocalActor():position(), getLocalActor():direction(), 180, value))
+	-- - UP
+end
+
+-- кнопка Прыжок вправо
+function teleport:OnBtnJumpRight()
+	to_log(sModule..":> OnBtnJumpRight start")
+	local value = tonumber(self.textbox_jump:GetText())
+	if not value then return end --/>
+	-- + UP
+	-- db.actor:set_actor_position(self.owner_script.MoveAtDirection(db.actor:position(), db.actor:direction(), 90, value))
+	getLocalActor():set_actor_position(self.owner_script.MoveAtDirection(getLocalActor():position(), getLocalActor():direction(), 90, value))
+	-- - UP
+end

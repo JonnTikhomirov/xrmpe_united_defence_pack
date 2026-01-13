@@ -1147,5 +1147,39 @@ function string_format_fallback(fmt, mark_errors, ...)
     return result
 end
 
+-- ++ The Tool
+--/-------------------------------------------------------------------
+--/#+# initialize modules [lua_helper/lua_extensions]
+--/-------------------------------------------------------------------
+prefetch("lua_extension") --/#+# подключение модуля расширений Lua
+prefetch("lua_helper") --/#+# подключение модуля 'общих' хелп-функций
+
+--/ ------------------------------------------------------------------
+--/ print-log (вывод отладочной информации)
+--/-------------------------------------------------------------------
+local console
+--/ функция вывода сообщения в игровую консоль
+to_log = function(fmt,...)
+	-- + UP
+	-- if not console then console = get_console() end
+	-- console:execute("load ~:"..string.exformat(fmt,...))
+	-- console:execute("flush")
+	printf_msg(string.exformat(fmt,...))
+	-- - UP
+end
+--/-------------------------------------------------------------------
+--/ Принудительное прерывание игры при фатальных ошибках
+--/-------------------------------------------------------------------
+abort = function(fmt,...)
+	to_log(string.rep("~",86))
+	to_log("[error]ABORT CALLED:\n" .. string.exformat(fmt, ...))
+	to_log("ATTENTION! Game is interrupted! The information in lines above.")
+	to_log(string.rep("~",86))
+	get_console():execute('flush')
+	-- + UP не видит exit
+	-- exit() --/#!# interrupt game in case of fatal errors
+	-- - UP
+end
+-- -- The Tool
 
 -- - UP
