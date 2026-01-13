@@ -192,8 +192,10 @@ end
 function tool_manager:InitControls()
 	to_log(sModule..":tool_manager:> InitControls") --/#~#
 
-	self:SetWndRect(Frect():set(30, 20, 1024, 768))
-
+	-- + UP
+	-- self:SetWndRect(Frect():set(30, 20, 1024, 768))
+	self:SetWndRect(Frect():set(30, 20, device().width*0.6, device().height*0.6))
+	-- - UP
 	local xml = CScriptXmlInit()
 	xml:ParseFile(sXmlPath)
 
@@ -203,7 +205,7 @@ function tool_manager:InitControls()
 	-- фон закладок разделов
 	xml:InitFrameLine("mbbackground_frame_line2", self)
 	self.back_frame = xml:InitFrameLine("mbbackground_frame_line", self)
-
+	
 	-- закладки разделов
 	self.tab = xml:InitTab("tab", self)
 	local tab_lines = { [1] = { cnt = 0, y = tSettings.y1 }, [2] = { cnt = 0, y = tSettings.y2 } }
@@ -388,7 +390,10 @@ end
 function tool_manager:OnTabChange(tab_id)
 	to_log(sModule..":tool_manager:> OnTabChange tab_id = [%s]", tab_id) --/#~#
 	--/ установка раздела по умолчанию из GetDebugManagerDialog при открытии диалога или чтение текущего раздела
-	if tab_id then
+	-- + UP по умолчанию первым аргументом передается имя callback
+	-- if tab_id then
+	if tab_id and tab_id ~= "tool_manager_tab" then
+	-- - UP
 		local tab = nil
 		for _,v in ipairs(tDebugManagerTabs) do
 			if v.id == tab_id then

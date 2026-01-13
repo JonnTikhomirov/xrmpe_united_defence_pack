@@ -24,7 +24,7 @@ local tbinding = {
 function init()
 	DIK_keys.MOUSE_4 = 340
 	DIK_keys.MOUSE_5 = 341
-	xr_s.register_callback("game_load", on_load)
+	-- xr_s.register_callback("game_load", on_load)
 end
 
 function on_load()
