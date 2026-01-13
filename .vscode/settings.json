@@ -1,4 +1,8 @@
 {
+  "files.associations": {
+        "*.script": "lua"
+  },
+  "files.autoGuessEncoding": true,
   "Lua.runtime.version": "Lua 5.1",
   "Lua.runtime.path": [
     "?.script",
