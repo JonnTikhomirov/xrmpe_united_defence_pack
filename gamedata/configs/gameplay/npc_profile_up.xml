@@ -8,6 +8,26 @@
 	<class>stalker_master</class>
 </character>
 
+<character id="duty_normal">
+	<class>duty_normal</class>
+</character>
+<character id="duty_veteran">
+	<class>duty_veteran</class>
+</character>
+<character id="duty_master">
+	<class>duty_master</class>
+</character>
+
+<character id="freedom_normal">
+	<class>freedom_normal</class>
+</character>
+<character id="freedom_veteran">
+	<class>freedom_veteran</class>
+</character>
+<character id="freedom_master">
+	<class>freedom_master</class>
+</character>
+
 <character id="military_normal">
 	<class>military_normal</class>
 </character>
