@@ -98,6 +98,12 @@ function factions:Refresh(faction)
 		-- + UP
 		-- local goodwill = relation_registry.community_goodwill(faction, db.actor:id())
 		local goodwill = relation_registry.community_goodwill(faction, LocalActor())
+		for i, v in pairs(db.mp_actors) do
+			local mp_goodwill = relation_registry.community_goodwill(faction, v)
+			if(mp_goodwill > goodwill) then
+				goodwill = mp_goodwill
+			end
+		end
 		-- - UP
 		self.goodwill_value:TextControl():SetText(string.format("%d", goodwill))
 		self.textbox_goodwill:SetText(string.format("%d", goodwill))
@@ -131,7 +137,7 @@ function factions:OnFactionListItemClicked()
 	local faction = self.owner:GetListItemSelectedValue(self.faction_list)
 	-- + UP
 	-- if not faction or faction == "null" or not db.actor then return end --/>
-	if not faction or faction == "null" or not getLocalActor() then return end --/>
+	if not faction or faction == "null" then return end --/>
 	-- - UP
 
 	self.owner:SetFrameShowState(true, self.faction_buttons_frame, self.faction_buttons_frame_controls)
@@ -180,7 +186,7 @@ function factions:OnBtnGoodwillSet()
 	local faction = self.owner:GetListItemSelectedValue(self.faction_list)
 	-- + UP
 	-- if not faction or faction == "null" or not db.actor then return end --/>
-	if not faction or faction == "null" or not getLocalActor() then return end --/>
+	if not faction or faction == "null" then return end --/>
 	-- - UP
 
 	local goodwill = tonumber(self.textbox_goodwill:GetText()) or 0
@@ -190,7 +196,9 @@ function factions:OnBtnGoodwillSet()
 	self.textbox_goodwill:SetText(string.format("%d", goodwill))
 	-- + UP
 	-- db.actor:set_community_goodwill(faction, goodwill)
-	getLocalActor():set_community_goodwill(faction, goodwill)
+	for i, v in pairs(db.mp_actors) do
+		v:set_community_goodwill(faction, goodwill)
+	end
 	-- - UP
 
 	self:Refresh(faction)
