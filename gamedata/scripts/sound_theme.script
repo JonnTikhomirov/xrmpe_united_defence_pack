@@ -265,6 +265,12 @@ function npc_sound:play(npc_id, faction, point, msg)
 		self.pda_snd_obj.volume = 0.8
 	end
 	--printf("snd_path is "..tostring(self.sound_path[npc_id][table_id]))
+	-- + UP вылеты на зомбаках
+	if type(snd) ~= "string" then
+		printf_msg("sound_theme: snd is not string, but %s", type(snd))
+		return true
+	end
+	-- - UP
 	local snd_st, num_copy = string.gsub(snd, "\\", "_")
 
 	if self.group_snd then
@@ -486,7 +492,9 @@ function actor_sound:play(npc, faction, point, msg, force)
 	self.snd_obj.volume = 0.8
 	self.snd_obj:play_at_pos(db.actor, vector():set(0,0,0), 0, sound_object.s2d)
 	self.snd_obj.volume = 0.8
-	local snd_st, num_copy = string.gsub(snd, "\\", "_")
+	-- + UP вылеты на зомбаках
+	-- local snd_st, num_copy = string.gsub(snd, "\\", "_")
+	-- - UP
 --[[
 	if game.translate_string(snd_st) ~= snd_st then
 		local hud_demo = get_hud()
@@ -757,8 +765,9 @@ function object_sound:play(obj_id, faction, point, msg, force)
 			self.sv_obj.playing_time_start = time_server()		
 		end
 	end
-	
-	local snd_st, num_copy = string.gsub(snd, "\\", "_")
+	-- + UP вылеты на зомбаках
+	-- local snd_st, num_copy = string.gsub(snd, "\\", "_")
+	-- - UP
 --[[
 	if game.translate_string(snd_st) ~= snd_st then
 		local hud_demo = get_hud()
