@@ -124,7 +124,7 @@ function npc_sound:init_npc(npc)
 	else
 		self.npc[npc_id].max = npc:add_sound(self.path, nstl, snd_type.talk, 2, 1, self.npc[npc_id].internal_type) - 1
 	end
-	local f = getFS()
+		local f = getFS()
 	if f:exist("$game_sounds$",npc:sound_prefix()..self.path..".ogg") ~= nil then
 		self.sound_path[npc_id][1] = npc:sound_prefix()..self.path
 		-- + UP случайный вылет select_next_sound
@@ -138,7 +138,7 @@ function npc_sound:init_npc(npc)
 			num = num + 1
 		end
 		-- + UP случайный вылет select_next_sound
-		self.npc[npc_id].max = num - 1
+		self.npc[npc_id].max = #self.sound_path[npc_id] - 1
 		-- - UP
 	end
 	if self.npc[npc_id].max < 0 then
@@ -268,7 +268,7 @@ function npc_sound:play(npc_id, faction, point, msg)
 	-- + UP вылеты на зомбаках
 	if type(snd) ~= "string" then
 		printf_msg("sound_theme: snd is not string, but %s", type(snd))
-		return true
+		return false
 	end
 	-- - UP
 	local snd_st, num_copy = string.gsub(snd, "\\", "_")
