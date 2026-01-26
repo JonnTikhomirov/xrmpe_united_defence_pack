@@ -68,25 +68,25 @@ cl_run_fwd_0				=	1,	  0.2,	    1,   0.4,     1
 ; ЗНАЧЕНИЯ visibility_threshold ДОЛЖНЫ БЫТЬ РАВНЫ для денжера и фри,
 ; иначе возникают артефакты с потерей видимости при переходе от денжера во фри.
 [stalker_vision_free]
-min_view_distance 			= 0.4				; коэффициент, который множится на eye_range, в зависимости от угла
-max_view_distance 			= 0.8				; коэффициент, который множится на eye_range, в зависимости от угла
-visibility_threshold	 	= 60.0				; значение, при достижении суммой которого объект считается видимым
+min_view_distance 			= 0.8;0.4; +UP		; коэффициент, который множится на eye_range, в зависимости от угла
+max_view_distance 			= 1.0;0.8; +UP		; коэффициент, который множится на eye_range, в зависимости от угла
+visibility_threshold	 	= 55.0;60.0; +UP	; значение, при достижении суммой которого объект считается видимым
 always_visible_distance 	= 0.1
-time_quant					= 0.005
+time_quant					= 0.0013;0.005; +UP
 decrease_value				= 0.1				; значение, на которое уменьшается вес, если объект попал в фрустум, но отсёкся по каким-то причинам
-velocity_factor		     	= 1.0 ;0.5
-luminocity_factor			= 0.8 ;0.5				; фактор освещения (только для Актёра)
+velocity_factor		     	= 0.8;1.0 ;0.5; +UP
+luminocity_factor			= 0.8 ;0.5			; фактор освещения (только для Актёра)
 transparency_threshold	 	= 0.8				; 0.75
 
 [stalker_vision_danger]
-min_view_distance   		= 0.7				; коэффициент, который множится на eye_range, в зависимости от угла
-max_view_distance	 		= 1.0				; коэффициент, который множится на eye_range, в зависимости от угла
-visibility_threshold	 	= 40.0				; значение, при достижении суммой которого объект считается видимым
+min_view_distance   		= 0.7; +UP		; коэффициент, который множится на eye_range, в зависимости от угла
+max_view_distance	 		= 2.0;1.0; +UP		; коэффициент, который множится на eye_range, в зависимости от угла
+visibility_threshold	 	= 33.0;40.0; +UP	; значение, при достижении суммой которого объект считается видимым
 always_visible_distance 	= 0.1
-time_quant					= 0.001
-decrease_value				= 0.01				; значение, на которое уменьшается вес, если объект попал в фрустум, но отсёкся по каким-то причинам
-velocity_factor		     	= 1.0 ;0.5
-luminocity_factor			= 0.8 ;0.5 				; фактор освещения (только для Актёра)
+time_quant					= 0.001; +UP
+decrease_value				= 0.005;0.01; +UP	; значение, на которое уменьшается вес, если объект попал в фрустум, но отсёкся по каким-то причинам
+velocity_factor		     	= 0.8;1.0 ;0.5; +UP
+luminocity_factor			= 0.8 ;0.5			; фактор освещения (только для Актёра)
 transparency_threshold	 	= 0.7				; 0.25
 
 [stalker_sound_perceive]
@@ -397,7 +397,7 @@ vision_danger_section			= stalker_vision_danger
 vision_free_section				= stalker_vision_free
 eye_fov							= 160 ;110;120
 eye_range						= 100
-far_plane_factor				= 1.0				; фактор дальности тумана
+far_plane_factor				= 1 				; фактор дальности тумана
 fog_density_factor				= 0.05				; фактор плотности тумана
 
 ;---MEMORY------------------------------------------------------------
