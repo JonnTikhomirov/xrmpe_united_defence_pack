@@ -1,84 +1,84 @@
 <?xml version='1.0' encoding="windows-1251"?>
 <xml>
-	<specific_character id="df_default_stalker_normal_1" team_default = "1">
-			<name>Сталкер</name>
-			<icon x="2" y="2"></icon>
-			<map_icon x="1" y="0"></map_icon>
-			<bio></bio>
-
-			<class>stalker_normal</class>
-			<community>stalker</community>
-			
-			<rank>40</rank>
-			<reputation>0</reputation>
-
-			<visual>actors\stalker_neutral\stalker_neutral_2</visual>
-			<snd_config>characters_voice\human_03\stalker\</snd_config>
-			<supplies>
-				[spawn] \n
-				mp_wpn_pm \n
-				mp_ammo_9x18_pmm = 1 \n
-				mp_wpn_wincheaster1300 \n
-				mp_ammo_12x76_zhekan = 1 \n
-				mp_ammo_12x76_zhekan = 1, prob=0.5 \n
-				mp_grenade_rgd5 = 1, prob=0.4 \n
-			</supplies>
-	</specific_character>
-
-	<specific_character id="df_default_stalker_normal_2" team_default = "1">
-			<name>Сталкер</name>
-			<icon x="2" y="2"></icon>
-			<map_icon x="1" y="0"></map_icon>
-			<bio></bio>
-			
-			<class>stalker_normal</class>
-			<community>stalker</community>
-			
-			<rank>40</rank>
-			<reputation>0</reputation>
-
-			<visual>actors\stalker_neutral\stalker_neutral_2</visual>
-			<snd_config>characters_voice\human_02\stalker\</snd_config>
-			<supplies>
-				[spawn] \n
-				mp_wpn_fort \n
-				mp_ammo_9x18_pmm = 1, prob=0.5 \n
-				mp_wpn_mp5 \n
-				mp_ammo_9x19_fmj = 1 \n
-				mp_grenade_rgd5 = 1, prob=0.4 \n
-			</supplies>
-	</specific_character>
-
-	<specific_character id="df_default_stalker_normal_3" team_default = "1">
-			<name>Сталкер</name>
-			<icon x="2" y="2"></icon>
-			<map_icon x="1" y="0"></map_icon>
-			<bio></bio>
-
-			<class>stalker_normal</class>
-			<community>stalker</community>
-			
-			<rank>40</rank>
-			<reputation>0</reputation>
-
-			<visual>actors\stalker_neutral\stalker_neutral_2_mask</visual>
-			<snd_config>characters_voice\human_01\stalker\</snd_config>
-			<supplies>
-				[spawn] \n
-				mp_wpn_pm \n
-				mp_ammo_9x18_fmj = 1 \n
-				mp_wpn_bizon \n
-				mp_grenade_rgd5 = 1, prob=0.4 \n
-			</supplies>
-	</specific_character>
-
-	<specific_character id="df_default_stalker_normal_4" team_default = "1">
+	<specific_character id="df_neutral_normal_1" team_default = "1">
 		<name>Сталкер</name>
 		<icon x="2" y="2"></icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
-		<class>stalker_normal</class>
+		<class>neutral_normal</class>
+		<community>stalker</community>
+		
+		<rank>40</rank>
+		<reputation>0</reputation>
+
+		<visual>actors\stalker_neutral\stalker_neutral_2</visual>
+		<snd_config>characters_voice\human_03\stalker\</snd_config>
+		<supplies>
+			[spawn] \n
+			mp_wpn_wincheaster1300 \n
+			mp_ammo_12x76_zhekan = 1 \n
+			mp_ammo_12x76_zhekan = 1, prob=0.5 \n
+			mp_wpn_pm \n
+			mp_ammo_9x18_pmm = 1 \n
+			mp_grenade_rgd5 = 1, prob=0.4 \n
+		</supplies>
+	</specific_character>
+
+	<specific_character id="df_neutral_normal_2" team_default = "1">
+		<name>Сталкер</name>
+		<icon x="2" y="2"></icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+		
+		<class>neutral_normal</class>
+		<community>stalker</community>
+		
+		<rank>40</rank>
+		<reputation>0</reputation>
+
+		<visual>actors\stalker_neutral\stalker_neutral_2</visual>
+		<snd_config>characters_voice\human_02\stalker\</snd_config>
+		<supplies>
+			[spawn] \n
+			mp_wpn_mp5 \n
+			mp_ammo_9x19_fmj = 1 \n
+			mp_wpn_fort \n
+			mp_ammo_9x18_pmm = 1, prob=0.5 \n
+			mp_grenade_rgd5 = 1, prob=0.4 \n
+		</supplies>
+	</specific_character>
+
+	<specific_character id="df_neutral_normal_3" team_default = "1">
+		<name>Сталкер</name>
+		<icon x="2" y="2"></icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+
+		<class>neutral_normal</class>
+		<community>stalker</community>
+		
+		<rank>40</rank>
+		<reputation>0</reputation>
+
+		<visual>actors\stalker_neutral\stalker_neutral_2_mask</visual>
+		<snd_config>characters_voice\human_01\stalker\</snd_config>
+		<supplies>
+			[spawn] \n
+			mp_wpn_bizon = 1 \n
+			mp_grenade_rgd5 = 1, prob=0.4 \n
+			mp_wpn_pm \n
+			mp_ammo_9x18_fmj = 1 \n
+		</supplies>
+	</specific_character>
+
+	<specific_character id="df_neutral_normal_4" team_default = "1">
+		<name>Сталкер</name>
+		<icon x="2" y="2"></icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+
+		<class>neutral_normal</class>
 		<community>stalker</community>
 		
 		<rank>40</rank>
@@ -88,20 +88,20 @@
 		<snd_config>characters_voice\human_02\stalker\</snd_config>
 		<supplies>
 			[spawn] \n
-			mp_wpn_ak74u \n
+			mp_wpn_ak74u = 1 \n
 			mp_ammo_5.45x39_ap = 1 \n
       		mp_grenade_flashbang = 1 \n
       		mp_grenade_rgd5 = 1, prob=0.4 \n
 		</supplies>
 	</specific_character>
 	
-	<specific_character id="df_default_stalker_normal_5" team_default = "1">
+	<specific_character id="df_neutral_normal_5" team_default = "1">
 		<name>Сталкер</name>
 		<icon x="2" y="2"></icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
-		<class>stalker_normal</class>
+		<class>neutral_normal</class>
 		<community>stalker</community>
 		
 		<rank>40</rank>
@@ -111,22 +111,22 @@
 		<snd_config>characters_voice\human_01\stalker\</snd_config>
 		<supplies>
 			[spawn] \n
+			mp_wpn_ak74 = 1 \n
+			mp_ammo_5.45x39_fmj \n
 			mp_wpn_pm \n
 			mp_ammo_9x18_pbp \n
-			mp_wpn_ak74 \n
-			mp_ammo_5.45x39_fmj \n
       		mp_grenade_rgd5 = 1, prob=0.4 \n
 		</supplies>
 	</specific_character>
 	
 
-	<specific_character id="df_default_stalker_veteran_1" team_default = "1">
+	<specific_character id="df_neutral_veteran_1" team_default = "1">
 		<name>Сталкер ветеран</name>
 		<icon x="2" y="2"></icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 		
-		<class>stalker_veteran</class>
+		<class>neutral_veteran</class>
 		<community>stalker</community>
 			
 		<rank>70</rank>
@@ -136,20 +136,20 @@
 		<snd_config>characters_voice\human_03\stalker\</snd_config>
 		<supplies>
 			[spawn] \n
-			mp_wpn_l85 \n
-			mp_ammo_5.56x45_ss190 = 1 \n
-      		mp_grenade_flashbang = 2 \n
+			mp_wpn_abakan = 1 \n
+			mp_ammo_5.45x39_fmj \n
+      		mp_grenade_flashbang = 1 \n
       		mp_grenade_f1 = 1, prob=0.6 \n
 		</supplies>
 	</specific_character>
 
-	<specific_character id="df_default_stalker_veteran_2" team_default = "1">
+	<specific_character id="df_neutral_veteran_2" team_default = "1">
 		<name>Сталкер ветеран</name>
 		<icon x="2" y="2"></icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
-		<class>stalker_veteran</class>
+		<class>neutral_veteran</class>
 		<community>stalker</community>
 			
 		<rank>70</rank>
@@ -159,46 +159,22 @@
 		<snd_config>characters_voice\human_03\stalker\</snd_config>
 		<supplies>
 			[spawn] \n
-      		mp_wpn_stechkin \n
-      		mp_ammo_9x18_pmm = 1 \n
-			mp_wpn_sig550 \n
+			mp_wpn_l85 = 1 \n
 			mp_ammo_5.56x45_ss190 = 1 \n
-      		mp_grenade_f1 = 1, prob=0.6 \n
+			mp_wpn_stechkin \n
+			mp_ammo_9x18_pmm = 1 \n
+			mp_grenade_f1 = 1, prob=0.6 \n
 		</supplies>
 
 	</specific_character>
 
-	<specific_character id="df_default_stalker_veteran_3" team_default = "1">
+	<specific_character id="df_neutral_veteran_3" team_default = "1">
 		<name>Сталкер ветеран</name>
 		<icon x="20" y="8"></icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
-		<class>stalker_veteran</class>
-		<community>stalker</community>
-		
-		<rank>70</rank>
-		<reputation>0</reputation>
-
-		<visual>actors\stalker_neutral\stalker_neutral_nauchniy</visual>
-		<snd_config>characters_voice\human_03\stalker\</snd_config>
-		<supplies>
-			[spawn] \n
-			mp_wpn_lr300 \n
-			mp_ammo_5.56x45_ss190 = 1 \n
-      		mp_grenade_flashbang = 2 \n
-      		mp_grenade_f1 = 1, prob=0.6 \n
-		</supplies>
-
-	</specific_character>
-
-	<specific_character id="df_default_stalker_veteran_4" team_default = "1">
-		<name>Сталкер ветеран</name>
-		<icon x="20" y="8"></icon>
-		<map_icon x="1" y="0"></map_icon>
-		<bio></bio>
-
-		<class>stalker_veteran</class>
+		<class>neutral_veteran</class>
 		<community>stalker</community>
 	
 		<rank>70</rank>
@@ -208,22 +184,22 @@
 		<snd_config>characters_voice\human_03\stalker\</snd_config>
 		<supplies>
 			[spawn] \n
+			mp_wpn_sig552 = 1 \n
+			mp_ammo_5.56x45_ss190 = 1 \n
       		mp_wpn_beretta \n
 			mp_ammo_9x19_fmj = 1, prob=0.8 \n
-			mp_wpn_sig552 \n
-			mp_ammo_5.56x45_ss190 = 1 \n
       		mp_grenade_flashbang = 2 \n
       		mp_grenade_f1 = 1, prob=0.6 \n
 		</supplies>
 	</specific_character>
 
-	<specific_character id="df_default_stalker_veteran_5" team_default = "1">
+	<specific_character id="df_neutral_veteran_4" team_default = "1">
 		<name>Сталкер ветеран</name>
 		<icon x="20" y="8"></icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
-		<class>stalker_veteran</class>
+		<class>neutral_veteran</class>
 		<community>stalker</community>
 			
 		<rank>70</rank>
@@ -233,7 +209,7 @@
 		<snd_config>characters_voice\human_03\stalker\</snd_config>
 		<supplies>
 			[spawn] \n
-			mp_wpn_vintorez \n
+			mp_wpn_vintorez = 1 \n
 			mp_ammo_9x39_pab9 = 1 \n
       		mp_grenade_flashbang = 1 \n
       		mp_grenade_f1 = 1, prob=1 \n
@@ -242,13 +218,13 @@
 
 <!-- STALKER MASTER -->
 
-	<specific_character id="df_default_stalker_master_1" team_default = "1">
+	<specific_character id="df_neutral_master_1" team_default = "1">
 		<name>Сталкер мастер</name>
 		<icon x="10" y="0"></icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
-		<class>stalker_master</class>
+		<class>neutral_master</class>
 		<community>stalker</community>
 		
 		<rank>95</rank>
@@ -266,13 +242,13 @@
 
 	</specific_character>
 
-	<specific_character id="df_default_stalker_master_2" team_default = "1">
+	<specific_character id="df_neutral_master_2" team_default = "1">
 		<name>Сталкер мастер</name>
 		<icon x="10" y="0"></icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
-		<class>stalker_master</class>
+		<class>neutral_master</class>
 		<community>stalker</community>
 		
 		<rank>95</rank>
@@ -282,22 +258,22 @@
 		<snd_config>characters_voice\human_03\stalker\</snd_config>
 		<supplies>
 			[spawn] \n
-			mp_wpn_beretta \n
-			mp_ammo_9x19_fmj = 1, prob=0.8 \n
 			mp_wpn_saiga12 = 1, 1, 0, 0 \n
 			mp_ammo_12x70_buck = 1, prob=1 \n
       		mp_ammo_12x76_zhekan = 1, prob=1 \n
+			mp_wpn_beretta \n
+			mp_ammo_9x19_fmj = 1, prob=0.8 \n
       		mp_grenade_f1 = 1, prob=0.8 \n
 		</supplies>
 	</specific_character>
 
-	<specific_character id="df_default_stalker_master_3" team_default = "1">
+	<specific_character id="df_neutral_master_3" team_default = "1">
 		<name>Сталкер мастер</name>
 		<icon x="10" y="0"></icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
-		<class>stalker_master</class>
+		<class>neutral_master</class>
 		<community>stalker</community>
 		
 		<rank>95</rank>
@@ -307,63 +283,17 @@
 		<snd_config>characters_voice\human_03\stalker\</snd_config>
 		<supplies>
 			[spawn] \n
+			mp_wpn_groza = 1 \n
+			mp_ammo_9x39_pab9 \n
 			mp_wpn_beretta \n
 			mp_ammo_9x19_pbp = 1 \n
-			mp_wpn_groza \n
-			mp_ammo_9x39_pab9 \n
-      		mp_grenade_f1 = 1, prob=0.8 \n
-		</supplies>
-	</specific_character>
-
-	<specific_character id="df_default_stalker_master_4" team_default = "1">
-		<name>Сталкер мастер</name>
-		<icon x="20" y="8"></icon>
-		<map_icon x="1" y="0"></map_icon>
-		<bio></bio>
-
-		<class>stalker_master</class>
-		<community>stalker</community>
-				
-		<rank>95</rank>
-		<reputation>0</reputation>
-
-		<visual>actors\stalker_neutral\stalker_neutral_4</visual>
-		<snd_config>characters_voice\human_03\stalker\</snd_config>
-		<supplies>
-			[spawn] \n
-			mp_wpn_fn2000 \n
-			mp_ammo_5.56x45_ss190 = 1 \n
-      		mp_grenade_f1 = 1, prob=0.8 \n
-		</supplies>
-	</specific_character>	
-
-	<specific_character id="df_default_stalker_master_5" team_default = "1">
-		<name>Сталкер мастер</name>
-		<icon x="20" y="8"></icon>
-		<map_icon x="1" y="0"></map_icon>
-		<bio></bio>
-
-		<class>stalker_master</class>
-		<community>stalker</community>
-		
-		<rank>95</rank>
-		<reputation>0</reputation>
-
-		<visual>actors\stalker_neutral\stalker_neutral_4</visual>
-		<snd_config>characters_voice\human_03\stalker\</snd_config>
-		<supplies>
-			[spawn] \n
-			mp_wpn_desert_eagle \n
-			mp_ammo_11.43x23_hydro = 1, prob=0.5 \n
-			mp_wpn_svd = 1, 0, 0, 0, scope \n
-			mp_ammo_7.62x54_7h1 = 1 \n
       		mp_grenade_f1 = 1, prob=0.8 \n
 		</supplies>
 	</specific_character>
 
 	<!-- Duty -->
 
-	<specific_character id="df_default_duty_normal_1" team_default = "1">
+	<specific_character id="df_duty_normal_1" team_default = "1">
 		<name>Боец Долга</name>
 		<icon x="2" y="2"></icon>
 		<map_icon x="1" y="0"></map_icon>
@@ -379,15 +309,15 @@
 		<snd_config>characters_voice\human_01\dolg\</snd_config>
 		<supplies>
 			[spawn] \n
+			mp_wpn_ak74 = 1 \n
+			mp_ammo_5.45x39_fmj \n
 			mp_wpn_walther \n
 			mp_ammo_9x19_pbp \n
-			mp_wpn_ak74 \n
-			mp_ammo_5.45x39_fmj \n
       		mp_grenade_rgd5 = 1, prob=0.6 \n
 		</supplies>
 	</specific_character>
 
-	<specific_character id="df_default_duty_normal_2" team_default = "1">
+	<specific_character id="df_duty_normal_2" team_default = "1">
 		<name>Боец Долга</name>
 		<icon x="2" y="2"></icon>
 		<map_icon x="1" y="0"></map_icon>
@@ -403,15 +333,15 @@
 		<snd_config>characters_voice\human_01\dolg\</snd_config>
 		<supplies>
 			[spawn] \n
+			mp_wpn_abakan = 1 \n
+			mp_ammo_5.45x39_fmj \n
 			mp_wpn_walther \n
 			mp_ammo_9x19_pbp \n
-			mp_wpn_abakan \n
-			mp_ammo_5.45x39_fmj \n
       		mp_grenade_rgd5 = 1, prob=0.6 \n
 		</supplies>
 	</specific_character>
 
-	<specific_character id="df_default_duty_normal_3" team_default = "1">
+	<specific_character id="df_duty_normal_3" team_default = "1">
 		<name>Боец Долга</name>
 		<icon x="2" y="2"></icon>
 		<map_icon x="1" y="0"></map_icon>
@@ -427,15 +357,15 @@
 		<snd_config>characters_voice\human_01\dolg\</snd_config>
 		<supplies>
 			[spawn] \n
+			mp_wpn_abakan = 1, scope \n
+			mp_ammo_5.45x39_fmj \n
 			mp_wpn_walther \n
 			mp_ammo_9x19_pbp \n
-			mp_wpn_abakan \n
-			mp_ammo_5.45x39_fmj \n
       		mp_grenade_rgd5 = 1, prob=0.6 \n
 		</supplies>
 	</specific_character>
 
-	<specific_character id="df_default_duty_normal_4" team_default = "1">
+	<specific_character id="df_duty_normal_4" team_default = "1">
 		<name>Боец Долга</name>
 		<icon x="2" y="2"></icon>
 		<map_icon x="1" y="0"></map_icon>
@@ -451,16 +381,16 @@
 		<snd_config>characters_voice\human_01\dolg\</snd_config>
 		<supplies>
 			[spawn] \n
-			mp_wpn_walther \n
-			mp_ammo_9x19_pbp \n
-			mp_wpn_saiga12 \n
+			mp_wpn_saiga12 = 1 \n
 			mp_ammo_12x70_buck = 1 \n
 			mp_ammo_12x76_zhekan = 1 \n
+			mp_wpn_walther \n
+			mp_ammo_9x19_pbp \n
 			mp_grenade_rgd5 = 1, prob=0.6 \n
 		</supplies>
 	</specific_character>
 
-	<specific_character id="df_default_duty_veteran_1" team_default = "1">
+	<specific_character id="df_duty_veteran_1" team_default = "1">
 		<name>Ветеран Долга</name>
 		<icon x="2" y="2"></icon>
 		<map_icon x="1" y="0"></map_icon>
@@ -476,16 +406,16 @@
 		<snd_config>characters_voice\human_01\dolg\</snd_config>
 		<supplies>
 			[spawn] \n
-			mp_wpn_stechkin \n
-      		mp_ammo_9x18_pmm = 1 \n
 			mp_wpn_saiga12 = 1, scope \n
 			mp_ammo_12x76_zhekan = 1 \n
+			mp_wpn_stechkin \n
+			mp_ammo_9x18_pmm = 1 \n
 			mp_grenade_rgd5 = 1, prob=0.8 \n
 			mp_grenade_f1 = 1, prob=1 \n
 		</supplies>
 	</specific_character>
 
-	<specific_character id="df_default_duty_veteran_2" team_default = "1">
+	<specific_character id="df_duty_veteran_2" team_default = "1">
 		<name>Ветеран Долга</name>
 		<icon x="2" y="2"></icon>
 		<map_icon x="1" y="0"></map_icon>
@@ -501,17 +431,40 @@
 		<snd_config>characters_voice\human_01\dolg\</snd_config>
 		<supplies>
 			[spawn] \n
-      		mp_wpn_gsh18 \n
-      		mp_ammo_9x18_pmm = 1 \n
 			mp_wpn_groza = 1, 1, 0, 0 \n
 			mp_ammo_9x39_pab9 = 1 \n
-      		mp_grenade_flashbang = 1 \n
-      		mp_grenade_rgd5 = 1, prob=0.8 \n
+			mp_wpn_gsh18 \n
+			mp_ammo_9x18_pmm = 1 \n
+			mp_grenade_flashbang = 1 \n
+			mp_grenade_rgd5 = 1, prob=0.8 \n
 			mp_grenade_f1 = 1, prob=1 \n
 		</supplies>
 	</specific_character>
 
-	<specific_character id="df_default_duty_master_1" team_default = "1">
+	<specific_character id="df_duty_sniper_1" team_default = "1">
+		<name>Снайпер Долга</name>
+		<icon x="2" y="2"></icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+		
+		<class>duty_sniper</class>
+		<community>dolg</community>
+		
+		<rank>70</rank>
+		<reputation>0</reputation>
+
+		<visual>actors\stalker_dolg\stalker_dolg_3</visual>
+		<snd_config>characters_voice\human_01\dolg\</snd_config>
+		<supplies>
+			[spawn] \n
+			mp_wpn_svd = 1, scope \n
+			mp_ammo_7.62x54_7h1 = 1 \n
+			mp_wpn_gsh18 \n
+			mp_ammo_9x18_pmm = 1 \n
+		</supplies>
+	</specific_character>
+
+	<specific_character id="df_duty_master_1" team_default = "1">
 		<name>Мастер Долга</name>
 		<icon x="10" y="0"></icon>
 		<map_icon x="1" y="0"></map_icon>
@@ -527,14 +480,14 @@
 		<snd_config>characters_voice\human_01\dolg\</snd_config>
 		<supplies>
 			[spawn] \n
-			mp_wpn_val = 1 \n
+			mp_wpn_val = 1, scope \n
 			mp_ammo_9x39_pab9 = 1 \n
       		mp_grenade_flashbang = 1, prob=0.8 \n
 			mp_grenade_f1 = 2 \n
 		</supplies>
 	</specific_character>
 
-	<specific_character id="df_default_duty_master_2" team_default = "1">
+	<specific_character id="df_duty_master_2" team_default = "1">
 		<name>Мастер Долга</name>
 		<icon x="10" y="0"></icon>
 		<map_icon x="1" y="0"></map_icon>
@@ -557,7 +510,7 @@
 		</supplies>
 	</specific_character>
 
-	<specific_character id="df_default_duty_master_3" team_default = "1">
+	<specific_character id="df_duty_master_3" team_default = "1">
 		<name>Мастер Долга</name>
 		<icon x="10" y="0"></icon>
 		<map_icon x="1" y="0"></map_icon>
@@ -573,18 +526,18 @@
 		<snd_config>characters_voice\human_01\dolg\</snd_config>
 		<supplies>
 			[spawn] \n
-			mp_wpn_desert_eagle \n
-			mp_ammo_11.43x23_hydro = 1 \n
 			mp_wpn_akm = 1 \n
 			mp_ammo_7.62x39_fmj = 1 \n
-      		mp_grenade_flashbang = 2, prob=0.8 \n
+			mp_wpn_desert_eagle \n
+			mp_ammo_11.43x23_hydro = 1 \n
+			mp_grenade_flashbang = 2, prob=0.8 \n
 			mp_grenade_f1 = 2 \n
 		</supplies>
 	</specific_character>
 
 	<!--  freedom  -->
 
-	<specific_character id="df_default_freedom_normal_1" team_default = "1">
+	<specific_character id="df_freedom_normal_1" team_default = "1">
 		<name>Боец Свободы</name>
 		<icon x="2" y="2"></icon>
 		<map_icon x="1" y="0"></map_icon>
@@ -600,15 +553,15 @@
 		<snd_config>characters_voice\human_01\freedom\</snd_config>
 		<supplies>
 			[spawn] \n
-			mp_wpn_walther \n
-			mp_ammo_9x19_pbp \n
 			mp_wpn_ump45 \n
 			mp_ammo_11.43x23_fmj = 1 \n
+			mp_wpn_walther \n
+			mp_ammo_9x19_pbp \n
       		mp_grenade_f1 = 1, prob=0.6 \n
 		</supplies>
 	</specific_character>
 
-	<specific_character id="df_default_freedom_normal_2" team_default = "1">
+	<specific_character id="df_freedom_normal_2" team_default = "1">
 		<name>Боец Свободы</name>
 		<icon x="2" y="2"></icon>
 		<map_icon x="1" y="0"></map_icon>
@@ -624,15 +577,15 @@
 		<snd_config>characters_voice\human_03\freedom\</snd_config>
 		<supplies>
 			[spawn] \n
+			mp_wpn_sig552 \n
+			mp_ammo_5.56x45_ss190 = 1 \n
 			mp_wpn_walther \n
 			mp_ammo_9x19_pbp \n
-			mp_wpn_sig552 \n
-			ammo_5.56x45_ss190 = 1 \n
       		mp_grenade_f1 = 1, prob=0.6 \n
 		</supplies>
 	</specific_character>
 
-	<specific_character id="df_default_freedom_normal_3" team_default = "1">
+	<specific_character id="df_freedom_normal_3" team_default = "1">
 		<name>Боец Свободы</name>
 		<icon x="2" y="2"></icon>
 		<map_icon x="1" y="0"></map_icon>
@@ -648,15 +601,15 @@
 		<snd_config>characters_voice\human_01\freedom\</snd_config>
 		<supplies>
 			[spawn] \n
-			mp_wpn_walther \n
-			mp_ammo_9x19_pbp \n
 			mp_wpn_ump45 \n
 			mp_ammo_11.43x23_fmj = 1 \n
+			mp_wpn_walther \n
+			mp_ammo_9x19_pbp \n
       		mp_grenade_f1 = 1, prob=0.6 \n
 		</supplies>
 	</specific_character>
 
-	<specific_character id="df_default_freedom_normal_4" team_default = "1">
+	<specific_character id="df_freedom_normal_4" team_default = "1">
 		<name>Боец Свободы</name>
 		<icon x="2" y="2"></icon>
 		<map_icon x="1" y="0"></map_icon>
@@ -672,15 +625,15 @@
 		<snd_config>characters_voice\human_01\freedom\</snd_config>
 		<supplies>
 			[spawn] \n
+			mp_wpn_sig552 \n
+			mp_ammo_5.56x45_ss190 = 1 \n
 			mp_wpn_walther \n
 			mp_ammo_9x19_pbp \n
-			mp_wpn_sig552 \n
-			ammo_5.56x45_ss190 = 1 \n
       		mp_grenade_f1 = 1, prob=0.6 \n
 		</supplies>
 	</specific_character>
 
-	<specific_character id="df_default_freedom_veteran_1" team_default = "1">
+	<specific_character id="df_freedom_veteran_1" team_default = "1">
 		<name>Ветеран Свободы</name>
 		<icon x="2" y="2"></icon>
 		<map_icon x="1" y="0"></map_icon>
@@ -696,15 +649,15 @@
 		<snd_config>characters_voice\human_01\freedom\</snd_config>
 		<supplies>
 			[spawn] \n
+			mp_wpn_sig550 = 1, scope \n
+			mp_ammo_5.56x45_ss190 = 1 \n
 			mp_wpn_walther \n
 			mp_ammo_9x19_pbp \n
-			mp_wpn_sig550 = 1, scope \n
-			ammo_5.56x45_ss190 = 1 \n
       		mp_grenade_f1 = 2, prob=0.8 \n
 		</supplies>
 	</specific_character>
 
-	<specific_character id="df_default_freedom_veteran_2" team_default = "1">
+	<specific_character id="df_freedom_veteran_2" team_default = "1">
 		<name>Ветеран Свободы</name>
 		<icon x="2" y="2"></icon>
 		<map_icon x="1" y="0"></map_icon>
@@ -720,15 +673,15 @@
 		<snd_config>characters_voice\human_01\freedom\</snd_config>
 		<supplies>
 			[spawn] \n
-			mp_wpn_glock17 \n
-			mp_ammo_9x19_pbp \n
 			mp_wpn_lr300 = 1, scope \n
-			ammo_5.56x45_ss190 = 1 \n
+			mp_ammo_5.56x45_ss190 = 1 \n
+			mp_wpn_glock17 \n
+			mp_ammo_9x19_pbp \n
       		mp_grenade_f1 = 2, prob=0.8 \n
 		</supplies>
 	</specific_character>
 
-	<specific_character id="df_default_freedom_veteran_3" team_default = "1">
+	<specific_character id="df_freedom_veteran_3" team_default = "1">
 		<name>Ветеран Свободы</name>
 		<icon x="2" y="2"></icon>
 		<map_icon x="1" y="0"></map_icon>
@@ -744,15 +697,61 @@
 		<snd_config>characters_voice\human_01\freedom\</snd_config>
 		<supplies>
 			[spawn] \n
-			mp_wpn_glock17 \n
-			mp_ammo_9x19_pbp \n
 			mp_wpn_ak101 = 1 \n
-			ammo_5.56x45_ss190 = 1 \n
+			mp_ammo_5.56x45_ss190 = 1 \n
+			mp_wpn_glock17 \n
+			mp_ammo_9x19_pbp \n
       		mp_grenade_f1 = 2, prob=0.8 \n
 		</supplies>
 	</specific_character>
 
-	<specific_character id="df_default_freedom_master_1" team_default = "1">
+	<specific_character id="df_freedom_sniper_1" team_default = "1">
+		<name>Снайпер Свободы</name>
+		<icon x="2" y="2"></icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+
+		<class>freedom_sniper</class>
+		<community>freedom</community>
+		
+		<rank>40</rank>
+		<reputation>0</reputation>
+
+		<visual>actors\stalker_freedom\stalker_freedom_1_mask</visual>
+		<snd_config>characters_voice\human_03\freedom\</snd_config>
+		<supplies>
+			[spawn] \n
+			mp_wpn_svu = 1, scope \n
+			mp_ammo_7.62x54_7h1 = 1 \n
+			mp_wpn_glock17 \n
+			mp_ammo_9x19_pbp \n
+		</supplies>
+	</specific_character>
+
+	<specific_character id="df_freedom_sniper_2" team_default = "1">
+		<name>Снайпер Свободы</name>
+		<icon x="2" y="2"></icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+
+		<class>freedom_sniper</class>
+		<community>freedom</community>
+		
+		<rank>40</rank>
+		<reputation>0</reputation>
+
+		<visual>actors\stalker_freedom\stalker_freedom_3</visual>
+		<snd_config>characters_voice\human_01\freedom\</snd_config>
+		<supplies>
+			[spawn] \n
+			mp_wpn_svu = 1, scope \n
+			mp_ammo_7.62x54_7h1 = 1 \n
+			mp_wpn_glock17 \n
+			mp_ammo_9x19_pbp \n
+		</supplies>
+	</specific_character>
+
+	<specific_character id="df_freedom_master_1" team_default = "1">
 		<name>Мастер Свободы</name>
 		<icon x="2" y="2"></icon>
 		<map_icon x="1" y="0"></map_icon>
@@ -768,16 +767,16 @@
 		<snd_config>characters_voice\human_03\freedom\</snd_config>
 		<supplies>
 			[spawn] \n
+			mp_wpn_sig550 = 1, scope \n
+			mp_ammo_5.56x45_ap = 1 \n
 			mp_wpn_glock17 \n
 			mp_ammo_9x19_pbp \n
-			mp_wpn_svu = 1 \n
-			ammo_7.62x54_7h1 = 1 \n
 			mp_grenade_flashbang = 2, prob=0.8 \n
       		mp_grenade_f1 = 2, prob=0.8 \n
 		</supplies>
 	</specific_character>
 
-	<specific_character id="df_default_freedom_master_2" team_default = "1">
+	<specific_character id="df_freedom_master_2" team_default = "1">
 		<name>Мастер Свободы</name>
 		<icon x="2" y="2"></icon>
 		<map_icon x="1" y="0"></map_icon>
@@ -793,35 +792,10 @@
 		<snd_config>characters_voice\human_03\freedom\</snd_config>
 		<supplies>
 			[spawn] \n
-			mp_wpn_glock17 \n
-			mp_ammo_9x19_pbp \n
 			mp_wpn_ak101 = 1, scope \n
-			ammo_5.56x45_ap = 1 \n
-			mp_grenade_flashbang = 2, prob=0.8 \n
-      		mp_grenade_f1 = 2, prob=0.8 \n
-		</supplies>
-	</specific_character>
-
-	<specific_character id="df_default_freedom_master_3" team_default = "1">
-		<name>Мастер Свободы</name>
-		<icon x="2" y="2"></icon>
-		<map_icon x="1" y="0"></map_icon>
-		<bio></bio>
-
-		<class>freedom_master</class>
-		<community>freedom</community>
-		
-		<rank>40</rank>
-		<reputation>0</reputation>
-
-		<visual>actors\stalker_freedom\stalker_freedom_4</visual>
-		<snd_config>characters_voice\human_03\freedom\</snd_config>
-		<supplies>
-			[spawn] \n
+			mp_ammo_5.56x45_ap = 1 \n
 			mp_wpn_glock17 \n
 			mp_ammo_9x19_pbp \n
-			mp_wpn_fn2000 = 1 \n
-			ammo_5.56x45_ss190 = 1 \n
 			mp_grenade_flashbang = 2, prob=0.8 \n
       		mp_grenade_f1 = 2, prob=0.8 \n
 		</supplies>
@@ -829,7 +803,7 @@
 
 	<!--  military  -->
 
-	<specific_character id="df_default_military_normal_1" team_default = "1">
+	<specific_character id="df_military_normal_1" team_default = "1">
 		<name>Солдат</name>
 		<icon x="2" y="2"></icon>
 		<map_icon x="1" y="0"></map_icon>
@@ -845,14 +819,14 @@
 		<snd_config>characters_voice\human_01\military\</snd_config>
 		<supplies>
 			[spawn] \n
+			mp_wpn_bizon \n
+			mp_grenade_rgd5 = 1, prob=0.7 \n
 			mp_wpn_pmm \n
 			mp_ammo_9x18_pmm = 1 \n
-			mp_wpn_bizon \n
-      		mp_grenade_rgd5 = 1, prob=0.7 \n
 		</supplies>
 	</specific_character>
 
-	<specific_character id="df_default_military_normal_2" team_default = "1">
+	<specific_character id="df_military_normal_2" team_default = "1">
 		<name>Солдат</name>
 		<icon x="2" y="2"></icon>
 		<map_icon x="1" y="0"></map_icon>
@@ -868,15 +842,15 @@
 		<snd_config>characters_voice\human_02\military\</snd_config>
 		<supplies>
 			[spawn] \n
+			mp_wpn_ak74u \n
+			mp_ammo_5.45x39_ap = 1 \n
 			mp_wpn_fort17 \n
 			mp_ammo_9x18_pmm = 1, prob=0.5 \n
-			mp_wpn_ak74u \n
-			mp_ammo_5.45x39_fmj = 1 \n
       		mp_grenade_rgd5 = 1, prob=0.7 \n
 		</supplies>
 	</specific_character>
 
-	<specific_character id="df_default_military_normal_3" team_default = "1">
+	<specific_character id="df_military_normal_3" team_default = "1">
 		<name>Солдат</name>
 		<icon x="2" y="2"></icon>
 		<map_icon x="1" y="0"></map_icon>
@@ -892,15 +866,15 @@
 		<snd_config>characters_voice\human_01\military\</snd_config>
 		<supplies>
 			[spawn] \n
+			mp_wpn_ak74 \n
+			mp_ammo_5.45x39_ap = 1 \n
 			mp_wpn_pmm \n
 			mp_ammo_9x18_fmj = 1 \n
-			mp_wpn_ak74 \n
-			mp_ammo_5.45x39_fmj = 1 \n
      		mp_grenade_rgd5 = 1, prob=0.7 \n
 		</supplies>
 	</specific_character>
 
-	<specific_character id="df_default_military_veteran_1" team_default = "1">
+	<specific_character id="df_military_veteran_1" team_default = "1">
 		<name>Боец спецназа</name>
 		<icon x="2" y="2"></icon>
 		<map_icon x="1" y="0"></map_icon>
@@ -916,14 +890,14 @@
 		<snd_config>characters_voice\human_01\military\</snd_config>
 		<supplies>
 			[spawn] \n
-			mp_wpn_abakan \n
+			mp_wpn_abakan = 1 \n
 			mp_ammo_5.45x39_ap = 1 \n
       		mp_grenade_flashbang = 2 \n
       		mp_grenade_f1 = 2, prob=1 \n
 		</supplies>
 	</specific_character>
 
-	<specific_character id="df_default_military_veteran_2" team_default = "1">
+	<specific_character id="df_military_veteran_2" team_default = "1">
 		<name>Боец спецназа</name>
 		<icon x="2" y="2"></icon>
 		<map_icon x="1" y="0"></map_icon>
@@ -939,16 +913,15 @@
 		<snd_config>characters_voice\human_02\military\</snd_config>
 		<supplies>
 			[spawn] \n
-      		mp_wpn_stechkin \n
-      		mp_ammo_9x18_pmm = 1 \n
 			mp_wpn_abakan = 1, scope \n
 			mp_ammo_5.45x39_ap = 1 \n
+      		mp_wpn_stechkin \n
+      		mp_ammo_9x18_pmm = 1 \n
       		mp_grenade_f1 = 1, prob=1 \n
 		</supplies>
-
 	</specific_character>
 
-	<specific_character id="df_default_military_veteran_3" team_default = "1">
+	<specific_character id="df_military_veteran_3" team_default = "1">
 		<name>Боец спецназа</name>
 		<icon x="20" y="8"></icon>
 		<map_icon x="1" y="0"></map_icon>
@@ -969,10 +942,9 @@
       		mp_grenade_flashbang = 2 \n
       		mp_grenade_f1 = 2, prob=1 \n
 		</supplies>
-
 	</specific_character>
 
-	<specific_character id="df_default_military_veteran_4" team_default = "1">
+	<specific_character id="df_military_veteran_4" team_default = "1">
 		<name>Боец спецназа</name>
 		<icon x="20" y="8"></icon>
 		<map_icon x="1" y="0"></map_icon>
@@ -993,10 +965,30 @@
       		mp_grenade_flashbang = 1 \n
       		mp_grenade_f1 = 1, prob=1 \n
 		</supplies>
+	</specific_character>
+	
+	<specific_character id="df_military_sniper_1" team_default = "1">
+		<name>Снайпер спецназа</name>
+		<icon x="20" y="8"></icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
 
+		<class>military_sniper</class>
+		<community>army</community>
+		
+		<rank>95</rank>
+		<reputation>0</reputation>
+
+		<visual>actors\stalker_soldier\stalker_soldier_4</visual>
+		<snd_config>characters_voice\human_03\military\</snd_config>
+		<supplies>
+			[spawn] \n
+			mp_wpn_svd = 1, scope \n
+			mp_ammo_7.62x54_ap = 1 \n
+		</supplies>
 	</specific_character>
 
-	<specific_character id="df_default_military_master_1" team_default = "1">
+	<specific_character id="df_military_master_1" team_default = "1">
 		<name>Ветеран спецназа</name>
 		<icon x="10" y="0"></icon>
 		<map_icon x="1" y="0"></map_icon>
@@ -1019,7 +1011,7 @@
 		</supplies>
 	</specific_character>
 
-	<specific_character id="df_default_military_master_2" team_default = "1">
+	<specific_character id="df_military_master_2" team_default = "1">
 		<name>Ветеран спецназа</name>
 		<icon x="10" y="0"></icon>
 		<map_icon x="1" y="0"></map_icon>
@@ -1042,7 +1034,7 @@
 		</supplies>
 	</specific_character>
 
-	<specific_character id="df_default_military_master_3" team_default = "1">
+	<specific_character id="df_military_master_3" team_default = "1">
 		<name>Ветеран спецназа</name>
 		<icon x="10" y="0"></icon>
 		<map_icon x="1" y="0"></map_icon>
@@ -1065,29 +1057,7 @@
 		</supplies>
 	</specific_character>
 
-	<specific_character id="df_default_military_master_4" team_default = "1">
-		<name>Ветеран спецназа</name>
-		<icon x="20" y="8"></icon>
-		<map_icon x="1" y="0"></map_icon>
-		<bio></bio>
-
-		<class>military_master</class>
-		<community>army</community>
-				
-		<rank>95</rank>
-		<reputation>0</reputation>
-
-		<visual>actors\stalker_soldier\stalker_soldier_4</visual>
-		<snd_config>characters_voice\human_03\military\</snd_config>
-		<supplies>
-			[spawn] \n
-			mp_wpn_svd = 1, scope \n
-			mp_ammo_7.62x54_ap = 1 \n
-      		mp_grenade_f1 = 2, prob=1 \n
-		</supplies>
-	</specific_character>	
-
-	<specific_character id="df_default_military_master_5" team_default = "1">
+	<specific_character id="df_military_master_4" team_default = "1">
 		<name>Ветеран спецназа</name>
 		<icon x="10" y="0"></icon>
 		<map_icon x="1" y="0"></map_icon>
@@ -1103,10 +1073,10 @@
 		<snd_config>characters_voice\human_03\military\</snd_config>
 		<supplies>
 			[spawn] \n
-			mp_wpn_desert_eagle \n
-			mp_ammo_11.43x23_hydro = 1 \n
 			mp_wpn_pkm \n \n
       		mp_grenade_f1 = 2, prob=1 \n
+			mp_wpn_desert_eagle \n
+			mp_ammo_11.43x23_hydro = 1 \n
 		</supplies>
 	</specific_character>
 </xml>

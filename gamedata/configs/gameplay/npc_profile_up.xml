@@ -1,11 +1,11 @@
-﻿<character id="stalker_normal">
-	<class>stalker_normal</class>
+﻿<character id="neutral_normal">
+	<class>neutral_normal</class>
 </character>
-<character id="stalker_veteran">
-	<class>stalker_veteran</class>
+<character id="neutral_veteran">
+	<class>neutral_veteran</class>
 </character>
-<character id="stalker_master">
-	<class>stalker_master</class>
+<character id="neutral_master">
+	<class>neutral_master</class>
 </character>
 
 <character id="duty_normal">
@@ -13,6 +13,9 @@
 </character>
 <character id="duty_veteran">
 	<class>duty_veteran</class>
+</character>
+<character id="duty_sniper">
+	<class>duty_sniper</class>
 </character>
 <character id="duty_master">
 	<class>duty_master</class>
@@ -24,6 +27,9 @@
 <character id="freedom_veteran">
 	<class>freedom_veteran</class>
 </character>
+<character id="freedom_sniper">
+	<class>freedom_sniper</class>
+</character>
 <character id="freedom_master">
 	<class>freedom_master</class>
 </character>
@@ -33,6 +39,9 @@
 </character>
 <character id="military_veteran">
 	<class>military_veteran</class>
+</character>
+<character id="military_sniper">
+	<class>military_sniper</class>
 </character>
 <character id="military_master">
 	<class>military_master</class>
