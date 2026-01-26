@@ -2,7 +2,7 @@
 
 ## Исправления
 
-* Вылеты связанные со звуками, с файлом sound_theme.script, с функцией select_next_sound
+* Вылеты связанные со звуками от NPC, с файлом sound_theme.script, с функцией select_next_sound
 
 ## Уровни
 
