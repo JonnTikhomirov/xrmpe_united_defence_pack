@@ -226,6 +226,12 @@ function TranslateGameMessage(packet)
 			xr_voicedialogs.add_to_save_table(name)
 		end
 		printf_msg("GM_SCRIPT_SAVE_VOICE_DIALOG: %s", name)
+	-- +UP
+	elseif _type == GM_REMOTE_COMMAND then
+		if OnServer() then
+			rc.sv_handle(packet)
+		end
+	-- -UP
 	end
 end
 

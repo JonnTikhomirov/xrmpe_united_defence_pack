@@ -58,6 +58,7 @@ GM_SCRIPT_ADDON_EVENTS = 100
 -- Add your own events after this
 -- Example:
 -- GM_SCRIPT_USE_ITEM = GM_SCRIPT_ADDON_EVENTS + 1
+GM_REMOTE_COMMAND = GM_SCRIPT_ADDON_EVENTS + 1
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
@@ -716,7 +717,10 @@ end
 
 function start_game_callback()
 	aa = alife()
-	
+	-- +UP
+	prefetch("rc")
+	-- -UP
+
 	fill_tables()
 	smart_names.init_smart_names_table()
 	task_manager.clear_task_manager()

@@ -1,0 +1,301 @@
+--------------------------------------------------------------------------------
+---rc.script--------------------------------------------------------------------
+-- Remote commands - RPC-слой для команд клиент-сервер--------------------------
+-- Made by JohnTikhomirov ------------------------------------------------------
+-- 31.01.26 --------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+
+local RC_COMMANDS = {}
+local RC_ADMIN_KEYS = {}
+local WRITTERS = {
+	bool = function(packet, value)
+		packet:w_bool(value)
+	end,
+	u8 = function(packet, value)
+		packet:w_u8(value)
+	end,
+	u16 = function(packet, value)
+		packet:w_u16(value)
+	end,
+	u32 = function(packet, value)
+		packet:w_u32(value)
+	end,
+	s8 = function(packet, value)
+		packet:w_s8(value)
+	end,
+	s16 = function(packet, value)
+		packet:w_s16(value)
+	end,
+	s32 = function(packet, value)
+		packet:w_s32(value)
+	end,
+	float = function(packet, value)
+		packet:w_float(value)
+	end,
+	vec3 = function(packet, value)
+		packet:w_vec3(value)
+	end,
+	stringZ = function(packet, value)
+		packet:w_stringZ(value)
+	end
+}
+local READERS = {
+	bool = function(packet)
+		return packet:r_bool()
+	end,
+	u8 = function(packet)
+		return packet:r_u8()
+	end,
+	u16 = function(packet)
+		return packet:r_u16()
+	end,
+	u32 = function(packet)
+		return packet:r_u32()
+	end,
+	s8 = function(packet)
+		return packet:r_s8()
+	end,
+	s16 = function(packet)
+		return packet:r_s16()
+	end,
+	s32 = function(packet)
+		return packet:r_s32()
+	end,
+	float = function(packet)
+		return packet:r_float()
+	end,
+	vec3 = function(packet)
+		return packet:r_vec3()
+	end,
+	stringZ = function(packet)
+		return packet:r_stringZ()
+	end
+}
+
+function init()
+	local fname = getFS():update_path("$app_data_root$", "radmins.ltx")
+	if fname and getFS():exist(fname) then
+		file = io.open(fname)
+		local str = file:read("*a")
+		file:close()
+		local data = lua_helper.fParse_CustomData(str)
+		if data.rcadmins then
+			for k, v in pairs(data.rcadmins) do
+				if v == "<<no_value>>" then
+					RC_ADMIN_KEYS[k] = true
+				else
+					RC_ADMIN_KEYS[string.lower(k)] = string.toboolean(v or "true")
+				end
+			end
+		else
+			to_log("RC.init: section 'rcadmins' not found in 'radmins.ltx'")
+		end
+	elseif not OnClient() then
+		to_log("RC.init: 'radmins.ltx' not found")
+	end
+	to_log("RC.init: success")
+end
+
+local ok, err = pcall(init)
+if not ok then
+	to_log("RC.init: error '%s'", err)
+end
+
+local function command_key(meta)
+    local acc = meta.name
+	
+	if(meta.args) then
+		local args_acc = ""
+		for _, a in ipairs(meta.args) do
+			if(args_acc ~= "") then
+				args_acc = args_acc .. ","
+			end
+			args_acc = args_acc .. a.name .. ":" .. a.type
+		end
+		acc = acc.."("..args_acc..")"
+	end
+
+    return acc
+end
+
+local function read_args(packet, args_meta)
+    local ctx = {}
+    for _, a in ipairs(args_meta) do
+        ctx[a.name] = READERS[a.type](packet)
+    end
+    return ctx
+end
+
+local function register(def)
+    -- детерминированный ID
+    local id = command_key(def)
+
+    if RC_COMMANDS[id] then
+        to_log(lua_fix.fmt2str("RC.register: collision (overrided) '%s', id: %s", def.name, id))
+    end
+
+    RC_COMMANDS[id] = def
+
+    return id
+end
+
+-- ================= SERVER =================
+
+local function sv_authorize(packet)
+    local key = packet:r_stringZ()
+	local access = RC_ADMIN_KEYS[key]
+	if access == true then
+		return true
+	elseif access == false then
+		return string.exformat("access denied, blocked key '%s'", key)
+	else
+		return string.exformat("access denied, key '%s'", key)
+	end
+end
+
+function sv_handle(packet)
+    if not OnServer() then return end
+
+	result = sv_authorize(packet)
+	local id = packet:r_stringZ()
+    if type(result) == "string" then
+        to_log("RC.sv_handle: %s, command: %s", result, id)
+        return
+    end
+
+    local command = RC_COMMANDS[id]
+
+    if not command then
+        to_log("RC.sv_handle: unknown command: %s", id)
+        return
+    end
+	if not command.sv_handler then
+        to_log("RC.sv_handle: handlers not found, command: %s", id)
+        return
+    end
+	if not command.args then
+        to_log("RC.sv_handle: args not defined, command: %s", id)
+        return
+    end	
+	local ok, args = pcall(read_args, packet, command.args)
+	if not ok then
+        to_log("RC.sv_handle: read args filed, command: %s", id, tostring(err))
+		return
+    end
+    local ok, err = pcall(command.sv_handler, args)
+    if not ok then
+        to_log("RC.sv_handle: command %s failed: %s", id, tostring(err))
+    end
+end
+
+-- ================= CLIENT =================
+
+local function cl_make_packet(id)
+    local key = get_console():get_string("cdkey")
+	if not key or key == "" then
+		to_log("RC.cl_make_packet: RC_ADMIN_KEYS %d", #RC_ADMIN_KEYS)
+        for k, v in pairs(RC_ADMIN_KEYS) do
+			if k ~= "" and v == true then
+				key = k
+				break
+			end
+		end
+    end
+    if not key or key == "" then
+        to_log("RC.cl_make_packet: no admin key, command: %s", id)
+        return nil
+    end
+
+    local packet = game_cl.GenerateGameMessage(GM_REMOTE_COMMAND)
+    packet:w_stringZ(key)
+    packet:w_stringZ(id)
+    return packet
+end
+
+local function cl_send(id, args)
+	if not id then
+		to_log("RC.cl_send: error: no command id")
+		return
+	end
+	local command = RC_COMMANDS[id]
+	if not command then
+		to_log("RC.cl_send: error: command not found, id: %s", id)
+		return
+	end
+
+	local packet = cl_make_packet(id)
+	if not packet then return end
+
+	if not args then
+		args = {}
+	end
+
+	for _, a in ipairs(command.args) do
+		WRITTERS[a.type](packet, args[a.name])
+	end
+	
+	if(skip) then
+		to_log("RC.cl_send: skip command, id: %s", id)
+		return
+	end
+
+	u_EventSendReliable(packet)
+	to_log("RC.cl_send: sended id: %s", id)
+end
+
+-- ================= COMMANDS =================
+
+local RC_SET_TIME = register {
+    name = "env.set_time",
+	args = {
+		{ name = "hour", type = "u8" },
+		{ name = "minute", type = "u8" }
+	},
+    sv_handler = function(args)
+        get_console():execute(string.format("sv_setenvtime %02d:%02d", args.hour, args.minute))
+    end
+}
+function cl_set_time(hour, minute)
+	cl_send(RC_SET_TIME, {hour = hour, minute = minute})
+end
+
+local RC_SET_SURGE = register {
+    name = "set_surge",
+	args = {
+		{ name = "state", type = "u8" },
+		{ name = "skip_message", type = "bool" }
+	},
+    sv_handler = function(args)
+		if args.start == 0 then
+			surge_manager.stop_surge()
+		elseif args.start == 1 then
+			disable_info("SURGE_NOT_ALLOWED")
+			surge_manager.start_surge()
+		elseif args.start == 2 then
+			surge_manager.skip_surge(args.skip_message)
+		end
+    end
+}
+function cl_set_surge(state, skip_message)
+	cl_send(RC_SET_SURGE, {state = state, skip_message = skip_message})
+end
+
+local RC_SET_WEATHER = register{
+    name = "SET_WEATHER",
+	args = {
+		{ name = "section", type = "stringZ" },
+		{ name = "is_fx", type = "bool" },
+		{ name = "set_now", type = "bool" }
+	},
+    sv_handler = function(args)
+		if args.is_fx then
+			level.set_weather_fx(args.section)
+		else
+			level.set_weather(args.section, args.set_now)
+		end
+    end,
+}
+function cl_set_weather(section, is_fx, set_now)
+	cl_send(RC_SET_WEATHER, {section = section, is_fx = is_fx, set_now = set_now})
+end
