@@ -13,6 +13,8 @@ on_press = ph_button@work %=play_sound(df_pripyat_center_radio_theme)%
 
 [ph_button@work]
 anim = $editor
-; on_signal = sound_end | ph_button@wait %=stop_sound(df_pripyat_center_radio_theme)%
+; on_signal = sound_end | ph_button@pause
 on_press = ph_button@wait %=stop_sound(df_pripyat_center_radio_theme)%
 tooltip = st_turn_radio_off
+
+
