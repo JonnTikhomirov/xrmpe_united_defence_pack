@@ -1,0 +1,293 @@
+game_id_dm 		= 2
+game_id_tdm 	= 4
+game_id_ah 		= 8
+game_id_cta 	= 16
+game_id_df 		= 32
+game_id_ow 		= 64
+game_id_coop 	= 128
+
+dialogs_filled = false
+
+pstor = { }
+
+function ReadStartGameInfo(packet)
+	if GameType() ~= game_cl.game_id_coop then
+		return
+	end
+
+	xr_logic.pstor_load_all("game_cl", packet)
+	xr_voicedialogs.load_dialogs(packet)
+	sim_squad_scripted_cl_manager.get_squad_manager():read_squads_info(packet)
+	surge_manager.get_surge_manager():read_start_game_info(packet)
+end
+
+function GenerateGameMessage(_type)
+	local packet = net_packet()
+	packet:w_begin(19)--M_GAMEMESSAGE
+	packet:w_u16(58)--GAME_EVENT_SCRIPT
+	packet:w_u16(_type)
+	
+	return packet
+end
+
+function TranslateGameMessage(packet)
+	local _type = packet:r_u16()
+	--printf_msg("TranslateGameMessage - _type: %u", _type)
+	
+	if _type == GM_SCRIPT_MANAGE_FLAG then
+		local id = packet:r_u16()
+		local name
+		if id ~= 65535 then
+			name = story_flags_table.id_to_flags[id]
+		else
+			name = packet:r_stringZ()
+		end
+		
+		local add = packet:r_u8()
+		
+		printf_msg("GM_SCRIPT_MANAGE_FLAG: %s %u", name, add)
+		
+		story_flags.set_flag(name, add == 1)
+	elseif _type == GM_SCRIPT_COLLECT_STORY_FLAGS then
+		story_flags.load_flags(packet)
+	elseif _type == GM_SCRIPT_INIT_NPC_TRADE then
+		if OnClient() then
+			local npc_id = packet:r_u16()
+			local ini = packet:r_stringZ()
+	
+			printf_msg("GM_SCRIPT_INIT_NPC_TRADE: %u %s", npc_id, ini)
+			if db.storage[npc_id] and db.storage[npc_id].object then
+				trade_manager.trade_init(db.storage[npc_id].object, ini)
+			end
+		end
+	elseif _type == GM_SCRIPT_UPDATE_SQUAD then
+		if OnClient() then
+			sim_squad_scripted_cl_manager.get_squad_manager():read_packet(packet)
+		end
+	elseif _type == GM_SCRIPT_SPAWN_ENTITY then
+		if OnServer() and GameType() == game_cl.game_id_coop then
+			local spawn_type = packet:r_u8()
+			-- to parent
+			if spawn_type == 0 then
+				local owner_id = packet:r_u16()
+				local actor = db.mp_actors[owner_id]
+				local n = packet:r_u8()
+				for i=1, n do
+					local sect = packet:r_stringZ()
+					alife():create(sect,
+							actor:position(),
+							actor:level_vertex_id(),
+							actor:game_vertex_id(),
+							actor:id())			
+				end
+			elseif spawn_type == 1 then
+				local sect_name = packet:r_stringZ()
+				local path_name = packet:r_stringZ()
+				local index = packet:r_u8()
+				local ptr = patrol(path_name)
+				local dir = vector():set(0, 0, 0)
+				
+				spawnEntity(sect_name, ptr:point(index), dir)	
+			end
+		end
+	elseif _type == GM_SCRIPT_UPDATE_LOGIC then
+		if OnServer() and GameType() == game_cl.game_id_coop then
+			local obj_id = packet:r_u16()
+			local actor_id = packet:r_u16()
+			
+			local sv_obj = alife():object(obj_id)
+			if sv_obj ~= nil and sv_obj.logic ~= nil then
+				if sv_obj.logic[actor_id] == nil then
+					sv_obj.logic[actor_id] = { }
+				end	
+				sv_obj.should_collect_data_indivdual = true
+				sv_obj.logic[actor_id].job_ini = packet:r_stringZ()
+				sv_obj.logic[actor_id].ini_filename = packet:r_stringZ()
+				sv_obj.logic[actor_id].section_logic = packet:r_stringZ()
+				sv_obj.logic[actor_id].active_section = packet:r_stringZ()
+				--printf_msg("received %s", sv_obj.logic[actor_id].active_section)
+				sv_obj.logic[actor_id].gulag_name = packet:r_stringZ()
+				sv_obj.logic[actor_id].activation_time = packet:r_s32()
+				sv_obj.logic[actor_id].activation_game_time = utils.r_CTime(packet)
+			end
+		end
+	elseif _type == GM_SCRIPT_PSTOR_STORE then
+		if OnClient() then
+			xr_logic.pstor_process_packet(packet)
+		end
+	elseif _type == GM_SCRIPT_STOP_SND_BY_ID then
+		if OnClient() then
+			local snd_id = packet:r_u16()
+			sound_theme.stop_snd_obj_on_client(snd_id)
+		end
+	elseif _type == GM_SCRIPT_SWITCH_TO_SECTION then
+		if OnServer() and GameType() == game_cl.game_id_coop then
+			local id = packet:r_u16()
+			local section = packet:r_stringZ()
+
+			local object = db.storage[id] and db.storage[id].object
+			if object then
+				if section == "nil" then
+					section = nil
+				end
+				xr_logic.switch_to_section(object, db.storage[id].ini, section)
+			end
+		end
+	elseif _type == GM_SCRIPT_SKIP_CUTSCENE then
+		local restrictor_id = packet:r_u16()
+		local obj = db.storage[restrictor_id]
+		if obj and obj.active_scheme then
+			obj[obj.active_scheme].signals["cam_effector_stop"] = true
+		end
+	elseif _type == GM_SCRIPT_SURGE then
+		if OnClient() then
+			printf_msg("GM_SCRIPT_SURGE")
+			local start = packet:r_u8()
+			if start == 0 then
+				surge_manager.stop_surge()
+			elseif start == 1 then
+				surge_manager.start_surge()
+			elseif start == 2 then
+				local skip_message = packet:r_bool()
+				surge_manager.skip_surge(skip_message)
+			end
+		end
+	elseif _type == GM_SCRIPT_ANIM_OBJECT then
+		local direction = packet:r_u8()
+		if direction == 0 then -- forward
+			local n = packet:r_u8()
+			local params = { }
+			for i = 1, n do
+				local name = packet:r_stringZ()
+				table.insert(params, name)
+			end
+			xr_effects.anim_obj_forward_impl(nil, nil, params)		
+		elseif direction == 1 then -- backward
+			local name = packet:r_stringZ()
+			xr_effects.anim_obj_backward_impl(nil, nil, { name })	
+		elseif direction == 2 then -- stop 
+			local name = packet:r_stringZ()
+			xr_effects.anim_obj_stop_impl(nil, nil, { name })	
+		end
+	elseif _type == GM_SCRIPT_SLEEP then
+		ui_sleep_dialog.start_sleep(packet)
+	elseif _type == GM_SCRIPT_UPDATE_STATISTIC then
+		xr_statistic.read_data(packet)
+	elseif _type == GM_SCRIPT_CHANGE_TASK_MAP_LOCATION then
+		if OnServer() then
+			local task_id = packet:r_stringZ()
+			local spot = packet:r_stringZ()
+			local story_id = packet:r_stringZ()
+			local actor_id = packet:r_u16()
+			
+			if story_id == "nil" or spot == "nil "then
+				printf_msg("! GM_SCRIPT_CHANGE_TASK_MAP_LOCATION: story_id: %s spot: %s", tostring(story_id), tostring(spot))
+				return
+			end
+			
+			local t = db.actor:get_task(tostring(task_id), true)
+			if not t then
+				printf_msg("! GM_SCRIPT_CHANGE_TASK_MAP_LOCATION: Can't find task")
+				return
+			end
+			
+			local target = get_story_object_id(story_id)
+			
+			if target ~= nil then
+				if t:get_map_location_object_id() ~= target then 
+					printf_msg("~ GM_SCRIPT_CHANGE_TASK_MAP_LOCATION: %s", tostring(target))
+					t:change_map_location(spot, target)
+				end
+				
+				t:add_map_location_owner(actor_id)
+			end
+		end
+	elseif _type == GM_SCRIPT_REMOVE_TASK_MAP_LOCATIONS then
+		if OnServer() then
+			local task_id = packet:r_stringZ()
+			local t = db.actor:get_task(tostring(task_id), true)
+			
+			if not t then
+				printf_msg("! GM_SCRIPT_REMOVE_TASK_MAP_LOCATIONS: Can't find task")
+				return
+			end
+			
+			t:remove_map_locations(false)
+		end
+	elseif _type == GM_SCRIPT_START_VOICE_DIALOG then
+		local name = packet:r_stringZ()
+		local first_speaker = packet:r_stringZ()
+		local second_speaker = packet:r_stringZ()
+		xr_voicedialogs.start_dialog(name, first_speaker, second_speaker)
+		printf_msg("GM_SCRIPT_START_VOICE_DIALOG: %s", name)
+	elseif _type == GM_SCRIPT_SAVE_VOICE_DIALOG then
+		local name = packet:r_stringZ()
+		if OnServer() then
+			xr_voicedialogs.add_to_save_table(name)
+		end
+		printf_msg("GM_SCRIPT_SAVE_VOICE_DIALOG: %s", name)
+	end
+end
+
+-- Invokes from different thread (not main) !!!!
+function on_connect_started()
+	fill_tables()
+	sound_theme.load_sound()
+	if not snd_loaded then 
+		xr_voicedialogs.start_game_callback()
+		snd_loaded = true
+	end
+	
+	if not dialogs_filled then
+		dialog_manager.fill_phrase_table()
+		dialogs_filled = true
+	end
+	
+	xr_voicedialogs.cleanup()
+	xr_statistic.actor_statistic.completed_quests = 0
+end
+
+--function on_connect_finished()
+--	if not snd_loaded then 
+--		sound_theme.load_sound()
+--		snd_loaded = true
+--	end
+--end
+
+function give_task(task_id, status)
+	if getLocalActor() then
+		local t = getLocalActor():get_task(tostring(task_id), true)
+		if t then
+			return
+		end
+	end
+
+	task_manager.get_task_manager():give_task(task_id, status)
+end
+
+function set_task_finish_time(task_id, y, m, d, h, mi, s, ms)
+	--printf_msg("set_task_finish_time called %s %s %s %s %s", tostring(y), tostring(m), tostring(d), tostring(h), tostring(mi))
+	local task = task_manager.get_task_manager():get_task(task_id)
+	if task ~= nil then
+		local _time = game.CTime()
+		_time:set(y, m, d, h, mi, s, ms)
+		task:set_finish_time(_time)
+	end
+end
+
+function complete_generic()
+	local actor = db.storage[LocalActor()].object
+	actor:disable_info_portion("xrmpe_ow_generic_update")
+	actor:give_info_portion("xrmpe_ow_generic_complete")
+	actor:give_info_portion("xrmpe_openworld_has_cooldown")
+end
+
+function executeFunctionOnServer(funcName)
+	local packet = net_packet()
+	packet:w_begin(19)--M_GAMEMESSAGE
+	packet:w_u16(55)--GAME_EVENT_EXECUTE_SCRIPT_FUNC
+	packet:w_stringZ(funcName)
+	packet:w_u16(LocalActor())
+	printf_msg(funcName)
+	u_EventSend(packet);
+end
