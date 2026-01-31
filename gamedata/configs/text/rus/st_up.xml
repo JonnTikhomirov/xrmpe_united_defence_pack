@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<string_table>
+	<string id="tool_weather_add_hour">
+		<text>+ час</text>
+	</string>
+	<string id="speech_laugh">
+		<text>Смех</text>
+	</string>
+</string_table>

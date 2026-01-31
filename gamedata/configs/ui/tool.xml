@@ -7,7 +7,7 @@
 <?xml version="1.0" encoding="windows-1251" ?>
 <debug>
 	<background x="0" y="0" width="950" height="1000" stretch="1">
-		<texture>ui\ui_notepad_2</texture>
+		<!-- <texture>ui\ui_notepad_2</texture> +UP -->
 	</background>
 	<!-- Main buttons background line 1 -->
 	<mbbackground_frame_line x="95" y="556" width="625" height="32">
@@ -155,7 +155,7 @@
 		</primary_list_item>
 	</frame_left>
 	<frame_right x="297" y="103" width="518" height="451">
-		<texture>ui_stroketextbox</texture>
+		<!-- <texture>ui_stroketextbox</texture> +UP -->
 		<secondary_list_item>
 			<main width="496" height="20"/>
 			<fn width="496" height="20"/>

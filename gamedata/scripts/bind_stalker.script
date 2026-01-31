@@ -58,7 +58,6 @@ end
 
 function mp_actor_binder:net_spawn(data)
 --	printf("actor net spawn")
-	printf_msg("mp_actor_binder:net_spawn")
 	level.show_indicators()
 	self.bCheckStart = true
 	self.weapon_hide = false -- спрятано или нет оружие при разговоре.
@@ -91,14 +90,16 @@ function mp_actor_binder:net_spawn(data)
 	end
 	
 	-- + UP
-	-- ++ The Tool
-	lua_helper.attach() -- если вспомогательный модуль Артоса ещё не подключён
-	m_netpk.attach() -- если модуль нет-пакетов Артоса ещё не подключён
-	if keylogger then keylogger.init() end -- если кейлоггер Чарси ещё не подключён
-	if tool then tool.init() end -- обязательно
-	-- -- The Tool	
-	if keylogger then keylogger.on_load() end
-	if tool then tool.OnLoad() end
+	if OnClient() then
+		-- ++ The Tool
+		lua_helper.attach() -- если вспомогательный модуль Артоса ещё не подключён
+		m_netpk.attach() -- если модуль нет-пакетов Артоса ещё не подключён
+		if keylogger then keylogger.init() end -- если кейлоггер Чарси ещё не подключён
+		if tool then tool.init() end -- обязательно
+		-- -- The Tool	
+		if keylogger then keylogger.on_load() end
+		if tool then tool.OnLoad() end
+	end
 	-- - UP
 
 	return true
@@ -120,9 +121,11 @@ function mp_actor_binder:reinit()
 	self.object:set_callback(callback.use_object, self.use_inventory_item, self)
 
 	-- + UP
-	--/#+# [lua_helper] ------------------------------------------------
-	if lua_helper.Init_ActorPStor then lua_helper.Init_ActorPStor() end
-	--/< ---------------------------------------------------------------
+	if OnClient() then
+		--/#+# [lua_helper] ------------------------------------------------
+		if lua_helper.Init_ActorPStor then lua_helper.Init_ActorPStor() end
+		--/< ---------------------------------------------------------------
+	end
 	-- - UP
 
 end
@@ -424,13 +427,15 @@ function actor_binder:reinit()
 	self.object:set_callback(callback.task_state, self.task_callback, self)
 	self.object:set_callback(callback.take_item_from_box, self.take_item_from_box, self)
 	self.object:set_callback(callback.use_object, self.use_inventory_item, self)
-	-- + UP
-	-- ++ The Tool
-	--/#+# [lua_helper] ------------------------------------------------
-	if lua_helper.Init_ActorPStor then lua_helper.Init_ActorPStor() end
-	--/< ---------------------------------------------------------------
-	-- - The Tool
-	-- - UP
+	-- +UP
+	if OnClient() then
+		-- ++ The Tool
+		--/#+# [lua_helper] ------------------------------------------------
+		if lua_helper.Init_ActorPStor then lua_helper.Init_ActorPStor() end
+		--/< ---------------------------------------------------------------
+		-- - The Tool
+	end	
+	-- -UP
 end
 ----------------------------------------------------------------------------------------------------------------------
 function actor_binder:take_item_from_box(box, item)
@@ -641,9 +646,11 @@ end
 function actor_binder:save(packet)
 
 	-- + UP
-	-- ++ The Tool
-	xr_s.on_event("actor_save")
-	-- -- The Tool
+	if OnClient() then
+		-- ++ The Tool
+		xr_s.on_event("actor_save")
+		-- -- The Tool
+	end
 	-- - UP
 
 	set_save_marker(packet, "save", false, "actor_binder")

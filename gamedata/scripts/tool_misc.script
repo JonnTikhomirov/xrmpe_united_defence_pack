@@ -388,6 +388,7 @@ function misc:OnBtnTimefactorSet()
 	if time_factor > 1000000 then time_factor = 1000000 end
 	self.timefactor_value:SetText(string.format("%d", time_factor))
 	level.set_time_factor(time_factor)
+	get_console():execute("time_factor "..tostring(time_factor))-- +UP
 	self:Refresh(time_factor)
 end
 
@@ -396,6 +397,7 @@ function misc:OnBtnTimefactorReset()
 	to_log(sModule..":> OnBtnTimefactorReset start")
 	self.timefactor_coeff_value:SetText(tostring(self.base_time_factor_coeff))
 	level.set_time_factor(self.base_time_factor)
+	get_console():execute("time_factor "..tostring(time_factor))-- +UP
 	self:Refresh(self.base_time_factor)
 end
 

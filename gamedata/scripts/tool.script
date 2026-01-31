@@ -120,7 +120,7 @@ function OnLoad()
 		dx1 = Get_Cfg_Num32(ltx, "settings", "tab_interval", 105), -- расстояние между кнопками для квадратных мониторов
 		dx2 = Get_Cfg_Num32(ltx, "settings", "tab_interval_16", 75) -- расстояние между кнопками для широкоформатных мониторов
 	}
-
+	
 
 	-- назначение горячих клавиш
 	keylogger.bind_console_key(string.upper(Get_Cfg_String(ltx, "key_bindings", "tool_manager", "J")), ShowDebugManagerDialog)
@@ -194,7 +194,8 @@ function tool_manager:InitControls()
 
 	-- + UP
 	-- self:SetWndRect(Frect():set(30, 20, 1024, 768))
-	self:SetWndRect(Frect():set(30, 20, device().width*0.6, device().height*0.6))
+	--self:SetWndRect(Frect():set(30, 20, device().width*0.6, device().height*0.6))
+	self:SetWndRect(Frect():set(0, 0, device().width, device().height))
 	-- - UP
 	local xml = CScriptXmlInit()
 	xml:ParseFile(sXmlPath)
@@ -203,8 +204,8 @@ function tool_manager:InitControls()
 	xml:InitStatic("background", self)
 
 	-- фон закладок разделов
-	xml:InitFrameLine("mbbackground_frame_line2", self)
-	self.back_frame = xml:InitFrameLine("mbbackground_frame_line", self)
+	-- xml:InitFrameLine("mbbackground_frame_line2", self)-- +UP
+	-- self.back_frame = xml:InitFrameLine("mbbackground_frame_line", self)-- +UP
 	
 	-- закладки разделов
 	self.tab = xml:InitTab("tab", self)
