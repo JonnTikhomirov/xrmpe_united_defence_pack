@@ -54,21 +54,23 @@ function weather:InitControls(owner, xml)
 	-- кнопка Прибавить час
 	self.btn_add_hour = xml:Init3tButton("frame_right_weather:weather_frame_buttons:btn_add_hour", self.weather_frame_buttons)
 	owner:Register(self.btn_add_hour, "weather_btn_add_hour")
-	self.weather_frame_buttons_controls[#self.weather_frame_buttons_controls] = self.btn_add_hour
+	table.insert(self.weather_frame_buttons_controls, self.btn_add_hour)
+
 	-- кнопка Прибавить минуту
 	self.btn_add_minute = xml:Init3tButton("frame_right_weather:weather_frame_buttons:btn_add_minute", self.weather_frame_buttons)
 	owner:Register(self.btn_add_minute, "weather_btn_add_minute")
-	self.weather_frame_buttons_controls[#self.weather_frame_buttons_controls] = self.btn_add_minute
+	table.insert(self.weather_frame_buttons_controls, self.btn_add_minute)
+
 	-- чекбокс Фиксировать
 	self.checkbox_fix = xml:InitCheck("frame_right_weather:weather_frame_buttons:checkbox_fix", self.weather_frame_buttons)
 	self.checkbox_fix_checked = false
 	self.checkbox_fix:SetCheck(self.checkbox_fix_checked)
 	owner:Register(self.checkbox_fix, "weather_checkbox_fix")
-	self.weather_frame_buttons_controls[#self.weather_frame_buttons_controls] = self.checkbox_fix
+	table.insert(self.weather_frame_buttons_controls, self.checkbox_fix)
 
 	-- ползунок времени
 	self.time_track = xml:InitTrackBar("frame_right_weather:time_track", owner)-- к owner, причуды xrmpe
-	self.weather_frame_buttons_controls[#self.weather_frame_buttons_controls] = self.time_track
+	table.insert(self.weather_frame_buttons_controls, self.time_track)
 	owner:Register(self.time_track, "weather_time_track")
 	
 	local track_base = xml:InitStatic("frame_right_weather:time_track:auto_static", self.time_track)
@@ -79,11 +81,11 @@ function weather:InitControls(owner, xml)
 	self.track_marker = xml:InitStatic("frame_right_weather:time_track:marker", self.time_track)
 	self.track_marker:SetWndPos(vector2():set(self.track_base_start, self.track_marker:GetWndPos().y))
 	self.track_marker:Enable(false);
-	self.weather_frame_buttons_controls[#self.weather_frame_buttons_controls] = self.track_marker
+	table.insert(self.weather_frame_buttons_controls, self.track_marker)
 
 	local hour = xml:InitStatic("frame_right_weather:time_track:hour_st", self.time_track)
 	hour:TextControl():SetText("0"..game.translate_string("st_sleep_hours"))
-	self.weather_frame_buttons_controls[#self.weather_frame_buttons_controls] = hour
+	table.insert(self.weather_frame_buttons_controls, hour)
 	local start_x = hour:GetWndPos().x
 
 	local delta = math.floor(self.track_base_width / 24)
@@ -91,7 +93,7 @@ function weather:InitControls(owner, xml)
 		hour = xml:InitStatic("frame_right_weather:time_track:hour_st", self.time_track)
 		hour:SetWndPos(vector2():set(start_x + delta*i, hour:GetWndPos().y))
 		hour:TextControl():SetText(i..game.translate_string("st_sleep_hours"))
-		self.weather_frame_buttons_controls[i+#self.weather_frame_buttons_controls-1] = hour
+		table.insert(self.weather_frame_buttons_controls, hour)
 	end
 	-- -UP
 end
@@ -168,8 +170,12 @@ end
 function weather:HideFields()
 	to_log(sModule..":> HideFields start")
 	-- self.owner:SetFrameShowState(false, self.weather_frame)
-	self.owner:SetFrameShowState(false, self.weather_list)
-	self.owner:SetFrameShowState(false, self.weather_frame_buttons)
+	-- +UP
+	-- self.owner:SetFrameShowState(false, self.weather_list)
+	-- self.owner:SetFrameShowState(false, self.weather_frame_buttons)
+	self.owner:SetFrameShowState(false, self.weather_list, self.weather_frame_controls)
+	self.owner:SetFrameShowState(false, self.weather_frame_buttons, self.weather_frame_buttons_controls)
+	-- -UP
 end
 
 -- кнопка Установить

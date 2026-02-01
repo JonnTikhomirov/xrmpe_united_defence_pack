@@ -232,7 +232,7 @@ function tool_manager:InitControls()
 
 	-- информационные области
 	self.frame_left = xml:InitFrame("frame_left", self)
-	self.frame_right = xml:InitFrame("frame_right", self)
+	self.frame_right = xml:InitStatic("frame_right", self)
 
 	-- заголовок раздела
 	self.caption = xml:InitStatic("frame_left:title", self.frame_left)
@@ -438,7 +438,8 @@ end
 -- установка видимости фрейма и подчинённых элементов (при наличии)
 function tool_manager:SetFrameShowState(show, frame, elements)
 	if frame then frame:Show(show) end
-	if show and type(elements) == "table" then
+	-- if show and type(elements) == "table" then -- +UP
+	if type(elements) == "table" then -- +UP
 		for _,element in ipairs(elements) do element:Show(show) end
 	end
 end
