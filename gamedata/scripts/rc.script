@@ -399,7 +399,7 @@ RC_SET_TIME = register {
 		{ name = "minute", type = "u8" }
 	},
 	sv_handler = function(args)
-		get_console():execute(string.format("sv_setenvtime %02d:%02d", args.hour, args.minute))
+		get_console():execute(string.format("sv_setenvtime %d:%d", args.hour, args.minute))
 	end
 }
 function cl_set_time(hour, minute)
@@ -417,7 +417,7 @@ RC_SET_SURGE = register {
 			surge_manager.stop_surge()
 		elseif args.start == 1 then
 			disable_info("SURGE_NOT_ALLOWED")
-			surge_manager.start_surge()
+			surge_manager.start_surge()-- TODO: не работает выброс
 		elseif args.start == 2 then
 			surge_manager.skip_surge(args.skip_message)
 		end
@@ -455,17 +455,14 @@ RC_FIX_WEATHER = register{
 	sv_handler = function(args)
 		local manager = level_weathers.get_weather_manager()
 		if args.is_fixed then
-			manager.select_weather = function (self, now)
-				return
-			end
+			manager.select_weather = function (self, now) return end
 		else
-			-- manager.last_hour = level.get_time_hours()
 			manager.select_weather = level_weathers.WeatherManager.select_weather
 		end
 	end,
 }
 function cl_fix_weather(is_fixed)
-	if not is_fixed then
+	if is_fixed == nil then
 		is_fixed = true
 	end
 	cl_send(RC_FIX_WEATHER, {is_fixed = is_fixed})

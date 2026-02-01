@@ -15,30 +15,47 @@
 	</weather_frame>
 	<weather_frame_buttons x="0" y="372" width="518" height="30"><!-- +UP -->
 		<checkbox_now x="10" y="6" width="22" height="22">
-			<text font="letterica18" align="l" x="-10" y="-1" r="216" g="186" b="140" complex_mode="0">tool_weather_set_now</text>
 			<!-- + UP -->
-			<check_mark anchor="mid-center" width="30" height="22"/>
+			<!-- <text font="letterica18" align="l" x="-10" y="-1" r="216" g="186" b="140" complex_mode="0">tool_weather_set_now</text> -->
+			<texture>ui_mainmenu_checkbox_bg</texture>
+			<check_mark anchor="mid-center" width="30" height="22">
+				<texture>ui_mainmenu_checkbox_mark</texture>
+			</check_mark>
+			<text font="letterica16" align="l" x="15" complex_mode="0">tool_weather_set_now</text>
 			<!-- - UP -->
 		</checkbox_now>
-		<btn_set x="329" y="3" width="90" height="26">
+		<btn_set x="339" y="3" width="90" height="26"><!-- + UP -->
 			<texture_e>ui_button_ordinary_e</texture_e>
 			<texture_t>ui_button_ordinary_t</texture_t>
 			<texture_h>ui_button_ordinary_h</texture_h>
 			<text font="letterica18" x="0" y="0" align="c" vert_align="c" color="ui_6">tool_weather_set</text>
 		</btn_set>
-		<btn_surge x="424" y="3" width="90" height="26">
+		<btn_surge x="434" y="3" width="60" height="26"><!-- + UP -->
 			<texture_e>ui_button_ordinary_e</texture_e>
 			<texture_t>ui_button_ordinary_t</texture_t>
 			<texture_h>ui_button_ordinary_h</texture_h>
 			<text font="letterica18" x="0" y="0" align="c" vert_align="c" color="ui_6">tool_weather_surge</text>
 		</btn_surge>
 		<!-- +UP -->
-		<btn_add_hour x="230" y="3" width="70" height="26">
+		<btn_add_hour x="240" y="3" width="40" height="26">
 			<texture_e>ui_button_ordinary_e</texture_e>
 			<texture_t>ui_button_ordinary_t</texture_t>
 			<texture_h>ui_button_ordinary_h</texture_h>
 			<text font="letterica18" x="0" y="0" align="c" vert_align="c" color="ui_6">tool_weather_add_hour</text>
 		</btn_add_hour>
+		<btn_add_minute x="280" y="3" width="60" height="26">
+			<texture_e>ui_button_ordinary_e</texture_e>
+			<texture_t>ui_button_ordinary_t</texture_t>
+			<texture_h>ui_button_ordinary_h</texture_h>
+			<text font="letterica18" x="0" y="0" align="c" vert_align="c" color="ui_6">tool_weather_add_minute</text>
+		</btn_add_minute>
+		<checkbox_fix x="150" y="6" width="22" height="22" stretch="1">
+			<texture>ui_mainmenu_checkbox_bg</texture>
+			<check_mark anchor="mid-center" width="30" height="22">
+				<texture>ui_mainmenu_checkbox_mark</texture>
+			</check_mark>
+			<text font="letterica16" align="l" x="15" complex_mode="0">tool_weather_fix</text>
+		</checkbox_fix>
 		<!-- -UP -->
 	</weather_frame_buttons>
 	<!-- +UP -->
