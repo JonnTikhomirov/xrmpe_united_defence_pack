@@ -103,7 +103,7 @@ if not ok then
 end
 
 local function command_key(meta)
-    local acc = meta.name
+	local acc = meta.name
 	
 	if(meta.args) then
 		local args_acc = ""
@@ -116,34 +116,55 @@ local function command_key(meta)
 		acc = acc.."("..args_acc..")"
 	end
 
-    return acc
+	return acc
+end
+
+local function write_args(packet, args_meta, args_values)
+	-- args_meta: array of {name=..., type=...}
+	-- args_values: table { name = value, ... }
+	for _, a in ipairs(args_meta) do
+		local val = args_values[a.name]
+		if val == nil then
+			-- если аргумент обязательный — отказ
+			return false, string.format("missing arg '%s'", a.name)
+		end
+
+		local writer = WRITTERS[a.type]
+		if not writer then
+			return false, string.format("writer for type '%s' not found", a.type)
+		end
+
+		-- записываем значение
+		writer(packet, val)
+	end
+	return true
 end
 
 local function read_args(packet, args_meta)
-    local ctx = {}
-    for _, a in ipairs(args_meta) do
-        ctx[a.name] = READERS[a.type](packet)
-    end
-    return ctx
+	local ctx = {}
+	for _, a in ipairs(args_meta) do
+		ctx[a.name] = READERS[a.type](packet)
+	end
+	return ctx
 end
 
 local function register(def)
-    -- детерминированный ID
-    local id = command_key(def)
+	-- детерминированный ID
+	local id = command_key(def)
 
-    if RC_COMMANDS[id] then
-        to_log(lua_fix.fmt2str("RC.register: collision (overrided) '%s', id: %s", def.name, id))
-    end
+	if RC_COMMANDS[id] then
+		to_log(lua_fix.fmt2str("RC.register: collision (overrided) '%s', id: %s", def.name, id))
+	end
 
-    RC_COMMANDS[id] = def
+	RC_COMMANDS[id] = def
 
-    return id
+	return id
 end
 
 -- ================= SERVER =================
 
 local function sv_authorize(packet)
-    local key = packet:r_stringZ()
+	local key = packet:r_stringZ()
 	local access = RC_ADMIN_KEYS[key]
 	if access == true then
 		return true
@@ -155,62 +176,121 @@ local function sv_authorize(packet)
 end
 
 function sv_handle(packet)
-    if not OnServer() then return end
+	if not OnServer() then return end
 
 	result = sv_authorize(packet)
 	local id = packet:r_stringZ()
-    if type(result) == "string" then
-        to_log("RC.sv_handle: %s, command: %s", result, id)
-        return
-    end
+	if type(result) == "string" then
+		to_log("RC.sv_handle: %s, command: %s", result, id)
+		return
+	end
 
-    local command = RC_COMMANDS[id]
+	local command = RC_COMMANDS[id]
 
-    if not command then
-        to_log("RC.sv_handle: unknown command: %s", id)
-        return
-    end
+	if not command then
+		to_log("RC.sv_handle: unknown command: %s", id)
+		return
+	end
 	if not command.sv_handler then
-        to_log("RC.sv_handle: handlers not found, command: %s", id)
-        return
-    end
+		to_log("RC.sv_handle: handlers not found, command: %s", id)
+		return
+	end
 	if not command.args then
-        to_log("RC.sv_handle: args not defined, command: %s", id)
-        return
-    end	
+		to_log("RC.sv_handle: args not defined, command: %s", id)
+		return
+	end	
 	local ok, args = pcall(read_args, packet, command.args)
 	if not ok then
-        to_log("RC.sv_handle: read args filed, command: %s", id, tostring(err))
+		to_log("RC.sv_handle: read args filed, command: %s", id, tostring(err))
 		return
-    end
-    local ok, err = pcall(command.sv_handler, args)
-    if not ok then
-        to_log("RC.sv_handle: command %s failed: %s", id, tostring(err))
-    end
+	end
+	local ok, err = pcall(command.sv_handler, args)
+	if not ok then
+		to_log("RC.sv_handle: command %s failed: %s", id, tostring(err))
+	else
+		to_log("RC.sv_handle: handler '%s' executed", id)
+	end
+end
+
+function sv_handle_batch(packet)
+	if not OnServer() then return end
+
+	local auth = sv_authorize(packet)
+	if type(auth) == "string" then
+		to_log("RC.sv_handle_batch: auth failed: %s", tostring(auth))
+		return
+	end
+
+	local count = packet:r_u8()
+	if type(count) ~= "number" or count <= 0 then
+		to_log("RC.sv_handle_batch: invalid count: %s", tostring(count))
+		return
+	end
+
+	for i = 1, count do
+		local id = packet:r_stringZ()
+		if not id then
+			to_log("RC.sv_handle_batch: missing id at index %d", i)
+			return
+		end
+
+		local meta = RC_COMMANDS[id]
+		if not meta then
+			to_log("RC.sv_handle_batch: unknown command '%s' at index %d", tostring(id), i)
+			-- пропускаем чтение аргументов: чтобы не ломать поток, нужно знать схему.
+			-- так как схемы нет — безопаснее прекратить обработку батча
+			return
+		end
+
+		if not meta.args then
+			to_log("RC.sv_handle_batch: command '%s' has no args definition at index %d", id, i)
+			return
+		end
+
+		-- читаем аргументы (read_args может бросить ошибку)
+		local ok, args_or_err = pcall(read_args, packet, meta.args)
+		if not ok then
+			to_log("RC.sv_handle_batch: failed to read args for '%s' at index %d: %s", id, i, tostring(args_or_err))
+			return
+		end
+
+		-- вызываем handler
+		if not meta.sv_handler then
+			to_log("RC.sv_handle_batch: no sv_handler for '%s' at index %d", id, i)
+			return
+		end
+
+		local ok2, err = pcall(meta.sv_handler, args_or_err)
+		if not ok2 then
+			to_log("RC.sv_handle_batch: handler '%s' failed at index %d: %s", id, i, tostring(err))
+			-- по умолчанию продолжаем обрабатывать дальше; если хочешь атомарности — return тут
+		else
+			to_log("RC.sv_handle_batch: handler '%s' executed at index %d", id, i)
+		end
+	end
 end
 
 -- ================= CLIENT =================
 
 local function cl_make_packet(id)
-    local key = get_console():get_string("cdkey")
+	local key = get_console():get_string("cdkey")
 	if not key or key == "" then
-		to_log("RC.cl_make_packet: RC_ADMIN_KEYS %d", #RC_ADMIN_KEYS)
-        for k, v in pairs(RC_ADMIN_KEYS) do
+		for k, v in pairs(RC_ADMIN_KEYS) do
 			if k ~= "" and v == true then
 				key = k
 				break
 			end
 		end
-    end
-    if not key or key == "" then
-        to_log("RC.cl_make_packet: no admin key, command: %s", id)
-        return nil
-    end
+	end
+	if not key or key == "" then
+		to_log("RC.cl_make_packet: no admin key, command: %s", id)
+		return nil
+	end
 
-    local packet = game_cl.GenerateGameMessage(GM_REMOTE_COMMAND)
-    packet:w_stringZ(key)
-    packet:w_stringZ(id)
-    return packet
+	local packet = game_cl.GenerateGameMessage(GM_REMOTE_COMMAND)
+	packet:w_stringZ(key)
+	packet:w_stringZ(id)
+	return packet
 end
 
 local function cl_send(id, args)
@@ -244,29 +324,95 @@ local function cl_send(id, args)
 	to_log("RC.cl_send: sended id: %s", id)
 end
 
+-- CLIENT: отправка батча
+-- commands_array = {
+--   { id = RC_SET_TIME, args = { hour = 12, minute = 30 } },
+--   { id = RC_SET_SURGE, args = { state = 1, skip_message = false } },
+--   ...
+-- }
+function cl_send_batch(commands_array)
+	if not commands_array or #commands_array == 0 then
+		to_log("RC.cl_send_batch: nothing to send")
+		return false
+	end
+
+	-- выбираем ключ
+	local key = get_console():get_string("cdkey")
+	if not key or key == "" then
+		for k, v in pairs(RC_ADMIN_KEYS) do
+			if k ~= "" and v == true then
+				key = k
+				break
+			end
+		end
+	end
+	if not key or key == "" then
+		to_log("RC.cl_send_batch: no admin key")
+		return false
+	end
+
+	local packet = game_cl.GenerateGameMessage(GM_REMOTE_COMMAND_BATCH)
+	packet:w_stringZ(key)
+
+	-- ограничение: не больше 255 команд в одном пакете
+	if #commands_array > 255 then
+		to_log("RC.cl_send_batch: too many commands (%d)", #commands_array)
+		return false
+	end
+
+	packet:w_u8(#commands_array)
+
+	-- сериализация каждой команды
+	for i, cmd in ipairs(commands_array) do
+		if not cmd or not cmd.id then
+			to_log("RC.cl_send_batch: invalid command at index %d", i)
+			return false
+		end
+		local meta = RC_COMMANDS[cmd.id]
+		if not meta then
+			to_log("RC.cl_send_batch: unknown command id '%s' at index %d", tostring(cmd.id), i)
+			return false
+		end
+
+		packet:w_stringZ(cmd.id) -- у тебя id — строка
+		local args_table = cmd.args or {}
+
+		-- записываем args (используем write_args)
+		local ok, err = write_args(packet, meta.args or {}, args_table)
+		if not ok then
+			to_log("RC.cl_send_batch: serialize failed for '%s' index %d: %s", cmd.id, i, tostring(err))
+			return false
+		end
+	end
+
+	u_EventSendReliable(packet)
+	to_log("RC.cl_send_batch: sent %d commands", #commands_array)
+	return true
+end
+
 -- ================= COMMANDS =================
 
-local RC_SET_TIME = register {
-    name = "env.set_time",
+RC_SET_TIME = register {
+	name = "env.set_time",
 	args = {
 		{ name = "hour", type = "u8" },
 		{ name = "minute", type = "u8" }
 	},
-    sv_handler = function(args)
-        get_console():execute(string.format("sv_setenvtime %02d:%02d", args.hour, args.minute))
-    end
+	sv_handler = function(args)
+		get_console():execute(string.format("sv_setenvtime %02d:%02d", args.hour, args.minute))
+	end
 }
 function cl_set_time(hour, minute)
 	cl_send(RC_SET_TIME, {hour = hour, minute = minute})
 end
 
-local RC_SET_SURGE = register {
-    name = "set_surge",
+RC_SET_SURGE = register {
+	name = "set_surge",
 	args = {
 		{ name = "state", type = "u8" },
 		{ name = "skip_message", type = "bool" }
 	},
-    sv_handler = function(args)
+	sv_handler = function(args)
 		if args.start == 0 then
 			surge_manager.stop_surge()
 		elseif args.start == 1 then
@@ -275,27 +421,52 @@ local RC_SET_SURGE = register {
 		elseif args.start == 2 then
 			surge_manager.skip_surge(args.skip_message)
 		end
-    end
+	end
 }
 function cl_set_surge(state, skip_message)
 	cl_send(RC_SET_SURGE, {state = state, skip_message = skip_message})
 end
 
-local RC_SET_WEATHER = register{
-    name = "SET_WEATHER",
+RC_SET_WEATHER = register{
+	name = "SET_WEATHER",
 	args = {
 		{ name = "section", type = "stringZ" },
 		{ name = "is_fx", type = "bool" },
 		{ name = "set_now", type = "bool" }
 	},
-    sv_handler = function(args)
+	sv_handler = function(args)
+		level_weathers.get_weather_manager().last_hour = level.get_time_hours()
 		if args.is_fx then
 			level.set_weather_fx(args.section)
 		else
 			level.set_weather(args.section, args.set_now)
 		end
-    end,
+	end,
 }
 function cl_set_weather(section, is_fx, set_now)
 	cl_send(RC_SET_WEATHER, {section = section, is_fx = is_fx, set_now = set_now})
+end
+
+RC_FIX_WEATHER = register{
+	name = "FIX_WEATHER",
+	args = {
+		{ name = "is_fixed", type = "bool" }
+	},
+	sv_handler = function(args)
+		local manager = level_weathers.get_weather_manager()
+		if args.is_fixed then
+			manager.select_weather = function (self, now)
+				return
+			end
+		else
+			-- manager.last_hour = level.get_time_hours()
+			manager.select_weather = level_weathers.WeatherManager.select_weather
+		end
+	end,
+}
+function cl_fix_weather(is_fixed)
+	if not is_fixed then
+		is_fixed = true
+	end
+	cl_send(RC_FIX_WEATHER, {is_fixed = is_fixed})
 end

@@ -59,6 +59,7 @@ GM_SCRIPT_ADDON_EVENTS = 100
 -- Example:
 -- GM_SCRIPT_USE_ITEM = GM_SCRIPT_ADDON_EVENTS + 1
 GM_REMOTE_COMMAND = GM_SCRIPT_ADDON_EVENTS + 1
+GM_REMOTE_COMMAND_BATCH = GM_SCRIPT_ADDON_EVENTS + 2
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
