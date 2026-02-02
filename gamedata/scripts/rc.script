@@ -467,3 +467,57 @@ function cl_fix_weather(is_fixed)
 	end
 	cl_send(RC_FIX_WEATHER, {is_fixed = is_fixed})
 end
+
+RC_SPAWN = register{
+	name = "SPAWN",
+	args = {
+		{ name = "section", type = "stringZ" },
+		{ name = "pos", type = "vec3" },
+		{ name = "lvid", type = "u32" },
+		{ name = "gvid", type = "u32" },
+		{ name = "npc_id", type = "u32" },
+		{ name = "count", type = "u16" },
+	},
+	sv_handler = function(args)
+		for i = 1,args.count,1 do
+			if args.npc_id == 0 then
+				alife():create(args.section, args.pos, args.lvid, args.gvid)
+			else
+				alife():create(args.section, args.pos, args.lvid, args.gvid, args.npc_id)
+			end
+		end
+	end,
+}
+function cl_spawn(section, pos, lvid, gvid, npc_id, count)
+	if npc_id == nil then
+		npc_id = 0
+	end
+	if count == nil then
+		count = 1
+	end
+	cl_send(RC_SPAWN, {section = section, pos = pos, lvid = lvid, gvid = gvid, npc_id = npc_id, count = count})
+end
+
+RC_SPAWN_AMMO = register{
+	name = "SPAWN_AMMO",
+	args = {
+		{ name = "section", type = "stringZ" },
+		{ name = "pos", type = "vec3" },
+		{ name = "lvid", type = "u32" },
+		{ name = "gvid", type = "u32" },
+		{ name = "npc_id", type = "u32" },
+		{ name = "count", type = "u16" },
+	},
+	sv_handler = function(args)
+		create_ammo(args.section, args.pos, args.lvid, args.gvid, args.npc_id, args.count)
+	end,
+}
+function cl_spawn_ammo(section, pos, lvid, gvid, npc_id, count)
+	if npc_id == nil then
+		npc_id = 0
+	end
+	if count == nil then
+		count = 1
+	end
+	cl_send(RC_SPAWN_AMMO, {section = section, pos = pos, lvid = lvid, gvid = gvid, npc_id = npc_id, count = count})
+end

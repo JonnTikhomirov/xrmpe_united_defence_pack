@@ -238,12 +238,16 @@ function spawn:PrepareData(ltx)
 				if v and v[1] then
 					iCntSections = iCntSections + 1
 					local section = trim(v[1])
-					local item = {
-						group = group_id,
-						section = section,
-						name = v[2] and string.gsub(trim(v[2]), "\"", "") or game.translate_string(Get_Cfg_String(sini, section, "inv_name", section))
-					}
-					table.insert(self.tSpawnSections, item)
+					if not sini:section_exist(section) then-- +UP
+						to_log(sModule..":> PrepareData section=[%s] not found", section)-- +UP
+					else-- +UP
+						local item = {
+							group = group_id,
+							section = section,
+							name = v[2] and string.gsub(trim(v[2]), "\"", "") or game.translate_string(Get_Cfg_String(sini, section, "inv_name", section))
+						}
+						table.insert(self.tSpawnSections, item)
+					end-- +UP
 				end
 			end
 		end
@@ -892,71 +896,80 @@ function spawn:SpawnAnomaly(section, radius, pos, lvid, gvid)
 	-- if pos == nil then pos = db.actor:position() end
 	-- if lvid == nil then lvid = db.actor:level_vertex_id() end
 	-- if gvid == nil then gvid = db.actor:game_vertex_id() end
-	if pos == nil then pos = getLocalActor():position() end
-	if lvid == nil then lvid = getLocalActor():level_vertex_id() end
-	if gvid == nil then gvid = getLocalActor():game_vertex_id() end
+	-- if pos == nil then pos = getLocalActor():position() end
+	-- if lvid == nil then lvid = getLocalActor():level_vertex_id() end
+	-- if gvid == nil then gvid = getLocalActor():game_vertex_id() end
+	
+	-- if radius == nil then radius = 3 end
+	-- local sobj = alife():create(section, pos, lvid, gvid)
+	-- if sobj then
+	-- 	local shape = {radius = radius, center = vector():set(0,0,0)}
+	-- 	local pk = get_netpk(sobj, 1)
+	-- 	if pk:isOk() then
+	-- 		local data = pk:get()
+	-- 		if string.find(section, "zone_mine_gravitational") or string.find(section, "field") or string.find(section, "teleport") or string.find(section, "death") or string.find(section, "sarcofag") or string.find(section, "zone_radioactive") then
+	-- 			data.custom_data:setStringRaw('field')
+	-- 		elseif string.find(section, "ameba") or string.find(section, "rusty") then
+	-- 			data.idle_animation = 'idle'
+	-- 			data.attack_animation = 'blast'
+	-- 		end
+	-- 		data.shapes = m_netpk.complex_shape()
+	-- 		data.shapes:addSphere(shape.radius, shape.center)
+	-- 		pk:set(data)
+	-- 	end
+	-- end
+	to_log("SpawnAnomaly skip")--TODO: сделать спавн аномалий
 	-- - UP
-	if radius == nil then radius = 3 end
-	local sobj = alife():create(section, pos, lvid, gvid)
-	if sobj then
-		local shape = {radius = radius, center = vector():set(0,0,0)}
-		local pk = get_netpk(sobj, 1)
-		if pk:isOk() then
-			local data = pk:get()
-			if string.find(section, "zone_mine_gravitational") or string.find(section, "field") or string.find(section, "teleport") or string.find(section, "death") or string.find(section, "sarcofag") or string.find(section, "zone_radioactive") then
-				data.custom_data:setStringRaw('field')
-			elseif string.find(section, "ameba") or string.find(section, "rusty") then
-				data.idle_animation = 'idle'
-				data.attack_animation = 'blast'
-			end
-			data.shapes = m_netpk.complex_shape()
-			data.shapes:addSphere(shape.radius, shape.center)
-			pk:set(data)
-		end
-	end
 end
 
 -- Спавним НПС в окружающую среду
 function spawn:SpawnNpc(section, number, pos, lvid, gvid, dead, wounded)
 	if number <= 0 then return end
-	for i = 1,number,1 do
-		local obj = alife():create(section, pos, lvid, gvid)
-		if obj then
-			if dead then
-				to_log(sModule..":> setting dead for npc_id = [%s]", obj.id)
-				local pk = get_netpk(obj)
-				if pk:isOk() then
-					local data = pk:get()
-					data.upd.health = 0
-					pk:set(data)
-				end
-			end
-			if wounded then
-				to_log(sModule..":> setting wounded for npc_id = [%s]", obj.id)
-				local npc = level.object_by_id(obj.id)
-				if npc then npc.health = -0.9 end
-				local pk = get_netpk(obj)
-				if pk:isOk() then
-					local data = pk:get()
-					data.health = 0.1
-					data.upd.health = 0.1
-					pk:set(data)
-				end
-			end
-		end
-	end
+	-- +UP
+	-- for i = 1,number,1 do
+	-- 	local obj = alife():create(section, pos, lvid, gvid)
+	-- 	if obj then
+	-- 		if dead then
+	-- 			to_log(sModule..":> setting dead for npc_id = [%s]", obj.id)
+	-- 			local pk = get_netpk(obj)
+	-- 			if pk:isOk() then
+	-- 				local data = pk:get()
+	-- 				data.upd.health = 0
+	-- 				pk:set(data)
+	-- 			end
+	-- 		end
+	-- 		if wounded then
+	-- 			to_log(sModule..":> setting wounded for npc_id = [%s]", obj.id)
+	-- 			local npc = level.object_by_id(obj.id)
+	-- 			if npc then npc.health = -0.9 end
+	-- 			local pk = get_netpk(obj)
+	-- 			if pk:isOk() then
+	-- 				local data = pk:get()
+	-- 				data.health = 0.1
+	-- 				data.upd.health = 0.1
+	-- 				pk:set(data)
+	-- 			end
+	-- 		end
+	-- 	end
+	-- end
+	rc.cl_spawn(section, pos, lvid, gvid, nil, number)
+	-- TODO: сделать спавн мертвых и раненных
+	-- -UP
 end
 
 -- Спавним объекты
 function spawn:SpawnItems(section, number, npc_id, pos, lvid, gvid)
 	if number <= 0 then return end
-	for i = 1,number,1 do
-		if npc_id == nil then
-			alife():create(section, pos, lvid, gvid)
-		else
-			alife():create(section, pos, lvid, gvid, npc_id)
-		end
-	end
+	-- +UP
+	-- for i = 1,number,1 do
+	-- 	if npc_id == nil then
+	-- 		alife():create(section, pos, lvid, gvid)
+	-- 	else
+	-- 		alife():create(section, pos, lvid, gvid, npc_id)
+	-- 	end
+	-- end
+	rc.cl_spawn(section, pos, lvid, gvid, npc_id, number)
+	-- -UP
 end
 
 -- Спавним патроны
@@ -968,7 +981,8 @@ function spawn:SpawnAmmo(section, number, npc_id, pos, lvid, gvid, drop)
 		return
 	end
 	local boxSize = sini:r_u32(section, "box_size")
-	local t = se_respawn.create_ammo(section, pos, lvid, gvid, npc_id, number*boxSize)
+	-- local t = se_respawn.create_ammo(section, pos, lvid, gvid, npc_id, number*boxSize)-- +UP
+	rc.cl_spawn_ammo(section, pos, lvid, gvid, npc_id, number*boxSize)-- +UP
 	if drop then -- для варианта спавна через инвентарь с выбросом на землю (не используется в настоящее время)
 		for _, v in ipairs(t) do
 			-- + UP
