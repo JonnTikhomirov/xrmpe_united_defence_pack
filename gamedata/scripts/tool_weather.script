@@ -68,32 +68,33 @@ function weather:InitControls(owner, xml)
 	owner:Register(self.checkbox_fix, "weather_checkbox_fix")
 	table.insert(self.weather_frame_buttons_controls, self.checkbox_fix)
 
-	-- ползунок времени
-	self.time_track = xml:InitTrackBar("frame_right_weather:time_track", owner)-- к owner, причуды xrmpe
-	table.insert(self.weather_frame_buttons_controls, self.time_track)
+	self.xml = xml
+end
+
+function weather:InitTimeTrack(owner)
+	to_log(sModule..":> InitTimeTrack start")
+
+	self.time_track = self.xml:InitTrackBar("frame_right_weather:time_track", owner)-- к owner, причуды xrmpe
 	owner:Register(self.time_track, "weather_time_track")
-	
-	local track_base = xml:InitStatic("frame_right_weather:time_track:auto_static", self.time_track)
+
+	local track_base = self.xml:InitStatic("frame_right_weather:time_track:auto_static", self.time_track)
 	self.track_base_width = track_base:GetWidth()
 	self.track_base_start = (self.time_track:GetWidth() - self.track_base_width)/2
 	self.time_track:DetachChild(track_base)
 
-	self.track_marker = xml:InitStatic("frame_right_weather:time_track:marker", self.time_track)
+	self.track_marker = self.xml:InitStatic("frame_right_weather:time_track:marker", self.time_track)
 	self.track_marker:SetWndPos(vector2():set(self.track_base_start, self.track_marker:GetWndPos().y))
 	self.track_marker:Enable(false);
-	table.insert(self.weather_frame_buttons_controls, self.track_marker)
 
-	local hour = xml:InitStatic("frame_right_weather:time_track:hour_st", self.time_track)
+	local hour = self.xml:InitStatic("frame_right_weather:time_track:hour_st", self.time_track)
 	hour:TextControl():SetText("0"..game.translate_string("st_sleep_hours"))
-	table.insert(self.weather_frame_buttons_controls, hour)
 	local start_x = hour:GetWndPos().x
 
 	local delta = math.floor(self.track_base_width / 24)
 	for i = 1, 24 do
-		hour = xml:InitStatic("frame_right_weather:time_track:hour_st", self.time_track)
+		hour = self.xml:InitStatic("frame_right_weather:time_track:hour_st", self.time_track)
 		hour:SetWndPos(vector2():set(start_x + delta*i, hour:GetWndPos().y))
 		hour:TextControl():SetText(i..game.translate_string("st_sleep_hours"))
-		table.insert(self.weather_frame_buttons_controls, hour)
 	end
 	-- -UP
 end
@@ -147,6 +148,11 @@ function weather:OnTabChange()
 	self.owner:SetFrameShowState(true, self.weather_list, self.weather_frame_controls)
 	self.owner:SetFrameShowState(true, self.weather_frame_buttons, self.weather_frame_buttons_controls)
 	self.checkbox_now:SetCheck(true)
+	-- +UP
+	if self.time_track == nil then
+		self:InitTimeTrack(self.owner)
+	end
+	-- -UP
 	for _,v in ipairs(self.tWeather) do
 		self.owner:AddSecondaryListItem(self.weather_list, v.section, v.name, v.section, self.color[0])
 	end
@@ -175,6 +181,10 @@ function weather:HideFields()
 	-- self.owner:SetFrameShowState(false, self.weather_frame_buttons)
 	self.owner:SetFrameShowState(false, self.weather_list, self.weather_frame_controls)
 	self.owner:SetFrameShowState(false, self.weather_frame_buttons, self.weather_frame_buttons_controls)
+	if self.time_track ~= nil then
+		self.owner:DetachChild(self.time_track)
+		self.time_track = nil
+	end
 	-- -UP
 end
 
@@ -210,7 +220,6 @@ function weather:SetControlsState(enable)
 	self.btn_set:Enable(enable)
 	self.btn_surge:Enable(enable)
 	self.checkbox_fix:SetCheck(self.checkbox_fix_checked)-- +UP
-	self.time_track:Enable(enable)-- +UP
 end
 
 -- кнопка Выброс
@@ -289,6 +298,6 @@ end
 -- чекбокс Фиксровать, клик
 function weather:OnCheckboxFixClick()
 	self.checkbox_fix_checked = self.checkbox_fix:GetCheck()
-	to_log(sModule..":> OnCheckboxFixClick start", tostring(check))
+	to_log(sModule..":> OnCheckboxFixClick start %s", tostring(self.checkbox_fix_checked))
 	rc.cl_fix_weather(self.checkbox_fix_checked)
 end
