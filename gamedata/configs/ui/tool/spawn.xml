@@ -167,15 +167,23 @@
 	<buttons_frame_2 x="0" y="420" width="518" height="30">
 		<!-- строка 3 -->
 		<checkbox_mode x="10" y="6" width="22" height="22">
-			<text font="letterica18" align="l" x="-10" y="-1" r="216" g="186" b="140" complex_mode="0"/>
 			<!-- + UP -->
-			<check_mark anchor="mid-center" width="30" height="22"/>
+			<!-- <text font="letterica18" align="l" x="-10" y="-1" r="216" g="186" b="140" complex_mode="0"/> -->
+			<texture>ui_mainmenu_checkbox_bg</texture>
+			<check_mark anchor="mid-center" width="30" height="22">
+				<texture>ui_mainmenu_checkbox_mark</texture>
+			</check_mark>
+			<text font="letterica16" align="l" x="15" complex_mode="0"/>
 			<!-- - UP -->
 		</checkbox_mode>
 		<checkbox_mode_2 x="225" y="6" width="22" height="22">
-			<text font="letterica18" align="l" x="-10" y="-1" r="216" g="186" b="140" complex_mode="0">tool_spawn_wounded</text>
 			<!-- + UP -->
-			<check_mark anchor="mid-center" width="30" height="22"/>
+			<!-- <text font="letterica18" align="l" x="-10" y="-1" r="216" g="186" b="140" complex_mode="0">tool_spawn_wounded</text> -->
+			<texture>ui_mainmenu_checkbox_bg</texture>
+			<check_mark anchor="mid-center" width="30" height="22">
+				<texture>ui_mainmenu_checkbox_mark</texture>
+			</check_mark>
+			<text font="letterica16" align="l" x="15" complex_mode="0">tool_spawn_wounded</text>
 			<!-- - UP -->
 		</checkbox_mode_2>
 		<caption_count x="250" y="8" width="55" height="22" stretch="1">
