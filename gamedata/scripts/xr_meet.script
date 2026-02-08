@@ -367,9 +367,11 @@ function Cmeet_manager:update()
 		end
 	end
 	-- + UP
-	-- ++ The Tool
-	xr_s.on_event("on_meet", {obj = self.npc}) --/#+# >событие: 'on_meet'
-	-- -- The Tool
+	if OnClient() then
+		-- ++ The Tool
+		xr_s.on_event("on_meet", {obj = self.npc}) --/#+# >событие: 'on_meet'
+		-- -- The Tool
+	end
 	-- - UP
 end
 
