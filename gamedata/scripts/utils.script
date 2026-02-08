@@ -740,6 +740,7 @@ end
 
 --' Вычитка свойств для спауна объектов.
 function parse_names(s)
+	s = s:match("^[^;]*")  -- +UP не учитываем комментарий
 		local t = {}
 		for name in string.gfind( s, "([%w_%-.\\]+)%p*" ) do
 				table.insert( t, name )

@@ -323,6 +323,7 @@ end
 
 
 function parse_names( s )
+	s = s:match("^[^;]*")  -- +UP не учитываем комментарий
 	local t = {}
 	for name in string.gfind( s, "([%w_\\]+)%p*" ) do
 		--for name in string.gfind( s, "%s*([^%,]+)%s*" ) do
@@ -332,6 +333,7 @@ function parse_names( s )
 end
 
 function parse_key_value( s )
+	s = s:match("^[^;]*")  -- +UP не учитываем комментарий
 	local t = {}
 	if s == nil then
 		return nil
@@ -349,6 +351,7 @@ function parse_key_value( s )
 end
 
 function parse_nums( s )
+	s = s:match("^[^;]*")  -- +UP не учитываем комментарий
 	local t = {}
 	for entry in string.gfind( s, "([%-%d%.]+)%,*" ) do
 		table.insert( t, tonumber( entry ) )
@@ -718,9 +721,6 @@ end
 
 function start_game_callback()
 	aa = alife()
-	-- +UP
-	prefetch("rc")
-	-- -UP
 
 	fill_tables()
 	smart_names.init_smart_names_table()
@@ -1152,6 +1152,17 @@ function string_format_fallback(fmt, mark_errors, ...)
     return result
 end
 
+function strip_comment(s)
+    if type(s) ~= "string" then return s end
+    return s:match("^[^;]*")
+end
+
+function to_number(s, default)
+    s = strip_comment(s)
+    local n = tonumber(s)
+    return n ~= nil and n or default
+end
+
 -- ++ The Tool
 --/-------------------------------------------------------------------
 --/#+# initialize modules [lua_helper/lua_extensions]
@@ -1169,7 +1180,7 @@ to_log = function(fmt,...)
 	-- if not console then console = get_console() end
 	-- console:execute("load ~:"..string.exformat(fmt,...))
 	-- console:execute("flush")
-	printf_msg(string.exformat(fmt,...))
+	printf_msg(fmt,...)
 	-- - UP
 end
 --/-------------------------------------------------------------------
@@ -1186,5 +1197,5 @@ abort = function(fmt,...)
 	-- - UP
 end
 -- -- The Tool
-
+prefetch("rc")
 -- - UP
