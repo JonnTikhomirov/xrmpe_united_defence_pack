@@ -249,20 +249,12 @@ end
 -- +UP
 -- кнопка Прибавить час
 function weather:OnBtnAddHour()
-	-- to_log(sModule..":> OnBtnAddHour start "..level.get_time_hours()..":"..level.get_time_minutes())
-	local hour = level.get_time_hours() + 1
-	local minute = level.get_time_minutes() - 2-- округление в движке дает + несколько минут
-	if minute < 0 then
-		minute = 0
-	end
-	if hour > 23 then hour = 0 end
-	self:SetDayTime(hour, minute)
+	rc.cl_add_envtime(1, 0)
 end
 
 -- кнопка Прибавить минуту
 function weather:OnBtnAddMinute()
-	-- to_log(sModule..":> OnBtnAddMinute start "..level.get_time_hours()..":"..level.get_time_minutes())
-	self:SetDayTime(level.get_time_hours(), level.get_time_minutes())-- округление в движке дает +1 минуту
+	rc.cl_add_envtime(0, 1)
 end
 
 function weather:UpdateTrackMarker(time_m)
@@ -273,13 +265,8 @@ function weather:UpdateTrackMarker(time_m)
 	self.track_marker:SetWndPos(vector2():set(x, self.track_marker:GetWndPos().y))
 end
 
-function weather:SetDayTime(hour, minute)
-	rc.cl_set_time(hour, minute)
-end
-
 -- ползунок времени
 function weather:OnBtnTimeTrack()
-	-- to_log(sModule..":> OnBtnTimeTrack start")
 	local time_m = self.time_track:GetFValue()
 	self:UpdateTrackMarker(time_m)
 
@@ -287,7 +274,7 @@ function weather:OnBtnTimeTrack()
 	local hour = math.floor(hour_minute / 60)
 	local minute = hour_minute % 60
 
-	self:SetDayTime(hour, minute)
+	rc.cl_set_envtime(hour, minute)
 end
 
 function weather:Update()
@@ -298,6 +285,5 @@ end
 -- чекбокс Фиксровать, клик
 function weather:OnCheckboxFixClick()
 	self.checkbox_fix_checked = self.checkbox_fix:GetCheck()
-	to_log(sModule..":> OnCheckboxFixClick start %s", tostring(self.checkbox_fix_checked))
 	rc.cl_fix_weather(self.checkbox_fix_checked)
 end
