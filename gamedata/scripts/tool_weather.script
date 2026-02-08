@@ -1,0 +1,289 @@
+--[[ ----------------------------------------------------------------------------------------------
+ File       : tool_weather.script
+ Description: Инструмент разработчика
+            : Модуль "Погода"
+ Copyright  : 2025 © The Tool
+ Author     : Kirgudu, monk
+            : Использованы материалы GOD of the zone MOD v3.0 by Shoker
+ Last edit  : 08.02.2025
+--]] ----------------------------------------------------------------------------------------------
+
+local sModule = script_name() --/ строковое имя файла-модуля
+
+class "weather"
+
+function weather:__init(owner_name)
+	to_log(sModule..":> __init") --/#~#
+	self.owner_script = _G[owner_name]
+	self.iSurgeTimeout = 30 -- таймаут принудительного выброса по умолчанию
+	self.tWeather = {} -- список типов погоды
+	self.color = { --/ цветовое оформление списка
+		[0] = GetARGB(255, 216, 186, 140), --/ элемент списка
+		[1] = GetARGB(255,  49, 174,  66)  --/ заголовок
+	}
+end
+
+function weather:__finalize() end
+
+-- инициализация элементов
+function weather:InitControls(owner, xml)
+	to_log(sModule..":> InitControls") --/#~#
+
+	-- список типов погоды
+	-- self.weather_frame = xml:InitFrame("frame_right_weather:weather_frame", owner.frame_right)<!-- + UP -->
+	-- self.weather_list = xml:InitListBox("frame_right_weather:weather_frame:weather_list", self.weather_frame)<!-- + UP -->
+	self.weather_list = xml:InitListBox("frame_right_weather:weather_frame:weather_list", owner.frame_right)
+	self.weather_list:ShowSelectedItem(true)
+	owner:Register(self.weather_list, "weather_weather_list")
+	self.weather_frame_controls = { self.weather_list }
+
+	-- кнопки
+	self.weather_frame_buttons = xml:InitFrame("frame_right_weather:weather_frame_buttons", owner.frame_right)
+	-- чекбокс
+	self.checkbox_now = xml:InitCheck("frame_right_weather:weather_frame_buttons:checkbox_now", self.weather_frame_buttons)
+	self.checkbox_now_enabled = true
+	owner:Register(self.checkbox_now, "weather_checkbox_now")
+	-- кнопка Установить
+	self.btn_set = xml:Init3tButton("frame_right_weather:weather_frame_buttons:btn_set", self.weather_frame_buttons)
+	owner:Register(self.btn_set, "weather_btn_set")
+	-- кнопка Выброс
+	self.btn_surge = xml:Init3tButton("frame_right_weather:weather_frame_buttons:btn_surge", self.weather_frame_buttons)
+	owner:Register(self.btn_surge, "weather_btn_surge")
+	self.weather_frame_buttons_controls = { self.checkbox_now, self.btn_set, self.btn_surge }
+	-- +UP
+	-- кнопка Прибавить час
+	self.btn_add_hour = xml:Init3tButton("frame_right_weather:weather_frame_buttons:btn_add_hour", self.weather_frame_buttons)
+	owner:Register(self.btn_add_hour, "weather_btn_add_hour")
+	table.insert(self.weather_frame_buttons_controls, self.btn_add_hour)
+
+	-- кнопка Прибавить минуту
+	self.btn_add_minute = xml:Init3tButton("frame_right_weather:weather_frame_buttons:btn_add_minute", self.weather_frame_buttons)
+	owner:Register(self.btn_add_minute, "weather_btn_add_minute")
+	table.insert(self.weather_frame_buttons_controls, self.btn_add_minute)
+
+	-- чекбокс Фиксировать
+	self.checkbox_fix = xml:InitCheck("frame_right_weather:weather_frame_buttons:checkbox_fix", self.weather_frame_buttons)
+	self.checkbox_fix_checked = false
+	self.checkbox_fix:SetCheck(self.checkbox_fix_checked)
+	owner:Register(self.checkbox_fix, "weather_checkbox_fix")
+	table.insert(self.weather_frame_buttons_controls, self.checkbox_fix)
+
+	self.xml = xml
+end
+
+function weather:InitTimeTrack(owner)
+	to_log(sModule..":> InitTimeTrack start")
+
+	self.time_track = self.xml:InitTrackBar("frame_right_weather:time_track", owner)-- к owner, причуды xrmpe
+	owner:Register(self.time_track, "weather_time_track")
+
+	local track_base = self.xml:InitStatic("frame_right_weather:time_track:auto_static", self.time_track)
+	self.track_base_width = track_base:GetWidth()
+	self.track_base_start = (self.time_track:GetWidth() - self.track_base_width)/2
+	self.time_track:DetachChild(track_base)
+
+	self.track_marker = self.xml:InitStatic("frame_right_weather:time_track:marker", self.time_track)
+	self.track_marker:SetWndPos(vector2():set(self.track_base_start, self.track_marker:GetWndPos().y))
+	self.track_marker:Enable(false);
+
+	local hour = self.xml:InitStatic("frame_right_weather:time_track:hour_st", self.time_track)
+	hour:TextControl():SetText("0"..game.translate_string("st_sleep_hours"))
+	local start_x = hour:GetWndPos().x
+
+	local delta = math.floor(self.track_base_width / 24)
+	for i = 1, 24 do
+		hour = self.xml:InitStatic("frame_right_weather:time_track:hour_st", self.time_track)
+		hour:SetWndPos(vector2():set(start_x + delta*i, hour:GetWndPos().y))
+		hour:TextControl():SetText(i..game.translate_string("st_sleep_hours"))
+	end
+	-- -UP
+end
+
+-- инициализация событий
+function weather:InitCallbacks(owner)
+	to_log(sModule..":> InitCallbacks") --/#~#
+	owner:AddCallback("weather_weather_list", ui_events.WINDOW_LBUTTON_DB_CLICK, self.OnWeatherListMouseDblClicked, self)
+	owner:AddCallback("weather_checkbox_now", ui_events.BUTTON_CLICKED, self.OnCheckboxNowClick, self)
+	owner:AddCallback("weather_btn_set", ui_events.BUTTON_CLICKED, self.OnBtnSet, self)
+	owner:AddCallback("weather_btn_surge", ui_events.BUTTON_CLICKED, self.OnBtnSurge, self)
+	-- +UP
+	owner:AddCallback("weather_btn_add_hour", ui_events.BUTTON_CLICKED, self.OnBtnAddHour, self)
+	owner:AddCallback("weather_btn_add_minute", ui_events.BUTTON_CLICKED, self.OnBtnAddMinute, self)
+	owner:AddCallback("weather_time_track", ui_events.BUTTON_CLICKED, self.OnBtnTimeTrack, self)
+	owner:AddCallback("weather_checkbox_fix", ui_events.BUTTON_CLICKED, self.OnCheckboxFixClick, self)
+	-- -UP
+end
+
+-- подготовка данных при загрузке (объекты недоступны)
+function weather:PrepareData(ltx)
+	to_log(sModule..":> PrepareData start")
+	local trim, iCntWeather = string.trim, 0
+
+	--/ чтение таймаута выброса по умолчанию
+	self.iSurgeTimeout = Get_Cfg_Num32(ltx, "weather_settings", "surge_timeout", "J")
+
+	--/ чтение списка погоды
+	local weathers = Get_IniSection(ltx, "weather", "list", nil, ",")
+	local sWeatherCaption = game.translate_string("tool_weather_item_caption")
+	for _,v in pairs(weathers) do
+		if v and v[1] and v[2] then
+			iCntWeather = iCntWeather + 1
+			local item = {
+				section = string.gsub(trim(v[1]), "\"", ""),
+				fx = v[2] == "fx",
+				name = v[3] and string.gsub(trim(v[3]), "\"", "") or string.format("%s %d", sWeatherCaption, iCntWeather)
+			}
+			table.insert(self.tWeather, item)
+		end
+	end
+	self.tWeather = self.owner_script.SortTableByValue(self.tWeather, "asc", "section")
+
+	to_log(sModule..":> PrepareData weather sections=[%d]", iCntWeather)
+end
+
+-- открытие и инициализация раздела
+function weather:OnTabChange()
+	to_log(sModule..":> OnTabChange start")
+	-- self.owner:SetFrameShowState(true, self.weather_frame, self.weather_frame_controls)
+	self.owner:SetFrameShowState(true, self.weather_list, self.weather_frame_controls)
+	self.owner:SetFrameShowState(true, self.weather_frame_buttons, self.weather_frame_buttons_controls)
+	self.checkbox_now:SetCheck(true)
+	-- +UP
+	if self.time_track == nil then
+		self:InitTimeTrack(self.owner)
+	end
+	-- -UP
+	for _,v in ipairs(self.tWeather) do
+		self.owner:AddSecondaryListItem(self.weather_list, v.section, v.name, v.section, self.color[0])
+	end
+end
+
+-- двойной клик на элементе списка типов погоды
+function weather:OnWeatherListMouseDblClicked()
+	to_log(sModule..":> OnWeatherListMouseDblClicked start")
+	self:OnBtnSet()
+end
+
+-- очистка полей
+function weather:ClearFields()
+	to_log(sModule..":> ClearFields start")
+	self.weather_list:ScrollToBegin()
+	self.weather_list:RemoveAll()
+	self.checkbox_now:SetCheck(false)
+end
+
+-- скрытие полей
+function weather:HideFields()
+	to_log(sModule..":> HideFields start")
+	-- self.owner:SetFrameShowState(false, self.weather_frame)
+	-- +UP
+	-- self.owner:SetFrameShowState(false, self.weather_list)
+	-- self.owner:SetFrameShowState(false, self.weather_frame_buttons)
+	self.owner:SetFrameShowState(false, self.weather_list, self.weather_frame_controls)
+	self.owner:SetFrameShowState(false, self.weather_frame_buttons, self.weather_frame_buttons_controls)
+	if self.time_track ~= nil then
+		self.owner:DetachChild(self.time_track)
+		self.time_track = nil
+	end
+	-- -UP
+end
+
+-- кнопка Установить
+function weather:OnBtnSet()
+	to_log(sModule..":> OnBtnSet start")
+
+	local section = self.owner:GetListItemSelectedValue(self.weather_list)
+	-- + UP
+	-- if not section or section == "null" or not db.actor then return end --/>
+	if not section or section == "null" or not getLocalActor() then return end --/>
+	-- - UP
+
+	for _,v in ipairs(self.tWeather) do
+		if v.section == section then
+			-- if v.fx then level.set_weather_fx(section) else level.set_weather(section, self.checkbox_now:GetCheck()) end-- +UP
+			-- break-- +UP
+			rc.cl_set_weather(section, v.fx, self.checkbox_now:GetCheck())-- +UP
+		end
+	end
+end
+
+-- чекбокс, клик
+function weather:OnCheckboxNowClick()
+	to_log(sModule..":> OnCheckboxNowClick start", tostring(self.checkbox_now:GetCheck()))
+	if not self.checkbox_now_enabled then self.checkbox_now:SetCheck(not self.checkbox_now:GetCheck()) end
+end
+
+-- установка состояния органов управления под доп. диалогом
+function weather:SetControlsState(enable)
+	self.weather_list:Enable(enable)
+	self.checkbox_now_enabled = enable -- для (раз)блокировки чекбокса, чтобы не сбрасывалось состояние
+	self.btn_set:Enable(enable)
+	self.btn_surge:Enable(enable)
+	self.checkbox_fix:SetCheck(self.checkbox_fix_checked)-- +UP
+end
+
+-- кнопка Выброс
+function weather:OnBtnSurge()
+	-- to_log(sModule..":> OnBtnSurge start")
+
+	-- местная блокировка органов управления под доп. диалогом
+	self:SetControlsState(false)
+	-- показ диалога с установкой коллбэка на закрытие
+	self.owner:SetMessageDialog(
+		game.translate_string("tool_weather_set_surge"),
+		{ func = self.SetControlsState, data = true, userobj = self }, -- продолжить
+		{ func = self.StartSurge, data = nil, userobj = self } -- отменить
+	)
+end
+
+function weather:StartSurge()
+	-- местная разблокировка органов управления под доп. диалогом
+	self:SetControlsState(true)
+	-- запуск выброса, если он ещё не запущен
+	if not surge_manager.is_started() then
+		-- surge_manager.start_surge()-- +UP
+		rc.cl_set_surge(1, 0)-- +UP
+	end
+end
+
+-- +UP
+-- кнопка Прибавить час
+function weather:OnBtnAddHour()
+	rc.cl_add_envtime(1, 0)
+end
+
+-- кнопка Прибавить минуту
+function weather:OnBtnAddMinute()
+	rc.cl_add_envtime(0, 1)
+end
+
+function weather:UpdateTrackMarker(time_m)
+	local x = self.track_base_start + self.track_base_width*time_m - self.track_marker:GetWidth()/2
+	if self.track_marker:GetWndPos().x == x then
+		return
+	end
+	self.track_marker:SetWndPos(vector2():set(x, self.track_marker:GetWndPos().y))
+end
+
+-- ползунок времени
+function weather:OnBtnTimeTrack()
+	local time_m = self.time_track:GetFValue()
+	self:UpdateTrackMarker(time_m)
+
+	local hour_minute = math.floor(1440*time_m)
+	local hour = math.floor(hour_minute / 60)
+	local minute = hour_minute % 60
+
+	rc.cl_set_envtime(hour, minute)
+end
+
+function weather:Update()
+	local time_m = (60*level.get_time_hours() + level.get_time_minutes()) / 1440
+	self:UpdateTrackMarker(time_m)
+end
+
+-- чекбокс Фиксровать, клик
+function weather:OnCheckboxFixClick()
+	self.checkbox_fix_checked = self.checkbox_fix:GetCheck()
+	rc.cl_fix_weather(self.checkbox_fix_checked)
+end

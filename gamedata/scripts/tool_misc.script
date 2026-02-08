@@ -1,0 +1,450 @@
+--[[ ----------------------------------------------------------------------------------------------
+ File       : tool_misc.script
+ Description: Инструмент разработчика
+            : Модуль "Разное"
+ Copyright  : 2025 © The Tool
+ Author     : Kirgudu, monk
+            : Использованы материалы GOD of the zone MOD v3.0 by Shoker
+ Last edit  : 08.02.2025
+--]] ----------------------------------------------------------------------------------------------
+
+local sModule = script_name() --/ строковое имя файла-модуля
+local sNoValue = game.translate_string("tool_no_value") --/ стандартный текст для отсутствия чего-либо (прочерк)
+
+class "misc"
+
+function misc:__init(owner_name)
+	to_log(sModule..":> __init") --/#~#
+	self.owner_script = _G[owner_name]
+	self.tSubsections = {} -- массив подразделов
+	self.update_time = 0 --/ для апдейта
+	self.base_time_factor = system_ini():r_float("alife", "time_factor") --/ стандартный таймфактор игры
+	self.base_time_factor_coeff = 2 --/ базовый коэффициент умножения таймфактора
+	self.tMusic = {} -- список музыки
+	self.tVideos = {} -- список видео
+	self.current_music = nil --/ текущий звук
+	self.color = { --/ цветовое оформление списка подразделов
+		[0] = GetARGB(255, 216, 186, 140),
+		[1] = GetARGB(255,  49, 174,  66)
+	}
+end
+
+function misc:__finalize() end
+
+-- инициализация элементов
+function misc:InitControls(owner, xml)
+	to_log(sModule..":> InitControls") --/#~#
+
+	-- список подразделов слева
+	self.subsection_list = xml:InitListBox("frame_left_misc:subsection_list", owner.frame_left)
+	self.subsection_list:ShowSelectedItem(true)
+	owner:Register(self.subsection_list, "misc_subsection_list")
+
+	-- настройки времени
+	self.time_frame = xml:InitFrame("frame_right_misc:time_frame", owner.frame_right)
+	self.time_frame_caption = xml:InitStatic("frame_right_misc:time_frame:time_frame_caption", self.time_frame)
+	-- заголовок таймфактора
+	self.timefactor_caption = xml:InitStatic("frame_right_misc:time_frame:timefactor_caption", self.time_frame)
+	-- группа элементов значение таймфактора
+	self.timefactor_value = xml:InitEditBox("frame_right_misc:time_frame:timefactor_value", self.time_frame)
+	self.owner_script.AddToFilter(sModule, "timefactor_value", self.timefactor_value, self.owner_script.filter_patterns.integer_positive)
+	self.btn_plus = xml:Init3tButton("frame_right_misc:time_frame:timefactor_value:btn_plus", self.time_frame)
+	owner:Register(self.btn_plus, "misc_btn_plus")
+	self.btn_minus = xml:Init3tButton("frame_right_misc:time_frame:timefactor_value:btn_minus", self.time_frame)
+	owner:Register(self.btn_minus, "misc_btn_minus")
+	-- кнопка Установить
+	self.btn_timefactor_set = xml:Init3tButton("frame_right_misc:time_frame:btn_timefactor_set", self.time_frame)
+	owner:Register(self.btn_timefactor_set, "misc_btn_timefactor_set")
+	-- кнопка Сбросить
+	self.btn_timefactor_reset = xml:Init3tButton("frame_right_misc:time_frame:btn_timefactor_reset", self.time_frame)
+	owner:Register(self.btn_timefactor_reset, "misc_btn_timefactor_reset")
+	-- заголовок коэффициента таймфактора
+	self.timefactor_coeff_caption = xml:InitStatic("frame_right_misc:time_frame:timefactor_coeff_caption", self.time_frame)
+	-- группа элементов Коэффициент
+	self.timefactor_coeff_value = xml:InitEditBox("frame_right_misc:time_frame:timefactor_coeff_value", self.time_frame)
+	self.owner_script.AddToFilter(sModule, "timefactor_coeff_value", self.timefactor_coeff_value, self.owner_script.filter_patterns.integer_positive)
+	self.btn_coeff_plus = xml:Init3tButton("frame_right_misc:time_frame:timefactor_coeff_value:btn_coeff_plus", self.time_frame)
+	owner:Register(self.btn_coeff_plus, "misc_btn_coeff_plus")
+	self.btn_coeff_minus = xml:Init3tButton("frame_right_misc:time_frame:timefactor_coeff_value:btn_coeff_minus", self.time_frame)
+	owner:Register(self.btn_coeff_minus, "misc_btn_coeff_minus")
+	-- кнопка Ускорить
+	self.btn_timefactor_increase = xml:Init3tButton("frame_right_misc:time_frame:btn_timefactor_increase", self.time_frame)
+	owner:Register(self.btn_timefactor_increase, "misc_btn_timefactor_increase")
+	-- кнопка Замедлить
+	self.btn_timefactor_decrease = xml:Init3tButton("frame_right_misc:time_frame:btn_timefactor_decrease", self.time_frame)
+	owner:Register(self.btn_timefactor_decrease, "misc_btn_timefactor_decrease")
+	self.time_frame_controls = { self.time_frame_caption, self.timefactor_caption, self.timefactor_value, self.btn_plus, self.btn_minus, self.btn_timefactor_set, self.btn_timefactor_reset, self.timefactor_coeff_caption, self.timefactor_coeff_value, self.btn_coeff_plus, self.btn_coeff_minus, self.btn_timefactor_increase, self.btn_timefactor_decrease }
+
+	-- настройки музыки
+	self.music_frame = xml:InitFrame("frame_right_misc:music_frame", owner.frame_right)
+	self.music_list = xml:InitListBox("frame_right_misc:music_frame:music_list", self.music_frame)
+	self.music_list:ShowSelectedItem(true)
+	owner:Register(self.music_list, "misc_music_list")
+	self.music_frame_controls = { self.music_list }
+	-- кнопки
+	self.music_frame_buttons = xml:InitFrame("frame_right_misc:music_frame_buttons", owner.frame_right)
+	-- кнопка Проиграть
+	self.btn_start = xml:Init3tButton("frame_right_misc:music_frame_buttons:btn_start", self.music_frame_buttons)
+	owner:Register(self.btn_start, "misc_music_btn_start")
+	-- кнопка Остановить
+	self.btn_stop = xml:Init3tButton("frame_right_misc:music_frame_buttons:btn_stop", self.music_frame_buttons)
+	owner:Register(self.btn_stop, "misc_music_btn_stop")
+	-- заголовок информационного текста
+	self.info_caption = xml:InitStatic("frame_right_misc:music_frame_buttons:info_caption", self.music_frame_buttons)
+	-- содержание информационного текста
+	self.info_text = xml:InitStatic("frame_right_misc:music_frame_buttons:info_text", self.music_frame_buttons)
+	self.music_frame_buttons_controls = { self.btn_start, self.btn_stop, self.info_caption, self.info_text }
+
+	-- настройки видео
+	self.video_frame = xml:InitFrame("frame_right_misc:video_frame", owner.frame_right)
+	self.video_list = xml:InitListBox("frame_right_misc:video_frame:video_list", self.video_frame)
+	self.video_list:ShowSelectedItem(true)
+	owner:Register(self.video_list, "misc_video_list")
+	self.video_frame_controls = { self.video_list }
+	-- кнопки
+	self.video_frame_buttons = xml:InitFrame("frame_right_misc:video_frame_buttons", owner.frame_right)
+	-- кнопка Запустить
+	self.btn_start = xml:Init3tButton("frame_right_misc:video_frame_buttons:btn_start", self.video_frame_buttons)
+	owner:Register(self.btn_start, "misc_video_btn_start")
+	self.video_frame_buttons_controls = { self.btn_start }
+end
+
+-- инициализация событий
+function misc:InitCallbacks(owner)
+	to_log(sModule..":> InitCallbacks") --/#~#
+	owner:AddCallback("misc_subsection_list", ui_events.LIST_ITEM_CLICKED, self.OnSubsectionListItemClicked, self)
+	owner:AddCallback("misc_btn_plus", ui_events.BUTTON_CLICKED, self.OnBtnPlus, self)
+	owner:AddCallback("misc_btn_minus", ui_events.BUTTON_CLICKED, self.OnBtnMinus, self)
+	owner:AddCallback("misc_btn_timefactor_set", ui_events.BUTTON_CLICKED, self.OnBtnTimefactorSet, self)
+	owner:AddCallback("misc_btn_timefactor_reset", ui_events.BUTTON_CLICKED, self.OnBtnTimefactorReset, self)
+	owner:AddCallback("misc_btn_coeff_plus", ui_events.BUTTON_CLICKED, self.OnBtnCoeffPlus, self)
+	owner:AddCallback("misc_btn_coeff_minus", ui_events.BUTTON_CLICKED, self.OnBtnCoeffMinus, self)
+	owner:AddCallback("misc_btn_timefactor_increase", ui_events.BUTTON_CLICKED, self.OnBtnTimefactorIncrease, self)
+	owner:AddCallback("misc_btn_timefactor_decrease", ui_events.BUTTON_CLICKED, self.OnBtnTimefactorDecrease, self)
+	owner:AddCallback("misc_music_list", ui_events.WINDOW_LBUTTON_DB_CLICK, self.OnMusicListMouseDblClicked, self)
+	owner:AddCallback("misc_music_btn_start", ui_events.BUTTON_CLICKED, self.OnBtnMusicStart, self)
+	owner:AddCallback("misc_music_btn_stop", ui_events.BUTTON_CLICKED, self.OnBtnMusicStop, self)
+	owner:AddCallback("misc_video_list", ui_events.WINDOW_LBUTTON_DB_CLICK, self.OnVideoListMouseDblClicked, self)
+	owner:AddCallback("misc_video_btn_start", ui_events.BUTTON_CLICKED, self.OnBtnVideoStart, self)
+end
+
+-- подготовка данных при загрузке (объекты недоступны)
+function misc:PrepareData(ltx)
+	to_log(sModule..":> PrepareData start")
+	local trim = string.trim
+
+	--/ чтение подгрупп
+	local iCntSubsections = 0
+	local trim = string.trim
+	local subsections = Get_IniSection(ltx, "subsections", "string", "key2num")
+	for i = 1, table.size(subsections) do
+		local subsection = trim(subsections[i])
+		iCntSubsections = iCntSubsections + 1
+		table.insert(self.tSubsections, { id = subsection, name = game.translate_string("tool_misc_subsection_"..subsection) })
+	end
+
+	to_log(sModule..":> PrepareData subsections=[%d]", iCntSubsections)
+
+	--/ чтение списка музыки
+	local iCntMusic = 0
+	local musics = Get_IniSection(ltx, "music", "list", nil, ",")
+	local sMusicCaption = game.translate_string("tool_music_item_caption")
+	for k,v in pairs(musics) do
+		if v and v[1] then
+			iCntMusic = iCntMusic + 1
+			local item = {
+				path = trim(v[1]),
+				name = v[2] and string.gsub(trim(v[2]), "\"", "") or string.format("%s %d", sMusicCaption, iCntMusic)
+			}
+			table.insert(self.tMusic, item)
+		end
+	end
+	self.tMusic = self.owner_script.SortTableByValue(self.tMusic, "asc", "path")
+
+	to_log(sModule..":> PrepareData music=[%d]", iCntMusic)
+
+	--/ чтение списка видео
+	local iCntVideos = 0
+	local videos = Get_IniSection(ltx, "video", "list", nil, ",")
+	local sVideoCaption = game.translate_string("tool_video_item_caption")
+	for k,v in pairs(videos) do
+		if v and v[1] then
+			iCntVideos = iCntVideos + 1
+			local item = {
+				section = trim(v[1]),
+				name = v[2] and string.gsub(trim(v[2]), "\"", "") or string.format("%s %d", sVideoCaption, iCntVideos)
+			}
+			table.insert(self.tVideos, item)
+		end
+	end
+	self.tVideos = self.owner_script.SortTableByValue(self.tVideos, "asc", "name")
+
+	to_log(sModule..":> PrepareData videos=[%d]", iCntVideos)
+end
+
+-- обновление
+function misc:Update()
+	if self.update_time > time_global() then return else self.update_time = time_global() + 500 end
+	-- + UP
+	-- if db.actor and self.current_music and not self.current_music.sound_object:playing() then self.current_music = nil end
+	if getLocalActor() and self.current_music and not self.current_music.sound_object:playing() then self.current_music = nil end
+	-- - UP
+	self.info_text:TextControl():SetText(self.current_music and self.current_music.name or sNoValue)
+end
+
+-- ручное обновление
+function misc:Refresh(time_factor)
+	time_factor = time_factor or level.present() and level.get_time_factor() or self.base_time_factor
+	self.timefactor_value:SetText(tostring(time_factor))
+end
+
+-- нажатия на кнопки
+function misc:OnKeyboard(activeTab, dik, keyboard_action)
+	if activeTab ~= sModule then return true end --/>
+	if keyboard_action == ui_events.WINDOW_KEY_PRESSED then
+		self.owner_script.FilterTextboxes(sModule)
+	end
+	return true --/>
+end
+
+-- открытие и инициализация раздела
+function misc:OnTabChange()
+	to_log(sModule..":> OnTabChange start")
+	self.subsection_list:Show(true)
+	-- первый элемент списка добавляем и сразу выбираем по умолчанию
+	for _,subsection in ipairs(self.tSubsections) do
+		self.owner:AddPrimaryListItem(self.subsection_list, subsection.name, subsection.id, self.color[0])
+	end
+end
+
+-- выбор подраздела
+function misc:OnSubsectionListItemClicked()
+	to_log(sModule..":> OnSubsectionListItemClicked start")
+	self:ClearFields()
+
+	local subsection_id = self.owner:GetListItemSelectedValue(self.subsection_list)
+	if not subsection_id or subsection_id == "null" then return end --/>
+
+	to_log(sModule..":> OnSubsectionListItemClicked subsection_id=[%s]", subsection_id)
+
+	self:HideFields()
+	self.owner:SetFrameShowState(true, self[subsection_id.."_frame"], self[subsection_id.."_frame_controls"])
+
+	if subsection_id == "time" then
+		self:Refresh()
+	elseif subsection_id == "music" then
+		self.owner:SetFrameShowState(true, self.music_frame_buttons, self.music_frame_buttons_controls)
+		for _, v in ipairs(self.tMusic) do
+			self.owner:AddSecondaryListItem(self.music_list, v.path, v.name, v.path, self.color[0])
+		end
+	elseif subsection_id == "video" then
+		self.owner:SetFrameShowState(true, self.video_frame_buttons, self.video_frame_buttons_controls)
+		for _, v in ipairs(self.tVideos) do
+			self.owner:AddSecondaryListItem(self.video_list, v.section, v.name, v.section, self.color[0])
+		end
+	end
+end
+
+-- двойной клик на элементе списка музыки
+function misc:OnMusicListMouseDblClicked()
+	to_log(sModule..":> OnMusicListMouseDblClicked start")
+
+	local path, oListItem = self.owner:GetListItemSelectedValue(self.music_list)
+	if not path or path == "null" then return end --/>
+
+	-- + UP
+	-- if db.actor then
+	if getLocalActor() then
+	-- - UP
+		if self.current_music == nil then
+			self:MusicStart(path, oListItem.fn2:GetText())
+		else
+			if self.current_music.sound_object:playing() then self.current_music.sound_object:stop() end
+			if self.current_music.path == path then
+				self.current_music = nil
+			else
+				self:MusicStart(path, oListItem.fn2:GetText())
+			end
+		end
+	end
+end
+
+-- кнопка Проиграть музыку
+function misc:OnBtnMusicStart()
+	to_log(sModule..":> OnBtnMusicStart start")
+
+	local path, oListItem = self.owner:GetListItemSelectedValue(self.music_list)
+	if not path or path == "null" then return end --/>
+
+	-- + UP
+	-- if db.actor then
+	if getLocalActor() then
+	-- - UP
+		if self.current_music and self.current_music.sound_object:playing() then self.current_music.sound_object:stop() end
+		self:MusicStart(path, oListItem.fn2:GetText())
+	end
+end
+
+-- кнопка Остановить музыку
+function misc:OnBtnMusicStop()
+	to_log(sModule..":> OnBtnMusicStop start")
+
+	-- + UP
+	-- if db.actor and self.current_music and self.current_music.sound_object:playing() then self.current_music.sound_object:stop() end
+	if getLocalActor() and self.current_music and self.current_music.sound_object:playing() then self.current_music.sound_object:stop() end
+	-- - UP
+	self.current_music = nil
+end
+
+-- запуск музыки
+function misc:MusicStart(path, name)
+	self.current_music = {
+		path = path,
+		sound_object = sound_object(path),
+		name = string.format("%s (%s)", name, path)
+	}
+	-- + UP
+	-- self.current_music.sound_object:play_at_pos(db.actor, vector():set(0, 0, 0), 0, sound_object.s2d)
+	self.current_music.sound_object:play_at_pos(getLocalActor(), vector():set(0, 0, 0), 0, sound_object.s2d)
+	-- - UP
+end
+
+-- двойной клик на элементе списка видео
+function misc:OnVideoListMouseDblClicked()
+	to_log(sModule..":> OnVideoListMouseDblClicked start")
+	self:OnBtnVideoStart()
+end
+
+-- кнопка Запустить видео
+function misc:OnBtnVideoStart()
+	to_log(sModule..":> OnBtnVideoStart start")
+
+	local section = self.owner:GetListItemSelectedValue(self.video_list)
+	if not section or section == "null" then return end --/>
+
+	self.owner:HideDialog()
+	game.start_tutorial(section)
+end
+
+-- очистка полей
+function misc:ClearFields(clear_all)
+	to_log(sModule..":> ClearFields start, clear_all=[%s]", tostring(clear_all))
+	if clear_all then
+		self.subsection_list:ScrollToBegin()
+		self.subsection_list:RemoveAll()
+	end
+
+	if not self.timefactor_coeff_value:GetText() then self.timefactor_coeff_value:SetText(tostring(self.base_time_factor_coeff)) end
+	local time_factor_coeff = tonumber(self.timefactor_coeff_value:GetText())
+	if not time_factor_coeff or time_factor_coeff < 1 or time_factor_coeff > 10 then time_factor_coeff = self.base_time_factor_coeff end
+	if math.floor(time_factor_coeff) < time_factor_coeff then time_factor_coeff = math.floor(time_factor_coeff) end
+	self.timefactor_coeff_value:SetText(tostring(time_factor_coeff))
+
+	self.music_list:ScrollToBegin()
+	self.music_list:RemoveAll()
+
+	self.video_list:ScrollToBegin()
+	self.video_list:RemoveAll()
+end
+
+-- скрытие полей
+function misc:HideFields(hide_all)
+	to_log(sModule..":> HideFields start")
+	if hide_all then
+		self.subsection_list:Show(false)
+	end
+	self.owner:SetFrameShowState(false, self.time_frame)
+	self.owner:SetFrameShowState(false, self.music_frame)
+	self.owner:SetFrameShowState(false, self.music_frame_buttons)
+	self.owner:SetFrameShowState(false, self.video_frame)
+	self.owner:SetFrameShowState(false, self.video_frame_buttons)
+end
+
+-- кнопка Плюс
+function misc:OnBtnPlus()
+	to_log(sModule..":> OnBtnPlus start")
+	local value = tonumber(self.timefactor_value:GetText()) or self.base_time_factor
+	if math.floor(value) < value then value = math.floor(value) + 10 else value = value + 10 end
+	if value < 1 then value = 1 end
+	if value > 1000000 then value = 1000000 end
+	self.timefactor_value:SetText(string.format("%d", value))
+end
+
+-- кнопка Минус
+function misc:OnBtnMinus()
+	to_log(sModule..":> OnBtnMinus start")
+	local value = tonumber(self.timefactor_value:GetText()) or self.base_time_factor
+	if math.floor(value) < value then value = math.floor(value) else value = value - 10 end
+	if value < 1 then value = 1 end
+	if value > 1000000 then value = 1000000 end
+	self.timefactor_value:SetText(string.format("%d", value))
+end
+
+-- кнопка Установить
+function misc:OnBtnTimefactorSet()
+	to_log(sModule..":> OnBtnTimefactorSet start")
+	local time_factor = tonumber(self.timefactor_value:GetText()) or self.base_time_factor
+	if time_factor < 1 then time_factor = 1 end
+	if time_factor > 1000000 then time_factor = 1000000 end
+	self.timefactor_value:SetText(string.format("%d", time_factor))
+	level.set_time_factor(time_factor)
+	get_console():execute("time_factor "..tostring(time_factor))-- +UP
+	self:Refresh(time_factor)
+end
+
+-- кнопка Сбросить
+function misc:OnBtnTimefactorReset()
+	to_log(sModule..":> OnBtnTimefactorReset start")
+	self.timefactor_coeff_value:SetText(tostring(self.base_time_factor_coeff))
+	level.set_time_factor(self.base_time_factor)
+	get_console():execute("time_factor "..tostring(time_factor))-- +UP
+	self:Refresh(self.base_time_factor)
+end
+
+-- кнопка Коэффициент Плюс
+function misc:OnBtnCoeffPlus()
+	to_log(sModule..":> OnBtnCoeffPlus start")
+	local value = tonumber(self.timefactor_coeff_value:GetText()) or self.base_time_factor_coeff
+	if math.floor(value) < value then value = math.floor(value) + 1 else value = value + 1 end
+	if value < 2 then value = 2 end
+	if value > 10 then value = 10 end
+	self.timefactor_coeff_value:SetText(string.format("%d", value))
+end
+
+-- кнопка Коэффициент Минус
+function misc:OnBtnCoeffMinus()
+	to_log(sModule..":> OnBtnCoeffMinus start")
+	local value = tonumber(self.timefactor_coeff_value:GetText()) or self.base_time_factor_coeff
+	if math.floor(value) < value then value = math.floor(value) else value = value - 1 end
+	if value < 2 then value = 2 end
+	if value > 10 then value = 10 end
+	self.timefactor_coeff_value:SetText(string.format("%d", value))
+end
+
+-- кнопка Ускорить
+function misc:OnBtnTimefactorIncrease()
+	to_log(sModule..":> OnBtnTimefactorIncrease start")
+	local time_factor_coeff = tonumber(self.timefactor_coeff_value:GetText()) or self.base_time_factor_coeff
+	if time_factor_coeff > 10 then time_factor_coeff = 10 end
+	if time_factor_coeff < 2 then time_factor_coeff = 2 end
+	if math.floor(time_factor_coeff) < time_factor_coeff then time_factor_coeff = math.floor(time_factor_coeff) + 1 end
+	self.timefactor_coeff_value:SetText(string.format("%d", time_factor_coeff))
+	local time_factor = level.get_time_factor() * time_factor_coeff
+	if time_factor > 1000000 then time_factor = 1000000 end
+	level.set_time_factor(time_factor)
+	self:Refresh(time_factor)
+end
+
+-- кнопка Замедлить
+function misc:OnBtnTimefactorDecrease()
+	to_log(sModule..":> OnBtnTimefactorDecrease start")
+	local time_factor_coeff = tonumber(self.timefactor_coeff_value:GetText()) or self.base_time_factor_coeff
+	if time_factor_coeff > 10 then time_factor_coeff = 10 end
+	if time_factor_coeff < 2 then time_factor_coeff = 2 end
+	time_factor_coeff = math.floor(time_factor_coeff)
+	self.timefactor_coeff_value:SetText(string.format("%d", time_factor_coeff))
+	local time_factor = math.floor(level.get_time_factor() / time_factor_coeff)
+	if time_factor < 1 then time_factor = 1 end
+	level.set_time_factor(time_factor)
+	self:Refresh(time_factor)
+end

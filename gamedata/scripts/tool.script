@@ -1,0 +1,917 @@
+--[[ ----------------------------------------------------------------------------------------------
+ File       : tool.script
+ Description: Инструмент разработчика
+ Copyright  : 2025 © The Tool
+ Author     : Kirgudu, monk
+ Last edit  : 16.09.2025
+--]] ----------------------------------------------------------------------------------------------
+
+----------------------------------------
+-- Общие переменные модуля
+----------------------------------------
+local bInit = false --/ флаг инициализации модуля
+local sModule = "tool" --script_name() --/ строковое имя файла-модуля
+local sLtxPath = "misc\\"..sModule..".ltx" -- путь к конфигу модуля в папке configs
+local sXmlPath = sModule..".xml" -- путь к UI конфигу в папке configs\ui
+local sNoValue = game.translate_string("tool_no_value") --/ стандартный текст для отсутствия чего-либо (прочерк)
+local defColor = GetARGB(255, 216, 186, 40) --/ цвет по умолчанию
+local sim = alife() --/ кеширование алайфа
+
+local tSettings = nil --/ настройки менеджера
+local oDebugManager = nil --/ инициализированный экземпляр класса менеджера
+
+local tDebugManagerTabs = {} --/ массив разделов диалога
+local tDebugManagerModules = {} --/ массив дочерних модулей
+
+----------------------------------------
+-- Инициализация
+----------------------------------------
+function init()
+	print_msg("tool.script init")
+	if bInit then return end --/>
+	to_log(sModule..":init:>") --/#~#
+	local ltx = ini_file(sLtxPath)
+	Initialize(ltx)
+	PrepareData(ltx)
+	xr_s.register_callback("game_load", OnLoad)
+	bInit = true
+end
+
+----------------------------------------
+-- Коллбэки событий
+----------------------------------------
+
+-- показ диалога
+function ShowDebugManagerDialog()
+	if actor_menu.get_menu_mode() == 4 then return end --/> не открываем диалог при открытом ящике/трупе
+	PrepareRuntimeData()
+	xr_s.on_event("tool_open") --/#+# >событие: 'tool_open'
+	GetDebugManagerDialog(get_hud()):ShowDialog(true)
+end
+
+-- восстановление диалога после временного скрытия
+function RestoreDebugManagerDialog()
+	GetDebugManagerDialog():ShowDialog(true)
+end
+
+-- переключение показа информации об НПС
+local bShowNpcInfo = false --/ флаг показа информации об НПС (изменяется автоматически по клавише)
+function SwitchNpcInfo()
+	bShowNpcInfo = not bShowNpcInfo
+	if bShowNpcInfo then
+		xr_s.register_callback("on_meet", ShowNpcInfo)
+	else
+		xr_s.unregister_callback("on_meet", ShowNpcInfo)
+	end
+end
+
+-- переключение показа статистики на худе
+local bShowHudStats = false --/ флаг показа статистики на худе (изменяется автоматически по клавише)
+function SwitchHudStats()
+	bShowHudStats = not bShowHudStats
+	if bShowHudStats then
+		ShowHudStats()
+	else
+		HideHudStats()
+	end
+end
+
+
+----------------------------------------
+-- Вспомогательные функции
+----------------------------------------
+
+-- инициализация модуля
+function Initialize(ltx)
+	local trim = string.trim
+	tSettings = { sStartTabName = nil, sActiveTab = nil } -- первый видимый раздел (по умолчанию при отсутствии в конфиге)
+
+	local items = Get_IniSection(ltx, "tabs", "table", "key2num")
+	for i = 1, #items do
+		local item = items[i]
+		local tab = { index = i-1, id = trim(item[1]), name = sModule.."_"..trim(item[1]), show = trim(item[2]) == "true" or trim(item[2]) == "1", line = tonumber(trim(item[3])) or 1 }
+		if tab.show then
+			-- инициализация внешнего модуля и подключение класса
+			prefetch(tab.name)
+			if _G[tab.name] and type(_G[tab.name][tab.id]) == "userdata" and type(_G[tab.name][tab.id].__init) == "function" then
+				tDebugManagerModules[tab.id] = _G[tab.name][tab.id](sModule)
+				if not tSettings.sStartTabName then tSettings.sStartTabName = tab.id end
+			else
+				-- если модуля нет, кнопку не показываем даже при включении раздела в конфиге
+				tab.show = false
+			end
+		end
+		table.insert(tDebugManagerTabs, tab)
+	end
+	printf_msg("tool.script:Initialized")
+end
+
+function OnLoad()
+	local ltx = ini_file(sLtxPath)
+	printf_msg("tool.script:OnLoad")
+	-- чтение настроек
+	local bRememberActiveTab = Get_Cfg_Bool(ltx, "settings", "remember_active_tab", false)
+	local sActiveTab = string.lower(Get_Cfg_String(ltx, "settings", "default_tab", tSettings.sStartTabName))
+	tSettings = {
+		bRememberActiveTab = bRememberActiveTab, -- запоминать или нет активный раздел
+		sStartTabName = bRememberActiveTab and GetVar("tool_active_tab", sActiveTab) or sActiveTab, -- раздел по умолчанию
+		y1 = Get_Cfg_Num32(ltx, "settings", "y_line_1", 6), -- расположение по высоте первой линии кнопок
+		y2 = Get_Cfg_Num32(ltx, "settings", "y_line_2", 43), -- расположение по высоте второй линии кнопок
+		dx1 = Get_Cfg_Num32(ltx, "settings", "tab_interval", 105), -- расстояние между кнопками для квадратных мониторов
+		dx2 = Get_Cfg_Num32(ltx, "settings", "tab_interval_16", 75) -- расстояние между кнопками для широкоформатных мониторов
+	}
+	
+
+	-- назначение горячих клавиш
+	keylogger.bind_console_key(string.upper(Get_Cfg_String(ltx, "key_bindings", "tool_manager", "J")), ShowDebugManagerDialog)
+	keylogger.bind_console_key(string.upper(Get_Cfg_String(ltx, "key_bindings", "npc_info", "H")), SwitchNpcInfo)
+	keylogger.bind_console_key(string.upper(Get_Cfg_String(ltx, "key_bindings", "hud_stats", "K")), SwitchHudStats)
+
+	for _,v in pairs(tDebugManagerModules) do
+		if type(v.OnLoad) == "function" then v:OnLoad(ltx) end
+	end
+end
+
+-- инициализация экземпляра менеджера
+function GetDebugManagerDialog(owner)
+	if oDebugManager == nil then
+		oDebugManager = tool_manager(owner)
+	elseif owner ~= nil then
+		oDebugManager:OnTabChange(tSettings.sStartTabName)
+	end
+	return oDebugManager --/>
+end
+
+-- подготовка статических данных
+function PrepareData(ltx)
+	for _,v in pairs(tDebugManagerModules) do
+		if type(v.PrepareData) == "function" then v:PrepareData(ltx) end
+	end
+end
+
+-- подготовка игровых данных
+function PrepareRuntimeData()
+	local ltx = ini_file(sLtxPath)
+	for _,v in pairs(tDebugManagerModules) do
+		if type(v.PrepareRuntimeData) == "function" then v:PrepareRuntimeData(ltx) end
+	end
+end
+
+
+----------------------------------------
+-- Основной класс менеджера разработчика
+----------------------------------------
+
+class "tool_manager" (CUIScriptWnd)
+
+-- инициализация менеджера
+function tool_manager:__init(owner) super()
+	to_log(sModule..":tool_manager:> __init") --/#~#
+	self.owner = owner
+	self.dlg_message_callback_exit = nil
+	self.dlg_message_callback_execute = nil
+	get_hud():HideActorMenu()
+	self:BindModules()
+	self:InitControls()
+	self:InitCallbacks()
+	self:OnTabChange(tSettings.sStartTabName)
+end
+
+function tool_manager:__finalize() end
+
+-- подключение дочерних модулей
+function tool_manager:BindModules()
+	to_log(sModule..":tool_manager:> BindModules") --/#~#
+	for k,v in pairs(tDebugManagerModules) do
+		v.owner = self
+		to_log(sModule..":tool_manager:> %s binding done", k) --/#~#
+	end
+end
+
+-- инициализация элементов
+function tool_manager:InitControls()
+	to_log(sModule..":tool_manager:> InitControls") --/#~#
+
+	-- + UP
+	-- self:SetWndRect(Frect():set(30, 20, 1024, 768))
+	--self:SetWndRect(Frect():set(30, 20, device().width*0.6, device().height*0.6))
+	self:SetWndRect(Frect():set(0, 0, device().width, device().height))
+	-- - UP
+	local xml = CScriptXmlInit()
+	xml:ParseFile(sXmlPath)
+
+	-- подложка
+	xml:InitStatic("background", self)
+
+	-- фон закладок разделов
+	-- xml:InitFrameLine("mbbackground_frame_line2", self)-- +UP
+	-- self.back_frame = xml:InitFrameLine("mbbackground_frame_line", self)-- +UP
+	
+	-- закладки разделов
+	self.tab = xml:InitTab("tab", self)
+	local tab_lines = { [1] = { cnt = 0, y = tSettings.y1 }, [2] = { cnt = 0, y = tSettings.y2 } }
+	local dx = device().aspect_ratio >= 0.75 and tSettings.dx1 or tSettings.dx2
+	for _,tab in ipairs(tDebugManagerTabs) do
+		local button = self.tab:GetButtonById(tab.id)
+		if button then
+			button:Show(tab.show)
+			if tab.show then
+				local line = tab_lines[tab.line]
+				button:SetWndPos(vector2():set(line.cnt * dx, line.y))
+				line.cnt = line.cnt + 1
+			end
+		end
+	end
+	self:Register(self.tab, "tool_manager_tab")
+
+	-- часы/дата
+	self.time_frame = xml:InitFrameLine("timer_frame_line", self)
+	self.timer = xml:InitStatic("timer_frame_line:title", self.time_frame)
+	self.time_frame2 = xml:InitFrameLine("timer_frame_line2", self)
+	self.timer2 = xml:InitStatic("timer_frame_line2:title", self.time_frame2)
+
+	-- информационные области
+	self.frame_left = xml:InitFrame("frame_left", self)
+	self.frame_right = xml:InitStatic("frame_right", self)
+
+	-- заголовок раздела
+	self.caption = xml:InitStatic("frame_left:title", self.frame_left)
+
+	local ctrl = CUIWindow()
+
+	-- элемент списка категорий слева
+	xml:InitWindow("frame_left:primary_list_item:main", 0, ctrl)
+	self.primary_list_item_main_sz = vector2():set(ctrl:GetWidth(), ctrl:GetHeight())
+	-- элемент списка категорий слева - наименование
+	xml:InitWindow("frame_left:primary_list_item:fn", 0, ctrl)
+	self.primary_list_item_fn_sz = vector2():set(ctrl:GetWidth(), ctrl:GetHeight())
+
+	-- элемент списка записей справа
+	xml:InitWindow("frame_right:secondary_list_item:main", 0, ctrl)
+	self.secondary_list_item_main_sz = vector2():set(ctrl:GetWidth(), ctrl:GetHeight())
+	-- элемент списка записей справа - наименование
+	xml:InitWindow("frame_right:secondary_list_item:fn", 0, ctrl)
+	self.secondary_list_item_fn_sz = vector2():set(ctrl:GetWidth(), ctrl:GetHeight())
+	-- элемент списка записей справа - наименование 1
+	xml:InitWindow("frame_right:secondary_list_item:fn1", 0, ctrl)
+	self.secondary_list_item_fn1_sz = vector2():set(ctrl:GetWidth(), ctrl:GetHeight())
+	-- элемент списка записей справа - наименование 2
+	xml:InitWindow("frame_right:secondary_list_item:fn2", 0, ctrl)
+	self.secondary_list_item_fn2_sz = vector2():set(ctrl:GetWidth(), ctrl:GetHeight())
+
+	-- запуск инициализации элементов подключённых модулей
+	for _,v in pairs(tDebugManagerModules) do
+		if v.InitControls then v:InitControls(self, xml) end
+	end
+
+	-- сообщение игроку
+	self.dlg_message = xml:InitFrame("frame_right:dlg_message", self.frame_right)
+	-- рамка, фон, заголовок диалога
+	xml:InitStatic("frame_right:dlg_message:background_1", self.dlg_message)
+	xml:InitStatic("frame_right:dlg_message:background_2", self.dlg_message)
+	self.dlg_message_caption = xml:InitStatic("frame_right:dlg_message:caption", self.dlg_message)
+	-- кнопка диалога ОК
+	self.dlg_message_btn_ok = xml:Init3tButton("frame_right:dlg_message:btn_ok", self.dlg_message)
+	self:Register(self.dlg_message_btn_ok, "tool_manager_message_btn_ok")
+	-- кнопка диалога Продолжить
+	self.dlg_message_btn_continue = xml:Init3tButton("frame_right:dlg_message:btn_continue", self.dlg_message)
+	self:Register(self.dlg_message_btn_continue, "tool_manager_message_btn_continue")
+	-- кнопка диалога Отмена
+	self.dlg_message_btn_cancel = xml:Init3tButton("frame_right:dlg_message:btn_cancel", self.dlg_message)
+	self:Register(self.dlg_message_btn_cancel, "tool_manager_message_btn_cancel")
+end
+
+-- инициализация событий
+function tool_manager:InitCallbacks()
+	to_log(sModule..":tool_manager:> InitCallbacks") --/#~#
+	self:AddCallback("tool_manager_tab", ui_events.TAB_CHANGED, self.OnTabChange, self)
+	self:AddCallback("tool_manager_message_btn_ok", ui_events.BUTTON_CLICKED, self.OnMessageBtnOk, self)
+	self:AddCallback("tool_manager_message_btn_cancel", ui_events.BUTTON_CLICKED, self.OnMessageBtnOk, self)
+	self:AddCallback("tool_manager_message_btn_continue", ui_events.BUTTON_CLICKED, self.OnMessageBtnContinue, self)
+	for _,v in pairs(tDebugManagerModules) do
+		if v.InitCallbacks then v:InitCallbacks(self) end
+	end
+end
+
+-- обновление
+function tool_manager:Update()
+	CUIScriptWnd.Update(self)
+	local t = CTimeToTable(game.get_game_time())
+	self.timer:TextControl():SetText(string.format('%02d:%02d', t[4], t[5]))
+	self.timer2:TextControl():SetText(string.format('%02d.%02d.%04d', t[3], t[2], t[1]))
+	local oModule = tDebugManagerModules[self.tab:GetActiveId()]
+	if oModule and oModule.Update then oModule:Update() end
+end
+
+-- нажатия на кнопки
+function tool_manager:OnKeyboard(dik, keyboard_action)
+	CUIScriptWnd.OnKeyboard(self, dik, keyboard_action)
+	for _,v in pairs(tDebugManagerModules) do
+		if v.OnKeyboard then
+			local result = v:OnKeyboard(tSettings.sActiveTab, dik, keyboard_action)
+			if not result then return true end --/>
+		end
+	end
+	if keyboard_action == ui_events.WINDOW_KEY_PRESSED then
+		if dik == DIK_keys.DIK_ESCAPE then
+			if self.dlg_message:IsShown() then
+				self:CloseMessageDialog(false)
+				return true --/>
+			end
+			self:OnQuit()
+		end
+	end
+	return true --/>
+end
+
+-- показ сообщения игроку или закрытие диалога с коллбэком
+-- message - информационное сообщение или вопрос
+-- callback_exit - коллбэк на простое закрытие диалога (в том числе при ответе "нет")
+-- callback_execute - коллбэк на закрытие диалога с выполнением (при ответе "да"),
+--                    при его наличии формируется диалог да/нет, без него - простой информационный диалог
+function tool_manager:SetMessageDialog(message, callback_exit, callback_execute)
+	-- сообщение
+	if message then self.dlg_message_caption:TextControl():SetText(game.translate_string(message)) end
+	-- показ/закрытие диалога
+	self.dlg_message:Show(true)
+	-- установка коллбэка на простое закрытие или закрытие по ответу "нет"
+	if callback_exit and type(callback_exit.func) == "function" then
+		self.dlg_message_callback_exit = callback_exit
+	end
+	-- показ/скрытие кнопок в засисимости от режима диалога и установка коллбэка на закрытие по ответу "да"
+	if callback_execute and type(callback_execute.func) == "function" then
+		self.dlg_message_btn_ok:Show(false)
+		self.dlg_message_btn_continue:Show(true)
+		self.dlg_message_btn_cancel:Show(true)
+		self.dlg_message_callback_execute = callback_execute
+	else
+		self.dlg_message_btn_ok:Show(true)
+		self.dlg_message_btn_continue:Show(false)
+		self.dlg_message_btn_cancel:Show(false)
+	end
+end
+
+-- закрытие информационного диалога с выполнением необходимых коллбэков
+function tool_manager:CloseMessageDialog(execute_mode)
+	-- закрытие диалога
+	self.dlg_message:Show(false)
+	-- выполнение коллбэка на простое закрытие
+	if execute_mode and self.dlg_message_callback_execute and type(self.dlg_message_callback_execute.func) == "function" then
+		-- исполнение коллбэка на закрытие по ответу "да"
+		self.dlg_message_callback_execute.func(self.dlg_message_callback_execute.userobj, self.dlg_message_callback_execute.data)
+		self.dlg_message_callback_execute = nil
+	elseif (not execute_mode) and self.dlg_message_callback_exit and type(self.dlg_message_callback_exit.func) == "function" then
+		-- исполнение коллбэка на простое закрытие или закрытие по ответу "нет"
+		self.dlg_message_callback_exit.func(self.dlg_message_callback_exit.userobj, self.dlg_message_callback_exit.data)
+		self.dlg_message_callback_exit = nil
+	end
+end
+
+-- закрытие информационного диалога или отмена действия в диалоге да/нет
+function tool_manager:OnMessageBtnOk()
+	if self.dlg_message:IsShown() then
+		self:CloseMessageDialog(false)
+	end
+end
+
+-- закрытие диалога да/нет с выполнением действия
+function tool_manager:OnMessageBtnContinue()
+	if self.dlg_message:IsShown() then
+		self:CloseMessageDialog(true)
+	end
+end
+
+-- выход из диалога Инструмента
+function tool_manager:OnQuit()
+	xr_s.on_event("tool_close") --/#+# >событие: 'tool_close'
+	self:HideDialog()
+end
+
+-- открытие и инициализация раздела
+function tool_manager:OnTabChange(tab_id)
+	to_log(sModule..":tool_manager:> OnTabChange tab_id = [%s]", tab_id) --/#~#
+	--/ установка раздела по умолчанию из GetDebugManagerDialog при открытии диалога или чтение текущего раздела
+	-- + UP по умолчанию первым аргументом передается имя callback
+	-- if tab_id then
+	if tab_id and tab_id ~= "tool_manager_tab" then
+	-- - UP
+		local tab = nil
+		for _,v in ipairs(tDebugManagerTabs) do
+			if v.id == tab_id then
+				tab = v
+				break
+			end
+		end
+		if not (tab and tab.show) then
+			for _,v in ipairs(tDebugManagerTabs) do
+				if v.show then
+					tab_id = v.id
+					break
+				end
+			end
+		end
+		self.tab:SetActiveTab(tab_id)
+	else 
+		tab_id = self.tab:GetActiveId()
+	end
+	tSettings.sActiveTab = sModule.."_"..tab_id
+	if tSettings.bRememberActiveTab then
+		SetVar("tool_active_tab", tab_id)
+		tSettings.sStartTabName = tab_id
+	end
+	to_log(sModule..":tool_manager:> OnTabChange set tab_id = [%s]", tab_id) --/#~#
+	self.caption:TextControl():SetText(game.translate_string(string.format("tool_%s_caption", tab_id)))
+	self:ClearFields()
+	self:HideFields()
+	local oModule = tab_id and tDebugManagerModules[tab_id]
+	if oModule and oModule.OnTabChange then oModule:OnTabChange() end
+end
+
+-- получение выбранного элемента списка
+function tool_manager:GetListItemSelectedValue(list)
+	if list:GetSize() == 0 then return end --/>
+
+	local oListItem = list:GetSelectedItem()
+	if oListItem then return oListItem.fa:GetText(), oListItem end --/>
+end
+
+-- установка видимости фрейма и подчинённых элементов (при наличии)
+function tool_manager:SetFrameShowState(show, frame, elements)
+	if frame then frame:Show(show) end
+	-- if show and type(elements) == "table" then -- +UP
+	if type(elements) == "table" then -- +UP
+		for _,element in ipairs(elements) do element:Show(show) end
+	end
+end
+
+-- очистка полей
+function tool_manager:ClearFields()
+	for _,v in pairs(tDebugManagerModules) do
+		if v.ClearFields then v:ClearFields(true) end
+	end
+end
+
+-- скрытие полей
+function tool_manager:HideFields()
+	self.dlg_message:Show(false)
+	self.dlg_message_callback_exit = nil
+	self.dlg_message_callback_execute = nil
+	for _,v in pairs(tDebugManagerModules) do
+		if v.HideFields then v:HideFields(true) end
+	end
+end
+
+-- формирование элемента списка слева
+function tool_manager:GetPrimaryListItem(item_name, item_id, item_color)
+	local itm = list_item(self.primary_list_item_main_sz, item_color, false)
+	itm.fn1:SetWndPos(vector2():set(5, 2))
+	itm.fn1:SetWndSize(self.primary_list_item_fn_sz)
+	itm.fn1:SetText(item_name)
+	itm.fa:SetText(item_id)
+	return itm
+end
+
+-- формирование элемента списка справа
+function tool_manager:GetSecondaryListItem(item_name, item_name2, item_id, item_color)
+	local double = item_name2 ~= nil
+	local itm = list_item(self.secondary_list_item_main_sz, item_color, double)
+	itm.fn1:SetText(item_name)
+	itm.fn1:SetWndPos(vector2():set(9, 2))
+	if not double then
+		itm.fn1:SetWndSize(self.secondary_list_item_fn_sz)
+	else
+		itm.fn1:SetWndSize(self.secondary_list_item_fn1_sz)
+		itm.fn2:SetWndPos(vector2():set(self.secondary_list_item_fn1_sz.x + 9*2, 2))
+		itm.fn2:SetWndSize(self.secondary_list_item_fn2_sz)
+		itm.fn2:SetText(item_name2)
+	end
+	itm.fa:SetText(item_id)
+	return itm
+end
+
+-- добавление нового элемента в список слева
+function tool_manager:AddPrimaryListItem(list, name, id, color)
+	list:AddExistingItem(self:GetPrimaryListItem(name, id, color))
+end
+
+-- добавление нового элемента в список справа
+function tool_manager:AddSecondaryListItem(list, name1, name2, id, color)
+	list:AddExistingItem(self:GetSecondaryListItem(name1, name2, id, color))
+end
+
+----------------------------------------
+--/ класс универсального элемента списка
+----------------------------------------
+class "list_item" (CUIListBoxItem)
+
+function list_item:__init(size, color, double) super(size.y)
+	self:SetWndSize(size)
+	self:SetTextColor(color or defColor)
+	self.fn1 = self:GetTextItem()
+	self.fn1:SetFont(GetFontLetterica18Russian())
+	self.fn1:SetEllipsis(true)
+	if double then
+		self.fn2 = self:AddTextField("", 0)
+		self.fn2:SetFont(GetFontLetterica18Russian())
+		self.fn2:SetEllipsis(true)
+	end
+	self.fa = self:AddTextField("", 0)
+	self.fa:Show(false)
+end
+
+function list_item:__finalize() end
+
+
+----------------------------------------
+-- Показ отладочной информации на худе
+-- Использованы материалы OGSM
+----------------------------------------
+
+local hud = nil --/ кеширование худа
+local stHudStat = nil --/ статик для отладочной информации на худе
+local iSSVer = script_server_object_version() --/ для определения платформы
+
+function ShowHudStats()
+	hud = get_hud()
+	xr_s.register_callback("update", UpdateHudStats)
+	xr_s.register_callback("actor_destroy", HideHudStats)
+end
+
+-- Актор смотрит в прицел // actor look into optical sight
+function ActorUseScope()
+	-- + UP
+	-- if math.ceil(db.actor:accuracy() * 1000) ~= 1 then return false end --/>
+	if math.ceil(getLocalActor():accuracy() * 1000) ~= 1 then return false end --/>
+	-- - UP
+	if iSSVer < 8 then --/ для ТЧ
+		return device().fov < 50 --/>
+	else
+		-- + UP
+		-- local item = db.actor:active_item()
+		local item = getLocalActor():active_item()
+		-- - UP
+		return item and item:weapon_is_scope() --/>
+	end
+end
+
+function UpdateHudStats()
+	hud = get_hud()
+	stHudStat = hud:GetCustomStatic("cs_debug")
+
+	-- + UP
+	-- if not db.actor:alive() then
+	if not getLocalActor():alive() then
+	-- - UP
+		bShowHudStats = false
+		if stHudStat then
+			hud:RemoveCustomStatic("cs_debug")
+			stHudStat = nil
+		end
+		xr_s.unregister_callback("update", UpdateHudStats)
+		xr_s.unregister_callback("actor_destroy", HideHudStats)
+		return --/>
+	end
+
+	--// удаление статика (при наличии) и выход, если активен прицел
+	if ActorUseScope() then
+		if stHudStat then
+			hud:RemoveCustomStatic("cs_debug")
+			stHudStat = nil
+		end
+		return --/>
+	end
+
+	if not stHudStat then
+		hud:AddCustomStatic("cs_debug", true)
+		stHudStat = hud:GetCustomStatic("cs_debug")
+	end
+
+	-- + UP
+	-- local pos, dir, outfit = db.actor:position(), db.actor:direction(), db.actor:get_current_outfit()
+	local pos, dir, outfit = getLocalActor():position(), getLocalActor():direction(), getLocalActor():get_current_outfit()
+	-- - UP
+	local msg = string.format(
+		"lvid: %d, gvid: %d\\npos: x=%f, y=%f, z=%f\\ndir: x=%f, y=%f, z=%f\\nHealth: %.2f\\nArmor: %.2f",
+		-- + UP
+		-- db.actor:level_vertex_id(), db.actor:game_vertex_id(),
+		getLocalActor():level_vertex_id(), getLocalActor():game_vertex_id(),
+		-- - UP
+		pos.x, pos.y, pos.z,
+		dir.x, dir.y, dir.z,
+		-- + UP
+		-- db.actor.health,
+		getLocalActor().health,
+		-- - UP
+		outfit and outfit:condition() or 0
+	)
+
+	stHudStat:wnd():TextControl():SetText(msg)
+end
+
+function HideHudStats()
+	xr_s.unregister_callback("update", UpdateHudStats)
+	xr_s.unregister_callback("actor_destroy", HideHudStats)
+	hud = get_hud()
+	stHudStat = hud:GetCustomStatic("cs_debug")
+	if stHudStat then
+		hud:RemoveCustomStatic("cs_debug")
+		stHudStat = nil
+	end
+end
+
+
+----------------------------------------
+-- Показ отладочной информации об NPC
+-- Использованы материалы VENOM
+----------------------------------------
+
+function ShowNpcInfo(e, data)
+	local npc = data and data.obj
+	if not npc then return end --/>
+	-- + UP
+	-- if db.actor:position():distance_to_sqr(npc:position()) > 9 then return end --/> дальше трёх метров от игрока подсказку не меняем
+	if getLocalActor():position():distance_to_sqr(npc:position()) > 9 then return end --/> дальше трёх метров от игрока подсказку не меняем
+	-- - UP	
+	local text = GetNpcInfo(npc)
+	if text then npc:set_tip_text(text) end
+end
+
+function GetNpcInfo(npc)
+	local npc_id = npc:id()
+	local sobj = sim:object(npc_id)
+	if not sobj then return end --/> объект удалён
+
+	local smrt_id, smrt = sobj:smart_terrain_id(), nil
+	if smrt_id and smrt_id ~= 65535 then smrt = sim:object(smrt_id) end
+	local smrt_name = smrt and smrt:name() or sNoValue
+	local act_sec = db.storage[npc_id].active_section
+	local spawn_ini = npc:spawn_ini()
+	local ini = smrt and db.storage[npc_id].ini or (spawn_ini and xr_logic.get_customdata_or_ini_file(npc, Get_Cfg_String(spawn_ini, "logic", "cfg", "<customdata>")))
+	local path_name, look_name
+	if ini and act_sec then
+		if string.find(act_sec, "walker") or string.find(act_sec, "patrol") or string.find(act_sec, "camper") or string.find(act_sec, "sniper") then
+			path_name = Get_Cfg_String(ini, act_sec, "path_walk", nil)
+			look_name = Get_Cfg_String(ini, act_sec, "path_look", nil)
+		elseif string.find(act_sec, "remark") then
+			path_name = sNoValue
+			look_name = Get_Cfg_String(ini, act_sec, "target", nil)
+		elseif string.find(act_sec, "sleeper") then
+			path_name = Get_Cfg_String(ini, act_sec, "path_main", nil)
+		elseif string.find(act_sec, "kamp") then
+			path_name = Get_Cfg_String(ini, act_sec, "path_walk", nil)
+			look_name = Get_Cfg_String(ini, act_sec, "center_point", nil)
+			if not smrt and path_name and look_name then path_name = string.format("%s_%s", look_name, path_name) end
+		end
+		if smrt then
+			if path_name and not string.find(path_name, smrt_name) then path_name = string.format("%s_%s", smrt_name, path_name) end
+			if look_name and not string.find(look_name, smrt_name) then look_name = string.format("%s_%s", smrt_name, look_name) end
+		end
+	end
+	if not act_sec then act_sec = sNoValue end
+	if not path_name then path_name = sNoValue end
+	if not look_name then look_name = sNoValue end
+
+	local prof_name = npc:profile_name() or sNoValue
+	local story_id = npc:story_id()
+	story_id = story_id and story_id < 4294967295 and tostring(story_id) or sNoValue
+	local pos, lvid, gvid = npc:position(), npc:level_vertex_id(), npc:game_vertex_id()
+	-- local rank = npc:rank()
+
+	return string.format("Profile: %s  ID: %d  SID: %s  GVID: %d  LVID: %d  Pos: %.2f, %.2f, %.2f\\nWay: %s  Look: %s\\nSection: %s  Smart: %s", prof_name, npc_id, story_id, gvid, lvid, pos.x, pos.y, pos.z, path_name, look_name, act_sec, smrt_name) --/>
+	-- return string.format("Profile: %s  ID: %d  SID: %s  Rank: %d  GVID: %d  LVID: %d  Pos: %.2f, %.2f, %.2f\\nWay: %s  Look: %s\\nSection: %s  Smart: %s", prof_name, npc_id, story_id, rank, gvid, lvid, pos.x, pos.y, pos.z, path_name, look_name, act_sec, smrt_name) --/>
+end
+
+
+----------------------------------------
+-- Служебные функции
+----------------------------------------
+
+-- проверка существования распакованного файла
+function FileExists(filepath)
+	local f = io.open(filepath, "r")
+	if f ~= nil then io.close(f) return true else return false end
+end
+
+function GetFullPath(root, path)
+	return getFS():update_path(root or "$game_data$", path)
+end
+
+-- чтение списка файлов
+function GetFilesList(root, mask, flags)
+	local t, f = {}, getFS()
+	local flist = f:file_list_open_ex(root or "$game_config$", flags or FS.FS_ListFiles, mask or "")
+	local f_cnt = flist:Size()
+	if f_cnt == 0 then return t end --/>
+
+	for i = 0, f_cnt - 1 do
+		local filename = flist:GetAt(i):NameFull()
+		local file = f:exist(root or "$game_config$", flist:GetAt(i):NameFull())
+		if file and file.name and file.ptr == 0 then -- указатель file.ptr == 0 --> файл распакован
+			table.insert(t, { filename = filename, filepath = file.name })
+		end
+	end
+	return t --/>
+end
+
+-- чтение в таблицу простых ltx-конфигов вида:
+-- [section]
+-- name (строка|число) = value (строка|число|true|false)
+function ParseLtx(filename)
+	assert(type(filename) == 'string', 'Parameter "filename" must be a string.')
+	local file = assert(io.open(filename, 'r'), 'Error loading file : ' .. filename)
+	local data, section = {}, nil
+	for line in file:lines() do
+		local tempSection = line:match('^%s*%[([^%]%[]+)%].*$')
+		if tempSection then
+			section = tonumber(tempSection) or tempSection
+			data[section] = data[section] or {}
+		end
+		local param, value = line:match('^([%w|_]+)%s-=%s-(.+)$')
+		if section and param and value ~= nil then
+			if tonumber(value) then
+				value = tonumber(value)
+			elseif value == 'true' then
+				value = true
+			elseif value == 'false' then
+				value = false
+			end
+			if tonumber(param) then param = tonumber(param) end
+			data[section][param] = value
+		end
+	end
+	file:close()
+	return data
+end
+
+-- поворот вектора направления direction вокруг оси Y на angle градусов
+-- и сдвиг позиции position в заданном направлении на distance метров
+function MoveAtDirection(position, direction, angle, distance)
+	to_log(sModule..":> MoveAtDirection start")
+	direction = direction:normalize()
+	if angle == 0 or angle == 360 or angle == -360 then
+		direction = vector():set(direction.x, direction.y, direction.z)
+	elseif angle == 90 then
+		direction = vector():set(direction.z, direction.y, -direction.x)
+	elseif angle == -90 then
+		direction = vector():set(-direction.z, direction.y, direction.x)
+	elseif angle == 180 or angle == -180 then
+		direction = vector():set(-direction.x, direction.y, -direction.z)
+	else
+		direction = vector():set(direction.x * math.cos(angle) - direction.z * math.sin(angle), direction.y, direction.x * math.sin(angle) + direction.z * math.cos(angle))
+	end
+	return position:add(direction:mul(distance))
+end
+
+-- Получение массива целых значений, представляющих дату и время (для сохранения в storehouse)
+-- В случае отсутствия параметра типа CTime берётся нулевое игровое время
+-- Использованы материалы Artos, Garry_Galler
+function CTimeToTable(dateTime) --/ передаем время CTime
+	dateTime = dateTime or game.CTime()
+	local Y, M, D, h, m, s, ms = 0, 0, 0, 0, 0, 0, 0
+	Y, M, D, h, m, s, ms = dateTime:get(Y, M, D, h, m, s, ms)
+	return {Y, M, D, h, m, s, ms}
+end
+
+-- Получение значения переменной типа CTime из массива целых значений, представляющего дату и время (для чтения из storehouse)
+-- В случае отсутствия параметра типа массив целых чисел берётся нулевое игровое время
+-- Использованы материалы Artos, Garry_Galler
+function TableToCTime(t) --/ передаем массив аргументов в формате {Y, M, D, h, m, s, ms}.
+	local dateTime = game.CTime()
+	if t then dateTime:set(t[1], t[2], t[3], t[4], t[5], t[6], t[7]) end
+	return dateTime
+end
+
+-- Получение строки с датой/временем
+-- В случае отсутствия второго параметра типа CType берёт текущее игровое время
+-- Использованы материалы Artos, Garry_Galler
+function GetDateOrTimeString(sType, dateTime)
+	--/ передаем аргументы из числа "Y", "M", "D", "h", "m", "s", "ms"
+	--/ по одной штуке - смотря какое значение текущего игрового времени или даты хотим получить
+	--/ по умолчанию функция возвращает секунды.
+	if not dateTime then dateTime = game.get_game_time() end
+	if sType then
+		local tTime = {
+			["Y"]  = game.CTime.DateToYear,    --/ 2012
+			["M"]  = game.CTime.DateToMonth, --/ 01/2012
+			["D"]  = game.CTime.DateToDay,     --/ 01/01/2012
+			["h"]  = game.CTime.TimeToHours,   --/ 23
+			["m"]  = game.CTime.TimeToMinutes, --/ 23:59
+			["s"]  = game.CTime.TimeToSeconds, --/ 23:59:59
+			["ms"] = game.CTime.TimeToMilisecs --/ 23:59:59:999
+		}
+		if sType == string.lower(sType) then --/ аргумент в нижнем регистре
+			return dateTime:timeToString(tTime[sType] or 0) --/> время
+		end
+		return dateTime:dateToString(tTime[sType] or 0) --/> дата
+	end
+	return dateTime:timeToString(game.CTime.TimeToSeconds) --/> по дефолту 23:59:59
+end
+
+-- Выборка из таблицы с сортировкой по value (быстрая сортировка с разбивкой на две части).
+-- Работает также в случае если value - тоже таблица (простая).
+-- Выводимая таблица представляет собой простой массив, индекс исходной таблицы перемещается в поле "__oldKey".
+-- Значения элементов выводимого массива всегда представляют собой таблицу.
+-- Если value исходной таблицы представляет собой простое значение - оно перемещается в поле "__oldValue".
+-- t - исходная таблица
+-- o - порядок сортировки, может принимать значения "asc" (по возрастанию) или "desc" (по убыванию), при отсутствии по умолчанию берётся "asc".
+-- s - значение, по которому должна произойти сортировка. Может принимать вид:
+--     "", nil или без параметра - для случаев, когда vаlue представляет собой простое значение. Пример:
+--       t = {3,7,1,9,4}; вызов сортировки: t2 = SortTableByValue(t, "asc")
+--     "key" - для случаев, когда value представляет собой таблицу, указывается название поля этой таблицы для сортировки по нему. Пример:
+--       t = {{a=3,b=7,c=1},{a=8,b=2,c=5}}; вызов сортировки: t2 = SortTableByValue(t, "asc", "b")
+function SortTableByValue(t, o, s)
+	local function qSort(t, o, s, low, high)
+		local i, j, x = low, high, t[math.floor((low+high)/2)]
+		while (i <= j) do
+			if s == "" then
+				if o == "desc" then
+					while (t[i]["__oldValue"] > x["__oldValue"]) do i = i + 1 end
+					while (t[j]["__oldValue"] < x["__oldValue"]) do j = j - 1 end
+				else
+					while (t[i]["__oldValue"] < x["__oldValue"]) do i = i + 1 end
+					while (t[j]["__oldValue"] > x["__oldValue"]) do j = j - 1 end
+				end
+			else
+				if o == "desc" then
+					while (t[i][s] > x[s]) do i = i + 1 end
+					while (t[j][s] < x[s]) do j = j - 1 end
+				else
+					while (t[i][s] < x[s]) do i = i + 1 end
+					while (t[j][s] > x[s]) do j = j - 1 end
+				end
+			end
+			if (i <= j) then
+				local temp = t[i]
+				t[i] = t[j]
+				t[j] = temp
+				i, j = i + 1, j - 1
+			end
+		end
+		if (low < j) then qSort(t, o, s, low, j) end
+		if (i < high) then qSort(t, o, s, i, high) end
+	end
+
+	s = s or ""
+	if not o or (o ~= "asc" and o ~= "desc") then o = "asc" end
+	if not t or type(t) ~= "table" then return nil, "SortTableByValue: wrong source" end
+	if type(s) ~= "string" then return nil, "SortTableByValue: wrong sort parameter" end
+	if t.__oldKey then return nil, "SortTableByValue: source table already has '__oldKey' field" end
+	if t.__oldValue then return nil, "SortTableByValue: source table already has '__oldValue' field" end
+	local t1, t2, low, high = table.clone(t), {}, 1, 0
+	for k,v in pairs(t1) do
+		high = high + 1
+		local v2 = (type(v) == "table") and v or {__oldValue = v}
+		v2.__oldKey = k
+		table.insert(t2, v2)
+	end
+	if high <= 1 then return t2, nil end
+	qSort(t2, o, s, low, high)
+	return t2, nil
+end
+
+-- приведение строк, содержащих кириллицу, к нижнему или верхнему регистру
+local chars_lower = [[йцукенгшщзхъфывапролджэячсмитьбюё]]
+local chars_upper = [[ЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮЁ]]
+
+function StringLowerRus(s)
+	return string.lower(s:gsub("([А-ЯЁ])", function(c)
+		local i = string.find(chars_upper, c, 1, true)
+		return string.sub(chars_lower, i, i)
+	end))
+end
+
+function StringUpperRus(s)
+	return string.upper(s:gsub("([а-яё])", function(c)
+		local i = string.find(chars_lower, c, 1, true)
+		return string.sub(chars_upper, i, i)
+	end))
+end
+
+-- фильтрация символов в текстовом поле согласно щаблону
+filter_patterns = {
+	integer = "^%-?%d*$",
+	integer_positive = "^%d+$",
+	decimal = "^%-?%d*%.?%d*$",
+	decimal_positive = "^%d+%.?%d*$"
+}
+
+local filters = {}
+
+function AddToFilter(owner, name, textbox, pattern)
+	if type(filters[owner]) ~= "table" then filters[owner] = {} end
+	filters[owner][name] = { textbox = textbox, pattern = pattern }
+end
+
+function FilterTextboxes(owner)
+	for _,v in pairs(filters[owner]) do
+		if v.textbox:IsShown() then
+			local text = v.textbox:GetText()
+			if #text > 0 then
+				while #text > 0 and not text:match(v.pattern) do
+					text = text:sub(1, -2)
+				end
+				v.textbox:SetText(text)
+			end
+		end
+	end
+end

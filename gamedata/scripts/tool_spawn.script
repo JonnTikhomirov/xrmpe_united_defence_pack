@@ -1,0 +1,994 @@
+--[[ ----------------------------------------------------------------------------------------------
+ File       : tool_spawn.script
+ Description: Инструмент разработчика
+            : Модуль "Объекты"
+ Copyright  : 2025 © The Tool
+ Author     : Kirgudu, monk
+            : Использованы материалы GOD of the zone MOD v3.0 by Shoker
+ Last edit  : 18.09.2025
+--]] ----------------------------------------------------------------------------------------------
+
+local sModule = script_name() --/ строковое имя файла-модуля
+local sim = alife() --/ кеширование алайфа
+
+class "spawn"
+
+function spawn:__init(owner_name)
+	to_log(sModule..":> __init") --/#~#
+	self.owner_script = _G[owner_name]
+	self.tSpawnGroups = {} -- массив групп спавна
+	self.tSpawnSections = {} -- массив секций
+	self.tSmarts = {} --/ массив смартов для спавна отрядов
+	self.sSquadsConfigRoot = Get_Cfg_String(ltx, "squads_config_settings", "config_root", "$tool_misc$")
+	self.color = { --/ цветовое оформление списка секций
+		[0] = GetARGB(255, 216, 186, 140), --/ секция
+		[1] = GetARGB(255,  49, 174,  66)  --/ заголовок
+	}
+end
+
+function spawn:__finalize() end
+
+-- инициализация элементов
+function spawn:InitControls(owner, xml)
+	to_log(sModule..":> InitControls") --/#~#
+
+	-- список категорий слева
+	self.group_list = xml:InitListBox("frame_left_spawn:group_list", owner.frame_left)
+	self.group_list:ShowSelectedItem(true)
+	owner:Register(self.group_list, "spawn_group_list")
+
+	-- список записей справа (все подразделы, кроме отрядов)
+	self.section_frame = xml:InitFrame("frame_right_spawn:section_frame", owner.frame_right)
+	self.section_list = xml:InitListBox("frame_right_spawn:section_frame:section_list", self.section_frame)
+	self.section_list:ShowSelectedItem(true)
+	owner:Register(self.section_list, "spawn_section_list")
+	self.section_frame_controls = { self.section_list }
+
+	-- список записей справа (подраздел отряды, секции отрядов)
+	self.squad_frame = xml:InitFrame("frame_right_spawn:squad_frame", owner.frame_right)
+	self.squad_caption = xml:InitStatic("frame_right_spawn:squad_frame:squad_caption", self.squad_frame)
+	self.squad_list = xml:InitListBox("frame_right_spawn:squad_frame:squad_list", self.squad_frame)
+	self.squad_list:ShowSelectedItem(true)
+	owner:Register(self.squad_list, "spawn_squad_list")
+	-- текстовое поле
+	self.textbox_find_squad = xml:InitEditBox("frame_right_spawn:squad_frame:textbox_find_squad", self.squad_frame)
+	owner:Register(self.textbox_find_squad, "spawn_textbox_find_squad")
+	-- кнопка Поиск
+	self.btn_find_squad = xml:Init3tButton("frame_right_spawn:squad_frame:btn_find_squad", self.squad_frame)
+	owner:Register(self.btn_find_squad, "spawn_btn_find_squad")
+	self.squad_frame_controls = { self.squad_caption, self.squad_list, self.textbox_find_squad, self.btn_find_squad }
+
+	-- список записей справа (подраздел отряды, смарты)
+	self.smart_frame = xml:InitFrame("frame_right_spawn:smart_frame", owner.frame_right)
+	self.smart_caption = xml:InitStatic("frame_right_spawn:smart_frame:smart_caption", self.smart_frame)
+	self.smart_list = xml:InitListBox("frame_right_spawn:smart_frame:smart_list", self.smart_frame)
+	self.smart_list:ShowSelectedItem(true)
+	owner:Register(self.smart_list, "spawn_smart_list")
+--[[ -- для CoP пока скрываем
+	-- кнопка Найти ближайшую
+	self.btn_select_nearest = xml:Init3tButton("frame_right_spawn:smart_frame:btn_select_nearest", self.smart_frame)
+	owner:Register(self.btn_select_nearest, "spawn_btn_select_nearest")
+--]]
+	-- текстовое поле
+	self.textbox_find_smart = xml:InitEditBox("frame_right_spawn:smart_frame:textbox_find_smart", self.smart_frame)
+	owner:Register(self.textbox_find_smart, "spawn_textbox_find_smart")
+	-- кнопка Поиск
+	self.btn_find_smart = xml:Init3tButton("frame_right_spawn:smart_frame:btn_find_smart", self.smart_frame)
+	owner:Register(self.btn_find_smart, "spawn_btn_find_smart")
+	self.smart_frame_controls = { self.smart_caption, self.smart_list, self.textbox_find_smart, self.btn_find_smart }
+
+	-- кнопки списка справа, строка 1 и 2
+	self.buttons_frame_1 = xml:InitFrame("frame_right_spawn:buttons_frame_1", owner.frame_right)
+
+	-- кнопки блока Прыжок
+	self.caption_shift = xml:InitStatic("frame_right_spawn:buttons_frame_1:caption_shift", self.buttons_frame_1)
+	self.textbox_shift = xml:InitEditBox("frame_right_spawn:buttons_frame_1:textbox_shift", self.buttons_frame_1)
+	self.owner_script.AddToFilter(sModule, "textbox_shift", self.textbox_shift, self.owner_script.filter_patterns.integer_positive)
+	self.btn_shift_plus = xml:Init3tButton("frame_right_spawn:buttons_frame_1:textbox_shift:btn_shift_plus", self.buttons_frame_1)
+	owner:Register(self.btn_shift_plus, "spawn_btn_shift_plus")
+	self.btn_shift_minus = xml:Init3tButton("frame_right_spawn:buttons_frame_1:textbox_shift:btn_shift_minus", self.buttons_frame_1)
+	owner:Register(self.btn_shift_minus, "spawn_btn_shift_minus")
+	self.unit_shift = xml:InitStatic("frame_right_spawn:buttons_frame_1:unit_shift", self.buttons_frame_1)
+	self.btn_shift_left = xml:Init3tButton("frame_right_spawn:buttons_frame_1:btn_shift_left", self.buttons_frame_1)
+	owner:Register(self.btn_shift_left, "spawn_btn_shift_left")
+	self.btn_shift_forward = xml:Init3tButton("frame_right_spawn:buttons_frame_1:btn_shift_forward", self.buttons_frame_1)
+	owner:Register(self.btn_shift_forward, "spawn_btn_shift_forward")
+	self.btn_shift_back = xml:Init3tButton("frame_right_spawn:buttons_frame_1:btn_shift_back", self.buttons_frame_1)
+	owner:Register(self.btn_shift_back, "spawn_btn_shift_back")
+	self.btn_shift_right = xml:Init3tButton("frame_right_spawn:buttons_frame_1:btn_shift_right", self.buttons_frame_1)
+	owner:Register(self.btn_shift_right, "spawn_btn_shift_right")
+
+	-- текстовое поле
+	self.textbox_find = xml:InitEditBox("frame_right_spawn:buttons_frame_1:textbox_find", self.buttons_frame_1)
+	owner:Register(self.textbox_find, "spawn_textbox_find")
+	-- кнопка Поиск
+	self.btn_find = xml:Init3tButton("frame_right_spawn:buttons_frame_1:btn_find", self.buttons_frame_1)
+	owner:Register(self.btn_find, "spawn_btn_find")
+
+	-- кнопка Центрировать на игроке
+	self.btn_current = xml:Init3tButton("frame_right_spawn:buttons_frame_1:btn_current", self.buttons_frame_1)
+	owner:Register(self.btn_current, "spawn_btn_current")
+	-- заголовок и текстовое поле GV
+	self.caption_gv = xml:InitStatic("frame_right_spawn:buttons_frame_1:caption_gv", self.buttons_frame_1)
+	self.textbox_gv = xml:InitEditBox("frame_right_spawn:buttons_frame_1:textbox_gv", self.buttons_frame_1)
+	self.owner_script.AddToFilter(sModule, "textbox_gv", self.textbox_gv, self.owner_script.filter_patterns.integer_positive)
+	-- заголовок и текстовое поле LV
+	self.caption_lv = xml:InitStatic("frame_right_spawn:buttons_frame_1:caption_lv", self.buttons_frame_1)
+	self.textbox_lv = xml:InitEditBox("frame_right_spawn:buttons_frame_1:textbox_lv", self.buttons_frame_1)
+	self.owner_script.AddToFilter(sModule, "textbox_lv", self.textbox_lv, self.owner_script.filter_patterns.integer_positive)
+	-- заголовок и текстовое поле X
+	self.caption_x = xml:InitStatic("frame_right_spawn:buttons_frame_1:caption_x", self.buttons_frame_1)
+	self.textbox_x = xml:InitEditBox("frame_right_spawn:buttons_frame_1:textbox_x", self.buttons_frame_1)
+	self.owner_script.AddToFilter(sModule, "textbox_x", self.textbox_x, self.owner_script.filter_patterns.decimal)
+	-- заголовок и текстовое поле Y
+	self.caption_y = xml:InitStatic("frame_right_spawn:buttons_frame_1:caption_y", self.buttons_frame_1)
+	self.textbox_y = xml:InitEditBox("frame_right_spawn:buttons_frame_1:textbox_y", self.buttons_frame_1)
+	self.owner_script.AddToFilter(sModule, "textbox_y", self.textbox_y, self.owner_script.filter_patterns.decimal)
+	-- заголовок и текстовое поле Z
+	self.caption_z = xml:InitStatic("frame_right_spawn:buttons_frame_1:caption_z", self.buttons_frame_1)
+	self.textbox_z = xml:InitEditBox("frame_right_spawn:buttons_frame_1:textbox_z", self.buttons_frame_1)
+	self.owner_script.AddToFilter(sModule, "textbox_z", self.textbox_z, self.owner_script.filter_patterns.decimal)
+	self.buttons_frame_1_controls = { self.caption_shift, self.textbox_shift, self.btn_shift_plus, self.btn_shift_minus, self.unit_shift, self.btn_shift_left, self.btn_shift_forward, self.btn_shift_back, self.btn_shift_right, self.textbox_find, self.btn_find, self.btn_current, self.caption_gv, self.textbox_gv, self.caption_lv, self.textbox_lv, self.caption_x, self.textbox_x, self.caption_y, self.textbox_y, self.caption_z, self.textbox_z }
+
+	-- кнопки списка справа, строка 3
+	self.buttons_frame_2 = xml:InitFrame("frame_right_spawn:buttons_frame_2", owner.frame_right)
+	-- чекбокс
+	self.checkbox_mode = xml:InitCheck("frame_right_spawn:buttons_frame_2:checkbox_mode", self.buttons_frame_2)
+	owner:Register(self.checkbox_mode, "spawn_checkbox_mode")
+	self.checkbox_mode_2 = xml:InitCheck("frame_right_spawn:buttons_frame_2:checkbox_mode_2", self.buttons_frame_2)
+	owner:Register(self.checkbox_mode_2, "spawn_checkbox_mode_2")
+	self.checkbox_mode_enabled = true
+	-- группа элементов Кол-во
+	self.caption_count = xml:InitStatic("frame_right_spawn:buttons_frame_2:caption_count", self.buttons_frame_2)
+	self.textbox_count = xml:InitEditBox("frame_right_spawn:buttons_frame_2:textbox_count", self.buttons_frame_2)
+	self.owner_script.AddToFilter(sModule, "textbox_count", self.textbox_count, self.owner_script.filter_patterns.integer_positive)
+	self.btn_count_plus = xml:Init3tButton("frame_right_spawn:buttons_frame_2:textbox_count:btn_count_plus", self.buttons_frame_2)
+	owner:Register(self.btn_count_plus, "spawn_btn_count_plus")
+	self.btn_count_minus = xml:Init3tButton("frame_right_spawn:buttons_frame_2:textbox_count:btn_count_minus", self.buttons_frame_2)
+	owner:Register(self.btn_count_minus, "spawn_btn_count_minus")
+	-- кнопка Создать
+	self.btn_spawn = xml:Init3tButton("frame_right_spawn:buttons_frame_2:btn_spawn", self.buttons_frame_2)
+	owner:Register(self.btn_spawn, "spawn_btn_spawn")
+	self.buttons_frame_2_controls = { self.checkbox_mode, self.checkbox_mode2, self.caption_count, self.textbox_count, self.btn_count_plus, self.btn_count_minus, self.btn_spawn }
+
+	-- диалог выбора режима при спавне отряда
+	self.dlg_spawn_mode_frame = xml:InitFrame("frame_right_spawn:dlg_spawn_mode_frame", owner.frame_right)
+	-- рамка, фон, заголовок диалога
+	self.background_1 = xml:InitStatic("frame_right_spawn:dlg_spawn_mode_frame:background_1", self.dlg_spawn_mode_frame)
+	self.background_2 = xml:InitStatic("frame_right_spawn:dlg_spawn_mode_frame:background_2", self.dlg_spawn_mode_frame)
+	self.dlg_caption = xml:InitStatic("frame_right_spawn:dlg_spawn_mode_frame:caption", self.dlg_spawn_mode_frame)
+	-- переключатель режимов создания отряда
+	self.dlg_mode_tab = xml:InitTab("frame_right_spawn:dlg_spawn_mode_frame:mode_tab", self.dlg_spawn_mode_frame)
+	owner:Register(self.dlg_mode_tab, "spawn_mode_tab")
+	-- кнопка диалога Продолжить
+	self.dlg_btn_continue = xml:Init3tButton("frame_right_spawn:dlg_spawn_mode_frame:btn_continue", self.dlg_spawn_mode_frame)
+	owner:Register(self.dlg_btn_continue, "spawn_btn_continue")
+	-- кнопка диалога Отменить
+	self.dlg_btn_cancel = xml:Init3tButton("frame_right_spawn:dlg_spawn_mode_frame:btn_cancel", self.dlg_spawn_mode_frame)
+	owner:Register(self.dlg_btn_cancel, "spawn_btn_cancel")
+	self.dlg_spawn_mode_frame_controls = { self.background_1, self.background_2, self.dlg_caption, self.dlg_mode_tab, self.dlg_btn_continue, self.dlg_btn_cancel }
+end
+
+-- инициализация событий
+function spawn:InitCallbacks(owner)
+	to_log(sModule..":> InitCallbacks") --/#~#
+	owner:AddCallback("spawn_group_list", ui_events.LIST_ITEM_CLICKED, self.OnGroupListItemClicked, self)
+--[[ -- для CoP пока скрываем
+	owner:AddCallback("spawn_btn_select_nearest", ui_events.BUTTON_CLICKED, self.OnBtnSelectNearestSmart, self)
+--]]
+	owner:AddCallback("spawn_textbox_find_squad", ui_events.EDIT_TEXT_COMMIT, self.OnBtnFindSquad, self)
+	owner:AddCallback("spawn_btn_find_squad", ui_events.BUTTON_CLICKED, self.OnBtnFindSquad, self)
+	owner:AddCallback("spawn_textbox_find_smart", ui_events.EDIT_TEXT_COMMIT, self.OnBtnFindSmart, self)
+	owner:AddCallback("spawn_btn_find_smart", ui_events.BUTTON_CLICKED, self.OnBtnFindSmart, self)
+	owner:AddCallback("spawn_textbox_find", ui_events.EDIT_TEXT_COMMIT, self.OnBtnFind, self)
+	owner:AddCallback("spawn_btn_find", ui_events.BUTTON_CLICKED, self.OnBtnFind, self)
+	owner:AddCallback("spawn_btn_current", ui_events.BUTTON_CLICKED, self.OnBtnCurrent, self)
+	owner:AddCallback("spawn_checkbox_mode", ui_events.BUTTON_CLICKED, self.OnCheckboxModeClick, self)
+	owner:AddCallback("spawn_checkbox_mode_2", ui_events.BUTTON_CLICKED, self.OnCheckboxMode2Click, self)
+	owner:AddCallback("spawn_btn_count_plus", ui_events.BUTTON_CLICKED, self.OnBtnCountPlus, self)
+	owner:AddCallback("spawn_btn_count_minus", ui_events.BUTTON_CLICKED, self.OnBtnCountMinus, self)
+	owner:AddCallback("spawn_btn_spawn", ui_events.BUTTON_CLICKED, self.OnBtnSpawn, self)
+	owner:AddCallback("spawn_btn_shift_plus", ui_events.BUTTON_CLICKED, self.OnBtnShiftPlus, self)
+	owner:AddCallback("spawn_btn_shift_minus", ui_events.BUTTON_CLICKED, self.OnBtnShiftMinus, self)
+	owner:AddCallback("spawn_btn_shift_left", ui_events.BUTTON_CLICKED, self.OnBtnShiftLeft, self)
+	owner:AddCallback("spawn_btn_shift_forward", ui_events.BUTTON_CLICKED, self.OnBtnShiftForward, self)
+	owner:AddCallback("spawn_btn_shift_back", ui_events.BUTTON_CLICKED, self.OnBtnShiftBack, self)
+	owner:AddCallback("spawn_btn_shift_right", ui_events.BUTTON_CLICKED, self.OnBtnShiftRight, self)
+	owner:AddCallback("spawn_btn_continue", ui_events.BUTTON_CLICKED, self.OnBtnContinue, self)
+	owner:AddCallback("spawn_btn_cancel", ui_events.BUTTON_CLICKED, self.OnBtnCancel, self)
+end
+
+-- подготовка данных при загрузке (объекты недоступны)
+function spawn:PrepareData(ltx)
+	to_log(sModule..":> PrepareData start")
+	local iCntGroups, iCntSections = 0, 0
+	local trim, sini = string.trim, system_ini()
+	local squad_caption = game.translate_string("tool_spawn_squad_caption").." "
+	self.tSpawnSections = {}
+
+	--/ чтение групп спавна
+	local groups = Get_IniSection(ltx, "spawn_groups", "table", "key2num")
+	for i = 1, #groups do
+		local group = groups[i]
+		local group_id = trim(group[1])
+		iCntGroups = iCntGroups + 1
+		table.insert(self.tSpawnGroups, { id = group_id, name = game.translate_string("tool_spawn_group_"..group_id), mode = trim(group[2]) })
+
+		--/ чтение секций спавна
+		if group_id == "squads" then
+			-- чтение из штатных конфигов
+			local flist = self.owner_script.GetFilesList(self.sSquadsConfigRoot, "squad*.ltx", FS.FS_ListFiles + FS.FS_RootOnly)
+			for _,v in ipairs(flist) do
+				to_log(sModule..":> parsing ltx [%s]", v.filename)
+				local data = self.owner_script.ParseLtx(v.filepath)
+				for k in pairs(data) do
+					iCntSections = iCntSections + 1
+					local item = {
+						group = group_id,
+						section = k,
+						name = squad_caption..game.translate_string(Get_Cfg_String(sini, k, "faction", ""))
+					}
+					table.insert(self.tSpawnSections, item)
+				end
+			end
+		else
+			-- чтение из конфига модуля
+			local sections = Get_IniSection(ltx, group_id, "list", nil, ",")
+			for _,v in ipairs(sections) do
+				if v and v[1] then
+					iCntSections = iCntSections + 1
+					local section = trim(v[1])
+					if not sini:section_exist(section) then-- +UP
+						to_log(sModule..":> PrepareData section=[%s] not found", section)-- +UP
+					else-- +UP
+						local item = {
+							group = group_id,
+							section = section,
+							name = v[2] and string.gsub(trim(v[2]), "\"", "") or game.translate_string(Get_Cfg_String(sini, section, "inv_name", section))
+						}
+						table.insert(self.tSpawnSections, item)
+					end-- +UP
+				end
+			end
+		end
+	end
+
+	self.tSpawnSections = self.owner_script.SortTableByValue(self.tSpawnSections, "asc", "section")
+
+	to_log(sModule..":> PrepareData groups=[%d], sections=[%d]", iCntGroups, iCntSections)
+end
+
+-- подготовка данных при открытии диалога в игре (объекты доступны)
+function spawn:PrepareRuntimeData()
+	if self.bSmartsLoaded then return end --/>
+	to_log(sModule..":> PrepareRuntimeData start")
+
+	local gg, iCntSmarts = game_graph(), 0
+
+	-- заполнение списка смартов
+	local board = sim_board.get_sim_board()
+	for obj_name, smart in pairs(board.smarts_by_names) do
+		iCntSmarts = iCntSmarts + 1
+		table.insert(self.tSmarts, {
+			id = obj_name,
+			location = sim:level_name(gg:vertex(smart.m_game_vertex_id):level_id()),
+			name = smart_names.get_smart_terrain_name(smart),
+			pos = smart.position,
+			lvid = smart.m_level_vertex_id,
+			gvid = smart.m_game_vertex_id
+		})
+	end
+	self.tSmarts = self.owner_script.SortTableByValue(self.tSmarts, "asc", "id")
+
+	self.bSmartsLoaded = true
+	to_log(sModule..":> PrepareRuntimeData smarts=[%d]", iCntSmarts)
+end
+
+-- установка состояния органов управления под доп. диалогом
+function spawn:SetControlsState(enable)
+	self.section_list:Enable(enable)
+	self.squad_list:Enable(enable)
+--[[ -- для CoP пока скрываем
+	self.btn_select_nearest:Enable(enable)
+--]]
+	self.smart_list:Enable(enable)
+	self.textbox_shift:Enable(enable)
+	self.btn_shift_plus:Enable(enable)
+	self.btn_shift_minus:Enable(enable)
+	self.btn_shift_left:Enable(enable)
+	self.btn_shift_forward:Enable(enable)
+	self.btn_shift_back:Enable(enable)
+	self.btn_shift_right:Enable(enable)
+	self.textbox_find_squad:Enable(enable)
+	self.btn_find_squad:Enable(enable)
+	self.textbox_find_smart:Enable(enable)
+	self.btn_find_smart:Enable(enable)
+	self.textbox_find:Enable(enable)
+	self.btn_find:Enable(enable)
+	self.btn_current:Enable(enable)
+	self.textbox_gv:Enable(enable)
+	self.textbox_lv:Enable(enable)
+	self.textbox_x:Enable(enable)
+	self.textbox_y:Enable(enable)
+	self.textbox_z:Enable(enable)
+	self.checkbox_mode_enabled = enable -- для (раз)блокировки чекбокса, чтобы не сбрасывалось состояние
+	self.textbox_count:Enable(enable)
+	self.btn_count_plus:Enable(enable)
+	self.btn_count_minus:Enable(enable)
+	self.btn_spawn:Enable(enable)
+end
+
+-- установка состояния доп. диалога выбора режима и органов управления под ним
+function spawn:SetSpawnModeDialog(show)
+	-- (раз)блокировка органов управления под доп. диалогом
+	self:SetControlsState(not show)
+	-- показ/скрытие диалога
+	self.owner:SetFrameShowState(show, self.dlg_spawn_mode_frame, self.dlg_spawn_mode_frame_controls)
+end
+
+-- установка состояния доп. диалога сообщения и органов управления под ним
+function spawn:ShowMessageDialog(message)
+	-- местная блокировка органов управления под доп. диалогом
+	self:SetControlsState(false)
+	-- показ диалога с установкой коллбэка на закрытие
+	self.owner:SetMessageDialog(message, { func = self.SetControlsState, data = true, userobj = self })
+end
+
+-- нажатия на кнопки
+function spawn:OnKeyboard(activeTab, dik, keyboard_action)
+	if activeTab ~= sModule then return true end --/>
+	if keyboard_action == ui_events.WINDOW_KEY_PRESSED then
+		if dik == DIK_keys.DIK_ESCAPE then
+			if self.dlg_spawn_mode_frame:IsShown() then
+				self:SetSpawnModeDialog(false)
+				return false --/>
+			end
+		end
+		self.owner_script.FilterTextboxes(sModule)
+	end
+	return true --/>
+end
+
+-- открытие и инициализация раздела
+function spawn:OnTabChange()
+	to_log(sModule..":> OnTabChange start")
+	self.group_list:Show(true)
+	for _,group in ipairs(self.tSpawnGroups) do
+		self.owner:AddPrimaryListItem(self.group_list, group.name, group.id, self.color[0])
+	end
+
+	self.textbox_shift:SetText("3")
+	-- + UP
+	-- self.textbox_gv:SetText(string.format("%d", db.actor:game_vertex_id()))
+	-- self.textbox_lv:SetText(string.format("%d", db.actor:level_vertex_id()))
+	-- local pos = db.actor:position()
+	-- local dir = db.actor:direction()
+	self.textbox_gv:SetText(string.format("%d", getLocalActor():game_vertex_id()))
+	self.textbox_lv:SetText(string.format("%d", getLocalActor():level_vertex_id()))
+	local pos = getLocalActor():position()
+	local dir = getLocalActor():direction()
+	-- - UP
+
+	pos = pos:add(dir:mul(3))
+	self.textbox_x:SetText(string.format("%.3f", pos.x))
+	self.textbox_y:SetText(string.format("%.3f", pos.y))
+	self.textbox_z:SetText(string.format("%.3f", pos.z))
+end
+
+-- выбор группы спавна
+function spawn:OnGroupListItemClicked()
+	to_log(sModule..":> OnGroupListItemClicked start")
+	self:ClearFields()
+
+	local group_id = self.owner:GetListItemSelectedValue(self.group_list)
+	if not group_id or group_id == "null" then return end --/>
+
+	local group = nil
+	for _,v in ipairs(self.tSpawnGroups) do
+		if v.id == group_id then
+			group = v
+			break
+		end
+	end
+	if not group then return end --/>
+
+	self.owner:SetFrameShowState(group_id ~= "squads", self.section_frame, self.section_frame_controls)
+	self.owner:SetFrameShowState(group_id == "squads", self.squad_frame, self.squad_frame_controls)
+	self.owner:SetFrameShowState(group_id == "squads", self.smart_frame, self.smart_frame_controls)
+	self.owner:SetFrameShowState(group_id ~= "squads", self.buttons_frame_1, self.buttons_frame_1_controls)
+	self.owner:SetFrameShowState(true, self.buttons_frame_2, self.buttons_frame_2_controls)
+	self:SetSpawnModeDialog(false)
+	if group.mode == "both" then
+		-- предметы с признаком "both" могут спавниться как в окружающем мире, так и в инвентаре
+		self.checkbox_mode:Show(true)
+		self.checkbox_mode:SetCheck(true)
+		self.checkbox_mode:TextControl():SetText(game.translate_string("tool_spawn_to_inventory"))
+		self.checkbox_mode_2:Show(false)
+		self.checkbox_mode_2:SetCheck(false)
+	else
+		if group_id == "stalkers" or group_id == "monsters" then
+			-- сталкеры и монстры могут спавниться живыми и мёртвыми
+			self.checkbox_mode:Show(true)
+			self.checkbox_mode:SetCheck(false)
+			self.checkbox_mode:TextControl():SetText(game.translate_string("tool_spawn_dead"))
+		elseif group_id == "squads" then
+			-- отряды могут спавниться с очисткой целевого смарта и без
+			self.checkbox_mode:Show(true)
+			self.checkbox_mode:SetCheck(true)
+			self.checkbox_mode:TextControl():SetText(game.translate_string("tool_spawn_clear_smart"))
+		else
+			-- остальные объекты могут спавниться только в окружающем мире
+			self.checkbox_mode:Show(false)
+			self.checkbox_mode:SetCheck(false)
+		end
+		if group_id == "stalkers" then
+			-- сталкеры могут спавниться здоровыми и ранеными
+			self.checkbox_mode_2:Show(true)
+			self.checkbox_mode_2:SetCheck(false)
+		else
+			self.checkbox_mode_2:Show(false)
+			self.checkbox_mode_2:SetCheck(false)
+		end
+	end
+	if group_id == "squads" or group_id == "stalkers" or group_id == "monsters" then
+		-- отряды, сталкеры и монстры спавнятся по одному
+		self.caption_count:Show(false)
+		self.textbox_count:Show(false)
+		self.btn_count_plus:Show(false)
+		self.btn_count_minus:Show(false)
+	else
+		-- предметам при спавне можно задать кол-во, аномалиям - радиус
+		self.caption_count:Show(true)
+		self.textbox_count:Show(true)
+		self.btn_count_plus:Show(true)
+		self.btn_count_minus:Show(true)
+		if group_id == "anomalies" then
+			self.caption_count:TextControl():SetText(game.translate_string("tool_spawn_radius"))
+			self.textbox_count:SetText("3")
+		else
+			self.caption_count:TextControl():SetText(game.translate_string("tool_spawn_count"))
+			self.textbox_count:SetText("1")
+		end
+	end
+
+	-- заполнение списка секций
+	local list = group_id == "squads" and self.squad_list or self.section_list
+	for _,v in ipairs(self.tSpawnSections) do
+		if v.group == group_id then
+			self.owner:AddSecondaryListItem(list, v.section, v.name, v.section, self.color[0])
+		end
+	end
+	if group_id == "squads" then
+		-- заполнение списка смартов
+		for _,point in ipairs(self.tSmarts) do
+			self.owner:AddSecondaryListItem(self.smart_list, point.id, point.name, point.id, self.color[0])
+		end
+	end
+end
+
+-- очистка полей
+function spawn:ClearFields(clear_all)
+	to_log(sModule..":> ClearFields start, clear_all=[%s]", tostring(clear_all))
+	if clear_all then
+		self.group_list:ScrollToBegin()
+		self.group_list:RemoveAll()
+	end
+	self.section_list:ScrollToBegin()
+	self.section_list:RemoveAll()
+	self.squad_list:ScrollToBegin()
+	self.squad_list:RemoveAll()
+	self.smart_list:ScrollToBegin()
+	self.smart_list:RemoveAll()
+	self.textbox_find_squad:SetText("")
+	self.textbox_find_smart:SetText("")
+	self.textbox_find:SetText("")
+	self.checkbox_mode:SetCheck(false)
+	self.checkbox_mode_2:SetCheck(false)
+	self.textbox_count:SetText("")
+end
+
+-- скрытие полей
+function spawn:HideFields()
+	to_log(sModule..":> HideFields start")
+	self.group_list:Show(false)
+	self.owner:SetFrameShowState(false, self.section_frame)
+	self.owner:SetFrameShowState(false, self.squad_frame)
+	self.owner:SetFrameShowState(false, self.smart_frame)
+	self.owner:SetFrameShowState(false, self.buttons_frame_1)
+	self.owner:SetFrameShowState(false, self.buttons_frame_2)
+	self:SetSpawnModeDialog(false)
+end
+
+-- кнопка Поиск (фильтр секций отрядов)
+function spawn:OnBtnFindSquad()
+	to_log(sModule..":> OnBtnFindSquad start")
+
+	self.squad_list:ScrollToBegin()
+	self.squad_list:RemoveAll()
+
+	local sFilter = self.owner_script.StringLowerRus(self.textbox_find_squad:GetText():trim())
+	local bHasFilter = sFilter:len() > 0
+	for _,v in ipairs(self.tSpawnSections) do
+		if v.group == "squads" and (not bHasFilter or string.find(self.owner_script.StringLowerRus(v.section), sFilter, 1, true) or string.find(self.owner_script.StringLowerRus(v.name), sFilter, 1, true)) then
+			self.owner:AddSecondaryListItem(self.squad_list, v.section, v.name, v.section, self.color[0])
+		end
+	end
+	if self.squad_list:GetSize() == 0 and bHasFilter then
+		self.owner:AddSecondaryListItem(self.squad_list, game.translate_string("tool_spawn_empty"), nil, "null", self.color[0])
+	end
+end
+
+-- кнопка Поиск (фильтр секций смартов)
+function spawn:OnBtnFindSmart()
+	to_log(sModule..":> OnBtnFindSmart start")
+
+	self.smart_list:ScrollToBegin()
+	self.smart_list:RemoveAll()
+
+	local sFilter = self.owner_script.StringLowerRus(self.textbox_find_smart:GetText():trim())
+	local bHasFilter = sFilter:len() > 0
+	for _,v in ipairs(self.tSmarts) do
+		if not bHasFilter or string.find(self.owner_script.StringLowerRus(v.id), sFilter, 1, true) or string.find(self.owner_script.StringLowerRus(v.name), sFilter, 1, true) then
+			self.owner:AddSecondaryListItem(self.smart_list, v.id, v.name, v.id, self.color[0])
+		end
+	end
+	if self.smart_list:GetSize() == 0 and bHasFilter then
+		self.owner:AddSecondaryListItem(self.smart_list, game.translate_string("tool_spawn_empty"), nil, "null", self.color[0])
+	end
+end
+
+-- кнопка Поиск (фильтр секций объектов)
+function spawn:OnBtnFind()
+	to_log(sModule..":> OnBtnFind start")
+
+	local group_id = self.owner:GetListItemSelectedValue(self.group_list)
+	if not group_id or group_id == "null" then return end --/>
+
+	self.section_list:ScrollToBegin()
+	self.section_list:RemoveAll()
+
+	local sFilter = self.owner_script.StringLowerRus(self.textbox_find:GetText():trim())
+	local bHasFilter = sFilter:len() > 0
+	for _,v in ipairs(self.tSpawnSections) do
+		if v.group == group_id and (not bHasFilter or string.find(self.owner_script.StringLowerRus(v.section), sFilter, 1, true) or string.find(self.owner_script.StringLowerRus(v.name), sFilter, 1, true)) then
+			self.owner:AddSecondaryListItem(self.section_list, v.section, v.name, v.section, self.color[0])
+		end
+	end
+	if self.section_list:GetSize() == 0 and bHasFilter then
+		self.owner:AddSecondaryListItem(self.section_list, game.translate_string("tool_spawn_empty"), nil, "null", self.color[0])
+	end
+end
+
+-- кнопка Сдвиг плюс
+function spawn:OnBtnShiftPlus()
+	to_log(sModule..":> OnBtnShiftPlus start")
+	local value = tonumber(self.textbox_shift:GetText()) or 0
+	self.textbox_shift:SetText(string.format("%d", math.floor(value) + 1))
+end
+
+-- кнопка Сдвиг минус
+function spawn:OnBtnShiftMinus()
+	to_log(sModule..":> OnBtnShiftMinus start")
+	local value = tonumber(self.textbox_shift:GetText()) or 1
+	if math.floor(value) < value then value = math.floor(value) else value = value - 1 end
+	if value < 1 then value = 1 end
+	self.textbox_shift:SetText(string.format("%d", value))
+end
+
+function spawn:SetNewPosition(angle)
+	-- получаем дистанцию из диалога
+	local dist = tonumber(self.textbox_shift:GetText())
+	if not dist then return end --/>
+	-- получаем координаты из диалога
+	local pos_x = tonumber(self.textbox_x:GetText())
+	local pos_y = tonumber(self.textbox_y:GetText())
+	local pos_z = tonumber(self.textbox_z:GetText())
+	if not (pos_x and pos_y and pos_z) then return end --/>
+	-- сдвигаем позицию в направлении взгляда + угол angle на расстояние dist
+	-- + UP
+	-- local pos = self.owner_script.MoveAtDirection(vector():set(pos_x, pos_y, pos_z), db.actor:direction(), angle, dist)
+	local pos = self.owner_script.MoveAtDirection(vector():set(pos_x, pos_y, pos_z), getLocalActor():direction(), angle, dist)
+	-- - UP
+	-- получаем вертексы из новой позиции
+	local lvid = lua_helper.Get_Never_idLv_by_Pos(pos)
+	local gvid = lua_helper.Get_idGv_by_Pos(pos, db.idMapNow)
+	-- устанавливаем новые значения в диалоге
+	self.textbox_gv:SetText(string.format("%d", gvid))
+	self.textbox_lv:SetText(string.format("%d", lvid))
+	self.textbox_x:SetText(string.format("%.3f", pos.x))
+	self.textbox_y:SetText(string.format("%.3f", pos.y))
+	self.textbox_z:SetText(string.format("%.3f", pos.z))
+end
+
+-- кнопка Сдвиг влево
+function spawn:OnBtnShiftLeft()
+	to_log(sModule..":> OnBtnShiftLeft start")
+	self:SetNewPosition(-90)
+end
+
+-- кнопка Сдвиг вперёд
+function spawn:OnBtnShiftForward()
+	to_log(sModule..":> OnBtnShiftForward start")
+	self:SetNewPosition(0)
+end
+
+-- кнопка Сдвиг назад
+function spawn:OnBtnShiftBack()
+	to_log(sModule..":> OnBtnShiftBack start")
+	self:SetNewPosition(180)
+end
+
+-- кнопка Сдвиг вправо
+function spawn:OnBtnShiftRight()
+	to_log(sModule..":> OnBtnShiftRight start")
+	self:SetNewPosition(90)
+end
+
+-- кнопка Центрировать на игроке
+function spawn:OnBtnCurrent()
+	to_log(sModule..":> OnBtnCurrent start")
+	-- + UP
+	-- self.textbox_gv:SetText(string.format("%d", db.actor:game_vertex_id()))
+	-- self.textbox_lv:SetText(string.format("%d", db.actor:level_vertex_id()))
+	-- local pos = db.actor:position()
+	self.textbox_gv:SetText(string.format("%d", getLocalActor():game_vertex_id()))
+	self.textbox_lv:SetText(string.format("%d", getLocalActor():level_vertex_id()))
+	local pos = getLocalActor():position()
+	-- - UP
+	self.textbox_x:SetText(string.format("%.3f", pos.x))
+	self.textbox_y:SetText(string.format("%.3f", pos.y))
+	self.textbox_z:SetText(string.format("%.3f", pos.z))
+end
+
+--[[ -- для CoP пока скрываем
+-- кнопка Выбрать ближайшую
+function spawn:OnBtnSelectNearestSmart()
+	to_log(sModule..":> OnBtnSelectNearestSmart start")
+
+	-- поиск смарта, ближайшего к текущей позиции игрока
+	local actor_loc, actor_pos, min_dist, smart_name = level.name(), db.actor:position(), 100000000, nil
+	for _,v in ipairs(self.tSmarts) do
+		local dist = actor_pos:distance_to_sqr(v.pos)
+		if actor_loc == v.location and dist < min_dist then
+			min_dist = dist
+			smart_name = v.id
+		end
+	end
+
+	-- выбор найденного смарта в списке
+	if smart_name then
+		self.owner:SelectListItem(self.smart_list, smart_name)
+		local smart_name, oListItem = self.owner:GetListItemSelectedValue(self.smart_list)
+		if oListItem then self.smart_list:ScrollToPos(self.smart_list:GetItemPos(oListItem)) end
+	end
+end
+--]]
+
+-- кнопка Создать
+function spawn:OnBtnSpawn()
+	to_log(sModule..":> OnBtnSpawn start")
+
+	local group_id = self.owner:GetListItemSelectedValue(self.group_list)
+	if not group_id or group_id == "null" then return end --/>
+
+	local section = group_id == "squads" and self.owner:GetListItemSelectedValue(self.squad_list) or self.owner:GetListItemSelectedValue(self.section_list)
+	if not section or section == "null" then return end --/>
+
+	if group_id == "squads" then
+		-- создание отряда
+		local smart_name = self.owner:GetListItemSelectedValue(self.smart_list)
+		if not smart_name or smart_name == "null" then return end --/>
+
+		self:SpawnSquad(section, smart_name, self.checkbox_mode:GetCheck()) -- с очисткой или без
+		return --/>
+	end
+
+	local number = tonumber(self.textbox_count:GetText()) or (group_id == "anomalies" and 3 or 1)
+	-- + UP
+	-- local gvid = tonumber(self.textbox_gv:GetText()) or db.actor:game_vertex_id()
+	-- local lvid = tonumber(self.textbox_lv:GetText()) or db.actor:level_vertex_id()	
+	local gvid = tonumber(self.textbox_gv:GetText()) or getLocalActor():game_vertex_id()
+	local lvid = tonumber(self.textbox_lv:GetText()) or getLocalActor():level_vertex_id()
+	-- - UP
+	local pos_x = tonumber(self.textbox_x:GetText())
+	local pos_y = tonumber(self.textbox_y:GetText())
+	local pos_z = tonumber(self.textbox_z:GetText())
+	-- + UP
+	-- local pos = (pos_x and pos_y and pos_z) and vector():set(pos_x, pos_y, pos_z) or db.actor:position()
+	local pos = (pos_x and pos_y and pos_z) and vector():set(pos_x, pos_y, pos_z) or getLocalActor():position()
+	-- - UP
+
+	if group_id == "anomalies" then
+		-- создание аномалий
+		self:SpawnAnomaly(section, number, pos, lvid, gvid)
+	elseif group_id == "ammo" then
+		-- создание патронов
+		if self.checkbox_mode:GetCheck() then -- в инвентаре
+			-- + UP
+			-- self:SpawnAmmo(section, number, db.actor:id(), vector(), 0, 0)
+			self:SpawnAmmo(section, number, LocalActor(), vector(), 0, 0)
+			-- - UP
+		else -- в окр. мире
+			self:SpawnItems(section, number, nil, pos, lvid, gvid)
+			-- self:SpawnAmmo(section, number, db.actor:id(), vector(), 0, 0, true)
+		end
+	elseif group_id == "stalkers" or group_id == "monsters" then
+		-- создание сталкеров и монстров
+		self:SpawnNpc(section, 1, pos, lvid, gvid, self.checkbox_mode:GetCheck(), self.checkbox_mode_2:GetCheck()) -- живых, мёртвых или (сталкеров) раненых
+	else
+		-- создание предмета(ов)
+		if self.checkbox_mode:GetCheck() then -- в инвентаре
+			-- + UP
+			-- self:SpawnItems(section, number, db.actor:id(), vector(), 0, 0)
+			self:SpawnItems(section, number, LocalActor(), vector(), 0, 0)
+			-- - UP
+		else -- в окр. мире
+			self:SpawnItems(section, number, nil, pos, lvid, gvid)
+		end
+	end
+end
+
+-- кнопка Плюс
+function spawn:OnBtnCountPlus()
+	to_log(sModule..":> OnBtnCountPlus start")
+	local value = tonumber(self.textbox_count:GetText()) or 0
+	self.textbox_count:SetText(string.format("%d", math.floor(value) + 1))
+end
+
+-- кнопка Минус
+function spawn:OnBtnCountMinus()
+	to_log(sModule..":> OnBtnCountMinus start")
+	local value = tonumber(self.textbox_count:GetText()) or 1
+	if math.floor(value) < value then value = math.floor(value) else value = value - 1 end
+	if value < 1 then value = 1 end
+	self.textbox_count:SetText(string.format("%d", value))
+end
+
+-- чекбокс, клик
+function spawn:OnCheckboxModeClick()
+	to_log(sModule..":> OnCheckboxModeClick start")
+	if not self.checkbox_mode_enabled then
+		self.checkbox_mode:SetCheck(not self.checkbox_mode:GetCheck())
+	elseif self.checkbox_mode:GetCheck() then
+		-- если чекбокс 1 включили, чекбокс 2 выключаем
+		self.checkbox_mode_2:SetCheck(false)
+	end
+end
+
+-- чекбокс 2, клик
+function spawn:OnCheckboxMode2Click()
+	to_log(sModule..":> OnCheckboxMode2Click start")
+	if not self.checkbox_mode_enabled then
+		self.checkbox_mode_2:SetCheck(not self.checkbox_mode_2:GetCheck())
+	elseif self.checkbox_mode_2:GetCheck() then
+		-- если чекбокс 2 включили, чекбокс 1 выключаем
+		self.checkbox_mode:SetCheck(false)
+	end
+end
+
+-- Спавним отряд
+function spawn:SpawnSquad(squad_id, smart_name, clear_smart)
+	to_log(sModule..":> SpawnSquad start")
+
+	local board = sim_board.get_sim_board()
+	local smart = board.smarts_by_names[smart_name]
+	if smart == nil then
+		to_log(sModule..":> SpawnSquad Smart is not found by name [%s].", smart_name)
+		self:ShowMessageDialog("tool_spawn_squad_smart_not_found")
+		return --/>
+	end
+	-- to_log(sModule..":> SpawnSquad smart [%s] chosen", smart_name)
+
+	local ltx = sim_board.squad_ltx
+	if not ltx:section_exist(squad_id) then
+		to_log(sModule..":> SpawnSquad Wrong squad identificator [%s]. Squad descr doesnt exist.", tostring(squad_id))
+		return --/>
+	end
+
+--[[ -- для CoP пока скрываем
+	local player_name = Get_Cfg_String(ltx, squad_id, "faction", "", true)
+	local player = board.players[player_name]
+	if player == nil then
+		to_log(sModule..":> SpawnSquad Wrong player_name [%s] for squad [%s]", tostring(player_name), tostring(squad_id))
+		self:ShowMessageDialog("tool_spawn_squad_section_not_found")
+		return --/>
+	end
+
+	if not clear_smart then
+		-- если очистка смарта не выбрана, проверяем, что текущее население отсутствует или такое же, как у создаваемого отряда
+		if smart.player_name ~= player_name and smart.player_name ~= "none" then
+			to_log(sModule..":> SpawnSquad Smart player_name [%s] not equals squad player_name [%s]", tostring(smart.player_name), tostring(player_name))
+			self:ShowMessageDialog("tool_spawn_squad_wrong_smart_player")
+			return --/> смарт занят отрядом другой группировки
+		end
+
+		-- также проверяем на достижение максимальной популяции смарта
+		local population = board:get_smart_population(smart)
+		if population >= smart.squad_capacity then
+			to_log(sModule..":> SpawnSquad Smart population [%s] has reached or greater then its maximum [%s]", tostring(population), tostring(smart.squad_capacity))
+			self:ShowMessageDialog("tool_spawn_squad_smart_population_reached_maximum")
+			return --/> смарт достиг максимальной популяции
+		end
+	end
+--]]
+
+	self.create_squad_params = { smart = smart, squad_id = squad_id, clear_smart = clear_smart }
+
+	for _,v in pairs(board.smarts) do
+		if v.squads[squad_id] ~= nil then
+			-- отряд с таким же id уже есть, запоминаем параметры спавна и спрашиваем что делать
+			if self.dlg_spawn_mode_frame:IsShown() then return end --/> доп. диалог уже показан
+			self.dlg_mode_tab:SetActiveTab("squad_auto_id")
+			self:SetSpawnModeDialog(true)
+			return --/>
+		end
+	end
+
+	-- отряда с таким же id нет, новый создаём сразу
+	self:CreateSquad()
+end
+
+-- кнопка диалога Продолжить
+function spawn:OnBtnContinue()
+	to_log(sModule..":> OnBtnContinue start")
+	if self.dlg_spawn_mode_frame:IsShown() then
+		self:SetSpawnModeDialog(false)
+	end
+
+	local mode_id = self.dlg_mode_tab:GetActiveId()
+	self:CreateSquad(mode_id == "squad_auto_id" and 0 or mode_id == "squad_clear_existing" and 1 or nil)
+end
+
+-- кнопка диалога Отменить
+function spawn:OnBtnCancel()
+	to_log(sModule..":> OnBtnCancel start")
+	if self.dlg_spawn_mode_frame:IsShown() then
+		self:SetSpawnModeDialog(false)
+	end
+	-- обнуление использованных параметров
+	self.create_squad_params = nil
+end
+
+-- Создаём отряд по заданным параметрам, mode - режим (0 - задать случайный id, 1 - удалить имеющийся отряд с тем же id, nil - ничего дополнительно не делать)
+function spawn:CreateSquad(mode)
+	local p = self.create_squad_params
+	to_log(sModule..":> CreateSquad start: smart=[%s], squad_id=[%s], clear_smart=[%s], mode=[%s]", tostring(p.smart:name()), tostring(p.squad_id), tostring(p.clear_smart), tostring(mode))
+	if not p or not (p.smart and p.squad_id) then return end --/>
+
+	local board = sim_board.get_sim_board()
+	if p.clear_smart then
+		-- очистка смарта перед спавном
+		if board.smarts[p.smart.id] then
+			for _,squad in pairs(board.smarts[p.smart.id].squads) do
+				board:exit_smart(squad, p.smart.id)
+				board:remove_squad(squad)
+			end
+		end
+	end
+
+	if mode == 1 then
+		-- выбран режим удаления отряда с тем же id
+		local squad = board.squads[p.squad_id]
+		if squad then -- на случай, если отряд уже был удалён выше при очистке целевого смарта перед спавном
+			-- to_log(sModule..":> CreateSquad remove squad: check=[%s], to_remove=[%s]", tostring(squad.squad_id), tostring(p.squad_id))
+			if squad.squad_id == p.squad_id then
+				board:exit_smart(squad, board.smarts[squad.entered_smart].smrt)
+				board:remove_squad(squad)
+			end
+		end
+	end
+
+	-- создание нового отряда
+	local squad = board:create_squad(p.smart, p.squad_id)
+	board:enter_smart(squad, p.smart.id)
+	for k in squad:squad_members() do
+		board:setup_squad_and_group(k.object)
+	end
+	squad:update()
+
+	-- обнуление использованных параметров
+	self.create_squad_params = nil
+end
+
+-- Спавним аномалию
+function spawn:SpawnAnomaly(section, radius, pos, lvid, gvid)
+	-- + UP
+	-- if pos == nil then pos = db.actor:position() end
+	-- if lvid == nil then lvid = db.actor:level_vertex_id() end
+	-- if gvid == nil then gvid = db.actor:game_vertex_id() end
+	-- if pos == nil then pos = getLocalActor():position() end
+	-- if lvid == nil then lvid = getLocalActor():level_vertex_id() end
+	-- if gvid == nil then gvid = getLocalActor():game_vertex_id() end
+	
+	-- if radius == nil then radius = 3 end
+	-- local sobj = alife():create(section, pos, lvid, gvid)
+	-- if sobj then
+	-- 	local shape = {radius = radius, center = vector():set(0,0,0)}
+	-- 	local pk = get_netpk(sobj, 1)
+	-- 	if pk:isOk() then
+	-- 		local data = pk:get()
+	-- 		if string.find(section, "zone_mine_gravitational") or string.find(section, "field") or string.find(section, "teleport") or string.find(section, "death") or string.find(section, "sarcofag") or string.find(section, "zone_radioactive") then
+	-- 			data.custom_data:setStringRaw('field')
+	-- 		elseif string.find(section, "ameba") or string.find(section, "rusty") then
+	-- 			data.idle_animation = 'idle'
+	-- 			data.attack_animation = 'blast'
+	-- 		end
+	-- 		data.shapes = m_netpk.complex_shape()
+	-- 		data.shapes:addSphere(shape.radius, shape.center)
+	-- 		pk:set(data)
+	-- 	end
+	-- end
+	to_log("SpawnAnomaly skip")--TODO: сделать спавн аномалий
+	-- - UP
+end
+
+-- Спавним НПС в окружающую среду
+function spawn:SpawnNpc(section, number, pos, lvid, gvid, dead, wounded)
+	if number <= 0 then return end
+	-- +UP
+	-- for i = 1,number,1 do
+	-- 	local obj = alife():create(section, pos, lvid, gvid)
+	-- 	if obj then
+	-- 		if dead then
+	-- 			to_log(sModule..":> setting dead for npc_id = [%s]", obj.id)
+	-- 			local pk = get_netpk(obj)
+	-- 			if pk:isOk() then
+	-- 				local data = pk:get()
+	-- 				data.upd.health = 0
+	-- 				pk:set(data)
+	-- 			end
+	-- 		end
+	-- 		if wounded then
+	-- 			to_log(sModule..":> setting wounded for npc_id = [%s]", obj.id)
+	-- 			local npc = level.object_by_id(obj.id)
+	-- 			if npc then npc.health = -0.9 end
+	-- 			local pk = get_netpk(obj)
+	-- 			if pk:isOk() then
+	-- 				local data = pk:get()
+	-- 				data.health = 0.1
+	-- 				data.upd.health = 0.1
+	-- 				pk:set(data)
+	-- 			end
+	-- 		end
+	-- 	end
+	-- end
+	rc.cl_spawn(section, pos, lvid, gvid, nil, number)
+	-- TODO: сделать спавн мертвых и раненных
+	-- -UP
+end
+
+-- Спавним объекты
+function spawn:SpawnItems(section, number, npc_id, pos, lvid, gvid)
+	if number <= 0 then return end
+	-- +UP
+	-- for i = 1,number,1 do
+	-- 	if npc_id == nil then
+	-- 		alife():create(section, pos, lvid, gvid)
+	-- 	else
+	-- 		alife():create(section, pos, lvid, gvid, npc_id)
+	-- 	end
+	-- end
+	rc.cl_spawn(section, pos, lvid, gvid, npc_id, number)
+	-- -UP
+end
+
+-- Спавним патроны
+function spawn:SpawnAmmo(section, number, npc_id, pos, lvid, gvid, drop)
+	if number <= 0 then return end
+	local sini = system_ini()
+	if not sini:line_exist(section, "box_size") then
+		self:SpawnItems(section, number, npc_id, pos, lvid, gvid)
+		return
+	end
+	local boxSize = sini:r_u32(section, "box_size")
+	-- local t = se_respawn.create_ammo(section, pos, lvid, gvid, npc_id, number*boxSize)-- +UP
+	rc.cl_spawn_ammo(section, pos, lvid, gvid, npc_id, number*boxSize)-- +UP
+	if drop then -- для варианта спавна через инвентарь с выбросом на землю (не используется в настоящее время)
+		for _, v in ipairs(t) do
+			-- + UP
+			-- level.client_spawn_manager():add(v.id, 65535, function (id, obj) db.actor:drop_item(obj) end)
+			level.client_spawn_manager():add(v.id, 65535, function (id, obj) getLocalActor():drop_item(obj) end)
+			-- - UP
+		end
+	end
+end

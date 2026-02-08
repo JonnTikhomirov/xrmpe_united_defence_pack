@@ -1,0 +1,46 @@
+<!-- File       : factions_16.xml         -->
+<!-- Description: Инструмент разработчика -->
+<!--            : Модуль "Фракции"        -->
+<!-- Copyright  : 2025 © The Tool         -->
+<!-- Author     : Kirgudu, monk           -->
+<!-- Last edit  : 16.09.2025              -->
+
+<!-- frame_right -->
+<frame_right_factions>
+	<faction_frame x="0" y="0" width="425" height="330">
+		<texture>ui_stroketextbox</texture>
+		<faction_list x="1" y="10" width="423" height="310" item_height="20" always_show_scroll="0" can_select="1">
+			<font font="letterica16" r="216" g="186" b="140"/>
+		</faction_list>
+	</faction_frame>
+	<faction_buttons_frame x="0" y="330" width="425" height="60">
+		<goodwill_caption x="10" y="8" width="110" height="22" stretch="1">
+			<text font="letterica18" align="l" r="216" g="186" b="140">tool_factions_goodwill_caption</text>
+		</goodwill_caption>
+		<goodwill_value x="125" y="8" width="105" height="22" stretch="1">
+			<text font="letterica18" align="l" r="49" g="174" b="66"/>
+		</goodwill_value>
+		<textbox_goodwill x="238" y="3" width="40" height="22">
+			<texture>ui_linetext2_e</texture>
+			<text x="5" y="2" font="letterica18" r="240" g="217" b="182"/>
+			<btn_goodwill_plus x="280" y="3" width="10" height="12">
+				<texture_e>ui_button_ordinary_e</texture_e>
+				<texture_t>ui_button_ordinary_t</texture_t>
+				<texture_h>ui_button_ordinary_h</texture_h>
+				<text font="letterica16" x="0" y="-1" align="c" vert_align="c" color="ui_6">+</text>
+			</btn_goodwill_plus>
+			<btn_goodwill_minus x="280" y="17" width="10" height="12">
+				<texture_e>ui_button_ordinary_e</texture_e>
+				<texture_t>ui_button_ordinary_t</texture_t>
+				<texture_h>ui_button_ordinary_h</texture_h>
+				<text font="letterica16" x="0" y="-1" align="c" vert_align="c" color="ui_6">-</text>
+			</btn_goodwill_minus>
+		</textbox_goodwill>
+		<btn_goodwill_set x="330" y="3" width="90" height="26">
+			<texture_e>ui_button_ordinary_e</texture_e>
+			<texture_t>ui_button_ordinary_t</texture_t>
+			<texture_h>ui_button_ordinary_h</texture_h>
+			<text font="letterica18" x="0" y="0" align="c" vert_align="c" color="ui_6">tool_factions_goodwill_set</text>
+		</btn_goodwill_set>
+	</faction_buttons_frame>
+</frame_right_factions>

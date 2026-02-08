@@ -1,0 +1,205 @@
+--[[ ----------------------------------------------------------------------------------------------
+ File       : tool_factions.script
+ Description: Инструмент разработчика
+            : Модуль "Фракции"
+ Copyright  : 2025 © The Tool
+ Author     : Kirgudu, monk
+            : Использованы материалы GOD of the zone MOD v3.0 by Shoker
+ Last edit  : 17.09.2025
+--]] ----------------------------------------------------------------------------------------------
+
+local sModule = script_name() --/ строковое имя файла-модуля
+local sNoValue = game.translate_string("tool_no_value") --/ стандартный текст для отсутствия чего-либо (прочерк)
+
+class "factions"
+
+function factions:__init(owner_name)
+	to_log(sModule..":> __init") --/#~#
+	self.owner_script = _G[owner_name]
+	self.tFactions = {} -- список группировок
+	self.iGoodwillMin = -3000 --/ минимальное отношение группировки к игроку
+	self.iGoodwillMax = 1000 --/ максимальное отношение группировки к игроку
+	self.color = { --/ цветовое оформление списка
+		[0] = GetARGB(255, 216, 186, 140), --/ элемент списка
+		[1] = GetARGB(255,  49, 174,  66)  --/ заголовок
+	}
+end
+
+function factions:__finalize() end
+
+-- инициализация элементов
+function factions:InitControls(owner, xml)
+	to_log(sModule..":> InitControls") --/#~#
+
+	-- список группировок
+	self.faction_frame = xml:InitFrame("frame_right_factions:faction_frame", owner.frame_right)
+	self.faction_list = xml:InitListBox("frame_right_factions:faction_frame:faction_list", self.faction_frame)
+	self.faction_list:ShowSelectedItem(true)
+	owner:Register(self.faction_list, "factions_faction_list")
+	self.faction_frame_controls = { self.faction_list }
+
+	-- кнопки настроек группировки
+	self.faction_buttons_frame = xml:InitFrame("frame_right_factions:faction_buttons_frame", owner.frame_right)
+	-- группа элементов Отношение
+	self.goodwill_caption = xml:InitStatic("frame_right_factions:faction_buttons_frame:goodwill_caption", self.faction_buttons_frame)
+	self.goodwill_value = xml:InitStatic("frame_right_factions:faction_buttons_frame:goodwill_value", self.faction_buttons_frame)
+	self.textbox_goodwill = xml:InitEditBox("frame_right_factions:faction_buttons_frame:textbox_goodwill", self.faction_buttons_frame)
+	self.owner_script.AddToFilter(sModule, "textbox_goodwill", self.textbox_goodwill, self.owner_script.filter_patterns.integer)
+	self.btn_goodwill_plus = xml:Init3tButton("frame_right_factions:faction_buttons_frame:textbox_goodwill:btn_goodwill_plus", self.faction_buttons_frame)
+	owner:Register(self.btn_goodwill_plus, "factions_btn_goodwill_plus")
+	self.btn_goodwill_minus = xml:Init3tButton("frame_right_factions:faction_buttons_frame:textbox_goodwill:btn_goodwill_minus", self.faction_buttons_frame)
+	owner:Register(self.btn_goodwill_minus, "factions_btn_goodwill_minus")
+	-- кнопка Установить (отношение группировки)
+	self.btn_goodwill_set = xml:Init3tButton("frame_right_factions:faction_buttons_frame:btn_goodwill_set", self.faction_buttons_frame)
+	owner:Register(self.btn_goodwill_set, "factions_btn_goodwill_set")
+	self.faction_buttons_frame_controls = { self.goodwill_caption, self.goodwill_value, self.textbox_goodwill, self.btn_goodwill_plus, self.btn_goodwill_minus, self.btn_goodwill_set }
+end
+
+-- инициализация событий
+function factions:InitCallbacks(owner)
+	to_log(sModule..":> InitCallbacks") --/#~#
+	owner:AddCallback("factions_faction_list", ui_events.LIST_ITEM_CLICKED, self.OnFactionListItemClicked, self)
+	owner:AddCallback("factions_btn_goodwill_plus", ui_events.BUTTON_CLICKED, self.OnBtnGoodwillPlus, self)
+	owner:AddCallback("factions_btn_goodwill_minus", ui_events.BUTTON_CLICKED, self.OnBtnGoodwillMinus, self)
+	owner:AddCallback("factions_btn_goodwill_set", ui_events.BUTTON_CLICKED, self.OnBtnGoodwillSet, self)
+end
+
+-- подготовка данных при загрузке (объекты недоступны)
+function factions:PrepareData(ltx)
+	to_log(sModule..":> PrepareData start")
+	local trim, sini, iCntFaction = string.trim, system_ini(), 0
+
+	-- загрузка лимитов отношения группировки к игроку
+	local t = Get_Cfg_String(sini, "action_points", "community_goodwill_limits", ""):split(",")
+	self.iGoodwillMin = tonumber(t[1]) or -3000
+	self.iGoodwillMax = tonumber(t[2]) or 1000
+
+	-- загрузка списка группировок
+	t = Get_Cfg_String(sini, "game_relations", "communities", ""):split(",")
+	local i = 2
+	while i <= table.size(t) do
+		local faction = trim(t[i-1])
+		iCntFaction = iCntFaction + 1
+		local item = {
+			faction = faction,
+			name = game.translate_string(faction)
+		}
+		table.insert(self.tFactions, item)
+		i = i + 2
+	end
+	self.tFactions = self.owner_script.SortTableByValue(self.tFactions, "asc", "faction")
+
+	to_log(sModule..":> PrepareData factions=[%d]", iCntFaction)
+end
+
+-- обновление элементов
+function factions:Refresh(faction)
+	if faction then
+		-- + UP
+		-- local goodwill = relation_registry.community_goodwill(faction, db.actor:id())
+		local goodwill = relation_registry.community_goodwill(faction, LocalActor())
+		for i, v in pairs(db.mp_actors) do
+			local mp_goodwill = relation_registry.community_goodwill(faction, v)
+			if(mp_goodwill > goodwill) then
+				goodwill = mp_goodwill
+			end
+		end
+		-- - UP
+		self.goodwill_value:TextControl():SetText(string.format("%d", goodwill))
+		self.textbox_goodwill:SetText(string.format("%d", goodwill))
+	end
+end
+
+-- нажатия на кнопки
+function factions:OnKeyboard(activeTab, dik, keyboard_action)
+	if activeTab ~= sModule then return true end --/>
+	if keyboard_action == ui_events.WINDOW_KEY_PRESSED then
+		self.owner_script.FilterTextboxes(sModule)
+	end
+	return true --/>
+end
+
+-- открытие и инициализация раздела
+function factions:OnTabChange()
+	to_log(sModule..":> OnTabChange start")
+
+	self.owner:SetFrameShowState(true, self.faction_frame, self.faction_frame_controls)
+
+	for _,v in ipairs(self.tFactions) do
+		self.owner:AddSecondaryListItem(self.faction_list, v.faction, v.name, v.faction, self.color[0])
+	end
+
+	self:Refresh()
+end
+
+-- выбор элемента списка фракций
+function factions:OnFactionListItemClicked()
+	local faction = self.owner:GetListItemSelectedValue(self.faction_list)
+	-- + UP
+	-- if not faction or faction == "null" or not db.actor then return end --/>
+	if not faction or faction == "null" then return end --/>
+	-- - UP
+
+	self.owner:SetFrameShowState(true, self.faction_buttons_frame, self.faction_buttons_frame_controls)
+
+	self:Refresh(faction)
+end
+
+-- очистка полей
+function factions:ClearFields()
+	to_log(sModule..":> ClearFields start")
+	self.faction_list:ScrollToBegin()
+	self.faction_list:RemoveAll()
+end
+
+-- скрытие полей
+function factions:HideFields()
+	to_log(sModule..":> HideFields start")
+	self.owner:SetFrameShowState(false, self.faction_frame)
+	self.owner:SetFrameShowState(false, self.faction_buttons_frame)
+end
+
+-- кнопка Плюс
+function factions:OnBtnGoodwillPlus()
+	to_log(sModule..":> OnBtnGoodwillPlus start")
+	local value = tonumber(self.textbox_goodwill:GetText()) or -100
+	if math.floor(value) < value then value = math.floor(value) + 100 else value = value + 100 end
+	if value < self.iGoodwillMin then value = self.iGoodwillMin end
+	if value > self.iGoodwillMax then value = self.iGoodwillMax end
+	self.textbox_goodwill:SetText(string.format("%d", value))
+end
+
+-- кнопка Минус
+function factions:OnBtnGoodwillMinus()
+	to_log(sModule..":> OnBtnGoodwillMinus start")
+	local value = tonumber(self.textbox_goodwill:GetText()) or 100
+	if math.floor(value) < value then value = math.floor(value) else value = value - 100 end
+	if value < self.iGoodwillMin then value = self.iGoodwillMin end
+	if value > self.iGoodwillMax then value = self.iGoodwillMax end
+	self.textbox_goodwill:SetText(string.format("%d", value))
+end
+
+-- кнопка Установить
+function factions:OnBtnGoodwillSet()
+	to_log(sModule..":> OnBtnGoodwillSet start")
+
+	local faction = self.owner:GetListItemSelectedValue(self.faction_list)
+	-- + UP
+	-- if not faction or faction == "null" or not db.actor then return end --/>
+	if not faction or faction == "null" then return end --/>
+	-- - UP
+
+	local goodwill = tonumber(self.textbox_goodwill:GetText()) or 0
+	if goodwill < self.iGoodwillMin then goodwill = self.iGoodwillMin end
+	if goodwill > self.iGoodwillMax then goodwill = self.iGoodwillMax end
+	goodwill = math.floor(goodwill)
+	self.textbox_goodwill:SetText(string.format("%d", goodwill))
+	-- + UP
+	-- db.actor:set_community_goodwill(faction, goodwill)
+	for i, v in pairs(db.mp_actors) do
+		v:set_community_goodwill(faction, goodwill)
+	end
+	-- - UP
+
+	self:Refresh(faction)
+end

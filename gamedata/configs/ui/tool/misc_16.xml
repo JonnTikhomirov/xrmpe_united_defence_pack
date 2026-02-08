@@ -1,0 +1,124 @@
+<!-- File       : misc_16.xml             -->
+<!-- Description: Инструмент разработчика -->
+<!--            : Модуль "Разное"         -->
+<!-- Copyright  : 2025 © The Tool         -->
+<!-- Author     : Kirgudu, monk           -->
+<!-- Last edit  : 16.09.2025              -->
+
+<!-- frame_left -->
+<frame_left_misc>
+	<subsection_list x="5" y="42" width="161" height="415" item_height="20" always_show_scroll="0" can_select="1">
+		<font font="letterica16" r="216" g="186" b="140"/>
+	</subsection_list>
+</frame_left_misc>
+<!-- frame_right -->
+<frame_right_misc>
+	<time_frame x="0" y="0" width="425" height="450">
+		<texture>ui_stroketextbox</texture>
+		<time_frame_caption x="10" y="21" width="400" height="22" stretch="1">
+			<text font="letterica18" align="l" r="49" g="174" b="66">tool_misc_time_frame</text>
+		</time_frame_caption>
+		<timefactor_caption x="10" y="68" width="80" height="22" stretch="1">
+			<text font="letterica18" align="l" r="216" g="186" b="140">tool_misc_timefactor_caption</text>
+		</timefactor_caption>
+		<timefactor_value x="95" y="63" width="68" height="22">
+			<texture>ui_linetext2_e</texture>
+			<text x="5" y="2" font="letterica18" r="240" g="217" b="182"/>
+			<btn_plus x="165" y="63" width="10" height="12">
+				<texture_e>ui_button_ordinary_e</texture_e>
+				<texture_t>ui_button_ordinary_t</texture_t>
+				<texture_h>ui_button_ordinary_h</texture_h>
+				<text font="letterica16" x="0" y="-1" align="c" vert_align="c" color="ui_6">+</text>
+			</btn_plus>
+			<btn_minus x="165" y="77" width="10" height="12">
+				<texture_e>ui_button_ordinary_e</texture_e>
+				<texture_t>ui_button_ordinary_t</texture_t>
+				<texture_h>ui_button_ordinary_h</texture_h>
+				<text font="letterica16" x="0" y="-1" align="c" vert_align="c" color="ui_6">-</text>
+			</btn_minus>
+		</timefactor_value>
+		<btn_timefactor_set x="235" y="63" width="90" height="26">
+			<texture_e>ui_button_ordinary_e</texture_e>
+			<texture_t>ui_button_ordinary_t</texture_t>
+			<texture_h>ui_button_ordinary_h</texture_h>
+			<text font="letterica18" x="0" y="0" align="c" vert_align="c" color="ui_6">tool_misc_timefactor_set</text>
+		</btn_timefactor_set>
+		<btn_timefactor_reset x="330" y="63" width="90" height="26">
+			<texture_e>ui_button_ordinary_e</texture_e>
+			<texture_t>ui_button_ordinary_t</texture_t>
+			<texture_h>ui_button_ordinary_h</texture_h>
+			<text font="letterica18" x="0" y="0" align="c" vert_align="c" color="ui_6">tool_misc_timefactor_reset</text>
+		</btn_timefactor_reset>
+		<timefactor_coeff_caption x="10" y="98" width="80" height="22" stretch="1">
+			<text font="letterica18" align="l" r="216" g="186" b="140">tool_misc_timefactor_coeff_caption</text>
+		</timefactor_coeff_caption>
+		<timefactor_coeff_value x="95" y="93" width="68" height="22">
+			<texture>ui_linetext2_e</texture>
+			<text x="5" y="2" font="letterica18" r="240" g="217" b="182"/>
+			<btn_coeff_plus x="165" y="93" width="10" height="12">
+				<texture_e>ui_button_ordinary_e</texture_e>
+				<texture_t>ui_button_ordinary_t</texture_t>
+				<texture_h>ui_button_ordinary_h</texture_h>
+				<text font="letterica16" x="0" y="-1" align="c" vert_align="c" color="ui_6">+</text>
+			</btn_coeff_plus>
+			<btn_coeff_minus x="165" y="107" width="10" height="12">
+				<texture_e>ui_button_ordinary_e</texture_e>
+				<texture_t>ui_button_ordinary_t</texture_t>
+				<texture_h>ui_button_ordinary_h</texture_h>
+				<text font="letterica16" x="0" y="-1" align="c" vert_align="c" color="ui_6">-</text>
+			</btn_coeff_minus>
+		</timefactor_coeff_value>
+		<btn_timefactor_increase x="235" y="93" width="90" height="26">
+			<texture_e>ui_button_ordinary_e</texture_e>
+			<texture_t>ui_button_ordinary_t</texture_t>
+			<texture_h>ui_button_ordinary_h</texture_h>
+			<text font="letterica18" x="0" y="0" align="c" vert_align="c" color="ui_6">tool_misc_timefactor_increase</text>
+		</btn_timefactor_increase>
+		<btn_timefactor_decrease x="330" y="93" width="90" height="26">
+			<texture_e>ui_button_ordinary_e</texture_e>
+			<texture_t>ui_button_ordinary_t</texture_t>
+			<texture_h>ui_button_ordinary_h</texture_h>
+			<text font="letterica18" x="0" y="0" align="c" vert_align="c" color="ui_6">tool_misc_timefactor_decrease</text>
+		</btn_timefactor_decrease>
+	</time_frame>
+	<music_frame x="0" y="0" width="425" height="390">
+		<texture>ui_stroketextbox</texture>
+		<music_list x="1" y="10" width="423" height="370" item_height="20" always_show_scroll="0" can_select="1">
+			<font font="letterica16" r="216" g="186" b="140"/>
+		</music_list>
+	</music_frame>
+	<music_frame_buttons x="0" y="390" width="425" height="60">
+		<info_caption x="10" y="8" width="85" height="22" stretch="1">
+			<text font="letterica18" align="l" r="216" g="186" b="140">tool_music_plays_now</text>
+		</info_caption>
+		<info_text x="90" y="8" width="315" height="22" stretch="1">
+			<text font="letterica18" align="l" r="49" g="174" b="66"/>
+		</info_text>
+		<btn_start x="235" y="33" width="90" height="26">
+			<texture_e>ui_button_ordinary_e</texture_e>
+			<texture_t>ui_button_ordinary_t</texture_t>
+			<texture_h>ui_button_ordinary_h</texture_h>
+			<text font="letterica18" x="0" y="0" align="c" vert_align="c" color="ui_6">tool_music_start</text>
+		</btn_start>
+		<btn_stop x="330" y="33" width="90" height="26">
+			<texture_e>ui_button_ordinary_e</texture_e>
+			<texture_t>ui_button_ordinary_t</texture_t>
+			<texture_h>ui_button_ordinary_h</texture_h>
+			<text font="letterica18" x="0" y="0" align="c" vert_align="c" color="ui_6">tool_music_stop</text>
+		</btn_stop>
+	</music_frame_buttons>
+	<video_frame x="0" y="0" width="425" height="420">
+		<texture>ui_stroketextbox</texture>
+		<video_list x="1" y="10" width="423" height="400" item_height="20" always_show_scroll="0" can_select="1">
+			<font font="letterica16" r="216" g="186" b="140"/>
+		</video_list>
+	</video_frame>
+	<video_frame_buttons x="0" y="420" width="425" height="30">
+		<btn_start x="330" y="3" width="90" height="26">
+			<texture_e>ui_button_ordinary_e</texture_e>
+			<texture_t>ui_button_ordinary_t</texture_t>
+			<texture_h>ui_button_ordinary_h</texture_h>
+			<text font="letterica18" x="0" y="0" align="c" vert_align="c" color="ui_6">tool_video_start</text>
+		</btn_start>
+	</video_frame_buttons>
+</frame_right_misc>

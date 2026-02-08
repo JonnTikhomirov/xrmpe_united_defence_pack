@@ -1,0 +1,40 @@
+<!-- File       : info_16.xml             -->
+<!-- Description: Инструмент разработчика -->
+<!--            : Модуль "Инфо"           -->
+<!-- Copyright  : 2025 © The Tool         -->
+<!-- Author     : Kirgudu, monk           -->
+<!-- Last edit  : 11.09.2025              -->
+
+<!-- frame_right -->
+<frame_right_info>
+	<info_frame x="0" y="0" width="425" height="420">
+		<texture>ui_stroketextbox</texture>
+		<info_list x="1" y="10" width="423" height="400" item_height="20" always_show_scroll="1" can_select="1">
+			<font font="letterica16" r="216" g="186" b="140"/>
+		</info_list>
+	</info_frame>
+	<info_frame_buttons x="0" y="420" width="425" height="30">
+		<textbox_find x="10" y="3" width="145" height="22">
+			<texture>ui_linetext2_e</texture>
+			<text x="5" y="2" font="letterica18" r="240" g="217" b="182"/>
+		</textbox_find>
+		<btn_find x="160" y="3" width="70" height="26">
+			<texture_e>ui_button_ordinary_e</texture_e>
+			<texture_t>ui_button_ordinary_t</texture_t>
+			<texture_h>ui_button_ordinary_h</texture_h>
+			<text font="letterica18" x="0" y="0" align="c" vert_align="c" color="ui_6">tool_info_filter_apply</text>
+		</btn_find>
+		<btn_give x="235" y="3" width="90" height="26">
+			<texture_e>ui_button_ordinary_e</texture_e>
+			<texture_t>ui_button_ordinary_t</texture_t>
+			<texture_h>ui_button_ordinary_h</texture_h>
+			<text font="letterica18" x="0" y="0" align="c" vert_align="c" color="ui_6">tool_info_give</text>
+		</btn_give>
+		<btn_disable x="330" y="3" width="90" height="26">
+			<texture_e>ui_button_ordinary_e</texture_e>
+			<texture_t>ui_button_ordinary_t</texture_t>
+			<texture_h>ui_button_ordinary_h</texture_h>
+			<text font="letterica18" x="0" y="0" align="c" vert_align="c" color="ui_6">tool_info_disable</text>
+		</btn_disable>
+	</info_frame_buttons>
+</frame_right_info>

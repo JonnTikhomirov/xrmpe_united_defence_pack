@@ -1,0 +1,31 @@
+;----------------------------------------------------------
+; File       : weather.ltx
+; Description: Инструмент разработчика
+;            : Модуль "Погода"
+; Copyright  : 2024 © The Tool
+; Author     : Kirgudu, monk
+; Last edit  : 08.04.2024
+;----------------------------------------------------------
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;; Таймаут выброса по умолчанию (функция недоступна)
+
+[weather_settings]
+surge_timeout = 45
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;; Список секций погоды, доступной для установки
+
+[weather]
+dynamic_default  , standard, "Динамическая"
+default_np_clear  , standard, "Ясно"
+default_np_cloudy , standard, "Пасмурно"
+default_np_rain   , standard, "Дождь"
+default_np_thunder, standard, "Гроза"
+default_np_thunder_no_rain, standard, "Гроза без дождя"
+default_np_foggy , standard, "Туман"
+default_np_foggy_dark , standard, "Темный туман"
+default_np_foggy_nosun , standard, "Сильный туман"
+indoor         , standard, "В помещении/в подземелье"
+indoor_ambient , standard, "В помещении/в подземелье 2"
+fx_surge_day_3 , fx      , "Выброс"

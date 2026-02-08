@@ -1,0 +1,877 @@
+function init    (obj)
+				if (OnClient()) then
+					obj:bind_object(bind_stalker_cl(obj))
+				else
+					xr_motivator.AddToMotivator(obj)
+				end
+end
+
+function actor_init    (npc)
+	npc:bind_object(actor_binder(npc))	
+end
+
+function mp_actor_init    (npc)
+					npc:bind_object(mp_actor_binder(npc))			
+end
+
+local game_difficulty_by_num = {
+				[0] = "gd_novice",
+				[1] = "gd_stalker",
+				[2] = "gd_veteran",
+				[3] = "gd_master"
+				}
+
+local weapon_hide = {}
+
+class "mp_actor_binder" (object_binder)
+function mp_actor_binder:__init (obj) super(obj)
+	self.bCheckStart = false
+	self.last_level_name = nil
+	self.deimos_intensity = nil
+	self.loaded_active_slot = 3
+	self.loaded_slot_applied = false
+	self.weather_manager = level_weathers.get_weather_manager()														
+	self.surge_manager = surge_manager.get_surge_manager()
+end
+
+delayed_functions = {}
+
+function add_delayed_function(funcName, timeout, params)
+	local timestamp = time_global()
+	
+	local num = #delayed_functions + 1
+	delayed_functions[num] = {}
+	delayed_functions[num].name = funcName
+	delayed_functions[num].timestamp = timestamp
+	delayed_functions[num].timeout = timeout
+	delayed_functions[num].params = params
+end
+
+function mp_actor_binder:update_delayed_functions()
+	for k, v in pairs(delayed_functions) do
+		if time_global() - v.timestamp > v.timeout then
+			xr_effects[v.name](nil, nil, v.params)
+			table.remove(delayed_functions, k)
+		end
+	end
+end
+
+function mp_actor_binder:net_spawn(data)
+--	printf("actor net spawn")
+	level.show_indicators()
+	self.bCheckStart = true
+	self.weapon_hide = false -- спрятано или нет оружие при разговоре.
+	self.weapon_hide_in_dialog = false
+	weapon_hide = {} -- устанавливаем глобальный дефолтовый флаг.
+	self.task_manager = task_manager.get_task_manager()
+	if object_binder.net_spawn(self,data) == false then
+		return false
+	end
+				 
+	db.add_obj(self.object)
+	db.add_mp_actor(self.object)
+
+	self.deimos_intensity = nil
+
+	level.enable_input()
+
+	--'Устанавливаем ссылку на таскменеджер
+	--self.task_manager = task_manager.get_task_manager()
+	self.spawn_frame = device().frame
+	self.already_jumped = false
+	self.primary_objects_filled = false
+	self.loaded = true
+
+	if data.story_id ~= "" then
+		local previous_sid = get_object_story_id(self.object:id())
+		if previous_sid == nil or previous_sid ~= data.story_id then
+			add_story_object(self.object:id(), data.story_id)
+		end
+	end
+	
+	-- + UP
+	if OnClient() then
+		-- ++ The Tool
+		lua_helper.attach() -- если вспомогательный модуль Артоса ещё не подключён
+		m_netpk.attach() -- если модуль нет-пакетов Артоса ещё не подключён
+		if keylogger then keylogger.init() end -- если кейлоггер Чарси ещё не подключён
+		if tool then tool.init() end -- обязательно
+		-- -- The Tool	
+		if keylogger then keylogger.on_load() end
+		if tool then tool.OnLoad() end
+	end
+	-- - UP
+
+	return true
+end
+
+function mp_actor_binder:reinit()
+	object_binder.reinit(self)
+	local npc_id = self.object:id()
+	db.storage[npc_id] = { }
+	self.st = db.storage[npc_id]
+	self.st.pstor = nil
+	
+	self.object:set_callback(callback.inventory_info, self.info_callback, self)
+	self.object:set_callback(callback.on_item_take, self.on_item_take, self)
+	self.object:set_callback(callback.on_item_drop, self.on_item_drop, self)
+	self.object:set_callback(callback.trade_sell_buy_item, self.on_trade, self) -- for game stats
+	self.object:set_callback(callback.task_state, self.task_callback, self)
+	self.object:set_callback(callback.take_item_from_box, self.take_item_from_box, self)
+	self.object:set_callback(callback.use_object, self.use_inventory_item, self)
+
+	-- + UP
+	if OnClient() then
+		--/#+# [lua_helper] ------------------------------------------------
+		if lua_helper.Init_ActorPStor then lua_helper.Init_ActorPStor() end
+		--/< ---------------------------------------------------------------
+	end
+	-- - UP
+
+end
+
+function mp_actor_binder:task_callback(_task, _state)
+	if GameType() == game_cl.game_id_coop then
+		if _state ~= task.fail then
+			if not _task:is_silent_notify() then
+				if _state == task.completed then
+					news_manager.send_task(db.actor, "complete", _task)
+				else
+					news_manager.send_task(db.actor, "new", _task)
+				end
+			end
+		end
+		
+		task_manager.task_callback(_task, _state)
+		
+		if _task:is_silent_notify() and _state == _task:get_target_state() then
+			_task:set_silent_notify(false)
+		end
+	end
+end
+
+function mp_actor_binder:on_item_take(obj)
+	--printf_msg("on_item_take [%s]", obj:name())
+	if OnServer() then
+		treasure_manager.get_treasure_manager():on_item_take(obj:id())
+	end
+	
+	if isArtefact(obj) then
+		if OnServer() then
+			local anomal_zone = bind_anomaly_zone.parent_zones_by_artefact_id[obj:id()]
+			if anomal_zone ~= nil then
+				anomal_zone:on_artefact_take(obj)
+			else
+				bind_anomaly_zone.artefact_ways_by_id[obj:id()] = nil
+			end
+			local artefact = obj:get_artefact()
+			artefact:FollowByPath("NULL",0,vector():set(500,500,500))
+			xr_statistic.inc_founded_artefacts_counter(obj:id(), self.object:id())
+		elseif (getLocalActor() and self.object:id() == getLocalActor():id()) then -- Client
+			xr_statistic.inc_founded_artefacts_counter(obj:id(), self.object:id())
+		end
+	end
+end
+
+function actor_have_items()
+	local n=3 -- количество
+	local count=0
+	
+	db.storage[LocalActor()].object:iterate_inventory(function (dummy, item) if item:section()=="kolbasa" then count=count+1 end end, nil)
+	
+	if count>=n then
+		return true
+	else
+		return false
+	end
+end
+
+function mp_actor_binder:update(delta)
+	if LocalActor() ~= self.object:id() or (IsServerClient() and LocalActor() == self.object:id()) then
+		if OnServer() then
+			-- Апдейт прятание оружия игрока в зоне sr_no_weapon
+			if check_for_weapon_hide_by_zones(self.object:id()) == true then
+				if self.weapon_hide == false then
+					self.object:hide_weapon_except_safe_items()
+					self.weapon_hide = true
+				end
+			else
+				if self.weapon_hide == true then
+					self.object:restore_weapon_except_safe_items()
+					self.weapon_hide = false
+				end
+			end
+			
+			xr_sound.update(self.object:id())
+		end
+		
+		if not IsServerClient() then
+			return
+		end
+		
+	end
+	
+	object_binder.update(self, delta)
+	
+	local time = time_global()
+	game_stats.update (delta, self.object)
+
+	--' Апдейт саундменеджера
+	xr_sound.update(self.object:id())
+	
+	-- Обновление отключения ввода с клавиатуры.
+	self.st.disable_input_time = nil
+	
+	-- Апдейт прятание оружия игрока во время диалога
+	if self.object:is_talking() then
+		if self.weapon_hide_in_dialog == false then
+			self.object:hide_weapon()
+			printf("hiding weapon!!!")
+			self.weapon_hide_in_dialog = true
+		end
+	else
+		if self.weapon_hide_in_dialog == true then
+			printf("restoring weapon!!!")
+			self.object:restore_weapon()
+			self.weapon_hide_in_dialog = false
+		end
+	end
+	
+	-- обновление пси-антенны
+	if sr_psy_antenna.psy_antenna then
+		sr_psy_antenna.psy_antenna:update(delta)
+	end
+	
+	if self.bCheckStart then
+		printf("SET DEFAULT INFOS")
+		if not has_alife_info("global_dialogs") then
+			self.object:give_info_portion("global_dialogs")
+		end
+		if not has_alife_info("level_changer_icons") then
+			self.object:give_info_portion("level_changer_icons")
+		end
+		self.bCheckStart = false
+	end
+	
+	if self.surge_manager then
+		if self.f_surge_manager_loaded ~= true and not self.start_from_load then
+			self.surge_manager:initialize()
+			self.f_surge_manager_loaded = true
+		end
+		self.surge_manager:update()
+	end
+	if not self.loaded_slot_applied then
+		self.object:activate_slot(self.loaded_active_slot)
+		self.loaded_slot_applied = true
+	end
+	
+	xr_s.on_actor_update(delta)
+	
+	if not(self.primary_objects_filled) then
+		pda.fill_primary_objects()
+		self.primary_objects_filled = true
+	end
+	pda.fill_sleep_zones()
+	
+	xr_voicedialogs.update()
+	self:update_delayed_functions()
+	
+	sim_squad_scripted_cl_manager.get_squad_manager():update()
+	
+	for k, v in pairs(game_relations.temp_goodwill_table) do
+		SetGoodwillForce(k, self.object:id(), v)
+	end
+	game_relations.temp_goodwill_table = { }
+end
+
+function mp_actor_binder:net_destroy()
+	xr_sound.stop_sounds_by_id(self.object:id())
+	local board_factions = sim_board.get_sim_board().players
+	if(board_factions) then
+			for k,v in pairs (board_factions) do
+					xr_sound.stop_sounds_by_id(v.id)
+			end
+	end
+	if(actor_stats.remove_from_ranking~=nil)then
+		actor_stats.remove_from_ranking(self.object:id())
+	end
+	level.show_weapon(true)
+	db.del_obj(self.object)
+	db.del_mp_actor(self.object)
+
+	if sr_psy_antenna.psy_antenna then
+		sr_psy_antenna.psy_antenna:destroy()
+		sr_psy_antenna.psy_antenna = false
+	end
+	
+	self.object:set_callback(callback.inventory_info, nil)
+	self.object:set_callback(callback.article_info, nil)
+	self.object:set_callback(callback.on_item_take, nil)
+	self.object:set_callback(callback.on_item_drop, nil)
+	self.object:set_callback(callback.task_state, nil)
+	self.object:set_callback(callback.level_border_enter, nil)
+	self.object:set_callback(callback.level_border_exit, nil)
+	self.object:set_callback(callback.take_item_from_box, nil)
+	self.object:set_callback(callback.use_object, nil)
+	
+	object_binder.net_destroy(self)
+end
+----------------------------------------------------------------------------------------------------------------------
+class "actor_binder" (object_binder)
+----------------------------------------------------------------------------------------------------------------------
+function actor_binder:__init (obj) super(obj)
+	self.bCheckStart = false
+	self.weather_manager = level_weathers.get_weather_manager()
+	self.surge_manager = surge_manager.get_surge_manager()
+	--self.actor_detector = xr_detector.actor_detector()
+	self.last_level_name = nil
+	self.deimos_intensity = nil
+--	self.actor_weapon_on_start = true
+	self.loaded_active_slot = 3
+	self.loaded_slot_applied = false
+	self.last_detective_achievement_spawn_time 	= nil
+	self.last_mutant_hunter_achievement_spawn_time	= nil
+end
+----------------------------------------------------------------------------------------------------------------------
+function actor_binder:net_spawn(data)
+--	printf("actor net spawn")
+	level.show_indicators()
+	self.bCheckStart = true
+	self.weapon_hide = false -- спрятано или нет оружие при разговоре.
+	self.weapon_hide_in_dialog = false
+	weapon_hide = {} -- устанавливаем глобальный дефолтовый флаг.
+	if object_binder.net_spawn(self,data) == false then
+		return false
+	end
+	
+	if self.object:id() == SV_OBJECT_ID then
+		db.add_actor(self.object)
+		db.actor.deimos_intensity = self.deimos_intensity
+	end
+	
+	self.deimos_intensity = nil
+	if self.st.disable_input_time == nil then
+		level.enable_input()
+	end
+	xr_s.on_game_load()                                    --' Distemper 03.2008 --
+	self.weather_manager:reset()
+	--' Загружаем настройки дропа
+	death_manager.init_drop_settings()
+	--'Устанавливаем ссылку на таскменеджер
+	self.task_manager = task_manager.get_task_manager()
+	self.spawn_frame = device().frame
+	self.already_jumped = false
+	self.loaded = false
+	benchmark.main()							          --' Distemper 06.2008 --
+	
+	return true
+end
+----------------------------------------------------------------------------------------------------------------------
+function actor_binder:net_destroy()
+	xr_sound.stop_sounds_by_id(self.object:id())
+	local board_factions = sim_board.get_sim_board().players
+	if(board_factions) then
+			for k,v in pairs (board_factions) do
+					xr_sound.stop_sounds_by_id(v.id)
+			end
+	end
+	if(actor_stats.remove_from_ranking~=nil)then
+		actor_stats.remove_from_ranking(self.object:id())
+	end
+	level.show_weapon(true)
+	
+	if self.object:id() == SV_OBJECT_ID then
+		db.del_actor(self.object)
+	end
+	
+	self.object:set_callback(callback.inventory_info, nil)
+	self.object:set_callback(callback.article_info, nil)
+	self.object:set_callback(callback.on_item_take, nil)
+	self.object:set_callback(callback.on_item_drop, nil)
+	self.object:set_callback(callback.task_state, nil)
+	self.object:set_callback(callback.level_border_enter, nil)
+	self.object:set_callback(callback.level_border_exit, nil)
+	self.object:set_callback(callback.take_item_from_box, nil)
+	self.object:set_callback(callback.use_object, nil)
+
+	log("--------->"..tostring(_G.amb_vol))
+	log("--------->"..tostring(_G.mus_vol))
+	if(_G.amb_vol~=0) then
+		get_console():execute("snd_volume_eff "..tostring(_G.amb_vol))
+		_G.amb_vol = 0
+	end
+	if(_G.mus_vol~=0) then
+	    get_console():execute("snd_volume_music "..tostring(_G.mus_vol))
+		_G.mus_vol = 0
+	end
+	if sr_psy_antenna.psy_antenna then
+		sr_psy_antenna.psy_antenna:destroy()
+		sr_psy_antenna.psy_antenna = false
+	end
+	xrs_dyn_music.finish_theme()
+	xr_s.on_actor_destroy()
+	object_binder.net_destroy(self)
+end
+----------------------------------------------------------------------------------------------------------------------
+function actor_binder:reinit()
+	object_binder.reinit(self)
+	local npc_id = self.object:id()
+	db.storage[npc_id] = { }
+	self.st = db.storage[npc_id]
+	self.st.pstor = nil
+
+	self.object:set_callback(callback.inventory_info, self.info_callback, self)
+	self.object:set_callback(callback.on_item_take, self.on_item_take, self)
+	self.object:set_callback(callback.on_item_drop, self.on_item_drop, self)
+	self.object:set_callback(callback.trade_sell_buy_item, self.on_trade, self) -- for game stats
+	self.object:set_callback(callback.task_state, self.task_callback, self)
+	self.object:set_callback(callback.take_item_from_box, self.take_item_from_box, self)
+	self.object:set_callback(callback.use_object, self.use_inventory_item, self)
+	-- +UP
+	if OnClient() then
+		-- ++ The Tool
+		--/#+# [lua_helper] ------------------------------------------------
+		if lua_helper.Init_ActorPStor then lua_helper.Init_ActorPStor() end
+		--/< ---------------------------------------------------------------
+		-- - The Tool
+	end	
+	-- -UP
+end
+----------------------------------------------------------------------------------------------------------------------
+function actor_binder:take_item_from_box(box, item)
+	local box_name = box:name()
+end
+
+----------------------------------------------------------------------------------------------------------------------
+function actor_binder:info_callback(npc, info_id)
+	printf("*INFO*: npc='%s' id='%s'", npc:name(), info_id)
+	--' Сюжет
+	-- Отметки на карте
+end
+----------------------------------------------------------------------------------------------------------------------
+function actor_binder:on_trade (item, sell_bye, money)
+	if sell_bye == true then
+		 game_stats.money_trade_update (money)
+	else
+		 game_stats.money_trade_update (-money)
+	end
+end
+----------------------------------------------------------------------------------------------------------------------
+function actor_binder:article_callback(npc, group, name)
+end
+----------------------------------------------------------------------------------------------------------------------
+function actor_binder:on_item_take (obj)
+	printf("on_item_take [%s]", obj:name())
+	if isArtefact(obj) then
+		local anomal_zone = bind_anomaly_zone.parent_zones_by_artefact_id[obj:id()]
+		if anomal_zone ~= nil then
+			anomal_zone:on_artefact_take(obj)
+		else
+			bind_anomaly_zone.artefact_ways_by_id[obj:id()] = nil
+		end
+		local artefact = obj:get_artefact()
+		artefact:FollowByPath("NULL",0,vector():set(500,500,500))
+		xr_statistic.inc_founded_artefacts_counter(obj:id())
+--[[
+		local s_art = alife():object(obj:id())
+		if(s_art) then
+			xr_statistic.inc_founded_artefacts_counter(s_art:section_name())
+		else
+			xr_statistic.inc_founded_artefacts_counter()
+		end
+]]
+	end
+	treasure_manager.get_treasure_manager():on_item_take(obj:id())
+end
+----------------------------------------------------------------------------------------------------------------------
+function actor_binder:on_item_drop (obj)
+end
+
+function actor_binder:use_inventory_item(obj)
+	if(obj) then
+		local s_obj = alife():object(obj:id())
+		if(s_obj) and (s_obj:section_name()=="drug_anabiotic") then
+			xr_effects.disable_ui_only(db.actor, nil)
+			level.add_cam_effector("camera_effects\\surge_02.anm", 10, false, "bind_stalker.anabiotic_callback")
+			level.add_pp_effector("surge_fade.ppe", 11, false)
+			give_info("anabiotic_in_process")
+			_G.mus_vol = get_console():get_float("snd_volume_music")
+			_G.amb_vol = get_console():get_float("snd_volume_eff")
+			get_console():execute("snd_volume_music 0")
+			get_console():execute("snd_volume_eff 0")
+		end
+	end
+end
+
+function anabiotic_callback()
+	level.add_cam_effector("camera_effects\\surge_01.anm", 10, false, "bind_stalker.anabiotic_callback2")
+	local rnd = math.random(35,45)
+	local m = surge_manager.get_surge_manager()
+	if(m.started) then
+		local tf = level.get_time_factor()
+		local diff_sec = math.ceil(game.get_game_time():diffSec(m.inited_time)/tf)
+			if(rnd>(m.surge_time-diff_sec)*tf/60) then
+			m.time_forwarded = true
+			m.ui_disabled = true
+			m:kill_all_unhided()
+			m:end_surge()
+		end
+	end
+	--level.change_game_time(0,0,rnd)
+	--level_weathers.get_weather_manager():forced_weather_change()
+	printf("anabiotic_callback: time forwarded on [%d]", rnd)
+end
+
+function anabiotic_callback2()
+	xr_effects.enable_ui(db.actor, nil)
+    get_console():execute("snd_volume_music "..tostring(_G.mus_vol))
+	get_console():execute("snd_volume_eff "..tostring(_G.amb_vol))
+	_G.amb_vol = 0
+	_G.mus_vol = 0
+	disable_info("anabiotic_in_process")
+end
+----------------------------------------------------------------------------------------------------------------------
+
+function actor_binder:task_callback(_task, _state, _silent)
+	if _state ~= task.fail then
+		if _state == task.completed then
+			news_manager.send_task(db.actor, "complete", _task)
+		else
+			news_manager.send_task(db.actor, "new", _task)
+		end
+	end
+	task_manager.task_callback(_task, _state)
+end
+
+----------------------------------------------------------------------------------------------------------------------
+
+function actor_binder:try_start_game()
+	if not story_flags.has_flag("GAME_STARTED") then
+		local num = 0
+		for k,v in pairs(db.mp_actors) do
+			num = num + 1
+		end
+		
+		local num_players = get_players_count()
+		if IsDedicatedServer() then
+			num_players = num_players - 1
+		end
+		
+		if num > 0 and num_players == num then
+			story_flags.give_flag("GAME_STARTED")
+		end
+	end
+end
+
+function actor_binder:update(delta)
+	object_binder.update(self, delta)
+	
+	if string.find(command_line(), "-designer") then
+		return
+	end
+	
+	if OnServer() then
+		self.weather_manager:update()
+
+		local time = time_global()
+		game_stats.update (delta, self.object)
+	
+		self:check_detective_achievement()
+		self:check_mutant_hunter_achievement()
+	
+		-- Апдейт саундменеджера
+		xr_sound.update(self.object:id())
+		
+		-- обновление пси-антенны
+		if sr_psy_antenna.psy_antenna then
+			sr_psy_antenna.psy_antenna:update(delta)
+		end
+		
+		if self.bCheckStart then
+			printf("SET DEFAULT INFOS")
+			if not has_alife_info("global_dialogs") then
+				self.object:give_info_portion("global_dialogs")
+			end
+			if not has_alife_info("level_changer_icons") then
+				self.object:give_info_portion("level_changer_icons")
+			end
+			self.bCheckStart = false
+		end
+	
+		if not self.loaded_slot_applied then
+			self.object:activate_slot(self.loaded_active_slot)
+			self.loaded_slot_applied = true
+		end
+		
+		xr_s.on_actor_update(delta)
+		
+		if(self.surge_manager) then
+			if(self.f_surge_manager_loaded ~= true) then
+				self.surge_manager:initialize()
+				self.f_surge_manager_loaded = true
+			end
+			if(self.surge_manager.levels_respawn[level.name()]) then
+				self.surge_manager:respawn_artefacts_and_replace_anomaly_zone()
+			end
+			self.surge_manager:update()
+		end
+		-- Апдейт доступности для симуляции.
+		simulation_objects.get_sim_obj_registry():update_avaliability(alife():actor())
+		treasure_manager.get_treasure_manager():update()
+	
+		if not self.loaded then
+			--get_console():execute("dump_infos")
+			self.loaded = true
+		end
+	
+		pda.fill_sleep_zones()
+		
+		self:try_start_game()
+		task_manager.get_task_manager():send_server_objects_target_pos()
+		client_tasks.update_delayed_tasks()
+	end
+	
+	if self.already_jumped==false and jump_level.need_jump==true and (device().frame > self.spawn_frame+2000) then
+		jump_level.try_to_jump()
+		self.already_jumped = true
+		return
+	end
+
+	-- Вызов апдейта переноса игрока проводником
+	if travel_func ~= nil then
+		travel_func()
+	end
+end
+----------------------------------------------------------------------------------------------------------------------
+function actor_binder:save(packet)
+
+	-- + UP
+	if OnClient() then
+		-- ++ The Tool
+		xr_s.on_event("actor_save")
+		-- -- The Tool
+	end
+	-- - UP
+
+	set_save_marker(packet, "save", false, "actor_binder")
+	object_binder.save(self, packet)
+	self.weather_manager:save(packet)
+	release_body_manager.get_release_body_manager():save(packet)										
+	self.surge_manager:save(packet)
+	treasure_manager.get_treasure_manager():save(packet)
+	xr_statistic.save(packet)
+	client_tasks.save_delayed_tasks(packet)
+	set_save_marker(packet, "save", true, "actor_binder")
+end
+----------------------------------------------------------------------------------------------------------------------
+function actor_binder:load(reader)
+	set_save_marker(reader, "load", false, "actor_binder")
+	object_binder.load(self, reader)
+	self.weather_manager:load(reader)
+	release_body_manager.get_release_body_manager():load(reader)
+	self.surge_manager:load(reader)
+	treasure_manager.get_treasure_manager():load(reader)
+	xr_statistic.load(reader)
+	client_tasks.load_delayed_tasks(reader)
+	set_save_marker(reader, "load", true, "actor_binder")
+end
+
+--*************************************************************
+--*					Подспаун вещей в ящики					  *
+--*************************************************************
+local detective_achievement_items 		= {	"medkit",
+											"antirad",
+											"bandage"}
+
+local mutant_hunter_achievement_items	= {	"ammo_5.45x39_ap",
+											"ammo_5.56x45_ap",
+											"ammo_9x39_ap",
+											"ammo_5.56x45_ap",
+											"ammo_12x76_zhekan"}
+
+local function spawn_achivement_items(items_table, count, inv_box_story_id)
+	local inv_box = alife():object(get_story_object_id(inv_box_story_id))
+	for i = 1,count do
+		alife():create(items_table[math.random(#items_table)],
+						inv_box.position,
+						inv_box.m_level_vertex_id,
+						inv_box.m_game_vertex_id,
+						inv_box.id)
+	end
+end
+
+function actor_binder:check_detective_achievement()
+	if not has_alife_info("detective_achievement_gained") then
+		return
+	end
+	if self.last_detective_achievement_spawn_time == nil then
+		self.last_detective_achievement_spawn_time = game.get_game_time()
+	end
+	if game.get_game_time():diffSec(self.last_detective_achievement_spawn_time) > 43200 then
+		spawn_achivement_items(detective_achievement_items, 4, "zat_a2_actor_treasure")
+		xr_effects.send_tip(db.actor, nil, {"st_detective_news","got_medicine"})
+		self.last_detective_achievement_spawn_time = game.get_game_time()
+	end
+end
+
+function actor_binder:check_mutant_hunter_achievement()
+	if not has_alife_info("mutant_hunter_achievement_gained") then
+		return
+	end
+	if self.last_mutant_hunter_achievement_spawn_time == nil then
+		self.last_mutant_hunter_achievement_spawn_time = game.get_game_time()
+	end
+	if game.get_game_time():diffSec(self.last_mutant_hunter_achievement_spawn_time) > 43200 then
+		spawn_achivement_items(mutant_hunter_achievement_items, 5, "jup_b202_actor_treasure")
+		xr_effects.send_tip(db.actor, nil, {"st_mutant_hunter_news","got_ammo"})
+		self.last_mutant_hunter_achievement_spawn_time = game.get_game_time()
+	end
+
+end
+
+----------------------------------------------------------------------------------------------------------------------
+
+function check_for_weapon_hide_by_zones(actor_id)
+	for k,v in pairs(weapon_hide) do
+		if v[actor_id] == true then
+			return true
+		end
+	end
+	return false
+end
+
+-- Weapon functions
+function hide_weapon(zone_id, actor_id)
+	if weapon_hide[zone_id] == nil then
+		weapon_hide[zone_id] = { }
+	end
+	
+	printf("[WEAPON_CONTROL]:hiding weapon from zone [%s] in section [%s]!!!", zone_id, db.storage[zone_id].active_section)
+	weapon_hide[zone_id][actor_id] = true	
+end
+
+function restore_weapon(zone_id, actor_id)
+	if weapon_hide[zone_id] == nil then
+		weapon_hide[zone_id] = { }
+	end
+	
+	printf("[WEAPON_CONTROL]:restoring weapon from zone [%s] in section [%s]!!!", zone_id, db.storage[zone_id].active_section)
+	weapon_hide[zone_id][actor_id] = false
+end
+
+class "bind_stalker_cl" (object_binder)
+function bind_stalker_cl:__init (obj) super(obj)
+end
+
+function bind_stalker_cl:net_spawn(data)
+	if not object_binder.net_spawn(self, data) then
+		return false
+	end
+	
+	db.add_obj(self.object)
+	self.object:set_callback(callback.death, bind_stalker_cl.death_callback, self)
+	self.object:set_callback(callback.hit, bind_stalker_cl.hit_callback, self)													   
+
+	if character_community(self.object) ~= "monster" then
+		sound_theme.init_npc_sound(self.object)
+		set_level_spot(self.object:id(), data.level_spot_id)
+		trade_manager.trade_init(self.object, data.trade_ini)
+	end
+	  
+	if data.goodwill ~= 127 then
+		local goodwill = data.goodwill
+		if getLocalActor() then
+			SetGoodwillForce(self.object:id(), getLocalActor():id(), goodwill)
+		else
+			game_relations.temp_goodwill_table[self.object:id()] = goodwill
+		end
+	end
+	
+	return true
+end
+
+function bind_stalker_cl:net_import(packet)
+	--object_binder.net_import(self, packet)
+	
+	if dev_debug then
+		if self.st.debug_info == nil then
+			self.st.debug_info = { }
+		end
+	
+		self.st.debug_info.active_section = packet:r_stringZ()
+		self.st.debug_info.best_enemy_name = packet:r_stringZ()
+		
+		self.st.debug_info.squad_id = packet:r_stringZ()
+		self.st.debug_info.squad_current_action = packet:r_stringZ()
+	end	
+end
+
+function bind_stalker_cl:reinit()
+	object_binder.reinit(self)
+	local npc_id = self.object:id()
+	db.storage[npc_id] = { }   
+	self.st = db.storage[npc_id]
+	self.st.pstor = nil
+end	
+
+function bind_stalker_cl:update(delta)
+	object_binder.update(self, delta)
+	if self.object:alive() then
+		trade_manager.update(self.object)
+	end
+end
+
+function bind_stalker_cl:net_destroy()
+	db.del_obj(self.object)
+	db.storage[self.object:id()] = nil
+	object_binder.net_destroy(self)
+end
+function bind_stalker_cl:death_callback(victim, who)
+	if who and getLocalActor() and getLocalActor():id() == who:id() then
+		xr_statistic.inc_killed_stalkers_counter(who:id())
+	end
+end
+
+function bind_stalker_cl:hit_callback(obj, amount, local_direction, who, bone_index)
+	if who and getLocalActor() and getLocalActor():id() == who:id() then
+		xr_statistic.set_best_weapon(amount, who)
+	end
+end
+function set_level_spot(npc_id, map_spot)
+	if map_spot ~= nil and map_spot ~= 0 then
+		local map_location = ""
+		local hint = ""
+		local profession = 0 --eNone
+		if map_spot == 1 then
+				map_location = "ui_pda2_trader_location"
+				hint = "st_ui_pda_legend_trader"
+				profession = 1 --eTrader
+		elseif map_spot == 2 then
+				map_location = "ui_pda2_mechanic_location"
+				hint = "st_ui_pda_legend_mechanic"
+				profession = 2 --eMechanic
+		elseif map_spot == 3 then
+				map_location = "ui_pda2_scout_location"
+				hint = "st_ui_pda_legend_scout"
+				profession = 3 --eGuider
+		elseif map_spot == 4 then
+				map_location = "ui_pda2_quest_npc_location"
+				hint = "st_ui_pda_legend_vip"
+		elseif map_spot == 5 then
+				map_location = "ui_pda2_medic_location"
+				hint = "st_ui_pda_legend_medic"
+				profession = 4 --eMedic
+		end
+		
+		if level.map_has_object_spot(npc_id, map_location) ~= 0 then
+			level.map_remove_object_spot(npc_id, map_location)
+		end
+		
+		level.map_add_object_spot(npc_id, map_location, hint)
+		
+		local npc = db.storage[npc_id] and db.storage[npc_id].object
+		if npc ~= nil then
+			npc:set_profession(profession)
+		end
+	end
+end

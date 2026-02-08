@@ -1,0 +1,43 @@
+;----------------------------------------------------------
+; File       : clean.ltx
+; Description: Инструмент разработчика
+;            : Модуль "Очистка"
+; Copyright  : 2025 © The Tool
+; Author     : Kirgudu, monk
+; Last edit  : 29.07.2025
+;----------------------------------------------------------
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;; Настройки модуля
+
+[clean_settings]
+checkbox_current_location_default = true ; состояние чекбокса "искать на текущей локации" по умолчанию
+checkbox_other_locations_default  = true ; состояние чекбокса "искать на других локациях" по умолчанию
+checkbox_in_boxes_default         = true ; состояние чекбокса "искать в контейнерах" по умолчанию
+checkbox_out_of_boxes_default     = true ; состояние чекбокса "искать вне контейнеров" по умолчанию
+
+[clean_categories]
+checkbox_category_all             = true ; удаление всех объектов на текущем уровне
+checkbox_category_stalkers        = true ; удаление НПС
+checkbox_category_monsters        = true ; удаление монстров
+checkbox_category_outfit          = true ; удаление брони
+checkbox_category_weapon          = true ; удаление оружия
+checkbox_category_ammo            = true ; удаление патронов
+checkbox_category_detector        = true ; удаление детекторов
+checkbox_category_food            = true ; удаление еды
+checkbox_category_medical         = true ; удаление медицинских изделий
+checkbox_category_anomalies       = true ; удаление аномалий
+checkbox_category_artefact        = true ; удаление артефактов
+checkbox_category_other           = true ; удаление объектов остальных типов
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;; Списки объектов для автоудаления при загрузке
+
+; Объекты для удаления по story_id при загрузке (можно указывать номером или строкой из game_story_ids.ltx)
+[clean_by_story_id]
+; red_compass            ; образец
+; 320                    ; образец
+
+; Объекты для удаления по name при загрузке
+[clean_by_name]
+; lim_stalker_bandit_006 ; образец

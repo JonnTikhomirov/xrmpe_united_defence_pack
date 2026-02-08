@@ -1,31 +1,113 @@
+[sniper_vision_free]:stalker_vision_danger
+min_view_distance   		= 2.5		; коэффициент, который множится на eye_range, в зависимости от угла
+max_view_distance	 		= 3			; коэффициент, который множится на eye_range, в зависимости от угла
+visibility_threshold	 	= 10.0		; значение, при достижении суммой которого объект считается видимым
+always_visible_distance 	= 1
+decrease_value				= 0.01		; значение, на которое уменьшается вес, если объект попал в фрустум, но отсёкся по каким-то причинам
+time_quant					= 0.005
+velocity_factor		     	= 0.8
+luminocity_factor			= 1.0		; фактор освещения (только для Актёра)
+transparency_threshold	 	= 0.9; видимость всквозь ВСЕ
 
-[stalker_normal]:stalker
-$spawn                     = "respawn\stalker_normal"
-character_profile     = stalker_normal
-community = stalker
+[stalker_sniper]:stalker
+vision_danger_section			= sniper_vision_free
+vision_free_section				= sniper_vision_free
 
-[stalker_veteran]:stalker
-$spawn                     = "respawn\stalker_veteran"
-character_profile     = stalker_veteran
+[neutral_normal]:stalker
+$spawn                     = "respawn\neutral_normal"
+character_profile     = neutral_normal
 community = stalker
+spec_rank = regular
 
-[stalker_master]:stalker
-$spawn                     = "respawn\stalker_master"
-character_profile     = stalker_master
+[neutral_veteran]:stalker
+$spawn                     = "respawn\neutral_veteran"
+character_profile     = neutral_veteran
 community = stalker
+spec_rank = veteran
+
+; [neutral_sniper]:stalker_sniper
+; $spawn                     = "respawn\neutral_sniper"
+; character_profile     = neutral_sniper
+; community = stalker
+; spec_rank = master
+
+[neutral_master]:stalker
+$spawn                     = "respawn\neutral_master"
+character_profile     = neutral_master
+community = stalker
+spec_rank = master
+
+
+[duty_normal]:stalker
+$spawn                     = "respawn\duty_normal"
+character_profile     = duty_normal
+community = dolg
+spec_rank = regular
+
+[duty_veteran]:stalker
+$spawn                     = "respawn\duty_veteran"
+character_profile     = duty_veteran
+community = dolg
+spec_rank = veteran
+
+[duty_sniper]:stalker_sniper
+$spawn                     = "respawn\duty_sniper"
+character_profile     = duty_sniper
+community = dolg
+spec_rank = master
+
+[duty_master]:stalker
+$spawn                     = "respawn\duty_master"
+character_profile     = duty_master
+community = dolg
+spec_rank = master
+
+
+[freedom_normal]:stalker
+$spawn                     = "respawn\freedom_normal"
+character_profile     = freedom_normal
+community = freedom
+spec_rank = regular
+
+[freedom_veteran]:stalker
+$spawn                     = "respawn\freedom_veteran"
+character_profile     = freedom_veteran
+community = freedom
+spec_rank = veteran
+
+[freedom_sniper]:stalker_sniper
+$spawn                     = "respawn\freedom_sniper"
+character_profile     = freedom_sniper
+community = dolg
+spec_rank = master
+
+[freedom_master]:stalker
+$spawn                     = "respawn\freedom_master"
+character_profile     = freedom_master
+community = freedom
+spec_rank = master
 
 
 [military_normal]:stalker
 $spawn                     = "respawn\military_normal"
 character_profile     = military_normal
-community = stalker
+community = army
+spec_rank = experienced
 
 [military_veteran]:stalker
 $spawn                     = "respawn\military_veteran"
 character_profile     = military_veteran
-community = stalker
+community = army
+spec_rank = veteran
+
+[military_sniper]:stalker_sniper
+$spawn                     = "respawn\military_sniper"
+character_profile     = military_sniper
+community = army
+spec_rank = master
 
 [military_master]:stalker
 $spawn                     = "respawn\military_master"
 character_profile     = military_master
-community = stalker
+community = army
+spec_rank = master

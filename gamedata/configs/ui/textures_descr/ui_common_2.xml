@@ -1,0 +1,22 @@
+<w>
+	<file name="ui\ui_common_2">
+		<texture id="ui_notepad_frame2"       x="0"   y="0"   width="0"   height="0" />
+		<texture id="ui_notepad_frame2_lt"    x="940" y="693" width="28"  height="28" />
+		<texture id="ui_notepad_frame2_t"     x="956" y="693" width="28"  height="28" />
+		<texture id="ui_notepad_frame2_rt"    x="972" y="693" width="28"  height="28" />
+		<texture id="ui_notepad_frame2_l"     x="940" y="704" width="28"  height="28" />
+		<texture id="ui_notepad_frame2_back"  x="956" y="701" width="28"  height="28" />
+		<texture id="ui_notepad_frame2_r"     x="972" y="702" width="28"  height="28" />
+		<texture id="ui_notepad_frame2_lb"    x="940" y="713" width="28"  height="28" />
+		<texture id="ui_notepad_frame2_b"     x="956" y="713" width="28"  height="28" />
+		<texture id="ui_notepad_frame2_rb"    x="972" y="713" width="28"  height="28" />
+		<texture id="ui_message_back"         x="525" y="40"  width="170" height="80" />
+		<texture id="ui_button_ordinary"      x="0"   y="115" width="117" height="29" />
+		<texture id="ui_linetext2_e_b"        x="41"  y="21"  width="9"   height="24" />
+		<texture id="ui_linetext2_e_back"     x="50"  y="21"  width="33"  height="24" />
+		<texture id="ui_linetext2_e_e"        x="82"  y="21"  width="9"   height="24" />
+		<texture id="ui_horizontal_line_b"    x="506" y="212" width="16"  height="1" />
+		<texture id="ui_horizontal_line_back" x="506" y="212" width="16"  height="1" />
+		<texture id="ui_horizontal_line_e"    x="506" y="212" width="16"  height="1" />
+	</file>
+</w>
