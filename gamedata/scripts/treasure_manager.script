@@ -45,10 +45,8 @@ end
 -- Try to load a level file. Returns true if found and loaded.
 function CTreasureManager:load_level_file()
 	
-	local level_name
-	if level and level.name then pcall(function() level_name = level.name() end) end
+	local level_name = level.name()
 	if not level_name or level_name == "" then return false end
-	level_name = "df_pripyat_center"-- FIXME
 	local fname = getFS():update_path("$game_data$", string.format("levels\\%s\\secrets.ltx", level_name))
 	
 	if not fname or not getFS():exist(fname) then
@@ -228,7 +226,7 @@ function CTreasureManager:fill(se_obj, treasure_id)
 end
 
 function CTreasureManager:register_item(se_obj)
-	to_log("CTreasureManager:register_item "..se_obj:name().."")
+	to_log("CTreasureManager:register_item "..se_obj:name().."")-- TODO: убрать лог
 	local spawn_ini = se_obj:spawn_ini()
 	if(spawn_ini:section_exist("secret")) then
 		local result, id, value
@@ -292,11 +290,11 @@ end
 -- activation pipeline: only runs when use_level_mode==true
 function CTreasureManager:activate_level_secrets()
 	if not self.use_level_mode or self.activated_on_level then return end
-	to_log("CTreasureManager:activate_level_secrets()")
+	to_log("CTreasureManager:activate_level_secrets()")-- TODO: убрать лог
 	local chunks = self:build_chunks()
 	local activated = {}
-	printf("TreasureManager:activate_level_secrets() chunks")
-	print_table(chunks)
+	printf("TreasureManager:activate_level_secrets() chunks")-- TODO: убрать лог
+	print_table(chunks)-- TODO: убрать лог
 	for _,chunk in pairs(chunks) do
 		local ids, weights = {}, {}
 		for _,id in ipairs(chunk.secrets) do
