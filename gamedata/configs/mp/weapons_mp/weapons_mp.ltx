@@ -128,7 +128,7 @@
 	def_show_bones 					  = rail, foregrip_wood, bone, body, handler, mag30
 	def_hide_bones 					  = mag45, mag45_black, mag30_black, mag60, body2, body3, bone2, handler2, handler3, foregrip_plastic, flash_rail, scope_kashtan, scope_rakurs, scope_cobra, scope_pso_sniper, scope_pso_assault, scope_pka, scope_nv_sniper, scope_nv_assault, flash, light, laser, line, sight, silencer1
     $spawn                            = "network\weapons\assault\mp_wpn_ak74u"
-	class                			  = W_VAL ; class of the weapon that corresponding to CPP class
+	;class                			  = W_VAL ; class of the weapon that corresponding to CPP class;-- +UP
 	use_first_bullet				  = true	;есть ли эффект первого выстрела (точного)
 	first_bullet_dispertion			  = 0.012;дисперсия для первого выстрела
 	first_bullet_timeout			  = 500	;время между первыми выстрелами
@@ -530,7 +530,7 @@
 	def_hide_bones 					  = stock_plastic, stock_short, grip_handler, grip_sd, grip_rail, flash_sd, laser_sd, flash, laser, grip_sd_rail, mag40, mag30_sd, scope1, scope2, scope3, scope4, sight
 	def_show_bones 					  = rail, mag30, stock_teleskop, grip, iron_sight
     $spawn                            = "network\weapons\assault\mp_wpn_mp5"
-	class							  = W_VAL 
+	;class							  = W_VAL ;-- +UP
 	use_first_bullet				  = true	;есть ли эффект первого выстрела (точного)
 	first_bullet_dispertion			  = 0.012;дисперсия для первого выстрела
 	first_bullet_timeout			  = 500	;время между первыми выстрелами
@@ -597,7 +597,7 @@
 
 [mp_wpn_pkm]:wpn_pkm
 	$spawn							  = "network\weapons\heavy_weapons\mp_wpn_pkm"
-	class                   		  = W_VAL
+	;class                   		  = W_VAL;-- +UP
     ;PDM_disp_accel_factor            = 1.65 ;1.84 ;2.45    
     ;PDM_disp_base                    = 0.87 ;0.97 ;1.3
     ;PDM_disp_crouch                  = 1 ;0.2     
@@ -937,7 +937,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	def_show_bones 					  = mag20, rail_handler
 	def_hide_bones 				 	  = mag, scope_rakurs, scope_kashtan, scope_cobra, scope_pka, scope_pso_sniper, scope_pso_assault, scope_nv_sniper, scope_nv_assault, tactical_handler, sheka, flash, laser, light, line, rail_lam, sight
     $spawn                            = "network\weapons\assault\mp_wpn_val"
-	class                   		  = W_VAL
+	;class                   		  = W_VAL;-- +UP
 	use_first_bullet				  = true	;есть ли эффект первого выстрела (точного)
 	first_bullet_dispertion			  = 0.005	;дисперсия для первого выстрела
 	first_bullet_timeout			  = 750;время между первыми выстрелами
@@ -1001,7 +1001,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	def_show_bones					  = mag, rail_handler
 	def_hide_bones 					  = mag20, scope_rakurs, scope_kashtan, scope_cobra, scope_pka, scope_pso_sniper, scope_pso_assault, scope_nv_sniper, scope_nv_assault, tactical_handler, sheka, flash, laser, light, line, rail_lam, sight
     $spawn                            = "network\weapons\sniper_rifles\mp_wpn_vintorez"
-	class                   		  = W_VAL
+	;class                   		  = W_VAL;-- +UP
 	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)
 	first_bullet_dispertion			  = 0.01	;дисперсия для первого выстрела
 	first_bullet_timeout			  = 800	;время между первыми выстрелами
@@ -1168,7 +1168,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	def_hide_bones 					  = sight, barrel, body
 	def_show_bones 					  = barrel_silencer
     $spawn                            = "network\weapons\pistols\mp_wpn_stechkin"
-	class                   		  = W_VAL
+	;class                   		  = W_VAL;-- +UP
 	hit_power           			  = 0.51, 0.51, 0.51, 0.51
     ammo_class                        = mp_ammo_9x18_fmj, mp_ammo_9x18_pmm, mp_ammo_9x18_pbp
 	silencer_status					  = 2
@@ -1199,7 +1199,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	def_hide_bones 				      = sight, barrel, body
 	def_show_bones 					  = barrel_silencer
     $spawn                            = "network\weapons\pistols\mp_wpn_apb"
-	class                   		  = W_VAL
+	;class                   		  = W_VAL;-- +UP
 	hit_power           			  = 0.49, 0.49, 0.49, 0.49
     ammo_class                        = mp_ammo_9x18_fmj, mp_ammo_9x18_pmm, mp_ammo_9x18_pbp
 	silencer_name  					  = mp_wpn_addon_silencer_apb	
@@ -1272,7 +1272,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	def_show_bones 					  = barrel_silencer, bolt_auto, mag
 	def_hide_bones 					  = flash, laser, line, light, barrel_compensator, barrel, bolt, bone, bone2, mag2, sight
     $spawn                            = "network\weapons\pistols\mp_wpn_glock17"
-	class                   		  = W_VAL
+	;class                   		  = W_VAL;-- +UP
 	fire_modes             			  = 1, -1
 	fire_dispersion_base			  = 0.28
 	inv_weight						  = 0.65
@@ -1429,7 +1429,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	
 [mp_wpn_bizon]:wpn_bizon
     $spawn                            = "network\weapons\assault\mp_wpn_bizon"; name and section in level editor
-	class                   		  = W_VAL
+	;class                   		  = W_VAL;-- +UP
 	hit_power           			  = 0.41, 0.41, 0.41, 0.41
     ammo_class                        = mp_ammo_9x18_fmj, mp_ammo_9x18_pmm, mp_ammo_9x18_pbp
 	scopes_sect		                  = mp_scope_cobra_bizon, mp_scope_nvas_bizon, mp_scope_pso1m2x1_bizon, mp_scope_pka_bizon, mp_scope_kashtan_bizon, mp_scope_pso1_bizon, mp_scope_nvsn_bizon
@@ -1482,7 +1482,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	def_show_bones 					  = rail, mag30_sd, stock_teleskop, grip_sd
 	hit_power                         = 0.46, 0.46, 0.46, 0.46
     $spawn                            = "network\weapons\assault\mp_wpn_mp5sd" ;name and section in level editor
-	class                   		  = W_VAL
+	;class                   		  = W_VAL;-- +UP
     ammo_class                        = mp_ammo_9x19_fmj, mp_ammo_9x19_pbp
 	scopes_sect 					  = mp_scope_eotech_mp5sd, mp_scope_aimpoint_mp5sd, mp_scope_elcan_mp5sd, mp_scope_pn23_mp5sd
     scope_status                      = 2   
@@ -1551,7 +1551,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	
 [mp_wpn_p90]:wpn_p90
     $spawn                            = "network\weapons\assault\mp_wpn_p90"; name and section in level editor
-	class                   		  = W_VAL
+	;class                   		  = W_VAL;-- +UP
     ammo_class                        = mp_ammo_5.7x28
     silencer_name                     = mp_wpn_addon_silencer_57x28; section name for the attachable silencer
 	
@@ -1577,7 +1577,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	
 [mp_wpn_sig552]:wpn_sig552            
     $spawn                            = "network\weapons\assault\mp_wpn_sig552" ;name and section in level editor
-	class                   		  = W_VAL
+	;class                   		  = W_VAL;-- +UP
 	hit_power						  = 0.50, 0.50, 0.50, 0.50
     ammo_class                        = mp_ammo_5.56x45_ss190, mp_ammo_5.56x45_ap
 	scopes_sect 					  = mp_scope_eotech_sig552, mp_scope_aimpoint_sig552, mp_scope_elcan_sig552, mp_scope_pn23_sig552
@@ -1619,7 +1619,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	def_hide_bones 					  = stock_plastic, stock_short, grip_handler, grip_sd, grip_rail, flash_sd, laser_sd, flash, laser, grip_sd_rail, mag40, mag30_sd, scope1, scope2, scope3, scope4, sight
 	def_show_bones 					  = rail, mag30, stock_teleskop, grip, iron_sight
     $spawn                            = "network\weapons\assault\mp_wpn_ump45" ;name and section in level editor
-	class                   		  = W_VAL
+	;class                   		  = W_VAL;-- +UP
 	hit_power						  = 0.54, 0.54, 0.54, 0.54
     ammo_class                        = mp_ammo_11.43x23_fmj, mp_ammo_11.43x23_hydro
 	inv_weight        				  = 3.45
