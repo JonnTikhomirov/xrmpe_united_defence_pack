@@ -102,7 +102,7 @@ if not ok then
 	to_log("RC.init: error '%s'", err)
 end
 
-local function command_key(meta)
+local function command_key(meta, args_values)
 	local acc = meta.name
 	
 	if(meta.args) then
@@ -112,6 +112,9 @@ local function command_key(meta)
 				args_acc = args_acc .. ","
 			end
 			args_acc = args_acc .. a.name .. ":" .. a.type
+			if args_values and args_values[a.name] then
+				args_acc = args_acc .. string.exformat("='%s'", args_values[a.name])
+			end
 		end
 		acc = acc.."("..args_acc..")"
 	end
@@ -321,7 +324,7 @@ local function cl_send(id, args)
 	end
 
 	u_EventSendReliable(packet)
-	to_log("RC.cl_send: sended id: %s", id)
+	to_log("RC.cl_send: sended: %s", command_key(command, args))
 end
 
 -- CLIENT: отправка батча
@@ -392,8 +395,8 @@ end
 
 -- ================= COMMANDS =================
 
-RC_SET_TIME = register {
-	name = "env.set_time",
+RC_SET_ENVTIME = register {
+	name = "set_envtime",
 	args = {
 		{ name = "hour", type = "u8" },
 		{ name = "minute", type = "u8" }
@@ -402,8 +405,8 @@ RC_SET_TIME = register {
 		get_console():execute(string.format("sv_setenvtime %d:%d", args.hour, args.minute))
 	end
 }
-function cl_set_time(hour, minute)
-	cl_send(RC_SET_TIME, {hour = hour, minute = minute})
+function cl_set_envtime(hour, minute)
+	cl_send(RC_SET_ENVTIME, {hour = hour, minute = minute})
 end
 
 RC_SET_SURGE = register {
@@ -520,4 +523,25 @@ function cl_spawn_ammo(section, pos, lvid, gvid, npc_id, count)
 		count = 1
 	end
 	cl_send(RC_SPAWN_AMMO, {section = section, pos = pos, lvid = lvid, gvid = gvid, npc_id = npc_id, count = count})
+end
+
+RC_ADD_ENVTIME = register {
+	name = "add_envtime",
+	args = {
+		{ name = "hours", type = "u8" },
+		{ name = "minutes", type = "u8" }
+	},
+	sv_handler = function(args)
+		local hour = level.get_time_hours() + args.hours
+		local minute = level.get_time_minutes() + args.minutes
+		if hour > 23 then hour = 0 end
+		if minute > 59 then
+			minute = 0
+			hour = hour+1
+		end
+		get_console():execute(string.format("sv_setenvtime %d:%d", hour, minute))
+	end
+}
+function cl_add_envtime(hours, minutes)
+	cl_send(RC_ADD_ENVTIME, {hours = hours, minutes = minutes})
 end
