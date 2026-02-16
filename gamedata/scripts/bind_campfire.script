@@ -1,6 +1,7 @@
 --'******************************************************
 --'*	Биндер объекта костра .
 --'******************************************************
+spawned_names = {} -- +UP
 campfire_table_by_smart_names = {}
 function bind(obj)
 	obj:bind_object(campfire_binder(obj))
@@ -22,6 +23,13 @@ function campfire_binder:net_spawn(server_object)
 		end
 		campfire_table_by_smart_names[smart_name][self.object:id()] = self.campfire
 	end
+	 -- +UP
+	local spawn_ini = self.object:spawn_ini()
+	if spawn_ini and spawn_ini:section_exist("disabled") then
+		self.campfire:turn_off()
+	end
+	spawned_names[self.object:name()] = self
+	 -- -UP
 	return true
 end
 function campfire_binder:update(delta)
@@ -66,6 +74,25 @@ function turn_off_campfires_by_smart_name(smart_name)
 				v:turn_off()
 			end
 		end
+	end
+end
+
+-- +UP
+function turn(actor, id, set_on)
+	cf = spawned_names[id]
+	if not cf then
+		to_log("bind_campfire.turn: campfire not found with name %s", id)
+		return
+	end
+	if set_on == nil then
+		set_on = true
+	end
+	if cf.campfire:is_on() then
+		if not set_on then
+			cf.campfire:turn_off()
+		end
+	elseif set_on then
+		cf.campfire:turn_on()
 	end
 end
 

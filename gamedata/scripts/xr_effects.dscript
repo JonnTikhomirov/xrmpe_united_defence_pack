@@ -1,0 +1,17 @@
+-- +UP
+function campfire_turn(actor, button, p)
+	
+	if not button then
+		to_log("campfire_turn: button is nil")
+		return
+	end
+	local base = button:name():match("^(.-)_button")
+	if not base then
+		to_log("campfire_turn: wrong button name %s", button:name())
+		return
+	end
+	if p ~= nil then
+		p = string.toboolean(p[1])
+	end
+	bind_campfire.turn(actor, base, p)
+end

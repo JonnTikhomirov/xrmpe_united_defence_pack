@@ -86,6 +86,11 @@ function sr_button:hold_callback(obj, who, delta)
 		self.hold_percent = 0.0
 		if xr_logic.switch_to_section(self.object, self.st.ini, xr_logic.pick_section_from_condlist(db.actor, self.object, self.st.on_hold.condlist)) then
 			self.object:set_tip_text("")
+			
+			if self.st.tooltip then -- +UP
+				self.object:set_tip_text(self.st.tooltip) -- +UP
+			end -- +UP
+
 			self:complete_hold()
 		end
 	end
@@ -103,7 +108,11 @@ function sr_button:try_switch()
 		end
 		
 		self.object:set_tip_text("")
-		
+
+		if self.st.tooltip then -- +UP
+			self.object:set_tip_text(self.st.tooltip) -- +UP
+		end -- +UP
+
 		if self.st.local_use then
 			return true
 		end
