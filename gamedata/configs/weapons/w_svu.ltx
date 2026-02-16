@@ -1,0 +1,546 @@
+[wpn_svu]:identity_immunities,weapon_probability,default_weapon_params
+$spawn                  = "weapons\svu"      ; option for Level Editor
+cform                   = skeleton
+class                   = WP_SVU
+description             = st_wpn_svu_descr
+ef_main_weapon_type		= 3
+ef_weapon_type			= 11
+
+tracers                           = off
+tracers_color_ID                  = 2
+
+;-------------------------------------------------------------------------------
+cost                    = 17000
+weapon_class			= sniper_rifle
+inv_weight              = 4.4
+
+upgrades = vartree_svu_sights, vartree_svu_prujina, vartree_svu_tsevie_rezina, vartree_svu_handle, vartree_svu_sheka, vartree_svu_priklad
+installed_upgrades      =
+upgrade_scheme          = upgrade_scheme_svu
+
+def_hide_bones = ironsight_off, scope1, scope2, scope3, scope4, scope5, mag20, handler2, sight_on, sight_off, sheka, firemode, scope6, scope7
+def_show_bones = ironsight_on, handler, mag10
+
+no_scope_overriding_hide_bones = sight_off
+
+;----TTX------------------------------------------------------------------------
+hit_power               = 2.2, 2.2, 2.2, 2.2
+hit_impulse             = 125
+hit_type 				= fire_wound
+fire_distance           = 1200
+bullet_speed		 	= 820 ;800	;начальная скорость пули
+rpm                     = 165
+
+use_aim_bullet				= false		;Поддерживается ли первая суппер пуля
+time_to_aim					= 4.0
+
+hud                     = wpn_svu_hud
+
+misfire_probability        = 0.005 ;вероятность осечки при максимальном износе  !!!old - now not working
+;изношенность, при которой появляется шанс осечки
+misfire_start_condition		= 0.5
+;изношеность при которой шанс осечки становится константным
+misfire_end_condition		= 0.1
+;шанс осечки при изношености больше чем misfireStartCondition
+misfire_start_prob	     	= 0.0065
+;шанс осечки при изношености больше чем misfireEndCondition
+misfire_end_prob	     	= 0.09
+;увеличение изношености при одиночном выстреле
+condition_shot_dec      	= 0.0038
+;увеличение изношености при выстреле очередью
+condition_queue_shot_dec	= 0.0038
+
+ammo_elapsed			= 10
+ammo_mag_size			= 10
+fire_modes		        = 1;, -1
+ammo_class				= ammo_7.62x54_7h1, ammo_7.62x54_7h14;, ammo_7.62x54_ap
+hand_dependence         = 1
+single_handed           = 0
+
+;---дисперсия-------------------------------------------------------------------------
+;базовая дисперсия
+fire_dispersion_base    = 0.11   ;угол (в градусах) базовой дисперсии оружия (оружия зажатого в тисках)
+crosshair_inertion		= 6.15
+
+;отдача
+cam_return				= 0
+cam_relax_speed         = 12.0   ;скорость возврата в исходное положение
+cam_relax_speed_ai      = 360	;скорость возврата в исходное положение
+cam_dispersion          = 5.0 ;увеличения угла (в градусах) с каждым выстрелом
+cam_dispersion_inc		= 2.5	;увеличениe cam_dispersion с каждым выстрелом
+cam_dispersion_frac		= 0.99	;ствол будет подыматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+cam_max_angle           = 90.0   ;максимальный угол отдачи
+cam_max_angle_horz		= 3.0	;(degree) maximum shot horizontal degree
+cam_step_angle_horz     = 2.5 ;(degree) size of step camera moved in horizontal position while shooting
+
+PDM_disp_base 			= 0.85
+PDM_disp_vel_factor 	= 2.1
+PDM_disp_accel_factor 	= 2.1
+PDM_disp_crouch	 		= 0.9
+PDM_disp_crouch_no_acc 	= 0.8
+
+
+zoom_cam_relax_speed        = 9.0    ; scope & ironsight
+zoom_cam_relax_speed_ai     = 120.75
+zoom_cam_dispersion         = 2.25
+zoom_cam_dispersion_inc     = 1.5
+zoom_cam_dispersion_frac    = 0.99
+zoom_cam_max_angle          = 70
+zoom_cam_max_angle_horz     = 15.0
+zoom_cam_step_angle_horz    = 0.5
+
+fire_dispersion_condition_factor = 25	;увеличение дисперсии в процентах при максимальном износе
+
+;---DOF-------------------------------------------------------------------------
+;zoom_dof				= 0.5, 1.0, 350
+reload_dof				= 0.0, 0.5, 5, 2
+
+;-------------------------------------------------------------------------------
+holder_range_modifier	= 2.15               ; во сколько раз увеличивается eye_range
+holder_fov_modifier		= 1.0             ; во сколько раз увеличивается eye_fov
+
+min_radius              = 10
+max_radius              = 50
+
+hit_probability_gd_novice	= 1
+hit_probability_gd_stalker	= 1
+hit_probability_gd_veteran	= 1
+hit_probability_gd_master	= 1
+
+;-------------------------------------------------------------------------------
+slot                    = 2                ; // secondary
+animation_slot          = 2                ; type of the animation that will be used
+actor_animation_slot	= 15
+use_third_person_anims      = true               ; нужно ли использовать анимацию на мировой модели оружия / есть ли idle анимация
+
+inv_name                = st_wpn_svu
+inv_name_short          = st_wpn_svu
+
+inv_grid_width          = 5
+inv_grid_height			= 2
+inv_grid_x				= 0
+inv_grid_y              = 2
+
+upgr_icon_x			= 594
+upgr_icon_y			= 388
+upgr_icon_width		= 291
+upgr_icon_height   	= 85
+
+kill_msg_x        		= 110
+kill_msg_y        		= 0
+kill_msg_width          = 80
+kill_msg_height      	= 30
+
+;-------------------------------------------------------------------------------
+position                = -0.026, -0.084, 0.0
+orientation             = 0, 0, 0
+
+position_new_anm        = -0.041, -0.081, -0.005
+orientation_new_anm     = -9, -5, 3
+
+fire_point              = 0.0, 0.128, 0.522
+fire_point2             = 0.0, 0.128, 0.522
+
+flame_particles         = weapons\generic_weapon05
+smoke_particles			= weapons\generic_shoot_00
+
+shell_point             = 0.0, 0.128, 0.0
+shell_dir		 		= 0.0, 0.0, 0.4
+shell_particles	 		= weapons\generic_shells_r
+
+;--STRAP PARAMETERS-----------------------------------------------------------------
+;под мишкой
+strap_position          = -0.26,-0.11,0.25         ; position (offset) and orientation of the weapon when it is strapped
+strap_orientation       = -15,-9,110            ; (3rd person view in degrees)
+strap_bone0					= bip01_spine2
+strap_bone1					= bip01_spine1
+
+visual                  = dynamics\weapons\wpn_svu\wpn_svu.ogf
+
+light_disabled          = true
+light_color		 		= 0.6,0.5,0.3
+light_range		 		= 4.0
+light_var_color		 	= 0.05
+light_var_range		 	= 0.5
+light_time 		 		= 0.2
+
+ph_mass			 		= 3
+
+;addons
+scope_status            = 2
+silencer_status			= 0
+grenade_launcher_status	= 0
+
+zoom_enabled			= true
+zoom_rotate_time		= 0.35
+scope_zoom_factor       = 85
+
+scopes_sect				= scope_pso1_svu, scope_nvsn_svu, scope_cobra_svu, scope_pka_svu, scope_kashtan_svu, scope_pso1m2_svu, scope_nvas_svu
+
+;звуки
+snd_draw                = weapons\ak74u\mechanics\ak74u_draw ;weapons\svu\mechanics\svu_draw
+snd_holster		= weapons\ak74u\mechanics\ak74u_hide ;weapons\svu\mechanics\svu_hide
+snd_shoot               = weapons\svu\layers\svu_shoot_a_1
+snd_shoot1               = weapons\svu\layers\svu_shoot_a_2
+snd_shoot2               = weapons\svu\layers\svu_shoot_a_3
+snd_empty					= weapons\svd\mechanics\svd_dry_1
+snd_empty1					= weapons\svd\mechanics\svd_dry_2
+snd_reload              = weapons\svu\mechanics\svu_reload
+snd_close					= weapons\svu\mechanics\svu_hide
+snd_reload_empty        = weapons\svu\mechanics\svu_reload_empty
+snd_reload_jammed       = weapons\svu\mechanics\svu_revival
+snd_reload_jammed_last       = weapons\svu\mechanics\svu_revival_last
+snd_shutter           = weapons\svu\mechanics\svu_shutter
+snd_aim_start           = weapons\ak74\mechanics\ak74_aim_start ;weapons\svd\mechanics\svd_aim_start
+snd_aim_end             = weapons\ak74\mechanics\ak74_aim_end ;weapons\svd\mechanics\svd_aim_end
+snd_jammed_click     = weapons\svd\mechanics\svd_check
+
+[wpn_svu_hud]:hud_base
+attach_place_idx		= 0
+item_visual             = dynamics\weapons\wpn_svu\wpn_svu_hud
+
+zoom_dof_near = 0.25
+zoom_dof_focus = 0.5
+
+hud_fov = 0.6
+hud_fov_zoom = 0.5 ;аналогичный параметр работает и с прицелами
+
+inertion_aim_origin_offset = 0.007
+inertion_aim_speed = 10
+
+hands_position				= 0.0,0.0,-0.15
+hands_orientation			= 0.0,0.0,0.0
+
+hands_position_16x9			= 0.0,0.0,-0.15
+hands_orientation_16x9			= 0.0,0.0,0.0
+
+aim_hud_offset_pos = -0.0126,0.026,-0.1
+aim_hud_offset_rot = 0.0010,0.0,0.0
+
+aim_hud_offset_pos_16x9 = -0.0126,0.026,-0.1
+aim_hud_offset_rot_16x9 = 0.0010,0.0,0.0
+
+item_position				= 0,0,0
+item_orientation			= 0,0,0
+
+gl_hud_offset_pos			= 0,0,0
+gl_hud_offset_rot			= 0,0,0
+
+lean_hud_offset_pos		= 0,0,0
+lean_hud_offset_rot		= 0,0,0
+
+grenade_bone            = grenade
+
+
+shell_point		= 0.0,-9.0,0.0
+shell_dir               = 0.0, 0.0, 0.0
+shell_bone		= bolt
+
+fire_point              = 0.0,0.0,0.763
+fire_bone               = wpn_body
+fire_point2		= 0.0,0.0,0.763
+fire_bone2		= wpn_body
+
+disable_bore = true                                            ;отключение анимации скуки
+
+;Доставание///////////////////////////////////////////////////
+anm_show                   = svu_draw
+anm_show_empty             = svu_draw, idle_empty
+anm_show_jammed            = svu_draw, idle_jammed
+
+;Убирание/////////////////////////////////////////////////////
+anm_hide                   = svu_hide
+anm_hide_empty             = svu_hide, idle_empty
+anm_hide_jammed            = svu_hide, idle_jammed
+
+;Бездействие//////////////////////////////////////////////////
+anm_idle                            = svu_idle
+anm_idle_empty                      = svu_idle, idle_empty
+anm_idle_jammed                     = svu_idle, idle_jammed
+
+
+;Бездействие в прицеливании///////////////////////////////////
+anm_idle_aim_start             = svu_aim_start
+anm_idle_aim_start_empty       = svu_aim_start, svu_aim_start_empty
+anm_idle_aim_start_jammed      = svu_aim_start, svu_aim_start_jammed
+
+anm_idle_aim                   = svu_aim, idle_aim
+anm_idle_aim_empty             = svu_aim, idle_aim_empty
+anm_idle_aim_jammed            = svu_aim, idle_aim_jammed
+anm_idle_aim_scope             = svu_aim, idle_aim
+anm_idle_aim_scope_empty       = svu_aim, idle_aim_empty
+anm_idle_aim_scope_jammed      = svu_aim, idle_aim_jammed
+
+anm_idle_aim_end               = svu_aim_end
+anm_idle_aim_end_empty         = svu_aim_end, svu_aim_end_empty
+anm_idle_aim_end_jammed        = svu_aim_end, svu_aim_end_jammed
+
+enable_directions_anm_idle_aim = true
+
+;Ходьба ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving 					= svu_walk
+anm_idle_moving_jammed 					= svu_walk, idle_jammed
+anm_idle_moving_empty					= svu_walk, idle_empty
+
+;Ходьба медленная (SHIFT) ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving_slow 					= svu_walk_slow
+anm_idle_moving_slow_jammed 				= svu_walk_slow, idle_jammed
+anm_idle_moving_slow_empty				= svu_walk_slow, idle_empty
+
+;Ходьба в полуприсяди (CTRL) ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving_crouch 					        = svu_walk_slow_down
+anm_idle_moving_crouch_jammed 					= svu_walk_slow_down, idle_jammed
+anm_idle_moving_crouch_empty					= svu_walk_slow_down, idle_empty
+
+;Ходьба в присяде (CTRL+SHIFT) ВПЕРЕД/////////////////////////////////////////////////////////////////////////
+anm_idle_moving_crouch_slow 					= svu_walk_slow_super
+anm_idle_moving_crouch_slow_jammed 				= svu_walk_slow_super, idle_jammed
+anm_idle_moving_crouch_slow_empty				= svu_walk_slow_super, idle_empty
+
+;ходьба в прицеливании ВПЕРЕД//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward                   = svu_aim_walk, idle_aim
+anm_idle_aim_moving_forward_empty             = svu_aim_walk, idle_aim_empty
+anm_idle_aim_moving_forward_jammed            = svu_aim_walk, idle_aim_jammed
+
+;ходьба в прицеливании НАЗАД//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back                   = svu_aim_walk, idle_aim
+anm_idle_aim_moving_back_empty             = svu_aim_walk, idle_aim_empty
+anm_idle_aim_moving_back_jammed            = svu_aim_walk, idle_aim_jammed
+
+
+;ходьба в прицеливании ВЛЕВО//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_left                   = svu_aim_walk_left, idle_aim 
+anm_idle_aim_moving_left_empty             = svu_aim_walk_left, idle_aim_empty
+anm_idle_aim_moving_left_jammed            = svu_aim_walk_left, idle_aim_jammed
+
+
+;ходьба в прицеливании ВПРАВО//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_right                   = svu_aim_walk_right, idle_aim
+anm_idle_aim_moving_right_empty             = svu_aim_walk_right, idle_aim_empty
+anm_idle_aim_moving_right_jammed            = svu_aim_walk_right, idle_aim_jammed
+ 
+
+;ходьба в прицеливании ВПЕРЕД+ВЛЕВО////////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward_left                   = svu_aim_walk, idle_aim
+anm_idle_aim_moving_forward_left_empty             = svu_aim_walk, idle_aim_empty
+anm_idle_aim_moving_forward_left_jammed            = svu_aim_walk, idle_aim_jammed
+
+
+;ходьба в прицеливании ВПЕРЕД+ВПРАВО///////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward_right                   = svu_aim_walk, idle_aim
+anm_idle_aim_moving_forward_right_empty             = svu_aim_walk, idle_aim_empty
+anm_idle_aim_moving_forward_right_jammed            = svu_aim_walk, idle_aim_jammed
+
+
+;ходьба в прицеливании НАЗАД+ВЛЕВО/////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back_left                   = svu_aim_walk, idle_aim
+anm_idle_aim_moving_back_left_empty             = svu_aim_walk, idle_aim_empty
+anm_idle_aim_moving_back_left_jammed            = svu_aim_walk, idle_aim_jammed
+
+
+;ходьба в прицеливании НАЗАД+ВПРАВО////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back_right                   = svu_aim_walk, idle_aim
+anm_idle_aim_moving_back_right_empty             = svu_aim_walk, idle_aim_empty
+anm_idle_aim_moving_back_right_jammed            = svu_aim_walk, idle_aim_jammed
+
+;ходьба в прицеливании при надетом прицеле////////////////////////////////////////////////////
+anm_idle_aim_scope_moving	              = svu_aim_walk_scope, idle_aim
+anm_idle_aim_scope_moving_empty		      = svu_aim_walk_scope, idle_aim_empty
+anm_idle_aim_scope_moving_jammed	      = svu_aim_walk_scope, idle_aim_jammed
+
+
+;Бег//////////////////////////////////////////////////////////////////
+anm_idle_sprint_start             = svu_sprint_start
+anm_idle_sprint_start_empty       = svu_sprint_start, idle_empty
+anm_idle_sprint_start_jammed      = svu_sprint_start, idle_jammed
+
+anm_idle_sprint                   = svu_sprint
+anm_idle_sprint_empty             = svu_sprint, idle_empty
+anm_idle_sprint_jammed            = svu_sprint, idle_jammed
+
+anm_idle_sprint_end             = svu_sprint_end
+anm_idle_sprint_end_empty       = svu_sprint_end, idle_empty
+anm_idle_sprint_end_jammed      = svu_sprint_end, idle_jammed
+
+
+;Скука////////////////////////////////////////////////////////////////////
+anm_bore                   = svu_draw
+anm_bore_empty             = svu_draw, idle_empty
+anm_bore_jammed            = svu_draw, idle_jammed
+
+;Выстрелы обычными патронами/////////////////////////////////////////////////////////////////////
+anm_shoot                = svu_shoot
+anm_shoot_jammed	 = svu_shoot, idle_jammed
+anm_shoot_last           = svu_shoot, svu_shoot_empty
+anm_shoot_aim            = svu_aim_shoot
+anm_shoot_aim_jammed	 = svu_aim_shoot, idle_aim_jammed
+anm_shoot_aim_last       = svu_aim_shoot, svu_aim_shoot_empty
+anm_shoot_aim_scope            = svu_aim_shoot_scope, svu_aim_shoot
+anm_shoot_aim_scope_last       = svu_aim_shoot_scope, svu_aim_shoot_empty
+anm_shoot_aim_scope_jammed     = svu_aim_dry, idle_aim_jammed
+
+;Осечка//////////////////////////////////////////////////
+anm_fakeshoot_empty      = svu_dry_empty, idle_empty
+anm_fakeshoot_aim_empty      = svu_aim_dry, idle_aim_empty
+anm_fakeshoot_jammed     = svu_dry, idle_jammed
+anm_fakeshoot_aim_jammed     = svu_aim_dry, idle_aim_jammed
+
+;Перезарядка/////////////////////////////////////////////////////////////////////
+anm_reload                           = svu_reload
+anm_reload_empty                     = svu_reload_empty
+anm_reload_jammed                    = svu_revival
+anm_reload_jammed_last               = svu_revival_last
+
+[wpn_svu_alt_hud]:wpn_svu_hud
+
+;Перезарядка/////////////////////////////////////////////////////////////////////
+anm_reload_empty                     = svu_reload_empty_alt, svu_reload_empty
+anm_reload_empty_ammochange          = svu_reload_empty_alt, svu_reload_empty
+
+[scope_pso1_svu]
+scope_name 					= wpn_addon_scope
+scope_x              	= 50                 ; offset in inventory icon
+scope_y                 = 13
+bone = scope1
+overriding_hide_bones = ironsight_on, sight_on
+overriding_show_bones = ironsight_off
+hud_fov_zoom = 0.5
+use_scope_anims = true ;говорит, что надо использовать анимации с суффиксом _scope в прицеливании с данным прицелом
+
+inertion_aim_origin_offset = 0.02
+inertion_aim_speed = 8
+
+aim_hud_offset_pos = 0.0,0.0,-0.009
+aim_hud_offset_rot = 0.0,0.0,0.0
+
+aim_hud_offset_pos_16x9 = 0.0,0.0,-0.009
+aim_hud_offset_rot_16x9 = 0.0,0.0,0.0
+
+[scope_pso1m2_svu]
+scope_name 					= wpn_addon_scope_x2.7
+scope_x              	= 50                 ; offset in inventory icon
+scope_y                 = 13
+bone = scope6
+overriding_hide_bones = ironsight_on, sight_on
+overriding_show_bones = ironsight_off
+hud_fov_zoom = 0.5
+use_scope_anims = true ;говорит, что надо использовать анимации с суффиксом _scope в прицеливании с данным прицелом
+
+inertion_aim_origin_offset = 0.02
+inertion_aim_speed = 8
+
+aim_hud_offset_pos = 0.0,0.0,-0.055
+aim_hud_offset_rot = 0.0,0.0,0.0
+
+aim_hud_offset_pos_16x9 = 0.0,0.0,-0.055
+aim_hud_offset_rot_16x9 = 0.0,0.0,0.0
+
+[scope_nvsn_svu]
+scope_name 					= wpn_addon_scope_detector
+scope_x              	= 50                 ; offset in inventory icon
+scope_y                 = 11
+hud_fov_zoom = 0.5
+use_scope_anims = true ;говорит, что надо использовать анимации с суффиксом _scope в прицеливании с данным прицелом
+
+bone = scope2
+overriding_hide_bones = ironsight_on, sight_on
+overriding_show_bones = ironsight_off
+
+;overriding_hide_bones = ironsight_on, sight_on
+;overriding_show_bones = ironsight_off
+
+inertion_aim_origin_offset = 0.01
+inertion_aim_speed = 10 
+
+aim_hud_offset_pos = 0.0025,-0.03,-0.09
+aim_hud_offset_rot = 0.0,0.0,0.0
+
+aim_hud_offset_pos_16x9 = 0.0025,-0.03,-0.09
+aim_hud_offset_rot_16x9 = 0.0,0.0,0.0
+
+alter_zoom_allowed = true
+hud_fov_alter_zoom_factor = 0.5
+alter_aim_hud_offset_pos = -0.012,0.025,-0.05
+alter_aim_hud_offset_rot = 0.0,0.0,0.0
+
+alter_aim_hud_offset_pos_16x9 = -0.012,0.025,-0.1
+alter_aim_hud_offset_rot_16x9 = 0.0,0.0,0.0
+
+[scope_nvas_svu]
+scope_name 					= wpn_addon_scope_night
+scope_x              	= 50                 ; offset in inventory icon
+scope_y                 = 11
+hud_fov_zoom = 0.5
+use_scope_anims = true ;говорит, что надо использовать анимации с суффиксом _scope в прицеливании с данным прицелом
+
+bone = scope7
+overriding_hide_bones = ironsight_on, sight_on
+overriding_show_bones = ironsight_off
+
+inertion_aim_origin_offset = 0.01
+inertion_aim_speed = 10 
+
+aim_hud_offset_pos = 0.011,-0.014,-0.05
+aim_hud_offset_rot = 0.0,0.0,0.0
+
+aim_hud_offset_pos_16x9 = 0.011,-0.014,-0.05
+aim_hud_offset_rot_16x9 = 0.0,0.0,0.0
+
+[scope_cobra_svu]
+scope_name 					= wpn_addon_scope_cobra
+scope_x              	= 79                 ; offset in inventory icon
+scope_y                 = 16
+bone = scope5
+overriding_hide_bones = ironsight_on, sight_on
+overriding_show_bones = ironsight_off
+
+hud_fov_zoom = 0.5
+;use_scope_anims = true ;говорит, что надо использовать анимации с суффиксом _scope в прицеливании с данным прицелом
+
+aim_hud_offset_pos = -0.0088,0.001,-0.16
+aim_hud_offset_rot = 0.0,0.0,0.0
+
+aim_hud_offset_pos_16x9 = -0.0088,0.001,-0.16
+aim_hud_offset_rot_16x9 = 0.0,0.0,0.0
+
+inertion_aim_origin_offset = 0.01
+inertion_aim_speed = 8
+
+[scope_pka_svu]
+scope_name 					= wpn_addon_scope_pka
+scope_x              	= 81                 ; offset in inventory icon
+scope_y                 = 14
+bone = scope4
+overriding_hide_bones = ironsight_on, sight_on
+overriding_show_bones = ironsight_off
+hud_fov_zoom = 0.5
+;use_scope_anims = true ;говорит, что надо использовать анимации с суффиксом _scope в прицеливании с данным прицелом
+
+aim_hud_offset_pos = 0.001,-0.0015,-0.13
+aim_hud_offset_rot = 0.0,0.0,0.0
+
+aim_hud_offset_pos_16x9 = 0.001,-0.0015,-0.13
+aim_hud_offset_rot_16x9 = 0.0,0.0,0.0
+
+inertion_aim_origin_offset = 0.01
+inertion_aim_speed = 8
+
+[scope_kashtan_svu]
+scope_name 					= wpn_addon_scope_kashtan
+scope_x              	= 74                 ; offset in inventory icon
+scope_y                 = 6
+hud_fov_zoom = 0.5
+use_scope_anims = true ;говорит, что надо использовать анимации с суффиксом _scope в прицеливании с данным прицелом
+
+bone = scope3
+overriding_hide_bones = ironsight_on, sight_on
+overriding_show_bones = ironsight_off
+
+aim_hud_offset_pos = -0.0115,0.0,-0.1
+aim_hud_offset_rot = 0.0,0.0,0.0
+
+aim_hud_offset_pos_16x9 = -0.0115,0.0,-0.1
+aim_hud_offset_rot_16x9 = 0.0,0.0,0.0
+
+inertion_aim_origin_offset = 0.01
+inertion_aim_speed = 10 

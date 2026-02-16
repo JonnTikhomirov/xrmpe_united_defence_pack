@@ -1,0 +1,242 @@
+local random_task = nil
+
+class "CRandomTask"
+function CRandomTask:__init()
+	--' На конструкторе вычитываем LTX и создаем заготовки квестов.
+	self.task_ini = ini_file("misc\\task_manager.ltx")
+
+	--' Таблица проинициализированных квестов.
+	self.task_info = {}
+	self.tasks_targets = {}
+end
+-- Save
+function CRandomTask:save(packet)
+	set_save_marker(packet, "save", false, "CRandomTask")
+	local n = 0
+	for k,v in pairs(self.task_info) do
+		n = n + 1
+	end
+	packet:w_u16(n)
+	for k,v in pairs(self.task_info) do
+		packet:w_stringZ(k)
+		self.task_info[k]:save(packet)
+	end
+
+	set_save_marker(packet, "save", true, "CRandomTask")
+end
+-- Load
+function CRandomTask:load(reader)
+	set_save_marker(reader, "load", false, "CRandomTask")
+
+	local n = reader:r_u16()
+	for i=1,n do
+		local id = reader:r_stringZ()
+		local obj = task_objects.CGeneralTask(self.task_ini, id)
+		obj:load(reader)
+		self.task_info[id] = obj
+	end
+
+	set_save_marker(reader, "load", true, "CRandomTask")
+end
+--------------------------------------------------------------------------------
+
+function check_level(target)				  
+	if db.actor == nil then 
+		return nil
+	end
+	
+	if not(level) then
+		return nil
+	end
+	
+	local s_obj = alife():object(target)
+	if(s_obj) then
+		local target_level = alife():level_name(game_graph():vertex(s_obj.m_game_vertex_id):level_id())
+		local level_name = level.name()
+		if(level_name~=target_level) then
+			local guider_id = task_objects.get_guider(target_level)
+			if not(guider_id) then
+				return nil
+			end
+
+			return guider_id
+		end
+	end
+	
+	return nil
+end
+
+local send_task_target_timeout = 10000
+function CRandomTask:send_server_objects_target_pos()
+	for actor_id, v in pairs(self.tasks_targets) do
+		local idx = 0
+		for i, j in pairs(v) do
+			idx = idx + 1
+			if db.storage[j.object_id] then
+				--printf("Object %u is online, removing", j.object_id)
+				table.remove(v, idx)
+				break
+			else
+				local guider_id = check_level(j.object_id)
+				if guider_id ~= nil then
+					j.object_id = guider_id
+				end
+				
+				local se_obj = alife():object(j.object_id)
+				
+				if se_obj == nil then
+					j.update_tries = j.update_tries + 1
+					if j.update_tries >= 10 then
+						table.remove(v, idx)
+						break
+					end
+				else	
+					local pos = se_obj.position
+					if time_server() - j.update_time >= send_task_target_timeout or 
+						j.prev_pos.x ~= pos.x or j.prev_pos.y ~= pos.y then
+						local packet = net_packet()
+						u_EventGen(packet, 151, actor_id) -- GE_SET_TASK_TARGET_POS_MAP_LOCATION
+						packet:w_stringZ(i)
+						packet:w_u16(j.object_id)
+						packet:w_float(pos.x)
+						packet:w_float(pos.z)
+						u_EventSend(packet)
+						--printf_msg("Sending offline object: %u", j.object_id)
+						j.update_time = time_server()
+						j.prev_pos = pos
+						--i = i + 1
+					end
+				end
+			end
+		end
+	end
+end
+
+--' Выдача квеста игроку
+function CRandomTask:give_task(task_id, state)
+	printf("CRandomTask:give_task() task_id[%s]", tostring(task_id))
+
+	if not self.task_ini:section_exist(task_id) then
+		abort("There is no task [%s] in task ini_file or ini_file is not included!!!", task_id)
+	end
+	self.task_info[task_id] = task_objects.CGeneralTask(self.task_ini, task_id)
+	
+	self.task_info[task_id]:give_task(state)
+end
+
+function CRandomTask:get_task(task_id)
+	return self.task_info[task_id]
+end
+
+--' Проверяем, не выполнен ли таск
+function CRandomTask:task_complete(p1, no_check)	
+	local task = self.task_info[p1]
+	if task == nil then
+		return false
+	end
+	
+	if task.do_not_check_again then
+		return true
+	end
+	
+	if no_check ~= true then
+		task:check_task(self)
+	end
+	
+	if task.last_check_task == "complete" then
+		--printf_msg("no_check: %s %s", tostring(p1), tostring(no_check))
+		if no_check ~= true then
+			task:give_reward()
+			
+			--if OnClient() then
+			--	xr_statistic.inc_completed_quests_counter(getLocalActor():id())
+			--end
+		end
+		
+		if task_functor.parsed_condlists[p1] ~= nil then
+			task_functor.parsed_condlists[p1] = nil
+		end
+		
+		return true
+	else
+		return false
+	end
+end
+--' Проверяем, не профейлен ли таск
+function CRandomTask:task_fail(p1, no_check)
+	local task = self.task_info[p1]
+	if task == nil then
+		return false
+	end
+
+	if task.do_not_check_again then
+		return true
+	end
+	
+	if no_check ~= true then
+		task:check_task(self)
+	end
+	
+    return task.last_check_task == "fail" or task.last_check_task == "reversed"
+end
+--' Коллбек таска
+function CRandomTask:task_callback(task, completed)
+--    printf("CRandomTask:task_callback")
+	--' Если задание выполнилось - надо выдать с него награду!
+	local task_id = task:get_id()
+	local delta
+	--print_table(self.task_info)
+	if self.task_info[task_id] == nil then
+		return
+	end
+
+	if task:is_silent_notify() then
+		self.task_info[task_id] = nil
+		return
+	end
+
+	printf("CLEAR TASK %s", tostring(task_id))
+	self.task_info[task_id]:deactivate_task(task)
+
+	self.task_info[task_id] = nil
+end
+
+function CRandomTask:set_task_target_pos(task_id, pos, object_id)
+	if self.task_info[task_id] ~= nil then
+		self.task_info[task_id]:set_target_pos(pos, object_id)
+	end
+end
+
+
+function get_task_manager()
+	if random_task == nil then
+		random_task = CRandomTask()
+	end
+	return random_task
+end
+
+
+
+function set_task_target_pos(task_id, pos, object_id)
+	return get_task_manager():set_task_target_pos(task_id, pos, object_id)
+end
+
+function task_complete(p1, no_check)
+	return get_task_manager():task_complete(p1, no_check)
+end
+function task_fail(p1, no_check)
+	return get_task_manager():task_fail(p1, no_check)
+end
+function task_callback(_task, state)
+--	printf("task_callback")
+	--' В случае есть квест выполнен или провален - надо вызвать обнуление.
+	if state == task.fail or state == task.completed then
+--		printf("task_callback1")
+		get_task_manager():task_callback(_task, state == task.completed)
+	end
+end
+
+
+function clear_task_manager()
+--'	random_task	 = nil
+end

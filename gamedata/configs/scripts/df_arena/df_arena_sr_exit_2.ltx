@@ -1,0 +1,12 @@
+[logic]
+active = sr_idle@teleport_2
+
+[sr_idle@teleport_2]
+on_player_inside = {~25} %=run_postprocess(blink) =xrmpe_teleport_local_actor(df_arena_teleport_to_safe_5)%
+on_player_inside2 = {~25} %=run_postprocess(blink) =xrmpe_teleport_local_actor(df_arena_teleport_to_safe_6)%
+on_player_inside3 = {~25} %=run_postprocess(blink) =xrmpe_teleport_local_actor(df_arena_teleport_to_safe_7)%
+on_player_inside4 = {~25} %=run_postprocess(blink) =xrmpe_teleport_local_actor(df_arena_teleport_to_safe_8)%
+on_info = {+DF_ARENA_FIGHT_START} sr_idle@wait_end_2
+
+[sr_idle@wait_end_2]
+on_info = {-DF_ARENA_FIGHT_START} sr_idle@teleport_2

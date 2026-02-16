@@ -1,0 +1,721 @@
+-- run_string log("----->"..tostring(xr_statistic.actor_statistic.best_monster).." "..tostring(xr_statistic.actor_statistic.best_monster_rank))
+local default_statistic = {
+    surges = 0,
+    completed_quests = 0,
+    killed_monsters = 0,
+    killed_stalkers = 0,
+    founded_secrets = 0,
+    artefacts_founded = 0,
+    best_monster = nil,
+    favorite_weapon_sect = nil,
+    best_monster_rank = 0,
+}
+
+actor_statistic = {}
+
+local function add_actor_statistic(id)
+    -- Initialize with default values
+    actor_statistic[id] = {
+        surges = default_statistic.surges,
+        completed_quests = default_statistic.completed_quests,
+        killed_monsters = default_statistic.killed_monsters,
+        killed_stalkers = default_statistic.killed_stalkers,
+        founded_secrets = default_statistic.founded_secrets,
+        artefacts_founded = default_statistic.artefacts_founded,
+        best_monster = default_statistic.best_monster,
+        favorite_weapon_sect = default_statistic.favorite_weapon_sect,
+        best_monster_rank = default_statistic.best_monster_rank,
+    }
+end
+
+local function check_for_statistic_table(id)
+	if not actor_statistic[id] then
+		add_actor_statistic(id)
+	end
+end
+
+function resetActorStatistic()
+	for k,v in pairs(actor_statistic) do
+		add_actor_statistic(k)
+	end
+end
+
+function getLocalActorStatistic()
+	local id = 0
+	if getLocalActor() then
+		id = getLocalActor():id()
+	end
+	
+	check_for_statistic_table(id)
+	
+	return actor_statistic[id]
+end
+
+monster_classes = {
+			[clsid.bloodsucker_s]	= "bloodsucker",
+			[clsid.boar_s]		= "boar",
+			[clsid.burer_s]		= "burer",
+			[clsid.cat_s]		= "cat",
+			[clsid.chimera_s]	= "chimera",
+			[clsid.controller_s]	= "controller",
+			[clsid.dog_s]		= "dog",
+			[clsid.flesh_s]		= "flesh",
+			[clsid.fracture_s]	= "fracture",
+			[clsid.gigant_s]	= "gigant",
+			[clsid.poltergeist_s]	= "poltergeist",
+			[clsid.psy_dog_s]	= "psy_dog",
+			[clsid.pseudodog_s]	= "pseudodog",
+			[clsid.snork_s ]	= "snork",
+			[clsid.tushkano_s ]	= "tushkano",
+			[clsid.zombie_s ]	= "zombie",
+		}
+
+weapons_table = {
+			abakan			= 0,
+			ak74			= 0,
+			ak74u			= 0,
+			beretta			= 0,
+			bm16			= 0,
+			colt1911		= 0,
+			desert			= 0,
+			f1			= 0,
+			fn2000			= 0,
+			fort			= 0,
+			g36			= 0,
+			gauss			= 0,
+			groza			= 0,
+			hpsa			= 0,
+			knife			= 0,
+			l85			= 0,
+			lr300			= 0,
+			mp5			= 0,
+			pb			= 0,
+			pkm			= 0,
+			pm			= 0,
+			protecta		= 0,
+			rg6			= 0,
+			rgd5			= 0,
+			rpg7			= 0,
+			sig220			= 0,
+			sig550			= 0,
+			spas12			= 0,
+			svd			= 0,
+			svu			= 0,
+			toz34			= 0,
+			usp45			= 0,
+			val			= 0,
+			vintorez		= 0,
+			walther			= 0,
+			wincheaster1300		= 0,
+			sig220r			= 0,
+			usp_match		= 0,
+			ump45			= 0,
+			saiga12			= 0,
+			ak101			= 0,
+			sig552			= 0,
+			fiveseven		= 0,
+			p90			= 0,
+			desert_eagle		= 0,
+			desert_eagle_silver	= 0,
+			akm			= 0,
+			tt33			= 0,
+			fort17			= 0,
+			apb			= 0,
+			stechkin		= 0,
+			bizon			= 0,
+			pmm			= 0,
+			grach			= 0,
+			gsh18			= 0,
+			glock17			= 0,
+			mp5sd			= 0,
+			sr1m			= 0,
+			rgm40			= 0,
+}
+
+artefacts_table = {
+	af_cristall = false,
+	af_blood = false,
+	af_electra_sparkler = false,
+	af_cristall_flower = false,
+	af_medusa = false,
+	af_fireball = false,
+	af_mincer_meat = false,
+	af_electra_flash = false,
+	af_night_star = false,
+	af_dummy_glassbeads = false,
+	af_soul = false,
+	af_electra_moonlight = false,
+	af_dummy_battery = false,
+	af_vyvert = false,
+	af_fuzz_kolobok = false,
+	af_gravi = false,
+	af_eye = false,
+	af_baloon = false,
+	af_dummy_dummy = false,
+	af_gold_fish = false,
+	af_fire = false,
+	af_glass = false,
+	af_ice = false,
+}
+
+taken_artefacts = {}
+
+function inc_surges_counter(id)
+	check_for_statistic_table(id)
+	actor_statistic[id].surges = actor_statistic[id].surges + 1
+end
+function inc_completed_quests_counter(id)
+	check_for_statistic_table(id)
+	actor_statistic[id].completed_quests = actor_statistic[id].completed_quests + 1
+end
+function inc_killed_monsters_counter(id)
+	check_for_statistic_table(id)
+	actor_statistic[id].killed_monsters = actor_statistic[id].killed_monsters + 1
+end
+function inc_killed_stalkers_counter(id)
+	check_for_statistic_table(id)
+	actor_statistic[id].killed_stalkers = actor_statistic[id].killed_stalkers + 1
+end
+function inc_founded_artefacts_counter(art_id, actor_id)
+	check_for_statistic_table(actor_id)
+	
+	if(taken_artefacts[art_id]==nil) then
+		if OnServer() or (getLocalActor():id() and actor_id == getLocalActor():id()) then
+			actor_statistic[actor_id].artefacts_founded = actor_statistic[actor_id].artefacts_founded + 1
+		end
+		taken_artefacts[art_id] = art_id
+		local cl_art = level.object_by_id(art_id)
+		if(cl_art and cl_art:section()) then
+			artefacts_table[cl_art:section()] = true
+		end
+	end
+end
+function inc_founded_secrets_counter(id)
+	check_for_statistic_table(id)
+	actor_statistic[id].founded_secrets = actor_statistic[id].founded_secrets + 1
+end
+
+function set_best_monster(obj, actor_id)
+	if IsStalker(obj) then
+--		actor_statistic.best_monster = "stalker"
+	else
+		local community = monster_classes[get_clsid(obj)]
+		if not(community) then
+			abort("Statistic ERROR: cannot find monster class for [%s] clsid [%s]", obj:name(), tostring(get_clsid(obj)))
+		end
+		if(obj) then
+			local rank = obj:monster_rank()
+			if(community=="flesh") then
+				if(rank==250) then
+					community = community.."_strong"
+				else
+					community = community.."_weak"
+				end
+			elseif(community=="poltergeist") then
+				if(rank==501) then
+					community = community.."_flame"
+				else
+					community = community.."_tele"
+				end
+			elseif(community=="boar") then
+				if(rank==200) then
+					community = community.."_strong"
+				else
+					community = community.."_weak"
+				end
+			elseif(community=="pseudodog") then
+				if(rank==400) then
+					community = community.."_strong"
+				else
+					community = community.."_weak"
+				end
+			elseif(community=="bloodsucker") then
+				if(rank==700) then
+					community = community.."_strong"
+				elseif(rank==500) then
+					community = community.."_normal"
+				else
+					community = community.."_weak"
+				end
+			end
+			check_for_statistic_table(actor_id)
+			if(rank>actor_statistic[actor_id].best_monster_rank) then
+				actor_statistic[actor_id].best_monster_rank = rank
+				actor_statistic[actor_id].best_monster = community
+			end
+		end
+	end
+end
+
+function set_best_weapon(hit_amount, actor)
+	local active_item = actor:active_item()
+	if(active_item) then
+		local s = active_item:section()
+		for w in string.gfind(s, "%w+") do
+			if(weapons_table[w]~=nil) then
+				weapons_table[w] = weapons_table[w] + hit_amount
+			end
+		end
+		
+		local amount = 0
+		for k,v in pairs(weapons_table) do
+			if(v>amount) then
+				check_for_statistic_table(actor:id())
+				amount = v
+				if(k=="rgd5" or k=="f1") then
+					actor_statistic[actor:id()].favorite_weapon_sect = "grenade_"..k
+				else
+					actor_statistic[actor:id()].favorite_weapon_sect = "wpn_"..k
+				end
+				if(k=="desert") then
+					actor_statistic[actor:id()].favorite_weapon_sect = "wpn_desert_eagle"
+				--elseif(k=="rg") then
+				--	actor_statistic[actor:id()].favorite_weapon_sect = "wpn_rg-6"
+				--elseif(k=="rgm") then
+				--	actor_statistic[actor:id()].favorite_weapon_sect = "wpn_rgm-40"
+				end
+			end
+		end
+	end
+end
+
+function save(package)
+	local i = 0
+	for k,v in pairs(actor_statistic) do
+		i = i + 1
+	end
+	package:w_u8(i)
+	for k,v in pairs(actor_statistic) do
+		package:w_u16(k)
+		package:w_u16(actor_statistic[k].surges)
+		package:w_u16(actor_statistic[k].completed_quests)
+		package:w_u32(actor_statistic[k].killed_monsters)
+		package:w_u32(actor_statistic[k].killed_stalkers)
+		package:w_u16(actor_statistic[k].founded_secrets)
+		package:w_u16(actor_statistic[k].artefacts_founded)
+		package:w_u32(actor_statistic[k].best_monster_rank)
+		package:w_stringZ(tostring(actor_statistic[k].best_monster))
+		package:w_stringZ(tostring(actor_statistic[k].favorite_weapon_sect))
+	end
+	i = 0
+	for k,v in pairs(weapons_table) do
+		i = i + 1
+	end
+	package:w_u8(i)
+	for k,v in pairs(weapons_table) do
+		package:w_stringZ(tostring(k))
+		package:w_float(v)
+	end
+	i = 0
+	for k,v in pairs(artefacts_table) do
+		i = i + 1
+	end
+	package:w_u8(i)
+	for k,v in pairs(artefacts_table) do
+		package:w_stringZ(tostring(k))
+		package:w_bool(v)
+	end
+	i = 0
+	for k,v in pairs(taken_artefacts) do
+		i = i + 1
+	end
+	package:w_u8(i)
+	for k,v in pairs(taken_artefacts) do
+		package:w_u32(k)
+	end
+end
+
+function load(package)
+	local n = package:r_u8()
+	
+	for i = 1,n do
+		local actor_id = package:r_u16()
+		check_for_statistic_table(actor_id)
+		actor_statistic[actor_id].surges  			= package:r_u16()
+		actor_statistic[actor_id].completed_quests 	= package:r_u16()
+		actor_statistic[actor_id].killed_monsters  	= package:r_u32()
+		actor_statistic[actor_id].killed_stalkers  	= package:r_u32()
+		actor_statistic[actor_id].founded_secrets  	= package:r_u16()
+		actor_statistic[actor_id].artefacts_founded	= package:r_u16()
+		actor_statistic[actor_id].best_monster_rank = package:r_u32()
+		
+		local str = package:r_stringZ()
+		if(str~="nil") then
+			actor_statistic[actor_id].best_monster = str
+		end
+		str = package:r_stringZ()
+		if(str~="nil") then
+			actor_statistic[actor_id].favorite_weapon_sect = str
+		end
+	end
+	
+	weapons_table = {}
+	n = package:r_u8()
+	for i = 1,n do
+		local k = package:r_stringZ()
+		local v = package:r_float()
+		weapons_table[k] = v
+	end
+	artefacts_table = {}
+	n = package:r_u8()
+	for i = 1,n do
+		log("n "..tostring(n))
+		local k = package:r_stringZ()
+		local v = package:r_bool()
+		artefacts_table[k] = v
+	end
+	
+		taken_artefacts = {}
+	n = package:r_u8()
+	for i = 1,n do
+		local k = package:r_u32()
+		taken_artefacts[k] = k
+	end
+end
+
+function write_data_for(gameID)
+	if not actor_statistic[gameID] then
+		return
+	end
+	
+	local packet = game_cl.GenerateGameMessage(GM_SCRIPT_UPDATE_STATISTIC)
+	packet:w_u16(gameID)
+	packet:w_u16(actor_statistic[gameID].surges)
+	packet:w_u16(actor_statistic[gameID].completed_quests)
+	packet:w_u32(actor_statistic[gameID].killed_monsters)
+	packet:w_u32(actor_statistic[gameID].killed_stalkers)
+	packet:w_u16(actor_statistic[gameID].founded_secrets)
+	packet:w_u16(actor_statistic[gameID].artefacts_founded)
+	packet:w_u32(actor_statistic[gameID].best_monster_rank)
+	packet:w_stringZ(tostring(actor_statistic[gameID].best_monster))
+	packet:w_stringZ(tostring(actor_statistic[gameID].favorite_weapon_sect))
+	u_EventSendToReliable(packet, gameID)
+end
+
+function read_data(packet)
+	local id = packet:r_u16()
+	check_for_statistic_table(id)
+	actor_statistic[id].surges = packet:r_u16()
+	actor_statistic[id].completed_quests = packet:r_u16()
+	actor_statistic[id].killed_monsters = packet:r_u32()
+	actor_statistic[id].killed_stalkers = packet:r_u32()
+	actor_statistic[id].founded_secrets = packet:r_u16()
+	actor_statistic[id].artefacts_founded = packet:r_u16()
+	actor_statistic[id].best_monster_rank = packet:r_u32()
+	actor_statistic[id].best_monster = packet:r_stringZ()		
+	actor_statistic[id].favorite_weapon_sect = packet:r_stringZ()
+	
+	if actor_statistic[id].best_monster == "nil" then
+		actor_statistic[id].best_monster = nil
+	end
+	
+	if actor_statistic[id].favorite_weapon_sect == "nil" then
+		actor_statistic[id].favorite_weapon_sect = nil
+	end
+end
+
+function pioneer_functor()
+	if not story_flags.has_flag("PIONEER_ACHIEVEMENT_GAINED") then
+		if story_flags.has_flag("ZAT_B14_GIVE_ITEM_LINKER")
+				and story_flags.has_flag("JUP_B1_COMPLETE_END")
+				and story_flags.has_flag("JUP_B206_ANOMALOUS_GROVE_DONE") then
+			story_flags.give_flag("PIONEER_ACHIEVEMENT_GAINED")
+			news_manager.send_tip(getLocalActor(), "st_ach_pioneer", nil, "pioneer", nil, nil)
+		end
+	end
+	return story_flags.has_flag("PIONEER_ACHIEVEMENT_GAINED")
+end
+
+function mutant_hunter_functor()
+	if not story_flags.has_flag("MUTANT_HUNTER_ACHIEVEMENT_GAINED") then
+		if story_flags.has_flag("JUP_B208_BURERS_HUNT_DONE")
+				and story_flags.has_flag("JUP_B211_SCENE_DONE")
+				and story_flags.has_flag("JUP_B212_JUPITER_CHIMERA_HUNT_DONE") then
+			story_flags.give_flag("MUTANT_HUNTER_ACHIEVEMENT_GAINED")
+			news_manager.send_tip(getLocalActor(), "st_ach_mutant_hunter", nil, "mutant_hunter", nil, nil)
+		end
+	end
+	return story_flags.has_flag("MUTANT_HUNTER_ACHIEVEMENT_GAINED")
+end
+
+function detective_functor()
+	if not story_flags.has_flag("DETECTIVE_ACHIEVEMENT_GAINED") then
+		if story_flags.has_flag("ZAT_B22_BARMEN_GAVE_REWARD") then
+			story_flags.give_flag("DETECTIVE_ACHIEVEMENT_GAINED")
+			news_manager.send_tip(getLocalActor(), "st_ach_detective", nil, "detective", nil, nil)
+		end
+	end
+	return story_flags.has_flag("DETECTIVE_ACHIEVEMENT_GAINED")
+end
+
+function one_of_the_lads_functor()
+	if not story_flags.has_flag("ONE_OF_THE_LADS_GAINED") then
+		if story_flags.has_flag("ZAT_B30_SULTAN_LOOSE") and story_flags.has_flag("ZAT_B7_ACTOR_HELP_STALKERS") then
+			story_flags.give_flag("ONE_OF_THE_LADS_GAINED")
+			news_manager.send_tip(getLocalActor(), "st_ach_one_of_the_lads", nil, "one_of_the_lads", nil, nil)
+		end
+	end
+	return story_flags.has_flag("ONE_OF_THE_LADS_GAINED")
+end
+
+function kingpin_functor()
+	if not story_flags.has_flag("KINGPIN_GAINED") then
+		if story_flags.has_flag("ZAT_B30_BARMEN_UNDER_SULTAN") and story_flags.has_flag("ZAT_B7_ACTOR_HELP_BANDITS") then
+			story_flags.give_flag("KINGPIN_GAINED")
+			news_manager.send_tip(getLocalActor(), "st_ach_kingpin", nil, "kingpin", nil, nil)
+		end
+	end
+	return story_flags.has_flag("KINGPIN_GAINED")
+end
+
+function herald_of_justice_functor()
+	if not story_flags.has_flag("HERALD_OF_JUSTICE_ACHIEVEMENT_GAINED") then
+		if story_flags.has_flag("JUP_B25_FLINT_BLAME_DONE_TO_DUTY")
+				or story_flags.has_flag("JUP_B25_FLINT_BLAME_DONE_TO_FREEDOM")
+				or story_flags.has_flag("ZAT_B106_FOUND_SOROKA_DONE") then
+			story_flags.give_flag("HERALD_OF_JUSTICE_ACHIEVEMENT_GAINED")
+			news_manager.send_tip(getLocalActor(), "st_ach_herald_of_justice", nil, "herald_of_justice", nil, nil)
+		end
+	end
+	return story_flags.has_flag("HERALD_OF_JUSTICE_ACHIEVEMENT_GAINED")
+end
+
+function seeker_functor()
+	if story_flags.has_flag("SIM_BANDIT_ATTACK_HARDER") then
+		return true
+	end
+	for k,v in pairs(artefacts_table) do
+		if not v then
+			return false
+		end
+	end
+	-- Ѓандиты симуляционно больше преследуют игрока
+	story_flags.give_flag("SIM_BANDIT_ATTACK_HARDER")
+	news_manager.send_tip(getLocalActor(), "st_ach_seeker", nil, "seeker", nil, nil)
+	xr_effects.inc_faction_goodwill_to_actor(db.actor, nil, {"stalker", 200})
+	return true
+end
+
+function battle_systems_master_functor()
+	if not story_flags.has_flag("BATTLE_SYSTEMS_MASTER_ACHIEVEMENT_GAINED") then
+		if story_flags.has_flag("ZAT_B3_ALL_INSTRUMENTS_BROUGHT") then
+			news_manager.send_tip(getLocalActor(), "st_ach_battle_systems_master", nil, "battle_systems_master", nil, nil)
+			story_flags.give_flag("BATTLE_SYSTEMS_MASTER_ACHIEVEMENT_GAINED")
+		end
+	end
+	return story_flags.has_flag("BATTLE_SYSTEMS_MASTER_ACHIEVEMENT_GAINED")
+end
+
+function high_tech_master_functor()
+	if not story_flags.has_flag("HIGH_TECH_MASTER_ACHIEVEMENT_GAINED") then
+		if story_flags.has_flag("JUP_B217_TECH_INSTRUMENT_1_BROUGHT")
+				and story_flags.has_flag("JUP_B217_TECH_INSTRUMENT_2_BROUGHT")
+				and story_flags.has_flag("JUP_B217_TECH_INSTRUMENT_3_BROUGHT") then
+			news_manager.send_tip(getLocalActor(), "st_ach_high_tech_master", nil, "high_tech_master", nil, nil)
+			story_flags.give_flag("HIGH_TECH_MASTER_ACHIEVEMENT_GAINED")
+		end
+	end
+	return story_flags.has_flag("HIGH_TECH_MASTER_ACHIEVEMENT_GAINED")
+end
+
+function skilled_stalker_functor()
+	if not story_flags.has_flag("SKILLED_STALKER_ACHIEVEMENT_GAINED") then
+		if story_flags.has_flag("ACTOR_WAS_IN_MANY_BAD_PLACES") then
+			news_manager.send_tip(getLocalActor(), "st_ach_skilled_stalker", nil, "skilled_stalker", nil, nil)
+			story_flags.give_flag("SKILLED_STALKER_ACHIEVEMENT_GAINED")
+		end
+	end
+	return story_flags.has_flag("SKILLED_STALKER_ACHIEVEMENT_GAINED")
+end
+
+function leader_functor()
+	-- логика бонуса: pri_a21_base_restrictor.ltx
+	if not story_flags.has_flag("LEADER_ACHIEVEMENT_GAINED") then
+		if story_flags.has_flag("JUP_A10_VANO_AGREE_GO_UND")
+				and story_flags.has_flag("JUP_B218_SOLDIER_HIRED")
+				and story_flags.has_flag("JUP_B218_MONOLITH_HIRED") then
+			news_manager.send_tip(getLocalActor(), "st_ach_leader", nil, "leader", nil, nil)
+			story_flags.give_flag("LEADER_ACHIEVEMENT_GAINED")
+		end
+	end
+	return story_flags.has_flag("LEADER_ACHIEVEMENT_GAINED")
+end
+
+function diplomat_functor()
+	if not story_flags.has_flag("DIPLOMAT_ACHIEVEMENT_GAINED") then
+		if story_flags.has_flag("JUP_A12_WO_SHOOTING")
+				and (story_flags.has_flag("JUP_A10_BANDIT_TAKE_ALL_MONEY") or story_flags.has_flag("JUP_A10_BANDIT_TAKE_MONEY")) then
+			news_manager.send_tip(getLocalActor(), "st_ach_diplomat", nil, "diplomat", nil, nil)
+			xr_effects.inc_faction_goodwill_to_actor(db.actor, nil, {"stalker", 200})
+			xr_effects.inc_faction_goodwill_to_actor(db.actor, nil, {"freedom", 200})
+			xr_effects.inc_faction_goodwill_to_actor(db.actor, nil, {"dolg", 200})
+			xr_effects.inc_faction_goodwill_to_actor(db.actor, nil, {"bandit", 200})
+			story_flags.give_flag("DIPLOMAT_ACHIEVEMENT_GAINED")
+		end
+	end
+	return story_flags.has_flag("DIPLOMAT_ACHIEVEMENT_GAINED")
+end
+
+function research_man_functor()
+	if story_flags.has_flag("RESEARCH_MAN_GAINED") then
+		return true
+	end
+	local info_table = {
+		[1] = "JUP_B16_TASK_DONE",
+		[2] = "JUP_B1_TASK_DONE",
+		[3] = "JUP_B46_TASK_DONE",
+		[4] = "JUP_B47_TASK_END",
+		[5] = "JUP_B32_TASK_DONE",
+		[6] = "JUP_B6_TASK_DONE",
+		[7] = "JUP_B206_TASK_DONE",
+		[8] = "JUP_B209_TASK_DONE"
+	}
+	local count = 0
+	for k,v in pairs (info_table) do
+		if story_flags.has_flag(v) then
+			count = count + 1
+		end
+		if count >= 4 then
+			story_flags.give_flag("RESEARCH_MAN_GAINED")
+			news_manager.send_tip(getLocalActor(), "st_ach_research_man", nil, "research_man", nil, nil)
+			return true
+		end
+	end
+	return false
+end
+
+function friend_of_duty_functor()
+	if not story_flags.has_flag("SIM_DUTY_HELP_HARDER") then
+		if story_flags.has_flag("JUP_B4_MONOLITH_SQUAD_IN_DUTY")
+				and story_flags.has_flag("JUP_B46_DUTY_FOUNDER_PDA_TO_DUTY")
+				and story_flags.has_flag("JUP_B207_SELL_DEALERS_PDA_DUTY")
+				and story_flags.has_flag("JUP_B25_FLINT_BLAME_DONE_TO_DUTY") then
+			story_flags.give_flag("SIM_DUTY_HELP_HARDER")
+			news_manager.send_tip(getLocalActor(), "st_ach_friend_of_duty", nil, "friend_of_duty", nil, nil)
+		end
+	end
+	return story_flags.has_flag("SIM_DUTY_HELP_HARDER")
+end
+
+function friend_of_freedom_functor()
+	if not story_flags.has_flag("SIM_FREEDOM_HELP_HARDER") then
+		if story_flags.has_flag("JUP_B4_MONOLITH_SQUAD_IN_FREEDOM")
+				and story_flags.has_flag("JUP_B46_DUTY_FOUNDER_PDA_TO_FREEDOM")
+				and story_flags.has_flag("JUP_B207_SELL_DEALERS_PDA_FREEDOM")
+				and story_flags.has_flag("JUP_B25_FLINT_BLAME_DONE_TO_FREEDOM") then
+			story_flags.give_flag("SIM_FREEDOM_HELP_HARDER")
+			news_manager.send_tip(getLocalActor(), "st_ach_friend_of_freedom", nil, "friend_of_freedom", nil, nil)
+		end
+	end
+	return story_flags.has_flag("SIM_FREEDOM_HELP_HARDER")
+end
+
+function balance_advocate_functor()
+	if not story_flags.has_flag("BALANCE_ADVOCATE_GAINED") then
+		if story_flags.has_flag("JUP_B46_DUTY_FOUNDER_PDA_TO_OWL")
+				and story_flags.has_flag("JUP_B207_DEALERS_PDA_SOLD_OWL")
+				and story_flags.has_flag("ZAT_B106_FOUND_SOROKA_DONE") then
+			story_flags.give_flag("BALANCE_ADVOCATE_GAINED")
+			news_manager.send_tip(getLocalActor(), "st_ach_balance_advocate", nil, "balance_advocate", nil, nil)
+		end
+	end
+	return story_flags.has_flag("BALANCE_ADVOCATE_GAINED")
+end
+
+function wealthy_functor()
+	if getLocalActor() and getLocalActor():money() >= 100000 and not story_flags.has_flag("ACTOR_WEALTHY") then
+		story_flags.give_flag("ACTOR_WEALTHY")
+		news_manager.send_tip(getLocalActor(), "st_ach_wealthy", nil, "wealthy", nil, nil)
+	end
+	return story_flags.has_flag("ACTOR_WEALTHY")
+end
+
+function keeper_of_secrets_functor()
+	-- логика бонуса: pri_b305_logic.ltx
+	if not story_flags.has_flag("KEEPER_OF_SECRETS_ACHIEVEMENT_GAINED") then
+		if story_flags.has_flag("PRI_B305_ALL_STRELOK_NOTES_GIVEN") then
+			story_flags.give_flag("KEEPER_OF_SECRETS_ACHIEVEMENT_GAINED")
+			news_manager.send_tip(getLocalActor(), "st_ach_keeper_of_secrets", nil, "keeper_of_secrets", nil, nil)
+		end
+	end
+	return story_flags.has_flag("KEEPER_OF_SECRETS_ACHIEVEMENT_GAINED")
+end
+
+function marked_by_zone_functor()
+	if story_flags.has_flag("ACTOR_MARKED_BY_ZONE_3_TIMES") then
+		return true
+	end
+	local counter_name = "actor_marked_by_zone_cnt"
+	local cnt_value = xr_logic.pstor_retrieve(db.actor, counter_name, 0)
+	if cnt_value > 2 then
+		story_flags.give_flag("ACTOR_MARKED_BY_ZONE_3_TIMES")
+		news_manager.send_tip(getLocalActor(), "st_ach_marked_by_zone", nil, "marked_by_zone", nil, nil)
+		return true
+	end
+
+	return false
+end
+
+function information_dealer_functor()
+	if story_flags.has_flag("ACTOR_INFORMATION_DEALER") then
+		return true
+	end
+
+	local info_table = {
+		[1] = "ZAT_B40_PDA_1_SALED",
+		[2] = "ZAT_B40_PDA_2_SALED",
+		[3] = "JUP_B46_DUTY_FOUNDER_PDA_SOLD",
+		[4] = "JUP_B207_MERC_PDA_WITH_CONTRACT_SOLD",
+		[5] = "JUP_B207_DEALERS_PDA_SOLD",
+		[6] = "JUP_A9_EVACUATION_INFO_SOLD",
+		[7] = "JUP_A9_MEETING_INFO_SOLD",
+		[8] = "JUP_A9_LOSSES_INFO_SOLD",
+		[9] = "JUP_A9_DELIVERY_INFO_SOLD",
+		[10] = "ZAT_B12_DOCUMENTS_SOLD_1",
+		[11] = "ZAT_B12_DOCUMENTS_SOLD_2",
+		[12] = "ZAT_B12_DOCUMENTS_SOLD_3",
+		[13] = "ZAT_B40_NOTEBOOK_SALED",
+		[14] = "DEVICE_FLASH_SNAG_SOLD",
+		[15] = "DEVICE_PDA_PORT_BANDIT_LEADER_SOLD",
+		[16] = "JUP_B10_UFO_MEMORY_2_SOLD"
+	}
+	local count = 0
+	for k,v in pairs (info_table) do
+		if story_flags.has_flag(v) then
+			count = count + 1
+		end
+		if count >= 10 then
+			news_manager.send_tip(getLocalActor(), "st_ach_information_dealer", nil, "information_dealer", nil, nil)
+			story_flags.give_flag("ACTOR_INFORMATION_DEALER")
+		end
+	end
+	return story_flags.has_flag("ACTOR_INFORMATION_DEALER")
+end
+
+function friend_of_stalkers_functor()
+	if not story_flags.has_flag("SIM_STALKER_HELP_HARDER") then
+		if story_flags.has_flag("JUP_B220_TRAPPER_ZATON_CHIMERA_HUNTED_TOLD")
+				and story_flags.has_flag("JUP_A12_STALKER_PRISONER_HELPED")
+				and story_flags.has_flag("JUP_A10_VANO_GIVE_TASK_END")
+				and story_flags.has_flag("ZAT_B5_STALKER_LEADER_END")
+				and story_flags.has_flag("ZAT_B7_TASK_END") then
+			story_flags.give_flag("SIM_STALKER_HELP_HARDER")
+			news_manager.send_tip(getLocalActor(), "st_ach_friend_of_stalkers", nil, "friend_of_stalkers", nil, nil)
+			xr_effects.inc_faction_goodwill_to_actor(db.actor, nil, {"stalker", 100})
+		end
+	end
+	return story_flags.has_flag("SIM_STALKER_HELP_HARDER")
+end
+
+
+function wheel_litter_sisyphus_functor()
+    local wheel_litter = get_story_object("zat_wheel_litter_sisyphus")
+    local zone = db.zone_by_name["zat_b22_stalker_cop_place"]
+    if not story_flags.has_flag("WHEEL_LITTER_SISYPHUS_GAINED") then
+        if wheel_litter and zone and utils.npc_in_zone(wheel_litter, zone) then
+            story_flags.give_flag("WHEEL_LITTER_SISYPHUS_GAINED")
+            news_manager.send_tip(db.actor, "st_ach_wheel_litter_sisyphus", nil, "friend_of_stalkers", nil, nil)
+        end
+    end
+    return story_flags.has_flag("WHEEL_LITTER_SISYPHUS_GAINED")
+end

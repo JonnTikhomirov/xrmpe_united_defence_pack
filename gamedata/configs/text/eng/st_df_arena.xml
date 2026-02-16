@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<string_table>
+    <string id="df_arena">
+        <text>Arena</text>
+    </string>
+    <string id="st_df_arena_trader">
+        <text>Sidorovich</text>
+    </string>
+    <string id="st_df_arena_enemy">
+        <text>Arena participant</text>
+    </string>
+    <string id="df_arena_enemy_1">
+        <text>Arena participant</text>
+    </string>
+    <string id="df_arena_enemy_2">
+        <text>Arena participant</text>
+    </string>
+    <string id="df_arena_enemy_3">
+        <text>Arena participant</text>
+    </string>
+    <string id="df_arena_enemy_4">
+        <text>Arena participant</text>
+    </string>
+    <string id="df_arena_enemy_5">
+        <text>Arena participant</text>
+    </string>
+    <string id="st_df_arena_return_1">
+        <text>Return to the Arena</text>
+    </string>
+    <string id="st_df_arena_return_2">
+        <text>Return to the merchant (north / south exit)</text>
+    </string>
+    <string id="st_df_arena_fight_start">
+        <text>The battle has begun!</text>
+    </string>
+    <string id="st_df_arena_fight_end">
+        <text>The fight is over!</text>
+    </string>
+</string_table>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<string_table>
+	<!-- всяческие игровые приблуды, и вещи которые можно продать -->
+	<string id="st_cassette_red_name">
+		<text>Кассета с записью</text>
+	</string>
+	<string id="st_cassette_red_descr">
+		<text>Компакт-кассета на которую записано послание. (квест)</text>
+	</string>
+	<string id="st_cassette_blue_name">
+		<text>Музыкальная кассета</text>
+	</string>
+	<string id="st_cassette_blue_descr">
+		<text>Музыкальная компакт-кассета. Записаны треки Rammstein. (треки)</text>
+	</string>
+	<string id="st_cassette_green_name">
+		<text>Кассета с секретными материалами</text>
+	</string>
+	<string id="st_cassette_green_descr">
+		<text>Компакт-кассета, в которой записано секретное послание. (пасхалки)</text>
+	</string>
+	<string id="st_cassette_yellow_name">
+		<text>Аудиозапись</text>
+	</string>
+	<string id="st_cassette_yellow_descr">
+		<text>Кассета, на которую записано послание или важная информация.</text>
+	</string>
+	
+	<string id="st_test_ragdoll_name">
+		<text>Спящий мужик</text>
+	</string>
+	<string id="st_test_ragdoll_descr">
+		<text>Спящий чувак</text>
+	</string>
+	
+    <string id="st_money_1_rub">
+        <text>Купюра 1 рубль</text>
+    </string>
+    <string id="st_money_3_rub">
+        <text>Купюра 3 рубля</text>
+    </string>
+    <string id="st_money_5_rub">
+        <text>Купюра 5 рублей</text>
+    </string>
+    <string id="st_money_10_rub">
+        <text>Купюра 10 рублей</text>
+    </string>
+    <string id="st_money_25_rub">
+        <text>Купюра 25 рублей</text>
+    </string>
+    <string id="st_money_50_rub">
+        <text>Купюра 50 рублей</text>
+    </string>
+    <string id="st_money_100_rub">
+        <text>Купюра 100 рублей</text>
+    </string>
+    <string id="st_money_200_rub">
+        <text>Купюра 200 рублей</text>
+    </string>
+    <string id="st_money_500_rub">
+        <text>Купюра 500 рублей</text>
+    </string>
+    <string id="st_money_1000_rub">
+        <text>Купюра 1000 рублей</text>
+    </string>
+    <string id="st_money_5000_rub">
+        <text>Купюра 5000 рублей</text>
+    </string>
+    <string id="st_money_rub_descr">
+        <text>Купюра госбанка.</text>
+    </string>
+
+</string_table>

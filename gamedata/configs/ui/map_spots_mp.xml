@@ -1,0 +1,933 @@
+	
+<!-- multiplayer -->
+	<mp_team_base_0_location hint="team_base_1">
+		<level_map  spot="mp_team_base_2_level_spot"  pointer="mp_team_base_2_pointer"/>
+		<mini_map  spot="mp_team_base_2_mini_spot"  pointer="mp_team_base_2_pointer"/>
+	</mp_team_base_0_location>
+
+	<mp_team_base_1_location hint="team_base_1">
+		<level_map  spot="mp_team_base_1_level_spot"  pointer="mp_team_base_1_pointer"/>
+		<mini_map  spot="mp_team_base_1_mini_spot"  pointer="mp_team_base_1_pointer"/>
+	</mp_team_base_1_location>
+	
+	<mp_team_base_2_location hint="team_base_2">
+		<level_map  spot="mp_team_base_2_level_spot"  pointer="mp_team_base_2_pointer"/>
+		<mini_map  spot="mp_team_base_2_mini_spot"  pointer="mp_team_base_2_pointer"/>
+	</mp_team_base_2_location>
+	
+	<mp_team_base_3_location hint="team_base_3">
+		<level_map  spot="mp_team_base_3_level_spot"  pointer="mp_team_base_3_pointer"/>
+		<mini_map  spot="mp_team_base_3_mini_spot"  pointer="mp_team_base_3_pointer"/>
+	</mp_team_base_3_location>	
+	
+	<mp_team_base_4_location hint="team_base_4">
+		<level_map  spot="mp_team_base_4_level_spot"  pointer="mp_team_base_4_pointer"/>
+		<mini_map  spot="mp_team_base_4_mini_spot"  pointer="mp_team_base_4_pointer"/>
+	</mp_team_base_4_location>	
+	
+	<mp_team_base_5_location hint="team_base_5">
+		<level_map  spot="mp_team_base_5_level_spot"  pointer="mp_team_base_5_pointer"/>
+		<mini_map  spot="mp_team_base_5_mini_spot"  pointer="mp_team_base_5_pointer"/>
+	</mp_team_base_5_location>	
+
+	<mp_team_base_6_location hint="team_base_6">
+		<level_map  spot="mp_team_base_6_level_spot"  pointer="mp_team_base_6_pointer"/>
+		<mini_map  spot="mp_team_base_6_mini_spot"  pointer="mp_team_base_6_pointer"/>
+	</mp_team_base_6_location>	
+
+	<mp_team_base_7_location hint="team_base_7">
+		<level_map  spot="mp_team_base_7_level_spot"  pointer="mp_team_base_7_pointer"/>
+		<mini_map  spot="mp_team_base_7_mini_spot"  pointer="mp_team_base_7_pointer"/>
+	</mp_team_base_7_location>		
+
+	<mp_team_base_8_location hint="team_base_8">
+		<level_map  spot="mp_team_base_8_level_spot"  pointer="mp_team_base_8_pointer"/>
+		<mini_map  spot="mp_team_base_8_mini_spot"  pointer="mp_team_base_8_pointer"/>
+	</mp_team_base_8_location>		
+	
+	<mp_team_base_9_location hint="team_base_9">
+		<level_map  spot="mp_team_base_9_level_spot"  pointer="mp_team_base_9_pointer"/>
+		<mini_map  spot="mp_team_base_9_mini_spot"  pointer="mp_team_base_9_pointer"/>
+	</mp_team_base_9_location>			
+	
+	<df_artefact_location layer="15">
+		<level_map  spot="df_artefact_level_spot"/>
+		<mini_map  spot="df_artefact_mini_spot"/>
+	</df_artefact_location>	
+	
+	<searched_box_location layer="10">
+		<level_map spot="inv_box_level_spot"/>
+		<mini_map spot="inv_box_mini_spot"/>
+	</searched_box_location>
+
+	<static_world_marker layer="14">
+		<level_map spot="static_world_marker_level_spot"/>
+		<mini_map spot="static_world_marker_mini_spot"/>
+	</static_world_marker>
+
+	<dynamic_world_marker layer="14">
+		<level_map spot="dynamic_world_marker_level_spot"/>
+		<mini_map spot="dynamic_world_marker_mini_spot"/>
+	</dynamic_world_marker>
+
+	<weapon_world_marker layer="14">
+		<level_map spot="weapon_world_marker_mini_spot"/>
+		<mini_map spot="weapon_world_marker_mini_spot"/>
+	</weapon_world_marker>
+
+	<ammo_world_marker layer="14">
+		<level_map spot="ammo_world_marker_mini_spot"/>
+		<mini_map spot="ammo_world_marker_mini_spot"/>
+	</ammo_world_marker>
+
+	<food_world_marker layer="14">
+		<level_map spot="ammo_world_marker_mini_spot"/>
+		<mini_map spot="ammo_world_marker_mini_spot"/>
+	</food_world_marker>
+
+	<outfit_world_marker layer="14">
+		<level_map spot="outfit_world_marker_mini_spot"/>
+		<mini_map spot="outfit_world_marker_mini_spot"/>
+	</outfit_world_marker>
+
+	<medkit_world_marker layer="14">
+		<level_map spot="medkit_world_marker_mini_spot"/>
+		<mini_map spot="medkit_world_marker_mini_spot"/>
+	</medkit_world_marker>
+
+	<artefact_world_marker layer="14">
+		<level_map spot="artefact_world_marker_mini_spot"/>
+		<mini_map spot="artefact_world_marker_mini_spot"/>
+	</artefact_world_marker>
+
+	<inventory_box_world_marker layer="14">
+		<level_map spot="inventory_box_world_marker_mini_spot"/>
+		<mini_map spot="inventory_box_world_marker_mini_spot"/>
+	</inventory_box_world_marker>
+
+	<device_world_marker layer="14">
+		<level_map spot="device_world_marker_mini_spot"/>
+		<mini_map spot="device_world_marker_mini_spot"/>
+	</device_world_marker>
+
+	<booster_world_marker layer="14">
+		<level_map spot="booster_world_marker_mini_spot"/>
+		<mini_map spot="booster_world_marker_mini_spot"/>
+	</booster_world_marker>
+
+	<addon_world_marker layer="14">
+		<level_map spot="addon_world_marker_mini_spot"/>
+		<mini_map spot="addon_world_marker_mini_spot"/>
+	</addon_world_marker>
+
+	<other_world_marker layer="14">
+		<level_map spot="other_world_marker_mini_spot"/>
+		<mini_map spot="other_world_marker_mini_spot"/>
+	</other_world_marker>
+
+	<explosive_world_marker layer="14">
+		<level_map spot="explosive_world_marker_mini_spot"/>
+		<mini_map spot="explosive_world_marker_mini_spot"/>
+	</explosive_world_marker>
+
+	<deadbody_world_marker layer="14">
+		<level_map spot="deadbody_world_marker_mini_spot"/>
+		<mini_map spot="deadbody_world_marker_mini_spot"/>
+	</deadbody_world_marker>
+
+	<monster_world_marker layer="14">
+		<level_map spot="monster_world_marker_mini_spot"/>
+		<mini_map spot="monster_world_marker_mini_spot"/>
+	</monster_world_marker>
+
+	<stalker_world_marker_enemy layer="14">
+		<level_map spot="stalker_enemy_world_marker_mini_spot"/>
+		<mini_map spot="stalker_enemy_world_marker_mini_spot"/>
+	</stalker_world_marker_enemy>
+
+	<stalker_world_marker_neutral layer="14">
+		<level_map spot="stalker_neutral_world_marker_mini_spot"/>
+		<mini_map spot="stalker_neutral_world_marker_mini_spot"/>
+	</stalker_world_marker_neutral>
+
+	<stalker_world_marker_friend layer="14">
+		<level_map spot="stalker_friend_world_marker_mini_spot"/>
+		<mini_map spot="stalker_friend_world_marker_mini_spot"/>
+	</stalker_world_marker_friend>
+
+	<stalker_world_marker_trader_enemy layer="14">
+		<level_map spot="trader_enemy_world_marker_mini_spot"/>
+		<mini_map spot="trader_enemy_world_marker_mini_spot"/>
+	</stalker_world_marker_trader_enemy>
+
+	<stalker_world_marker_trader_neutral layer="14">
+		<level_map spot="trader_neutral_world_marker_mini_spot"/>
+		<mini_map spot="trader_neutral_world_marker_mini_spot"/>
+	</stalker_world_marker_trader_neutral>
+
+	<stalker_world_marker_trader_friend layer="14">
+		<level_map spot="trader_friend_world_marker_mini_spot"/>
+		<mini_map spot="trader_friend_world_marker_mini_spot"/>
+	</stalker_world_marker_trader_friend>
+
+	<stalker_world_marker_medic_enemy layer="14">
+		<level_map spot="medic_enemy_world_marker_mini_spot"/>
+		<mini_map spot="medic_enemy_world_marker_mini_spot"/>
+	</stalker_world_marker_medic_enemy>
+
+	<stalker_world_marker_medic_neutral layer="14">
+		<level_map spot="medic_neutral_world_marker_mini_spot"/>
+		<mini_map spot="medic_neutral_world_marker_mini_spot"/>
+	</stalker_world_marker_medic_neutral>
+
+	<stalker_world_marker_medic_friend layer="14">
+		<level_map spot="medic_friend_world_marker_mini_spot"/>
+		<mini_map spot="medic_friend_world_marker_mini_spot"/>
+	</stalker_world_marker_medic_friend>
+	
+	<stalker_world_marker_mechanic_enemy layer="14">
+		<level_map spot="mechanic_enemy_world_marker_mini_spot"/>
+		<mini_map spot="mechanic_enemy_world_marker_mini_spot"/>
+	</stalker_world_marker_mechanic_enemy>
+
+	<stalker_world_marker_mechanic_neutral layer="14">
+		<level_map spot="mechanic_neutral_world_marker_mini_spot"/>
+		<mini_map spot="mechanic_neutral_world_marker_mini_spot"/>
+	</stalker_world_marker_mechanic_neutral>
+
+	<stalker_world_marker_mechanic_friend layer="14">
+		<level_map spot="mechanic_friend_world_marker_mini_spot"/>
+		<mini_map spot="mechanic_friend_world_marker_mini_spot"/>
+	</stalker_world_marker_mechanic_friend>
+
+	<stalker_world_marker_guider_enemy layer="14">
+		<level_map spot="guider_enemy_world_marker_mini_spot"/>
+		<mini_map spot="guider_enemy_world_marker_mini_spot"/>
+	</stalker_world_marker_guider_enemy>
+
+	<stalker_world_marker_guider_neutral layer="14">
+		<level_map spot="guider_neutral_world_marker_mini_spot"/>
+		<mini_map spot="guider_neutral_world_marker_mini_spot"/>
+	</stalker_world_marker_guider_neutral>
+
+	<stalker_world_marker_guider_friend layer="14">
+		<level_map spot="guider_friend_world_marker_mini_spot"/>
+		<mini_map spot="guider_friend_world_marker_mini_spot"/>
+	</stalker_world_marker_guider_friend>
+	
+	<stalker_world_marker_zombied_enemy layer="14">
+		<level_map spot="zombied_enemy_world_marker_mini_spot"/>
+		<mini_map spot="zombied_enemy_world_marker_mini_spot"/>
+	</stalker_world_marker_zombied_enemy>
+
+	<stalker_world_marker_zombied_neutral layer="14">
+		<level_map spot="zombied_neutral_world_marker_mini_spot"/>
+		<mini_map spot="zombied_neutral_world_marker_mini_spot"/>
+	</stalker_world_marker_zombied_neutral>
+
+	<stalker_world_marker_zombied_friend layer="14">
+		<level_map spot="zombied_friend_world_marker_mini_spot"/>
+		<mini_map spot="zombied_friend_world_marker_mini_spot"/>
+	</stalker_world_marker_zombied_friend>
+
+	<mine_red_world_marker layer="14">
+		<level_map spot="mine_red_world_marker_mini_spot"/>
+		<mini_map spot="mine_red_world_marker_mini_spot"/>
+	</mine_red_world_marker>
+
+	<mine_yellow_world_marker layer="14">
+		<level_map spot="mine_yellow_world_marker_mini_spot"/>
+		<mini_map spot="mine_yellow_world_marker_mini_spot"/>
+	</mine_yellow_world_marker>
+
+	<mine_green_world_marker layer="14">
+		<level_map spot="mine_green_world_marker_mini_spot"/>
+		<mini_map spot="mine_green_world_marker_mini_spot"/>
+	</mine_green_world_marker>
+
+	<friend_actor_wounded hint="friend" layer="17">
+		<level_map  spot="mp_friend_level_spot" pointer="mp_af_friend_mini_pointer"/>
+		<mini_map  spot="mp_friend_mini_spot" pointer="mp_af_friend_mini_pointer"/>
+	</friend_actor_wounded>
+	
+	<actor_deadbody_location layer="17">
+		<level_map  spot="actor_deadbody_level_spot"/>
+		<mini_map  spot="actor_deadbody_mini_spot"/>
+	</actor_deadbody_location>
+	
+	<mp_friend_location hint="friend" layer="17">
+		<level_map  spot="mp_friend_level_spot"/>
+		<mini_map  spot="mp_friend_mini_spot"/>
+	</mp_friend_location>
+
+    <mp_actor_location hint="self" layer="18">
+		<level_map spot="mp_actor_level_spot"/>
+	</mp_actor_location>
+
+    <mp_actor_level_spot x="0" y="0" width="20" height="20" alignment="c" location_level="-1">
+		<!--<texture>ui_icons_newPDA_man</texture>-->
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="1" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+	</mp_actor_level_spot>
+
+    <mp_actor_location_p hint="disable_hint" layer="18">
+		<level_map spot="mp_actor_level_spot_p"/>
+    </mp_actor_location_p>
+    <mp_actor_level_spot_p x="0" y="0" width="32" height="34" stretch="1" heading="1" alignment="c" location_level="-2">
+		<texture>ui_icons_PDA_g_actor_pointer_2</texture>
+	</mp_actor_level_spot_p>	
+	
+	<mp_friend_radio_location hint="friend_radio" ttl="3" layer="17">
+		<level_map  spot="mp_friend_radio_level_spot" pointer="mp_af_friend_mini_pointer"/>
+		<mini_map  spot="mp_friend_radio_mini_spot" pointer="mp_af_friend_mini_pointer"/>
+	</mp_friend_radio_location>
+						
+	<mp_af_neutral_location hint="af_neutral">
+		<level_map  spot="mp_af_neutral_level_spot" pointer="mp_af_neutral_mini_pointer"/>
+		<mini_map  spot="mp_af_neutral_mini_spot" pointer="mp_af_neutral_mini_pointer"/>
+	</mp_af_neutral_location>
+	
+	<mp_free_af_friend_location hint="af_neutral">
+		<level_map  spot="mp_free_af_friend_level_spot" pointer="mp_af_friend_mini_pointer"/>
+		<mini_map  spot="mp_free_af_friend_mini_spot" pointer="mp_af_friend_mini_pointer"/>
+	</mp_free_af_friend_location>
+	
+	<mp_af_enemy_location hint="enemy">
+		<level_map  spot="mp_af_enemy_level_spot" pointer="mp_af_enemy_mini_pointer"/>
+		<mini_map  spot="mp_af_enemy_mini_spot" pointer="mp_af_enemy_mini_pointer"/>
+	</mp_af_enemy_location>
+
+	<mp_af_friend_location hint="friend">
+		<level_map  spot="mp_af_friend_level_spot" pointer="mp_af_friend_mini_pointer"/>
+		<mini_map  spot="mp_af_friend_mini_spot" pointer="mp_af_friend_mini_pointer"/>
+	</mp_af_friend_location>
+	
+	<mp_hit_sector_location hint="hit_sector" ttl="3" pos_to_actor="1">
+		<mini_map  spot="mp_hit_sector_mini_spot"/>
+	</mp_hit_sector_location>
+
+	<!-- multiplayer level spots -->
+
+	<mp_team_base_1_level_spot x="0" y="0" width="32" stretch = "1" height="32" alignment="c"> 
+		<texture r="0" g="255" b="0">ui_teambase</texture>
+	</mp_team_base_1_level_spot>
+	
+	<mp_team_base_2_level_spot x="0" y="0" width="32" stretch = "1" height="32" alignment="c"> 
+		<texture r="0" g="0" b="255">ui_teambase</texture>
+	</mp_team_base_2_level_spot>
+	
+	<mp_team_base_3_level_spot x="0" y="0" width="32" stretch = "1" height="32" alignment="c"> 
+		<texture r="255" g="180" b="0">ui_teambase</texture>
+	</mp_team_base_3_level_spot>	
+	
+	<mp_team_base_4_level_spot x="0" y="0" width="32" stretch = "1" height="32" alignment="c"> 
+		<texture r="0" g="0" b="0">ui_teambase</texture>
+	</mp_team_base_4_level_spot>
+
+	<mp_team_base_5_level_spot x="0" y="0" width="32" stretch = "1" height="32" alignment="c"> 
+		<texture r="0" g="195" b="240">ui_teambase</texture>
+	</mp_team_base_5_level_spot>
+
+	<mp_team_base_6_level_spot x="0" y="0" width="32" stretch = "1" height="32" alignment="c"> 
+		<texture r="195" g="0" b="0">ui_teambase</texture>
+	</mp_team_base_6_level_spot>	
+	
+	<mp_team_base_7_level_spot x="0" y="0" width="32" stretch = "1" height="32" alignment="c"> 
+		<texture r="98" g="78" b="24">ui_teambase</texture>
+	</mp_team_base_7_level_spot>
+
+	<mp_team_base_8_level_spot x="0" y="0" width="32" stretch = "1" height="32" alignment="c"> 
+		<texture r="120" g="155" b="255">ui_teambase</texture>
+	</mp_team_base_8_level_spot>	
+	
+	<mp_team_base_9_level_spot x="0" y="0" width="32" stretch = "1" height="32" alignment="c"> 
+		<texture r="0" g="95" b="0">ui_teambase</texture>
+	</mp_team_base_9_level_spot>
+
+	<df_artefact_level_spot width="18" height="18" stretch = "1" alignment="c" light_anim="ui_mp_minimap_af_neutral"> 
+		<texture>ui_df_artefact_spot</texture>
+	</df_artefact_level_spot>
+	
+	<inv_box_level_spot width="22" height="16" stretch="1" alignment="c"> 
+		<texture>ui_inv_box_spot</texture>
+	</inv_box_level_spot>
+
+	<static_world_marker_level_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_white_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="28" height="28" stretch="1">
+			<texture>ui_ingame_mark_static_icon</texture>
+		</auto_static>
+	</static_world_marker_level_spot>
+
+	<dynamic_world_marker_level_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_white_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="22" height="26" stretch="1">
+			<texture>ui_ingame_mark_dynamic_icon</texture>
+		</auto_static>
+	</dynamic_world_marker_level_spot>
+	
+	<actor_deadbody_level_spot width="10" height="10" stretch="1" alignment="c"> 
+		<texture color="ui_gray">ui_common_actor_spot</texture>
+	</actor_deadbody_level_spot>
+	
+	<mp_friend_level_spot width="10" height="10" stretch="1" alignment="c"> 
+		<texture color="light_green">ui_common_actor_spot</texture>
+	</mp_friend_level_spot>
+
+	<mp_self_level_spot width="8" height="8" stretch = "1" alignment="c" light_anim="ui_mp_minimap_af_friend">
+		<texture r="0" g="255" b="0">ui_minimap_point</texture>
+	</mp_self_level_spot>
+	
+	<mp_friend_radio_level_spot width="32" height="32" stretch = "1" alignment="c" light_anim="ui_mp_minimap_af_friend"> 
+		<texture x="525" y="904" width="32" height="32">ui\ui_common</texture>
+	</mp_friend_radio_level_spot>
+	
+	<mp_af_friend_level_spot width="13" height="15" alignment="c" light_anim="ui_mp_minimap_af_friend"> 
+		<texture r="0" g="255" b="0">ui_mini_af_spot</texture>
+	</mp_af_friend_level_spot>
+	
+	<mp_free_af_friend_level_spot width="13" height="15" alignment="c"> 
+		<texture r="0" g="255" b="0">ui_mini_af_spot</texture>
+	</mp_free_af_friend_level_spot>
+
+	<mp_af_enemy_level_spot width="13" height="15" alignment="c" light_anim="ui_mp_minimap_af_enemy"> 
+		<texture r="255" g="0" b="0">ui_mini_af_spot</texture>
+	</mp_af_enemy_level_spot>
+	
+	<mp_af_neutral_level_spot width="13" height="15" alignment="c" light_anim="ui_mp_minimap_af_neutral">
+		<texture r="255" g="255" b="255">ui_mini_af_spot</texture>
+	</mp_af_neutral_level_spot>	
+
+	<!-- multiplayer -->
+	<mp_team_base_1_mini_spot x="0" y="0" width="15" height="15" stretch="0" alignment="c">
+		<texture r="0" g="255" b="0">ui_mmap_base</texture>
+	</mp_team_base_1_mini_spot>
+	
+	<mp_team_base_2_mini_spot x="0" y="0" width="15" height="15" stretch="0" alignment="c">
+		<texture r="0" g="0" b="255">ui_mmap_base</texture>
+	</mp_team_base_2_mini_spot>
+
+	<mp_team_base_3_mini_spot x="0" y="0" width="15" height="15" stretch="0" alignment="c">
+		<texture r="255" g="180" b="0">ui_mmap_base</texture>
+	</mp_team_base_3_mini_spot>
+	
+	<mp_team_base_4_mini_spot x="0" y="0" width="15" height="15" stretch="0" alignment="c">
+		<texture r="0" g="0" b="0">ui_mmap_base</texture>
+	</mp_team_base_4_mini_spot>	
+	
+	<mp_team_base_5_mini_spot x="0" y="0" width="15" height="15" stretch="0" alignment="c">
+		<texture r="0" g="195" b="240">ui_mmap_base</texture>
+	</mp_team_base_5_mini_spot>		
+	
+	<mp_team_base_6_mini_spot x="0" y="0" width="15" height="15" stretch="0" alignment="c">
+		<texture r="195" g="0" b="0">ui_mmap_base</texture>
+	</mp_team_base_6_mini_spot>		
+	
+	<mp_team_base_7_mini_spot x="0" y="0" width="15" height="15" stretch="0" alignment="c">
+		<texture r="98" g="78" b="24">ui_mmap_base</texture>
+	</mp_team_base_7_mini_spot>		
+	
+	<mp_team_base_8_mini_spot x="0" y="0" width="15" height="15" stretch="0" alignment="c">
+		<texture r="120" g="155" b="255">ui_mmap_base</texture>
+	</mp_team_base_8_mini_spot>	
+
+	<mp_team_base_9_mini_spot x="0" y="0" width="15" height="15" stretch="0" alignment="c">
+		<texture r="0" g="95" b="0">ui_mmap_base</texture>
+	</mp_team_base_9_mini_spot>	
+	
+	<df_artefact_mini_spot width="18" height="18" stretch="1" alignment="c" light_anim="ui_mp_minimap_af_neutral">
+		<texture>ui_df_artefact_spot</texture>
+	</df_artefact_mini_spot>
+
+	<inv_box_mini_spot width="22" height="16" stretch="1" alignment="c">
+		<texture>ui_inv_box_spot</texture>
+	</inv_box_mini_spot>
+
+	<static_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_white_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="28" height="28" stretch="1">
+			<texture>ui_ingame_mark_static_icon</texture>
+		</auto_static>
+	</static_world_marker_mini_spot>
+
+	<dynamic_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_white_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="22" height="26" stretch="1">
+			<texture>ui_ingame_mark_dynamic_icon</texture>
+		</auto_static>
+	</dynamic_world_marker_mini_spot>
+
+	<weapon_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_yellow_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="24" height="18" stretch="1">
+			<texture>ui_ingame_mark_weapon_icon</texture>
+		</auto_static>
+	</weapon_world_marker_mini_spot>
+
+	<ammo_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_yellow_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="24" height="16" stretch="1">
+			<texture>ui_ingame_mark_ammo_icon</texture>
+		</auto_static>
+	</ammo_world_marker_mini_spot>
+
+	<food_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_yellow_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="26" height="24" stretch="1">
+			<texture>ui_ingame_mark_food_icon</texture>
+		</auto_static>
+	</food_world_marker_mini_spot>
+	
+	<outfit_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_yellow_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="20" height="20" stretch="1">
+			<texture>ui_ingame_mark_outfit_icon</texture>
+		</auto_static>
+	</outfit_world_marker_mini_spot>
+
+	<medkit_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_yellow_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="24" height="18" stretch="1">
+			<texture>ui_ingame_mark_med_icon</texture>
+		</auto_static>
+	</medkit_world_marker_mini_spot>
+	
+	<artefact_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_yellow_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="18" height="18" stretch="1">
+			<texture>ui_df_artefact_spot</texture>
+		</auto_static>
+	</artefact_world_marker_mini_spot>
+
+	<inventory_box_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_white_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="22" height="16" stretch="1">
+			<texture>ui_inv_box_spot</texture>
+		</auto_static>
+	</inventory_box_world_marker_mini_spot>
+	
+	<device_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_yellow_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="16" height="26" stretch="1">
+			<texture>ui_ingame_mark_device_icon</texture>
+		</auto_static>
+	</device_world_marker_mini_spot>
+
+	<booster_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_yellow_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="16" height="24" stretch="1">
+			<texture>ui_ingame_mark_booster_icon</texture>
+		</auto_static>
+	</booster_world_marker_mini_spot>
+	
+	<addon_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_yellow_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="24" height="21" stretch="1">
+			<texture>ui_ingame_mark_addon_icon</texture>
+		</auto_static>
+	</addon_world_marker_mini_spot>
+	
+	<other_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_yellow_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="22" height="21" stretch="1">
+			<texture>ui_ingame_mark_other_icon</texture>
+		</auto_static>
+	</other_world_marker_mini_spot>
+	
+	<explosive_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_red_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="29" height="24" stretch="1">
+			<texture>ui_ingame_mark_explosive_icon</texture>
+		</auto_static>
+	</explosive_world_marker_mini_spot>
+	
+	<deadbody_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_white_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="16" height="18" stretch="1">
+			<texture>ui_ingame_mark_deadbody_icon</texture>
+		</auto_static>
+	</deadbody_world_marker_mini_spot>
+	
+	<monster_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_red_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="24" height="27" stretch="1">
+			<texture>ui_ingame_mark_monster_icon</texture>
+		</auto_static>
+	</monster_world_marker_mini_spot>
+	
+	<stalker_enemy_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_red_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="26" height="24" stretch="1">
+			<texture>ui_ingame_mark_enemy_npc_icon</texture>
+		</auto_static>
+	</stalker_enemy_world_marker_mini_spot>
+	
+	<stalker_neutral_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_white_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="26" height="24" stretch="1">
+			<texture>ui_ingame_mark_neutral_npc_icon</texture>
+		</auto_static>
+	</stalker_neutral_world_marker_mini_spot>
+	
+	<stalker_friend_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_white_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="26" height="24" stretch="1">
+			<texture>ui_ingame_mark_friend_npc_icon</texture>
+		</auto_static>
+	</stalker_friend_world_marker_mini_spot>
+	
+	<trader_enemy_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_red_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="22" height="20" stretch="1">
+			<texture>ui_ingame_mark_enemy_trader_icon</texture>
+		</auto_static>
+	</trader_enemy_world_marker_mini_spot>
+	
+	<trader_neutral_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_white_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="22" height="20" stretch="1">
+			<texture>ui_ingame_mark_neutral_trader_icon</texture>
+		</auto_static>
+	</trader_neutral_world_marker_mini_spot>
+	
+	<trader_friend_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_white_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="22" height="20" stretch="1">
+			<texture>ui_ingame_mark_friend_trader_icon</texture>
+		</auto_static>
+	</trader_friend_world_marker_mini_spot>
+
+	<medic_enemy_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_red_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="22" height="20" stretch="1">
+			<texture>ui_ingame_mark_enemy_medic_icon</texture>
+		</auto_static>
+	</medic_enemy_world_marker_mini_spot>
+	
+	<medic_neutral_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_white_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="22" height="20" stretch="1">
+			<texture>ui_ingame_mark_neutral_medic_icon</texture>
+		</auto_static>
+	</medic_neutral_world_marker_mini_spot>
+	
+	<medic_friend_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_white_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="22" height="20" stretch="1">
+			<texture>ui_ingame_mark_friend_medic_icon</texture>
+		</auto_static>
+	</medic_friend_world_marker_mini_spot>
+
+	<mechanic_enemy_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_red_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="22" height="22" stretch="1">
+			<texture>ui_ingame_mark_enemy_mechanic_icon</texture>
+		</auto_static>
+	</mechanic_enemy_world_marker_mini_spot>
+	
+	<mechanic_neutral_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_white_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="22" height="22" stretch="1">
+			<texture>ui_ingame_mark_neutral_mechanic_icon</texture>
+		</auto_static>
+	</mechanic_neutral_world_marker_mini_spot>
+	
+	<mechanic_friend_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_white_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="22" height="22" stretch="1">
+			<texture>ui_ingame_mark_friend_mechanic_icon</texture>
+		</auto_static>
+	</mechanic_friend_world_marker_mini_spot>
+
+	<guider_enemy_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_red_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="22" height="30" stretch="1">
+			<texture>ui_ingame_mark_enemy_guider_icon</texture>
+		</auto_static>
+	</guider_enemy_world_marker_mini_spot>
+	
+	<guider_neutral_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_white_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="22" height="30" stretch="1">
+			<texture>ui_ingame_mark_neutral_guider_icon</texture>
+		</auto_static>
+	</guider_neutral_world_marker_mini_spot>
+	
+	<guider_friend_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_white_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="22" height="30" stretch="1">
+			<texture>ui_ingame_mark_friend_guider_icon</texture>
+		</auto_static>
+	</guider_friend_world_marker_mini_spot>
+
+	<zombied_enemy_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_red_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="26" height="24" stretch="1">
+			<texture>ui_ingame_mark_enemy_zombie_icon</texture>
+		</auto_static>
+	</zombied_enemy_world_marker_mini_spot>
+	
+	<zombied_neutral_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_white_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="26" height="24" stretch="1">
+			<texture>ui_ingame_mark_neutral_zombie_icon</texture>
+		</auto_static>
+	</zombied_neutral_world_marker_mini_spot>
+	
+	<zombied_friend_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_white_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="26" height="24" stretch="1">
+			<texture>ui_ingame_mark_friend_zombie_icon</texture>
+		</auto_static>
+	</zombied_friend_world_marker_mini_spot>
+
+	<mine_red_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_red_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="26" height="20" stretch="1">
+			<texture>ui_ingame_mark_mine_red_icon</texture>
+		</auto_static>
+	</mine_red_world_marker_mini_spot>
+	
+	<mine_yellow_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_yellow_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="26" height="20" stretch="1">
+			<texture>ui_ingame_mark_mine_yellow_icon</texture>
+		</auto_static>
+	</mine_yellow_world_marker_mini_spot>
+	
+	<mine_green_world_marker_mini_spot width="62" height="38" stretch="1" alignment="c"> 
+		<texture>ui_ingame_white_mark</texture>
+		<auto_anim_static anchor="mid-center" width="46" height="46" stretch="1" frames="44" duration="1500" columns="11" frame_width="46" frame_height="46" cyclic="0" autoplay="1">
+			<texture>ui\ui_marks_accent_anim</texture>
+		</auto_anim_static>
+		<auto_static anchor="mid-center" width="26" height="20" stretch="1">
+			<texture>ui_ingame_mark_mine_green_icon</texture>
+		</auto_static>
+	</mine_green_world_marker_mini_spot>
+
+	<actor_deadbody_mini_spot width="10" height="10" stretch="1" alignment="c">
+		<texture color="ui_gray">ui_common_actor_spot</texture>
+	</actor_deadbody_mini_spot>
+	
+	<mp_friend_mini_spot width="10" height="10" stretch="1" alignment="c"> 
+		<texture color="light_green">ui_common_actor_spot</texture>
+	</mp_friend_mini_spot>
+	
+	<mp_friend_radio_mini_spot width="13" height="13" stretch = "1" alignment="c" light_anim="ui_mp_minimap_af_friend"> 
+		<texture x="525" y="904" width="32" height="32">ui\ui_common</texture>
+	</mp_friend_radio_mini_spot>
+	
+	<mp_af_friend_mini_spot width="13" height="15" alignment="c" light_anim="ui_mp_minimap_af_friend"> 
+		<texture r="0" g="255" b="0">ui_mini_af_spot</texture>
+		<texture_below r="0" g="255" b="0">ui_mini_af_spot_below</texture_below>
+		<texture_above r="0" g="255" b="0">ui_mini_af_spot_above</texture_above>
+	</mp_af_friend_mini_spot>
+	
+	<mp_free_af_friend_mini_spot width="13" height="15" alignment="c"> 
+		<texture r="0" g="255" b="0">ui_mini_af_spot</texture>
+		<texture_below r="0" g="255" b="0">ui_mini_af_spot_below</texture_below>
+		<texture_above r="0" g="255" b="0">ui_mini_af_spot_above</texture_above>
+	</mp_free_af_friend_mini_spot>
+
+	<mp_af_enemy_mini_spot width="13" height="15" alignment="c" light_anim="ui_mp_minimap_af_enemy"> 
+		<texture r="255" g="64" b="64">ui_mini_af_spot</texture>
+		<texture_below r="255" g="0" b="0">ui_mini_af_spot_below</texture_below>
+		<texture_above r="255" g="0" b="0">ui_mini_af_spot_above</texture_above>
+	</mp_af_enemy_mini_spot>
+	
+	<mp_af_neutral_mini_spot width="13" height="15" alignment="c" light_anim="ui_mp_minimap_af_neutral">
+		<texture r="255" g="255" b="255">ui_mini_af_spot</texture>
+		<texture_below r="255" g="0" b="255">ui_mini_af_spot_below</texture_below>
+		<texture_above r="255" g="255" b="0">ui_mini_af_spot_above</texture_above>
+	</mp_af_neutral_mini_spot>
+
+	
+	<mp_hit_sector_mini_spot x="0" y="0" width="80" height="256" heading="1" alignment="c"> 
+		<texture x="305" y="762" width="80" height="256">ui\ui_hud</texture>
+	</mp_hit_sector_mini_spot>
+
+	<br_radius_zone alignment="c"> 
+		<texture color="dark_red_mpe"/>
+	</br_radius_zone>
+
+	<br_radius_target_zone alignment="c"> 
+		<texture color="yellow_mpe"/>
+	</br_radius_target_zone>
+
+	<!-- multiplayer -->
+	<mp_team_base_1_pointer x="0" y="0" width="15" height="17" heading="1" alignment="c"> 
+		<texture a="255" color="green">ui_hud_map_arrow</texture>
+	</mp_team_base_1_pointer>
+	
+	<mp_team_base_2_pointer x="0" y="0" width="15" height="17" heading="1" alignment="c"> 
+		<texture a="255" r="0" g="0" b="255">ui_hud_map_arrow</texture>
+	</mp_team_base_2_pointer>	
+	
+	<mp_team_base_3_pointer x="0" y="0" width="15" height="17" heading="1" alignment="c"> 
+		<texture a="255" r="255" g="180" b="0">ui_hud_map_arrow</texture>
+	</mp_team_base_3_pointer>
+	
+	<mp_team_base_4_pointer x="0" y="0" width="15" height="17" heading="1" alignment="c"> 
+		<texture a="255" r="0" g="0" b="0">ui_hud_map_arrow</texture>
+	</mp_team_base_4_pointer>	
+	
+	<mp_team_base_5_pointer x="0" y="0" width="15" height="17" heading="1" alignment="c"> 
+		<texture a="255" r="0" g="195" b="240">ui_hud_map_arrow</texture>
+	</mp_team_base_5_pointer>	
+	
+	<mp_team_base_6_pointer x="0" y="0" width="15" height="17" heading="1" alignment="c"> 
+		<texture a="255" r="195" g="0" b="0">ui_hud_map_arrow</texture>
+	</mp_team_base_6_pointer>	
+	
+	<mp_team_base_7_pointer x="0" y="0" width="15" height="17" heading="1" alignment="c"> 
+		<texture a="255" r="98" g="78" b="24">ui_hud_map_arrow</texture>
+	</mp_team_base_7_pointer>		
+	
+	<mp_team_base_8_pointer x="0" y="0" width="15" height="17" heading="1" alignment="c"> 
+		<texture a="255" r="120" g="155" b="255">ui_hud_map_arrow</texture>
+	</mp_team_base_8_pointer>		
+	
+	<mp_team_base_9_pointer x="0" y="0" width="15" height="17" heading="1" alignment="c"> 
+		<texture a="255" r="0" g="95" b="0">ui_hud_map_arrow</texture>
+	</mp_team_base_9_pointer>		
+	
+	<mp_af_neutral_mini_pointer x="0" y="0" width="15" height="17" heading="1" alignment="c" light_anim="ui_mp_minimap_af_neutral"> 
+		<texture a="255">ui_hud_map_arrow</texture>
+	</mp_af_neutral_mini_pointer>	
+	
+	<mp_af_enemy_mini_pointer x="0" y="0" width="15" height="17" heading="1" alignment="c" light_anim="ui_mp_minimap_af_enemy"> 
+		<texture a="255" color="red">ui_hud_map_arrow</texture>
+	</mp_af_enemy_mini_pointer>	
+	
+	<mp_af_friend_mini_pointer x="0" y="0" width="15" height="17" heading="1" alignment="c" light_anim="ui_mp_minimap_af_friend"> 
+		<texture a="255" color="green">ui_hud_map_arrow</texture>
+	</mp_af_friend_mini_pointer>		
+	
+	<df_monster_location hint="enemy" no_offline="1">
+		<!-- mini_map spot="enemy_mini_spot" pointer="mp_af_enemy_mini_pointer"/ -->
+	</df_monster_location>	
+
+	<br_zone_location radius_zone="1" hint="disable_hint">
+		<level_map  spot="br_radius_zone"/>
+		<mini_map  spot="br_radius_zone"/>
+	</br_zone_location>
+
+	<br_target_zone_location radius_zone="1" hint="disable_hint">
+		<level_map  spot="br_radius_target_zone"/>
+		<mini_map  spot="br_radius_target_zone"/>
+	</br_target_zone_location>

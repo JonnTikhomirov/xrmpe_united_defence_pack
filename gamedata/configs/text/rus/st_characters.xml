@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<string_table>
+	<string id="st_actor_name">
+		<text>actor</text>
+	</string>
+	<string id="xt_ilya_trader_name">
+		<text>Илья drksnc</text>
+	</string>
+	<string id="xt_jukan_name">
+		<text>Максим jukan</text>
+	</string>
+</string_table>

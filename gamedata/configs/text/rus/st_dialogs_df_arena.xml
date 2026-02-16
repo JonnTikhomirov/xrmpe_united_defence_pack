@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<string_table>
+    <string id="df_arena_fight_1_dlg_0">
+        <text>Хочу принять участие...</text>
+    </string>
+    <string id="df_arena_fight_1_dlg_1">
+        <text>Как будешь готов - иди к выходу. И да, если ты не один - бой не начнётся, пока не соберетёсь все у выхода.</text>
+    </string>
+    <string id="df_arena_fight_1_dlg_2">
+        <text>Понял.</text>
+    </string>
+    <string id="df_arena_fight_2_dlg_0">
+        <text>Хочу принять участие...</text>
+    </string>
+    <string id="df_arena_fight_2_dlg_1">
+        <text>Как будешь готов - иди к выходу. И да, если ты не один - бой не начнётся, пока не соберетёсь все у выхода.</text>
+    </string>
+    <string id="df_arena_fight_2_dlg_2">
+        <text>Понял.</text>
+    </string>
+    <string id="df_arena_fight_3_dlg_0">
+        <text>Хочу принять участие...</text>
+    </string>
+    <string id="df_arena_fight_3_dlg_1">
+        <text>Как будешь готов - иди к выходу. И да, если ты не один - бой не начнётся, пока не соберетёсь все у выхода.</text>
+    </string>
+    <string id="df_arena_fight_3_dlg_2">
+        <text>Понял.</text>
+    </string>
+    <string id="df_arena_fight_4_dlg_0">
+        <text>Хочу принять участие...</text>
+    </string>
+    <string id="df_arena_fight_4_dlg_1">
+        <text>Как будешь готов - иди к выходу. И да, если ты не один - бой не начнётся, пока не соберетёсь все у выхода.</text>
+    </string>
+    <string id="df_arena_fight_4_dlg_2">
+        <text>Понял.</text>
+    </string>
+    <string id="df_arena_fight_5_dlg_0">
+        <text>Хочу принять участие...</text>
+    </string>
+    <string id="df_arena_fight_5_dlg_1">
+        <text>Как будешь готов - иди к выходу. И да, если ты не один - бой не начнётся, пока не соберетёсь все у выхода.</text>
+    </string>
+    <string id="df_arena_fight_5_dlg_2">
+        <text>Понял.</text>
+    </string>
+    <string id="df_arena_start_dlg_0">
+        <text>Добро пожаловать на Арену.</text>
+    </string>
+    <string id="df_arena_start_dlg_1">
+        <text>Выход.</text>
+    </string>
+</string_table>

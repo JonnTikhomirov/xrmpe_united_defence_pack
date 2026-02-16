@@ -1,0 +1,230 @@
+local sleep_control = nil
+local sleep_static_base_width = 0
+class "sleep_dialog" (CUIScriptWnd)
+function sleep_dialog:__init() super()
+	if IsDedicatedServer() then
+		return
+	end
+
+	self:SetWndRect(Frect():set(0, 0, device().width, device().height))
+
+	local xml = CScriptXmlInit()
+	xml:ParseFile("ui_sleep_dialog.xml")
+
+	self.back = xml:InitStatic("background", self)
+--	self.sleep_static = xml:InitSleepStatic("sleep_static", self.back)
+
+	self.sleep_static = xml:InitStatic("sleep_static", self.back)
+	self.sleep_static2 = xml:InitStatic("sleep_static", self.back)
+	self.static_cover = xml:InitStatic("static_cover", self.back)
+	self.st_marker = xml:InitStatic("st_marker", self.static_cover)
+
+	sleep_static_base_width = self.sleep_static:GetWidth()
+
+	sleep_st_tbl = {}
+		for i = 1, 24 do
+		sleep_st_tbl[i] = xml:InitStatic("sleep_st_"..i, self.back)
+		end
+
+	self.time_track = xml:InitTrackBar("time_track", self.back)
+	self:Register(self.time_track, "time_track")
+
+	self.btn_sleep = xml:Init3tButton("btn_sleep", self.back)
+	self:Register(self.btn_sleep, "btn_sleep")
+
+	self.btn_cancel = xml:Init3tButton("btn_cancel", self.back)
+	self:Register(self.btn_cancel, "btn_cancel")
+
+	self.sleep_mb = CUIMessageBoxEx()
+	self:Register(self.sleep_mb, "sleep_mb")
+--------------------------------------------------------------------------------
+	self:AddCallback("btn_sleep", ui_events.BUTTON_CLICKED, self.OnButtonSleep, self)
+	self:AddCallback("btn_cancel", ui_events.BUTTON_CLICKED, self.OnButtonCancel, self)
+	self:AddCallback("sleep_mb", ui_events.MESSAGE_BOX_OK_CLICKED, self.OnMessageBoxOk, self)
+end
+
+function sleep_dialog:Initialize()
+	local cur_hours = level.get_time_hours()
+	for i = 1, 24 do
+	local hours = cur_hours + i
+	if(hours>=24) then
+		hours = hours - 24
+	end
+	sleep_st_tbl[i]:TextControl():SetText(hours..game.translate_string("st_sleep_hours"))
+	end
+
+	local delta = math.floor(591 / 24 * cur_hours)
+	local r = Frect():set(delta,413,591,531)
+	self.sleep_static:SetTextureRect(r)
+	local width = sleep_static_base_width * (591 - delta) / 591
+	self.sleep_static:SetWndSize(vector2():set(width, self.sleep_static:GetHeight()))
+
+	r = Frect():set(0,413,delta,531)
+	self.sleep_static2:SetTextureRect(r)
+	local width = sleep_static_base_width * delta / 591
+
+	self.sleep_static2:SetWndSize(vector2():set(width, self.sleep_static2:GetHeight()))
+
+	local pos = self.sleep_static2:GetWndPos()
+	pos.x = self.sleep_static:GetWndPos().x + self.sleep_static:GetWidth()
+	self.sleep_static2:SetWndPos(pos)
+end
+
+function sleep_dialog:TestAndShow()
+	if(getLocalActor().bleeding>0 or getLocalActor().radiation>0) then
+		self.sleep_mb:InitMessageBox("message_box_ok")
+		if(getLocalActor().bleeding>0 and getLocalActor().radiation>0) then
+			self.sleep_mb:SetText("sleep_warning_all_pleasures")
+		elseif(getLocalActor().bleeding>0) then
+			self.sleep_mb:SetText("sleep_warning_bleeding")
+		else
+			self.sleep_mb:SetText("sleep_warning_radiation")
+		end
+		self.sleep_mb:ShowDialog(true)
+	else
+		self:Initialize()
+		self:ShowDialog(true)
+	end
+end
+
+function sleep_dialog:ShowNotAllPlayersInZoneWarning()
+	self.sleep_mb:InitMessageBox("message_box_ok")
+	self.sleep_mb:SetText("sleep_warning_not_all_players_in_zone")
+	self.sleep_mb:ShowDialog(true)
+end
+
+function sleep_dialog:Update()
+	CUIScriptWnd.Update(self)
+	local sleep_time = self.time_track:GetIValue()-1
+	local x = math.floor(sleep_static_base_width/24*sleep_time)
+	if(x==0) then
+		x = 5
+	end
+
+	self.st_marker:SetWndPos(vector2():set(x, self.st_marker:GetWndPos().y))
+end
+
+function sleep_dialog:IsAllPlayersInSleepZone()
+	for k,v in pairs(pda.sleep_zones_tbl) do
+		local obj_id = get_story_object_id(v.target)
+		local zone = db.storage[obj_id] and db.storage[obj_id].object
+		if zone then
+			for k1,v1 in pairs(db.mp_actors) do
+				if IsActorNetReady(v1:id()) and not zone:inside(v1:position()) then
+					return false
+				end
+			end
+		end
+	end
+	
+	return true
+end
+
+function sleep_dialog:start_sleep()
+	if getLocalActor() then
+		xr_effects.disable_ui(getLocalActor(), nil)
+	end
+	level.add_cam_effector("camera_effects\\sleep.anm", 10, false, "ui_sleep_dialog.dream_callback")
+	level.add_pp_effector("sleep_fade.ppe", 11, false)
+	
+	if OnServer() then
+		story_flags.give_flag("ACTOR_IS_SLEEPING")
+	end
+	
+	_G.mus_vol = get_console():get_float("snd_volume_music")
+	_G.amb_vol = get_console():get_float("snd_volume_eff")
+	get_console():execute("snd_volume_music 0")
+	get_console():execute("snd_volume_eff 0")
+	surge_manager.resurrect_skip_message()
+end
+
+function sleep_dialog:OnTrackButton()
+end
+
+function sleep_dialog:OnButtonSleep()
+	if self:IsAllPlayersInSleepZone() then
+		local packet = game_cl.GenerateGameMessage(GM_SCRIPT_SLEEP)
+		packet:w_s8(sleep_control.time_track:GetIValue())
+		u_EventSendReliable(packet)
+		self:HideDialog()
+	else
+		self:ShowNotAllPlayersInZoneWarning()
+		--printf_msg("not all players in sleep zone!!")
+	end
+end
+
+function sleep_dialog:OnButtonCancel()
+	self:HideDialog()
+	story_flags.give_flag("TUTORIAL_SLEEP")
+	story_flags.disable_flag("SLEEP_ACTIVE")
+end
+
+function sleep_dialog:OnMessageBoxOk()
+	-- story_flags.give_flag("tutorial_sleep")
+	story_flags.disable_flag("SLEEP_ACTIVE")
+end
+--------------------------------------------------------------------------------
+
+local sv_hours = 0
+function start_sleep(packet)
+	if(sleep_control==nil) then
+		sleep_control = ui_sleep_dialog.sleep_dialog()
+	end
+	sv_hours = packet:r_s8()
+	
+	if sleep_control:IsShown() then
+		sleep_control:HideDialog()
+	end
+	
+	sleep_control.start_sleep()
+end
+
+function dream_callback()
+	level.add_cam_effector("camera_effects\\sleep.anm", 10, false, "ui_sleep_dialog.dream_callback2")
+	local hours = sv_hours
+	level.change_game_time(0,hours,0)--guess need to rework all that to event
+	level_weathers.get_weather_manager():forced_weather_change()
+	surge_manager.get_surge_manager().time_forwarded = true
+	if(surge_manager.is_started() and level_weathers.get_weather_manager().weather_fx) then
+		level.stop_weather_fx()
+--		level_weathers.get_weather_manager():select_weather(true)
+		level_weathers.get_weather_manager():forced_weather_change()
+	end
+	
+	if getLocalActor() then
+		getLocalActor().power = 1
+	end
+	
+	--if OnServer() then
+	--	printf_msg("dream_callback: time forwarded on [%d]", hours)
+	--end
+end
+
+function dream_callback2()
+	if getLocalActor() then
+		xr_effects.enable_ui(getLocalActor(), nil)
+	end
+	
+	get_console():execute("snd_volume_music "..tostring(_G.mus_vol))
+	get_console():execute("snd_volume_eff "..tostring(_G.amb_vol))
+	_G.amb_vol = 0
+	_G.mus_vol = 0
+	
+	if OnServer() then
+		story_flags.give_flag("TUTORIAL_SLEEP")
+		story_flags.disable_flag("ACTOR_IS_SLEEPING")
+		story_flags.disable_flag("SLEEP_ACTIVE")
+	end
+end
+
+function sleep()
+	if(sleep_control==nil) then
+		sleep_control = ui_sleep_dialog.sleep_dialog()
+	end
+	sleep_control.time_track:SetCurrentValue()
+	sleep_control:TestAndShow()
+end
+
+function main()
+	sleep()
+end

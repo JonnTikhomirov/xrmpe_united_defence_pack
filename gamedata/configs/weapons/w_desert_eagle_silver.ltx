@@ -1,0 +1,41 @@
+[wpn_desert_eagle_silver]:wpn_desert_eagle
+$spawn                  	= "weapons\desert_eagle_silver"		; option for Level Editor
+description					= st_wpn_desert_eagle_silver_descr
+
+cost					= 4300
+
+hud                     	= wpn_desert_eagle_silver_hud
+visual                  	= dynamics\weapons\wpn_desert_eagle\wpn_desert_eagle_silver.ogf
+
+fire_dispersion_base		= 0.15 			;угол (в градусах) базовой дисперсии оружия (оружия зажатого в тисках)
+
+hit_power           	= 1.5, 1.5, 1.5, 1.5
+
+condition_shot_dec      	= 0.0034
+condition_queue_shot_dec	= 0.0034
+
+cam_dispersion          	= 1.7		;увеличения угла (в градусах) с каждым выстрелом
+cam_dispersion_inc			= 1.7		;увеличениe cam_dispersion с каждым выстрелом
+cam_max_angle				= 14.0		;максимальный угол отдачи
+cam_max_angle_horz			= 14.0		;(degree) maximum shot horizontal degree
+
+inv_name				= st_wpn_desert_eagle_silver
+inv_name_short			= st_wpn_desert_eagle_silver
+
+inv_grid_width			= 2
+inv_grid_height			= 1
+inv_grid_x				= 12
+inv_grid_y				= 26
+
+upgr_icon_x			= 1005
+upgr_icon_y			= 614
+upgr_icon_width		= 209
+upgr_icon_height   	= 133
+
+kill_msg_x				= 275
+kill_msg_y				= 120
+kill_msg_width			= 42
+kill_msg_height			= 30
+
+[wpn_desert_eagle_silver_hud]:wpn_desert_eagle_hud
+item_visual             	= dynamics\weapons\wpn_desert_eagle\wpn_desert_eagle_silver_hud.ogf

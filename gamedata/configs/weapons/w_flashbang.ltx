@@ -1,0 +1,139 @@
+[grenade_flashbang]:identity_immunities,weapon_probability,default_weapon_params
+grenade_remove_time		= 60000
+detonation_threshold_hit= 200
+$spawn 					= "weapons\grenades\flashbang"
+class						= G_F1_S
+cform						= skeleton
+visual					= dynamics\weapons\wpn_grenades\wpn_flashbang.ogf
+inv_name				= st_wpn_grenade_flashbang
+inv_name_short			= st_wpn_grenade_flashbang_short
+inv_weight				= 0.55	;.1
+description				= st_wpn_grenade_flashbang_descr
+ef_weapon_type			= 4
+;---DOF-------------------------------------------------------------------------
+zoom_dof					= 0.5, 1.0, 180
+reload_dof				= 0.0, 0.5, 5, 1.7
+;-------------------------------------------------------------------------------
+
+inv_grid_width			= 1
+inv_grid_height		= 1
+inv_grid_x				= 8
+inv_grid_y				= 1
+
+kill_msg_x				= 240
+kill_msg_y				= 123
+kill_msg_width			= 14
+kill_msg_height		= 23
+
+animation_slot			= 7
+single_handed			= 1
+
+slot						= 3
+hud						= grenade_flashbang_hud
+force_min				= 10	; ~30% от максимума
+force_const				= 25;20
+force_max				= 30
+force_grow_speed		= 15;2 ;30
+
+destroy_time			= 1200;3500
+
+cost					= 300
+
+;-------------------------------------------------------------------------------
+blast					= 0
+blast_r					= 15
+blast_impulse			= 150
+
+frags					= 0
+frags_r					= 0
+frag_hit				= 0
+frag_hit_impulse		= 0
+
+hit_type_blast			= flash
+hit_type_frag			= fire_wound
+
+up_throw_factor			= 0
+;-------------------------------------------------------------------------------
+
+
+explode_particles		 = explosions\explosion_flash
+
+blowout_light				= on
+light_color		         = 1.0,1.0,1.0
+light_range		         = 5.0
+light_time 		         = 0.85
+
+;трассы от осколков
+fragment_speed				= 50
+explode_duration			= 12		;подолжительность взрыва (с)
+
+;звуки
+snd_explode 			= weapons\grenades\cts7290\layers\cts7290_explosion_a_1
+snd_checkout            = weapons\grenades\rgd5\mechanics\rgd5_checkout
+snd_draw                = weapons\grenades\f1\mechanics\f1_draw
+snd_holster             = weapons\grenades\f1\mechanics\f1_hide
+snd_throw               = weapons\grenades\rgd5\mechanics\rgd5_throw
+
+position = 0.067, -0.066, 0.034
+orientation = -78, -11, -2 ;value is set in angles
+slot_attach_bone_name = bip01_r_hand
+
+// should be deleted after update
+bone_name				= bip01_r_hand
+position_offset			 = 0.0,0.0,0.0
+angle_offset			 = 1.570790,1.570790,3.92699
+
+
+throw_point			= 0.4, 0.3, 0.1
+throw_dir				 = 0,0,1
+third_person_throw_point_offset = -0.05,0.848,0.706
+
+wm_size                  = 0.1
+
+wallmark_section		 =explosion_marks
+
+[grenade_flashbang_hud]:hud_base
+fire_point			= 0,0,0
+fire_bone           = wpn_body
+
+
+attach_place_idx	= 0
+item_visual		= dynamics\weapons\wpn_grenades\wpn_flashbang_hud
+
+hud_fov = 0.6
+
+hands_position				= 0.0,-0.13,0.03
+hands_orientation			= 0.0,0.0,0.0
+
+hands_position_16x9			= 0.0,-0.13,0.03
+hands_orientation_16x9			= 0.0,0.0,0.0
+
+item_position				= 0.0,0.0,0.0
+item_orientation			= 0.0,0.0,0.0
+
+
+anm_hide		        = flashbang_hide
+anm_show			= flashbang_draw
+
+anm_idle			= flashbang_idle
+
+disable_bore = false
+anm_bore			= flashbang_bore
+
+anm_idle_moving	 		= flashbang_walk, flashbang_slow_super
+anm_idle_moving_slow 		= flashbang_slow, flashbang_slow_super
+anm_idle_moving_crouch 	        = flashbang_slow_down, flashbang_slow_super
+anm_idle_moving_crouch_slow 	= flashbang_slow_super
+
+lock_time_anm_idle_sprint_end        = 0.4
+anm_idle_sprint_start           = flashbang_sprint_start
+anm_idle_sprint	 		= flashbang_sprint
+anm_idle_sprint_end             = flashbang_sprint_end
+
+anm_throw_begin			= flashbang_throw_start
+anm_throw_idle			= flashbang_throw_idle
+anm_throw			= f1_throw_end
+
+throw_point			= 0.0,0.4,0.3
+throw_dir			= 0,0,1
+third_person_throw_point_offset = -0.05,0.848,0.706

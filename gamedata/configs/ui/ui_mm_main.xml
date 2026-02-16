@@ -1,0 +1,390 @@
+<w>
+	<background anchor="fullscreen">
+		<auto_static adaptive_static="1">
+			<high_static anchor="mid-center" width="2920" height="1080" stretch="1">
+				<texture>ui\menu_background_large_static</texture>
+			</high_static>
+			<medium_static anchor="mid-center" width="1920" height="1080" stretch="1">
+				<texture>ui\menu_background_middle_static</texture>
+			</medium_static>
+			<low_static anchor="mid-center" width="1920" height="1080" stretch="1">
+				<texture>ui\menu_background_small_static</texture>
+			</low_static>
+		</auto_static>
+	</background>
+
+	<shniaga_wnd x="120" y="157" width="512" height="564">
+		<auto_static x="0" y="0" width="432" height="163" stretch="1">
+			<texture use_locale="1">ui_mainmenu_logo</texture>
+	    </auto_static>
+		
+		<auto_text/>
+
+		
+		<auto_static/>
+		
+		<buttons_region x="0" y="234" width="400" height="354"/>
+	</shniaga_wnd>
+
+	<menu_main>
+		<btn x="18" y="0" width="320" height="42" stretch="1">
+			<window_name>btn_net_game</window_name>
+			<texture>ui_ingame_left_fade_button</texture>
+			<text x="15" font="din_next20_bold" align="l">ui_mm_network_game</text>
+			<text_color>
+				<e color="ui_white"/>
+				<t color="ui_white"/>
+				<d color="dark_gray_mpe"/>
+				<h color="ui_white"/>
+			</text_color>
+			<sound_h>interface\selector_button</sound_h>
+			<sound_t>interface\select_button</sound_t>			
+		</btn>
+		<btn x="18" y="46" width="320" height="42" stretch="1">
+			<window_name>btn_options</window_name>
+			<texture>ui_ingame_left_fade_button</texture>
+			<text x="15" font="din_next20_bold" align="l">ui_mm_options_n</text>
+			<text_color>
+				<e color="ui_white"/>
+				<t color="ui_white"/>
+				<d color="dark_gray_mpe"/>
+				<h color="ui_white"/>
+			</text_color>
+			<sound_h>interface\selector_button</sound_h>
+			<sound_t>interface\select_button</sound_t>					
+		</btn>
+		<btn x="18" y="92" width="320" height="42" stretch="1">
+			<window_name>btn_credits</window_name>
+			<texture>ui_ingame_left_fade_button</texture>
+			<text x="15" font="din_next20_bold" align="l">ui_mm_credits</text>
+			<text_color>
+				<e color="ui_white"/>
+				<t color="ui_white"/>
+				<d color="dark_gray_mpe"/>
+				<h color="ui_white"/>
+			</text_color>
+			<sound_h>interface\selector_button</sound_h>
+			<sound_t>interface\select_button</sound_t>					
+		</btn>
+		<btn x="0" y="149" width="320" height="42" stretch="1">
+			<window_name>btn_quit</window_name>
+			<texture>ui_ingame_left_fade_button</texture>
+			<text x="15" font="din_next20_bold" align="l">ui_mm_quit2windows</text>
+			<text_color>
+				<e color="ui_white"/>
+				<t color="ui_white"/>
+				<d color="dark_gray_mpe"/>
+				<h color="ui_white"/>
+			</text_color>
+			<sound_h>interface\selector_button</sound_h>
+			<sound_t>interface\select_button</sound_t>					
+		</btn>
+	</menu_main>
+
+	<!-- dont use now -->
+	<menu_network_game>
+		<btn x="0" y="0" width="320" height="42" stretch="1">
+			<window_name>btn_internet</window_name>
+			<texture>ui_ingame_left_fade_button</texture>
+			<text font="din_next17_bold" align="l">ui_mp_internet</text>
+			<text_color>
+				<e color="ui_white"/>
+				<t color="ui_white"/>
+				<d color="dark_gray_mpe"/>
+				<h color="ui_white"/>
+			</text_color>
+			<sound_h>interface\selector_button</sound_h>
+			<sound_t>interface\select_button</sound_t>					
+		</btn>
+		<btn x="0" y="0" width="320" height="42" stretch="1">
+			<window_name>btn_localnet</window_name>
+			<texture>ui_ingame_left_fade_button</texture>
+			<text font="din_next17_bold" align="l">ui_mp_localnet</text>
+			<text_color>
+				<e color="ui_white"/>
+				<t color="ui_white"/>
+				<d color="dark_gray_mpe"/>
+				<h color="ui_white"/>
+			</text_color>
+			<sound_h>interface\selector_button</sound_h>
+			<sound_t>interface\select_button</sound_t>					
+		</btn>		
+		<btn x="0" y="0" width="320" height="42" stretch="1">
+			<window_name>btn_new_back</window_name>
+			<texture>ui_ingame_left_fade_button</texture>
+			<text font="din_next17_bold" align="l">ui_mm_back</text>
+			<text_color>
+				<e color="ui_white"/>
+				<t color="ui_white"/>
+				<d color="dark_gray_mpe"/>
+				<h color="ui_white"/>
+			</text_color>
+			<sound_h>interface\selector_button</sound_h>
+			<sound_t>interface\select_button</sound_t>					
+		</btn>
+	</menu_network_game>
+
+	<menu_main_logout>
+		<btn x="18" y="0" width="320" height="42" stretch="1">
+			<window_name>btn_multiplayer</window_name>
+			<texture>ui_ingame_left_fade_button</texture>
+			<text x="15" font="din_next20_bold" align="l">ui_mm_network_game</text>
+			<text_color>
+				<e color="ui_white"/>
+				<t color="ui_white"/>
+				<d color="dark_gray_mpe"/>
+				<h color="ui_white"/>
+			</text_color>
+			<sound_h>interface\selector_button</sound_h>
+			<sound_t>interface\select_button</sound_t>					
+		</btn>	
+		<btn x="18" y="46" width="320" height="42" stretch="1">
+			<window_name>btn_logout</window_name>
+			<texture>ui_ingame_left_fade_button</texture>
+			<text x="15" font="din_next20_bold" align="l">ui_mm_logout</text>
+			<text_color>
+				<e color="ui_white"/>
+				<t color="ui_white"/>
+				<d color="dark_gray_mpe"/>
+				<h color="ui_white"/>
+			</text_color>
+			<sound_h>interface\selector_button</sound_h>
+			<sound_t>interface\select_button</sound_t>					
+		</btn>	
+		<btn x="18" y="92" width="320" height="42" stretch="1">
+			<window_name>btn_options</window_name>
+			<texture>ui_ingame_left_fade_button</texture>
+			<text x="15" font="din_next20_bold" align="l">ui_mm_options_n</text>
+			<text_color>
+				<e color="ui_white"/>
+				<t color="ui_white"/>
+				<d color="dark_gray_mpe"/>
+				<h color="ui_white"/>
+			</text_color>
+			<sound_h>interface\selector_button</sound_h>
+			<sound_t>interface\select_button</sound_t>					
+		</btn>	
+		<btn x="18" y="138" width="320" height="42" stretch="1">
+			<window_name>btn_credits</window_name>
+			<texture>ui_ingame_left_fade_button</texture>
+			<text x="15" font="din_next20_bold" align="l">ui_mm_credits</text>
+			<text_color>
+				<e color="ui_white"/>
+				<t color="ui_white"/>
+				<d color="dark_gray_mpe"/>
+				<h color="ui_white"/>
+			</text_color>
+			<sound_h>interface\selector_button</sound_h>
+			<sound_t>interface\select_button</sound_t>					
+		</btn>	
+		<btn x="0" y="195" width="320" height="42" stretch="1">
+			<window_name>btn_quit</window_name>
+			<texture>ui_ingame_left_fade_button</texture>
+			<text x="15" font="din_next20_bold" align="l">ui_mm_quit2windows</text>
+			<text_color>
+				<e color="ui_white"/>
+				<t color="ui_white"/>
+				<d color="dark_gray_mpe"/>
+				<h color="ui_white"/>
+			</text_color>
+			<sound_h>interface\selector_button</sound_h>
+			<sound_t>interface\select_button</sound_t>					
+		</btn>
+	</menu_main_logout>
+
+	<menu_main_mm>
+		<btn x="18" y="0" width="320" height="42" stretch="1">
+			<window_name>btn_ret</window_name>
+			<texture>ui_ingame_left_fade_button</texture>
+			<text x="15" font="din_next20_bold" align="l">ui_mm_return_game</text>
+			<text_color>
+				<e color="ui_white"/>
+				<t color="ui_white"/>
+				<d color="dark_gray_mpe"/>
+				<h color="ui_white"/>
+			</text_color>
+			<sound_h>interface\selector_button</sound_h>
+			<sound_t>interface\select_button</sound_t>					
+		</btn>	
+		<btn x="18" y="46" width="320" height="42" stretch="1">
+			<window_name>btn_options</window_name>
+			<texture>ui_ingame_left_fade_button</texture>
+			<text x="15" font="din_next20_bold" align="l">ui_mm_options_n</text>
+			<text_color>
+				<e color="ui_white"/>
+				<t color="ui_white"/>
+				<d color="dark_gray_mpe"/>
+				<h color="ui_white"/>
+			</text_color>
+			<sound_h>interface\selector_button</sound_h>
+			<sound_t>interface\select_button</sound_t>					
+		</btn>
+		<btn x="18" y="92" width="320" height="42" stretch="1">
+			<window_name>btn_credits</window_name>
+			<texture>ui_ingame_left_fade_button</texture>
+			<text x="15" font="din_next20_bold" align="l">ui_mm_credits</text>
+			<text_color>
+				<e color="ui_white"/>
+				<t color="ui_white"/>
+				<d color="dark_gray_mpe"/>
+				<h color="ui_white"/>
+			</text_color>
+			<sound_h>interface\selector_button</sound_h>
+			<sound_t>interface\select_button</sound_t>					
+		</btn>
+		<btn x="18" y="138" width="320" height="42" stretch="1">
+			<window_name>btn_quit_to_mm</window_name>
+			<texture>ui_ingame_left_fade_button</texture>
+			<text x="15" font="din_next20_bold" align="l">ui_mm_disconnect</text>
+			<text_color>
+				<e color="ui_white"/>
+				<t color="ui_white"/>
+				<d color="dark_gray_mpe"/>
+				<h color="ui_white"/>
+			</text_color>
+			<sound_h>interface\selector_button</sound_h>
+			<sound_t>interface\select_button</sound_t>					
+		</btn>			
+		<btn x="0" y="195" width="320" height="42" stretch="1">
+			<window_name>btn_quit</window_name>
+			<texture>ui_ingame_left_fade_button</texture>
+			<text x="15" font="din_next20_bold" align="l">ui_mm_quit2windows</text>
+			<text_color>
+				<e color="ui_white"/>
+				<t color="ui_white"/>
+				<d color="dark_gray_mpe"/>
+				<h color="ui_white"/>
+			</text_color>
+			<sound_h>interface\selector_button</sound_h>
+			<sound_t>interface\select_button</sound_t>					
+		</btn>
+	</menu_main_mm>
+
+	<menu_main_coop_mm>
+		<btn x="18" y="0" width="320" height="42" stretch="1">
+			<window_name>btn_ret</window_name>
+			<texture>ui_ingame_left_fade_button</texture>
+			<text x="15" font="din_next20_bold" align="l">ui_mm_return_game</text>
+			<text_color>
+				<e color="ui_white"/>
+				<t color="ui_white"/>
+				<d color="dark_gray_mpe"/>
+				<h color="ui_white"/>
+			</text_color>
+			<sound_h>interface\selector_button</sound_h>
+			<sound_t>interface\select_button</sound_t>					
+		</btn>
+		<btn x="18" y="46" width="320" height="42" stretch="1">
+			<window_name>btn_lastsave</window_name>
+			<texture>ui_ingame_left_fade_button</texture>
+			<text x="15" font="din_next20_bold" align="l">ui_mm_last_save</text>
+			<text_color>
+				<e color="ui_white"/>
+				<t color="ui_white"/>
+				<d color="dark_gray_mpe"/>
+				<h color="ui_white"/>
+			</text_color>
+			<sound_h>interface\selector_button</sound_h>
+			<sound_t>interface\select_button</sound_t>					
+		</btn>		
+		<btn x="18" y="92" width="320" height="42" stretch="1">
+			<window_name>btn_save</window_name>
+			<texture>ui_ingame_left_fade_button</texture>
+			<text x="15" font="din_next20_bold" align="l">ui_mm_save</text>
+			<text_color>
+				<e color="ui_white"/>
+				<t color="ui_white"/>
+				<d color="dark_gray_mpe"/>
+				<h color="ui_white"/>
+			</text_color>
+			<sound_h>interface\selector_button</sound_h>
+			<sound_t>interface\select_button</sound_t>					
+		</btn>
+		<btn x="18" y="138" width="320" height="42" stretch="1">
+			<window_name>btn_options</window_name>
+			<texture>ui_ingame_left_fade_button</texture>
+			<text x="15" font="din_next20_bold" align="l">ui_mm_options_n</text>
+			<text_color>
+				<e color="ui_white"/>
+				<t color="ui_white"/>
+				<d color="dark_gray_mpe"/>
+				<h color="ui_white"/>
+			</text_color>
+			<sound_h>interface\selector_button</sound_h>
+			<sound_t>interface\select_button</sound_t>					
+		</btn>
+		<btn x="18" y="184" width="320" height="42" stretch="1">
+			<window_name>btn_credits</window_name>
+			<texture>ui_ingame_left_fade_button</texture>
+			<text x="15" font="din_next20_bold" align="l">ui_mm_credits</text>
+			<text_color>
+				<e color="ui_white"/>
+				<t color="ui_white"/>
+				<d color="dark_gray_mpe"/>
+				<h color="ui_white"/>
+			</text_color>
+			<sound_h>interface\selector_button</sound_h>
+			<sound_t>interface\select_button</sound_t>					
+		</btn>
+		<btn x="18" y="230" width="320" height="42" stretch="1">
+			<window_name>btn_quit_to_mm</window_name>
+			<texture>ui_ingame_left_fade_button</texture>
+			<text x="15" font="din_next20_bold" align="l">ui_mm_disconnect</text>
+			<text_color>
+				<e color="ui_white"/>
+				<t color="ui_white"/>
+				<d color="dark_gray_mpe"/>
+				<h color="ui_white"/>
+			</text_color>
+			<sound_h>interface\selector_button</sound_h>
+			<sound_t>interface\select_button</sound_t>					
+		</btn>			
+		<btn x="0" y="287" width="320" height="42" stretch="1">
+			<window_name>btn_quit</window_name>
+			<texture>ui_ingame_left_fade_button</texture>
+			<text x="15" font="din_next20_bold" align="l">ui_mm_quit2windows</text>
+			<text_color>
+				<e color="ui_white"/>
+				<t color="ui_white"/>
+				<d color="dark_gray_mpe"/>
+				<h color="ui_white"/>
+			</text_color>
+			<sound_h>interface\selector_button</sound_h>
+			<sound_t>interface\select_button</sound_t>					
+		</btn>
+	</menu_main_coop_mm>
+	
+	<menu_sound random="0">
+		<menu_music>music\menu</menu_music>
+    </menu_sound>
+
+	<news_area anchor="bot-left" x="120" y="100" width="500" height="200">
+		<auto_text anchor="bot-left" x="0" y="144" width="150" height="28">
+			<text font="din_next17" color="dark_gray_mpe" vert_align="c" align="l">ui_mm_news_and_info</text>
+		</auto_text>		
+		
+		<auto_static anchor="bot-left" x="0" y="144" width="506" height="2" stretch="1">
+			<texture>ui_ingame_left_fade_line</texture>
+	    </auto_static>		
+	
+		<news_button anchor="bot-left" x="0" y="0" width="356" height="134" stretch="1">
+			<texture>ui_mainmenu_gsc_games_btn</texture>
+			<text y="4" font="din_next17_bold" vert_align="t" align="c">ui_mm_buy_stalker_games</text>
+			<text_color>
+				<e color="ui_white"/>
+				<t color="ui_white"/>
+				<d color="dark_gray_mpe"/>
+				<h color="ui_white"/>
+			</text_color>
+			<sound_h>interface\selector_button</sound_h>
+			<sound_t>interface\select_button</sound_t>	
+		</news_button>
+	</news_area>
+
+	<static_version anchor="bot-right" x="60" y="56" width="100" height="40">
+		<auto_text anchor="bot-right" x="0" y="22" width="100" height="28">
+			<text font="din_next17_bold" color="white" vert_align="b" align="r">OPEN BETA TEST</text>
+		</auto_text>
+		<text font="din_next17_bold" color="white" vert_align="b" align="r"/>
+	</static_version>
+</w>

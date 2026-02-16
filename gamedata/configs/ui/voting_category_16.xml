@@ -1,0 +1,199 @@
+<voting_category>
+	<category x="502" y="233" width="942" height="578">
+	    <background x="0" y="0" width="942" height="578" stretch="1">
+		    <texture>ui_inGame2_screen_4</texture>
+			<auto_static x="313" y="170" width="336" height="298" stretch="1">
+			    <texture>ui_inGame2_small_plane_1</texture>
+			</auto_static>
+	    </background>
+	    <header x="42" y="53" width="872" height="42">
+		    <text font="graffiti19" r="170" g="170" b="170" vert_align="c" align="c">mp_select_category</text>
+	    </header>
+	    <btn_cancel x="379" y="536" width="204" height="37" stretch="1">
+	        <text y="3" font="graffiti19" align="c">mm_mp_cancel</text>
+	        <texture>ui_inGame2_Mp_bigbuttone</texture>
+		</btn_cancel>
+	    <btn_1 x="323" y="179" width="317" height="39" stretch="1">
+	        <texture>ui_inGame2_vote_button</texture>
+			<text x="10" font="letterica16" r="170" g="170" b="170" vert_align="c" align="l">mp_restart</text>
+	    </btn_1>
+	    <btn_2 x="323" y="218" width="317" height="39" stretch="1">
+	        <texture>ui_inGame2_vote_button</texture>
+			<text x="10" font="letterica16" r="170" g="170" b="170" vert_align="c" align="l">mp_restart_fast</text>
+	    </btn_2>
+	    <btn_3 x="323" y="259" width="317" height="39" stretch="1">
+	        <texture>ui_inGame2_vote_button</texture>
+			<text x="10" font="letterica16" r="170" g="170" b="170" vert_align="c" align="l">mp_kick</text>
+	    </btn_3>
+	    <btn_4 x="323" y="298" width="317" height="39" stretch="1">
+	        <texture>ui_inGame2_vote_button</texture>
+			<text x="10" font="letterica16" r="170" g="170" b="170" vert_align="c" align="l">mp_ban</text>
+	    </btn_4>
+	    <btn_5 x="323" y="339" width="317" height="39" stretch="1">
+	        <texture>ui_inGame2_vote_button</texture>
+			<text x="10" font="letterica16" r="170" g="170" b="170" vert_align="c" align="l">mp_change_map</text>
+	    </btn_5>
+	    <btn_6 x="323" y="378" width="317" height="39" stretch="1">
+	        <texture>ui_inGame2_vote_button</texture>
+			<text x="10" font="letterica16" r="170" g="170" b="170" vert_align="c" align="l">mp_change_weather</text>
+	    </btn_6>
+	    <btn_7 x="323" y="419" width="317" height="39" stretch="1">
+	        <texture>ui_inGame2_vote_button</texture>
+			<text x="10" font="letterica16" r="170" g="170" b="170" vert_align="c" align="l">mp_gamemode</text>
+	    </btn_7>
+	</category>
+	<kick_ban x="502" y="233" width="942" height="578">
+	    <background x="0" y="0" width="942" height="578" stretch="1">
+		    <texture>ui_inGame2_screen_4</texture>
+	    </background>
+	    <header_kick x="42" y="53" width="872" height="42">
+		    <text font="graffiti19" r="170" g="170" b="170" vert_align="c" align="c">mp_select_kick</text>
+	    </header_kick>
+	    <header_ban x="42" y="53" width="872" height="42">
+		    <text font="graffiti19" r="170" g="170" b="170" vert_align="c" align="c">mp_select_ban</text>
+	    </header_ban>
+	    <list x="47" y="118" width="855" height="401" can_select="1">
+	        <font r="170" g="170" b="170" font="letterica16"/>
+	    </list>
+	    <btn_ok x="272" y="536" width="204" height="37" stretch="1">
+	        <text y="3" font="graffiti19" align="c">Btn_OK</text>
+	        <texture>ui_inGame2_Mp_bigbuttone</texture>
+		</btn_ok>
+	    <btn_cancel x="483" y="536" width="204" height="37" stretch="1">
+	        <text y="3" font="graffiti19" align="c">mm_mp_cancel</text>
+	        <texture>ui_inGame2_Mp_bigbuttone</texture>
+		</btn_cancel>
+	    <spin_ban_time x="68" y="540" width="151" height="37" stretch="1"/>
+	    <ban_time_lbl x="219" y="537" width="53" height="37">
+		    <text r="120" g="120" b="120" font="letterica16" vert_align="c">Sec.</text>
+	    </ban_time_lbl>
+	</kick_ban>
+	<change_map x="502" y="233" width="942" height="578">
+	    <background x="0" y="0" width="942" height="578" stretch="1">
+		    <texture>ui_inGame2_screen_2</texture>
+	    </background>
+	    <header x="42" y="53" width="872" height="42">
+		    <text font="graffiti19" r="170" g="170" b="170" vert_align="c" align="c">mp_select_map</text>
+	    </header>
+	    <list x="47" y="118" width="362" height="401" can_select="1">
+	        <font r="170" g="170" b="170" font="letterica16"/>
+	    </list>
+	    <map_pic x="428" y="107" width="400" height="200" stretch="1">
+		    <texture width="400" height="200">ui\ui_noise</texture>
+	    </map_pic>
+	    <map_frame x="428" y="107" width="400" height="200" stretch="1">
+	    	<texture>ui_inGame2_Mp_screen_map_window</texture>
+	    </map_frame>
+	    <map_ver_txt x="428" y="436" width="151" height="35">
+		    <text font="graffiti19" r="170" g="170" b="170" vert_align="c"></text>
+	    </map_ver_txt>
+	    <btn_ok x="272" y="536" width="204" height="37" stretch="1">
+	        <text y="3" font="graffiti19" align="c">Btn_OK</text>
+	        <texture>ui_inGame2_Mp_bigbuttone</texture>
+		</btn_ok>
+	    <btn_cancel x="483" y="536" width="204" height="37" stretch="1">
+	        <text y="3" font="graffiti19" align="c">mm_mp_cancel</text>
+	        <texture>ui_inGame2_Mp_bigbuttone</texture>
+		</btn_cancel>
+	</change_map>
+	<change_weather x="502" y="233" width="942" height="578">
+	    <background x="0" y="0" width="942" height="578" stretch="1">
+		    <texture>ui_inGame2_screen_4</texture>
+			<auto_static x="313" y="170" width="336" height="298" stretch="1">
+			    <texture>ui_inGame2_small_plane_1</texture>
+			</auto_static>
+	    </background>
+	    <header x="42" y="53" width="872" height="42">
+		    <text font="graffiti19" r="170" g="170" b="170" vert_align="c" align="c">mp_change_weather_header</text>
+	    </header>
+	    <btn_cancel x="379" y="536" width="204" height="37" stretch="1">
+	        <text y="3" font="graffiti19" align="c">mm_mp_cancel</text>
+	        <texture>ui_inGame2_Mp_bigbuttone</texture>
+		</btn_cancel>
+	    <btn_1 x="323" y="179" width="317" height="39" stretch="1">
+	        <texture>ui_inGame2_vote_button</texture>
+			<text x="10" font="letterica16" r="170" g="170" b="170" vert_align="c" align="l">mp_weather_clear</text>
+	    </btn_1>
+	    <btn_2 x="323" y="218" width="317" height="39" stretch="1">
+	        <texture>ui_inGame2_vote_button</texture>
+			<text x="10" font="letterica16" r="170" g="170" b="170" vert_align="c" align="l">mp_weather_cloudy</text>
+	    </btn_2>
+	    <btn_3 x="323" y="259" width="317" height="39" stretch="1">
+	        <texture>ui_inGame2_vote_button</texture>
+			<text x="10" font="letterica16" r="170" g="170" b="170" vert_align="c" align="l">mp_weather_night</text>
+	    </btn_3>
+	    <btn_4 x="323" y="298" width="317" height="39" stretch="1">
+	        <texture>ui_inGame2_vote_button</texture>
+			<text x="10" font="letterica16" r="170" g="170" b="170" vert_align="c" align="l">mp_weather_rain</text>
+	    </btn_4>
+	</change_weather>
+	<change_gametype x="502" y="233" width="942" height="578">
+	    <background x="0" y="0" width="942" height="578" stretch="1">
+		    <texture>ui_inGame2_screen_4</texture>
+			<auto_static x="313" y="170" width="336" height="298" stretch="1">
+			    <texture>ui_inGame2_small_plane_1</texture>
+			</auto_static>
+	    </background>
+	    <header x="42" y="53" width="872" height="42">
+		    <text font="graffiti19" r="170" g="170" b="170" vert_align="c" align="c">mm_mp_gamemode</text>
+	    </header>
+	    <btn_cancel x="379" y="536" width="204" height="37" stretch="1">
+	        <text y="3" font="graffiti19" align="c">mm_mp_cancel</text>
+	        <texture>ui_inGame2_Mp_bigbuttone</texture>
+		</btn_cancel>
+	    <btn_1 x="323" y="179" width="317" height="39" stretch="1" id="dm">
+	        <texture>ui_inGame2_vote_button</texture>
+			<text x="10" font="letterica16" r="170" g="170" b="170" vert_align="c" align="l">ui_mp_dm</text>
+	    </btn_1>
+	    <btn_2 x="323" y="218" width="317" height="39" stretch="1" id="ah">
+	        <texture>ui_inGame2_vote_button</texture>
+			<text x="10" font="letterica16" r="170" g="170" b="170" vert_align="c" align="l">ui_mp_ah</text>
+	    </btn_2>
+	    <btn_3 x="323" y="259" width="317" height="39" stretch="1" id="tdm">
+	        <texture>ui_inGame2_vote_button</texture>
+			<text x="10" font="letterica16" r="170" g="170" b="170" vert_align="c" align="l">ui_mp_tdm</text>
+	    </btn_3>
+	    <btn_4 x="323" y="298" width="317" height="39" stretch="1" id="cta">
+	        <texture>ui_inGame2_vote_button</texture>
+			<text x="10" font="letterica16" r="170" g="170" b="170" vert_align="c" align="l">ui_mp_cta</text>
+	    </btn_4>
+	</change_gametype>
+	<vote x="502" y="233" width="942" height="578">
+	    <background x="0" y="0" width="942" height="578" stretch="1">
+		    <texture>ui_inGame2_screen_4</texture>
+	    </background>
+	    <msg x="42" y="53" width="872" height="42">
+			<text font="graffiti19" r="170" g="170" b="170" vert_align="c" align="c">test \n msg</text>
+		</msg>
+		<list_cap_1 x="47" y="118" width="279" height="28">
+			<text font="letterica18" vert_align="c" align="c">mp_voted_yes</text>
+		</list_cap_1>
+		<list_cap_2 x="334" y="118" width="279" height="28">
+			<text font="letterica18" vert_align="c" align="c">mp_voted_no</text>
+		</list_cap_2>
+		<list_cap_3 x="621" y="118" width="279" height="28">
+			<text font="letterica18" vert_align="c" align="c">mp_no_voted</text>
+		</list_cap_3>
+	    <list_1 x="47" y="146" width="279" height="373" can_select="0">
+	        <font r="170" g="170" b="170" font="letterica16"/>
+		</list_1>
+		<list_2 x="334" y="146" width="279" height="373" can_select="0">
+	        <font r="170" g="170" b="170" font="letterica16"/>
+		</list_2>
+	    <list_3 x="621" y="146" width="279" height="373" can_select="0">
+	        <font r="170" g="170" b="170" font="letterica16"/>
+	    </list_3>
+	    <btn_yes x="168" y="536" width="204" height="37" stretch="1">
+	        <text y="3" font="graffiti19" align="c">mp_vote_yes</text>
+	        <texture>ui_inGame2_Mp_bigbuttone</texture>
+		</btn_yes>
+	    <btn_no x="379" y="536" width="204" height="37" stretch="1">
+	        <text y="3" font="graffiti19" align="c">mp_vote_no</text>
+	        <texture>ui_inGame2_Mp_bigbuttone</texture>
+		</btn_no>
+	    <btn_cancel x="591" y="536" width="204" height="37" stretch="1">
+	        <text y="3" font="graffiti19" align="c">mp_cancel</text>
+	        <texture>ui_inGame2_Mp_bigbuttone</texture>
+		</btn_cancel>
+	</vote>
+</voting_category>

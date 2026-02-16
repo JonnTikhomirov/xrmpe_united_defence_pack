@@ -1,0 +1,879 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;	DEVICES
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[inventory_box]
+GroupControlSection	= spawn_group
+discovery_dependency =
+$spawn 				= "devices\inventory box"
+class				= S_INVBOX
+cform				= skeleton
+visual				= dynamics\equipment_cache\equipment_box_01_case.ogf
+script_binding      = bind_physic_object.init
+
+[device_flare]:identity_immunities
+class                   = D_FLARE
+visual					= dynamics\devices\dev_flare\dev_flare
+description             = enc_weapons1_wpn_flare
+
+inv_weight				= 0.2
+inv_name				= device_flare
+inv_name_short			= device_flare_short
+
+inv_grid_width				= 2
+inv_grid_height				= 1
+inv_grid_x					= 12
+inv_grid_y					= 7
+
+slot					= 11
+cost					= 50
+default_to_ruck         = true
+sprint_allowed			= true
+control_inertion_factor = 1.0
+work_time_sec			= 10000
+hud                     = device_flare_hud
+animation_slot			= 7
+
+working_particles		= weapons\dev_flare_flame
+
+[device_flare_hud]:hud_base
+
+hud_fov = 0.85
+hud_fov_zoom = 1.0
+
+hands_position				= 0.361999,-0.164000,0.106000
+hands_orientation			= 21.000044,-1.700000,0.000000
+;hands_position_16x9             = 0,0,0
+;hands_orientation_16x9          = 0,0,0
+
+hands_position_16x9				= 0.000000,-0.130000,0.079000
+hands_orientation_16x9			= 0.000000,0.000000,0.000000
+
+aim_hud_offset_pos				= 0,0,0
+aim_hud_offset_rot				= 0,0,0
+
+gl_hud_offset_pos				= 0,0,0
+gl_hud_offset_rot				= 0,0,0
+
+lean_hud_offset_pos				= 0,0,0
+lean_hud_offset_rot				= 0,0,0
+
+item_position				= -0.031455,0.017528,0.136259
+item_orientation			= 62.783558,75.663406,-79.665085
+
+item_visual                   	= dynamics\devices\dev_flare\dev_flare
+attach_place_idx				= 1
+
+fire_point						= 0.279000,-0.143000,-0.009000
+fire_bone                		= flare_point
+
+
+anm_show						= flare_draw
+anm_hide						= flare_holster
+anm_idle						= flare_idle
+anm_drop						= flare_holster
+
+
+[detector_simple]:identity_immunities
+GroupControlSection	= spawn_group
+$spawn 			= "devices\detector_simple"
+$prefetch 		= 32
+class			= DET_SIMP
+cform			= skeleton
+visual			= dynamics\devices\dev_detector_1\dev_detector_1.ogf
+
+hud			= detector_simple_hud
+animation_slot		= 7
+
+inv_name		= st_detector1
+inv_name_short	= st_detector1
+description		= st_detector1_descr
+
+slot			= 8
+ef_detector_type	= 1
+inv_weight		= 0.5
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x		= 9
+inv_grid_y		= 14
+cost			= 500
+default_to_ruck		= false
+
+af_radius		= 30
+af_vis_radius		= 3
+
+af_class_1		= af_cristall
+af_sound_1_		= detectors\art_beep1
+af_freq_1		= 0.05, 2
+
+af_class_2		= af_fireball
+af_sound_2_		= detectors\art_beep1
+af_freq_2		= 0.05, 2
+
+af_class_3		= af_medusa
+af_sound_3_		= detectors\art_beep1
+af_freq_3		= 0.05, 2
+
+af_class_4		= af_cristall_flower
+af_sound_4_		= detectors\art_beep1
+af_freq_4		= 0.05, 2
+
+af_class_5		= af_blood
+af_sound_5_		= detectors\art_beep1
+af_freq_5		= 0.05, 2
+
+af_class_6		= af_mincer_meat
+af_sound_6_		= detectors\art_beep1
+af_freq_6		= 0.05, 2
+
+af_class_7		= af_electra_sparkler
+af_sound_7_		= detectors\art_beep1
+af_freq_7		= 0.05, 2
+
+af_class_8		= af_electra_flash
+af_sound_8_		= detectors\art_beep1
+af_freq_8		= 0.05, 2
+
+af_class_9		= af_compass
+af_sound_9_		= detectors\art_beep1
+af_freq_9		= 0.05, 2
+
+attach_position_offset	= 0.111,-0.024,0.010
+attach_angle_offset		= -1.643,-0.903,-1.582
+
+attach_bone_name	= bip01_l_hand
+auto_attach		= false
+snd_draw                = device\detector\detector_draw
+snd_holster             = device\detector\detector_hide
+
+[detector_base_hud]:hud_base
+attach_place_idx		= 1
+
+hud_fov = 0.75
+
+hands_position			= 0.0,-0.13,0.03
+hands_orientation		= 0.0,0.0,0.0
+hands_position_16x9		= 0.0,-0.13,0.03
+hands_orientation_16x9		= 0.0,0.0,0.0
+
+aim_hud_offset_pos		= 0,0,0
+aim_hud_offset_rot		= 0,0,0
+
+gl_hud_offset_pos			= 0,0,0
+gl_hud_offset_rot			= 0,0,0
+
+lean_hud_offset_pos		= 0,0,0
+lean_hud_offset_rot		= 0,0,0
+
+
+[detector_simple_hud]:detector_base_hud
+
+
+item_position				= 0,0,0
+item_orientation			= 0,0,0
+
+item_visual                   	= dynamics\devices\dev_detector_1\dev_detector_1_hud
+
+fire_point			= 0,0.044,0
+fire_bone			= light_bone_2
+fire_point2			= 0,0.032,0
+fire_bone2			= light_bone_1
+
+anm_show			= dev_detector_1_draw
+anm_show_fast			= dev_detector_1_draw_quick
+anm_hide			= dev_detector_1_holster
+anm_hide_fast			= dev_detector_1_holster_quick
+anm_idle			= dev_detector_1_idle
+anm_idle_slow                   = dev_detector_1_idle
+anm_idle_crouch                = dev_detector_1_idle
+anm_idle_crouch_slow           = dev_detector_1_idle
+anm_idle_moving			= dev_detector_1_idle_moving
+anm_idle_moving_slow 		= dev_detector_1_slow, dev_detector_1_idle_moving
+anm_idle_moving_crouch 	= dev_detector_1_slow_down, dev_detector_1_idle_moving
+anm_idle_moving_crouch_slow 	= dev_detector_1_slow_super, dev_detector_1_idle_moving
+anm_idle_sprint			= dev_detector_1_idle_sprint
+anm_idle_sprint_start           = dev_detector_1_idle_sprint_start
+anm_idle_sprint_end             = dev_detector_1_idle_sprint_end
+anm_wpn_shoot                   = dev_detector_1_shoot, dev_detector_1_idle_moving
+anm_wpn_shoot_jammed            = dev_detector_1_shoot, dev_detector_1_idle_moving
+
+anm_show_16x9			  = dev_detector_1_draw
+anm_show_fast_16x9		  = dev_detector_1_draw_quick
+anm_hide_16x9			  = dev_detector_1_holster
+anm_hide_fast_16x9		  = dev_detector_1_holster_quick
+anm_idle_16x9			  = dev_detector_1_idle
+anm_idle_slow_16x9                = dev_detector_1_idle
+anm_idle_crouch_16x9             = dev_detector_1_idle
+anm_idle_crouch_slow_16x9        = dev_detector_1_idle
+anm_idle_moving_16x9		  = dev_detector_1_idle_moving
+anm_idle_moving_slow_16x9 	  = dev_detector_1_slow, dev_detector_1_idle_moving
+anm_idle_moving_crouch_16x9 	  = dev_detector_1_slow_down, dev_detector_1_idle_moving
+anm_idle_moving_crouch_slow_16x9 = dev_detector_1_slow_super, dev_detector_1_idle_moving
+anm_idle_sprint_16x9		  = dev_detector_1_idle_sprint
+anm_idle_sprint_start_16x9        = dev_detector_1_idle_sprint_start
+anm_idle_sprint_end_16x9          = dev_detector_1_idle_sprint_end
+anm_wpn_shoot_16x9                = dev_detector_1_shoot, dev_detector_1_idle_moving
+anm_wpn_shoot_jammed_16x9         = dev_detector_1_shoot, dev_detector_1_idle_moving
+
+flash_light_range		= 0.1
+onoff_light_range		= 0.1
+
+[detector_advanced]:detector_simple
+$spawn 			= "devices\detector_advanced"
+class			= DET_ADVA
+visual			= dynamics\devices\dev_detector_2\dev_detector_2.ogf
+
+
+inv_name		= st_detector2
+inv_name_short	= st_detector2
+description		= st_detector2_descr
+
+inv_grid_width	= 1
+inv_grid_height	= 1
+inv_grid_x		= 15
+inv_grid_y		= 7
+cost			= 1000
+hud			= detector_advanced_hud
+
+af_radius		= 30
+af_vis_radius		= 4
+
+af_class_10		= af_dummy_glassbeads
+af_sound_10_		= detectors\art_beep1
+af_freq_10		= 0.05, 2
+
+af_class_11		= af_night_star
+af_sound_11_		= detectors\art_beep1
+af_freq_11		= 0.05, 2
+
+af_class_12		= af_vyvert
+af_sound_12_		= detectors\art_beep1
+af_freq_12		= 0.05, 2
+
+af_class_13		= af_soul
+af_sound_13_		= detectors\art_beep1
+af_freq_13		= 0.05, 2
+
+af_class_14		= af_fuzz_kolobok
+af_sound_14_		= detectors\art_beep1
+af_freq_14		= 0.05, 2
+
+af_class_15		= af_electra_moonlight
+af_sound_15_		= detectors\art_beep1
+af_freq_15		= 0.05, 2
+
+af_class_16 	= af_dummy_battery
+af_sound_16_		= detectors\art_beep1
+af_freq_16		= 0.05, 2
+
+attach_position_offset	= 0.111,-0.024,0.010
+attach_angle_offset		= -1.643,-0.903,-1.582
+
+
+[detector_advanced_hud]:detector_base_hud
+
+item_position				= 0,0,0
+item_orientation			= 0,0,0
+
+item_visual                   	= dynamics\devices\dev_detector_2\dev_detector_2_hud
+
+anm_show			= dev_detector_2_draw
+anm_show_fast			= dev_detector_2_draw_quick
+anm_hide			= dev_detector_2_holster
+anm_hide_fast			= dev_detector_2_holster_quick
+anm_idle			= dev_detector_2_idle
+anm_idle_slow                   = dev_detector_2_idle
+anm_idle_crouch                = dev_detector_2_idle
+anm_idle_crouch_slow           = dev_detector_2_idle
+anm_idle_moving			= dev_detector_2_idle_moving
+anm_idle_moving_slow 		= dev_detector_2_slow, dev_detector_2_idle_moving
+anm_idle_moving_crouch 	= dev_detector_2_slow_down, dev_detector_2_idle_moving
+anm_idle_moving_crouch_slow 	= dev_detector_2_slow_super, dev_detector_2_idle_moving
+anm_idle_sprint			= dev_detector_2_idle_sprint
+anm_idle_sprint_start           = dev_detector_2_idle_sprint_start
+anm_idle_sprint_end             = dev_detector_2_idle_sprint_end
+anm_wpn_shoot                   = dev_detector_2_shoot, dev_detector_2_idle_moving
+anm_wpn_shoot_jammed            = dev_detector_2_shoot, dev_detector_2_idle_moving
+
+anm_show_16x9			= dev_detector_2_draw
+anm_show_fast_16x9		= dev_detector_2_draw_quick
+anm_hide_16x9			= dev_detector_2_holster
+anm_hide_fast_16x9		= dev_detector_2_holster_quick
+anm_idle_16x9			= dev_detector_2_idle
+anm_idle_slow_16x9              = dev_detector_2_idle
+anm_idle_crouch_16x9           = dev_detector_2_idle
+anm_idle_crouch_slow_16x9      = dev_detector_2_idle
+anm_idle_moving_16x9		= dev_detector_2_idle_moving
+anm_idle_moving_slow_16x9 	= dev_detector_2_slow, dev_detector_2_idle_moving
+anm_idle_moving_crouch_16x9 	= dev_detector_2_slow_down, dev_detector_2_idle_moving
+anm_idle_moving_crouch_slow_16x9 = dev_detector_2_slow_super, dev_detector_2_idle_moving
+anm_idle_sprint_16x9		= dev_detector_2_idle_sprint
+anm_idle_sprint_start_16x9      = dev_detector_2_idle_sprint_start
+anm_idle_sprint_end_16x9        = dev_detector_2_idle_sprint_end
+anm_wpn_shoot_16x9              = dev_detector_2_shoot, dev_detector_2_idle_moving
+anm_wpn_shoot_jammed_16x9       = dev_detector_2_shoot, dev_detector_2_idle_moving
+
+[detector_elite]:detector_advanced
+$spawn 			= "devices\detector_elite"
+class			= DET_ELIT
+visual			= dynamics\devices\dev_detector_3\dev_detector_3.ogf
+inv_name		= st_detector3
+inv_name_short	= st_detector3
+description		= st_detector3_descr
+hud			= detector_elite_hud
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x		= 5
+inv_grid_y		= 14
+cost			= 2000
+
+; elite x="0.00096" y="0.0035"
+ui_p			= -0.049,-0.0665,0.0115
+ui_r			= 0,0,0
+
+af_radius		= 30
+af_vis_radius		= 5
+
+af_class_17		= af_eye
+af_sound_17_		= detectors\art_beep1
+af_freq_17		= 0.05, 2
+
+af_class_18		= af_fire
+af_sound_18_		= detectors\art_beep1
+af_freq_18		= 0.05, 2
+
+af_class_19		= af_gravi
+af_sound_19_		= detectors\art_beep1
+af_freq_19		= 0.05, 2
+
+af_class_20		= af_gold_fish
+af_sound_20_		= detectors\art_beep1
+af_freq_20		= 0.05, 2
+
+af_class_21		= af_baloon
+af_sound_21_		= detectors\art_beep1
+af_freq_21		= 0.05, 2
+
+af_class_22		= af_glass
+af_sound_22_		= detectors\art_beep1
+af_freq_22		= 0.05, 2
+
+af_class_23		= af_dummy_dummy
+af_sound_23_		= detectors\art_beep1
+af_freq_23		= 0.05, 2
+
+af_class_24		= af_ice
+af_sound_24_		= detectors\art_beep1
+af_freq_24		= 0.05, 2
+
+af_class_25		= af_medusa_hazardous
+af_sound_25_	= detectors\art_beep1
+af_freq_25		= 0.05, 2
+
+af_class_26		= af_mica
+af_sound_26_	= detectors\art_beep1
+af_freq_26		= 0.05, 2
+
+attach_position_offset	= 0.110,-0.019,0.008
+attach_angle_offset		= -1.603,-0.813,-1.802
+
+[detector_elite_hud]:detector_base_hud
+item_position				= 0,0,0
+item_orientation			= 0,0,0
+
+item_visual                   	= dynamics\devices\dev_detector_3\dev_detector_3_hud
+
+anm_show			= veles_draw
+anm_show_fast			= veles_draw_fast	;_quick
+anm_hide			= veles_hide
+anm_hide_fast			= veles_hide_fast
+anm_idle			= veles_idle
+anm_idle_slow                   = veles_idle
+anm_idle_crouch                = veles_idle
+anm_idle_crouch_slow           = veles_idle
+anm_idle_moving			= veles_walk
+anm_idle_moving_slow 		= veles_slow, veles_walk
+anm_idle_moving_crouch 	= veles_slow_down, veles_walk
+anm_idle_moving_crouch_slow 	= veles_slow_super, veles_walk
+anm_idle_sprint			= veles_sprint
+anm_idle_sprint_start           = veles_sprint_start
+anm_idle_sprint_end             = veles_sprint_end
+anm_wpn_shoot                   = veles_shoot, veles_walk
+anm_wpn_shoot_jammed            = veles_shoot, veles_walk
+
+anm_show_16x9			= veles_draw
+anm_show_fast_16x9		= veles_draw_fast	;_quick
+anm_hide_16x9			= veles_hide
+anm_hide_fast_16x9		= veles_hide_fast
+anm_idle_16x9			= veles_idle
+anm_idle_slow_16x9              = veles_idle
+anm_idle_crouch_16x9           = veles_idle
+anm_idle_crouch_slow_16x9      = veles_idle
+anm_idle_moving_16x9		= veles_walk
+anm_idle_moving_slow_16x9       = veles_slow, veles_walk
+anm_idle_moving_crouch_16x9 	= veles_slow_down, veles_walk
+anm_idle_moving_crouch_slow_16x9 = veles_slow_super, veles_walk
+anm_idle_sprint_16x9		= veles_sprint
+anm_idle_sprint_start_16x9      = veles_sprint_start
+anm_idle_sprint_end_16x9        = veles_sprint_end
+anm_wpn_shoot_16x9              = veles_shoot, veles_walk
+anm_wpn_shoot_jammed_16x9       = veles_shoot, veles_walk
+
+[detector_scientific]:detector_elite
+$spawn 				= "devices\detector_scientific"
+class				= DET_SCIE
+
+visual			= dynamics\devices\dev_detector_4\dev_detector_4.ogf
+
+inv_name		= st_detector4
+inv_name_short	= st_detector4
+description		= st_detector4_descr
+hud			= detector_scientific_hud
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x		= 19
+inv_grid_y		= 21
+cost			= 12500
+
+; elite x="0.00096" y="0.0035"
+ui_p			= -0.049,-0.0665,0.0115
+ui_r			= 0,0,0
+
+af_radius		= 30
+af_vis_radius		= 6
+
+af_class_25		= af_oasis_heart
+af_sound_25_		= detectors\art_beep1
+af_freq_25		= 0.05, 2
+
+attach_position_offset	= 0.110,-0.019,0.007
+attach_angle_offset		= -1.533,-0.893,-1.742
+
+zone_class_1		= zone_mine_acidic_weak
+zone_class_2		= zone_mine_acidic_average
+zone_class_3		= zone_mine_acidic_strong
+
+zone_class_4		= zone_mine_electric_weak
+zone_class_5		= zone_mine_electric_average
+zone_class_6		= zone_mine_electric_strong
+
+zone_class_7		= zone_mine_gravitational_weak
+zone_class_8		= zone_mine_gravitational_average
+zone_class_9		= zone_mine_gravitational_strong
+
+zone_class_10		= zone_mine_thermal_weak
+zone_class_11		= zone_mine_thermal_average
+zone_class_12		= zone_mine_thermal_strong
+
+zone_class_13		= zone_mine_steam_weak
+zone_class_14		= zone_mine_steam_average
+zone_class_15		= zone_mine_steam_strong
+
+zone_class_16		= zone_mine_acidic_big
+
+zone_class_17		= zone_mine_chemical_weak
+zone_class_18		= zone_mine_chemical_average
+zone_class_19		= zone_mine_chemical_strong
+
+zone_class_20		= zone_buzz_weak
+zone_class_21		= zone_buzz_average
+zone_class_22		= zone_buzz_strong
+
+zone_class_23		= zone_mine_static_weak
+zone_class_24		= zone_mine_static_average
+zone_class_25		= zone_mine_static_strong
+
+zone_class_26		= zone_witches_galantine_weak
+zone_class_27		= zone_witches_galantine_average
+zone_class_28		= zone_witches_galantine_strong
+
+zone_class_29		= zone_mine_gravitational_big
+
+zone_class_30		= zone_gravi_zone
+
+zone_class_31		= zone_zharka_static_weak
+zone_class_32		= zone_zharka_static_average
+zone_class_33		= zone_zharka_static_strong
+
+zone_freq_1			= 0.05, 2
+zone_freq_2			= 0.05, 2
+zone_freq_3			= 0.05, 2
+zone_freq_4			= 0.05, 2
+zone_freq_5			= 0.05, 2
+zone_freq_6			= 0.05, 2
+zone_freq_7			= 0.05, 2
+zone_freq_8			= 0.05, 2
+zone_freq_9			= 0.05, 2
+zone_freq_10		= 0.05, 2
+zone_freq_11		= 0.05, 2
+zone_freq_12		= 0.05, 2
+zone_freq_13		= 0.05, 2
+zone_freq_14		= 0.05, 2
+zone_freq_15		= 0.05, 2
+zone_freq_16		= 0.05, 2
+zone_freq_17		= 0.05, 2
+zone_freq_18		= 0.05, 2
+zone_freq_19		= 0.05, 2
+zone_freq_20		= 0.05, 2
+zone_freq_21		= 0.05, 2
+zone_freq_22		= 0.05, 2
+zone_freq_23		= 0.05, 2
+zone_freq_24		= 0.05, 2
+zone_freq_25		= 0.05, 2
+zone_freq_26		= 0.05, 2
+zone_freq_27		= 0.05, 2
+zone_freq_28		= 0.05, 2
+zone_freq_29		= 0.05, 2
+zone_freq_30		= 0.05, 2
+zone_freq_31		= 0.05, 2
+zone_freq_32		= 0.05, 2
+zone_freq_33		= 0.05, 2
+
+[detector_scientific_hud]:detector_base_hud
+item_position				= 0,0,0
+item_orientation			= 0,0,0
+
+item_visual                   	= dynamics\devices\dev_detector_4\dev_detector_4_hud
+
+anm_show			= veles_draw
+anm_show_fast			= veles_draw_fast	;_quick
+anm_hide			= veles_hide
+anm_hide_fast			= veles_hide_fast
+anm_idle			= veles_idle
+anm_idle_slow                   = veles_idle
+anm_idle_crouch                = veles_idle
+anm_idle_crouch_slow           = veles_idle
+anm_idle_moving			= veles_walk
+anm_idle_moving_slow 		= veles_slow, veles_walk
+anm_idle_moving_crouch 	= veles_slow_down, veles_walk
+anm_idle_moving_crouch_slow 	= veles_slow_super, veles_walk
+anm_idle_sprint			= veles_sprint
+anm_idle_sprint_start           = veles_sprint_start
+anm_idle_sprint_end             = veles_sprint_end
+anm_wpn_shoot                   = veles_shoot, veles_walk
+anm_wpn_shoot_jammed            = veles_shoot, veles_walk
+
+anm_show_16x9			= veles_draw
+anm_show_fast_16x9		= veles_draw_fast	;_quick
+anm_hide_16x9			= veles_hide
+anm_hide_fast_16x9		= veles_hide_fast
+anm_idle_16x9			= veles_idle
+anm_idle_slow_16x9              = veles_idle
+anm_idle_crouch_16x9           = veles_idle
+anm_idle_crouch_slow_16x9      = veles_idle
+anm_idle_moving_16x9		= veles_walk
+anm_idle_moving_slow_16x9 	= veles_slow, veles_walk
+anm_idle_moving_crouch_16x9 	= veles_slow_down, veles_walk
+anm_idle_moving_crouch_slow_16x9 = veles_slow_super, veles_walk
+anm_idle_sprint_16x9		= veles_sprint
+anm_idle_sprint_start_16x9      = veles_sprint_start
+anm_idle_sprint_end_16x9        = veles_sprint_end
+anm_wpn_shoot_16x9              = veles_shoot, veles_walk
+anm_wpn_shoot_jammed_16x9       = veles_shoot, veles_walk
+
+[device_pda]:identity_immunities
+GroupControlSection	= spawn_group
+discovery_dependency=
+$spawn 				= "devices\pda"
+$prefetch 			= 16
+class				= S_PDA
+cform				= skeleton
+visual				= dynamics\devices\dev_pda\dev_pda.ogf
+hud					= device_pda_hud
+animation_slot		= 7 ; заглушка, не используется для ПДА
+description			= st_pda_descr
+radius				= 68; 50
+slot				= 7
+default_to_ruck		= false
+activate_on_slot	= false
+sprint_allowed		= false
+script_binding      = bind_physic_object.init
+
+inv_name			= st_pda_name
+inv_name_short		= st_pda_name
+inv_weight			= 0.0	;0.2
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 6
+inv_grid_y			= 13
+cost				= 200
+
+position	= 0.085,-0.007,0.091
+orientation		= -2.427, -176.628, -16,524  ;value is set in angles
+slot_attach_bone_name	= bip01_l_hand
+
+attach_angle_offset		= -1.303,0.107,-1.702
+attach_position_offset	= 0.14,0.001,0.02
+attach_bone_name		= bip01_l_hand
+auto_attach			= false
+
+snd_draw                = device\pda\pda_draw
+snd_holster             = device\pda\pda_hide
+
+[device_pda_hud]:hud_base
+item_visual                  	= dynamics\devices\dev_pda\dev_pda_hud.ogf
+attach_place_idx		= 0
+
+hud_fov = 0.65
+hud_fov_zoom = 0.29
+
+;стрейф влево
+hud_move_left_offset_pos = -0.01,0,0
+hud_move_left_offset_rot = 0,0,-2
+
+hud_move_left_offset_pos_16x9 = -0.01,0,0
+hud_move_left_offset_rot_16x9 = 0,0,-2
+
+;стрейф вправо
+hud_move_right_offset_pos = 0.01,0,0
+hud_move_right_offset_rot = 0,0,2
+
+hud_move_right_offset_pos_16x9 = 0.01,0,0
+hud_move_right_offset_rot_16x9 = 0,0,2
+
+
+;движение вперед
+hud_move_forward_offset_pos = 0,0,-0.005
+hud_move_forward_offset_rot = 0,0,0
+
+hud_move_forward_offset_pos_16x9 = 0,0,-0.005
+hud_move_forward_offset_rot_16x9 = 0,0,0
+
+;движение назад
+hud_move_back_offset_pos = 0,0,0.005
+hud_move_back_offset_rot = 0,0,0
+
+hud_move_back_offset_pos_16x9 = 0,0,0.005
+hud_move_back_offset_rot_16x9 = 0,0,0
+
+;прыжок
+hud_move_jump_offset_pos = 0,0.05,0.03
+hud_move_jump_offset_rot = 0,-10,-10
+
+hud_move_jump_offset_pos_16x9 = 0,0.05,0.03
+hud_move_jump_offset_rot_16x9 = 0,-10,-10
+
+;падение
+hud_move_fall_offset_pos = 0,-0.05,0.06
+hud_move_fall_offset_rot = 0,5,0
+
+hud_move_fall_offset_pos_16x9 = 0,-0.05,0.06
+hud_move_fall_offset_rot_16x9 = 0,5,0
+
+;приземление - первая фаза
+hud_move_landing_offset_pos = 0,-0.2,0.03
+hud_move_landing_offset_rot = 0,8,10
+
+hud_move_landing_offset_pos_16x9 = 0,-0.2,0.03
+hud_move_landing_offset_rot_16x9 = 0,8,10
+
+;приземление - вторая фаза
+hud_move_landing2_offset_pos = 0,-0.2,0.03
+hud_move_landing2_offset_rot = 0,-13,20
+
+hud_move_landing2_offset_pos_16x9 = 0,-0.3,0.03
+hud_move_landing2_offset_rot_16x9 = 0,-13,20
+
+;переход из стойки в присяд
+to_crouch_time = 0.15
+hud_move_to_crouch_offset_pos = 0,-0.02, 0
+hud_move_to_crouch_offset_rot = 0,4,-4
+
+hud_move_to_crouch_offset_pos_16x9 = 0,-0.02, 0
+hud_move_to_crouch_offset_rot_16x9 = 0,4,-4
+
+;переход из присяда в стойку
+from_crouch_time = 0.15
+hud_move_from_crouch_offset_pos = 0,0.03,0
+hud_move_from_crouch_offset_rot = 0,-4,4
+
+hud_move_from_crouch_offset_pos_16x9 = 0,0.03,0
+hud_move_from_crouch_offset_rot_16x9 = 0,-4,4
+
+;переход из присяда в низкий присяд
+to_slow_crouch_time = 0.15
+hud_move_to_slow_crouch_offset_pos = 0,-0.05, 0
+hud_move_to_slow_crouch_offset_rot = 0,2.5,-2
+
+hud_move_to_slow_crouch_offset_pos_16x9 = 0,-0.05, 0
+hud_move_to_slow_crouch_offset_rot_16x9 = 0,2.5,-2
+
+;переход из низкого присяда в присяд
+from_slow_crouch_time = 0.15
+hud_move_from_slow_crouch_offset_pos = 0,0.05,0
+hud_move_from_slow_crouch_offset_rot = 0,-2.5,2
+
+hud_move_from_slow_crouch_offset_pos_16x9 = 0,0.05,0
+hud_move_from_slow_crouch_offset_rot_16x9 = 0,-2.5,2
+
+inertion_pitch_offset_r = 0
+inertion_pitch_offset_n = 0
+inertion_pitch_offset_d = 0
+inertion_speed = 10
+inertion_origin_offset = 0.03
+
+inertion_aim_pitch_offset_r = 0
+inertion_aim_pitch_offset_n = 0
+inertion_aim_pitch_offset_d = 0
+inertion_aim_speed = 10
+inertion_aim_origin_offset = 0
+
+item_position			= 0,0,0
+item_orientation		= 0,0,0
+
+hands_position				= -0.010,0.033,-0.017
+hands_position_16x9			= -0.010,0.033,-0.015
+
+hands_orientation			= 0.0,0.0,0.0
+hands_orientation_16x9			= 0.0,0.0,0.0
+
+aim_hud_offset_pos			= 0.0282,0.041,0.15
+aim_hud_offset_pos_16x9		= 0.02,0.041,0.15
+
+aim_hud_offset_rot			= 0.0,0.0,0.0
+aim_hud_offset_rot_16x9		= 0.0,0.0,0.0
+
+anm_idle			= pda_idle
+anm_idle_sprint_start = pda_walk
+anm_idle_sprint		= pda_walk
+anm_idle_sprint_end = pda_walk
+anm_hide			= pda_hide
+anm_show			= pda_draw
+
+
+[dev_flash_1]:identity_immunities
+GroupControlSection	= spawn_group
+discovery_dependency=
+$spawn 				= "devices\dev_flash_1"
+$prefetch 			= 16
+class				= D_PDA
+cform				= skeleton
+visual				= dynamics\devices\dev_flash_1\dev_flash_1.ogf
+hud					= device_pda_hud
+animation_slot		= 7 ; заглушка, не используется для ПДА
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 11
+inv_grid_y			= 22
+
+slot				= 7
+radius				= 50
+default_to_ruck		= false
+inv_weight			= 0.05
+
+inv_name			= st_pda_name
+inv_name_short		= st_pda_name
+description			= st_pda_descr
+cost				= 50
+can_trade			= false
+
+[dev_flash_2]:identity_immunities
+GroupControlSection	= spawn_group
+discovery_dependency=
+$spawn 				= "devices\dev_flash_2"
+$prefetch 			= 16
+class				= D_PDA
+cform				= skeleton
+visual				= dynamics\devices\dev_flash_2\dev_flash_2.ogf
+hud					= device_pda_hud
+animation_slot		= 7 ; заглушка, не используется для ПДА
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 11
+inv_grid_y			= 23
+
+slot				= 7
+radius				= 50
+default_to_ruck		= false
+inv_weight			= 0.05
+
+inv_name			= st_pda_name
+inv_name_short		= st_pda_name
+description			= st_pda_descr
+cost				= 50
+can_trade			= false
+
+[device_torch]:identity_immunities
+GroupControlSection	= spawn_group
+discovery_dependency =
+$spawn				= "devices\torch"
+$prefetch 			= 32
+class				= TORCH_S
+cform				= skeleton
+visual				= dynamics\devices\dev_torch_light\dev_torch_light.ogf
+description			= st_device_torch_descr
+cost				= 100
+inv_name			= st_device_torch_name
+inv_name_short		= st_device_torch_name
+inv_weight			= 0.0
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 16
+inv_grid_y			= 12
+
+;вещью нельзя торговать
+can_trade			= true
+
+position			= 0.35,0.25,0.0
+light_trace_bone		= lights_bone
+
+attach_angle_offset		= 3.062, 0.008, -1.532
+attach_position_offset		= 0.134, -0.007, 0.09
+
+attach_bone_name		= bip01_head
+auto_attach			= false
+
+night_vision				= on
+night_vision_texture		= wpn\wpn_night
+night_vision_effector		= postprocess_night
+
+snd_night_vision_on			= weapons\nv_start
+snd_night_vision_off		= weapons\nv_off
+snd_night_vision_idle		= $no_sound ;weapons\nv_loop
+snd_night_vision_broken		= weapons\nv_off
+
+night_vision_recharge_time			= 6		;(c) время зарядки аккамулятора
+night_vision_recharge_time_min		= 2		;(c) мин. время зарядки аккамулятора, после которого уст-во уже может работать
+night_vision_discharge_time			= 20	;(c) время разрядки (работы) устройства после полной зарядки
+slot								= 9
+default_to_ruck						= false
+sprint_allowed						= true
+control_inertion_factor				= 1
+disabled_maps						= ai_test,ai_test2, andy_test_
+
+[detector_deactivator]:detector_elite
+$spawn 			= "devices\detector_deactivator"
+class			= DET_DEACT
+hud			= detector_deactivator_hud
+
+[detector_deactivator_hud]:detector_elite_hud
+item_position                = 0.142050,-0.038499,-0.019191
+item_orientation            = 50.599464,176.403946,11.195979
+
+item_visual                   	= dynamics\devices\dev_detector_deactivator\dev_detector_deactivator_hud
+
+[device_lockpick_1]:identity_immunities
+GroupControlSection	= spawn_group
+discovery_dependency =
+$spawn				= "devices\lockpick_1"
+$prefetch 			= 32
+class				= S_ITEM
+cform				= skeleton
+visual				= dynamics\devices\dev_pda\dev_pda.ogf
+script_binding      = bind_physic_object.init
+cost				= 100
+inv_name			= st_device_lockpick_1_name
+inv_name_short		= st_device_lockpick_1_name
+inv_weight			= 0.0
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 16
+inv_grid_y			= 12
+can_trade			= true
+
+#include "devices_addon.ltx"

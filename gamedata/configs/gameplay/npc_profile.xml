@@ -1,0 +1,378 @@
+﻿<?xml version='1.0' encoding="UTF-8"?>
+
+<xml>
+	<!-- НОВЫЕ ПРОФИЛЯ -->
+	<character id="actor">
+		<class>Actor</class>
+		<specific_character>actor</specific_character>
+	</character>
+	
+	<character id="default">
+		<class>Stalker_general</class>
+	</character>
+
+	<character id="mp_actor">
+		<class>mp_actor</class>
+		<specific_character>mp_actor</specific_character>
+	</character>
+
+	<character id="actor_visual_stalker">
+		<class>actor_visual_stalker</class>
+	</character>
+
+	<!-- sim profiles -->
+	<!-- sim duty -->
+	<character id="sim_default_duty_0">
+		<class>sim_default_duty_0</class>
+	</character>
+	<character id="sim_default_duty_1">
+		<class>sim_default_duty_1</class>
+	</character>
+	<character id="sim_default_duty_2">
+		<class>sim_default_duty_2</class>
+	</character>
+	<character id="sim_default_duty_3">
+		<class>sim_default_duty_3</class>
+	</character>
+	<character id="sim_default_duty_4">
+		<class>sim_default_duty_4</class>
+	</character>
+	<!-- sim monolith -->
+	<character id="sim_default_monolith_0">
+		<class>sim_default_monolith_0</class>
+	</character>
+	<character id="sim_default_monolith_1">
+		<class>sim_default_monolith_1</class>
+	</character>
+	<character id="sim_default_monolith_2">
+		<class>sim_default_monolith_2</class>
+	</character>
+	<character id="sim_default_monolith_3">
+		<class>sim_default_monolith_3</class>
+	</character>
+	<character id="sim_default_monolith_4">
+		<class>sim_default_monolith_4</class>
+	</character>
+
+	<!-- sim freedom -->
+	<character id="sim_default_freedom_0">
+		<class>sim_default_freedom_0</class>
+	</character>
+	<character id="sim_default_freedom_1">
+		<class>sim_default_freedom_1</class>
+	</character>
+	<character id="sim_default_freedom_2">
+		<class>sim_default_freedom_2</class>
+	</character>
+	<character id="sim_default_freedom_3">
+		<class>sim_default_freedom_3</class>
+	</character>
+	<character id="sim_default_freedom_4">
+		<class>sim_default_freedom_4</class>
+	</character>
+
+	<!-- sim bandit -->
+	<character id="sim_default_bandit_0">
+		<class>sim_default_bandit_0</class>
+	</character>
+		<character id="sim_default_bandit">
+		<class>sim_default_bandit_0</class>
+	</character>
+	<character id="sim_default_bandit_1">
+		<class>sim_default_bandit_1</class>
+	</character>
+	<character id="sim_default_bandit_2">
+		<class>sim_default_bandit_2</class>
+	</character>
+	<character id="sim_default_bandit_3">
+		<class>sim_default_bandit_3</class>
+	</character>
+	<character id="sim_default_bandit_4">
+		<class>sim_default_bandit_4</class>
+	</character>
+
+	<!-- sim stalker -->
+	<character id="sim_default_stalker_0">
+		<class>sim_default_stalker_0</class>
+	</character>
+	<character id="sim_default_stalker_1">
+		<class>sim_default_stalker_1</class>
+	</character>
+	<character id="sim_default_stalker_2">
+		<class>sim_default_stalker_2</class>
+	</character>
+	<character id="sim_default_stalker_3">
+		<class>sim_default_stalker_3</class>
+	</character>
+	<character id="sim_default_stalker_4">
+		<class>sim_default_stalker_4</class>
+	</character>
+
+		<!-- sim nebo -->
+	<character id="sim_default_nebo_0">
+		<class>sim_default_nebo_0</class>
+	</character>
+	<character id="sim_default_nebo_1">
+		<class>sim_default_nebo_1</class>
+	</character>
+	<character id="sim_default_nebo_2">
+		<class>sim_default_nebo_2</class>
+	</character>
+	<character id="sim_default_nebo_3">
+		<class>sim_default_nebo_3</class>
+	</character>
+	<character id="sim_default_nebo_4">
+		<class>sim_default_nebo_4</class>
+	</character>
+	
+	<!-- sim military -->
+	<character id="sim_default_military_0">
+		<class>sim_default_military_0</class>
+	</character>
+	<character id="sim_default_military_1">
+		<class>sim_default_military_1</class>
+	</character>
+	<character id="sim_default_military_2">
+		<class>sim_default_military_2</class>
+	</character>
+	<character id="sim_default_military_3">
+		<class>sim_default_military_3</class>
+	</character>
+	<character id="sim_default_military_3_sniper">
+		<class>sim_default_military_3_sniper</class>
+	</character>
+	<character id="sim_default_military_4">
+		<class>sim_default_military_4</class>
+	</character>
+
+	<!-- mercenery -->
+	<character id="sim_default_killer_0">
+		<class>sim_default_killer_0</class>
+	</character>
+	<character id="sim_default_killer_1">
+		<class>sim_default_killer_1</class>
+	</character>
+	<character id="sim_default_killer_2">
+		<class>sim_default_killer_2</class>
+	</character>
+	<character id="sim_default_killer_3">
+		<class>sim_default_killer_3</class>
+	</character>
+	<character id="sim_default_killer_4">
+		<class>sim_default_killer_4</class>
+	</character>
+
+	<!-- sim zombied -->
+	<character id="sim_default_zombied_1">
+		<class>sim_default_zombied_1</class>
+	</character>
+	<character id="sim_default_zombied_2">
+		<class>sim_default_zombied_2</class>
+	</character>
+	<character id="sim_default_zombied_3">
+		<class>sim_default_zombied_3</class>
+	</character>
+	<character id="sim_default_zombied_4">
+		<class>sim_default_zombied_4</class>
+	</character>
+	
+	<!-- sim csky -->
+	<character id="sim_default_csky_0">
+		<class>sim_default_csky_0</class>
+	</character>
+	<character id="sim_default_csky_1">
+		<class>sim_default_csky_1</class>
+	</character>
+	<character id="sim_default_csky_2">
+		<class>sim_default_csky_2</class>
+	</character>
+	<character id="sim_default_csky_3">
+		<class>sim_default_csky_3</class>
+	</character>
+	<character id="sim_default_csky_4">
+		<class>sim_default_csky_4</class>
+	</character>
+	
+	<!-- sim renegade -->
+	<character id="sim_default_renegade_0">
+		<class>sim_default_renegade_0</class>
+	</character>
+	<character id="sim_default_renegade_1">
+		<class>sim_default_renegade_1</class>
+	</character>
+	<character id="sim_default_renegade_2">
+		<class>sim_default_renegade_2</class>
+	</character>
+	
+	<!-- sim ecolog -->
+	<character id="sim_default_ecolog_1">
+		<class>sim_default_ecolog_1</class>
+	</character>
+	<character id="sim_default_ecolog_2">
+		<class>sim_default_ecolog_2</class>
+	</character>
+	<character id="sim_default_ecolog_3">
+		<class>sim_default_ecolog_3</class>
+	</character>	
+   
+  <!-- defense -->
+  
+ 
+      <character id="df_br_xrmpe_corpse_1">
+		<class>df_br_xrmpe_corpse_1</class>
+   </character>
+      <character id="df_br_xrmpe_corpse_2">
+		<class>df_br_xrmpe_corpse_2</class>
+   </character>
+   <character id="df_br_xrmpe_corpse_3">
+		<class>df_br_xrmpe_corpse_3</class>
+   </character>
+  <character id="df_br_xrmpe_corpse_4">
+		<class>df_br_xrmpe_corpse_4</class>
+   </character>
+   <character id="df_br_xrmpe_corpse_5">
+		<class>df_br_xrmpe_corpse_5</class>
+   </character>
+   <character id="xrmpe_corpse_pol_1">
+		<class>xrmpe_corpse_pol_1</class>
+   </character>
+      <character id="xrmpe_corpse_pol_2">
+		<class>xrmpe_corpse_pol_2</class>
+   </character>
+   <character id="xrmpe_corpse_pol_3">
+		<class>xrmpe_corpse_pol_3</class>
+   </character>
+  <character id="xrmpe_corpse_pol_4">
+		<class>xrmpe_corpse_pol_4</class>
+   </character>
+   <character id="xrmpe_corpse_pol_5">
+		<class>xrmpe_corpse_pol_5</class>
+   </character>
+   <character id="xrmpe_corpse_pol_6">
+		<class>xrmpe_corpse_pol_6</class>
+   </character>
+   <character id="xrmpe_corpse_pol_7">
+		<class>xrmpe_corpse_pol_7</class>
+   </character>
+
+	<!-- DEFENCE -->
+	<!-- Df_Catacomb -->
+	<!-- Гарик -->
+	<character id="df_cat_zombied_garik">
+		<class>df_cat_zombied_garik</class>
+	</character>
+	<!-- df_prost_anom -->
+	<character id="df_shizik">
+		<class>df_shizik</class>
+	</character>
+	<!-- df duty -->
+	<character id="df_default_duty_0">
+		<class>df_default_duty_0</class>
+	</character>
+	<character id="df_default_duty_1">
+		<class>df_default_duty_1</class>
+	</character>
+	<character id="df_default_duty_2">
+		<class>df_default_duty_2</class>
+	</character>
+	<character id="df_default_duty_3">
+		<class>df_default_duty_3</class>
+	</character>
+	<character id="df_default_duty_4">
+		<class>df_default_duty_4</class>
+	</character>
+	<!-- df monolith -->
+	<character id="df_default_monolith_0">
+		<class>df_default_monolith_0</class>
+	</character>
+	<character id="df_default_monolith_1">
+		<class>df_default_monolith_1</class>
+	</character>
+	<character id="df_default_monolith_2">
+		<class>df_default_monolith_2</class>
+	</character>
+	<character id="df_default_monolith_3">
+		<class>df_default_monolith_3</class>
+	</character>
+	<character id="df_default_monolith_4">
+		<class>df_default_monolith_4</class>
+	</character>
+	<!-- df bandit -->
+	<character id="df_default_bandit_0">
+		<class>df_default_bandit_0</class>
+	</character>	
+	<character id="df_default_bandit_1">
+		<class>df_default_bandit_1</class>
+	</character>	
+	<character id="df_default_bandit_2">
+		<class>df_default_bandit_2</class>
+	</character>	
+	<character id="df_default_bandit_3">
+		<class>df_default_bandit_3</class>
+	</character>	
+	<character id="df_default_bandit_4">
+		<class>df_default_bandit_4</class>
+	</character>
+	<!-- df mercenary -->
+	<character id="df_default_killer_0">
+		<class>sim_default_killer_0</class>
+	</character>
+	<character id="df_default_killer_1">
+		<class>sim_default_killer_1</class>
+	</character>
+	<character id="df_default_killer_2">
+		<class>df_default_killer_2</class>
+	</character>
+	<character id="df_default_killer_3">
+		<class>df_default_killer_3</class>
+	</character>
+	<character id="df_default_killer_4">
+		<class>df_default_killer_4</class>
+	</character>
+	<!-- df zombied -->
+	<character id="df_default_zombied_0">
+		<class>df_default_zombied_0</class>
+	</character>	
+	<character id="df_default_zombied_1">
+		<class>df_default_zombied_1</class>
+	</character>	
+	<character id="df_default_zombied_2">
+		<class>df_default_zombied_2</class>
+	</character>	
+	<character id="df_default_zombied_3">
+		<class>df_default_zombied_3</class>
+	</character>	
+	<character id="df_default_zombied_4">
+		<class>df_default_zombied_4</class>
+	</character>
+	
+	<character id="xt_ilya_trader">
+		<class>xt_ilya_trader</class>
+		<specific_character>xt_ilya_trader</specific_character>
+	</character>  
+	<character id="xt_jukan">
+		<class>xt_jukan</class>
+		<specific_character>xt_jukan</specific_character>
+	</character>  
+
+    <character id="escape_trader">
+        <class>trader</class>
+        <specific_character>escape_trader</specific_character>
+    </character>
+    <character id="df_arena_enemy_wave_1">
+        <class>df_arena_enemy_wave_1</class>
+    </character>
+    <character id="df_arena_enemy_wave_2">
+        <class>df_arena_enemy_wave_2</class>
+    </character>
+    <character id="df_arena_enemy_wave_3">
+        <class>df_arena_enemy_wave_3</class>
+    </character>
+    <character id="df_arena_enemy_wave_4">
+        <class>df_arena_enemy_wave_4</class>
+    </character>
+    <character id="df_arena_enemy_wave_5">
+        <class>df_arena_enemy_wave_5</class>
+    </character>
+
+</xml>

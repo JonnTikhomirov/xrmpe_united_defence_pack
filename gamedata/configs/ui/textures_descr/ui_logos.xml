@@ -1,0 +1,39 @@
+<w>
+    <file name="ui\ui_logos">
+        <texture id="renegade_big"       x="256" y="201" width="251" height="196" />
+
+        <texture id="merc_logo"          x="579" y="513" width="244" height="238" />
+        <texture id="freedom_logo"       x="23"  y="763" width="238" height="255" />
+        <texture id="stalker_logo"       x="295" y="400" width="260" height="255" />
+        <texture id="bandit_logo"        x="286" y="658" width="280" height="366" />
+        <texture id="csky_logo"          x="574" y="205" width="277" height="304" />
+        <texture id="renegade_logo"      x="12"  y="402" width="276" height="356" />
+
+        <texture id="actor_big"          x="1023" y="1023" width="1" height="1" />
+        <texture id="actor_logo"         x="1023" y="1023" width="1" height="1" />
+        <texture id="logos_big_empty"    x="1023" y="1023" width="1" height="1" />
+
+    </file>
+    <file name="ui\ui_logos_big">
+        <texture id="freedom_big"       x="483" y="241" width="240" height="240" />
+        <texture id="merc_big"          x="242" y="241" width="240" height="240" />
+        <texture id="stalker_big"       x="1" y="241" width="240" height="240" />
+        <texture id="bandit_big"        x="728" y="0" width="240" height="240" />
+        <texture id="csky_big"          x="0" y="0" width="240" height="240" />
+        <texture id="dolg_big"          x="482" y="0" width="240" height="240" />
+        <texture id="monolith_big"      x="0" y="482" width="240" height="240" />
+        <texture id="ecolog_big"        x="724" y="241" width="240" height="240" />
+        <texture id="army_big"          x="241" y="0" width="240" height="240" />
+    </file>
+    <file name="ui\ui_logos_medium">
+        <texture id="freedom_medium"    x="220" y="110" width="110" height="110" />
+        <texture id="merc_medium"       x="110" y="110" width="110" height="110" />
+        <texture id="stalker_medium"    x="0" y="110" width="110" height="110" />
+        <texture id="bandit_medium"     x="330" y="0" width="110" height="110" />
+        <texture id="csky_medium"       x="0" y="0" width="110" height="110" />
+        <texture id="dolg_medium"       x="220" y="0" width="110" height="110" />
+        <texture id="monolith_medium"   x="0" y="220" width="110" height="110" />
+        <texture id="ecolog_medium"     x="330" y="110" width="110" height="110" />
+        <texture id="army_medium"       x="110" y="0" width="110" height="110" />
+    </file>
+</w>

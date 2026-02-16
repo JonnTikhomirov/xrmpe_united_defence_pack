@@ -1,0 +1,46 @@
+[sim_faction]
+GroupControlSection	= 
+$spawn 			= "ai\DO_NOT_USE"
+class			= SCRIPTZN
+;script_binding	= bind_faction.bind
+
+shape_transp_color		= 0, 0, 255, 60 ;0x1800FF00
+shape_edge_color		= 32, 32, 32, 255 ;0xFF202020
+
+[smart_terrain]
+GroupControlSection	= 
+$spawn 			= "ai\smart_terrain"
+;$prefetch 		= 4
+$def_sphere		= 2
+class			= SMRTTRRN
+script_binding	= bind_smart_terrain.bind
+
+shape_transp_color		= 100, 100, 180, 60 ;0x1800FF00
+shape_edge_color		= 32, 32, 32, 255 ;0xFF202020
+
+
+[smart_terrain_stay_time]
+quick   = 2,  5
+medium  = 6,  8
+long    = 12, 14
+default = 10000, 10001
+
+;В simulation.ltx создаете поле [start_position_<имя уровня>]
+;В нем пишите строку <ид сквада> = <имя смарта>, можно указывать несколько смартов через запятую (например для спавна симуляционных сквадов)
+
+;;;;;;;;;;;;;;;;;;;;;;;; xrMPE ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[start_position_df_prost_anom]
+df_prost_anom_durak_squad = df_prost_anom_durak
+
+[start_position_df_zastava]
+df_zastava_duraki_squad = df_zas_r1
+
+[start_position_xrmpe_test]
+freedom_sim_squad_veteran = xt_smart_a1
+
+
+
+; df_ai_test
+;[start_position_df_ai_test]
+;df_ai_test_statist_sq = df_ai_st_test

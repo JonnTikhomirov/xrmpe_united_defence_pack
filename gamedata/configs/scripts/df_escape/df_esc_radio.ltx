@@ -1,0 +1,16 @@
+[ph_heavy]
+
+[collide]
+ignore_static
+
+;[logic]
+;active = ph_button@wait
+
+;[ph_button@wait]
+;anim = $editor
+;tooltip = st_turn_radio_on
+;on_press = ph_button@work %=play_sound(df_pri_radio_theme)%
+
+;[ph_button@work]
+;anim = $editor
+;on_signal = sound_end | ph_button@wait %=stop_sound(df_pri_radio_theme)%

@@ -1,0 +1,1227 @@
+[wpn_sig550]:identity_immunities,weapon_probability,default_weapon_params
+$spawn						= "weapons\sig550"                ; option for Level Editor
+cform                   = skeleton
+class                   = WP_AK74
+description             = st_wpn_sig550_descr
+
+ef_main_weapon_type     = 2
+ef_weapon_type          = 6
+
+tracers                           = on
+tracers_color_ID                  = 2
+
+;-------------------------------------------------------------------------------
+cost                    = 8000
+weapon_class            = assault_rifle        ; Type of the weapon
+inv_weight              = 4.1
+
+upgrades = vartree_sig550_maglock, vartree_sig550_ejector, vartree_sig550_handle, vartree_sig550_foregrip, vartree_sig550_sights, vartree_sig550_mag;, vartree_sig550_bayonet
+installed_upgrades      =
+upgrade_scheme          = upgrade_scheme_sig550
+
+def_hide_bones = scope1, scope2, scope3, scope4, scope5, scope6, light, foregrip_handler, ironsight_rail, flash, laser, ironsight_sight, foregrip_sight, bayonet, foregrip_handler
+def_show_bones = ironsight
+
+def_hide_bones_override_when_gl_attached = foregrip_handler
+
+;-------TTX-----------------------------------------------------------------------
+hit_power				= 0.73, 0.73, 0.73, 0.73
+hit_impulse				= 100
+hit_type				= fire_wound
+fire_distance           = 650
+bullet_speed            = 930         ;начальная скорость пули
+rpm                     = 710
+
+use_aim_bullet          = false                ;Поддерживается ли первая суппер пуля
+time_to_aim             = 3.0
+
+hud                     = wpn_sig550_hud
+
+misfire_probability        = 0.005 ;вероятность осечки при максимальном износе  !!!old - now not working
+;изношенность, при которой появляется шанс осечки
+misfire_start_condition		= 0.5
+;изношеность при которой шанс осечки становится константным
+misfire_end_condition		= 0.1
+;шанс осечки при изношености больше чем misfireStartCondition
+misfire_start_prob	     	= 0.003
+;шанс осечки при изношености больше чем misfireEndCondition
+misfire_end_prob	     	= 0.045
+;увеличение изношености при одиночном выстреле
+condition_shot_dec      	= 0.0002
+;увеличение изношености при выстреле очередью
+condition_queue_shot_dec	= 0.0002
+
+ammo_elapsed            = 30
+ammo_mag_size           = 30
+
+ammo_class              = ammo_5.56x45_ss190, ammo_5.56x45_ap
+grenade_class           = ammo_m209, ammo_m397a1
+grenade_bones 			= wpn_launcher_grenade_blue, wpn_launcher_grenade_red ; !!! количество должно совпадать с количеством типов
+fire_modes              = 1, 3, -1
+launch_speed            = 0
+hand_dependence         = 1
+single_handed           = 0
+
+;-дисперсия-----------------------------------------------------------------------------
+;базовая дисперсия
+fire_dispersion_base    = 0.18        ;угол (в градусах) базовой дисперсии оружия (оружия зажатого в тисках)
+crosshair_inertion		= 7.25
+
+;отдача
+cam_return				= 0
+cam_relax_speed         = 5		; скорость возврата в исходное положение
+cam_relax_speed_ai      = 360	; скорость возврата в исходное положение для AI
+cam_dispersion          = 0.55       ; увеличения угла (в градусах) при первом выстреле
+cam_dispersion_inc      = 0.3       ; увеличениe cam_dispersion с каждым выстрелом
+cam_dispersion_frac     = 1.0       ; frac * angle + rand(-1,1)*(1-frac) * angle
+cam_max_angle           = 50.0       ; максимальный угол отдачи
+cam_max_angle_horz      = 50.0       ; (degree) maximum shot horizontal degree
+cam_step_angle_horz     = 1.5       ; (degree) size of step camera moved in horizontal position while shooting
+
+PDM_disp_base 				= 1.1
+PDM_disp_vel_factor 		= 2.0
+PDM_disp_accel_factor 		= 2.0
+PDM_disp_crouch	 			= 1.0
+PDM_disp_crouch_no_acc 		= 1.0
+
+zoom_cam_relax_speed         = 5     ; scope & ironsight
+zoom_cam_relax_speed_ai      = 360
+zoom_cam_dispersion          = 0.35
+zoom_cam_dispersion_inc      = 0.2
+zoom_cam_dispersion_frac     = 0.8
+zoom_cam_max_angle           = 50.0
+zoom_cam_max_angle_horz      = 50.0
+zoom_cam_step_angle_horz     = 1.3
+
+fire_dispersion_condition_factor = 7        ;увеличение дисперсии в процентах при максимальном износе
+
+;---DOF-------------------------------------------------------------------------
+
+zoom_dof				= 0.5, 1.0, 180
+reload_dof				= 0.0, 0.5, 5, 2
+
+;-------------------------------------------------------------------------------
+
+holder_range_modifier   = 1.0                       ; во сколько раз увеличивается eye_range
+holder_fov_modifier     = 1.0              ; во сколько раз увеличивается eye_fov
+
+min_radius              = 5
+max_radius              = 100
+
+hit_probability_gd_novice  = 0.80
+hit_probability_gd_stalker = 0.80
+hit_probability_gd_veteran = 0.80
+hit_probability_gd_master  = 0.80
+
+;------------------------------------------------------------------------------
+slot                    = 2                ; // secondary
+animation_slot          = 2                ; type of the animation that will be used
+actor_animation_slot	= 32
+use_third_person_anims      = true               ; нужно ли использовать анимацию на мировой модели оружия / есть ли idle анимация
+
+actor_animation_slot_gl_off   = 33
+actor_animation_slot_gl_on    = 34
+
+inv_name                = st_wpn_sig550
+inv_name_short          = st_wpn_sig550
+
+inv_grid_width          = 5
+inv_grid_height         = 2
+inv_grid_x              = 5
+inv_grid_y              = 7
+
+upgr_icon_x			= 594
+upgr_icon_y			= 473
+upgr_icon_width		= 297
+upgr_icon_height   	= 92
+
+kill_msg_x              = 2
+kill_msg_y              = 60
+kill_msg_width          = 80
+kill_msg_height         = 30
+
+;-------------------------------------------------------------------------------
+;---normal                  = 0, 1, 0
+;---direction               = 0, 0, 1
+
+position                = -0.026, -0.097, 0.0
+orientation             = 0, 0, 0
+
+position_new_anm                = -0.046, -0.092, -0.004
+orientation_new_anm             = -10, -8, 7
+
+fire_point              = 0.000000,0.137000,0.649000
+fire_point2             = 0.0, 0.097, 0.722
+
+flame_particles         = weapons\generic_weapon05
+smoke_particles         = weapons\generic_shoot_00
+grenade_flame_particles = weapons\generic_weapon01
+
+shell_point             = -0.020000,0.167000,0.082000
+shell_dir               = 0.0, 0.0, 0.4
+shell_particles         = weapons\generic_shells_r
+
+;--STRAP PARAMETERS-----------------------------------------------------------------
+;под мишкой
+strap_position          = -0.26,-0.11,0.25                        	; position (offset) and orientation of the weapon when it is strapped
+strap_orientation       = -15,-9,110                                	; (3rd person view in degrees)
+strap_bone0             = bip01_spine2
+strap_bone1             = bip01_spine1
+
+visual                  = dynamics\weapons\wpn_sig550\wpn_sig550.ogf
+
+light_disabled		= false
+light_color             = 0.6,0.5,0.3
+light_range             = 5
+light_var_color         = 0.05
+light_var_range         = 0.5
+light_time              = 0.2
+
+ph_mass                 = 4
+
+;addons
+scope_status            = 2 ;0
+silencer_status         = 2 ;0
+grenade_launcher_status = 2
+
+zoom_enabled            = true                                                ; (on,off)zoom mode (right mouse button)
+zoom_rotate_time		= 0.25
+scope_zoom_factor       = 85                                                ; fov for zoom mode
+ironsight_zoom_factor   = 85
+
+silencer_name           = wpn_addon_silencer_m4_2000
+silencer_x              = 196
+silencer_y              = 20
+grenade_launcher_name   = wpn_addon_grenade_launcher_m203
+grenade_launcher_x      = 117
+grenade_launcher_y      = 33
+scopes_sect	        	= scope_aimpoint_sig550, scope_eotech_sig550, scope_elcan_sig550, scope_pn23_sig550
+
+;звуки
+snd_draw                = weapons\ak74u\mechanics\ak74u_draw ;weapons\sig552\mechanics\sig552_draw
+snd_holster             = weapons\ak74u\mechanics\ak74u_hide ;weapons\saiga12\mechanics\saiga12_hide
+snd_shoot		= weapons\silence
+
+snd_empty               = weapons\l85\mechanics\l85_dry_1
+snd_empty1               = weapons\l85\mechanics\l85_dry_2
+snd_empty2               = weapons\l85\mechanics\l85_dry_3
+snd_reload              = weapons\sig552\mechanics\sig552_reload
+snd_reload_empty        = weapons\sig552\mechanics\sig552_reload_empty
+snd_reload_jammed       = weapons\sig552\mechanics\sig552_revival
+snd_reload_jammed_last  = weapons\sig552\mechanics\sig552_revival_last
+snd_shutter           = weapons\sig552\mechanics\sig552_shutter
+snd_shoot_grenade       = weapons\m203\layers\m203_shoot_a_1
+snd_shoot_grenade       = weapons\m203\layers\m203_shoot_a_2
+snd_reload_grenade      = weapons\m203\mechanics\m203_reload
+snd_ammochange_grenade  = weapons\m203\mechanics\m203_change
+snd_aim_start           = weapons\ak74\mechanics\ak74_aim_start
+snd_aim_end             = weapons\ak74\mechanics\ak74_aim_end
+snd_switch_start        = weapons\m203\mechanics\m203_start
+snd_switch_end          = weapons\m203\mechanics\m203_end
+snd_bore				= weapons\draw_silent
+snd_bore1				= weapons\mp5_bore
+snd_switch_firemode     = weapons\mp5\mechanics\mp5_firemode_1
+snd_switch_firemode1    = weapons\mp5\mechanics\mp5_firemode_2
+snd_jammed_click     = weapons\sig552\mechanics\sig552_check
+
+;silencer_flame_particles  = weapons\generic_weapon01
+silencer_smoke_particles   = weapons\generic_shoot_00
+
+snd_silncer_shot        = weapons\silence
+
+snd_shoot_start                = weapons\sig550\layers\sig550_shoot_a_1
+snd_shoot_start1                = weapons\sig550\layers\sig550_shoot_a_2
+snd_shoot_start2                = weapons\sig550\layers\sig550_shoot_a_3
+snd_silencer_shoot_start        = weapons\sig552\layers\sig552_silencer_a_1
+snd_silencer_shoot_start1        = weapons\sig552\layers\sig552_silencer_a_2
+snd_silencer_shoot_start2        = weapons\sig552\layers\sig552_silencer_a_3
+
+snd_shoot_loop            = weapons\sig550\layers\sig550_loop_a
+snd_shoot_loop_tail        = weapons\sig550\layers\sig550_tail_a_1
+snd_shoot_loop_tail1        = weapons\sig550\layers\sig550_tail_a_2
+snd_shoot_loop_tail2        = weapons\sig550\layers\sig550_tail_a_3
+
+snd_silencer_shoot_loop        = weapons\sig550\layers\sig550_silencer_loop_a
+snd_silencer_shoot_loop_tail    = weapons\sig550\layers\sig550_silencer_tail_a_1
+snd_silencer_shoot_loop_tail1    = weapons\sig550\layers\sig550_silencer_tail_a_2
+snd_silencer_shoot_loop_tail2    = weapons\sig550\layers\sig550_silencer_tail_a_3
+
+silencer_light_color    = 0.6,0.5,0.3
+silencer_light_range    = 0.01
+silencer_light_var_color= 0.05
+silencer_light_var_range= 0.01
+silencer_light_time     = 0.01
+
+wanm_shoot_last = shoot
+
+[wpn_sig550_hud]:hud_base
+attach_place_idx	= 0
+item_visual		= dynamics\weapons\wpn_sig550\wpn_sig550_hud
+
+firemode_bones_total = firemode_auto, firemode_single, firemode_triple
+firemode_bones_1 = firemode_single
+firemode_bones_3 = firemode_triple
+firemode_bones_a = firemode_auto
+
+use_advanced_ammo_bones = false
+ammo_params_section = wpn_sig550_ammo_bones
+
+zoom_dof_near = 0.25
+zoom_dof_focus = 0.5
+
+hud_fov = 0.6
+hud_fov_zoom = 0.5
+
+inertion_aim_origin_offset = 0.01
+inertion_aim_speed = 10
+
+hands_position		    = 0.0,0.01,-0.065
+hands_orientation	    = 0.0,0.0,0.0
+
+hands_position_16x9	    = 0.0,0.01,-0.065
+hands_orientation_16x9	    = 0.0,0.0,0.0
+
+item_position		    = 0.0,0.0,0.0
+item_orientation	    = 0.0,0.0,0.0
+
+aim_hud_offset_pos = 0.000300,0.0022,0.000000
+aim_hud_offset_rot = 0.004500,0.000000,0.00000
+
+aim_hud_offset_pos_16x9 = 0.000300,0.0022,0.000000
+aim_hud_offset_rot_16x9 = 0.004500,0.000000,0.00000
+
+gl_hud_offset_pos = 0.001000,0.022289,-0.03
+gl_hud_offset_rot = 0.043,0.0,0.0
+
+gl_hud_offset_pos_16x9 = 0.001000,0.022289,-0.03
+gl_hud_offset_rot_16x9 = 0.043,0.0,0.0
+
+lean_hud_offset_pos        = 0,0,0
+lean_hud_offset_rot        = 0,0,0
+
+shell_point		           = 0.0,-9.0,0.0
+shell_dir                  = 0.0,0.0,0.0
+shell_bone	               = bolt
+
+fire_point		   = 0,0.052,0.818
+fire_bone      	   = wpn_body
+fire_point2		   = 0,-0.034,0.586
+fire_bone2		   = wpn_body
+
+disable_bore = true                                            ;отключение анимации скуки
+
+;Доставание///////////////////////////////////////////////////
+anm_show                   = sg550_draw
+anm_show_empty             = sg550_draw, idle_empty
+anm_show_jammed            = sg550_draw, idle_jammed
+anm_show_w_gl              = sg550_gloff_draw 
+anm_show_empty_w_gl        = sg550_gloff_draw, idle_empty 
+anm_show_jammed_w_gl       = sg550_gloff_draw, idle_jammed 
+anm_show_g                 = sg550_glon_draw, sg550_glon_idle
+anm_show_empty_g           = sg550_glon_draw, sg550_glon_idle_empty
+anm_show_jammed_g          = sg550_glon_draw, sg550_glon_idle_jammed
+
+;Убирание/////////////////////////////////////////////////////
+anm_hide                   = sg550_hide
+anm_hide_empty             = sg550_hide, idle_empty
+anm_hide_jammed            = sg550_hide, idle_jammed
+anm_hide_w_gl              = sg550_gloff_hide
+anm_hide_empty_w_gl        = sg550_gloff_hide, idle_empty
+anm_hide_jammed_w_gl       = sg550_gloff_hide, idle_jammed
+anm_hide_g                 = sg550_glon_hide, sg550_glon_idle
+anm_hide_empty_g           = sg550_glon_hide, sg550_glon_idle_empty
+anm_hide_jammed_g          = sg550_glon_hide, sg550_glon_idle_jammed
+
+;Бездействие//////////////////////////////////////////////////
+anm_idle                            = sg550_idle
+anm_idle_empty                      = sg550_idle, idle_empty
+anm_idle_jammed                     = sg550_idle, idle_jammed
+
+anm_idle_w_gl                            = sg550_gloff_idle
+anm_idle_empty_w_gl                      = sg550_gloff_idle, idle_empty
+anm_idle_jammed_w_gl                     = sg550_gloff_idle, idle_jammed 
+
+anm_idle_g                            = sg550_glon_idle
+anm_idle_empty_g                      = sg550_glon_idle, sg550_glon_idle_empty
+anm_idle_jammed_g                     = sg550_glon_idle, sg550_glon_idle_jammed
+
+;Бездействие в прицеливании///////////////////////////////////
+anm_idle_aim_start             = sg550_aim_start
+anm_idle_aim_start_empty       = sg550_aim_start, sg550_aim_start_empty
+anm_idle_aim_start_jammed      = sg550_aim_start, sg550_aim_start_jammed
+
+anm_idle_aim_start_w_gl        = sg550_gloff_aim_start, sg550_aim_start
+anm_idle_aim_start_empty_w_gl  = sg550_gloff_aim_start, sg550_aim_start_empty
+anm_idle_aim_start_jammed_w_gl = sg550_gloff_aim_start, sg550_aim_start_jammed
+
+anm_idle_aim_start_g           = sg550_glon_aim_start, sg550_glon_idle
+anm_idle_aim_start_empty_g     = sg550_glon_aim_start, sg550_glon_idle_empty
+anm_idle_aim_start_jammed_g    = sg550_glon_aim_start, sg550_glon_idle_jammed
+
+
+anm_idle_aim                   = sg550_aim
+anm_idle_aim_empty             = sg550_aim, sg550_aim_empty
+anm_idle_aim_jammed            = sg550_aim, sg550_aim_jammed
+anm_idle_aim_scope             = sg550_aim
+anm_idle_aim_scope_empty       = sg550_aim, sg550_aim_empty
+anm_idle_aim_scope_jammed      = sg550_aim, sg550_aim_jammed
+
+anm_idle_aim_w_gl                = sg550_gloff_aim, sg550_aim
+anm_idle_aim_empty_w_gl          = sg550_gloff_aim, sg550_aim_empty
+anm_idle_aim_jammed_w_gl         = sg550_gloff_aim, sg550_aim_jammed
+anm_idle_aim_scope_w_gl          = sg550_gloff_aim, sg550_aim
+anm_idle_aim_scope_empty_w_gl    = sg550_gloff_aim, sg550_aim_empty
+anm_idle_aim_scope_jammed_w_gl   = sg550_gloff_aim, sg550_aim_jammed
+
+anm_idle_aim_g                   = sg550_glon_aim, sg550_glon_idle
+anm_idle_aim_empty_g             = sg550_glon_aim, sg550_glon_idle_empty
+anm_idle_aim_jammed_g            = sg550_glon_aim, sg550_glon_idle_jammed
+anm_idle_aim_scope_g             = sg550_glon_aim, sg550_glon_idle
+anm_idle_aim_scope_empty_g       = sg550_glon_aim, sg550_glon_idle_empty
+anm_idle_aim_scope_jammed_g      = sg550_glon_aim, sg550_glon_idle_jammed
+
+anm_idle_aim_end               = sg550_aim_end
+anm_idle_aim_end_empty         = sg550_aim_end, sg550_aim_end_empty
+anm_idle_aim_end_jammed        = sg550_aim_end, sg550_aim_end_jammed
+
+anm_idle_aim_end_w_gl          = sg550_gloff_aim_end, sg550_aim_end
+anm_idle_aim_end_empty_w_gl    = sg550_gloff_aim_end, sg550_aim_end_empty 
+anm_idle_aim_end_jammed_w_gl   = sg550_gloff_aim_end, sg550_aim_end_jammed
+
+anm_idle_aim_end_g             = sg550_glon_aim_end, sg550_glon_idle
+anm_idle_aim_end_empty_g       = sg550_glon_aim_end, sg550_glon_idle_empty
+anm_idle_aim_end_jammed_g      = sg550_glon_aim_end, sg550_glon_idle_jammed
+
+enable_directions_anm_idle_aim = true
+
+;Ходьба ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving 				        = sg550_walk
+anm_idle_moving_jammed 					= sg550_walk, idle_jammed
+anm_idle_moving_empty					= sg550_walk, idle_empty
+
+anm_idle_moving_w_gl 					= sg550_gloff_walk
+anm_idle_moving_jammed_w_gl 				= sg550_gloff_walk, idle_jammed
+anm_idle_moving_empty_w_gl				= sg550_gloff_walk, idle_empty
+
+anm_idle_moving_g 					= sg550_glon_walk, sg550_glon_idle
+anm_idle_moving_jammed_g 				= sg550_glon_walk, sg550_glon_idle_jammed
+anm_idle_moving_empty_g					= sg550_glon_walk, sg550_glon_idle_empty
+
+;Ходьба медленная (SHIFT) ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving_slow 					= sg550_walk_slow
+anm_idle_moving_slow_jammed 			        = sg550_walk_slow, idle_jammed
+anm_idle_moving_slow_empty				= sg550_walk_slow, idle_empty
+
+anm_idle_moving_slow_w_gl 				= sg550_gloff_walk_slow
+anm_idle_moving_slow_jammed_w_gl 			= sg550_gloff_walk_slow, idle_jammed
+anm_idle_moving_slow_empty_w_gl				= sg550_gloff_walk_slow, idle_empty
+
+anm_idle_moving_slow_g 					= sg550_glon_walk_slow, sg550_glon_idle
+anm_idle_moving_slow_jammed_g 				= sg550_glon_walk_slow, sg550_glon_idle_jammed
+anm_idle_moving_slow_empty_g				= sg550_glon_walk_slow, sg550_glon_idle_empty
+
+;Ходьба в полуприсяди (CTRL) ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving_crouch 					= sg550_walk_slow_down
+anm_idle_moving_crouch_jammed 				= sg550_walk_slow_down, idle_jammed
+anm_idle_moving_crouch_empty				= sg550_walk_slow_down, idle_empty
+
+anm_idle_moving_crouch_w_gl 			        = sg550_gloff_walk_slow_down
+anm_idle_moving_crouch_jammed_w_gl 			= sg550_gloff_walk_slow_down, idle_jammed
+anm_idle_moving_crouch_empty_w_gl			= sg550_gloff_walk_slow_down, idle_empty
+
+anm_idle_moving_crouch_g 				= sg550_glon_walk_slow_down, sg550_glon_idle
+anm_idle_moving_crouch_jammed_g 			= sg550_glon_walk_slow_down, sg550_glon_idle_jammed
+anm_idle_moving_crouch_empty_g				= sg550_glon_walk_slow_down, sg550_glon_idle_empty
+
+;Ходьба в присяде (CTRL+SHIFT) ВПЕРЕД/////////////////////////////////////////////////////////////////////////
+anm_idle_moving_crouch_slow 				= sg550_walk_slow_super
+anm_idle_moving_crouch_slow_jammed 			= sg550_walk_slow_super, idle_jammed
+anm_idle_moving_crouch_slow_empty			= sg550_walk_slow_super, idle_empty
+
+anm_idle_moving_crouch_slow_w_gl 			= sg550_gloff_walk_slow_super
+anm_idle_moving_crouch_slow_jammed_w_gl 		= sg550_gloff_walk_slow_super, idle_jammed
+anm_idle_moving_crouch_slow_empty_w_gl			= sg550_gloff_walk_slow_super, idle_empty
+
+anm_idle_moving_crouch_slow_g 				= sg550_glon_walk_slow_super, sg550_glon_idle
+anm_idle_moving_crouch_slow_jammed_g 			= sg550_glon_walk_slow_super, sg550_glon_idle_jammed
+anm_idle_moving_crouch_slow_empty_g			= sg550_glon_walk_slow_super, sg550_glon_idle_empty
+
+;ходьба в прицеливании ВПЕРЕД//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward                             = sg550_aim_walk, sg550_aim
+anm_idle_aim_moving_forward_empty                       = sg550_aim_walk, sg550_aim_empty
+anm_idle_aim_moving_forward_jammed                      = sg550_aim_walk, sg550_aim_jammed
+
+anm_idle_aim_moving_forward_w_gl                        = sg550_gloff_aim_walk, sg550_aim
+anm_idle_aim_moving_forward_empty_w_gl                  = sg550_gloff_aim_walk, sg550_aim_empty
+anm_idle_aim_moving_forward_jammed_w_gl                 = sg550_gloff_aim_walk, sg550_aim_jammed
+
+anm_idle_aim_moving_forward_g                           = sg550_glon_aim_walk, sg550_glon_idle
+anm_idle_aim_moving_forward_empty_g                     = sg550_glon_aim_walk, sg550_glon_idle_empty
+anm_idle_aim_moving_forward_jammed_g                    = sg550_glon_aim_walk, sg550_glon_idle_jammed
+
+;ходьба в прицеливании НАЗАД//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back                                = sg550_aim_walk, sg550_aim
+anm_idle_aim_moving_back_empty                          = sg550_aim_walk, sg550_aim_empty
+anm_idle_aim_moving_back_jammed                         = sg550_aim_walk, sg550_aim_jammed
+
+anm_idle_aim_moving_back_w_gl                           = sg550_gloff_aim_walk, sg550_aim
+anm_idle_aim_moving_back_empty_w_gl                     = sg550_gloff_aim_walk, sg550_aim_empty
+anm_idle_aim_moving_back_jammed_w_gl                    = sg550_gloff_aim_walk, sg550_aim_jammed
+
+anm_idle_aim_moving_back_g                              = sg550_glon_aim_walk, sg550_glon_idle
+anm_idle_aim_moving_back_empty_g                        = sg550_glon_aim_walk, sg550_glon_idle_empty
+anm_idle_aim_moving_back_jammed_g                       = sg550_glon_aim_walk, sg550_glon_idle_jammed
+
+;ходьба в прицеливании ВЛЕВО//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_left                                = sg550_aim_walk_left, sg550_aim
+anm_idle_aim_moving_left_empty                          = sg550_aim_walk_left, sg550_aim_empty
+anm_idle_aim_moving_left_jammed                         = sg550_aim_walk_left, sg550_aim_jammed
+
+anm_idle_aim_moving_left_w_gl                           = sg550_gloff_aim_walk_left, sg550_aim
+anm_idle_aim_moving_left_empty_w_gl                     = sg550_gloff_aim_walk_left, sg550_aim_empty
+anm_idle_aim_moving_left_jammed_w_gl                    = sg550_gloff_aim_walk_left, sg550_aim_jammed
+
+anm_idle_aim_moving_left_g                              = sg550_glon_aim_walk_left, sg550_glon_idle
+anm_idle_aim_moving_left_empty_g                        = sg550_glon_aim_walk_left, sg550_glon_idle_empty
+anm_idle_aim_moving_left_jammed_g                       = sg550_glon_aim_walk_left, sg550_glon_idle_jammed
+
+;ходьба в прицеливании ВПРАВО//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_right                               = sg550_aim_walk_right, sg550_aim
+anm_idle_aim_moving_right_empty                         = sg550_aim_walk_right, sg550_aim_empty
+anm_idle_aim_moving_right_jammed                        = sg550_aim_walk_right, sg550_aim_jammed
+
+anm_idle_aim_moving_right_w_gl                          = sg550_gloff_aim_walk_right, sg550_aim
+anm_idle_aim_moving_right_empty_w_gl                    = sg550_gloff_aim_walk_right, sg550_aim_empty
+anm_idle_aim_moving_right_jammed_w_gl                   = sg550_gloff_aim_walk_right, sg550_aim_jammed
+
+anm_idle_aim_moving_right_g                             = sg550_glon_aim_walk_right, sg550_glon_idle
+anm_idle_aim_moving_right_empty_g                       = sg550_glon_aim_walk_right, sg550_glon_idle_empty
+anm_idle_aim_moving_right_jammed_g                      = sg550_glon_aim_walk_right, sg550_glon_idle_jammed
+
+;ходьба в прицеливании ВПЕРЕД+ВЛЕВО////////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward_left                        = sg550_aim_walk, sg550_aim
+anm_idle_aim_moving_forward_left_empty                  = sg550_aim_walk, sg550_aim_empty
+anm_idle_aim_moving_forward_left_jammed                 = sg550_aim_walk, sg550_aim_jammed
+
+anm_idle_aim_moving_forward_left_w_gl                   = sg550_gloff_aim_walk, sg550_aim
+anm_idle_aim_moving_forward_left_empty_w_gl             = sg550_gloff_aim_walk, sg550_aim_empty
+anm_idle_aim_moving_forward_left_jammed_w_gl            = sg550_gloff_aim_walk, sg550_aim_jammed
+
+anm_idle_aim_moving_forward_left_g                      = sg550_glon_aim_walk, sg550_glon_idle
+anm_idle_aim_moving_forward_left_empty_g                = sg550_glon_aim_walk, sg550_glon_idle_empty
+anm_idle_aim_moving_forward_left_jammed_g               = sg550_glon_aim_walk, sg550_glon_idle_jammed
+
+
+;ходьба в прицеливании ВПЕРЕД+ВПРАВО///////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward_right                       = sg550_aim_walk, sg550_aim
+anm_idle_aim_moving_forward_right_empty                 = sg550_aim_walk, sg550_aim_empty
+anm_idle_aim_moving_forward_right_jammed                = sg550_aim_walk, sg550_aim_jammed
+
+anm_idle_aim_moving_forward_right_w_gl                  = sg550_gloff_aim_walk, sg550_aim
+anm_idle_aim_moving_forward_right_empty_w_gl            = sg550_gloff_aim_walk, sg550_aim_empty
+anm_idle_aim_moving_forward_right_jammed_w_gl           = sg550_gloff_aim_walk, sg550_aim_jammed
+
+anm_idle_aim_moving_forward_right_g                     = sg550_glon_aim_walk, sg550_glon_idle
+anm_idle_aim_moving_forward_right_empty_g               = sg550_glon_aim_walk, sg550_glon_idle_empty
+anm_idle_aim_moving_forward_right_jammed_g              = sg550_glon_aim_walk, sg550_glon_idle_jammed
+
+;ходьба в прицеливании НАЗАД+ВЛЕВО/////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back_left                           = sg550_aim_walk, sg550_aim
+anm_idle_aim_moving_back_left_empty                     = sg550_aim_walk, sg550_aim_empty
+anm_idle_aim_moving_back_left_jammed                    = sg550_aim_walk, sg550_aim_jammed
+
+anm_idle_aim_moving_back_left_w_gl                      = sg550_gloff_aim_walk, sg550_aim
+anm_idle_aim_moving_back_left_empty_w_gl                = sg550_gloff_aim_walk, sg550_aim_empty
+anm_idle_aim_moving_back_left_jammed_w_gl               = sg550_gloff_aim_walk, sg550_aim_jammed
+
+anm_idle_aim_moving_back_left_g                         = sg550_glon_aim_walk, sg550_glon_idle
+anm_idle_aim_moving_back_left_empty_g                   = sg550_glon_aim_walk, sg550_glon_idle_empty
+anm_idle_aim_moving_back_left_jammed_g                  = sg550_glon_aim_walk, sg550_glon_idle_jammed
+
+;ходьба в прицеливании НАЗАД+ВПРАВО////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back_right                          = sg550_aim_walk, sg550_aim
+anm_idle_aim_moving_back_right_empty                    = sg550_aim_walk, sg550_aim_empty
+anm_idle_aim_moving_back_right_jammed                   = sg550_aim_walk, sg550_aim_jammed
+
+anm_idle_aim_moving_back_right_w_gl                     = sg550_gloff_aim_walk, sg550_aim
+anm_idle_aim_moving_back_right_empty_w_gl               = sg550_gloff_aim_walk, sg550_aim_empty
+anm_idle_aim_moving_back_right_jammed_w_gl              = sg550_gloff_aim_walk, sg550_aim_jammed
+
+anm_idle_aim_moving_back_right_g                        = sg550_glon_aim_walk, sg550_glon_idle
+anm_idle_aim_moving_back_right_empty_g                  = sg550_glon_aim_walk, sg550_glon_idle_empty
+anm_idle_aim_moving_back_right_jammed_g                 = sg550_glon_aim_walk, sg550_glon_idle_jammed
+
+;ходьба в прицеливании при надетом прицеле////////////////////////////////////////////////////
+anm_idle_aim_scope_moving	                        = sg550_aim_walk_scope, sg550_aim
+anm_idle_aim_scope_moving_empty		                = sg550_aim_walk_scope, sg550_aim_empty
+anm_idle_aim_scope_moving_jammed	                = sg550_aim_walk_scope, sg550_aim_jammed
+
+anm_idle_aim_scope_moving_w_gl	                        = sg550_gloff_aim_walk_scope, sg550_aim
+anm_idle_aim_scope_moving_empty_w_gl		        = sg550_gloff_aim_walk_scope, sg550_aim_empty
+anm_idle_aim_scope_moving_jammed_w_gl	                = sg550_gloff_aim_walk_scope, sg550_aim_jammed
+
+;Бег//////////////////////////////////////////////////////////////////
+anm_idle_sprint_start             = sg550_sprint_start
+anm_idle_sprint_start_empty       = sg550_sprint_start, idle_empty
+anm_idle_sprint_start_jammed      = sg550_sprint_start, idle_jammed
+
+anm_idle_sprint_start_w_gl        = sg550_gloff_sprint_start
+anm_idle_sprint_start_empty_w_gl  = sg550_gloff_sprint_start, idle_empty
+anm_idle_sprint_start_jammed_w_gl = sg550_gloff_sprint_start, idle_jammed
+
+anm_idle_sprint_start_g           = sg550_glon_sprint_start, sg550_glon_idle
+anm_idle_sprint_start_empty_g     = sg550_glon_sprint_start, sg550_glon_idle_empty
+anm_idle_sprint_start_jammed_g    = sg550_glon_sprint_start, sg550_glon_idle_jammed
+
+anm_idle_sprint                   = sg550_sprint
+anm_idle_sprint_empty             = sg550_sprint, idle_empty
+anm_idle_sprint_jammed            = sg550_sprint, idle_jammed
+
+anm_idle_sprint_w_gl              = sg550_tac_sprint
+anm_idle_sprint_empty_w_gl        = sg550_tac_sprint, idle_empty
+anm_idle_sprint_jammed_w_gl       = sg550_tac_sprint, idle_jammed
+
+anm_idle_sprint_g                 = sg550_tac_sprint, sg550_glon_idle
+anm_idle_sprint_empty_g           = sg550_tac_sprint, sg550_glon_idle_empty
+anm_idle_sprint_jammed_g          = sg550_tac_sprint, sg550_glon_idle_jammed
+
+anm_idle_sprint_end              = sg550_sprint_end
+anm_idle_sprint_end_empty        = sg550_sprint_end, idle_empty
+anm_idle_sprint_end_jammed       = sg550_sprint_end, idle_jammed
+
+anm_idle_sprint_end_w_gl         = sg550_gloff_sprint_end
+anm_idle_sprint_end_empty_w_gl   = sg550_gloff_sprint_end, idle_empty
+anm_idle_sprint_end_jammed_w_gl  = sg550_gloff_sprint_end, idle_jammed
+
+anm_idle_sprint_end_g            = sg550_glon_sprint_end, sg550_glon_idle
+anm_idle_sprint_end_empty_g      = sg550_glon_sprint_end, sg550_glon_idle_empty
+anm_idle_sprint_end_jammed_g     = sg550_glon_sprint_end, sg550_glon_idle_jammed
+
+;Скука////////////////////////////////////////////////////////////////////
+anm_bore                   = sg550_draw
+anm_bore_empty             = sg550_draw, idle_empty
+anm_bore_jammed            = sg550_draw, idle_jammed
+anm_bore_w_gl              = sg550_gloff_draw
+anm_bore_empty_w_gl        = sg550_gloff_draw, idle_empty
+anm_bore_jammed_w_gl       = sg550_gloff_draw, idle_jammed
+anm_bore_g                 = sg550_glon_draw, sg550_glon_idle
+anm_bore_empty_g           = sg550_glon_draw, sg550_glon_idle_empty
+anm_bore_jammed_g          = sg550_glon_draw, sg550_glon_idle_jammed
+
+;Выстрелы обычными патронами/////////////////////////////////////////////////////////////////////
+anm_shoot                      = sg550_shoot
+anm_shoot_jammed	       = sg550_shoot, idle_jammed
+anm_shoot_last                 = sg550_shoot, sg550_shoot_last
+anm_shoot_aim                  = sg550_aim_shoot
+anm_shoot_aim_jammed	       = sg550_aim_shoot, sg550_aim_jammed
+anm_shoot_aim_last             = sg550_aim_shoot, sg550_aim_shoot_last
+anm_shoot_aim_scope            = sg550_aim_shoot_scope, sg550_aim_shoot
+anm_shoot_aim_scope_last       = sg550_aim_shoot_scope, sg550_aim_shoot_last
+anm_shoot_aim_scope_jammed     = sg550_aim_shoot_scope, sg550_aim_jammed
+
+anm_shoot_w_gl                      = sg550_gloff_shoot
+anm_shoot_jammed_w_gl	            = sg550_gloff_shoot, idle_jammed
+anm_shoot_last_w_gl                 = sg550_gloff_shoot, sg550_shoot_last
+anm_shoot_aim_w_gl                  = sg550_gloff_aim_shoot
+anm_shoot_aim_jammed_w_gl	    = sg550_gloff_aim_shoot, sg550_aim_jammed
+anm_shoot_aim_last_w_gl             = sg550_gloff_aim_shoot, sg550_aim_shoot_last
+anm_shoot_aim_scope_w_gl            = sg550_gloff_aim_shoot_scope, sg550_gloff_aim_shoot
+anm_shoot_aim_scope_last_w_gl       = sg550_gloff_aim_shoot_scope, sg550_aim_shoot_last
+anm_shoot_aim_scope_jammed_w_gl     = sg550_gloff_aim_shoot_scope, sg550_aim_jammed
+
+;Cтрельба с подствола////////////////////////////////////////////////////////////////////
+anm_shoot_g              = sg550_glon_shoot, sg550_glon_idle
+anm_shoot_empty_g        = sg550_glon_shoot, sg550_glon_idle_empty
+anm_shoot_jammed_g       = sg550_glon_shoot, sg550_glon_idle_jammed
+anm_shoot_aim_g          = sg550_glon_aim_shoot, sg550_glon_idle
+anm_shoot_aim_empty_g    = sg550_glon_aim_shoot, sg550_glon_idle_empty
+anm_shoot_aim_jammed_g   = sg550_glon_aim_shoot, sg550_glon_idle_jammed
+
+;Перезарядка подствола///////////////////////////////////////////////////////////////////
+anm_reload_g                   = sg550_gl_reload
+anm_reload_empty_g             = sg550_gl_reload, sg550_gl_reload_empty
+anm_reload_jammed_g            = sg550_gl_reload, sg550_gl_reload_jammed
+anm_reload_ammochange_g                         = sg550_gl_changegrenade
+anm_reload_empty_ammochange_g                   = sg550_gl_changegrenade, sg550_gl_changegrenade_empty
+anm_reload_jammed_ammochange_g                  = sg550_gl_changegrenade, sg550_gl_changegrenade_jammed
+
+;Смена режима огня//////////////////////////////////////////////////////////////////////////
+use_firemode_change_anim = true
+
+;из автоматического в тройные
+anm_changefiremode_from_-1_to_3			                 = sg550_firemode_a_to_1, sg550_firemode_a_to_3
+anm_changefiremode_from_-1_to_3_jammed		             = sg550_firemode_a_to_1, sg550_firemode_a_to_3_jammed
+anm_changefiremode_from_-1_to_3_empty		             = sg550_firemode_a_to_1, sg550_firemode_a_to_3_empty
+
+anm_changefiremode_from_-1_to_3_w_gl			                 = sg550_gloff_firemode_a_to_1, sg550_firemode_a_to_3
+anm_changefiremode_from_-1_to_3_jammed_w_gl		             = sg550_gloff_firemode_a_to_1, sg550_firemode_a_to_3_jammed
+anm_changefiremode_from_-1_to_3_empty_w_gl		             = sg550_gloff_firemode_a_to_1, sg550_firemode_a_to_3_empty
+
+anm_changefiremode_from_-1_to_3_g			             = sg550_glon_firemode_a_to_1, sg550_glon_firemode_a_to_3
+anm_changefiremode_from_-1_to_3_jammed_g		             = sg550_glon_firemode_a_to_1, sg550_glon_firemode_a_to_3_jammed
+anm_changefiremode_from_-1_to_3_empty_g		             = sg550_glon_firemode_a_to_1, sg550_glon_firemode_a_to_3_empty
+
+;из тройных в одиночные
+anm_changefiremode_from_3_to_1			                 = sg550_firemode_a_to_1, sg550_firemode_3_to_1
+anm_changefiremode_from_3_to_1_jammed		             = sg550_firemode_a_to_1, sg550_firemode_3_to_1_jammed
+anm_changefiremode_from_3_to_1_empty		             = sg550_firemode_a_to_1, sg550_firemode_3_to_1_empty
+
+anm_changefiremode_from_3_to_1_w_gl			                 = sg550_gloff_firemode_a_to_1, sg550_firemode_3_to_1
+anm_changefiremode_from_3_to_1_jammed_w_gl		             = sg550_gloff_firemode_a_to_1, sg550_firemode_3_to_1_jammed
+anm_changefiremode_from_3_to_1_empty_w_gl		             = sg550_gloff_firemode_a_to_1, sg550_firemode_3_to_1_empty
+
+anm_changefiremode_from_3_to_1_g			             = sg550_glon_firemode_a_to_1, sg550_glon_firemode_3_to_1
+anm_changefiremode_from_3_to_1_jammed_g		             = sg550_glon_firemode_a_to_1, sg550_glon_firemode_3_to_1_jammed
+anm_changefiremode_from_3_to_1_empty_g		             = sg550_glon_firemode_a_to_1, sg550_glon_firemode_3_to_1_empty
+
+;из одиночных в автоматический
+anm_changefiremode_from_1_to_-1			                 = sg550_firemode_1_to_a
+anm_changefiremode_from_1_to_-1_jammed		             = sg550_firemode_1_to_a, sg550_firemode_1_to_a_jammed
+anm_changefiremode_from_1_to_-1_empty		             = sg550_firemode_1_to_a, sg550_firemode_1_to_a_empty
+
+anm_changefiremode_from_1_to_-1_w_gl			                 = sg550_gloff_firemode_1_to_a, sg550_firemode_1_to_a
+anm_changefiremode_from_1_to_-1_jammed_w_gl		             = sg550_gloff_firemode_1_to_a, sg550_firemode_1_to_a_jammed
+anm_changefiremode_from_1_to_-1_empty_w_gl		             = sg550_gloff_firemode_1_to_a, sg550_firemode_1_to_a_empty
+
+anm_changefiremode_from_1_to_-1_g			             = sg550_glon_firemode_1_to_a
+anm_changefiremode_from_1_to_-1_jammed_g		             = sg550_glon_firemode_1_to_a, sg550_glon_firemode_1_to_a_jammed
+anm_changefiremode_from_1_to_-1_empty_g		             = sg550_glon_firemode_1_to_a, sg550_glon_firemode_1_to_a_empty
+
+;из тройных в автоматический
+anm_changefiremode_from_3_to_-1			                 = sg550_firemode_1_to_a, sg550_firemode_3_to_a
+anm_changefiremode_from_3_to_-1_jammed		             = sg550_firemode_1_to_a, sg550_firemode_3_to_a_jammed
+anm_changefiremode_from_3_to_-1_empty		             = sg550_firemode_1_to_a, sg550_firemode_3_to_a_empty
+
+anm_changefiremode_from_3_to_-1_w_gl			                 = sg550_gloff_firemode_1_to_a, sg550_firemode_3_to_a
+anm_changefiremode_from_3_to_-1_jammed_w_gl		             = sg550_gloff_firemode_1_to_a, sg550_firemode_3_to_a_jammed
+anm_changefiremode_from_3_to_-1_empty_w_gl		             = sg550_gloff_firemode_1_to_a, sg550_firemode_3_to_a_empty
+
+anm_changefiremode_from_3_to_-1_g			             = sg550_glon_firemode_1_to_a, sg550_glon_firemode_3_to_a
+anm_changefiremode_from_3_to_-1_jammed_g		             = sg550_glon_firemode_1_to_a, sg550_glon_firemode_3_to_a_jammed
+anm_changefiremode_from_3_to_-1_empty_g		             = sg550_glon_firemode_1_to_a, sg550_glon_firemode_3_to_a_empty
+
+;из одиночных в тройные
+anm_changefiremode_from_1_to_3			                 = sg550_firemode_1_to_a, sg550_firemode_1_to_3
+anm_changefiremode_from_1_to_3_jammed		             = sg550_firemode_1_to_a, sg550_firemode_1_to_3_jammed
+anm_changefiremode_from_1_to_3_empty		             = sg550_firemode_1_to_a, sg550_firemode_1_to_3_empty
+
+anm_changefiremode_from_1_to_3_w_gl			                 = sg550_gloff_firemode_1_to_a, sg550_firemode_1_to_3
+anm_changefiremode_from_1_to_3_jammed_w_gl		             = sg550_gloff_firemode_1_to_a, sg550_firemode_1_to_3_jammed
+anm_changefiremode_from_1_to_3_empty_w_gl		             = sg550_gloff_firemode_1_to_a, sg550_firemode_1_to_3_empty
+
+anm_changefiremode_from_1_to_3_g			             = sg550_glon_firemode_1_to_a, sg550_glon_firemode_1_to_3
+anm_changefiremode_from_1_to_3_jammed_g		             = sg550_glon_firemode_1_to_a, sg550_glon_firemode_1_to_3_jammed
+anm_changefiremode_from_1_to_3_empty_g		             = sg550_glon_firemode_1_to_a, sg550_glon_firemode_1_to_3_empty
+
+;из автоматического в одиночные
+anm_changefiremode_from_-1_to_1			                 = sg550_firemode_a_to_1
+anm_changefiremode_from_-1_to_1_jammed		             = sg550_firemode_a_to_1, sg550_firemode_a_to_1_jammed
+anm_changefiremode_from_-1_to_1_empty		             = sg550_firemode_a_to_1, sg550_firemode_a_to_1_empty
+
+anm_changefiremode_from_-1_to_1_w_gl			                 = sg550_gloff_firemode_a_to_1, sg550_firemode_a_to_1
+anm_changefiremode_from_-1_to_1_jammed_w_gl		             = sg550_gloff_firemode_a_to_1, sg550_firemode_a_to_1_jammed
+anm_changefiremode_from_-1_to_1_empty_w_gl		             = sg550_gloff_firemode_a_to_1, sg550_firemode_a_to_1_empty
+
+anm_changefiremode_from_-1_to_1_g			             = sg550_glon_firemode_a_to_1
+anm_changefiremode_from_-1_to_1_jammed_g		             = sg550_glon_firemode_a_to_1, sg550_glon_firemode_a_to_1_jammed
+anm_changefiremode_from_-1_to_1_empty_g		             = sg550_glon_firemode_a_to_1, sg550_glon_firemode_a_to_1_empty
+
+;Смена режима огня//////////////////////////////////////////////////////////////////////////
+use_firemode_change_anim = true
+
+;из автоматического в тройные
+anm_changefiremode_from_-1_to_3			                 = sg550_firemode_a_to_1, sg550_firemode_a_to_3
+anm_changefiremode_from_-1_to_3_jammed		             = sg550_firemode_a_to_1, sg550_firemode_a_to_3_jammed
+anm_changefiremode_from_-1_to_3_empty		             = sg550_firemode_a_to_1, sg550_firemode_a_to_3_empty
+
+anm_changefiremode_from_-1_to_3_w_gl			                 = sg550_gloff_firemode_a_to_1, sg550_firemode_a_to_3
+anm_changefiremode_from_-1_to_3_jammed_w_gl		             = sg550_gloff_firemode_a_to_1, sg550_firemode_a_to_3_jammed
+anm_changefiremode_from_-1_to_3_empty_w_gl		             = sg550_gloff_firemode_a_to_1, sg550_firemode_a_to_3_empty
+
+anm_changefiremode_from_-1_to_3_g			             = sg550_glon_firemode_a_to_1, sg550_glon_firemode_a_to_3
+anm_changefiremode_from_-1_to_3_jammed_g		             = sg550_glon_firemode_a_to_1, sg550_glon_firemode_a_to_3_jammed
+anm_changefiremode_from_-1_to_3_empty_g		             = sg550_glon_firemode_a_to_1, sg550_glon_firemode_a_to_3_empty
+
+;из тройных в одиночные
+anm_changefiremode_from_3_to_1			                 = sg550_firemode_a_to_1, sg550_firemode_3_to_1
+anm_changefiremode_from_3_to_1_jammed		             = sg550_firemode_a_to_1, sg550_firemode_3_to_1_jammed
+anm_changefiremode_from_3_to_1_empty		             = sg550_firemode_a_to_1, sg550_firemode_3_to_1_empty
+
+anm_changefiremode_from_3_to_1_w_gl			                 = sg550_gloff_firemode_a_to_1, sg550_firemode_3_to_1
+anm_changefiremode_from_3_to_1_jammed_w_gl		             = sg550_gloff_firemode_a_to_1, sg550_firemode_3_to_1_jammed
+anm_changefiremode_from_3_to_1_empty_w_gl		             = sg550_gloff_firemode_a_to_1, sg550_firemode_3_to_1_empty
+
+anm_changefiremode_from_3_to_1_g			             = sg550_glon_firemode_a_to_1, sg550_glon_firemode_3_to_1
+anm_changefiremode_from_3_to_1_jammed_g		             = sg550_glon_firemode_a_to_1, sg550_glon_firemode_3_to_1_jammed
+anm_changefiremode_from_3_to_1_empty_g		             = sg550_glon_firemode_a_to_1, sg550_glon_firemode_3_to_1_empty
+
+;из одиночных в автоматический
+anm_changefiremode_from_1_to_-1			                 = sg550_firemode_1_to_a
+anm_changefiremode_from_1_to_-1_jammed		             = sg550_firemode_1_to_a, sg550_firemode_1_to_a_jammed
+anm_changefiremode_from_1_to_-1_empty		             = sg550_firemode_1_to_a, sg550_firemode_1_to_a_empty
+
+anm_changefiremode_from_1_to_-1_w_gl			                 = sg550_gloff_firemode_1_to_a, sg550_firemode_1_to_a
+anm_changefiremode_from_1_to_-1_jammed_w_gl		             = sg550_gloff_firemode_1_to_a, sg550_firemode_1_to_a_jammed
+anm_changefiremode_from_1_to_-1_empty_w_gl		             = sg550_gloff_firemode_1_to_a, sg550_firemode_1_to_a_empty
+
+anm_changefiremode_from_1_to_-1_g			             = sg550_glon_firemode_1_to_a
+anm_changefiremode_from_1_to_-1_jammed_g		             = sg550_glon_firemode_1_to_a, sg550_glon_firemode_1_to_a_jammed
+anm_changefiremode_from_1_to_-1_empty_g		             = sg550_glon_firemode_1_to_a, sg550_glon_firemode_1_to_a_empty
+
+;из тройных в автоматический
+anm_changefiremode_from_3_to_-1			                 = sg550_firemode_1_to_a, sg550_firemode_3_to_a
+anm_changefiremode_from_3_to_-1_jammed		             = sg550_firemode_1_to_a, sg550_firemode_3_to_a_jammed
+anm_changefiremode_from_3_to_-1_empty		             = sg550_firemode_1_to_a, sg550_firemode_3_to_a_empty
+
+anm_changefiremode_from_3_to_-1_w_gl			                 = sg550_gloff_firemode_1_to_a, sg550_firemode_3_to_a
+anm_changefiremode_from_3_to_-1_jammed_w_gl		             = sg550_gloff_firemode_1_to_a, sg550_firemode_3_to_a_jammed
+anm_changefiremode_from_3_to_-1_empty_w_gl		             = sg550_gloff_firemode_1_to_a, sg550_firemode_3_to_a_empty
+
+anm_changefiremode_from_3_to_-1_g			             = sg550_glon_firemode_1_to_a, sg550_glon_firemode_3_to_a
+anm_changefiremode_from_3_to_-1_jammed_g		             = sg550_glon_firemode_1_to_a, sg550_glon_firemode_3_to_a_jammed
+anm_changefiremode_from_3_to_-1_empty_g		             = sg550_glon_firemode_1_to_a, sg550_glon_firemode_3_to_a_empty
+
+;из одиночных в тройные
+anm_changefiremode_from_1_to_3			                 = sg550_firemode_1_to_a, sg550_firemode_1_to_3
+anm_changefiremode_from_1_to_3_jammed		             = sg550_firemode_1_to_a, sg550_firemode_1_to_3_jammed
+anm_changefiremode_from_1_to_3_empty		             = sg550_firemode_1_to_a, sg550_firemode_1_to_3_empty
+
+anm_changefiremode_from_1_to_3_w_gl			                 = sg550_gloff_firemode_1_to_a, sg550_firemode_1_to_3
+anm_changefiremode_from_1_to_3_jammed_w_gl		             = sg550_gloff_firemode_1_to_a, sg550_firemode_1_to_3_jammed
+anm_changefiremode_from_1_to_3_empty_w_gl		             = sg550_gloff_firemode_1_to_a, sg550_firemode_1_to_3_empty
+
+anm_changefiremode_from_1_to_3_g			             = sg550_glon_firemode_1_to_a, sg550_glon_firemode_1_to_3
+anm_changefiremode_from_1_to_3_jammed_g		             = sg550_glon_firemode_1_to_a, sg550_glon_firemode_1_to_3_jammed
+anm_changefiremode_from_1_to_3_empty_g		             = sg550_glon_firemode_1_to_a, sg550_glon_firemode_1_to_3_empty
+
+;из автоматического в одиночные
+anm_changefiremode_from_-1_to_1			                 = sg550_firemode_a_to_1
+anm_changefiremode_from_-1_to_1_jammed		             = sg550_firemode_a_to_1, sg550_firemode_a_to_1_jammed
+anm_changefiremode_from_-1_to_1_empty		             = sg550_firemode_a_to_1, sg550_firemode_a_to_1_empty
+
+anm_changefiremode_from_-1_to_1_w_gl			                 = sg550_gloff_firemode_a_to_1, sg550_firemode_a_to_1
+anm_changefiremode_from_-1_to_1_jammed_w_gl		             = sg550_gloff_firemode_a_to_1, sg550_firemode_a_to_1_jammed
+anm_changefiremode_from_-1_to_1_empty_w_gl		             = sg550_gloff_firemode_a_to_1, sg550_firemode_a_to_1_empty
+
+anm_changefiremode_from_-1_to_1_g			             = sg550_glon_firemode_a_to_1
+anm_changefiremode_from_-1_to_1_jammed_g		             = sg550_glon_firemode_a_to_1, sg550_glon_firemode_a_to_1_jammed
+anm_changefiremode_from_-1_to_1_empty_g		             = sg550_glon_firemode_a_to_1, sg550_glon_firemode_a_to_1_empty
+
+;Переключение на патроны/////////////////////////////////////////////////////////////////
+anm_switch                 = sg550_gl_deactivate
+anm_switch_w_gl            = sg550_gl_deactivate
+anm_switch_empty_w_gl      = sg550_gl_deactivate, sg550_gl_deactivate_empty
+anm_switch_jammed_w_gl     = sg550_gl_deactivate, sg550_gl_deactivate_jammed
+
+;Переключение на гранаты/////////////////////////////////////////////////////////////////
+anm_switch_g              = sg550_gl_activate
+anm_switch_empty_g        = sg550_gl_activate, sg550_gl_activate_empty
+anm_switch_jammed_g       = sg550_gl_activate, sg550_gl_activate_jammed
+
+;Осечка//////////////////////////////////////////////////
+anm_fakeshoot_empty                = sg550_dry_empty, idle_empty
+anm_fakeshoot_aim_empty            = sg550_aim_dry, sg550_aim_empty
+anm_fakeshoot_jammed               = sg550_dry, idle_jammed
+anm_fakeshoot_aim_jammed           = sg550_aim_dry, sg550_aim_jammed
+
+anm_fakeshoot_empty_w_gl                = sg550_gloff_dry_empty, idle_empty
+anm_fakeshoot_aim_empty_w_gl            = sg550_gloff_aim_dry, sg550_aim_empty
+anm_fakeshoot_jammed_w_gl               = sg550_gloff_dry, idle_jammed
+anm_fakeshoot_aim_jammed_w_gl           = sg550_gloff_aim_dry, sg550_aim_jammed
+
+anm_fakeshoot_g               = sg550_glon_dry_empty, sg550_glon_idle
+anm_fakeshoot_aim_g           = sg550_glon_aim_dry, sg550_glon_idle
+
+anm_fakeshoot_jammed_g               = sg550_glon_dry_empty, sg550_glon_idle_jammed
+anm_fakeshoot_aim_jammed_g           = sg550_glon_aim_dry, sg550_glon_idle_jammed
+
+anm_fakeshoot_empty_g               = sg550_glon_dry_empty, sg550_glon_idle_empty
+anm_fakeshoot_aim_empty_g           = sg550_glon_aim_dry, sg550_glon_idle_empty
+
+;Перезарядка/////////////////////////////////////////////////////////////////////
+anm_reload                           = sg550_reload
+anm_reload_empty                     = sg550_reload_empty
+anm_reload_jammed                    = sg550_revival
+anm_reload_jammed_last               = sg550_revival_last
+
+anm_reload_w_gl                      = sg550_gloff_reload, sg550_reload
+anm_reload_empty_w_gl                = sg550_gloff_reload_empty, sg550_reload_empty
+anm_reload_jammed_w_gl               = sg550_gloff_revival, sg550_revival
+anm_reload_jammed_last_w_gl          = sg550_gloff_revival_last, sg550_revival_last
+
+;//////////////////////////////////////////////////////////////////////////ТАКТИЧЕСКАЯ РУКОЯТКА////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+[wpn_sig550_handler_hud]:wpn_sig550_hud
+
+item_visual		= dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
+
+anm_suicide			    = sg550_tac_suicide
+anm_stop_suicide 		= sg550_tac_suicide_end
+
+;Доставание///////////////////////////////////////////////////
+anm_show                   = sg550_tac_draw
+anm_show_empty             = sg550_tac_draw, idle_empty
+anm_show_jammed            = sg550_tac_draw, idle_jammed
+
+;Убирание/////////////////////////////////////////////////////
+anm_hide                   = sg550_tac_hide
+anm_hide_empty             = sg550_tac_hide, idle_empty
+anm_hide_jammed            = sg550_tac_hide, idle_jammed
+
+;Бездействие//////////////////////////////////////////////////
+anm_idle                            = sg550_tac_idle
+anm_idle_empty                      = sg550_tac_idle, idle_empty
+anm_idle_jammed                     = sg550_tac_idle, idle_jammed
+
+;Бездействие в прицеливании///////////////////////////////////
+anm_idle_aim_start             = sg550_tac_aim_start, sg550_aim_start
+anm_idle_aim_start_empty       = sg550_tac_aim_start, sg550_aim_start_empty
+anm_idle_aim_start_jammed      = sg550_tac_aim_start, sg550_aim_start_jammed
+anm_idle_aim                   = sg550_tac_aim, sg550_aim
+anm_idle_aim_empty             = sg550_tac_aim, sg550_aim_empty
+anm_idle_aim_jammed            = sg550_tac_aim, sg550_aim_jammed
+anm_idle_aim_scope             = sg550_tac_aim, sg550_aim
+anm_idle_aim_scope_empty       = sg550_tac_aim, sg550_aim_empty
+anm_idle_aim_scope_jammed      = sg550_tac_aim, sg550_aim_jammed
+anm_idle_aim_end               = sg550_tac_aim_end, sg550_aim_end
+anm_idle_aim_end_empty         = sg550_tac_aim_end, sg550_aim_end_empty
+anm_idle_aim_end_jammed        = sg550_tac_aim_end, sg550_aim_end_jammed
+
+;Ходьба ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving 					    = sg550_tac_walk
+anm_idle_moving_jammed 					= sg550_tac_walk, idle_jammed
+anm_idle_moving_empty					= sg550_tac_walk, idle_empty
+
+;Ходьба медленная (SHIFT) ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving_slow 					= sg550_tac_walk_slow
+anm_idle_moving_slow_jammed 			= sg550_tac_walk_slow, idle_jammed
+anm_idle_moving_slow_empty				= sg550_tac_walk_slow, idle_empty
+
+;Ходьба в полуприсяди (CTRL) ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving_crouch 					    = sg550_tac_walk_slow_down
+anm_idle_moving_crouch_jammed 				= sg550_tac_walk_slow_down, idle_jammed
+anm_idle_moving_crouch_empty				= sg550_tac_walk_slow_down, idle_empty
+
+;Ходьба в присяде (CTRL+SHIFT) ВПЕРЕД/////////////////////////////////////////////////////////////////////////
+anm_idle_moving_crouch_slow 				= sg550_tac_walk_slow_super
+anm_idle_moving_crouch_slow_jammed 			= sg550_tac_walk_slow_super, idle_jammed
+anm_idle_moving_crouch_slow_empty			= sg550_tac_walk_slow_super, idle_empty
+
+;ходьба в прицеливании ВПЕРЕД//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward                             = sg550_tac_aim_walk, sg550_aim
+anm_idle_aim_moving_forward_empty                       = sg550_tac_aim_walk, sg550_aim_empty
+anm_idle_aim_moving_forward_jammed                      = sg550_tac_aim_walk, sg550_aim_jammed
+
+;ходьба в прицеливании НАЗАД//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back                                = sg550_tac_aim_walk, sg550_aim
+anm_idle_aim_moving_back_empty                          = sg550_tac_aim_walk, sg550_aim_empty
+anm_idle_aim_moving_back_jammed                         = sg550_tac_aim_walk, sg550_aim_jammed
+
+;ходьба в прицеливании ВЛЕВО//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_left                                = sg550_tac_aim_walk_left, sg550_aim
+anm_idle_aim_moving_left_empty                          = sg550_tac_aim_walk_left, sg550_aim_empty
+anm_idle_aim_moving_left_jammed                         = sg550_tac_aim_walk_left, sg550_aim_jammed
+
+;ходьба в прицеливании ВПРАВО//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_right                               = sg550_tac_aim_walk_right, sg550_aim
+anm_idle_aim_moving_right_empty                         = sg550_tac_aim_walk_right, sg550_aim_empty
+anm_idle_aim_moving_right_jammed                        = sg550_tac_aim_walk_right, sg550_aim_jammed
+
+;ходьба в прицеливании ВПЕРЕД+ВЛЕВО////////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward_left                        = sg550_tac_aim_walk, sg550_aim
+anm_idle_aim_moving_forward_left_empty                  = sg550_tac_aim_walk, sg550_aim_empty
+anm_idle_aim_moving_forward_left_jammed                 = sg550_tac_aim_walk, sg550_aim_jammed
+
+;ходьба в прицеливании ВПЕРЕД+ВПРАВО///////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward_right                       = sg550_tac_aim_walk, sg550_aim
+anm_idle_aim_moving_forward_right_empty                 = sg550_tac_aim_walk, sg550_aim_empty
+anm_idle_aim_moving_forward_right_jammed                = sg550_tac_aim_walk, sg550_aim_jammed
+
+;ходьба в прицеливании НАЗАД+ВЛЕВО/////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back_left                           = sg550_tac_aim_walk, sg550_aim
+anm_idle_aim_moving_back_left_empty                     = sg550_tac_aim_walk, sg550_aim_empty
+anm_idle_aim_moving_back_left_jammed                    = sg550_tac_aim_walk, sg550_aim_jammed
+
+;ходьба в прицеливании НАЗАД+ВПРАВО////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back_right                          = sg550_tac_aim_walk, sg550_aim
+anm_idle_aim_moving_back_right_empty                    = sg550_tac_aim_walk, sg550_aim_empty
+anm_idle_aim_moving_back_right_jammed                   = sg550_tac_aim_walk, sg550_aim_jammed
+
+;ходьба в прицеливании при надетом прицеле////////////////////////////////////////////////////
+anm_idle_aim_scope_moving	                            = sg550_tac_aim_walk_scope, sg550_aim
+anm_idle_aim_scope_moving_empty		                    = sg550_tac_aim_walk_scope, sg550_aim_empty
+anm_idle_aim_scope_moving_jammed	                    = sg550_tac_aim_walk_scope, sg550_aim_jammed
+
+
+;Бег//////////////////////////////////////////////////////////////////
+anm_idle_sprint_start             = sg550_tac_sprint_start
+anm_idle_sprint_start_empty       = sg550_tac_sprint_start, idle_empty
+anm_idle_sprint_start_jammed      = sg550_tac_sprint_start, idle_jammed
+anm_idle_sprint                   = sg550_tac_sprint
+anm_idle_sprint_empty             = sg550_tac_sprint, idle_empty
+anm_idle_sprint_jammed            = sg550_tac_sprint, idle_jammed
+anm_idle_sprint_end               = sg550_tac_sprint_end
+anm_idle_sprint_end_empty         = sg550_tac_sprint_end, idle_empty
+anm_idle_sprint_end_jammed        = sg550_tac_sprint_end, idle_jammed
+
+;Скука////////////////////////////////////////////////////////////////////
+anm_bore                   = sg550_tac_draw
+anm_bore_empty             = sg550_tac_draw, idle_empty
+anm_bore_jammed            = sg550_tac_draw, idle_jammed
+
+;Выстрелы обычными патронами/////////////////////////////////////////////////////////////////////
+anm_shoot                      = sg550_tac_shoot
+anm_shoot_jammed	           = sg550_tac_shoot, idle_jammed
+anm_shoot_last                 = sg550_tac_shoot, sg550_shoot_last
+anm_shoot_aim                  = sg550_tac_aim_shoot
+anm_shoot_aim_jammed	       = sg550_tac_aim_shoot, sg550_aim_jammed
+anm_shoot_aim_last             = sg550_tac_aim_shoot, sg550_aim_shoot_last
+anm_shoot_aim_scope            = sg550_tac_aim_shoot_scope, sg550_aim_shoot
+anm_shoot_aim_scope_last       = sg550_tac_aim_shoot_scope, sg550_aim_shoot_last
+anm_shoot_aim_scope_jammed     = sg550_tac_aim_shoot_scope, sg550_aim_jammed
+
+;Осечка//////////////////////////////////////////////////
+anm_fakeshoot_empty                = sg550_tac_dry_empty, idle_empty
+anm_fakeshoot_aim_empty            = sg550_tac_aim_dry, sg550_aim_empty
+anm_fakeshoot_jammed               = sg550_tac_dry, idle_jammed
+anm_fakeshoot_aim_jammed           = sg550_tac_aim_dry, sg550_aim_jammed
+
+;Перезарядка/////////////////////////////////////////////////////////////////////
+anm_reload                           = sg550_tac_reload, sg550_reload
+anm_reload_empty                     = sg550_tac_reload_empty, sg550_reload_empty
+anm_reload_jammed                    = sg550_tac_revival, sg550_revival
+anm_reload_jammed_last               = sg550_tac_revival_last, sg550_revival_last
+anm_reload_ammochange                = sg550_tac_reload, sg550_reload
+
+;Смена режима огня//////////////////////////////////////////////////////////////////////////
+;a-3
+anm_changefiremode_from_-1_to_3			                 = sg550_tac_firemode_a_to_1, sg550_firemode_a_to_3
+anm_changefiremode_from_-1_to_3_jammed		             = sg550_tac_firemode_a_to_1, sg550_firemode_a_to_3_jammed
+anm_changefiremode_from_-1_to_3_empty		             = sg550_tac_firemode_a_to_1, sg550_firemode_a_to_3_empty
+;3-1
+anm_changefiremode_from_3_to_1			                 = sg550_tac_firemode_a_to_1, sg550_firemode_3_to_1
+anm_changefiremode_from_3_to_1_jammed		             = sg550_tac_firemode_a_to_1, sg550_firemode_3_to_1_jammed
+anm_changefiremode_from_3_to_1_empty		             = sg550_tac_firemode_a_to_1, sg550_firemode_3_to_1_empty
+;1-a
+anm_changefiremode_from_1_to_-1			                 = sg550_tac_firemode_1_to_a, sg550_firemode_1_to_a
+anm_changefiremode_from_1_to_-1_jammed		             = sg550_tac_firemode_1_to_a, sg550_firemode_1_to_a_jammed
+anm_changefiremode_from_1_to_-1_empty		             = sg550_tac_firemode_1_to_a, sg550_firemode_1_to_a_empty
+;3-a
+anm_changefiremode_from_3_to_-1			                 = sg550_tac_firemode_1_to_a, sg550_firemode_3_to_a
+anm_changefiremode_from_3_to_-1_jammed		             = sg550_tac_firemode_1_to_a, sg550_firemode_3_to_a_jammed
+anm_changefiremode_from_3_to_-1_empty		             = sg550_tac_firemode_1_to_a, sg550_firemode_3_to_a_empty
+;1-3
+anm_changefiremode_from_1_to_3			                 = sg550_tac_firemode_1_to_a, sg550_firemode_1_to_3
+anm_changefiremode_from_1_to_3_jammed		             = sg550_tac_firemode_1_to_a, sg550_firemode_1_to_3_jammed
+anm_changefiremode_from_1_to_3_empty		             = sg550_tac_firemode_1_to_a, sg550_firemode_1_to_3_empty
+;a-1
+anm_changefiremode_from_-1_to_1			                 = sg550_tac_firemode_a_to_1, sg550_firemode_a_to_1
+anm_changefiremode_from_-1_to_1_jammed		             = sg550_tac_firemode_a_to_1, sg550_firemode_a_to_1_jammed
+anm_changefiremode_from_-1_to_1_empty		             = sg550_tac_firemode_a_to_1, sg550_firemode_a_to_1_empty
+
+;Разрядка//////////////////////////////////////////////////////////////////////////
+anm_unload_mag                               = sg550_tac_draw, idle_empty
+anm_unload_mag_jammed                        = sg550_tac_draw, idle_jammed  
+anm_unload_mag_empty                         = sg550_tac_draw, idle_empty
+
+;включение налобника//////////////////////////////////////////////////////////////////////////
+anm_headlamp_on                             = sg550_tac_headflash
+anm_headlamp_on_empty                       = sg550_tac_headflash, idle_empty
+anm_headlamp_on_jammed                      = sg550_tac_headflash, idle_jammed
+
+;выключение налобника//////////////////////////////////////////////////////////////////////////
+anm_headlamp_off                            = sg550_tac_headflash
+anm_headlamp_off_empty                      = sg550_tac_headflash, idle_empty
+anm_headlamp_off_jammed                     = sg550_tac_headflash, idle_jammed
+
+;включение пнв//////////////////////////////////////////////////////////////////////////
+anm_nv_on                                   = sg550_tac_headflash
+anm_nv_on_empty                             = sg550_tac_headflash, idle_empty
+anm_nv_on_jammed                            = sg550_tac_headflash, idle_jammed
+
+;выключение пнв//////////////////////////////////////////////////////////////////////////
+anm_nv_off                                  = sg550_tac_headflash
+anm_nv_off_empty                            = sg550_tac_headflash, idle_empty
+anm_nv_off_jammed                           = sg550_tac_headflash, idle_jammed
+
+;Включение ЛЦУ//////////////////////////////////////////////////////////////////////////
+anm_laser_on                                = sg550_tac_lam
+lock_time_start_anm_laser_on = 0.35
+lock_time_end_anm_laser_on = 0.55
+
+anm_laser_on_empty                          = sg550_tac_lam, idle_empty
+lock_time_start_anm_laser_on_empty = 0.35
+lock_time_end_anm_laser_on_empty = 0.55
+
+anm_laser_on_jammed                         = sg550_tac_lam, idle_jammed
+lock_time_start_anm_laser_on_jammed = 0.35
+lock_time_end_anm_laser_on_jammed = 0.55
+
+
+;Выключение ЛЦУ//////////////////////////////////////////////////////////////////////////
+anm_laser_off                               = sg550_tac_lam
+lock_time_start_anm_laser_off = 0.35
+lock_time_end_anm_laser_off = 0.55
+
+anm_laser_off_empty                         = sg550_tac_lam, idle_empty
+lock_time_start_anm_laser_off_empty = 0.35
+lock_time_end_anm_laser_off_empty = 0.55
+
+anm_laser_off_jammed                        = sg550_tac_lam, idle_jammed
+lock_time_start_anm_laser_off_jammed = 0.35
+lock_time_end_anm_laser_off_jammed = 0.55
+
+
+;Включение фонаря//////////////////////////////////////////////////////////////////////////
+anm_torch_on                                = sg550_tac_lam
+lock_time_start_anm_torch_on = 0.35
+lock_time_end_anm_torch_on = 0.55
+
+anm_torch_on_empty                          = sg550_tac_lam, idle_empty
+lock_time_start_anm_torch_on_empty = 0.35
+lock_time_end_anm_torch_on_empty = 0.55
+
+anm_torch_on_jammed                         = sg550_tac_lam, idle_jammed
+lock_time_start_anm_torch_on_jammed = 0.35
+lock_time_end_anm_torch_on_jammed = 0.55
+
+
+;Выключение фонаря//////////////////////////////////////////////////////////////////////////
+anm_torch_off                               = sg550_tac_lam
+lock_time_start_anm_torch_off = 0.35
+lock_time_end_anm_torch_off = 0.55
+
+anm_torch_off_empty                         = sg550_tac_lam, idle_empty
+lock_time_start_anm_torch_off_empty = 0.35
+lock_time_end_anm_torch_off_empty = 0.55
+
+anm_torch_off_jammed                        = sg550_tac_lam, idle_jammed
+lock_time_start_anm_torch_off_jammed = 0.35
+lock_time_end_anm_torch_off_jammed = 0.55
+
+;штык-нож//////////////////////////////////////////////////////////////////////////
+anm_kick = sg550_tac_bayonet
+anm_kick_empty = sg550_tac_bayonet, idle_empty
+anm_kick_jammed = sg550_tac_bayonet, idle_jammed
+
+
+aim_hud_offset_pos = 0.000198,0.002000,0.0
+aim_hud_offset_rot = 0.010000,0.000000,0.000000
+
+aim_hud_offset_pos_16x9 = 0.000198,0.002000,0.0
+aim_hud_offset_rot_16x9 = 0.010000,0.000000,0.000000
+
+[scope_eotech_sig550]
+scope_name 					= wpn_addon_scope_susat_x1.6
+scope_x              	= 72                 ; offset in inventory icon
+scope_y                 = 0
+bone = scope1
+
+overriding_hide_bones = ironsight, ironsight_sight
+overriding_show_bones = ironsight_rail
+
+hud_fov_zoom = 0.5
+use_scope_anims = true ;говорит, что надо использовать анимации с суффиксом _scope в прицеливании с данным прицелом
+
+aim_hud_offset_pos = 0.0001,-0.0221,0.0
+aim_hud_offset_rot = 0.0,0.0,0.0
+
+aim_hud_offset_pos_16x9 = 0.0001,-0.0221,0.0
+aim_hud_offset_rot_16x9 = 0.0,0.0,0.0
+
+gl_hud_offset_pos = 0.001000,0.022289,-0.03
+gl_hud_offset_rot = 0.043,0.0,0.0
+
+gl_hud_offset_pos_16x9 = 0.001000,0.022289,-0.03
+gl_hud_offset_rot_16x9 = 0.043,0.0,0.0
+
+inertion_aim_origin_offset = 0.015
+inertion_aim_speed = 8
+
+[scope_aimpoint_sig550]
+scope_name 					= wpn_addon_scope_susat_dusk
+scope_x              	= 74                ; offset in inventory icon
+scope_y                 = -3
+bone = scope2
+
+overriding_hide_bones = ironsight, ironsight_sight
+overriding_show_bones = ironsight_rail
+
+hud_fov_zoom = 0.5
+use_scope_anims = true ;говорит, что надо использовать анимации с суффиксом _scope в прицеливании с данным прицелом
+
+aim_hud_offset_pos = 0.0002,-0.0253,0.0
+aim_hud_offset_rot = 0.0,0.0,0.0
+
+aim_hud_offset_pos_16x9 = 0.0002,-0.0253,0.0
+aim_hud_offset_rot_16x9 = 0.0,0.0,0.0
+
+gl_hud_offset_pos = 0.001000,0.022289,-0.03
+gl_hud_offset_rot = 0.043,0.0,0.0
+
+gl_hud_offset_pos_16x9 = 0.001000,0.022289,-0.03
+gl_hud_offset_rot_16x9 = 0.043,0.0,0.0
+
+inertion_aim_origin_offset = 0.015
+inertion_aim_speed = 8
+
+[scope_elcan_sig550]
+scope_name 					= wpn_addon_scope_susat_custom
+scope_x              	= 38                ; offset in inventory icon
+scope_y                 = -2
+hud_fov_zoom = 0.5
+use_scope_anims = true ;говорит, что надо использовать анимации с суффиксом _scope в прицеливании с данным прицелом
+
+bone = scope3
+
+overriding_hide_bones = ironsight, ironsight_sight
+overriding_show_bones = ironsight_rail
+
+aim_hud_offset_pos = 0.0,-0.029,-0.12
+aim_hud_offset_rot = 0.0,0.0,0.0
+
+aim_hud_offset_pos_16x9 = 0.0,-0.029,-0.12
+aim_hud_offset_rot_16x9 = 0.0,0.0,0.0
+
+gl_hud_offset_pos = 0.001000,0.022289,-0.03
+gl_hud_offset_rot = 0.043,0.0,0.0
+
+gl_hud_offset_pos_16x9 = 0.001000,0.022289,-0.03
+gl_hud_offset_rot_16x9 = 0.043,0.0,0.0
+
+inertion_aim_origin_offset = 0.015
+inertion_aim_speed = 10
+
+alter_zoom_allowed = true
+hud_fov_alter_zoom_factor = 0.5
+alter_aim_hud_offset_pos = 0.000200,-0.065100,0.050000
+alter_aim_hud_offset_rot = -0.000100,0.000000,0.000000
+
+alter_aim_hud_offset_pos_16x9 = 0.000100,-0.067000,-0.103000
+alter_aim_hud_offset_rot_16x9 = -0.004000,0.000000,0.000000
+
+[scope_pn23_sig550]
+scope_name 					= wpn_addon_scope_susat_night
+scope_x              	= 33                 ; offset in inventory icon
+scope_y                 = -5
+hud_fov_zoom = 0.5
+use_scope_anims = true ;говорит, что надо использовать анимации с суффиксом _scope в прицеливании с данным прицелом
+
+bone = scope4
+
+overriding_hide_bones = ironsight, ironsight_sight
+overriding_show_bones = ironsight_rail
+
+aim_hud_offset_pos =  0.0,-0.05,0.05
+aim_hud_offset_rot = 0.0,0.0,0.0
+
+aim_hud_offset_pos_16x9 =  0.0,-0.05,0.05
+aim_hud_offset_rot_16x9 = 0.0,0.0,0.0
+
+gl_hud_offset_pos = 0.001000,0.022289,-0.03
+gl_hud_offset_rot = 0.043,0.0,0.0
+
+gl_hud_offset_pos_16x9 = 0.001000,0.022289,-0.03
+gl_hud_offset_rot_16x9 = 0.043,0.0,0.0
+
+inertion_aim_origin_offset = 0.015
+inertion_aim_speed = 10 

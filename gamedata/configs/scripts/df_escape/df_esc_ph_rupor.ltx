@@ -1,0 +1,16 @@
+[ph_heavy]
+
+[collide]
+ignore_static
+
+[logic]
+active = ph_idle@start
+
+[ph_idle@start]
+on_info = ph_idle@check %=play_sound(df_esc_kpp_megafon_theme)%
+
+[ph_idle@check]
+on_signal = sound_end | ph_idle@pause %=stop_sound(df_esc_kpp_megafon_theme)%
+
+[ph_idle@pause]
+on_game_timer = 600 | ph_idle@start

@@ -1,0 +1,29 @@
+[logic]
+active = sr_idle@check_start
+
+[sr_idle@check_start]
+on_info = {+DF_ARENA_FIGHT_4_READY +DF_ARENA_FIGHT_START} sr_idle@check_num_players
+
+[sr_idle@check_num_players]
+on_info = {=check_players_count(5)} sr_idle@num_players_4, {=check_players_count(4)} sr_idle@num_players_3, {=check_players_count(3)} sr_idle@num_players_2, {=check_players_count(2)} sr_idle@num_players_1
+
+[sr_idle@num_players_1]
+on_info = sr_idle@teleport_players %=spawn_object(df_arena_enemy_4:df_arena_enemy_sp_01) =spawn_object(df_arena_enemy_4:df_arena_enemy_sp_02) =spawn_object(df_arena_enemy_4:df_arena_enemy_sp_03) =spawn_object(df_arena_enemy_3:df_arena_enemy_sp_04)%
+
+[sr_idle@num_players_2]
+on_info = sr_idle@teleport_players %=spawn_object(df_arena_enemy_4:df_arena_enemy_sp_01) =spawn_object(df_arena_enemy_4:df_arena_enemy_sp_02) =spawn_object(df_arena_enemy_4:df_arena_enemy_sp_03) =spawn_object(df_arena_enemy_3:df_arena_enemy_sp_04) =spawn_object(df_arena_enemy_4:df_arena_enemy_sp_05) =spawn_object(df_arena_enemy_4:df_arena_enemy_sp_06) =spawn_object(df_arena_enemy_4:df_arena_enemy_sp_07) =spawn_object(df_arena_enemy_3:df_arena_enemy_sp_08)%
+
+[sr_idle@num_players_3]
+on_info = sr_idle@teleport_players %=spawn_object(df_arena_enemy_4:df_arena_enemy_sp_01) =spawn_object(df_arena_enemy_4:df_arena_enemy_sp_02) =spawn_object(df_arena_enemy_4:df_arena_enemy_sp_03) =spawn_object(df_arena_enemy_3:df_arena_enemy_sp_04) =spawn_object(df_arena_enemy_4:df_arena_enemy_sp_05) =spawn_object(df_arena_enemy_4:df_arena_enemy_sp_06) =spawn_object(df_arena_enemy_4:df_arena_enemy_sp_07) =spawn_object(df_arena_enemy_3:df_arena_enemy_sp_08) =spawn_object(df_arena_enemy_4:df_arena_enemy_sp_09) =spawn_object(df_arena_enemy_4:df_arena_enemy_sp_10) =spawn_object(df_arena_enemy_4:df_arena_enemy_sp_11) =spawn_object(df_arena_enemy_3:df_arena_enemy_sp_12)%
+
+[sr_idle@num_players_4]
+on_info = sr_idle@teleport_players %=spawn_object(df_arena_enemy_4:df_arena_enemy_sp_01) =spawn_object(df_arena_enemy_4:df_arena_enemy_sp_02) =spawn_object(df_arena_enemy_4:df_arena_enemy_sp_03) =spawn_object(df_arena_enemy_3:df_arena_enemy_sp_04) =spawn_object(df_arena_enemy_4:df_arena_enemy_sp_05) =spawn_object(df_arena_enemy_4:df_arena_enemy_sp_06) =spawn_object(df_arena_enemy_4:df_arena_enemy_sp_07) =spawn_object(df_arena_enemy_3:df_arena_enemy_sp_08) =spawn_object(df_arena_enemy_4:df_arena_enemy_sp_09) =spawn_object(df_arena_enemy_4:df_arena_enemy_sp_10) =spawn_object(df_arena_enemy_4:df_arena_enemy_sp_11) =spawn_object(df_arena_enemy_3:df_arena_enemy_sp_12) =spawn_object(df_arena_enemy_4:df_arena_enemy_sp_13) =spawn_object(df_arena_enemy_4:df_arena_enemy_sp_14) =spawn_object(df_arena_enemy_4:df_arena_enemy_sp_15) =spawn_object(df_arena_enemy_3:df_arena_enemy_sp_16)%
+
+[sr_idle@teleport_players]
+on_info = sr_idle@check_end %=xrmpe_teleport_actors(df_arena_teleport_to_fight_walk:df_arena_teleport_to_fight_look)%
+
+[sr_idle@check_end]
+on_info = {=check_players_count(5) =counter_equal(enemy_dead:16)} sr_idle@end, {=check_players_count(4) =counter_equal(enemy_dead:12)} sr_idle@end, {=check_players_count(3) =counter_equal(enemy_dead:8)} sr_idle@end, {=check_players_count(2) =counter_equal(enemy_dead:4)} sr_idle@end
+
+[sr_idle@end]
+on_info = nil %+DF_ARENA_FIGHT_4_END =set_counter(enemy_dead:0) -DF_ARENA_FIGHT_START%

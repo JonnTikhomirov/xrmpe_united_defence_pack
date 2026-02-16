@@ -1,0 +1,94 @@
+;--- destroyed sections ---------------------------------------------
+
+;--------------------------------------------------------------------
+;--- disable --------------------------------------------------------
+;--------------------------------------------------------------------
+
+[disable]
+linear_factor		= 0.1
+angular_factor		= 0.1
+
+;--------------------------------------------------------------------
+;--- collide --------------------------------------------------------
+;--------------------------------------------------------------------
+
+[collide]
+;not_collide_parts
+
+;--------------------------------------------------------------------
+;--- destroyed part -------------------------------------------------
+;--------------------------------------------------------------------
+
+[destroyed]
+dynamics\el_tehnika\part\vetrogenerator_01_part_01
+dynamics\el_tehnika\part\vetrogenerator_01_part_02
+dynamics\el_tehnika\part\vetrogenerator_01_part_03
+dynamics\el_tehnika\part\vetrogenerator_01_part_04
+dynamics\el_tehnika\part\vetrogenerator_01_part_05
+dynamics\el_tehnika\part\vetrogenerator_01_part_06
+dynamics\el_tehnika\part\vetrogenerator_01_part_07
+dynamics\el_tehnika\part\vetrogenerator_01_part_08
+dynamics\el_tehnika\part\vetrogenerator_01_part_09
+dynamics\el_tehnika\part\vetrogenerator_01_part_10
+dynamics\el_tehnika\part\vetrogenerator_01_part_11
+
+[autoremove_parts]
+time			= 300
+
+;--------------------------------------------------------------------
+;--- damage params --------------------------------------------------
+;--------------------------------------------------------------------
+
+[collision_damage]
+link			= 0.0001
+
+;--------------------------------------------------------------------
+;--- particles ------------------------------------------------------
+;--------------------------------------------------------------------
+
+[particles]
+destroy_particles	= damage_fx\smoke ; damage_fx\effects\body_smoke_01
+
+;--------------------------------------------------------------------
+;--- particle_bones -------------------------------------------------
+;--------------------------------------------------------------------
+
+[particle_bones]
+;link			= 0.0, 6.4, 0.0
+engine			= 0.0, 6.4, 0.0
+
+;--------------------------------------------------------------------
+;--- sound ----------------------------------------------------------
+;--------------------------------------------------------------------
+
+[sound]
+break_sound		= weapons\heli_explosion
+
+;--------------------------------------------------------------------
+;--- damage_bones ---------------------------------------------------
+;--------------------------------------------------------------------
+
+[damage_section]
+;bone_name		= <hit_scale>,<-1>,<wound_scale>
+;<hit_scale>		- коэфф. изменения хита (уменьшения здоровья)
+;<wound_scale>		- коэфф. изменения величины открытой раны - незадействован
+
+default			= 1.0, -1, 0.0
+link			= 1.0, -1, 0.0
+
+[immunities]
+burn_immunity                = 0.0 ; коэффициенты иммунитета
+shock_immunity               = 0.0
+strike_immunity              = 0.0
+wound_immunity               = 0.0
+radiation_immunity           = 0.0
+telepatic_immunity           = 0.0
+chemical_burn_immunity       = 0.0
+explosion_immunity           = 0.5
+fire_wound_immunity          = 0.1
+physic_strike_wound_immunity = 0.0
+wound_2_immunity             = 0.0
+
+;--------------------------------------------------------------------
+;------ end params --------------------------------------------------
+;--------------------------------------------------------------------

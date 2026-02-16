@@ -1,0 +1,30 @@
+{
+  "files.associations": {
+        "*.script": "lua"
+  },
+  "files.autoGuessEncoding": true,
+  "Lua.runtime.version": "Lua 5.1",
+  "Lua.runtime.path": [
+    "?.script",
+    "?/init.script",
+    "gamedata/scripts/?.script"
+  ],
+  "Lua.diagnostics.globals": [
+    "level",
+    "db",
+    "alife",
+    "xr_logic",
+    "game",
+    "device",
+    "time_global",
+    "time_global_ms"
+  ],
+  "Lua.workspace.library": [
+    "gamedata/scripts"
+  ],
+  "Lua.workspace.checkThirdParty": false,
+  "Lua.diagnostics.disable": [
+  "lowercase-global",
+  "undefined-global"
+]
+}

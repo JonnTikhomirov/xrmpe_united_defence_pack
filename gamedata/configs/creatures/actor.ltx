@@ -1,0 +1,581 @@
+[actor_terrain]
+        255,255,000,255
+
+[actor]:common_ph_friction_params_on_npc_death
+$spawn                                         = "actor"
+$ed_icon                                = ed\ed_actor
+$player                                 = on
+cform                   = skeleton
+class                   = S_ACTOR
+money                                        = 15000;
+rank                                        = 3;
+script_binding                        = bind_stalker.actor_init
+visual                            = actors\stalker_mp\stalker_neutral_1.ogf
+destroyed_vis_name                = dynamics\dead_body\skelet_crash
+
+player_hud_section      = actor_hud
+
+terrain                                        = actor_terrain
+
+;---ACCEL---------------------------------------------
+walk_accel              = 8
+wounded_accel           = 6
+
+turn_wounded_coef        = 0.3
+
+walk_back_coef          = 0.9
+walk_crouch_coef        = 0.6
+walk_strafe_coef        = 1.1
+run_coef                = 3.2
+run_back_coef           = 3.1
+run_crouch_coef         = 2.15
+run_strafe_coef            = 1
+;---SAFE MODE ACCEL-----------------------------------
+safe_walk_accel            = 18
+
+climb_coef              = 0.7
+sprint_coef             = 2.0
+
+safe_walk_back_coef        = 0.5
+safe_walk_crouch_coef   = 0.95
+safe_walk_strafe_coef    = 0.9
+safe_run_coef             = 2.2
+safe_run_back_coef        = 1.8
+safe_run_crouch_coef    = 1.15
+safe_run_strafe_coef    = 1
+;-----------------------------------------------------
+
+jump_speed              = 6.0
+max_item_mass           = 35
+air_control_param       = 0.1
+
+show_corpses_dist		= 10
+;радиус в котром над предметами выводятся их названия
+pickup_info_radius                = 5        ;3
+feel_grenade_radius               = 10.0    ;расстояние (в метрах) на котором актер чувствует гранату (любую)
+feel_grenade_time                 = 0.5     ;время гранаты (сек) после которого актер чувствует гранату
+
+ef_creature_type                = 17                                                ; option for evaluation functions
+
+; attach params
+attachable_items                = device_torch,attachable_item,hand_radio
+
+ph_box0_center                  = 0.0,  0.9,  0.0
+ph_box0_size                    = 0.35, 0.9,  0.35
+ph_box1_center                  = 0.0,  0.6,  0.0
+ph_box1_size                    = 0.35, 0.6,  0.35
+ph_box2_center          		= 0.0,  0.65,  0.0
+ph_box2_size            		= 0.45, 0.65,  0.45
+
+stalker_restrictor_radius                        = 0.1;0.75;0.55;0.75;0.9
+stalker_small_restrictor_radius                = 0.1;
+medium_monster_restrictor_radius        = 0.1
+ph_crash_speed_min                              = 17
+ph_crash_speed_max                              = 30
+ph_collision_damage_factor                        = 1.0
+ph_mass                                                         = 80
+
+worldmarker_offset		= 0.0, 0.92, 0.0
+bone_worldmarker		= bip01_spine
+
+weapon_bone0                                = bip01_r_finger1
+weapon_bone1                                = bip01_l_hand
+weapon_bone2                                = bip01_r_finger11
+
+damage                                                = actor_damage
+
+hit_probability_gd_novice	= 1 ;0.20
+hit_probability_gd_stalker	= 1 ;0.30
+hit_probability_gd_veteran	= 1 ;0.40
+hit_probability_gd_master	= 1 ;0.50
+
+snd_last_chance_in 	= actor\ability\last_chance_in
+snd_last_chance_out = actor\ability\last_chance_out
+
+hit_sounds                                        = actor_hit_snds
+motion_sounds                                     = actor_motion_sounds
+;actor condition
+
+immunities_sect                                = actor_immunities_gd_novice
+condition_sect                                = actor_condition
+
+heavy_breath_snd        = actor\breath_1                ;звук тяжелого дыхания при усталости
+heavy_blood_snd         = affects\heartbeat; heart\8
+heavy_danger_snd        = affects\heartbeat
+
+material                                                = creatures\actor
+camera_height_factor                        = 0.92 ;0.85
+
+
+;дисперсия стрельбы с учетом ходьбы и бега
+disp_base                    = 1.0         ;угол (в градусах) разлета пуль, когда актер стоит на месте
+disp_aim                     = 0.0
+disp_vel_factor              = 1.0          ;на сколько увеличится дисперсия при скрости в 10 м/с (не обязательно при беге)
+disp_accel_factor            = 0.0          ;еще на сколько увеличится, если актер бежит (+ скорость)
+disp_crouch_factor           = -0.4         ;уменьшение если актер сидит
+disp_crouch_no_acc_factor    = -0.3         ;уменьшение если актер сидит + no acceleration
+
+body_remove_time = 180000        ;время уничтожения трупа (с учетом TimeFactor)
+
+sleep_time_factor                        = 1000        ;400                ;во сколько раз время идет быстрее, когда актер спит
+max_sleep_hours                                = 12
+;species of monster
+species                                = actor
+
+
+;---STEP MANAGER------------------------------------------------------
+LegsCount                                                = 2
+step_params                                                = actor_step_manager
+foot_bones                                                = stalker_foot_bones
+
+; visibility parameters
+DynamicObjectsCount                        = 32
+min_view_distance                   = 1.0                                ; коэффициент, который множится на eye_range, в зависимости от угла
+max_view_distance                         = 1.0                                ; коэффициент, который множится на eye_range, в зависимости от угла
+visibility_threshold                 = 1.0                                ; значение, при достижении суммой которого объект считается видимым
+always_visible_distance         = 1.0
+time_quant                                        = 0.005
+decrease_value                                = 0.1                                ; значение, на которое уменьшается вес, если объект попал в фрустум, но отсёкся по каким-то причинам
+velocity_factor                             = 0.5
+luminocity_factor                        = 0.5;0                         ; фактор освещения (только для Актёра)
+transparency_threshold                 = 0.4                                ; 0.25
+still_visible_time                        = 5000                                ; время, которое объект всё ещё считается видимым, даже если он уже не во фрустуме
+
+quick_item_1 = mp_medkit
+quick_item_2 = energy_drink
+quick_item_3 = mp_antirad
+quick_item_4 = conserva
+
+[actor_immunities_gd_novice]
+burn_immunity           = 0.3 ;0.45                                ;коэффициенты иммунитета
+strike_immunity         = 0.3 ;0.45
+shock_immunity          = 0.3 ;0.45
+wound_immunity          = 0.05 ;0.45
+radiation_immunity      = 0.3 ;0.45
+telepatic_immunity      = 0.3 ;0.45
+chemical_burn_immunity  = 0.3 ;0.45
+explosion_immunity      = 0.05 ;0.45
+fire_wound_immunity 	= 0.15
+
+[actor_immunities_gd_stalker]
+burn_immunity           = 0.7                               ;коэффициенты иммунитета
+strike_immunity         = 0.5
+shock_immunity          = 0.7
+wound_immunity          = 0.15
+radiation_immunity      = 0.7
+telepatic_immunity      = 0.7
+chemical_burn_immunity  = 0.7
+explosion_immunity      = 0.15
+fire_wound_immunity 	= 0.5 ;0.65
+
+[actor_immunities_gd_veteran]
+burn_immunity           = 0.85                                ;коэффициенты иммунитета
+strike_immunity         = 0.75
+shock_immunity          = 0.85
+wound_immunity          = 0.5
+radiation_immunity      = 0.85
+telepatic_immunity      = 0.85	
+chemical_burn_immunity  = 0.85
+explosion_immunity      = 0.5
+fire_wound_immunity     = 0.75		
+
+[actor_immunities_gd_master]
+burn_immunity           = 1.0                                ;коэффициенты иммунитета
+strike_immunity         = 1.0
+shock_immunity          = 1.0
+wound_immunity          = 0.75
+radiation_immunity		= 1.0
+telepatic_immunity 		= 1.0
+chemical_burn_immunity 	= 1.0
+explosion_immunity 		= 1.0
+fire_wound_immunity 	= 1.0
+
+[actor_condition]
+satiety_v				= 0.0000162 	;скорость уменьшения сытости со временем
+radiation_v				= 0.0	;скорость уменьшения радиации
+satiety_power_v			= 0.005		;увеличение силы при уменьшении сытости
+satiety_health_v		= 0.0001    ;увеличение здоровья при уменьшении сытости
+satiety_critical		= 0.3       ;критическое значения сытости (в процентах от 0..1) когда здоровье начианает уменьшаться
+radiation_health_v		= 0.002     ;уменьшение здоровья при воздействии радиации
+morale_v				= 0.0001	;скорость восстановления морали
+psy_health_v			= 0.001		;скорость восстановления psy-здоровья
+alcohol_v				= -0.0003
+health_hit_part			= 1.0		;процент хита, уходящий на отнимание здоровья
+power_hit_part			= 0.1		;процент хита, уходящий на отнимание силы
+max_power_leak_speed	= 0.0		;накопление усталости (макс граница, до которой восстанавливается сила) в секунду игрового времени
+max_walk_weight			= 60
+
+bleeding_v 				= 0.002	 ;0.0005	;потеря крови при номинальной ране в секунду
+
+wound_incarnation_v		= 0.0003 ;0.003     ;скорость заживления раны
+min_wound_size 			= 0.0256	;минимальный размер раны, после которого она считается зажившей
+
+;--when actor in sleep
+satiety_v_sleep          = 0.00001
+radiation_v_sleep        = 0.0003
+satiety_power_v_sleep    = 0.0001
+satiety_health_v_sleep   = 0.00001
+radiation_health_v_sleep = 0.001
+morale_v_sleep           = 0.0
+psy_health_v_sleep       = 0.0
+
+alcohol_v_sleep               = -0.0005
+
+bleeding_v_sleep              = 0.0
+wound_incarnation_v_sleep     = 0.0
+max_power_leak_speed_sleep    = -0.00001;
+health_restore_v              = 0.0001
+
+;;;;;;;;
+;actor_condition only
+
+jump_power 				= 0.01 ;умешьшение силы с прыжком без учета веса ноши
+jump_weight_power       = 0.05  ;0.045                                        ;умешьшение силы с прыжком с учетом веса ноши, для максимального допустимого веса
+overweight_jump_k       = 5		;10                ;10                                        ;коэффициент влияние перегрузки прыжок с весом (умножается на jump_weight_power)
+
+stand_power             = -0.0011
+walk_power              = 0.00002  ;0.000012                                ;умешьшение силы за секнду во время ходьбы без учета веса ноши
+walk_weight_power       = 0.0002   ;0.0001;                        ;умешьшение силы за секнду во время ходьбы с учетом веса ноши, для максимального допустимого веса
+overweight_walk_k       = 5			;9        ;10                                ;коэффициент влияние перегрузки ноши (умножается на walk_weight_power)
+accel_k                 = 3			;5                                        ;коэффициент на бег (умножается walk_power, walk_weight_power)
+sprint_k                = 100 ;75        ;коэффициент на "sprint" бег (умножается walk_power, walk_weight_power)
+
+; хромота
+limping_health_begin =        0.4                ;порог здоровья меньше которого актер начинает хромать
+limping_health_end   =        0.45                ;порог здоровья больше которого актер перестает хромать
+limping_power_begin  =        0.1                ;порог силы меньше которого актер начинает хромать
+limping_power_end         =        0.2                ;порог силы больше которого актер перестает хромать
+use_limping_state         = on
+
+cant_walk_power_begin =        0.01        ;порог силы меньше которого актер не может двигаться
+cant_walk_power_end   =        0.10        ;порог силы больше которого актер сможет двигаться
+
+cant_sprint_power_begin =        0.10        ;порог силы меньше которого актер не может бежать в спринте
+cant_sprint_power_end   =        0.30        ;порог силы больше которого актер сможет бежать в спринте
+
+can_sleep_callback                        = dream.can_sleep_callback
+sleep_video_name_callback        = dream.sleep_video_name_callback
+
+radio_zone_max_power		= 0.03			;пределы зон для датчиков и для инвентаря (% защит броников)
+fire_zone_max_power			= 0.2
+acid_zone_max_power			= 0.2
+psi_zone_max_power			= 0.1
+electra_zone_max_power		= 0.8
+
+max_power_restore_speed		= 0.020
+;max_fire_wound_protection	= 1.45
+;max_wound_protection		= 0.5
+
+hud_health_blink        = 0.05
+
+
+[actor_thd_gd_novice]				; Секция настроек неодноударного убийства для сложности novice
+killing_hit_treshold		= 0.2	; Если наносится потенциально смертельный хит, и у игрока хитов больше, чем killing_hit_treshold,
+last_chance_health			= 0.1	; его хиты уменьшаются до last_chance_health (должно быть меньше, чем killing_hit_treshold) и
+invulnerable_time			= 500	; включается бессмертие на время invulnerable_time (в миллисекундах)
+
+[actor_thd_gd_stalker]				; Секция настроек неодноударного убийства для сложности stalker
+killing_hit_treshold		= 0.2
+last_chance_health			= 0.1
+invulnerable_time			= 500
+
+[actor_thd_gd_veteran]				; Секция настроек неодноударного убийства для сложности veteran
+killing_hit_treshold		= 0.0
+last_chance_health			= 0.0
+invulnerable_time			= 0.0
+
+[actor_thd_gd_master]				; Секция настроек неодноударного убийства для сложности master
+killing_hit_treshold		= 0.0
+last_chance_health			= 0.0
+invulnerable_time			= 0.0
+
+[actor_damage]
+;bone_name                 = <hit_scale>,<fwd_damage_anim_index>,<wound_scale>
+;<hit_scale> - коэфф. изменения хита (уменьшения здоровья)
+;<wound_scale> - коэфф. изменения величины открытой раны
+;-1 - нет анимаций, четный номер - спереди, нечетный номер - сзади, УКАЗЫВАЕТСЯ ТОЛЬКО ПЕРЕДНИЙ!!! ЗАДНИЙ НА АВТОМАТЕ
+default                                  = 1.0, -1, 1.0
+
+bip01_pelvis                             = 1.0, 10, 1.0
+bip01_spine                              = 1.0, 10, 1.0
+bip01_spine1                             = 1.0, 0, 1.0
+bip01_spine2                             = 1.0, 0, 1.0
+bip01_neck                               = 1.0, 0, 1.0
+bip01_head                               = 1.0, 0, 1.0
+eyelid_1                                 = 1.0, 0, 1.0
+eye_left                                 = 1.0, 0, 1.0
+eye_right                                = 1.0, 0, 1.0
+jaw_1                                    = 1.0, 0, 1.0
+
+bip01_l_clavicle                         = 1.0, 4, 1.0
+bip01_l_upperarm                         = 1.0, 4, 1.0
+bip01_l_forearm                          = 1.0, 4, 1.0
+bip01_l_hand                             = 1.0, 4, 3.0
+bip01_l_finger0                          = 0.0, 4, 0.0
+bip01_l_finger01                         = 0.0, 4, 0.0
+bip01_l_finger02                         = 0.0, 4, 0.0
+bip01_l_finger1                          = 0.0, 4, 0.0
+bip01_l_finger11                         = 0.0, 4, 0.0
+bip01_l_finger12                         = 0.0, 4, 0.0
+bip01_l_finger2                          = 0.0, 4, 0.0
+bip01_l_finger21                         = 0.0, 4, 0.0
+bip01_l_finger22                         = 0.0, 4, 0.0
+
+bip01_r_clavicle                         = 1.0, 2, 1.0
+bip01_r_upperarm                         = 1.0, 2, 1.0
+bip01_r_forearm                          = 1.0, 2, 1.0
+bip01_r_hand                             = 1.0, 2, 1.0
+bip01_r_finger0                          = 0.0, 2, 0.0
+bip01_r_finger01                         = 0.0, 2, 0.0
+bip01_r_finger02                         = 0.0, 2, 0.0
+bip01_r_finger1                          = 0.0, 2, 0.0
+bip01_r_finger11                         = 0.0, 2, 0.0
+bip01_r_finger12                         = 0.0, 2, 0.0
+bip01_r_finger2                          = 0.0, 2, 0.0
+bip01_r_finger21                         = 0.0, 2, 0.0
+bip01_r_finger22                         = 0.0, 2, 0.0
+
+bip01_l_thigh                            = 1.0, 8, 1.0
+bip01_l_calf                             = 1.0, 8, 1.0
+bip01_l_foot                             = 1.0, 8, 1.0
+bip01_l_toe0                             = 1.0, 8, 1.0
+bip01_r_thigh                            = 1.0, 6, 1.0
+bip01_r_calf                             = 1.0, 6, 1.0
+bip01_r_foot                             = 1.0, 6, 1.0
+bip01_r_toe0                             = 1.0, 6, 1.0
+
+;m4d dont use this now
+;[actor_animation]
+;углы  дворота ног актера во время стрейфов (в градусах)
+;fwd_l_strafe_yaw    = 5
+;back_l_strafe_yaw   = 5
+;fwd_r_strafe_yaw    = 5
+;back_r_strafe_yaw   = 5
+;l_strafe_yaw        = 0
+;r_strafe_yaw        = 0
+
+
+[actor_hit_snds]
+burn                 =weapons\silence
+shock                =actor\damage\electra\electra_1, actor\damage\electra\electra_2, actor\damage\electra\electra_3, actor\damage\electra\electra_4, actor\damage\electra\electra_5, actor\damage\electra\electra_6    ;электра
+strike               =actor\damage\fall\fall_1, actor\damage\fall\fall_2, actor\damage\fall\fall_3
+wound                =actor\damage\fall\fall_1, actor\damage\fall\fall_2, actor\damage\fall\fall_3     ;actor\damage\physical\physical_1, actor\damage\physical\physical_2, actor\damage\physical\physical_3, actor\damage\physical\physical_4, actor\damage\physical\physical_5    ;физ. урон
+radiation            =weapons\silence
+telepatic            =actor\damage\fall\fall_1, actor\damage\fall\fall_2, actor\damage\fall\fall_3
+fire_wound           =material\bullet\collide\body\bullethit_body_1, material\bullet\collide\body\bullethit_body_2, material\bullet\collide\body\bullethit_body_3, material\bullet\collide\body\bullethit_body_4, material\bullet\collide\body\bullethit_body_5, material\bullet\collide\body\bullethit_body_6   ;урон от пуль
+; actor\pain_1,actor\pain_3,actor\pain_4,actor\pain_5,actor\pain_6,actor\pain_7,actor\pain_8
+chemical_burn        =actor\damage\chemical\chemical_1, actor\damage\chemical\chemical_2, actor\damage\chemical\chemical_3, actor\damage\chemical\chemical_4, actor\damage\chemical\chemical_5, actor\damage\chemical\chemical_6, actor\damage\chemical\chemical_7    ;урон от киселя
+explosion            =affects\tinnitus_explosion
+flash            	 =affects\tinnitus_flash
+wound_2              =weapons\silence
+light_burn           =actor\damage\fire\fire_1; actor\damage\fire\fire_2, actor\damage\fire\fire_3, actor\damage\fire\fire_4, actor\damage\fire\fire_5, actor\damage\fire\fire_6    ;урон от огня
+
+[actor_motion_sounds]
+gest_fortunegame = actor\gestures\gestures_rpsgame
+gest_facepalm = actor\gestures\gestures_facepalm
+gest_greeting = actor\gestures\gestures_greeting
+gest_threaten = actor\gestures\gestures_threaten
+gest_claps = actor\gestures\gestures_claps
+gest_payrespect = actor\gestures\gestures_salute
+gest_thumbdown = actor\gestures\gestures_thumbdown
+gest_thumbup = actor\gestures\gestures_thumbup
+crouch_down = actor\actions\crouch_down
+crouch_up = actor\actions\crouch_up
+lookout_l = actor\actions\lookout_start_l
+lookout_r = actor\actions\lookout_start_r
+backout = actor\actions\lookout_end
+jump = actor\actions\jump
+landing = actor\actions\landing
+
+[actor_hud]
+visual         			= dynamics\weapons\wpn_hand\wpn_hand_01
+
+position                = -0.044000,-0.156000,0.100000
+orientation             = -0.500000,1.000000,-2.000000
+
+
+ancor_0        = lead_gun ;r_hand
+ancor_1        = l_hand
+ancor_2        = bip01
+
+[actor_hud_00]:actor_hud ; no outfit
+visual         			= dynamics\weapons\wpn_hand\wpn_hand_00
+[actor_hud_01]:actor_hud ; bandit outfit
+visual         			= dynamics\weapons\wpn_hand\wpn_hand_01
+[actor_hud_02]:actor_hud ; dolg outfit
+visual         			= dynamics\weapons\wpn_hand\wpn_hand_02
+[actor_hud_03]:actor_hud ; svoboda light outfit
+visual         			= dynamics\weapons\wpn_hand\wpn_hand_03
+[actor_hud_04]:actor_hud ; cs mid outfit
+visual         			= dynamics\weapons\wpn_hand\wpn_hand_04
+[actor_hud_05]:actor_hud ; stalker outfit
+visual         			= dynamics\weapons\wpn_hand\wpn_hand_05
+[actor_hud_06]:actor_hud ; military outfit
+visual         			= dynamics\weapons\wpn_hand\wpn_hand_06
+[actor_hud_07]:actor_hud ; scientific outfit
+visual         			= dynamics\weapons\wpn_hand\wpn_hand_07
+[actor_hud_08]:actor_hud ; specops outfit
+visual         			= dynamics\weapons\wpn_hand\wpn_hand_08
+[actor_hud_09]:actor_hud ; svoboda mid outfit
+visual         			= dynamics\weapons\wpn_hand\wpn_hand_09
+[actor_hud_10]:actor_hud ; svoboda scientific outfit
+visual         			= dynamics\weapons\wpn_hand\wpn_hand_10
+[actor_hud_11]:actor_hud ; dolg scientific outfit
+visual         			= dynamics\weapons\wpn_hand\wpn_hand_11
+[actor_hud_12]:actor_hud ; cs light outfit!!!
+visual         			= dynamics\weapons\wpn_hand\wpn_hand_13
+[actor_hud_13]:actor_hud ; svoboda heavy outfit
+visual         			= dynamics\weapons\wpn_hand\wpn_hand_13
+[actor_hud_14]:actor_hud ; dolg heavy outfit
+visual         			= dynamics\weapons\wpn_hand\wpn_hand_14
+[actor_hud_15]:actor_hud ; novice outfit
+visual         			= dynamics\weapons\wpn_hand\wpn_hand_15
+[actor_hud_16]:actor_hud ; white novice outfit
+visual         			= dynamics\weapons\wpn_hand\wpn_hand_16
+[actor_hud_17]:actor_hud ; ecolog outfit
+visual         			= dynamics\weapons\wpn_hand\wpn_hand_17
+[actor_hud_18]:actor_hud ; protection outfit
+visual         			= dynamics\weapons\wpn_hand\wpn_hand_18
+[actor_hud_exo]:actor_hud ; exo outfit
+visual         			= dynamics\weapons\wpn_hand\wpn_hand_exo
+[actor_hud_dolg_exo]:actor_hud ; dolg exo outfit
+visual         			= dynamics\weapons\wpn_hand\wpn_hand_dolg_exo
+[actor_hud_svoboda_exo]:actor_hud ; svoboda exo outfit
+visual         			= dynamics\weapons\wpn_hand\wpn_hand_svoboda_exo
+
+[actor_step_manager]
+; order: left, right
+;--------------------------------------------------------------------------
+;	animation				Cycles	| time1 | power1 | time2 | power2 |
+;--------------------------------------------------------------------------
+dmg_norm_escape_0			=	1,	  0.2,	    1.3,   0.65,     1.3
+
+dmg_norm_walk_fwd_1			=	1,	  0.2,	    0.2,   0.65,     0.2
+dmg_norm_run_fwd_1			=	1,	  0.2,	    1,	   0.65,     1
+
+dmg_norm_walk_fwd_0			=	1,	  0.2,	    0.2,   0.65,     0.2
+dmg_norm_walk_back_0		=	1,	  0.2,	    0.2,   0.65,     0.2
+dmg_norm_walk_ls_0			=	1,	  0.2,	    0.2,   0.65,     0.2
+dmg_norm_walk_rs_0			=	1,	  0.2,	    0.2,   0.65,     0.2
+
+dmg_norm_run_fwd_0			=	1,	  0.2,	    1,	   0.65,     1
+dmg_norm_run_back_0			=	1,	  0.2,	    1,	   0.65,     1
+dmg_norm_run_ls_0			=	1,	  0.2,	    1,	   0.65,     1
+dmg_norm_run_rs_0			=	1,	  0.2,	    1,	   0.65,     1
+
+dmg_norm_turn_left_0		=	1,	  0.2,	    0.2,   0.65,     0.2
+dmg_norm_turn_right_0		=	1,	  0.2,	    0.2,   0.65,     0.2
+
+;walk, run, safemode
+
+norm_turn					=	1,	  0.2,	    1.1,   0.65,     1.1
+norm_turn_safe				=	1,	  0.2,	    1.1,   0.65,     1.1
+
+norm_turn_left_0			=	1,	  0.2,	    0.2,   0.65,     0.2
+norm_turn_right_0			=	1,	  0.2,	    0.2,   0.65,     0.2
+
+norm_turn_left_1			=	1,	  0.2,	    0.2,   0.65,     0.2
+norm_turn_right_1			=	1,	  0.2,	    0.2,   0.65,     0.2
+
+norm_run_back_0				=	1,	  0.2,	    0.8,   0.65,     0.8
+norm_run_back_1				=	1,	  0.2,	    0.8,   0.65,     0.8
+norm_run_back_ls_0			=	1,	  0.2,	    0.8,   0.65,     0.8
+norm_run_back_ls_1			=	1,	  0.2,	    0.8,   0.65,     0.8
+norm_run_back_rs_0			=	1,	  0.2,	    0.8,   0.65,     0.8
+norm_run_back_rs_1			=	1,	  0.2,	    0.8,   0.65,     0.8
+
+norm_run_ls_0				=	1,	  0.2,	    0.8,   0.65,     0.8
+norm_run_ls_1				=	1,	  0.2,	    0.8,   0.65,     0.8
+norm_run_rs_0				=	1,	  0.2,	    0.8,   0.65,     0.8
+norm_run_rs_1				=	1,	  0.2,	    0.8,   0.65,     0.8
+
+norm_run_fwd_0				=	1,	  0.2,	    0.9,   0.65,     0.9
+norm_run_fwd_1				=	1,	  0.2,	    0.9,   0.65,     0.9
+norm_run_fwd_ls_0			=	1,	  0.2,	    0.9,   0.65,     0.9
+norm_run_fwd_ls_1			=	1,	  0.2,	    0.9,   0.65,     0.9
+norm_run_fwd_rs_0			=	1,	  0.2,	    0.9,   0.65,     0.9
+norm_run_fwd_rs_1			=	1,	  0.2,	    0.9,   0.65,     0.9
+
+norm_walk_back_0			=	1,	  0.2,	    0.3,   0.65,     0.3
+norm_walk_back_1			=	1,	  0.2,	    0.3,   0.65,     0.3
+norm_walk_back_ls_0			=	1,	  0.2,	    0.3,   0.65,     0.3
+norm_walk_back_ls_1			=	1,	  0.2,	    0.3,   0.65,     0.3
+norm_walk_back_rs_0			=	1,	  0.2,	    0.3,   0.65,     0.3
+norm_walk_back_rs_1			=	1,	  0.2,	    0.3,   0.65,     0.3
+
+norm_walk_ls_0				=	1,	  0.2,	    0.3,   0.65,     0.3
+norm_walk_ls_1				=	1,	  0.2,	    0.3,   0.65,     0.3
+norm_walk_rs_0				=	1,	  0.2,	    0.3,   0.65,     0.3
+norm_walk_rs_1				=	1,	  0.2,	    0.3,   0.65,     0.3
+
+norm_walk_fwd_0				=	1,	  0.2,	    0.3,   0.65,     0.3
+norm_walk_fwd_1				=	1,	  0.2,	    0.3,   0.65,     0.3
+norm_walk_fwd_ls_0			=	1,	  0.2,	    0.3,   0.65,     0.3
+norm_walk_fwd_ls_1			=	1,	  0.2,	    0.3,   0.65,     0.3
+norm_walk_fwd_rs_0			=	1,	  0.2,	    0.3,   0.65,     0.3
+norm_walk_fwd_rs_1			=	1,	  0.2,	    0.3,   0.65,     0.3
+
+norm_escape_00				=	1,	  0.2,	    1.1,   0.65,     1.1
+
+norm_jump_end				=	1,	  0.2,	    1.2,   0.21,     1.2
+
+;crouch
+
+cr_turn						=	1,	  0.2,	    0.1,   0.65,     0.1
+
+cr_turn_left_0				=	1,	  0.2,	    0.1,   0.65,     0.1
+cr_turn_right_0				=	1,	  0.2,	    0.1,   0.65,     0.1
+
+cr_run_back_0				=	1,	  0.2,	    0.25,   0.65,     0.25
+cr_run_back_1				=	1,	  0.2,	    0.25,   0.65,     0.25
+cr_run_back_ls_0			=	1,	  0.2,	    0.25,   0.65,     0.25
+cr_run_back_ls_1			=	1,	  0.2,	    0.25,   0.65,     0.25
+cr_run_back_rs_0			=	1,	  0.2,	    0.25,   0.65,     0.25
+cr_run_back_rs_1			=	1,	  0.2,	    0.25,   0.65,     0.25
+
+cr_run_ls_0					=	1,	  0.2,	    0.25,   0.65,     0.25
+cr_run_ls_1					=	1,	  0.2,	    0.25,   0.65,     0.25
+cr_run_rs_0					=	1,	  0.2,	    0.25,   0.65,     0.25
+cr_run_rs_1					=	1,	  0.2,	    0.25,   0.65,     0.25
+
+cr_run_fwd_0				=	1,	  0.2,	    0.25,   0.65,     0.25
+cr_run_fwd_1				=	1,	  0.2,	    0.25,   0.65,     0.25
+cr_run_fwd_ls_0				=	1,	  0.2,	    0.25,   0.65,     0.25
+cr_run_fwd_ls_1				=	1,	  0.2,	    0.25,   0.65,     0.25
+cr_run_fwd_rs_0				=	1,	  0.2,	    0.25,   0.65,     0.25
+cr_run_fwd_rs_1				=	1,	  0.2,	    0.25,   0.65,     0.25
+
+cr_jump_end					=	1,	  0.2,	    0.65,   0.21,     0.45
+
+;full crouch
+
+cr_walk_back_0				=	1,	  0.2,	    0.2,   0.65,     0.2
+cr_walk_back_1				=	1,	  0.2,	    0.2,   0.65,     0.2
+cr_walk_back_ls_0			=	1,	  0.2,	    0.2,   0.65,     0.2
+cr_walk_back_ls_1			=	1,	  0.2,	    0.2,   0.65,     0.2
+cr_walk_back_rs_0			=	1,	  0.2,	    0.2,   0.65,     0.2
+cr_walk_back_rs_1			=	1,	  0.2,	    0.2,   0.65,     0.2
+																	
+cr_walk_ls_0				=	1,	  0.2,	    0.2,   0.65,     0.2
+cr_walk_ls_1				=	1,	  0.2,	    0.2,   0.65,     0.2
+cr_walk_rs_0				=	1,	  0.2,	    0.2,   0.65,     0.2
+cr_walk_rs_1				=	1,	  0.2,	    0.2,   0.65,     0.2
+
+cr_walk_fwd_0				=	1,	  0.2,	    0.2,   0.65,     0.2
+cr_walk_fwd_1				=	1,	  0.2,	    0.2,   0.65,     0.2
+cr_walk_fwd_ls_0			=	1,	  0.2,	    0.2,   0.65,     0.2
+cr_walk_fwd_ls_1			=	1,	  0.2,	    0.2,   0.65,     0.2
+cr_walk_fwd_rs_0			=	1,	  0.2,	    0.2,   0.65,     0.2
+cr_walk_fwd_rs_1			=	1,	  0.2,	    0.2,   0.65,     0.2
+
+;climb
+
+cl_run_back_0				=	1,	  0.2,	    1,   0.4,     1
+cl_run_fwd_0				=	1,	  0.2,	    1,   0.4,     1
+
+;wounded
+
+wounded_walk_back			=	1,	  0.2,	    0.25,   0.65,     0.25
+wounded_walk_fwd			=	1,	  0.2,	    0.25,   0.65,     0.25
+wounded_walk_l				=	1,	  0.2,	    0.25,   0.65,     0.25
+wounded_walk_r				=	1,	  0.2,	    0.25,   0.65,     0.25

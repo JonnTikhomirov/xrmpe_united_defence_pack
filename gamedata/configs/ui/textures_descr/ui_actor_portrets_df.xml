@@ -1,0 +1,82 @@
+<w>
+    <file name="ui\ui_actor_portrets_df">
+
+        <texture id="ui_actor_p_df_bandit_face_1"       x="0" y="0" width="165" height="108" />
+        <texture id="ui_actor_p_df_bandit_face_2"       x="165" y="0" width="165" height="108" />
+        <texture id="ui_actor_p_df_bandit_face_3"       x="330" y="0" width="165" height="108" />
+        <texture id="ui_actor_p_df_bandit_face_4"       x="495" y="0" width="165" height="108" />
+
+        <texture id="ui_actor_p_df_dolg_face_1"         x="660" y="0" width="165" height="108" />
+        <texture id="ui_actor_p_df_dolg_face_2"         x="825" y="0" width="165" height="108" />
+        <texture id="ui_actor_p_df_dolg_face_3"         x="0" y="108" width="165" height="108" />
+        <texture id="ui_actor_p_df_dolg_face_4"         x="165" y="108" width="165" height="108" />
+        <texture id="ui_actor_p_df_dolg_face_5"         x="330" y="108" width="165" height="108" />
+        <texture id="ui_actor_p_df_dolg_face_6"         x="495" y="108" width="165" height="108" />
+        <texture id="ui_actor_p_df_dolg_face_7"         x="660" y="108" width="165" height="108" />
+        <texture id="ui_actor_p_df_dolg_face_8"         x="825" y="108" width="165" height="108" />
+        <texture id="ui_actor_p_df_dolg_face_9"         x="0" y="216" width="165" height="108" />
+        <texture id="ui_actor_p_df_dolg_face_10"        x="165" y="216" width="165" height="108" />
+        <texture id="ui_actor_p_df_dolg_face_11"        x="330" y="216" width="165" height="108" />
+        <texture id="ui_actor_p_df_dolg_face_12"        x="495" y="216" width="165" height="108" />
+
+        <texture id="ui_actor_p_df_freedom_face_1"      x="660" y="216" width="165" height="108" />
+        <texture id="ui_actor_p_df_freedom_face_2"      x="825" y="216" width="165" height="108" />
+        <texture id="ui_actor_p_df_freedom_face_3"      x="0" y="324" width="165" height="108" />
+        <texture id="ui_actor_p_df_freedom_face_4"      x="165" y="324" width="165" height="108" />
+        <texture id="ui_actor_p_df_freedom_face_5"      x="330" y="324" width="165" height="108" />
+        <texture id="ui_actor_p_df_freedom_face_6"      x="495" y="324" width="165" height="108" />
+        <texture id="ui_actor_p_df_freedom_face_7"      x="660" y="324" width="165" height="108" />
+        <texture id="ui_actor_p_df_freedom_face_8"      x="825" y="324" width="165" height="108" />
+        <texture id="ui_actor_p_df_freedom_face_9"      x="0" y="432" width="165" height="108" />
+        <texture id="ui_actor_p_df_freedom_face_10"     x="165" y="432" width="165" height="108" />
+        <texture id="ui_actor_p_df_freedom_face_11"     x="330" y="432" width="165" height="108" />
+        <texture id="ui_actor_p_df_freedom_face_12"     x="495" y="432" width="165" height="108" />
+
+        <texture id="ui_actor_p_df_monolith_face_1"     x="660" y="432" width="165" height="108" />
+        <texture id="ui_actor_p_df_monolith_face_2"     x="825" y="432" width="165" height="108" />
+        <texture id="ui_actor_p_df_monolith_face_3"     x="0" y="540" width="165" height="108" />
+        <texture id="ui_actor_p_df_monolith_face_4"     x="165" y="540" width="165" height="108" />
+        <texture id="ui_actor_p_df_monolith_face_5"     x="330" y="540" width="165" height="108" />
+        <texture id="ui_actor_p_df_monolith_face_6"     x="495" y="540" width="165" height="108" />
+        <texture id="ui_actor_p_df_monolith_face_7"     x="660" y="540" width="165" height="108" />
+        <texture id="ui_actor_p_df_monolith_face_8"     x="825" y="540" width="165" height="108" />
+        <texture id="ui_actor_p_df_monolith_face_9"     x="0" y="648" width="165" height="108" />
+        <texture id="ui_actor_p_df_monolith_face_10"    x="165" y="648" width="165" height="108" />
+        <texture id="ui_actor_p_df_monolith_face_11"    x="330" y="648" width="165" height="108" />
+        <texture id="ui_actor_p_df_monolith_face_12"    x="495" y="648" width="165" height="108" />
+
+        <texture id="ui_actor_p_df_nebo_face_1"         x="660" y="648" width="165" height="108" />
+        <texture id="ui_actor_p_df_nebo_face_2"         x="825" y="648" width="165" height="108" />
+        <texture id="ui_actor_p_df_nebo_face_3"         x="0" y="756" width="165" height="108" />
+        <texture id="ui_actor_p_df_nebo_face_4"         x="165" y="756" width="165" height="108" />
+        <texture id="ui_actor_p_df_nebo_face_5"         x="330" y="756" width="165" height="108" />
+        <texture id="ui_actor_p_df_nebo_face_6"         x="495" y="756" width="165" height="108" />
+        <texture id="ui_actor_p_df_nebo_face_7"         x="660" y="756" width="165" height="108" />
+
+        <texture id="ui_actor_p_df_neutral_face_1"      x="825" y="756" width="165" height="108" />
+        <texture id="ui_actor_p_df_neutral_face_2"      x="0" y="864" width="165" height="108" />
+        <texture id="ui_actor_p_df_neutral_face_3"      x="165" y="864" width="165" height="108" />
+        <texture id="ui_actor_p_df_neutral_face_4"      x="330" y="864" width="165" height="108" />
+        <texture id="ui_actor_p_df_neutral_face_5"      x="495" y="864" width="165" height="108" />
+        <texture id="ui_actor_p_df_neutral_face_6"      x="660" y="864" width="165" height="108" />
+        <texture id="ui_actor_p_df_neutral_face_7"      x="825" y="864" width="165" height="108" />
+        <texture id="ui_actor_p_df_neutral_face_8"      x="0" y="972" width="165" height="108" />
+        <texture id="ui_actor_p_df_neutral_face_9"      x="165" y="972" width="165" height="108" />
+        <texture id="ui_actor_p_df_neutral_face_10"     x="330" y="972" width="165" height="108" />
+        <texture id="ui_actor_p_df_neutral_face_11"     x="495" y="972" width="165" height="108" />
+        <texture id="ui_actor_p_df_neutral_face_12"     x="660" y="972" width="165" height="108" />
+
+        <texture id="ui_actor_p_df_soldier_face_1"      x="825" y="972" width="165" height="108" />
+        <texture id="ui_actor_p_df_soldier_face_2"      x="0" y="1080" width="165" height="108" />
+        <texture id="ui_actor_p_df_soldier_face_3"      x="165" y="1080" width="165" height="108" />
+        <texture id="ui_actor_p_df_soldier_face_4"      x="330" y="1080" width="165" height="108" />
+        <texture id="ui_actor_p_df_soldier_face_5"      x="495" y="1080" width="165" height="108" />
+        <texture id="ui_actor_p_df_soldier_face_6"      x="660" y="1080" width="165" height="108" />
+        <texture id="ui_actor_p_df_soldier_face_7"      x="825" y="1080" width="165" height="108" />
+        <texture id="ui_actor_p_df_soldier_face_8"      x="0" y="1188" width="165" height="108" />
+
+        <texture id="ui_actor_p_df_ecolog_face_1"       x="165" y="1188" width="165" height="108" />
+        <texture id="ui_actor_p_df_ecolog_face_2"       x="330" y="1188" width="165" height="108" />
+
+    </file>
+</w>

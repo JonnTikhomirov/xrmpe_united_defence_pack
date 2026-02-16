@@ -1,0 +1,47 @@
+{
+    "name": {
+        "en": "Seven pack",
+        "ru": "Seven pack",
+        "ua": "Сім пакетів :)",
+        "by": "Seven pack",
+        "pl": "Siedmiopak"
+    },
+    "description": {
+        "en": "Level for defence mode (xrMPE 0.9): Arena, Aztec Temple, Circus, Blockpost, Limansk, NIICHAZ, Cafe Pripyat, Brain scorch, Shooting range Freedoms, Science camp.",
+        "ru": "Карты для режима обороны (xrMPE 0.9): Арена, Храм Ацтеков, Цирк, Блокпост, Лиманск, НИИЧАЗ, Кафе «Припять», «Выжигатель мозгов», Тир Свободы, Научный лагерь.",
+        "ua": "Карти для режиму оборони (xrMPE 0.9): Арена, Храм Ацтеків, Цирк, Блокпост, Лиманськ, НІІЧАЗ, Кафе «Прип'ять», «Випалювач мозку», Тир Свободи, Науковий табір.",
+        "by": "Карты для рэжыму абароны (xrMPE 0.9): Арэна, Храм Ацтэкаў, Цырк, Блокпост, Ліманск, НІІЧАЗ, Кафэ «Прыпяць», «Выпальвальнік мазгоў», Цір Свабоды, Навуковы лагер.",
+        "pl": "Mapy trybu obrony (xrMPE 0.9): Arena, Świątynia Azteków, Cyrk, Punkt kontrolny, Limańsk, NIICHAZ, Kawiarnia «Prypeć», «Wypalacz mózgu», Strzelnica Wolność, Obóz naukowy."
+    },
+    "modes": ["defence"],
+    "availableMaps": [
+        {"devName": "df_arena",   "name": {"en": "Arena",                   "ru": "Арена",               "ua":"Арена",             "by": "Арэна",                  "pl": "Arena"},
+            "modes": ["df"]},
+        {"devName": "df_aztec",   "name": {"en": "Aztec Temple",            "ru": "Храм Ацтеков",        "ua":"Храм Ацтеків",      "by": "Храм Ацтэкаў",           "pl": "Świątynia Azteków"},
+            "modes": ["df"]},
+        {"devName": "df_cforce",  "name": {"en": "Lev4 CForce",             "ru": "Lev4 CForce",         "ua":"Lev4 CForce",       "by": "Lev4 CForce",            "pl": "Lev4 CForce"},
+            "modes": ["df"]},
+        {"devName": "df_circus",  "name": {"en": "Circus",                  "ru": "Цирк",                "ua":"Цирк",              "by": "Цырк",                   "pl": "Cyrk"},
+            "modes": ["df"]},
+        {"devName": "df_escape",  "name": {"en": "Blockpost",               "ru": "Блокпост",            "ua":"Блокпост",          "by": "Блокпост",               "pl": "Punkt kontrolny"},
+            "modes": ["df"]},
+        {"devName": "df_limansk", "name": {"en": "Limansk",                 "ru": "Лиманск",             "ua":"Лиманськ",          "by": "Ліманск",                "pl": "Limańsk"},
+            "modes": ["df"]},
+        {"devName": "df_niichaz", "name": {"en": "NIICHAZ",                 "ru": "НИИЧАЗ",              "ua":"НІІЧАЗ",            "by": "НІІЧАЗ",                 "pl": "NIICHAZ"},
+            "modes": ["df"]},
+        {"devName": "df_pripyat", "name": {"en": "Cafe Pripyat",            "ru": "Кафе «Припять»",      "ua":"Кафе «Прип'ять»",   "by": "Кафэ «Прыпяць»",         "pl": "Kawiarnia «Prypeć»"},
+            "modes": ["df"]},
+        {"devName": "df_radar",   "name": {"en": "Brain scorch",            "ru": "«Выжигатель мозгов»", "ua":"«Випалювач мозку»", "by": "«Выпальвальнік мазгоў»", "pl": "«Wypalacz mózgu»"},
+            "modes": ["df"]},
+        {"devName": "df_tir",     "name": {"en": "Shooting range Freedoms", "ru": "Тир Свободы",         "ua":"Тир Свободи",       "by": "Цір Свабоды",            "pl": "Strzelnica Wolność"},
+            "modes": ["df"]},
+        {"devName": "df_yantar",  "name": {"en": "Science camp",            "ru": "Научный лагерь",      "ua":"Науковий табір",    "by": "Навуковы лагер",         "pl": "Obóz naukowy"},
+            "modes": ["df"]}
+    ],
+    "coopStartMap": "",
+    "author": "Yaroslav",
+    "icon": "icon",
+    "addonVersion": "v 1.6",
+    "coopStartupArgs": [ "" ],
+    "manifestVersion": "v0.9.0.0b"
+}

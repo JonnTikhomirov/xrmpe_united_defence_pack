@@ -1,0 +1,514 @@
+[wpn_ump45]:wpn_mp5
+$spawn                  = "weapons\ump45"		; option for Level Editor
+inv_name		= st_wpn_ump45
+description		= st_wpn_ump45_descr
+
+cost                    = 5500
+
+hit_power		= 0.54, 0.54, 0.54, 0.54
+bullet_speed            = 275                ; starting bullet speed
+
+inv_weight        = 2.45
+fire_dispersion_base    = 0.26
+rpm                     = 660
+
+ammo_elapsed      = 25
+ammo_mag_size     = 25          
+
+ammo_class		= ammo_11.43x23_fmj, ammo_11.43x23_hydro
+fire_modes		= 1, -1
+
+condition_shot_dec      	= 0.0004
+condition_queue_shot_dec	= 0.0004
+
+upgrades = vartree_ump45_mag_fix, vartree_ump45_zatvor, vartree_ump45_rail, vartree_ump45_handle, vartree_ump45_sights, vartree_ump45_stock, vartree_ump45_sil
+installed_upgrades = 
+upgrade_scheme = upgrade_scheme_ump45
+
+inv_grid_y        = 39
+
+upgr_icon_x		= 1684
+upgr_icon_y		= 121
+upgr_icon_width		= 233
+upgr_icon_height   	= 128
+
+kill_msg_x				= 358
+kill_msg_y              = 60
+kill_msg_width          = 64
+kill_msg_height         = 30
+
+position_new_anm        = -0.035, -0.128, 0.003
+orientation_new_anm     = -2, 4, 2
+
+visual                  = dynamics\weapons\wpn_ump45\wpn_ump45.ogf
+
+;addons
+scope_status            = 2                   ; 0 - no addon
+silencer_status         = 2                   ; 1 - permanent
+grenade_launcher_status = 0                   ; 2 - attachable
+
+silencer_name           = wpn_addon_silencer_colt_p220
+silencer_x              = 150
+silencer_y              = 16
+
+;звук
+
+snd_shoot		= weapons\silence
+snd_reload		= weapons\ump45\mechanics\ump45_reload
+snd_reload_empty        = weapons\ump45\mechanics\ump45_reload_empty
+snd_reload_jammed       = weapons\ump45\mechanics\ump45_revival
+snd_reload_jammed_last       = weapons\ump45\mechanics\ump45_revival
+snd_switch_firemode     = weapons\mp5\mechanics\mp5_firemode_1
+snd_switch_firemode1     = weapons\mp5\mechanics\mp5_firemode_2
+snd_jammed_click     = weapons\ak74u\mechanics\ak74u_check
+
+snd_shoot_start                = weapons\ump45\layers\ump45_shoot_a_1
+snd_shoot_start1                = weapons\ump45\layers\ump45_shoot_a_2
+snd_shoot_start2                = weapons\ump45\layers\ump45_shoot_a_3
+snd_silencer_shoot_start        = weapons\ump45\layers\ump45_silencer_a_1
+snd_silencer_shoot_start1        = weapons\ump45\layers\ump45_silencer_a_2
+snd_silencer_shoot_start2        = weapons\ump45\layers\ump45_silencer_a_3
+
+snd_shoot_loop            = weapons\ump45\layers\ump45_loop_a
+snd_shoot_loop_tail        = weapons\ump45\layers\ump45_tail_a_1
+snd_shoot_loop_tail1        = weapons\ump45\layers\ump45_tail_a_2
+snd_shoot_loop_tail2        = weapons\ump45\layers\ump45_tail_a_3
+
+snd_silencer_shoot_loop        = weapons\ump45\layers\ump45_silencer_loop_a
+snd_silencer_shoot_loop_tail    = weapons\ump45\layers\ump45_silencer_tail_a_1
+snd_silencer_shoot_loop_tail1    = weapons\ump45\layers\ump45_silencer_tail_a_2
+snd_silencer_shoot_loop_tail2    = weapons\ump45\layers\ump45_silencer_tail_a_3
+
+hud                     = wpn_ump45_hud
+
+[wpn_ump45_hud_general]
+
+fire_point		   = 0,-0.016,0.359
+fire_point2		   = 0,-0.016,0.526
+
+item_position				        = 0.0,0.0045,-0.003
+
+aim_hud_offset_pos      = 0.000000,-0.003550,-0.04
+aim_hud_offset_rot      = -0.01140,0.000000,0.000000
+
+aim_hud_offset_pos_16x9 = 0.000000,-0.003550,-0.04
+aim_hud_offset_rot_16x9 = -0.01140,0.000000,0.000000
+
+item_visual             = dynamics\weapons\wpn_ump45\wpn_ump45_hud.ogf
+
+wanm_idle_empty = idle_empty
+wanm_shoot_last = shoot_last
+
+[wpn_ump45_hud]:wpn_mp5_hud, wpn_ump45_hud_general
+
+;Доставание///////////////////////////////////////////////////
+anm_show                   = mp5_draw, ump_idle
+anm_show_empty             = mp5_draw, ump_idle_empty
+anm_show_jammed            = mp5_draw, ump_idle_jammed
+
+;Убирание/////////////////////////////////////////////////////
+anm_hide                   = mp5_hide, ump_idle
+anm_hide_empty             = mp5_hide, ump_idle_empty
+anm_hide_jammed            = mp5_hide, ump_idle_jammed
+
+;Бездействие//////////////////////////////////////////////////
+anm_idle                            = mp5_idle, ump_idle
+anm_idle_empty                      = mp5_idle, ump_idle_empty
+anm_idle_jammed                     = mp5_idle, ump_idle_jammed
+
+anm_idle_aim_start             = mp5_aim_start, ump_aim_start
+anm_idle_aim_start_empty       = mp5_aim_start, ump_aim_start_empty
+anm_idle_aim_start_jammed      = mp5_aim_start, ump_aim_start_jammed
+
+anm_idle_aim_empty             = mp5_aim, ump_aim_empty
+anm_idle_aim_jammed            = mp5_aim, ump_aim_jammed
+anm_idle_aim_scope_empty       = mp5_aim, ump_aim_empty
+anm_idle_aim_scope_jammed      = mp5_aim, ump_aim_jammed
+
+anm_idle_aim_end               = mp5_aim_end, ump_aim_end
+anm_idle_aim_end_empty         = mp5_aim_end, ump_aim_end_empty
+anm_idle_aim_end_jammed        = mp5_aim_end, ump_aim_end_jammed
+
+;Ходьба ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving 					= mp5_walk, ump_idle
+anm_idle_moving_jammed 					= mp5_walk, ump_idle_jammed
+anm_idle_moving_empty					= mp5_walk, ump_idle_empty
+
+;Ходьба медленная (SHIFT) ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving_slow 					= mp5_walk_slow, ump_idle
+anm_idle_moving_slow_jammed 				= mp5_walk_slow, ump_idle_jammed
+anm_idle_moving_slow_empty				= mp5_walk_slow, ump_idle_empty
+
+;Ходьба в полуприсяди (CTRL) ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving_crouch 					= mp5_walk_slow_down, ump_idle
+anm_idle_moving_crouch_jammed 				= mp5_walk_slow_down, ump_idle_jammed
+anm_idle_moving_crouch_empty				= mp5_walk_slow_down, ump_idle_empty
+
+;Ходьба в присяде (CTRL+SHIFT) ВПЕРЕД/////////////////////////////////////////////////////////////////////////
+anm_idle_moving_crouch_slow 				= mp5_walk_slow_super, ump_idle
+anm_idle_moving_crouch_slow_jammed 			= mp5_walk_slow_super, ump_idle_jammed
+anm_idle_moving_crouch_slow_empty			= mp5_walk_slow_super, ump_idle_empty
+
+;ходьба в прицеливании ВПЕРЕД//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward_empty                       = mp5_aim_walk, ump_aim_empty
+anm_idle_aim_moving_forward_jammed                      = mp5_aim_walk, ump_aim_jammed
+
+;ходьба в прицеливании НАЗАД//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back_empty                          = mp5_aim_walk, ump_aim_empty
+anm_idle_aim_moving_back_jammed                         = mp5_aim_walk, ump_aim_jammed
+
+;ходьба в прицеливании ВЛЕВО//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_left_empty                          = mp5_aim_walk_left, ump_aim_empty
+anm_idle_aim_moving_left_jammed                         = mp5_aim_walk_left, ump_aim_jammed
+
+;ходьба в прицеливании ВПРАВО//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_right_empty                         = mp5_aim_walk_right, ump_aim_empty
+anm_idle_aim_moving_right_jammed                        = mp5_aim_walk_right, ump_aim_jammed
+
+;ходьба в прицеливании ВПЕРЕД+ВЛЕВО////////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward_left_empty                  = mp5_aim_walk, ump_aim_empty
+anm_idle_aim_moving_forward_left_jammed                 = mp5_aim_walk, ump_aim_jammed
+
+;ходьба в прицеливании ВПЕРЕД+ВПРАВО///////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward_right_empty                 = mp5_aim_walk, ump_aim_empty
+anm_idle_aim_moving_forward_right_jammed                = mp5_aim_walk, ump_aim_jammed
+
+;ходьба в прицеливании НАЗАД+ВЛЕВО/////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back_left_empty                     = mp5_aim_walk, ump_aim_empty
+anm_idle_aim_moving_back_left_jammed                    = mp5_aim_walk, ump_aim_jammed
+
+;ходьба в прицеливании НАЗАД+ВПРАВО////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back_right_empty                    = mp5_aim_walk, ump_aim_empty
+anm_idle_aim_moving_back_right_jammed                   = mp5_aim_walk, ump_aim_jammed
+
+;ходьба в прицеливании при надетом прицеле////////////////////////////////////////////////////
+anm_idle_aim_scope_moving_empty		                = mp5_aim_walk_scope, ump_aim_empty
+anm_idle_aim_scope_moving_jammed	                = mp5_aim_walk_scope, ump_aim_jammed
+
+;Бег//////////////////////////////////////////////////////////////////
+anm_idle_sprint_start             = mp5_sprint_start, ump_idle
+anm_idle_sprint_start_empty       = mp5_sprint_start, ump_idle_empty
+anm_idle_sprint_start_jammed      = mp5_sprint_start, ump_idle_jammed
+
+anm_idle_sprint                   = mp5_sprint, ump_idle
+anm_idle_sprint_empty             = mp5_sprint, ump_idle_empty
+anm_idle_sprint_jammed            = mp5_sprint, ump_idle_jammed
+
+anm_idle_sprint_end              = mp5_sprint_end, ump_idle
+anm_idle_sprint_end_empty        = mp5_sprint_end, ump_idle_empty
+anm_idle_sprint_end_jammed       = mp5_sprint_end, ump_idle_jammed
+
+;Скука////////////////////////////////////////////////////////////////////
+anm_bore                   = mp5_draw, ump_idle
+anm_bore_empty             = mp5_draw, ump_idle_empty
+anm_bore_jammed            = mp5_draw, ump_idle_jammed
+
+;Выстрелы обычными патронами/////////////////////////////////////////////////////////////////////
+anm_shoot                      = ump_shoot
+anm_shoot_jammed	       = ump_shoot, ump_idle_jammed
+anm_shoot_last                 = ump_shoot, ump_shoot_last
+anm_shoot_aim_jammed	       = mp5_aim_shoot, ump_aim_jammed
+anm_shoot_aim_scope_jammed     = mp5_aim_shoot_scope, ump_aim_jammed
+
+;Осечка//////////////////////////////////////////////////
+anm_fakeshoot_empty                = mp5_dry_empty, ump_idle_empty
+anm_fakeshoot_jammed               = mp5_dry, ump_idle_jammed
+anm_fakeshoot_aim_jammed           = mp5_aim_dry, ump_aim_jammed
+
+;Перезарядка/////////////////////////////////////////////////////////////////////
+anm_reload                           = ump_reload
+anm_reload_empty                     = ump_reload_empty
+anm_reload_jammed                    = mp5_revival, ump_revival
+anm_reload_jammed_last               = mp5_revival, ump_revival_last
+
+;//////////////////////////////////////////////////////////////////////////ТАКТИЧЕСКАЯ РУКОЯТКА////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+[wpn_ump45_handler_hud]:wpn_mp5_handler_hud, wpn_ump45_hud_general
+
+anm_suicide			= mp5_tac_suicide, ump_idle
+anm_stop_suicide 		= mp5_tac_suicide_end, ump_idle
+
+;Доставание///////////////////////////////////////////////////
+anm_show                   = mp5_tac_draw, ump_idle
+anm_show_empty             = mp5_tac_draw, ump_idle_empty
+anm_show_jammed            = mp5_tac_draw, ump_idle_jammed
+
+;Убирание/////////////////////////////////////////////////////
+anm_hide                   = mp5_tac_hide, ump_idle
+anm_hide_empty             = mp5_tac_hide, ump_idle_empty
+anm_hide_jammed            = mp5_tac_hide, ump_idle_jammed
+
+;Бездействие//////////////////////////////////////////////////
+anm_idle                            = mp5_tac_idle, ump_idle
+anm_idle_empty                      = mp5_tac_idle, ump_idle_empty
+anm_idle_jammed                     = mp5_tac_idle, ump_idle_jammed
+
+;Бездействие в прицеливании///////////////////////////////////
+anm_idle_aim_start             = mp5_tac_aim_start, ump_aim_start
+anm_idle_aim_start_empty       = mp5_tac_aim_start, ump_aim_start_empty
+anm_idle_aim_start_jammed      = mp5_tac_aim_start, ump_aim_start_jammed
+;anm_idle_aim                   = mp5_tac_aim, mp5_aim
+anm_idle_aim_empty             = mp5_tac_aim, ump_aim_empty
+anm_idle_aim_jammed            = mp5_tac_aim, ump_aim_jammed
+;anm_idle_aim_scope             = mp5_tac_aim, mp5_aim
+anm_idle_aim_scope_empty       = mp5_tac_aim, ump_aim_empty
+anm_idle_aim_scope_jammed      = mp5_tac_aim, ump_aim_jammed
+anm_idle_aim_end               = mp5_tac_aim_end, ump_aim_end
+anm_idle_aim_end_empty         = mp5_tac_aim_end, ump_aim_end_empty
+anm_idle_aim_end_jammed        = mp5_tac_aim_end, ump_aim_end_jammed
+
+;Ходьба ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving 					= mp5_tac_walk, ump_idle
+anm_idle_moving_jammed 					= mp5_tac_walk, ump_idle_jammed
+anm_idle_moving_empty					= mp5_tac_walk, ump_idle_empty
+
+;Ходьба медленная (SHIFT) ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving_slow 					= mp5_tac_walk_slow, ump_idle
+anm_idle_moving_slow_jammed 				= mp5_tac_walk_slow, ump_idle_jammed
+anm_idle_moving_slow_empty				= mp5_tac_walk_slow, ump_idle_empty
+
+;Ходьба в полуприсяди (CTRL) ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving_crouch 					= mp5_tac_walk_slow_down, ump_idle
+anm_idle_moving_crouch_jammed 				= mp5_tac_walk_slow_down, ump_idle_jammed
+anm_idle_moving_crouch_empty				= mp5_tac_walk_slow_down, ump_idle_empty
+
+;Ходьба в присяде (CTRL+SHIFT) ВПЕРЕД/////////////////////////////////////////////////////////////////////////
+anm_idle_moving_crouch_slow 				= mp5_tac_walk_slow_super, ump_idle
+anm_idle_moving_crouch_slow_jammed 			= mp5_tac_walk_slow_super, ump_idle_jammed
+anm_idle_moving_crouch_slow_empty			= mp5_tac_walk_slow_super, ump_idle_empty
+
+;ходьба в прицеливании ВПЕРЕД//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward_empty                       = mp5_tac_aim_walk, ump_aim_empty
+anm_idle_aim_moving_forward_jammed                      = mp5_tac_aim_walk, ump_aim_jammed
+
+;ходьба в прицеливании НАЗАД//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back_empty                          = mp5_tac_aim_walk, ump_aim_empty
+anm_idle_aim_moving_back_jammed                         = mp5_tac_aim_walk, ump_aim_jammed
+
+;ходьба в прицеливании ВЛЕВО//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_left_empty                          = mp5_tac_aim_walk_left, ump_aim_empty
+anm_idle_aim_moving_left_jammed                         = mp5_tac_aim_walk_left, ump_aim_jammed
+
+;ходьба в прицеливании ВПРАВО//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_right_empty                         = mp5_tac_aim_walk_right, ump_aim_empty
+anm_idle_aim_moving_right_jammed                        = mp5_tac_aim_walk_right, ump_aim_jammed
+
+;ходьба в прицеливании ВПЕРЕД+ВЛЕВО////////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward_left_empty                  = mp5_tac_aim_walk, ump_aim_empty
+anm_idle_aim_moving_forward_left_jammed                 = mp5_tac_aim_walk, ump_aim_jammed
+
+;ходьба в прицеливании ВПЕРЕД+ВПРАВО///////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward_right_empty                 = mp5_tac_aim_walk, ump_aim_empty
+anm_idle_aim_moving_forward_right_jammed                = mp5_tac_aim_walk, ump_aim_jammed
+
+;ходьба в прицеливании НАЗАД+ВЛЕВО/////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back_left_empty                     = mp5_tac_aim_walk, ump_aim_empty
+anm_idle_aim_moving_back_left_jammed                    = mp5_tac_aim_walk, ump_aim_jammed
+
+;ходьба в прицеливании НАЗАД+ВПРАВО////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back_right_empty                    = mp5_tac_aim_walk, ump_aim_empty
+anm_idle_aim_moving_back_right_jammed                   = mp5_tac_aim_walk, ump_aim_jammed
+
+;ходьба в прицеливании при надетом прицеле////////////////////////////////////////////////////
+anm_idle_aim_scope_moving_empty		                = mp5_tac_aim_walk_scope, ump_aim_empty
+anm_idle_aim_scope_moving_jammed	                = mp5_tac_aim_walk_scope, ump_aim_jammed
+
+
+;Бег//////////////////////////////////////////////////////////////////
+anm_idle_sprint_start             = mp5_tac_sprint_start, ump_idle
+anm_idle_sprint_start_empty       = mp5_tac_sprint_start, ump_idle_empty
+anm_idle_sprint_start_jammed      = mp5_tac_sprint_start, ump_idle_jammed
+anm_idle_sprint                   = mp5_tac_sprint, ump_idle
+anm_idle_sprint_empty             = mp5_tac_sprint, ump_idle_empty
+anm_idle_sprint_jammed            = mp5_tac_sprint, ump_idle_jammed
+anm_idle_sprint_end               = mp5_tac_sprint_end, ump_idle
+anm_idle_sprint_end_empty         = mp5_tac_sprint_end, ump_idle_empty
+anm_idle_sprint_end_jammed        = mp5_tac_sprint_end, ump_idle_jammed
+
+;Скука////////////////////////////////////////////////////////////////////
+anm_bore                   = mp5_tac_draw, ump_idle
+anm_bore_empty             = mp5_tac_draw, ump_idle_empty
+anm_bore_jammed            = mp5_tac_draw, ump_idle_jammed
+
+;Выстрелы обычными патронами/////////////////////////////////////////////////////////////////////
+anm_shoot                      = ump_tac_shoot
+anm_shoot_jammed	       = ump_tac_shoot, ump_idle_jammed
+anm_shoot_last                 = ump_tac_shoot, ump_shoot_last
+anm_shoot_aim_jammed	       = mp5_tac_aim_shoot, ump_aim_jammed
+
+;Осечка//////////////////////////////////////////////////
+anm_fakeshoot_empty                = mp5_tac_dry_empty, ump_idle_empty
+anm_fakeshoot_aim_empty            = mp5_tac_aim_dry, ump_aim_empty
+anm_fakeshoot_jammed               = mp5_tac_dry, ump_idle_jammed
+anm_fakeshoot_aim_jammed           = mp5_tac_aim_dry, ump_aim_jammed
+
+;Перезарядка/////////////////////////////////////////////////////////////////////
+anm_reload                           = ump_tac_reload, ump_reload
+anm_reload_empty                     = ump_tac_reload_empty, ump_reload_empty
+anm_reload_jammed                    = mp5_tac_revival, ump_revival
+anm_reload_jammed_last               = mp5_tac_revival, ump_revival_last
+anm_reload_ammochange                = ump_tac_reload, ump_reload
+
+;Смена режима огня//////////////////////////////////////////////////////////////////////////
+;a-1
+lock_time_anm_changefiremode_from_a_to_1 = 1.17
+lock_time_anm_changefiremode_from_a_to_1_jammed = 1.17
+lock_time_anm_changefiremode_from_a_to_1_empty = 1.17
+anm_changefiremode_from_-1_to_1			             = mp5_tac_firemode_a_to_1, ump_firemode_a_to_1
+anm_changefiremode_from_-1_to_1_jammed		             = mp5_tac_firemode_a_to_1, ump_firemode_a_to_1
+anm_changefiremode_from_-1_to_1_empty		             = mp5_tac_firemode_a_to_1, ump_firemode_a_to_1_empty
+
+;1-a
+anm_changefiremode_from_1_to_-1			             = mp5_tac_firemode_1_to_a, ump_firemode_1_to_a
+anm_changefiremode_from_1_to_-1_jammed		             = mp5_tac_firemode_1_to_a, ump_firemode_1_to_a
+anm_changefiremode_from_1_to_-1_empty		             = mp5_tac_firemode_1_to_a, ump_firemode_1_to_a_empty
+
+;Разрядка//////////////////////////////////////////////////////////////////////////
+anm_unload_mag                               = mp5_tac_draw, ump_idle_empty
+anm_unload_mag_jammed                        = mp5_tac_draw, ump_idle_jammed  
+anm_unload_mag_empty                         = mp5_tac_draw, ump_idle_empty
+
+;включение налобника//////////////////////////////////////////////////////////////////////////
+anm_headlamp_on                             = mp5_tac_headflash, ump_idle
+anm_headlamp_on_empty                       = mp5_tac_headflash, ump_idle_empty
+anm_headlamp_on_jammed                      = mp5_tac_headflash, ump_idle_jammed
+
+;выключение налобника//////////////////////////////////////////////////////////////////////////
+anm_headlamp_off                            = mp5_tac_headflash, ump_idle
+anm_headlamp_off_empty                      = mp5_tac_headflash, ump_idle_empty
+anm_headlamp_off_jammed                     = mp5_tac_headflash, ump_idle_jammed
+
+;включение пнв//////////////////////////////////////////////////////////////////////////
+anm_nv_on                                   = mp5_tac_headflash, ump_idle
+anm_nv_on_empty                             = mp5_tac_headflash, ump_idle_empty
+anm_nv_on_jammed                            = mp5_tac_headflash, ump_idle_jammed
+
+;выключение пнв//////////////////////////////////////////////////////////////////////////
+anm_nv_off                                  = mp5_tac_headflash, ump_idle
+anm_nv_off_empty                            = mp5_tac_headflash, ump_idle_empty 
+anm_nv_off_jammed                           = mp5_tac_headflash, ump_idle_jammed
+
+;Включение ЛЦУ//////////////////////////////////////////////////////////////////////////
+anm_laser_on                                = mp5_tac_lam, ump_idle
+anm_laser_on_empty                          = mp5_tac_lam, ump_idle_empty
+anm_laser_on_jammed                         = mp5_tac_lam, ump_idle_jammed
+
+;Выключение ЛЦУ//////////////////////////////////////////////////////////////////////////
+anm_laser_off                               = mp5_tac_lam, ump_idle
+anm_laser_off_empty                         = mp5_tac_lam, ump_idle_empty
+anm_laser_off_jammed                        = mp5_tac_lam, ump_idle_jammed
+
+;Включение фонаря//////////////////////////////////////////////////////////////////////////
+anm_torch_on                                = mp5_tac_lam, ump_idle
+anm_torch_on_empty                          = mp5_tac_lam, ump_idle_empty
+anm_torch_on_jammed                         = mp5_tac_lam, ump_idle_jammed
+
+;Выключение фонаря//////////////////////////////////////////////////////////////////////////
+anm_torch_off                               = mp5_tac_lam, ump_idle
+anm_torch_off_empty                         = mp5_tac_lam, ump_idle_empty
+anm_torch_off_jammed                        = mp5_tac_lam, ump_idle_jammed
+
+[scope_eotech_ump]
+scope_name 					= wpn_addon_scope_susat_x1.6
+scope_x              	= 84                 ; offset in inventory icon
+scope_y                 = -4
+bone = scope1
+
+hud_fov_zoom = 0.5
+use_scope_anims = true ;говорит, что надо использовать анимации с суффиксом _scope в прицеливании с данным прицелом
+
+aim_hud_offset_pos = -0.00019,-0.0257,-0.02
+aim_hud_offset_rot = 0.0,0.0,0.0
+
+aim_hud_offset_pos_16x9 = -0.00019,-0.0257,-0.02
+aim_hud_offset_rot_16x9 = 0.0,0.0,0.0
+
+gl_hud_offset_pos          = 0.0,0.012,-0.05
+gl_hud_offset_rot          = 0.0,0.0,0.0
+
+gl_hud_offset_pos_16x9     = 0.0,0.012,-0.1
+gl_hud_offset_rot_16x9     = 0.0,0.0,0.0
+
+inertion_aim_origin_offset = 0.015
+inertion_aim_speed = 8
+
+
+[scope_aimpoint_ump]
+scope_name 					= wpn_addon_scope_susat_dusk
+scope_x              	= 86                ; offset in inventory icon
+scope_y                 = -9
+bone = scope2
+
+hud_fov_zoom = 0.5
+use_scope_anims = true ;говорит, что надо использовать анимации с суффиксом _scope в прицеливании с данным прицелом
+
+aim_hud_offset_pos = 0.00011,-0.0289,-0.045
+aim_hud_offset_rot = 0.0,0.0,0.0
+
+aim_hud_offset_pos_16x9 = 0.00011,-0.0289,-0.045
+aim_hud_offset_rot_16x9 = 0.0,0.0,0.0
+
+gl_hud_offset_pos          = 0.0,0.012,-0.0
+gl_hud_offset_rot          = 0.0,0.0,0.0
+
+gl_hud_offset_pos_16x9     = 0.0,0.012,-0.05
+gl_hud_offset_rot_16x9     = 0.0,0.0,0.0
+
+inertion_aim_origin_offset = 0.015
+inertion_aim_speed = 8
+
+
+[scope_elcan_ump]
+scope_name 					= wpn_addon_scope_susat_custom
+scope_x              	= 59                ; offset in inventory icon
+scope_y                 = -6
+hud_fov_zoom = 0.5
+use_scope_anims = true ;говорит, что надо использовать анимации с суффиксом _scope в прицеливании с данным прицелом
+
+bone = scope3
+
+aim_hud_offset_pos = 0.0,-0.031,-0.15
+aim_hud_offset_rot = 0.0,0.0,0.0
+
+aim_hud_offset_pos_16x9 = 0.0,-0.031,-0.15
+aim_hud_offset_rot_16x9 = 0.0,0.0,0.0
+
+gl_hud_offset_pos          = 0.0,0.012,-0.0
+gl_hud_offset_rot          = 0.0,0.0,0.0
+
+gl_hud_offset_pos_16x9     = 0.0,0.012,-0.05
+gl_hud_offset_rot_16x9     = 0.0,0.0,0.0
+
+inertion_aim_origin_offset = 0.015
+inertion_aim_speed = 10 
+
+alter_zoom_allowed = true
+hud_fov_alter_zoom_factor = 0.5
+alter_aim_hud_offset_pos = 0.000000,-0.066700,0.000000
+alter_aim_hud_offset_rot = -0.000800,0.000100,0.000000
+alter_aim_hud_offset_pos_16x9 = 0.000000,-0.067700,0.000000
+alter_aim_hud_offset_rot_16x9 = -0.002100,0.000300,0.000000
+
+
+[scope_pn23_ump]
+scope_name 					= wpn_addon_scope_susat_night
+scope_x              	= 43                 ; offset in inventory icon
+scope_y                 = -9
+hud_fov_zoom = 0.5
+use_scope_anims = true ;говорит, что надо использовать анимации с суффиксом _scope в прицеливании с данным прицелом
+
+bone = scope4
+
+aim_hud_offset_pos = 0.0,-0.0527,-0.02
+aim_hud_offset_rot = 0.0,0.0,0.0
+
+aim_hud_offset_pos_16x9 = 0.0,-0.0527,-0.02
+aim_hud_offset_rot_16x9 = 0.0,0.0,0.0
+
+gl_hud_offset_pos          = 0.0,0.012,0.12
+gl_hud_offset_rot          = 0.0,0.0,0.0
+
+gl_hud_offset_pos_16x9     = 0.0,0.012,0.07
+gl_hud_offset_rot_16x9     = 0.0,0.0,0.0
+
+inertion_aim_origin_offset = 0.015
+inertion_aim_speed = 10 

@@ -1,0 +1,17 @@
+[collide]
+ignore_static
+
+[story_object]
+story_id = df_cir_box_04
+
+[logic]
+active = ph_idle
+
+[ph_idle]
+nonscript_usable = true
+tips = st_search_treasure
+on_use = ph_idle@end %=df_cir_spawn_items_to_box(df_cir_box_04)%
+
+[ph_idle@end]
+nonscript_usable = true
+tips = st_search_treasure

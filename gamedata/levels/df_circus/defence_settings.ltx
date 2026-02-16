@@ -1,0 +1,34 @@
+[defence_gamedata]
+spawn_delay = 2 ; время задержки между спавном мутантов (в секундах)
+spawn_particles = anomaly2\teleport_out ; партикл, с которым спавнятся монстры, можно удалить
+;spawn_sound = ambient\defence\defence_teleport ; звук, с которым спавнятся монстры, можно удалить
+start_time = 9 ; стартовое время на локации, работает аналогично консольной команде sv_setenvtime, возможные значения 0-23, можно удалить
+
+
+[defence_modifiers]
+surge = false
+phantoms = false
+
+
+[defence_team]
+logo = dolg_medium ; логотип команды для лобби
+messages_menu_faction = 2 ; Долг
+skins = df_dolg_face_1, df_dolg_face_2, df_dolg_face_3, df_dolg_face_4, df_dolg_face_5, df_dolg_face_6, df_dolg_face_7, df_dolg_face_8, df_dolg_face_9, df_dolg_face_10, df_dolg_face_11, df_dolg_face_12
+
+
+[wave_provisions]
+wave_1 = wp1_var1
+
+
+[wave_provisions_variants]
+wp1_var1 = conserva:1:0.01
+
+
+[monster_waves]
+wave_1 = wm1_var1
+
+
+[monster_wave_variants]
+wm_test = m_poltergeist_normal_flame:1:1:true
+;
+wm1_var1 = flesh_replica:25:1:true

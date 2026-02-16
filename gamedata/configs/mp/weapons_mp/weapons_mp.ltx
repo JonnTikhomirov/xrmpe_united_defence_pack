@@ -1,0 +1,1937 @@
+[mp_wpn_abakan]:wpn_abakan
+    $spawn                            = "network\weapons\assault\mp_wpn_abakan"
+    class                			  = W_AK74
+	use_first_bullet				  = false	 ;есть ли эффект первого выстрела (точного)
+	first_bullet_dispertion			  = 0.01	 ;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1000	 ;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0		 ;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_5.45x39_fmj, mp_ammo_5.45x39_ap; name of the ltx-section of used ammo
+    grenade_class                     = mp_ammo_vog-25, mp_ammo_vog-25p; name of the ltx-section of used grenades
+    grenade_launcher_name             = mp_wpn_addon_grenade_launcher; section name for the attachable grenade launcher
+	scopes_sect		                  = mp_scope_pka_an94, mp_scope_nvas_an94, mp_scope_cobra_an94, mp_scope_pso1m2x1_an94, mp_scope_kashtan_an94, mp_scope_pso1_an94, mp_scope_nvsn_an94
+	
+	;отдача
+	cam_relax_speed         = 5		; скорость возврата в исходное положение
+	cam_relax_speed_ai      = 140	; скорость возврата в исходное положение для AI
+	cam_dispersion          = 0.9       ; увеличения угла (в градусах) при первом выстреле
+	cam_dispersion_inc      = 0.03       ; увеличениe cam_dispersion с каждым выстрелом
+	cam_dispersion_frac     = 0.7       ; frac * angle + rand(-1,1)*(1-frac) * angle ствол будет подvматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+	cam_max_angle           = 40.0       ; максимальный угол отдачи
+	cam_max_angle_horz      = 60.0       ; (degree) maximum shot horizontal degree
+	cam_step_angle_horz     = 1.8       ; (degree) size of step camera moved in horizontal position while shooting
+	;отдача в прицеле
+	zoom_cam_relax_speed         = 5     ; scope & ironsight
+	zoom_cam_relax_speed_ai      = 120
+	zoom_cam_dispersion          = 0.3
+	zoom_cam_dispersion_inc      = 0.02
+	zoom_cam_dispersion_frac     = 0.8
+	zoom_cam_max_angle           = 13.0
+	zoom_cam_max_angle_horz      = 20.0
+	zoom_cam_step_angle_horz     = 0.7
+
+[mp_scope_pso1_an94]:scope_pso1_an94
+scope_name = mp_wpn_addon_scope
+
+[mp_scope_pso1m2x1_an94]:scope_pso1m2x1_an94
+scope_name = mp_wpn_addon_scope_x2.7
+
+[mp_scope_nvsn_an94]:scope_nvsn_an94
+scope_name = mp_wpn_addon_scope_detector
+
+[mp_scope_nvas_an94]:scope_nvas_an94
+scope_name = mp_wpn_addon_scope_night
+
+[mp_scope_cobra_an94]:scope_cobra_an94
+scope_name = mp_wpn_addon_scope_cobra
+
+[mp_scope_pka_an94]:scope_pka_an94
+scope_name = mp_wpn_addon_scope_pka
+
+[mp_scope_kashtan_an94]:scope_kashtan_an94
+scope_name = mp_wpn_addon_scope_kashtan
+
+
+[mp_wpn_ak74]:wpn_ak74
+	def_show_bones 					  = mag30, handler, foregrip_rail
+	def_hide_bones 					  = mag45, mag45_black, mag60, handler2, scope_cobra, scope_rakurs, scope_pso_sniper, scope_kashtan, scope_pka, scope_pso_assault, scope_nv_sniper, scope_nv_assault, flash, light, laser, line, line2, sight, sight2, foregrip, knife, tilnik
+    $spawn                            = "network\weapons\assault\mp_wpn_ak74"
+    class                			  = W_AK74
+	use_first_bullet				  = false	;есть ли эффект первого выстрела (точного)
+	first_bullet_dispertion			  = 0.01	;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1000	;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0	;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_5.45x39_fmj, mp_ammo_5.45x39_ap
+    grenade_class                     = mp_ammo_vog-25, mp_ammo_vog-25p
+    grenade_launcher_name             = mp_wpn_addon_grenade_launcher   
+	scopes_sect		                  = mp_scope_kashtan_ak74m, mp_scope_nvas_ak74m, mp_scope_cobra_ak74m, mp_scope_pka_ak74m, mp_scope_pso1m2x1_ak74m, mp_scope_pso1_ak74m, mp_scope_nvsn_ak74m, mp_scope_rakurs_ak74m  
+    silencer_name                     = mp_wpn_addon_silencer_tgpa
+	
+	;отдача
+	cam_relax_speed         = 5		; скорость возврата в исходное положение
+	cam_relax_speed_ai      = 140	; скорость возврата в исходное положение для AI
+	cam_dispersion          = 1.12       ; увеличения угла (в градусах) при первом выстреле
+	cam_dispersion_inc      = 0.035       ; увеличениe cam_dispersion с каждым выстрелом
+	cam_dispersion_frac     = 0.9       ; frac * angle + rand(-1,1)*(1-frac) * angle ствол будет подvматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+	cam_max_angle           = 40.0       ; максимальный угол отдачи
+	cam_max_angle_horz      = 80.0       ; (degree) maximum shot horizontal degree
+	cam_step_angle_horz     = 2.2       ; (degree) size of step camera moved in horizontal position while shooting
+	;отдача в прицеле
+	zoom_cam_relax_speed         = 5     ; scope & ironsight
+	zoom_cam_relax_speed_ai      = 120
+	zoom_cam_dispersion          = 0.4
+	zoom_cam_dispersion_inc      = 0.03
+	zoom_cam_dispersion_frac     = 0.85
+	zoom_cam_max_angle           = 13.0
+	zoom_cam_max_angle_horz      = 20.0
+	zoom_cam_step_angle_horz     = 1.0
+
+[mp_scope_pso1_ak74m]:scope_pso1_ak74m
+scope_name = mp_wpn_addon_scope
+
+[mp_scope_pso1m2x1_ak74m]:scope_pso1m2x1_ak74m
+scope_name = mp_wpn_addon_scope_x2.7
+
+[mp_scope_rakurs_ak74m]:scope_rakurs_ak74m
+scope_name = mp_wpn_addon_scope_rakurs
+
+[mp_scope_nvsn_ak74m]:scope_nvsn_ak74m
+scope_name = mp_wpn_addon_scope_detector
+
+[mp_scope_nvas_ak74m]:scope_nvas_ak74m
+scope_name = mp_wpn_addon_scope_night
+
+[mp_scope_cobra_ak74m]:scope_cobra_ak74m
+scope_name = mp_wpn_addon_scope_cobra
+
+[mp_scope_pka_ak74m]:scope_pka_ak74m
+scope_name = mp_wpn_addon_scope_pka
+
+[mp_scope_kashtan_ak74m]:scope_kashtan_ak74m
+scope_name = mp_wpn_addon_scope_kashtan
+
+
+[mp_wpn_ak74u]:wpn_ak74u
+	def_show_bones 					  = rail, foregrip_wood, bone, body, handler, mag30
+	def_hide_bones 					  = mag45, mag45_black, mag30_black, mag60, body2, body3, bone2, handler2, handler3, foregrip_plastic, flash_rail, scope_kashtan, scope_rakurs, scope_cobra, scope_pso_sniper, scope_pso_assault, scope_pka, scope_nv_sniper, scope_nv_assault, flash, light, laser, line, sight, silencer1
+    $spawn                            = "network\weapons\assault\mp_wpn_ak74u"
+	class                			  = W_VAL ; class of the weapon that corresponding to CPP class
+	use_first_bullet				  = false	;есть ли эффект первого выстрела (точного)
+	first_bullet_dispertion			  = 0.012;дисперсия для первого выстрела
+	first_bullet_timeout			  = 500	;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 2.9	;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_5.45x39_fmj, mp_ammo_5.45x39_ap
+	scopes_sect 					  = mp_scope_pso1m2x1_aks74u, mp_scope_nvas_aks74u, mp_scope_cobra_aks74u, mp_scope_pka_aks74u, mp_scope_kashtan_aks74u, mp_scope_pso1_aks74u, mp_scope_nvsn_aks74u
+    scope_status                      = 2
+    silencer_name                     = mp_wpn_addon_silencer_tgpa
+	
+	;отдача
+	cam_relax_speed         = 5		; скорость возврата в исходное положение
+	cam_relax_speed_ai      = 140	; скорость возврата в исходное положение для AI
+	cam_dispersion          = 1.12       ; увеличения угла (в градусах) при первом выстреле
+	cam_dispersion_inc      = 0.04       ; увеличениe cam_dispersion с каждым выстрелом
+	cam_dispersion_frac     = 0.9       ; frac * angle + rand(-1,1)*(1-frac) * angle ствол будет подvматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+	cam_max_angle           = 40.0       ; максимальный угол отдачи
+	cam_max_angle_horz      = 80.0       ; (degree) maximum shot horizontal degree
+	cam_step_angle_horz     = 2.7       ; (degree) size of step camera moved in horizontal position while shooting
+	;отдача в прицеле
+	zoom_cam_relax_speed         = 5     ; scope & ironsight
+	zoom_cam_relax_speed_ai      = 120
+	zoom_cam_dispersion          = 0.4
+	zoom_cam_dispersion_inc      = 0.035
+	zoom_cam_dispersion_frac     = 0.88
+	zoom_cam_max_angle           = 13.0
+	zoom_cam_max_angle_horz      = 20.0
+	zoom_cam_step_angle_horz     = 1.6
+
+[mp_scope_pso1_aks74u]:scope_pso1_aks74u
+scope_name = mp_wpn_addon_scope
+
+[mp_scope_pso1m2x1_aks74u]:scope_pso1m2x1_aks74u
+scope_name = mp_wpn_addon_scope_x2.7
+
+[mp_scope_rakurs_aks74u]:scope_rakurs_aks74u
+scope_name = mp_wpn_addon_scope_rakurs
+
+[mp_scope_nvsn_aks74u]:scope_nvsn_aks74u
+scope_name = mp_wpn_addon_scope_detector
+
+[mp_scope_nvas_aks74u]:scope_nvas_aks74u
+scope_name = mp_wpn_addon_scope_night
+
+[mp_scope_cobra_aks74u]:scope_cobra_aks74u
+scope_name = mp_wpn_addon_scope_cobra
+
+[mp_scope_pka_aks74u]:scope_pka_aks74u
+scope_name = mp_wpn_addon_scope_pka
+
+[mp_scope_kashtan_aks74u]:scope_kashtan_aks74u
+scope_name = mp_wpn_addon_scope_kashtan
+
+
+[mp_wpn_beretta]:wpn_beretta
+	def_hide_bones 					  = barrel, sight
+	def_show_bones 					  = barrel_silencer
+    $spawn                            = "network\weapons\pistols\mp_wpn_beretta"
+    class                   		  = W_PM
+	use_first_bullet				  = false	;есть ли эффект первого выстрела (точного)
+	first_bullet_dispertion			  = 0.015;дисперсия для первого выстрела
+	first_bullet_timeout			  = 500	;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0	;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_9x19_fmj, mp_ammo_9x19_pbp
+    silencer_name                     = mp_wpn_addon_silencer_919
+
+
+[mp_wpn_binoc]:wpn_binoc
+$spawn     = "network\weapons\other\mp_wpn_binoc"
+class      = W_BINOC
+ammo_class = mp_ammo_9x18_fmj
+
+
+[mp_wpn_bm16]:wpn_bm16
+    $spawn                            = "network\weapons\shotguns\mp_wpn_bm16"
+    class                   		  = W_BM16
+	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)
+	first_bullet_dispertion			  = 0.01	 ;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1000	 ;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0		 ;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_12x70_buck, mp_ammo_12x76_zhekan, mp_ammo_12x76_dart
+
+
+[mp_wpn_bm16_obrez]:mp_wpn_bm16
+$spawn				= "network\weapons\shotguns\mp_wpn_bm16_obrez"
+
+def_hide_bones			= stock, barrel, sight
+def_show_bones			= stock_short, barrel_short
+
+PDM_disp_base			= 1.2
+
+fire_distance			= 100
+
+inv_weight			= 1.4
+description			= st_wpn_bm16_obrez_descr
+inv_name			= st_wpn_bm16_obrez
+inv_name_short			= st_wpn_bm16_obrez
+inv_grid_width			= 3
+inv_grid_height			= 1
+inv_grid_x			= 28
+inv_grid_y			= 37
+kill_msg_x			= 371
+kill_msg_y			= 281
+kill_msg_width			= 64
+kill_msg_height			= 17
+
+fire_dispersion_base		= 0.35
+crosshair_inertion		= 3
+
+zoom_cam_dispersion		= 2
+zoom_cam_dispersion_inc		= 1
+
+allow_sprint_while_reload	= true
+
+snd_shoot			= weapons\toz66\layers\toz66obrez_shoot_a_1
+snd_shoot1			= weapons\toz66\layers\toz66obrez_shoot_a_2
+snd_shoot2			= weapons\toz66\layers\toz66obrez_shoot_a_1
+
+hud				= mp_wpn_bm16_obrez_hud
+
+[mp_wpn_bm16_obrez_hud]:wpn_bm16_hud
+aim_hud_offset_pos		= -0.010000,0.025000,0.0
+aim_hud_offset_pos_16x9		= -0.010000,0.025000,0.0
+
+
+[mp_wpn_colt1911]:wpn_colt1911
+	def_hide_bones 					  = barrel, barrel_compensator, sight
+    $spawn                            = "network\weapons\pistols\mp_wpn_colt1911"
+    class                   		  = W_PM
+	use_first_bullet				  = false	;есть ли эффект первого выстрела (точного)
+	first_bullet_dispertion			  = 0.015	;дисперсия для первого выстрела
+	first_bullet_timeout			  = 500	;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0	;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_11.43x23_fmj, mp_ammo_11.43x23_hydro
+    silencer_name                     = mp_wpn_addon_silencer_colt_p220
+
+
+[mp_wpn_desert_eagle]:wpn_desert_eagle
+    $spawn                            = "network\weapons\pistols\mp_wpn_desert_eagle"
+    class                   		  = W_PM
+	use_first_bullet				  = false	;есть ли эффект первого выстрела (точного)
+	first_bullet_dispertion			  = 0.015	;дисперсия для первого выстрела
+	first_bullet_timeout			  = 750 ;500	;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0	;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_50ae
+	
+	;отдача
+	cam_relax_speed         	= 0.01			;скорость возврата в исходное положение
+	cam_relax_speed_ai      	= 120.75
+	cam_dispersion          	= 4.5		;увеличения угла (в градусах) с каждым выстрелом
+	cam_dispersion_inc			= 2.8		;увеличениe cam_dispersion с каждым выстрелом
+	cam_dispersion_frac			= 0.7		;ствол будет подыматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+	cam_max_angle				= 65.0		;максимальный угол отдачи
+	cam_max_angle_horz			= 15.0		;(degree) maximum shot horizontal degree
+	cam_step_angle_horz			= 1.0		;(degree) size of step camera moved in horizontal position while shooting
+	;отдача в прицеле
+	zoom_cam_relax_speed        = 1.2    ; scope & ironsight
+	zoom_cam_relax_speed_ai     = 120.75
+	zoom_cam_dispersion         = 3.0
+	zoom_cam_dispersion_inc     = 1.6
+	zoom_cam_dispersion_frac    = 0.95
+	zoom_cam_max_angle          = 45.0
+	zoom_cam_max_angle_horz     = 10.0
+	zoom_cam_step_angle_horz    = 1.5
+
+
+[mp_wpn_fn2000]:wpn_fn2000
+    $spawn                            = "network\weapons\assault\mp_wpn_fn2000"
+
+
+[mp_wpn_fort]:wpn_fort
+	def_hide_bones 					  = barrel, sight
+	def_show_bones					  = barrel_silencer
+    $spawn                            = "network\weapons\pistols\mp_wpn_fort"
+    class                    	      = W_PM
+	use_first_bullet				  = false	;есть ли эффект первого выстрела (точного)
+	first_bullet_dispertion			  = 0.015	;дисперсия для первого выстрела
+	first_bullet_timeout			  = 500	;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0	;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_9x18_fmj, mp_ammo_9x18_pmm, mp_ammo_9x18_pbp
+    silencer_name                     = mp_wpn_addon_silencer
+
+
+[mp_wpn_g36]:wpn_g36
+    $spawn                            = "network\weapons\assault\mp_wpn_g36"
+
+
+[mp_wpn_gauss]:wpn_gauss
+    $spawn                            = "network\weapons\sniper_rifles\mp_wpn_gauss"
+    class                   		  = W_SVD
+	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)    
+	first_bullet_dispertion			  = 0.01	 ;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1000	 ;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0		 ;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_gauss
+	scope_name 						  = mp_wpn_addon_scope_susat	   
+
+
+[mp_wpn_groza]:wpn_groza
+    $spawn                            = "network\weapons\assault\mp_wpn_groza"
+    class                   		  = W_GROZA
+	use_first_bullet				  = false	;есть ли эффект первого выстрела (точного)
+	first_bullet_dispertion			  = 0.01	;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1000	;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0	;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_9x39_pab9, mp_ammo_9x39_ap, mp_ammo_9x39_sp5
+    grenade_class                     = mp_ammo_vog-25, mp_ammo_vog-25p
+    grenade_launcher_name             = mp_wpn_addon_grenade_launcher_groza
+    scopes_sect						  = mp_scope_po4x34_groza  
+    silencer_name                     = mp_wpn_addon_silencer_groza    
+	
+	;отдача
+	cam_relax_speed         = 5		; скорость возврата в исходное положение
+	cam_relax_speed_ai      = 140	; скорость возврата в исходное положение для AI
+	cam_dispersion          = 0.8       ; увеличения угла (в градусах) при первом выстреле
+	cam_dispersion_inc      = 0.025       ; увеличениe cam_dispersion с каждым выстрелом
+	cam_dispersion_frac     = 0.66       ; frac * angle + rand(-1,1)*(1-frac) * angle ствол будет подvматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+	cam_max_angle           = 40.0       ; максимальный угол отдачи
+	cam_max_angle_horz      = 60.0       ; (degree) maximum shot horizontal degree
+	cam_step_angle_horz     = 2.9       ; (degree) size of step camera moved in horizontal position while shooting
+	;отдача в прицеле
+	zoom_cam_relax_speed         = 5     ; scope & ironsight
+	zoom_cam_relax_speed_ai      = 120
+	zoom_cam_dispersion          = 0.25
+	zoom_cam_dispersion_inc      = 0.02
+	zoom_cam_dispersion_frac     = 0.75
+	zoom_cam_max_angle           = 13.0
+	zoom_cam_max_angle_horz      = 20.0
+	zoom_cam_step_angle_horz     = 0.83
+
+[mp_scope_po4x34_groza]:scope_po4x34_groza
+scope_name = mp_wpn_addon_scope_po4x34
+
+[mp_scope_eotech_groza]:scope_eotech_groza
+scope_name = mp_wpn_addon_scope_susat_x1.6
+
+[mp_scope_aimpoint_groza]:scope_aimpoint_groza
+scope_name = mp_wpn_addon_scope_susat_dusk
+
+[mp_scope_elcan_groza]:scope_elcan_groza
+scope_name = mp_wpn_addon_scope_susat_custom
+
+[mp_scope_pn23_groza]:scope_pn23_groza
+scope_name = mp_wpn_addon_scope_susat_night
+
+
+[mp_wpn_groza_545]:mp_wpn_groza
+$spawn				= "network\weapons\assault\mp_wpn_groza_545"
+ammo_elapsed			= 30
+ammo_mag_size			= 30
+ammo_class			= mp_ammo_5.45x39_fmj, mp_ammo_5.45x39_ap
+bullet_speed			= 880
+hit_power			= 0.78, 0.78, 0.78, 0.78
+fire_distance			= 600
+rpm				= 840
+
+def_hide_bones = scope1, scope2, scope3, scope4, scope5, mag_20, mag45, mag45_black, mag60, flash, light, sight, grip, laser, foregrip_rail, launcher_scope_static, shell5x45, bullet5x45, bullet5x45_2, ammo_chamber_5x45, handler2
+def_show_bones = planka, dtc, handler, usm, spusk, launcher_scope, mag30, foregrip, shell, bullet, bullet_2, ammo_chamber, wpn_silencer_9x39
+
+inv_name			= st_wpn_groza_545
+inv_name_short			= st_wpn_groza_545
+
+inv_grid_x			= 14
+inv_grid_y			= 37
+
+kill_msg_x			= 430
+kill_msg_y			= 65
+kill_msg_width			= 47
+kill_msg_height			= 22
+
+
+[mp_wpn_hpsa]:wpn_hpsa
+	def_hide_bones 					  = sight
+    $spawn                            = "network\weapons\pistols\mp_wpn_hpsa"
+    class                   		  = W_PM
+	use_first_bullet				  = false	;есть ли эффект первого выстрела (точного)
+	first_bullet_dispertion			  = 0.015	;дисперсия для первого выстрела
+	first_bullet_timeout			  = 500	;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0	;предельная скорость актера при которой будет первый точный выстрел 
+    ammo_class                        = mp_ammo_9x19_fmj, mp_ammo_9x19_pbp
+    silencer_name                     = mp_wpn_addon_silencer_919
+
+
+[mp_wpn_knife]:wpn_knife
+    $spawn                            = "network\weapons\other\mp_wpn_knife"    
+	class							  = W_KNIFE
+	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)
+	first_bullet_dispertion			  = 0.01	 ;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1000	 ;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0		 ;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_9x18_fmj
+    silencer_name                     = mp_wpn_addon_silencer
+
+
+[mp_wpn_l85]:wpn_l85
+    $spawn                            = "network\weapons\assault\mp_wpn_l85"
+    class                   		  = W_AK74
+	use_first_bullet				  = false	;есть ли эффект первого выстрела (точного)
+	first_bullet_dispertion			  = 0.01	;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1000	;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0	;предельная скорость актера при которой будет первый точный выстрел  
+    ammo_class                        = mp_ammo_5.56x45_ss190, mp_ammo_5.56x45_ap
+    grenade_class                     = mp_ammo_m209, mp_ammo_m397a1
+    grenade_launcher_name             = mp_wpn_addon_grenade_launcher_l123a2      
+	scopes_sect						  = mp_scope_eotech_l85a2, mp_scope_aimpoint_l85a2, mp_scope_susat_l85a2, mp_scope_elcan_l85a2, mp_scope_pn23_l85a2
+    silencer_name                     = mp_wpn_addon_silencer_m4_2000
+	
+	;отдача
+	cam_relax_speed         = 5		; скорость возврата в исходное положение
+	cam_relax_speed_ai      = 140	; скорость возврата в исходное положение для AI
+	cam_dispersion          = 1.06       ; увеличения угла (в градусах) при первом выстреле
+	cam_dispersion_inc      = 0.033       ; увеличениe cam_dispersion с каждым выстрелом
+	cam_dispersion_frac     = 0.72       ; frac * angle + rand(-1,1)*(1-frac) * angle ствол будет подvматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+	cam_max_angle           = 40.0       ; максимальный угол отдачи
+	cam_max_angle_horz      = 60.0       ; (degree) maximum shot horizontal degree
+	cam_step_angle_horz     = 2.6       ; (degree) size of step camera moved in horizontal position while shooting
+	;отдача в прицеле
+	zoom_cam_relax_speed         = 5     ; scope & ironsight
+	zoom_cam_relax_speed_ai      = 120
+	zoom_cam_dispersion          = 0.3
+	zoom_cam_dispersion_inc      = 0.026
+	zoom_cam_dispersion_frac     = 0.83
+	zoom_cam_max_angle           = 13.0
+	zoom_cam_max_angle_horz      = 20.0
+	zoom_cam_step_angle_horz     = 1.4
+
+[mp_scope_eotech_l85a2]:scope_eotech_l85a2
+scope_name = mp_wpn_addon_scope_susat_x1.6
+
+[mp_scope_aimpoint_l85a2]:scope_aimpoint_l85a2
+scope_name = mp_wpn_addon_scope_susat_dusk
+
+[mp_scope_susat_l85a2]:scope_susat_l85a2
+scope_name = mp_wpn_addon_scope_susat
+
+[mp_scope_elcan_l85a2]:scope_elcan_l85a2
+scope_name = mp_wpn_addon_scope_susat_custom
+
+[mp_scope_pn23_l85a2]:scope_pn23_l85a2
+scope_name = mp_wpn_addon_scope_susat_night
+
+
+[mp_wpn_lr300]:wpn_lr300
+    $spawn                            = "network\weapons\assault\mp_wpn_lr300"
+    class                   		  = W_AK74
+	use_first_bullet				  = false	;есть ли эффект первого выстрела (точного)
+	first_bullet_dispertion			  = 0.01	;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1000	;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0	;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_5.56x45_ss190, mp_ammo_5.56x45_ap
+    grenade_class                     = mp_ammo_m209, mp_ammo_m397a1
+    grenade_launcher_name             = mp_wpn_addon_grenade_launcher_m203
+    scopes_sect						  = mp_scope_eotech_lr300, mp_scope_aimpoint_lr300, mp_scope_elcan_lr300, mp_scope_pn23_lr300
+    silencer_name                     = mp_wpn_addon_silencer_m4_2000
+
+[mp_scope_eotech_lr300]:scope_eotech_lr300
+scope_name = mp_wpn_addon_scope_susat_x1.6
+
+[mp_scope_aimpoint_lr300]:scope_aimpoint_lr300
+scope_name = mp_wpn_addon_scope_susat_dusk
+
+[mp_scope_elcan_lr300]:scope_elcan_lr300
+scope_name = mp_wpn_addon_scope_susat_custom
+
+[mp_scope_pn23_lr300]:scope_pn23_lr300
+scope_name = mp_wpn_addon_scope_susat_night
+
+
+[mp_wpn_mp5]:wpn_mp5
+	def_hide_bones 					  = stock_plastic, stock_short, grip_handler, grip_sd, grip_rail, flash_sd, laser_sd, flash, laser, grip_sd_rail, mag40, mag30_sd, scope1, scope2, scope3, scope4, sight
+	def_show_bones 					  = rail, mag30, stock_teleskop, grip, iron_sight
+    $spawn                            = "network\weapons\assault\mp_wpn_mp5"
+	class							  = W_VAL 
+	use_first_bullet				  = false	;есть ли эффект первого выстрела (точного)
+	first_bullet_dispertion			  = 0.012;дисперсия для первого выстрела
+	first_bullet_timeout			  = 500	;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 2.9	;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_9x19_fmj, mp_ammo_9x19_pbp
+	scopes_sect 					  = mp_scope_eotech_mp5, mp_scope_aimpoint_mp5, mp_scope_elcan_mp5, mp_scope_pn23_mp5
+	
+	;отдача
+	cam_relax_speed         = 5		; скорость возврата в исходное положение
+	cam_relax_speed_ai      = 140	; скорость возврата в исходное положение для AI
+	cam_dispersion          = 0.9       ; увеличения угла (в градусах) при первом выстреле
+	cam_dispersion_inc      = 0.02       ; увеличениe cam_dispersion с каждым выстрелом
+	cam_dispersion_frac     = 0.68       ; frac * angle + rand(-1,1)*(1-frac) * angle ствол будет подvматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+	cam_max_angle           = 40.0       ; максимальный угол отдачи
+	cam_max_angle_horz      = 60.0       ; (degree) maximum shot horizontal degree
+	cam_step_angle_horz     = 2.8       ; (degree) size of step camera moved in horizontal position while shooting
+	;отдача в прицеле
+	zoom_cam_relax_speed         = 5     ; scope & ironsight
+	zoom_cam_relax_speed_ai      = 120
+	zoom_cam_dispersion          = 0.25
+	zoom_cam_dispersion_inc      = 0.02
+	zoom_cam_dispersion_frac     = 0.82
+	zoom_cam_max_angle           = 13.0
+	zoom_cam_max_angle_horz      = 20.0
+	zoom_cam_step_angle_horz     = 1.35
+
+[mp_scope_eotech_mp5]:scope_eotech_mp5
+scope_name = mp_wpn_addon_scope_susat_x1.6
+
+[mp_scope_aimpoint_mp5]:scope_aimpoint_mp5
+scope_name = mp_wpn_addon_scope_susat_dusk
+
+[mp_scope_elcan_mp5]:scope_elcan_mp5
+scope_name = mp_wpn_addon_scope_susat_custom
+
+[mp_scope_pn23_mp5]:scope_pn23_mp5
+scope_name = mp_wpn_addon_scope_susat_night
+
+
+[mp_wpn_pb]:wpn_pb
+    $spawn                            = "network\weapons\pistols\mp_wpn_pb"
+    class                   		  = W_PM
+	use_first_bullet				  = false	;есть ли эффект первого выстрела (точного)
+	first_bullet_dispertion			  = 0.015	;дисперсия для первого выстрела
+	first_bullet_timeout			  = 500	;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0	;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_9x18_fmj, mp_ammo_9x18_pmm, mp_ammo_9x18_pbp
+    silencer_name                     = mp_wpn_addon_silencer_pb
+
+
+[mp_wpn_pkm]:wpn_pkm
+	$spawn							  = "network\weapons\heavy_weapons\mp_wpn_pkm"
+	class                   		  = W_VAL
+	use_first_bullet				  = false	;есть ли эффект первого выстрела (точного)
+	first_bullet_dispertion			  = 0.01	;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1500	;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0	;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_pkm_100 ; mp_ammo_7.62x54_ap
+    scope_name                        = mp_wpn_addon_scope
+    silencer_name                     = mp_wpn_addon_silencer
+
+
+[mp_wpn_pm]:wpn_pm
+    def_hide_bones					  = sight, barrel
+    def_show_bones					  = barrel_silencer
+    $spawn                            = "network\weapons\pistols\mp_wpn_pm"
+    class                   		  = W_PM
+	use_first_bullet				  = false	;есть ли эффект первого выстрела (точного)
+	first_bullet_dispertion			  = 0.015	;дисперсия для первого выстрела
+	first_bullet_timeout			  = 500	;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0	;предельная скорость актера при которой будет первый точный выстрел  
+    ammo_class                        = mp_ammo_9x18_fmj, mp_ammo_9x18_pmm, mp_ammo_9x18_pbp
+    silencer_name                     = mp_wpn_addon_silencer
+
+
+[mp_wpn_rg6]:wpn_rg6
+    $spawn                            = "network\weapons\heavy_weapons\mp_wpn_rg6"
+    class                   		  = W_RG6
+	use_first_bullet				  = false	;есть ли эффект первого выстрела (точного)
+	;first_bullet_dispertion		  = 0.01	;дисперсия для первого выстрела
+	;first_bullet_timeout			  = 1000	;время между первыми выстрелами
+	;first_bullet_velocity_limit	  = 1.0	;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_vog-25, mp_ammo_vog-25p
+    rpm                               = 100     
+
+
+[mp_wpn_rpg7]:wpn_rpg7
+    $spawn                            = "network\weapons\heavy_weapons\mp_wpn_rpg7"
+    class                    		  = W_RPG7
+	use_first_bullet				  = false	;есть ли эффект первого выстрела (точного)      
+	first_bullet_dispertion			  = 0.01	 ;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1000	 ;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0		 ;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_og-7b
+	scopes_sect						  = mp_scope_pgo7v_rpg7        
+
+[mp_scope_pgo7v_rpg7]:scope_pgo7v_rpg7
+scope_name = mp_wpn_addon_scope_pgo7v
+
+
+[mp_wpn_sig220]:wpn_sig220
+	def_hide_bones 					  = sight, barrel, mag2, flash, laser
+    $spawn                            = "network\weapons\pistols\mp_wpn_sig220"
+    class                   		  = W_PM
+	use_first_bullet				  = false	;есть ли эффект первого выстрела (точного)
+	first_bullet_dispertion			  = 0.015	;дисперсия для первого выстрела
+	first_bullet_timeout			  = 500	;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0	;предельная скорость актера при которой будет первый точный выстрел   
+    ammo_class                        = mp_ammo_11.43x23_fmj, mp_ammo_11.43x23_hydro
+    silencer_name                     = mp_wpn_addon_silencer_colt_p220
+
+
+[mp_wpn_sig550]:wpn_sig550
+    $spawn                            = "network\weapons\assault\mp_wpn_sig550"
+    class                   		  = W_AK74
+	visual                  		  = dynamics\weapons\wpn_sig550\wpn_sig550_tactical.ogf
+	use_first_bullet				  = false	;есть ли эффект первого выстрела (точного)
+	first_bullet_dispertion			  = 0.01	;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1000	;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0	;предельная скорость актера при которой будет первый точный выстрел    
+    ammo_class                        = mp_ammo_5.56x45_ss190, mp_ammo_5.56x45_ap
+    grenade_class                     = mp_ammo_m209, mp_ammo_m397a1
+    grenade_launcher_name             = mp_wpn_addon_grenade_launcher_m203   
+	scopes_sect	        			  = mp_scope_aimpoint_sig550, mp_scope_eotech_sig550, mp_scope_elcan_sig550, mp_scope_pn23_sig550    
+    silencer_name                     = mp_wpn_addon_silencer_m4_2000      
+	hud                     		  = mp_wpn_sig550_hud
+	
+	;отдача
+	cam_relax_speed         = 5		; скорость возврата в исходное положение
+	cam_relax_speed_ai      = 140	; скорость возврата в исходное положение для AI
+	cam_dispersion          = 0.95       ; увеличения угла (в градусах) при первом выстреле
+	cam_dispersion_inc      = 0.03       ; увеличениe cam_dispersion с каждым выстрелом
+	cam_dispersion_frac     = 0.7       ; frac * angle + rand(-1,1)*(1-frac) * angle ствол будет подvматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+	cam_max_angle           = 40.0       ; максимальный угол отдачи
+	cam_max_angle_horz      = 60.0       ; (degree) maximum shot horizontal degree
+	cam_step_angle_horz     = 2.0       ; (degree) size of step camera moved in horizontal position while shooting
+	;отдача в прицеле
+	zoom_cam_relax_speed         = 5     ; scope & ironsight
+	zoom_cam_relax_speed_ai      = 120
+	zoom_cam_dispersion          = 0.3
+	zoom_cam_dispersion_inc      = 0.022
+	zoom_cam_dispersion_frac     = 0.8
+	zoom_cam_max_angle           = 13.0
+	zoom_cam_max_angle_horz      = 20.0
+	zoom_cam_step_angle_horz     = 1.0
+
+[mp_wpn_sig550_hud]:wpn_sig550_hud
+item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
+
+aim_hud_offset_pos = -0.000100,0.0023,0.000000
+aim_hud_offset_rot = 0.0130,0.000000,0.00000
+
+aim_hud_offset_pos_16x9 = -0.000100,0.0023,0.000000
+aim_hud_offset_rot_16x9 = 0.0130,0.000000,0.00000
+
+
+[mp_scope_eotech_sig550]:scope_eotech_sig550
+scope_name = mp_wpn_addon_scope_susat_x1.6
+
+[mp_scope_aimpoint_sig550]:scope_aimpoint_sig550
+scope_name = mp_wpn_addon_scope_susat_dusk
+
+[mp_scope_elcan_sig550]:scope_elcan_sig550
+scope_name = mp_wpn_addon_scope_susat_custom
+
+[mp_scope_pn23_sig550]:scope_pn23_sig550
+scope_name = mp_wpn_addon_scope_susat_night
+
+
+[mp_wpn_spas12]:wpn_spas12
+    $spawn                            = "network\weapons\shotguns\mp_wpn_spas12"
+
+
+[mp_wpn_svd]:wpn_svd
+    $spawn                            = "network\weapons\sniper_rifles\mp_wpn_svd"
+    class                   		  = W_SVD
+	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)             
+	first_bullet_dispertion			  = 0.01	 ;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1000	 ;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0		 ;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_7.62x54_7h1, mp_ammo_7.62x54_7h14;, mp_ammo_7.62x54_ap
+	scopes_sect 					  = mp_scope_pso1_svd, mp_scope_nvsn_svd, mp_scope_cobra_svd, mp_scope_pka_svd, mp_scope_kashtan_svd, mp_scope_pso1m2_svd, mp_scope_nvas_svd
+    scope_name                        = mp_wpn_addon_scope          
+	silencer_name           		  = mp_wpn_addon_silencer_svd   ; section name for the attachable silencer
+	;отдача
+	cam_relax_speed         = 5		; скорость возврата в исходное положение
+	cam_relax_speed_ai      = 140	; скорость возврата в исходное положение для AI
+	cam_dispersion          = 3.0       ; увеличения угла (в градусах) при первом выстреле
+	cam_dispersion_inc      = 0.2       ; увеличениe cam_dispersion с каждым выстрелом
+	cam_dispersion_frac     = 1.0       ; frac * angle + rand(-1,1)*(1-frac) * angle ствол будет подvматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+	cam_max_angle           = 100.0       ; максимальный угол отдачи
+	cam_max_angle_horz      = 120.0       ; (degree) maximum shot horizontal degree
+	cam_step_angle_horz     = 2.0       ; (degree) size of step camera moved in horizontal position while shooting
+	;отдача в прицеле
+	zoom_cam_relax_speed         = 5     ; scope & ironsight
+	zoom_cam_relax_speed_ai      = 120
+	zoom_cam_dispersion          = 1.0
+	zoom_cam_dispersion_inc      = 0.022
+	zoom_cam_dispersion_frac     = 0.8
+	zoom_cam_max_angle           = 20.0
+	zoom_cam_max_angle_horz      = 80.0
+	zoom_cam_step_angle_horz     = 1.0
+
+[mp_scope_pso1_svd]:scope_pso1_svd
+scope_name = mp_wpn_addon_scope
+
+[mp_scope_pso1m2_svd]:scope_pso1m2_svd
+scope_name = mp_wpn_addon_scope_x2.7
+
+[mp_scope_nvsn_svd]:scope_nvsn_svd
+scope_name = mp_wpn_addon_scope_detector
+
+[mp_scope_nvas_svd]:scope_nvas_svd
+scope_name = mp_wpn_addon_scope_night
+
+[mp_scope_cobra_svd]:scope_cobra_svd
+scope_name = mp_wpn_addon_scope_cobra
+
+[mp_scope_pka_svd]:scope_pka_svd
+scope_name = mp_wpn_addon_scope_pka
+
+[mp_scope_kashtan_svd]:scope_kashtan_svd
+scope_name = mp_wpn_addon_scope_kashtan
+
+
+[mp_wpn_svu]:wpn_svu
+    $spawn                            = "network\weapons\sniper_rifles\mp_wpn_svu"
+    class                   		  = W_SVU
+	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)            
+	first_bullet_dispertion			  = 0.01	 ;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1000	 ;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0		 ;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_7.62x54_7h1, mp_ammo_7.62x54_7h14;, mp_ammo_7.62x54_ap
+	scopes_sect 					  = mp_scope_pso1_svu, mp_scope_nvsn_svu, mp_scope_cobra_svu, mp_scope_pka_svu, mp_scope_kashtan_svu, mp_scope_pso1m2_svu, mp_scope_nvas_svu
+    scope_name                        = mp_wpn_addon_scope     
+	;отдача
+	cam_relax_speed         = 5		; скорость возврата в исходное положение
+	cam_relax_speed_ai      = 120	; скорость возврата в исходное положение для AI
+	cam_dispersion          = 2.5       ; увеличения угла (в градусах) при первом выстреле
+	cam_dispersion_inc      = 0.2       ; увеличениe cam_dispersion с каждым выстрелом
+	cam_dispersion_frac     = 1.0       ; frac * angle + rand(-1,1)*(1-frac) * angle ствол будет подvматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+	cam_max_angle           = 90.0       ; максимальный угол отдачи
+	cam_max_angle_horz      = 80.0       ; (degree) maximum shot horizontal degree
+	cam_step_angle_horz     = 2.0       ; (degree) size of step camera moved in horizontal position while shooting
+	;отдача в прицеле
+	zoom_cam_relax_speed         = 5     ; scope & ironsight
+	zoom_cam_relax_speed_ai      = 100
+	zoom_cam_dispersion          = 1.0
+	zoom_cam_dispersion_inc      = 0.022
+	zoom_cam_dispersion_frac     = 0.8
+	zoom_cam_max_angle           = 15.0
+	zoom_cam_max_angle_horz      = 50.0
+	zoom_cam_step_angle_horz     = 1.0
+
+[mp_scope_pso1_svu]:scope_pso1_svu
+scope_name = mp_wpn_addon_scope
+
+[mp_scope_pso1m2_svu]:scope_pso1m2_svu
+scope_name = mp_wpn_addon_scope_x2.7
+
+[mp_scope_nvsn_svu]:scope_nvsn_svu
+scope_name = mp_wpn_addon_scope_detector
+
+[mp_scope_nvas_svu]:scope_nvas_svu
+scope_name = mp_wpn_addon_scope_night
+
+[mp_scope_cobra_svu]:scope_cobra_svu
+scope_name = mp_wpn_addon_scope_cobra
+
+[mp_scope_pka_svu]:scope_pka_svu
+scope_name = mp_wpn_addon_scope_pka
+
+[mp_scope_kashtan_svu]:scope_kashtan_svu
+scope_name = mp_wpn_addon_scope_kashtan
+
+
+[mp_wpn_toz34]:wpn_toz34
+	def_hide_bones 					  = stock_short, barrel_short, sight, scope2, scope3, scope4_sight
+	def_show_bones 					  = stock, barrel, rail
+    $spawn                            = "network\weapons\shotguns\mp_wpn_toz34"
+    class                    		  = W_BM16
+	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)               
+	first_bullet_dispertion			  = 0.01	 ;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1000	 ;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0		 ;предельная скорость актера при которой будет первый точный выстрел
+	ammo_class                        = mp_ammo_12x70_buck, mp_ammo_12x76_zhekan, mp_ammo_12x76_dart
+	scopes_sect 					  = mp_scope_pu_toz34, mp_scope_rakurs_toz34       
+
+[mp_scope_pu_toz34]:scope_pu_toz34
+scope_name = mp_wpn_addon_scope_pu
+
+[mp_scope_rakurs_toz34]:scope_rakurs_toz34
+scope_name = mp_wpn_addon_scope_rakurs
+
+
+[mp_wpn_toz34_obrez]:mp_wpn_toz34
+$spawn				= "network\weapons\shotguns\mp_wpn_toz34_obrez"
+
+def_hide_bones			= stock, barrel, rail, sight, scope2, scope3, scope4, scope4_sight
+def_show_bones			= stock_short, barrel_short
+
+PDM_disp_base			= 1.2
+
+fire_distance			= 100
+
+inv_weight			= 1.5
+description			= st_wpn_toz34_obrez_descr
+inv_name			= st_wpn_toz34_obrez
+inv_name_short			= st_wpn_toz34_obrez
+inv_grid_width			= 3
+inv_grid_height			= 1
+inv_grid_x			= 28
+inv_grid_y			= 38
+kill_msg_x			= 439
+kill_msg_y			= 282
+kill_msg_width			= 72
+kill_msg_height			= 17
+
+fire_dispersion_base		= 0.33
+crosshair_inertion		= 3.5
+
+flame_particles			= weapons\generic_weapon05
+
+scope_status			= 0
+allow_sprint_while_reload	= true
+
+snd_reload			= weapons\toz34\mechanics\toz34_reload_fast
+snd_reload_full			= weapons\toz34\mechanics\toz34_reload_full_fast
+snd_reload_only			= weapons\toz34\mechanics\toz34_reload_fast
+snd_ammochange			= weapons\toz34\mechanics\toz34_reload_full_fast
+snd_ammochange_full		= weapons\toz34\mechanics\toz34_reload_full_fast
+snd_ammochange_only_one		= weapons\toz34\mechanics\toz34_reload_fast
+snd_ammochange_only_two		= weapons\toz34\mechanics\toz34_reload_fast
+snd_reload_1			= weapons\toz34\mechanics\toz34_reload_fast
+snd_shoot			= weapons\toz34\layers\toz34obrez_shoot_a_1
+snd_shoot1			= weapons\toz34\layers\toz34obrez_shoot_a_2
+snd_shoot2			= weapons\toz34\layers\toz34obrez_shoot_a_1
+
+hud				= mp_wpn_toz34_obrez_hud
+
+[mp_wpn_toz34_obrez_hud]:wpn_toz34_hud
+aim_hud_offset_pos		= -0.010000,0.023500,0.0
+aim_hud_offset_pos_16x9		= -0.010000,0.023500,0.0
+
+anm_reload			= toz34_reload_full_fast
+anm_reload_0			= toz34_reload_full_fast
+anm_reload_only_0		= toz34_reload_last_fast
+anm_reload_1			= toz34_reload_fast
+anm_reload_2			= toz34_reload_full_fast
+anm_reload_ammochange_1		= toz34_reload_full_fast
+anm_reload_ammochange_2		= toz34_reload_full_fast
+anm_reload_ammochange_only_1	= toz34_reload_full_fast
+anm_reload_ammochange_only_2	= toz34_reload_full_fast
+anm_reload_only_ammochange_0	= toz34_reload_full_fast
+
+
+[mp_wpn_usp]:wpn_usp
+    $spawn                            = "network\weapons\pistols\mp_wpn_usp"
+    class                   		  = W_PM
+	use_first_bullet				  = false	;есть ли эффект первого выстрела (точного)
+	first_bullet_dispertion			  = 0.015	;дисперсия для первого выстрела
+	first_bullet_timeout			  = 500	;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0	;предельная скорость актера при которой будет первый точный выстрел          
+    ammo_class                        = mp_ammo_11.43x23_fmj, mp_ammo_11.43x23_hydro
+    silencer_name                     = mp_wpn_addon_silencer_colt_p220
+
+
+[mp_wpn_val]:wpn_val
+	def_show_bones 					  = mag20, rail_handler
+	def_hide_bones 				 	  = mag, scope_rakurs, scope_kashtan, scope_cobra, scope_pka, scope_pso_sniper, scope_pso_assault, scope_nv_sniper, scope_nv_assault, tactical_handler, sheka, flash, laser, light, line, rail_lam, sight
+    $spawn                            = "network\weapons\assault\mp_wpn_val"
+	class                   		  = W_VAL
+	use_first_bullet				  = false	;есть ли эффект первого выстрела (точного)
+	first_bullet_dispertion			  = 0.005	;дисперсия для первого выстрела
+	first_bullet_timeout			  = 750;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 3.0	;предельная скорость актера при которой будет первый точный выстрел             
+    ammo_class                        = mp_ammo_9x39_pab9, mp_ammo_9x39_ap, mp_ammo_9x39_sp5
+	scopes_sect 					  = mp_scope_pka_val, mp_scope_pso1m2x1_val, mp_scope_nvas_val, mp_scope_cobra_val, mp_scope_kashtan_val, mp_scope_pso1_val, mp_scope_nvsn_val, mp_scope_rakurs_val    
+    silencer_name                     = mp_wpn_addon_silencer 
+	
+	;отдача
+	cam_relax_speed         = 5		; скорость возврата в исходное положение
+	cam_relax_speed_ai      = 140	; скорость возврата в исходное положение для AI
+	cam_dispersion          = 0.95       ; увеличения угла (в градусах) при первом выстреле
+	cam_dispersion_inc      = 0.025       ; увеличениe cam_dispersion с каждым выстрелом
+	cam_dispersion_frac     = 0.6       ; frac * angle + rand(-1,1)*(1-frac) * angle ствол будет подvматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+	cam_max_angle           = 40.0       ; максимальный угол отдачи
+	cam_max_angle_horz      = 60.0       ; (degree) maximum shot horizontal degree
+	cam_step_angle_horz     = 2.4       ; (degree) size of step camera moved in horizontal position while shooting
+	;отдача в прицеле
+	zoom_cam_relax_speed         = 5     ; scope & ironsight
+	zoom_cam_relax_speed_ai      = 120
+	zoom_cam_dispersion          = 0.30
+	zoom_cam_dispersion_inc      = 0.025
+	zoom_cam_dispersion_frac     = 0.82
+	zoom_cam_max_angle           = 13.0
+	zoom_cam_max_angle_horz      = 20.0
+	zoom_cam_step_angle_horz     = 1.1
+
+[mp_scope_pso1_val]:scope_pso1_val
+scope_name = mp_wpn_addon_scope
+
+[mp_scope_pso1m2x1_val]:scope_pso1m2x1_val
+scope_name = mp_wpn_addon_scope_x2.7
+
+[mp_scope_rakurs_val]:scope_rakurs_val
+scope_name = mp_wpn_addon_scope_rakurs
+
+[mp_scope_nvsn_val]:scope_nvsn_val
+scope_name = mp_wpn_addon_scope_detector
+
+[mp_scope_nvas_val]:scope_nvas_val
+scope_name = mp_wpn_addon_scope_night
+
+[mp_scope_cobra_val]:scope_cobra_val
+scope_name = mp_wpn_addon_scope_cobra
+
+[mp_scope_pka_val]:scope_pka_val
+scope_name = mp_wpn_addon_scope_pka
+
+[mp_scope_kashtan_val]:scope_kashtan_val
+scope_name = mp_wpn_addon_scope_kashtan
+
+
+[mp_wpn_vintorez]:wpn_vintorez
+	def_show_bones					  = mag, rail_handler
+	def_hide_bones 					  = mag20, scope_rakurs, scope_kashtan, scope_cobra, scope_pka, scope_pso_sniper, scope_pso_assault, scope_nv_sniper, scope_nv_assault, tactical_handler, sheka, flash, laser, light, line, rail_lam, sight
+    $spawn                            = "network\weapons\sniper_rifles\mp_wpn_vintorez"
+	class                   		  = W_VAL
+	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)
+	first_bullet_dispertion			  = 0.01	;дисперсия для первого выстрела
+	first_bullet_timeout			  = 800	;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0	;предельная скорость актера при которой будет первый точный выстрел             
+    ammo_class                        = mp_ammo_9x39_sp5, mp_ammo_9x39_ap, mp_ammo_9x39_pab9
+	scopes_sect 					  = mp_scope_pso1m2x1_vss, mp_scope_nvas_vss, mp_scope_cobra_vss, mp_scope_pka_vss, mp_scope_kashtan_vss, mp_scope_pso1_vss, mp_scope_nvsn_vss, mp_scope_rakurs_vss     
+    silencer_name                     = mp_wpn_addon_silencer      
+	
+	;отдача
+	cam_relax_speed         = 5		; скорость возврата в исходное положение
+	cam_relax_speed_ai      = 140	; скорость возврата в исходное положение для AI
+	cam_dispersion          = 1.2       ; увеличения угла (в градусах) при первом выстреле
+	cam_dispersion_inc      = 0.03       ; увеличениe cam_dispersion с каждым выстрелом
+	cam_dispersion_frac     = 0.6       ; frac * angle + rand(-1,1)*(1-frac) * angle ствол будет подvматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+	cam_max_angle           = 40.0       ; максимальный угол отдачи
+	cam_max_angle_horz      = 60.0       ; (degree) maximum shot horizontal degree
+	cam_step_angle_horz     = 2.2       ; (degree) size of step camera moved in horizontal position while shooting
+	;отдача в прицеле
+	zoom_cam_relax_speed         = 5     ; scope & ironsight
+	zoom_cam_relax_speed_ai      = 120
+	zoom_cam_dispersion          = 0.4
+	zoom_cam_dispersion_inc      = 0.03
+	zoom_cam_dispersion_frac     = 0.85
+	zoom_cam_max_angle           = 13.0
+	zoom_cam_max_angle_horz      = 20.0
+	zoom_cam_step_angle_horz     = 1.0
+
+[mp_scope_pso1_vss]:scope_pso1_vss
+scope_name = mp_wpn_addon_scope
+
+[mp_scope_pso1m2x1_vss]:scope_pso1m2x1_vss
+scope_name = mp_wpn_addon_scope_x2.7
+
+[mp_scope_rakurs_vss]:scope_rakurs_vss
+scope_name = mp_wpn_addon_scope_rakurs
+
+[mp_scope_nvsn_vss]:scope_nvsn_vss
+scope_name = mp_wpn_addon_scope_detector
+
+[mp_scope_nvas_vss]:scope_nvas_vss
+scope_name = mp_wpn_addon_scope_night
+
+[mp_scope_cobra_vss]:scope_cobra_vss
+scope_name = mp_wpn_addon_scope_cobra
+
+[mp_scope_pka_vss]:scope_pka_vss
+scope_name = mp_wpn_addon_scope_pka
+
+[mp_scope_kashtan_vss]:scope_kashtan_vss
+scope_name = mp_wpn_addon_scope_kashtan
+
+
+[mp_wpn_walther]:wpn_walther
+	def_hide_bones 					  = barrel_compensator, flash, laser, sight
+    $spawn                            = "network\weapons\pistols\mp_wpn_walther"
+    class                   		  = W_PM
+	use_first_bullet				  = false	;есть ли эффект первого выстрела (точного)
+	first_bullet_dispertion			  = 0.015	;дисперсия для первого выстрела
+	first_bullet_timeout			  = 500	;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0	;предельная скорость актера при которой будет первый точный выстрел  
+    ammo_class                        = mp_ammo_9x19_fmj, mp_ammo_9x19_pbp
+    silencer_name                     = mp_wpn_addon_silencer_919
+
+
+[mp_wpn_wincheaster1300]:wpn_wincheaster1300
+	def_hide_bones 					  = scope1, scope2, scope3, scope4, barrel_short, flash, laser, bolt_foregrip_rail, stock, sight, sight_short, stock_tactical, magazine, shell_blue, bullet_blue
+    $spawn                            = "network\weapons\shotguns\mp_wpn_wincheaster1300"
+    class                    		  = W_SHOTGN
+	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)           
+	first_bullet_dispertion			  = 0.01	 ;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1000	 ;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0		 ;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_12x70_buck, mp_ammo_12x76_zhekan, mp_ammo_12x76_dart
+	scopes_sect 					  = mp_scope_eotech_winchester1300, mp_scope_aimpoint_winchester1300, mp_scope_elcan_winchester1300, mp_scope_pn23_winchester1300
+    silencer_name                     = mp_wpn_addon_silencer_hexagon12      
+
+
+[mp_wpn_wincheaster1300_full]:mp_wpn_wincheaster1300
+	def_hide_bones 					  = scope1, scope2, scope3, scope4, barrel_short, flash, laser, bolt_foregrip_rail, sight, sight_short, stock_tactical, magazine, shell_blue, bullet_blue, handler
+def_show_bones = barrel, bolt_foregrip, magazine_short, stock
+    $spawn                            = "network\weapons\shotguns\mp_wpn_wincheaster1300_full"
+
+cam_dispersion		= 4.5 ;увеличения угла (в градусах) с каждым выстрелом
+cam_dispersion_inc	= 2.0 ;увеличениe cam_dispersion с каждым выстрелом
+zoom_cam_dispersion	= 3.0
+zoom_cam_dispersion_inc	= 2.5
+
+inv_grid_width		= 5
+inv_grid_height		= 2
+inv_grid_x		= 23
+inv_grid_y		= 37
+kill_msg_x		= 375
+kill_msg_y		= 258
+kill_msg_width		= 103
+kill_msg_height		= 19
+
+[mp_scope_eotech_winchester1300]:scope_eotech_winchester1300
+scope_name = mp_wpn_addon_scope_susat_x1.6
+
+[mp_scope_aimpoint_winchester1300]:scope_aimpoint_winchester1300
+scope_name = mp_wpn_addon_scope_susat_dusk
+
+[mp_scope_elcan_winchester1300]:scope_elcan_winchester1300
+scope_name = mp_wpn_addon_scope_susat_custom
+
+[mp_scope_pn23_winchester1300]:scope_pn23_winchester1300
+scope_name = mp_wpn_addon_scope_susat_night
+
+
+[mp_wpn_protecta]:wpn_protecta
+    $spawn                            = "network\weapons\shotguns\mp_wpn_protecta"
+    class                    	      = W_SHOTGN
+    def_hide_bones = scope1, scope2, scope3, scope4, barrel_long, flash, laser, bolt_foregrip_rail, handler, rail_lam, body, stock, sight
+	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)           
+	first_bullet_dispertion			  = 0.01	 ;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1000	 ;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0		 ;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_12x70_buck, mp_ammo_12x76_zhekan, mp_ammo_12x76_dart
+    scopes_sect 					  = mp_scope_eotech_protecta, mp_scope_aimpoint_protecta, mp_scope_elcan_protecta, mp_scope_pn23_protecta
+
+[mp_scope_eotech_protecta]:scope_eotech_protecta
+scope_name = mp_wpn_addon_scope_susat_x1.6
+
+[mp_scope_aimpoint_protecta]:scope_aimpoint_protecta
+scope_name = mp_wpn_addon_scope_susat_dusk
+
+[mp_scope_elcan_protecta]:scope_elcan_protecta
+scope_name = mp_wpn_addon_scope_susat_custom
+
+[mp_scope_pn23_protecta]:scope_pn23_protecta
+scope_name = mp_wpn_addon_scope_susat_night
+
+
+;;;; new weps
+
+[mp_wpn_tt33]:wpn_tt33
+    $spawn                            = "network\weapons\pistols\mp_wpn_tt33"
+    class                   		  = W_PM 
+use_first_bullet				  = false;есть ли эффект первого выстрела (точного)           
+	first_bullet_dispertion			  = 0.01	 ;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1000	 ;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0		 ;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_762x25mm_tt
+
+
+[mp_wpn_stechkin]:wpn_stechkin
+	def_hide_bones 					  = sight, barrel, body
+	def_show_bones 					  = barrel_silencer
+    $spawn                            = "network\weapons\pistols\mp_wpn_stechkin"
+	class                   		  = W_VAL
+
+	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)           
+	first_bullet_dispertion			  = 0.01	 ;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1000	 ;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0		 ;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_9x18_fmj, mp_ammo_9x18_pmm, mp_ammo_9x18_pbp
+	silencer_name  					  = mp_wpn_addon_silencer_apb	
+	
+	;отдача
+	cam_relax_speed         = 5		; скорость возврата в исходное положение
+	cam_relax_speed_ai      = 140	; скорость возврата в исходное положение для AI
+	cam_dispersion          = 0.78       ; увеличения угла (в градусах) при первом выстреле
+	cam_dispersion_inc      = 0.02       ; увеличениe cam_dispersion с каждым выстрелом
+	cam_dispersion_frac     = 0.62       ; frac * angle + rand(-1,1)*(1-frac) * angle ствол будет подvматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+	cam_max_angle           = 40.0       ; максимальный угол отдачи
+	cam_max_angle_horz      = 60.0       ; (degree) maximum shot horizontal degree
+	cam_step_angle_horz     = 2.9       ; (degree) size of step camera moved in horizontal position while shooting
+	;отдача в прицеле
+	zoom_cam_relax_speed         = 5     ; scope & ironsight
+	zoom_cam_relax_speed_ai      = 120
+	zoom_cam_dispersion          = 0.2
+	zoom_cam_dispersion_inc      = 0.02
+	zoom_cam_dispersion_frac     = 0.7
+	zoom_cam_max_angle           = 13.0
+	zoom_cam_max_angle_horz      = 20.0
+	zoom_cam_step_angle_horz     = 1.4
+
+
+[mp_wpn_apb]:wpn_apb
+	def_hide_bones 				      = sight, barrel, body
+	def_show_bones 					  = barrel_silencer
+    $spawn                            = "network\weapons\pistols\mp_wpn_apb"
+	class                   		  = W_VAL
+	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)           
+	first_bullet_dispertion			  = 0.01	 ;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1000	 ;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0		 ;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_9x18_fmj, mp_ammo_9x18_pmm, mp_ammo_9x18_pbp
+	silencer_name  					  = mp_wpn_addon_silencer_apb	
+	
+	;отдача
+	cam_relax_speed         = 5		; скорость возврата в исходное положение
+	cam_relax_speed_ai      = 140	; скорость возврата в исходное положение для AI
+	cam_dispersion          = 0.78       ; увеличения угла (в градусах) при первом выстреле
+	cam_dispersion_inc      = 0.02       ; увеличениe cam_dispersion с каждым выстрелом
+	cam_dispersion_frac     = 0.62       ; frac * angle + rand(-1,1)*(1-frac) * angle ствол будет подvматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+	cam_max_angle           = 40.0       ; максимальный угол отдачи
+	cam_max_angle_horz      = 60.0       ; (degree) maximum shot horizontal degree
+	cam_step_angle_horz     = 2.5       ; (degree) size of step camera moved in horizontal position while shooting
+	;отдача в прицеле
+	zoom_cam_relax_speed         = 5     ; scope & ironsight
+	zoom_cam_relax_speed_ai      = 120
+	zoom_cam_dispersion          = 0.2
+	zoom_cam_dispersion_inc      = 0.02
+	zoom_cam_dispersion_frac     = 0.7
+	zoom_cam_max_angle           = 13.0
+	zoom_cam_max_angle_horz      = 20.0
+	zoom_cam_step_angle_horz     = 1.2
+
+
+[mp_wpn_sr1m]:wpn_sr1m
+	def_hide_bones 					  = sight, picatinia, laser, flash, barrel, barrel_compensator
+	def_show_bones 					  = barrel_silencer
+    $spawn                            = "network\weapons\pistols\mp_wpn_sr1m"
+    class                   		  = W_PM
+	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)           
+	first_bullet_dispertion			  = 0.01	 ;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1000	 ;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0		 ;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_9x21_sp10
+	silencer_name  					  = mp_wpn_addon_silencer_921	
+
+
+[mp_wpn_pmm]:wpn_pmm
+	def_hide_bones 					  = sight, barrel
+	def_show_bones 					  = barrel_silencer
+    $spawn                            = "network\weapons\pistols\mp_wpn_pmm"
+    class                   		  = W_PM
+	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)           
+	first_bullet_dispertion			  = 0.01	 ;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1000	 ;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0		 ;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_9x18_pmm, mp_ammo_9x18_fmj, mp_ammo_9x18_pbp
+	silencer_name  					  = mp_wpn_addon_silencer	
+
+
+[mp_wpn_gsh18]:wpn_gsh18
+    $spawn                            = "network\weapons\pistols\mp_wpn_gsh18"
+    class                   		  = W_PM
+	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)           
+	first_bullet_dispertion			  = 0.01	 ;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1000	 ;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0		 ;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_9x19_fmj, mp_ammo_9x19_pbp
+	silencer_name  					  = mp_wpn_addon_silencer_919		
+
+
+[mp_wpn_grach]:wpn_grach
+	def_show_bones 					  = barrel_silencer
+	def_hide_bones 					  = barrel, barrel_compensator, sight, flash, laser, body
+    $spawn                            = "network\weapons\pistols\mp_wpn_grach"
+    class                   		  = W_PM
+	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)           
+	first_bullet_dispertion			  = 0.01	 ;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1000	 ;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0		 ;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_9x19_fmj, mp_ammo_9x19_pbp
+	silencer_name  					  = mp_wpn_addon_silencer_919		
+
+
+[mp_wpn_glock17]:wpn_glock17
+	def_show_bones 					  = barrel_silencer, bolt_auto, mag
+	def_hide_bones 					  = flash, laser, line, light, barrel_compensator, barrel, bolt, bone, bone2, mag2, sight
+    $spawn                            = "network\weapons\pistols\mp_wpn_glock17"
+	class                   		  = W_VAL
+	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)           
+	first_bullet_dispertion			  = 0.01	 ;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1000	 ;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0		 ;предельная скорость актера при которой будет первый точный выстрел
+	fire_dispersion_base			  = 0.28
+	cam_dispersion         			  = 0.8
+	cam_dispersion_inc				  = 0.8		
+	cam_step_angle_horz				  = 4.0
+	zoom_cam_dispersion          	  = 0.26 
+	zoom_cam_dispersion_inc			  = 0.5	
+	zoom_cam_step_angle_horz		  = 3.6
+    ammo_class                        = mp_ammo_9x19_fmj, mp_ammo_9x19_pbp
+	silencer_name  					  = mp_wpn_addon_silencer_919		
+	
+	;отдача
+	cam_relax_speed         = 5		; скорость возврата в исходное положение
+	cam_relax_speed_ai      = 140	; скорость возврата в исходное положение для AI
+	cam_dispersion          = 1.2       ; увеличения угла (в градусах) при первом выстреле
+	cam_dispersion_inc      = 0.02       ; увеличениe cam_dispersion с каждым выстрелом
+	cam_dispersion_frac     = 0.62       ; frac * angle + rand(-1,1)*(1-frac) * angle ствол будет подvматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+	cam_max_angle           = 40.0       ; максимальный угол отдачи
+	cam_max_angle_horz      = 60.0       ; (degree) maximum shot horizontal degree
+	cam_step_angle_horz     = 2.5       ; (degree) size of step camera moved in horizontal position while shooting
+	;отдача в прицеле
+	zoom_cam_relax_speed         = 5     ; scope & ironsight
+	zoom_cam_relax_speed_ai      = 120
+	zoom_cam_dispersion          = 0.64
+	zoom_cam_dispersion_inc      = 0.02
+	zoom_cam_dispersion_frac     = 0.7
+	zoom_cam_max_angle           = 13.0
+	zoom_cam_max_angle_horz      = 20.0
+	zoom_cam_step_angle_horz     = 1.2
+
+
+[mp_wpn_fiveseven]:wpn_fiveseven
+    $spawn                            = "network\weapons\pistols\mp_wpn_fiveseven"
+    class                   		  = W_PM
+	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)           
+	first_bullet_dispertion			  = 0.01	 ;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1000	 ;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0		 ;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_5.7x28
+	silencer_name  					  = mp_wpn_addon_silencer_pistol_57x28		
+
+
+[mp_wpn_desert_eagle_silver]:wpn_desert_eagle_silver
+    $spawn                            = "network\weapons\pistols\mp_wpn_desert_eagle_silver"
+    class                   		  = W_PM
+def_hide_bones = sight, sight2, flash, laser, line, light
+def_show_bones = barrel, barrel_compensator
+	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)           
+	first_bullet_dispertion			  = 0.01	 ;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1000	 ;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0		 ;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_50ae
+	
+	;отдача
+	cam_relax_speed         	= 0.01			;скорость возврата в исходное положение
+	cam_relax_speed_ai      	= 120.75
+	cam_dispersion          	= 4.8		;увеличения угла (в градусах) с каждым выстрелом
+	cam_dispersion_inc			= 2.8		;увеличениe cam_dispersion с каждым выстрелом
+	cam_dispersion_frac			= 0.7		;ствол будет подыматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+	cam_max_angle				= 65.0		;максимальный угол отдачи
+	cam_max_angle_horz			= 15.0		;(degree) maximum shot horizontal degree
+	cam_step_angle_horz			= 1.0		;(degree) size of step camera moved in horizontal position while shooting
+	;отдача в прицеле
+	zoom_cam_relax_speed        = 1.2    ; scope & ironsight
+	zoom_cam_relax_speed_ai     = 120.75
+	zoom_cam_dispersion         = 3.4
+	zoom_cam_dispersion_inc     = 1.6
+	zoom_cam_dispersion_frac    = 0.95
+	zoom_cam_max_angle          = 45.0
+	zoom_cam_max_angle_horz     = 10.0
+	zoom_cam_step_angle_horz    = 1.5
+
+
+[mp_wpn_fort17]:wpn_fort17
+    $spawn                            = "network\weapons\pistols\mp_wpn_fort17"
+    class                   		  = W_PM
+	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)           
+	first_bullet_dispertion			  = 0.01	 ;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1000	 ;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0		 ;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_9x18_fmj, mp_ammo_9x18_pmm, mp_ammo_9x18_pbp
+	silencer_name  					  = mp_wpn_addon_silencer	
+
+
+[mp_wpn_sig220r]:wpn_sig220r
+    $spawn                            = "network\weapons\pistols\mp_wpn_sig220r"
+    class                   		  = W_PM
+	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)           
+	first_bullet_dispertion			  = 0.01	 ;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1000	 ;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0		 ;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_11.43x23_fmj, mp_ammo_11.43x23_hydro
+	silencer_name  					  = mp_wpn_addon_silencer_colt_p220		
+
+
+[mp_wpn_usp_match]:wpn_usp_match
+    $spawn                            = "network\weapons\pistols\mp_wpn_usp_match"
+    class                   		  = W_PM
+	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)           
+	first_bullet_dispertion			  = 0.01	 ;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1000	 ;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0		 ;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_11.43x23_fmj, mp_ammo_11.43x23_hydro
+
+
+[mp_wpn_ak101]:wpn_ak101
+	def_show_bones					  = mag30, handler, foregrip_rail
+	def_hide_bones 					  = mag45, mag45_black, mag60, handler2, scope_cobra, scope_rakurs, scope_pso_sniper, scope_kashtan, scope_pka, scope_pso_assault, scope_nv_sniper, scope_nv_assault, flash, light, laser, line, line2, sight, sight2, foregrip, knife, tilnik
+    $spawn                            = "network\weapons\assault\mp_wpn_ak101"
+    class                			  = W_AK74
+	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)           
+	first_bullet_dispertion			  = 0.01	 ;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1000	 ;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0		 ;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_5.56x45_ss190, mp_ammo_5.56x45_ap
+    grenade_class                     = mp_ammo_vog-25, mp_ammo_vog-25p; name of the ltx-section of used grenades
+    grenade_launcher_name             = mp_wpn_addon_grenade_launcher; section name for the attachable grenade launcher 
+	scopes_sect		                  = mp_scope_pso1m2x1_ak101, mp_scope_nvas_ak101, mp_scope_cobra_ak101, mp_scope_pka_ak101, mp_scope_kashtan_ak101, mp_scope_pso1_ak101, mp_scope_nvsn_ak101, mp_scope_rakurs_ak101
+    silencer_name                     = mp_wpn_addon_silencer_tgpa; section name for the attachable silencer
+	
+	;отдача
+	cam_relax_speed         = 5		; скорость возврата в исходное положение
+	cam_relax_speed_ai      = 140	; скорость возврата в исходное положение для AI
+	cam_dispersion          = 1.08       ; увеличения угла (в градусах) при первом выстреле
+	cam_dispersion_inc      = 0.03       ; увеличениe cam_dispersion с каждым выстрелом
+	cam_dispersion_frac     = 0.7       ; frac * angle + rand(-1,1)*(1-frac) * angle ствол будет подvматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+	cam_max_angle           = 40.0       ; максимальный угол отдачи
+	cam_max_angle_horz      = 60.0       ; (degree) maximum shot horizontal degree
+	cam_step_angle_horz     = 1.88       ; (degree) size of step camera moved in horizontal position while shooting
+	;отдача в прицеле
+	zoom_cam_relax_speed         = 5     ; scope & ironsight
+	zoom_cam_relax_speed_ai      = 120
+	zoom_cam_dispersion          = 0.37
+	zoom_cam_dispersion_inc      = 0.02
+	zoom_cam_dispersion_frac     = 0.8
+	zoom_cam_max_angle           = 13.0
+	zoom_cam_max_angle_horz      = 20.0
+	zoom_cam_step_angle_horz     = 0.78
+
+[mp_scope_pso1_ak101]:scope_pso1_ak101
+scope_name = mp_wpn_addon_scope
+
+[mp_scope_pso1m2x1_ak101]:scope_pso1m2x1_ak101
+scope_name = mp_wpn_addon_scope_x2.7
+
+[mp_scope_rakurs_ak101]:scope_rakurs_ak101
+scope_name = mp_wpn_addon_scope_rakurs
+
+[mp_scope_nvsn_ak101]:scope_nvsn_ak101
+scope_name = mp_wpn_addon_scope_detector
+
+[mp_scope_nvas_ak101]:scope_nvas_ak101
+scope_name = mp_wpn_addon_scope_night
+
+[mp_scope_cobra_ak101]:scope_cobra_ak101
+scope_name = mp_wpn_addon_scope_cobra
+
+[mp_scope_pka_ak101]:scope_pka_ak101
+scope_name = mp_wpn_addon_scope_pka
+
+[mp_scope_kashtan_ak101]:scope_kashtan_ak101
+scope_name = mp_wpn_addon_scope_kashtan
+
+
+[mp_wpn_bizon]:wpn_bizon
+    $spawn                            = "network\weapons\assault\mp_wpn_bizon"
+	class                   		  = W_VAL
+	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)           
+	first_bullet_dispertion			  = 0.01	 ;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1000	 ;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0		 ;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_9x18_fmj, mp_ammo_9x18_pmm, mp_ammo_9x18_pbp
+	scopes_sect		                  = mp_scope_cobra_bizon, mp_scope_nvas_bizon, mp_scope_pso1m2x1_bizon, mp_scope_pka_bizon, mp_scope_kashtan_bizon, mp_scope_pso1_bizon, mp_scope_nvsn_bizon
+    silencer_name                     = mp_wpn_addon_silencer_9x18smg ;section name for the attachable silencer
+	
+	;отдача
+	cam_relax_speed         = 5		; скорость возврата в исходное положение
+	cam_relax_speed_ai      = 140	; скорость возврата в исходное положение для AI
+	cam_dispersion          = 0.9       ; увеличения угла (в градусах) при первом выстреле
+	cam_dispersion_inc      = 0.02       ; увеличениe cam_dispersion с каждым выстрелом
+	cam_dispersion_frac     = 0.6       ; frac * angle + rand(-1,1)*(1-frac) * angle ствол будет подvматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+	cam_max_angle           = 40.0       ; максимальный угол отдачи
+	cam_max_angle_horz      = 60.0       ; (degree) maximum shot horizontal degree
+	cam_step_angle_horz     = 3.0       ; (degree) size of step camera moved in horizontal position while shooting
+	;отдача в прицеле
+	zoom_cam_relax_speed         = 5     ; scope & ironsight
+	zoom_cam_relax_speed_ai      = 120
+	zoom_cam_dispersion          = 0.40
+	zoom_cam_dispersion_inc      = 0.03
+	zoom_cam_dispersion_frac     = 0.7
+	zoom_cam_max_angle           = 13.0
+	zoom_cam_max_angle_horz      = 20.0
+	zoom_cam_step_angle_horz     = 1.5
+
+[mp_scope_pso1_bizon]:scope_pso1_bizon
+scope_name = mp_wpn_addon_scope
+
+[mp_scope_pso1m2x1_bizon]:scope_pso1m2x1_bizon
+scope_name = mp_wpn_addon_scope_x2.7
+
+[mp_scope_nvsn_bizon]:scope_nvsn_bizon
+scope_name = mp_wpn_addon_scope_detector
+
+[mp_scope_nvas_bizon]:scope_nvas_bizon
+scope_name = mp_wpn_addon_scope_night
+
+[mp_scope_cobra_bizon]:scope_cobra_bizon
+scope_name = mp_wpn_addon_scope_cobra
+
+[mp_scope_pka_bizon]:scope_pka_bizon
+scope_name = mp_wpn_addon_scope_pka
+
+[mp_scope_kashtan_bizon]:scope_kashtan_bizon
+scope_name = mp_wpn_addon_scope_kashtan
+
+
+[mp_wpn_mp5sd]:wpn_mp5sd
+	def_hide_bones 					  = stock_plastic, stock_short, grip_handler, grip_rail, grip, flash_sd, laser_sd, flash, laser, grip_sd_rail, mag40, mag30, iron_sight, scope1, scope2, scope3, scope4, sight
+	def_show_bones 					  = rail, mag30_sd, stock_teleskop, grip_sd
+    $spawn                            = "network\weapons\assault\mp_wpn_mp5sd" ;name and section in level editor
+	class                   		  = W_VAL
+	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)           
+	first_bullet_dispertion			  = 0.01	 ;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1000	 ;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0		 ;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_9x19_fmj, mp_ammo_9x19_pbp
+	scopes_sect 					  = mp_scope_eotech_mp5sd, mp_scope_aimpoint_mp5sd, mp_scope_elcan_mp5sd, mp_scope_pn23_mp5sd
+    silencer_name                     = mp_wpn_addon_silencer_919 ;section name for the attachable silencer
+	
+	;отдача
+	cam_relax_speed         = 5		; скорость возврата в исходное положение
+	cam_relax_speed_ai      = 140	; скорость возврата в исходное положение для AI
+	cam_dispersion          = 0.9       ; увеличения угла (в градусах) при первом выстреле
+	cam_dispersion_inc      = 0.02       ; увеличениe cam_dispersion с каждым выстрелом
+	cam_dispersion_frac     = 0.68       ; frac * angle + rand(-1,1)*(1-frac) * angle ствол будет подvматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+	cam_max_angle           = 40.0       ; максимальный угол отдачи
+	cam_max_angle_horz      = 60.0       ; (degree) maximum shot horizontal degree
+	cam_step_angle_horz     = 2.8       ; (degree) size of step camera moved in horizontal position while shooting
+	;отдача в прицеле
+	zoom_cam_relax_speed         = 5     ; scope & ironsight
+	zoom_cam_relax_speed_ai      = 120
+	zoom_cam_dispersion          = 0.25
+	zoom_cam_dispersion_inc      = 0.02
+	zoom_cam_dispersion_frac     = 0.82
+	zoom_cam_max_angle           = 13.0
+	zoom_cam_max_angle_horz      = 20.0
+	zoom_cam_step_angle_horz     = 1.35
+
+[mp_scope_eotech_mp5sd]:scope_eotech_mp5sd
+scope_name = mp_wpn_addon_scope_susat_x1.6
+
+[mp_scope_aimpoint_mp5sd]:scope_aimpoint_mp5sd
+scope_name = mp_wpn_addon_scope_susat_dusk
+
+[mp_scope_elcan_mp5sd]:scope_elcan_mp5sd
+scope_name = mp_wpn_addon_scope_susat_custom
+
+[mp_scope_pn23_mp5sd]:scope_pn23_mp5sd
+scope_name = mp_wpn_addon_scope_susat_night
+
+
+[mp_wpn_saiga12]:wpn_saiga12
+    $spawn                            = "network\weapons\assault\mp_wpn_saiga12" ;name and section in level editor
+    class                			  = W_SHOTGN
+	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)           
+	first_bullet_dispertion			  = 0.01	 ;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1000	 ;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0		 ;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_12x76_zhekan, mp_ammo_12x70_buck, mp_ammo_12x76_dart
+	scopes_sect 					  = mp_scope_cobra_saiga12, mp_scope_pso1m2x1_saiga12, mp_scope_nvas_saiga12, mp_scope_pka_saiga12, mp_scope_kashtan_saiga12, mp_scope_pso1_saiga12, mp_scope_nvsn_saiga12
+    silencer_name                     = mp_wpn_addon_silencer_hexagon12 ;section name for the attachable silencer
+
+[mp_scope_pso1_saiga12]:scope_pso1_saiga12
+scope_name = mp_wpn_addon_scope
+
+[mp_scope_pso1m2x1_saiga12]:scope_pso1m2x1_saiga12
+scope_name = mp_wpn_addon_scope_x2.7
+
+[mp_scope_nvsn_saiga12]:scope_nvsn_saiga12
+scope_name = mp_wpn_addon_scope_detector
+
+[mp_scope_nvas_saiga12]:scope_nvas_saiga12
+scope_name = mp_wpn_addon_scope_night
+
+[mp_scope_cobra_saiga12]:scope_cobra_saiga12
+scope_name = mp_wpn_addon_scope_cobra
+
+[mp_scope_pka_saiga12]:scope_pka_saiga12
+scope_name = mp_wpn_addon_scope_pka
+
+[mp_scope_kashtan_saiga12]:scope_kashtan_saiga12
+scope_name = mp_wpn_addon_scope_kashtan
+
+
+[mp_wpn_p90]:wpn_p90
+    $spawn                            = "network\weapons\assault\mp_wpn_p90"
+	class                   		  = W_VAL
+	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)           
+	first_bullet_dispertion			  = 0.01	 ;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1000	 ;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0		 ;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_5.7x28
+    silencer_name                     = mp_wpn_addon_silencer_57x28; section name for the attachable silencer
+	
+	;отдача
+	cam_relax_speed         = 5		; скорость возврата в исходное положение
+	cam_relax_speed_ai      = 140	; скорость возврата в исходное положение для AI
+	cam_dispersion          = 0.88       ; увеличения угла (в градусах) при первом выстреле
+	cam_dispersion_inc      = 0.017       ; увеличениe cam_dispersion с каждым выстрелом
+	cam_dispersion_frac     = 0.66       ; frac * angle + rand(-1,1)*(1-frac) * angle ствол будет подvматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+	cam_max_angle           = 40.0       ; максимальный угол отдачи
+	cam_max_angle_horz      = 60.0       ; (degree) maximum shot horizontal degree
+	cam_step_angle_horz     = 3.0       ; (degree) size of step camera moved in horizontal position while shooting
+	;отдача в прицеле
+	zoom_cam_relax_speed         = 5     ; scope & ironsight
+	zoom_cam_relax_speed_ai      = 120
+	zoom_cam_dispersion          = 0.23
+	zoom_cam_dispersion_inc      = 0.015
+	zoom_cam_dispersion_frac     = 0.80
+	zoom_cam_max_angle           = 13.0
+	zoom_cam_max_angle_horz      = 20.0
+	zoom_cam_step_angle_horz     = 1.56
+
+
+[mp_wpn_sig552]:wpn_sig552            
+    $spawn                            = "network\weapons\assault\mp_wpn_sig552" ;name and section in level editor
+	class                   		  = W_VAL
+	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)           
+	first_bullet_dispertion			  = 0.01	 ;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1000	 ;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0		 ;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_5.56x45_ss190, mp_ammo_5.56x45_ap
+	scopes_sect 					  = mp_scope_eotech_sig552, mp_scope_aimpoint_sig552, mp_scope_elcan_sig552, mp_scope_pn23_sig552
+    silencer_name                     = mp_wpn_addon_silencer_m4_2000 ;section name for the attachable silencer	
+	
+	;отдача
+	cam_relax_speed         = 5		; скорость возврата в исходное положение
+	cam_relax_speed_ai      = 140	; скорость возврата в исходное положение для AI
+	cam_dispersion          = 0.83       ; увеличения угла (в градусах) при первом выстреле
+	cam_dispersion_inc      = 0.022       ; увеличениe cam_dispersion с каждым выстрелом
+	cam_dispersion_frac     = 0.65       ; frac * angle + rand(-1,1)*(1-frac) * angle ствол будет подvматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+	cam_max_angle           = 40.0       ; максимальный угол отдачи
+	cam_max_angle_horz      = 60.0       ; (degree) maximum shot horizontal degree
+	cam_step_angle_horz     = 2.8       ; (degree) size of step camera moved in horizontal position while shooting
+	;отдача в прицеле
+	zoom_cam_relax_speed         = 5     ; scope & ironsight
+	zoom_cam_relax_speed_ai      = 120
+	zoom_cam_dispersion          = 0.26
+	zoom_cam_dispersion_inc      = 0.02
+	zoom_cam_dispersion_frac     = 0.78
+	zoom_cam_max_angle           = 13.0
+	zoom_cam_max_angle_horz      = 20.0
+	zoom_cam_step_angle_horz     = 1.6
+
+[mp_scope_eotech_sig552]:scope_eotech_sig552
+scope_name = mp_wpn_addon_scope_susat_x1.6
+
+[mp_scope_aimpoint_sig552]:scope_aimpoint_sig552
+scope_name = mp_wpn_addon_scope_susat_dusk
+
+[mp_scope_elcan_sig552]:scope_elcan_sig552
+scope_name = mp_wpn_addon_scope_susat_custom
+
+[mp_scope_pn23_sig552]:scope_pn23_sig552
+scope_name = mp_wpn_addon_scope_susat_night
+
+
+[mp_wpn_ump45]:wpn_ump45
+	def_hide_bones 					  = stock_plastic, stock_short, grip_handler, grip_sd, grip_rail, flash_sd, laser_sd, flash, laser, grip_sd_rail, mag40, mag30_sd, scope1, scope2, scope3, scope4, sight
+	def_show_bones 					  = rail, mag30, stock_teleskop, grip, iron_sight
+    $spawn                            = "network\weapons\assault\mp_wpn_ump45" ;name and section in level editor
+	class                   		  = W_VAL
+	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)           
+	first_bullet_dispertion			  = 0.01	 ;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1000	 ;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0		 ;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class                        = mp_ammo_11.43x23_fmj, mp_ammo_11.43x23_hydro
+	scopes_sect                       = mp_scope_eotech_ump, mp_scope_aimpoint_ump, mp_scope_elcan_ump, mp_scope_pn23_ump
+    silencer_name                     = mp_wpn_addon_silencer_colt_p220 ;section name for the attachable silencer		
+	
+	;отдача
+	cam_relax_speed         = 5		; скорость возврата в исходное положение
+	cam_relax_speed_ai      = 140	; скорость возврата в исходное положение для AI
+	cam_dispersion          = 1.0       ; увеличения угла (в градусах) при первом выстреле
+	cam_dispersion_inc      = 0.02       ; увеличениe cam_dispersion с каждым выстрелом
+	cam_dispersion_frac     = 0.7       ; frac * angle + rand(-1,1)*(1-frac) * angle ствол будет подvматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+	cam_max_angle           = 40.0       ; максимальный угол отдачи
+	cam_max_angle_horz      = 60.0       ; (degree) maximum shot horizontal degree
+	cam_step_angle_horz     = 2.6       ; (degree) size of step camera moved in horizontal position while shooting
+	;отдача в прицеле
+	zoom_cam_relax_speed         = 5     ; scope & ironsight
+	zoom_cam_relax_speed_ai      = 120
+	zoom_cam_dispersion          = 0.3
+	zoom_cam_dispersion_inc      = 0.02
+	zoom_cam_dispersion_frac     = 0.8
+	zoom_cam_max_angle           = 13.0
+	zoom_cam_max_angle_horz      = 20.0
+	zoom_cam_step_angle_horz     = 1.3
+
+[mp_scope_eotech_ump]:scope_eotech_ump
+scope_name = mp_wpn_addon_scope_susat_x1.6
+
+[mp_scope_aimpoint_ump]:scope_aimpoint_ump
+scope_name = mp_wpn_addon_scope_susat_dusk
+
+[mp_scope_elcan_ump]:scope_elcan_ump
+scope_name = mp_wpn_addon_scope_susat_custom
+
+[mp_scope_pn23_ump]:scope_pn23_ump
+scope_name = mp_wpn_addon_scope_susat_night
+
+
+[mp_wpn_akm]:wpn_akm
+	def_show_bones = mag30, handler, foregrip
+	def_hide_bones = mag45, mag45_black, mag60, handler2, scope_cobra, scope_rakurs, scope_pso_sniper, scope_kashtan, scope_pka, scope_pso_assault, scope_nv_sniper, scope_nv_assault, flash, light, laser, line, line2, sight, sight2, foregrip_rail, knife, tilnik
+    $spawn                            = "network\weapons\assault\mp_wpn_akm"
+    class                			  = W_AK74
+	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)           
+	first_bullet_dispertion			  = 0.01	 ;дисперсия для первого выстрела
+	first_bullet_timeout			  = 1000	 ;время между первыми выстрелами
+	first_bullet_velocity_limit		  = 1.0		 ;предельная скорость актера при которой будет первый точный выстрел
+    ammo_class           = mp_ammo_7.62x39_fmj  ; name of the ltx-section of used ammo
+    grenade_class                     = mp_ammo_vog-25, mp_ammo_vog-25p; name of the ltx-section of used grenades
+    grenade_launcher_name             = mp_wpn_addon_grenade_launcher; section name for the attachable grenade launcher 
+	scopes_sect		= mp_scope_kashtan_akm, mp_scope_nvas_akm, mp_scope_cobra_akm, mp_scope_pka_akm, mp_scope_pso1m2x1_akm, mp_scope_pso1_akm, mp_scope_nvsn_akm
+    silencer_name           = mp_wpn_addon_silencer_pbs1           ; section name for the attachable silencer
+	
+	;РѕС‚РґР°С‡Р°
+	cam_relax_speed         = 5		; СЃРєРѕСЂРѕСЃС‚СЊ РІРѕР·РІСЂР°С‚Р° РІ РёСЃС…РѕРґРЅРѕРµ РїРѕР»РѕР¶РµРЅРёРµ
+	cam_relax_speed_ai      = 360	; СЃРєРѕСЂРѕСЃС‚СЊ РІРѕР·РІСЂР°С‚Р° РІ РёСЃС…РѕРґРЅРѕРµ РїРѕР»РѕР¶РµРЅРёРµ РґР»СЏ AI
+	cam_dispersion          = 0.55       ; СѓРІРµР»РёС‡РµРЅРёСЏ СѓРіР»Р° (РІ РіСЂР°РґСѓСЃР°С…) РїСЂРё РїРµСЂРІРѕРј РІС‹СЃС‚СЂРµР»Рµ
+	cam_dispersion_inc      = 0.2       ; СѓРІРµР»РёС‡РµРЅРёe cam_dispersion СЃ РєР°Р¶РґС‹Рј РІС‹СЃС‚СЂРµР»РѕРј
+	cam_dispersion_frac     = 0.9       ; frac * angle + rand(-1,1)*(1-frac) * angle
+	cam_max_angle           = 48.0       ; РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СѓРіРѕР» РѕС‚РґР°С‡Рё
+	cam_max_angle_horz      = 48.0       ; (degree) maximum shot horizontal degree
+	cam_step_angle_horz     = 1.5       ; (degree) size of step camera moved in horizontal position while shooting
+	;РѕС‚РґР°С‡Р° РІ РїСЂРёС†РµР»Рµ
+	zoom_cam_relax_speed         = 5     ; scope & ironsight
+	zoom_cam_relax_speed_ai      = 360
+	zoom_cam_dispersion          = 0.29
+	zoom_cam_dispersion_inc      = 0.25
+	zoom_cam_dispersion_frac     = 0.7
+	zoom_cam_max_angle           = 21.0
+	zoom_cam_max_angle_horz      = 10.0
+	zoom_cam_step_angle_horz     = 0.3
+
+[mp_scope_pso1_akm]:scope_pso1_akm
+scope_name = mp_wpn_addon_scope
+
+[mp_scope_pso1m2x1_akm]:scope_pso1m2x1_akm
+scope_name = mp_wpn_addon_scope_x2.7
+
+[mp_scope_rakurs_akm]:scope_rakurs_akm
+scope_name = mp_wpn_addon_scope_rakurs
+
+[mp_scope_nvsn_akm]:scope_nvsn_akm
+scope_name = mp_wpn_addon_scope_detector
+
+[mp_scope_nvas_akm]:scope_nvas_akm
+scope_name = mp_wpn_addon_scope_night
+
+[mp_scope_cobra_akm]:scope_cobra_akm
+scope_name = mp_wpn_addon_scope_cobra
+
+[mp_scope_pka_akm]:scope_pka_akm
+scope_name = mp_wpn_addon_scope_pka
+
+[mp_scope_kashtan_akm]:scope_kashtan_akm
+scope_name = mp_wpn_addon_scope_kashtan
+
+
+[mp_wpn_rgm40]:wpn_rgm40
+    $spawn                            = "network\weapons\heavy_weapons\mp_wpn_rgm40"
+    class                   		  = W_RG6
+    ammo_class                        = mp_ammo_vog-25, mp_ammo_vog-25p
+
+
+[mp_grenade_f1]:grenade_f1
+$spawn           = "network\ammo\mp_grenade_f1"
+class            = G_F1
+can_be_unlimited = false
+
+[mp_grenade_gd05]:grenade_gd05
+$spawn           = "network\ammo\mp_grenade_gd05"
+class            = G_F1
+can_be_unlimited = false
+
+[mp_grenade_flashbang]:grenade_flashbang
+$spawn           = "network\ammo\mp_grenade_flashbang"
+class            = G_F1
+can_be_unlimited = false
+	
+[mp_grenade_rgo]:grenade_rgo
+$spawn           = "network\ammo\mp_grenade_rgo"
+class            = G_RGD5
+can_be_unlimited = false
+
+[mp_grenade_rgn]:grenade_rgn
+$spawn           = "network\ammo\mp_grenade_rgn"
+class            = G_RGD5
+can_be_unlimited = false
+
+[mp_grenade_rgd5]:grenade_rgd5
+$spawn           = "network\ammo\mp_grenade_rgd5"
+class            = G_RGD5
+can_be_unlimited = false
+
+
+;;;;подствольные гранатометы
+
+[mp_wpn_addon_grenade_launcher]:wpn_addon_grenade_launcher
+$spawn      = "network\addons\grenade_launchers\grenade_launcher"
+class       = W_GLAUNC
+
+[mp_wpn_addon_grenade_launcher_l123a2]:wpn_addon_grenade_launcher_l123a2
+$spawn      = "network\addons\grenade_launchers\grenade_launcher_l123a2"
+class       = W_GLAUNC
+
+[mp_wpn_addon_grenade_launcher_m203]:wpn_addon_grenade_launcher_m203
+$spawn      = "network\addons\grenade_launchers\grenade_launcher_m203"
+class       = W_GLAUNC
+
+[mp_wpn_addon_grenade_launcher_groza]:wpn_addon_grenade_launcher_groza
+$spawn      = "network\addons\grenade_launchers\grenade_launcher_groza"
+class       = W_GLAUNC
+
+
+;;;;прицелы ласточкин хвост
+
+[mp_wpn_addon_scope]:wpn_addon_scope
+$spawn = "network\addons\scopes\scope"
+class  = W_SCOPE
+
+[mp_wpn_addon_scope_x2.7]:wpn_addon_scope_x2.7
+$spawn = "network\addons\scopes\scope_x2.7"
+class  = W_SCOPE
+
+[mp_wpn_addon_scope_pka]:wpn_addon_scope_pka
+$spawn = "network\addons\scopes\scope_pka"
+class  = W_SCOPE
+
+[mp_wpn_addon_scope_pgo7v]:wpn_addon_scope_pgo7v
+$spawn = "network\addons\scopes\scope_pgo7v"
+class  = W_SCOPE
+
+[mp_wpn_addon_scope_detector]:wpn_addon_scope_detector
+$spawn = "network\addons\scopes\scope_detector"
+class  = W_SCOPE
+
+[mp_wpn_addon_scope_night]:wpn_addon_scope_night
+$spawn = "network\addons\scopes\scope_night"
+class  = W_SCOPE
+
+[mp_wpn_addon_scope_cobra]:wpn_addon_scope_cobra
+$spawn = "network\addons\scopes\scope_cobra"
+class  = W_SCOPE
+
+[mp_wpn_addon_scope_kashtan]:wpn_addon_scope_kashtan
+$spawn = "network\addons\scopes\scope_kashtan"
+class  = WP_SCOPE
+
+[mp_wpn_addon_scope_po4x34]:wpn_addon_scope_po4x34
+$spawn = "network\addons\scopes\scope_po4x34"
+class  = WP_SCOPE
+
+
+;;;;прицелы пикатинни
+
+[mp_wpn_addon_scope_susat]:wpn_addon_scope_susat
+$spawn = "network\addons\scopes\scope_susat"
+class  = W_SCOPE
+
+[mp_wpn_addon_scope_susat_dusk]:wpn_addon_scope_susat_dusk
+$spawn = "network\addons\scopes\scope_susat_dusk"
+class  = W_SCOPE
+
+[mp_wpn_addon_scope_susat_custom]:wpn_addon_scope_susat_custom
+$spawn = "network\addons\scopes\scope_susat_custom"
+class  = W_SCOPE
+
+[mp_wpn_addon_scope_susat_x1.6]:wpn_addon_scope_susat_x1.6
+$spawn = "network\addons\scopes\scope_susat_x1.6"
+class  = W_SCOPE
+
+[mp_wpn_addon_scope_susat_night]:wpn_addon_scope_susat_night
+$spawn = "network\addons\scopes\scope_susat_night"
+class  = W_SCOPE
+
+
+;;;;прицелы вивер
+
+[mp_wpn_addon_scope_pu]:wpn_addon_scope_pu
+$spawn = "network\addons\scopes\scope_pu"
+class  = W_SCOPE
+
+[mp_wpn_addon_scope_rakurs]:wpn_addon_scope_rakurs
+$spawn = "network\addons\scopes\scope_rakurs"
+class  = WP_SCOPE
+
+
+;;;;глушители
+
+[mp_wpn_addon_silencer]:wpn_addon_silencer
+$spawn                 = "network\addons\silencers\silencer"
+class                  = W_SILENC
+bullet_hit_power_k     = 1
+bullet_hit_impulse_k   = 1
+bullet_speed_k         = 0.91
+fire_dispersion_base_k = 1.25
+cam_dispersion_k       = 1.0
+cam_dispersion_inc_k   = 1.0
+	
+[mp_wpn_addon_silencer_apb]:wpn_addon_silencer_apb
+$spawn                 = "network\addons\silencers\silencer_apb"
+class                  = W_SILENC
+bullet_hit_power_k     = 1
+bullet_hit_impulse_k   = 1
+bullet_speed_k         = 0.91
+fire_dispersion_base_k = 1.25
+cam_dispersion_k       = 1.0
+cam_dispersion_inc_k   = 1.0
+	
+[mp_wpn_addon_silencer_pb]:wpn_addon_silencer_pb
+$spawn                 = "network\addons\silencers\silencer_pb"
+class                  = W_SILENC
+bullet_hit_power_k     = 1
+bullet_hit_impulse_k   = 1
+bullet_speed_k         = 0.91
+fire_dispersion_base_k = 1.25
+cam_dispersion_k       = 1.0
+cam_dispersion_inc_k   = 1.0
+
+[mp_wpn_addon_silencer_9x18smg]:wpn_addon_silencer_9x18smg
+$spawn                 = "network\addons\silencers\silencer_918smg"
+class                  = W_SILENC
+bullet_hit_power_k     = 1
+bullet_hit_impulse_k   = 1
+bullet_speed_k         = 0.91
+fire_dispersion_base_k = 1.25
+cam_dispersion_k       = 1.0
+cam_dispersion_inc_k   = 1.0
+	
+[mp_wpn_addon_silencer_919]:wpn_addon_silencer_919
+$spawn                 = "network\addons\silencers\silencer_919"
+class                  = W_SILENC
+bullet_hit_power_k     = 1
+bullet_hit_impulse_k   = 1
+bullet_speed_k         = 0.91
+fire_dispersion_base_k = 1.25
+cam_dispersion_k       = 1.0
+cam_dispersion_inc_k   = 1.0
+
+[mp_wpn_addon_silencer_921]:wpn_addon_silencer_921
+$spawn                 = "network\addons\silencers\silencer_921"
+class                  = W_SILENC
+bullet_hit_power_k     = 1
+bullet_hit_impulse_k   = 1
+bullet_speed_k         = 0.91
+fire_dispersion_base_k = 1.25
+cam_dispersion_k       = 1.0
+cam_dispersion_inc_k   = 1.0
+	
+[mp_wpn_addon_silencer_colt_p220]:wpn_addon_silencer_colt_p220
+$spawn                 = "network\addons\silencers\silencer_45"
+class                  = W_SILENC
+bullet_hit_power_k     = 1
+bullet_hit_impulse_k   = 1
+bullet_speed_k         = 0.91
+fire_dispersion_base_k = 1.25
+cam_dispersion_k       = 1.0
+cam_dispersion_inc_k   = 1.0
+
+[mp_wpn_addon_silencer_hexagon12]:wpn_addon_silencer_hexagon12
+$spawn                 = "network\addons\silencers\silencer_hexagon12"
+class                  = W_SILENC
+bullet_hit_power_k     = 1
+bullet_hit_impulse_k   = 1
+bullet_speed_k         = 0.91
+fire_dispersion_base_k = 1.25
+cam_dispersion_k       = 1.0
+cam_dispersion_inc_k   = 1.0
+	
+[mp_wpn_addon_silencer_svd]:wpn_addon_silencer_svd
+$spawn                 = "network\addons\silencers\silencer_svd"
+class                  = W_SILENC
+bullet_hit_power_k     = 1
+bullet_hit_impulse_k   = 1
+bullet_speed_k         = 0.91
+fire_dispersion_base_k = 1.25
+cam_dispersion_k       = 1.0
+cam_dispersion_inc_k   = 1.0
+
+[mp_wpn_addon_silencer_m4_2000]:wpn_addon_silencer_m4_2000
+$spawn                 = "network\addons\silencers\silencer_m4_2000"
+class                  = W_SILENC
+bullet_hit_power_k     = 1
+bullet_hit_impulse_k   = 1
+bullet_speed_k         = 0.91
+fire_dispersion_base_k = 1.25
+cam_dispersion_k       = 1.0
+cam_dispersion_inc_k   = 1.0
+	
+[mp_wpn_addon_silencer_tgpa]:wpn_addon_silencer_tgpa
+$spawn                 = "network\addons\silencers\silencer_tgpa"
+class                  = W_SILENC
+bullet_hit_power_k     = 1
+bullet_hit_impulse_k   = 1
+bullet_speed_k         = 0.91
+fire_dispersion_base_k = 1.25
+cam_dispersion_k       = 1.0
+cam_dispersion_inc_k   = 1.0
+
+[mp_wpn_addon_silencer_57x28]:wpn_addon_silencer_57x28
+$spawn                 = "network\addons\silencers\silencer_57x28"
+class                  = W_SILENC
+bullet_hit_power_k     = 1
+bullet_hit_impulse_k   = 1
+bullet_speed_k         = 0.91
+fire_dispersion_base_k = 1.25
+cam_dispersion_k       = 1.0
+cam_dispersion_inc_k   = 1.0
+
+[mp_wpn_addon_silencer_pistol_57x28]:wpn_addon_silencer_pistol_57x28
+$spawn                 = "network\addons\silencers\silencer_pistol_57x28"
+class                  = W_SILENC
+bullet_hit_power_k     = 1
+bullet_hit_impulse_k   = 1
+bullet_speed_k         = 0.91
+fire_dispersion_base_k = 1.25
+cam_dispersion_k       = 1.0
+cam_dispersion_inc_k   = 1.0
+
+[mp_wpn_addon_silencer_groza]:wpn_addon_silencer_groza
+$spawn                 = "network\addons\silencers\silencer_groza"
+class                  = W_SILENC
+bullet_hit_power_k     = 1
+bullet_hit_impulse_k   = 1
+bullet_speed_k         = 0.91
+fire_dispersion_base_k = 1.25
+cam_dispersion_k       = 1.0
+cam_dispersion_inc_k   = 1.0
+
+[mp_wpn_addon_silencer_pbs1]:wpn_addon_silencer_pbs1
+$spawn                 = "network\addons\silencers\silencer_pbs1"
+class                  = W_SILENC
+bullet_hit_power_k     = 1
+bullet_hit_impulse_k   = 1
+bullet_speed_k         = 0.91
+fire_dispersion_base_k = 1.25
+cam_dispersion_k       = 1.0
+cam_dispersion_inc_k   = 1.0

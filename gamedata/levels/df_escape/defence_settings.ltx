@@ -1,0 +1,85 @@
+[defence_gamedata]
+spawn_delay = 3 ; время задержки между спавном мутантов (в секундах)
+;spawn_particles = anomaly2\teleport_out ; партикл, с которым спавнятся монстры, можно удалить
+;spawn_sound = ambient\defence\defence_teleport ; звук, с которым спавнятся монстры, можно удалить
+start_time = 17 ; стартовое время на локации, работает аналогично консольной команде sv_setenvtime, возможные значения 0-23, можно удалить
+
+
+[defence_modifiers]
+surge = false
+phantoms = false
+
+
+[defence_team]
+logo = army_medium ; логотип команды для лобби
+messages_menu_faction = 6 ; Военные
+skins = df_soldier_face_1, df_soldier_face_2, df_soldier_face_3, df_soldier_face_4, df_soldier_face_5, df_soldier_face_6, df_soldier_face_7, df_soldier_face_8
+
+
+[wave_provisions]
+wave_1 = wp1_var1, wp1_var2, wp1_var3, wp1_var4
+wave_2 = wp2_var1, wp2_var2, wp2_var3, wp2_var4
+wave_3 = wp3_var1, wp3_var2, wp3_var3, wp3_var4
+wave_4 = wp4_var1, wp4_var2, wp4_var3, wp4_var4, wp4_var5, wp4_var6, wp4_var7
+
+
+[wave_provisions_variants]
+wp1_var1 = specops_outfit:1:1, mp_wpn_ak74u:1:1, mp_wpn_addon_scope_cobra:1:1, mp_wpn_addon_silencer_tgpa:1:1, mp_ammo_5.45x39_fmj:4:1, mp_grenade_rgd5:2:0.5, mp_grenade_rgn:2:0.5, mp_grenade_flashbang:2:1, mp_medkit_army:2:1, mp_bandage:2:1, mp_energy_drink:1:1, bread:1:1, kolbasa:1:1, conserva:1:1, vodka:1:1
+;
+wp1_var2 = specops_outfit:1:1, mp_wpn_bizon:1:1, mp_wpn_addon_scope_cobra:1:1, mp_wpn_addon_silencer_9x18smg:1:1, mp_ammo_9x18_fmj:4:1, mp_grenade_rgd5:2:0.5, mp_grenade_rgn:2:0.5, mp_grenade_flashbang:2:1, mp_medkit_army:2:1, mp_bandage:2:1, mp_energy_drink:1:1, bread:1:1, kolbasa:1:1, conserva:1:1, vodka:1:1
+;
+wp1_var3 = specops_outfit:1:1, mp_wpn_saiga12:1:1, mp_wpn_addon_scope_cobra:1:1, mp_wpn_addon_silencer_hexagon12:1:1, mp_ammo_12x70_buck:4:1, mp_ammo_12x76_zhekan:2:1, mp_grenade_rgd5:2:0.5, mp_grenade_rgn:2:0.5, mp_grenade_flashbang:2:1, mp_medkit_army:2:1, mp_bandage:2:1, mp_energy_drink:1:1, bread:1:1, kolbasa:1:1, conserva:1:1, vodka:1:1
+;
+wp1_var4 = specops_outfit:1:1, mp_wpn_val:1:1, mp_wpn_addon_scope_rakurs:1:1, mp_ammo_9x39_pab9:6:1, mp_grenade_rgd5:2:0.5, mp_grenade_rgn:2:0.5, mp_grenade_flashbang:2:1, mp_medkit_army:2:1, mp_bandage:2:1, mp_energy_drink:1:1, bread:1:1, kolbasa:1:1, conserva:1:1, vodka:1:1
+;####################################################################
+wp2_var1 = specops_outfit:1:0.8, mp_wpn_ak74u:1:1, mp_wpn_addon_scope_cobra:1:1, mp_wpn_addon_silencer_tgpa:1:1, mp_ammo_5.45x39_fmj:4:1, mp_wpn_fort:1:1, mp_wpn_addon_silencer:1:1, mp_ammo_9x18_fmj:2:1, mp_grenade_rgd5:2:0.5, mp_grenade_rgn:2:0.5, mp_grenade_flashbang:2:0.5, mp_medkit_army:2:0.7, mp_bandage:2:0.7, mp_energy_drink:1:0.7, bread:1:0.5, kolbasa:1:0.5, conserva:1:0.5, vodka:1:0.5
+;
+wp2_var2 = specops_outfit:1:0.8, mp_wpn_bizon:1:1, mp_wpn_addon_scope_cobra:1:1, mp_wpn_addon_silencer_9x18smg:1:1, mp_ammo_9x18_fmj:4:1, mp_wpn_fort:1:1, mp_wpn_addon_silencer:1:1, mp_grenade_rgd5:2:0.5, mp_grenade_rgn:2:0.5, mp_grenade_flashbang:2:0.5, mp_medkit_army:2:0.7, mp_bandage:2:0.7, mp_energy_drink:1:0.7, bread:1:0.5, kolbasa:1:0.5, conserva:1:0.5, vodka:1:0.5
+;
+wp2_var3 = specops_outfit:1:0.8, mp_wpn_saiga12:1:1, mp_wpn_addon_scope_cobra:1:1, mp_wpn_addon_silencer_hexagon12:1:1, mp_ammo_12x70_buck:4:1, mp_ammo_12x76_zhekan:2:1, mp_wpn_fort:1:1, mp_wpn_addon_silencer:1:1, mp_ammo_9x18_fmj:2:1, mp_grenade_rgd5:2:0.5, mp_grenade_rgn:2:0.5, mp_grenade_flashbang:2:0.5, mp_medkit_army:2:0.8, mp_bandage:2:0.8, mp_energy_drink:1:0.8, bread:1:0.5, kolbasa:1:0.5, conserva:1:0.5, vodka:1:0.5
+;
+wp2_var4 = specops_outfit:1:0.8, mp_wpn_val:1:1, mp_wpn_addon_scope_rakurs:1:1, mp_ammo_9x39_pab9:6:1, mp_wpn_fort:1:1, mp_wpn_addon_silencer:1:1, mp_ammo_9x18_fmj:2:1, mp_grenade_rgd5:2:0.5, mp_grenade_rgn:2:0.5, mp_grenade_flashbang:2:0.5, mp_medkit_army:2:0.8, mp_bandage:2:0.8, mp_energy_drink:1:0.8, bread:1:0.5, kolbasa:1:0.5, conserva:1:0.5, vodka:1:0.5
+;####################################################################
+wp3_var1 = specops_outfit:1:0.9, mp_wpn_saiga12:1:1, mp_wpn_addon_scope_cobra:1:1, mp_wpn_addon_silencer_hexagon12:1:1, mp_ammo_12x76_zhekan:4:1, mp_ammo_12x76_dart:2:1, mp_wpn_fort17:1:1, mp_wpn_addon_silencer:1:1, mp_ammo_9x18_fmj:2:1, mp_grenade_rgd5:2:0.5, mp_grenade_rgn:2:0.5, mp_grenade_flashbang:2:0.5, mp_medkit_army:2:0.9, mp_bandage:2:0.9, mp_energy_drink:1:0.9, bread:1:0.5, kolbasa:1:0.5, conserva:1:0.5, vodka:1:0.5, landmine_pmn2:4:1
+;
+wp3_var2 = specops_outfit:1:0.9, mp_wpn_svu:1:1, mp_wpn_addon_scope:1:1, mp_ammo_7.62x54_7h1:4:1, mp_wpn_fort17:1:1, mp_wpn_addon_silencer:1:1, mp_ammo_9x18_fmj:2:1, mp_grenade_rgd5:2:0.5, mp_grenade_rgn:2:0.5, mp_grenade_flashbang:2:0.5, mp_medkit_army:2:0.9, mp_bandage:2:0.9, mp_energy_drink:1:0.9, bread:1:0.5, kolbasa:1:0.5, conserva:1:0.5, vodka:1:0.5, landmine_pmn2:4:1
+;
+wp3_var3 = specops_outfit:1:0.9, mp_wpn_svd:1:1, mp_wpn_addon_scope:1:1, mp_wpn_addon_silencer_svd:1:1, mp_ammo_7.62x54_7h1:4:1, mp_wpn_pmm:1:1, mp_wpn_addon_silencer:1:1, mp_ammo_9x18_pmm:2:1, mp_grenade_rgd5:2:0.5, mp_grenade_rgn:2:0.5, mp_grenade_flashbang:2:0.5, mp_medkit_army:2:0.9, mp_bandage:2:0.9, mp_energy_drink:1:0.9, bread:1:0.5, kolbasa:1:0.5, conserva:1:0.5, vodka:1:0.5, landmine_pmn2:4:1
+;
+wp3_var4 = specops_outfit:1:0.9, mp_wpn_vintorez:1:1, mp_wpn_addon_scope:1:1, mp_ammo_9x39_sp5:6:1, mp_wpn_sr1m:1:1, mp_wpn_addon_silencer_921:1:1, mp_ammo_9x21_sp10:2:1, mp_grenade_rgd5:2:0.5, mp_grenade_rgn:2:0.5, mp_grenade_flashbang:2:0.5, mp_medkit_army:2:0.9, mp_bandage:2:0.9, mp_energy_drink:1:0.9, bread:1:0.5, kolbasa:1:0.5, conserva:1:0.5, vodka:1:0.5, landmine_pmn2:4:1
+;####################################################################
+wp4_var1 = military_outfit:1:1, mp_wpn_ak74:1:1, mp_wpn_addon_scope_rakurs:1:1, mp_wpn_addon_silencer_tgpa:1:1, mp_wpn_addon_grenade_launcher:1:1, mp_ammo_5.45x39_fmj:4:1, mp_ammo_vog-25:4:1, mp_wpn_pmm:1:1, mp_wpn_addon_silencer:1:1, mp_ammo_9x18_pmm:2:1, mp_grenade_rgd5:2:0.5, mp_grenade_rgn:2:0.5, mp_grenade_flashbang:2:0.5, mp_medkit_army:2:1, mp_bandage:2:1, mp_energy_drink:1:1, bread:1:0.5, kolbasa:1:0.5, conserva:1:0.5, vodka:1:0.5, landmine_pmn2:2:0.5
+;
+wp4_var2 = military_outfit:1:1, mp_wpn_ak101:1:1, mp_wpn_addon_scope_rakurs:1:1, mp_wpn_addon_silencer_tgpa:1:1, mp_wpn_addon_grenade_launcher:1:1, mp_ammo_5.56x45_ss190:4:1, mp_ammo_vog-25:4:1, mp_wpn_grach:1:1, mp_wpn_addon_silencer_919:1:1, mp_ammo_9x19_fmj:2:1, mp_grenade_rgd5:2:0.5, mp_grenade_rgn:2:0.5, mp_grenade_flashbang:2:0.5, mp_medkit_army:2:1, mp_bandage:2:1, mp_energy_drink:1:1, bread:1:0.5, kolbasa:1:0.5, conserva:1:0.5, vodka:1:0.5, landmine_pmn2:2:0.5
+;
+wp4_var3 = military_outfit:1:1, mp_wpn_abakan:1:1, mp_wpn_addon_scope_cobra:1:1, mp_wpn_addon_grenade_launcher:1:1, mp_ammo_5.45x39_fmj:4:1, mp_ammo_vog-25:4:1, mp_wpn_gsh18:1:1, mp_wpn_addon_silencer_919:1:1, mp_ammo_9x19_fmj:2:1, mp_grenade_rgd5:2:0.5, mp_grenade_rgn:2:0.5, mp_grenade_flashbang:2:0.5, mp_medkit_army:2:1, mp_bandage:2:1, mp_energy_drink:1:1, bread:1:0.5, kolbasa:1:0.5, conserva:1:0.5, vodka:1:0.5, landmine_pmn2:2:0.5
+;
+wp4_var4 = military_outfit:1:1, mp_wpn_akm:1:1, mp_wpn_addon_scope_cobra:1:1, mp_wpn_addon_silencer_pbs1:1:1, mp_wpn_addon_grenade_launcher:1:1, mp_ammo_7.62x39_fmj:4:1, mp_ammo_vog-25:4:1, mp_wpn_tt33:1:1, mp_ammo_762x25mm_tt:2:1, mp_grenade_rgd5:2:0.5, mp_grenade_rgn:2:0.5, mp_grenade_flashbang:2:0.5, mp_medkit_army:2:1, mp_bandage:2:1, mp_energy_drink:1:1, bread:1:0.5, kolbasa:1:0.5, conserva:1:0.5, vodka:1:0.5, landmine_pmn2:2:0.5
+;
+wp4_var5 = military_outfit:1:1, mp_wpn_groza:1:1, mp_wpn_addon_scope_po4x34:1:1, mp_wpn_addon_silencer_groza:1:1, mp_wpn_addon_grenade_launcher_groza:1:1, mp_ammo_9x39_pab9:6:1, mp_ammo_vog-25:4:1, mp_wpn_sr1m:1:1, mp_wpn_addon_silencer_921:1:1, mp_ammo_9x21_sp10:2:1, mp_grenade_rgd5:2:0.5, mp_grenade_rgn:2:0.5, mp_grenade_flashbang:2:0.5, mp_medkit_army:2:1, mp_bandage:2:1, mp_energy_drink:1:1, bread:1:0.5, kolbasa:1:0.5, conserva:1:0.5, vodka:1:0.5, landmine_pmn2:2:0.5
+;
+wp4_var6 = military_outfit:1:1, mp_wpn_groza_545:1:1, mp_wpn_addon_scope_po4x34:1:1, mp_wpn_addon_silencer_groza:1:1, mp_wpn_addon_grenade_launcher_groza:1:1, mp_ammo_5.45x39_fmj:4:1, mp_ammo_vog-25:4:1, mp_wpn_fort17:1:1, mp_wpn_addon_silencer:1:1, mp_ammo_9x18_fmj:2:1, mp_grenade_rgd5:2:0.5, mp_grenade_rgn:2:0.5, mp_grenade_flashbang:2:0.5, mp_medkit_army:2:1, mp_bandage:2:1, mp_energy_drink:1:1, bread:1:0.5, kolbasa:1:0.5, conserva:1:0.5, vodka:1:0.5, landmine_pmn2:2:0.5
+;
+wp4_var7 = military_outfit:1:1, mp_wpn_pkm:1:1, mp_ammo_pkm_100:2:1, mp_wpn_stechkin:1:1, mp_wpn_addon_silencer_apb:1:1, mp_ammo_9x18_fmj:2:1, mp_grenade_rgd5:2:0.5, mp_grenade_rgn:2:0.5, mp_grenade_flashbang:2:0.5, mp_medkit_army:2:1, mp_bandage:2:1, mp_energy_drink:1:1, bread:1:0.5, kolbasa:1:0.5, conserva:1:0.5, vodka:1:0.5, landmine_pmn2:2:0.5
+
+
+[monster_waves]
+wave_1 = wm1_var1
+wave_2 = wm2_var1
+wave_3 = wm3_var1
+wave_4 = wm4_var1
+wave_5 = wm5_var1
+
+
+[monster_wave_variants]
+wm_test = m_poltergeist_normal_flame:1:1:true
+;
+wm1_var1 = dog_weak:1:1, flesh_weak:1:1, boar_weak:1:1, flesh_weak:1:1, cat_normal:1:1, dog_weak:1:1, flesh_weak:1:1, cat_normal:1:1
+;
+wm2_var1 = dog_weak:2:1, dog_cute:1:1, dog_normal:1:1, pseudodog_normal:1:1, dog_weak:1:1, dog_cute:1:1, dog_normal:1:1, dog_strong:1:1, psy_dog_normal:1:0.5
+;
+wm3_var1 = tushkano_normal:5:1, snork_weak:2:1, bloodsucker_weak:1:0.5, tushkano_strong:2:1, snork_normal:1:1, tushkano_normal:5:1, bloodsucker_normal:1:0.5, snork_normal:1:1, tushkano_strong:1:1
+;
+wm4_var1 = fracture_normal:1:1, zombie_weak:5:1, zombie_normal:2:1, zombie_strong:1:1, snork_weak:1:1, m_controller_normal:1:1, zombie_weak:5:1, zombie_normal:2:1, zombie_strong:1:1, snork_normal:1:1, bloodsucker_indoor:1:0.5
+;
+wm5_var1 = gigant_normal:1:1:true, flesh_weak:2:1, boar_weak:2:1, cat_normal:1:1, flesh_normal:1:1, boar_normal:1:1, bloodsucker_normal:1:0.5, flesh_normal:1:1, boar_normal:1:1, cat_normal:1:1, gigant_normal:1:0.5:true

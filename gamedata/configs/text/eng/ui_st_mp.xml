@@ -1,0 +1,1308 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<string_table>
+	<string id="af_neutral">
+		<text>Artifact</text>
+	</string>
+	<string id="friend">
+		<text>Friendly</text>
+	</string>
+	<string id="mm_mp_max_ping">
+		<text>Max ping</text>
+	</string>
+	<string id="mm_mp_profile">
+		<text>Profile</text>
+	</string>
+	<string id="modes">
+		<text>Modes</text>
+	</string>
+	<string id="mp_art_destroyed">
+		<text>The artifact was destroyed.</text>
+	</string>
+	<string id="mp_art_spowned">
+		<text>The artifact has spawned. Bring it to the base to score a point.</text>
+	</string>
+	<string id="mp_artefact_dropped">
+		<text>The artifact was lost.</text>
+	</string>
+	<string id="mp_artefact_on_base">
+		<text>The artifact is at our base.</text>
+	</string>
+	<string id="mp_artefact_on_enemy_base">
+		<text>The artifact is at the enemy base.</text>
+	</string>
+	<string id="mp_artefacts">
+		<text>Artifacts</text>
+	</string>
+	<string id="mp_artefacts_upcase">
+		<text>Artifacts</text>
+	</string>
+	<string id="mp_auto_select">
+		<text>Autoselect</text>
+	</string>
+	<string id="mp_back">
+		<text>Back</text>
+	</string>
+	<string id="mp_ban">
+		<text>4. Ban</text>
+	</string>
+	<string id="mp_by_anomaly">
+		<text>By anomaly</text>
+	</string>
+	<string id="mp_by_explosion">
+		<text>By explosion</text>
+	</string>
+	<string id="mp_cancel">
+		<text>Cancel</text>
+	</string>
+	<string id="mp_captured_artefact">
+		<text>captured the artifact</text>
+	</string>
+	<string id="mp_change_map">
+		<text>5. Change map</text>
+	</string>
+	<string id="mp_change_weather">
+		<text>6. Change weather</text>
+	</string>
+	<string id="mp_change_weather_header">
+		<text>Change weather to</text>
+	</string>
+	<string id="mp_chat">
+		<text>Chat</text>
+	</string>
+	<string id="mp_connected">
+		<text>connected</text>
+	</string>
+	<string id="mp_description">
+		<text>Description</text>
+	</string>
+	<string id="mp_disconnected">
+		<text>disconnected</text>
+	</string>
+	<string id="mp_enter_text">
+		<text>Enter text for the vote</text>
+	</string>
+	<string id="mp_entered_game">
+		<text>joined the game</text>
+	</string>
+	<string id="mp_firestation">
+		<text>Fire station</text>
+	</string>
+	<string id="mp_first_eye">
+		<text>(First person view)</text>
+	</string>
+	<string id="mp_frags">
+		<text>frags</text>
+	</string>
+	<string id="mp_frags_upcase">
+		<text>Frags</text>
+	</string>
+	<string id="mp_free_fly">
+		<text>(Free camera)</text>
+	</string>
+	<string id="mp_free_look">
+		<text>(Third person view)</text>
+	</string>
+	<string id="mp_from">
+		<text>with</text>
+	</string>
+	<string id="mp_gamemode">
+		<text>7. Mode</text>
+	</string>
+	<string id="mp_garbage">
+		<text>Garbage</text>
+	</string>
+	<string id="mp_go">
+		<text>FORWARD!</text>
+	</string>
+	<string id="mp_has_drop_art">
+		<text>lost%s the artifact</text>
+	</string>
+	<string id="mp_has_dropped_artefact">
+		<text>lost the artifact</text>
+	</string>
+	<string id="mp_has_tak_art">
+		<text>got%s the artifact</text>
+	</string>
+	<string id="mp_headhuntrs">
+		<text>Mercenaries</text>
+	</string>
+	<string id="mp_stalkers">
+		<text>Free Stalkers</text>
+	</string>
+	<string id="mp_bandits">
+		<text>Bandits</text>
+	</string>	
+	<string id="mp_csky">
+		<text>Clear Sky</text>
+	</string>	
+	<string id="mp_dolg">
+		<text>Duty</text>
+	</string>
+	<string id="mp_monolith">
+		<text>Monolith</text>
+	</string>	
+	<string id="mp_ecologs">
+		<text>Scientists</text>
+	</string>	
+	<string id="mp_army">
+		<text>Military</text>
+	</string>		
+	<string id="mp_is_now">
+		<text>is now</text>
+	</string>
+	<string id="mp_joined">
+		<text>has joined</text>
+	</string>
+	<string id="mp_kick">
+		<text>3. Drop</text>
+	</string>
+	<string id="mp_limansk">
+		<text>Limansk</text>
+	</string>
+	<string id="mp_loading_awards">
+		<text>Loading your awards...</text>
+	</string>
+	<string id="mp_loading_best_scores">
+		<text>Loading your records...</text>
+	</string>
+	<string id="mp_look_at">
+		<text>(Free-locked)</text>
+	</string>
+	<string id="mp_map_desc">
+		<text>Map description</text>
+	</string>
+	<string id="mp_match_started">
+		<text>Match started!</text>
+	</string>
+	<string id="mp_match_started_df">
+		<text>Prepare for Defence!</text>
+	</string>	
+	<string id="mp_military_2">
+		<text>Old village</text>
+	</string>
+	<string id="mp_modes">
+		<text>Modes</text>
+	</string>
+	<string id="mp_name">
+		<text>Name</text>
+	</string>
+	<string id="mp_next">
+		<text>Next</text>
+	</string>
+	<string id="mp_no_voted">
+		<text>Haven't voted</text>
+	</string>
+	<string id="mp_ping">
+		<text>Ping</text>
+	</string>
+	<string id="mp_player_wins">
+		<text>%s won the match!</text>
+	</string>
+	<string id="mp_players">
+		<text>Players</text>
+	</string>
+	<string id="mp_press_fire2spectator">
+		<text>PRESS [FIRE] TO SWITCH TO SPECTATOR MODE</text>
+	</string>
+	<string id="mp_press_jump2pay_spaw">
+		<text>PRESS [JUMP] TO BUY AN INSTANT RESPAWN</text>
+	</string>
+	<string id="mp_press_jump2select_skin">
+		<text>PRESS [JUMP] TO SELECT A SKIN</text>
+	</string>
+	<string id="mp_press_jump2select_team">
+		<text>PRESS [JUMP] TO SELECT TEAMS</text>
+	</string>
+	<string id="mp_press_jump2spawn">
+		<text>PRESS [JUMP] TO SPAWN</text>
+	</string>
+	<string id="mp_press_jump2start">
+		<text>PRESS [JUMP] TO START</text>
+	</string>
+	<string id="mp_press_to_chat">
+		<text>PRESS [$$ACTION_CHAT$$] TO OPEN TEXT CHAT</text>
+	</string>	
+	<string id="mp_press_to_buy">
+		<text>PRESS [$$ACTION_BUY_MENU$$] TO ACCESS THE BUY MENU</text>
+	</string>
+	<string id="mp_cant_buy_in_wavemode">
+		<text>Purchasing on base is available only during the preparation phase</text>
+	</string>
+	<string id="mp_press_yes2pay">
+		<text>You have %d$. You can respawn for %d$. Click "Yes" to pay.</text>
+	</string>
+	<string id="mp_ready">
+		<text>Ready...</text>
+	</string>
+	<string id="mp_rembasa">
+		<text>Repair base</text>
+	</string>
+	<string id="mp_restart">
+		<text>1. Restart</text>
+	</string>
+	<string id="mp_restart_fast">
+		<text>2. Fast restart</text>
+	</string>
+	<string id="mp_returned_artefact">
+		<text>returned the artifact</text>
+	</string>
+	<string id="mp_scores">
+		<text>scored a point</text>
+	</string>
+	<string id="mp_select_ban">
+		<text>Select player to ban by voting</text>
+	</string>
+	<string id="mp_select_category">
+		<text>Select voting category</text>
+	</string>
+	<string id="mp_select_kick">
+		<text>Select player to kick by voting</text>
+	</string>
+	<string id="mp_select_kick_player">
+		<text>Select player to kick by voting</text>
+	</string>
+	<string id="mp_select_map">
+		<text>Select map to vote for</text>
+	</string>
+	<string id="mp_si_afbearer_cant_sprint">
+		<text>No running with artifact</text>
+	</string>
+	<string id="mp_si_afcount">
+		<text>- Count</text>
+	</string>
+	<string id="mp_si_afrespawntime">
+		<text>- Stay time</text>
+	</string>
+	<string id="mp_si_afstaytime">
+		<text>- Respawn time</text>
+	</string>
+	<string id="mp_si_anomalies">
+		<text>Anomalies</text>
+	</string>
+	<string id="mp_si_anomalies_period">
+		<text>Anomaly period</text>
+	</string>
+	<string id="mp_si_any_time">
+		<text>Any time</text>
+	</string>
+	<string id="mp_si_artefact_captured">
+		<text>Artifact is captured</text>
+	</string>
+	<string id="mp_si_artefacts">
+		<text>Artifacts:</text>
+	</string>
+	<string id="mp_si_autoteam_balance">
+		<text>Team autobalance</text>
+	</string>
+	<string id="mp_si_autoteam_swap">
+		<text>Auto team-swap</text>
+	</string>
+	<string id="mp_si_battleye">
+		<text>BattlEye</text>
+	</string>
+	<string id="mp_si_disabled">
+		<text>Disabled</text>
+	</string>
+	<string id="mp_si_enabled">
+		<text>Enabled</text>
+	</string>
+	<string id="mp_si_first_eye">
+		<text>- First person</text>
+	</string>
+	<string id="mp_si_forcerespawn">
+		<text>Forced Respawn</text>
+	</string>
+	<string id="mp_si_fraglimit">
+		<text>Frag limit</text>
+	</string>
+	<string id="mp_si_free_fly">
+		<text>- Free Fly</text>
+	</string>
+	<string id="mp_si_free_look">
+		<text>- Free Look</text>
+	</string>
+	<string id="mp_si_friendly_fire">
+		<text>Friendly Fire</text>
+	</string>
+	<string id="mp_si_friendly_indicators">
+		<text>Friendly indicators</text>
+	</string>
+	<string id="mp_si_friendly_names">
+		<text>Friendly Names</text>
+	</string>
+	<string id="mp_si_infinite">
+		<text>Infinite</text>
+	</string>
+	<string id="mp_si_invinsibility">
+		<text>Invisibility:</text>
+	</string>
+	<string id="mp_si_invinsibility_indicators">
+		<text>- Indicators</text>
+	</string>
+	<string id="mp_si_invinsibility_time">
+		<text>- Time</text>
+	</string>
+	<string id="mp_si_look_at">
+		<text>- Third person</text>
+	</string>
+	<string id="mp_si_maprotation">
+		<text>Map rotation</text>
+	</string>
+	<string id="mp_si_max_ping">
+		<text>Max ping</text>
+	</string>
+	<string id="mp_si_min">
+		<text>min</text>
+	</string>
+	<string id="mp_si_no">
+		<text>No</text>
+	</string>
+	<string id="mp_si_players_respawn">
+		<text>Respawn</text>
+	</string>
+	<string id="mp_si_return_players">
+		<text>Players returned to bases</text>
+	</string>
+	<string id="mp_si_sec">
+		<text>sec</text>
+	</string>
+	<string id="mp_si_servername">
+		<text>Server Name:</text>
+	</string>
+	<string id="mp_si_shielded_bases">
+		<text>Shielded Bases</text>
+	</string>
+	<string id="mp_si_spectatormodes">
+		<text>Spectator Modes:</text>
+	</string>
+	<string id="mp_si_team_only">
+		<text>- Team only</text>
+	</string>
+	<string id="mp_si_time_limit">
+		<text>Time Limit</text>
+	</string>
+	<string id="mp_si_version">
+		<text>Version:</text>
+	</string>
+	<string id="mp_si_voting">
+		<text>Voting</text>
+	</string>
+	<string id="mp_si_warmuptime">
+		<text>Warmup</text>
+	</string>
+	<string id="mp_si_yes">
+		<text>Yes</text>
+	</string>
+	<string id="mp_skin_selection">
+		<text>Skin selection</text>
+	</string>
+	<string id="mp_spectator">
+		<text>Spectator</text>
+	</string>
+	<string id="mp_spectators">
+		<text>SPECTATORS</text>
+	</string>
+	<string id="mp_sport_center">
+		<text>Sports center</text>
+	</string>
+	<string id="mp_status">
+		<text>Status</text>
+	</string>
+	<string id="mp_switched_to">
+		<text>has switched to</text>
+	</string>
+	<string id="mp_team_free_stalkers">
+		<text>Freedom</text>
+	</string>
+	<string id="mp_team_selection">
+		<text>Team selection</text>
+	</string>
+	<string id="mp_team_wins">
+		<text>Team %s WON!</text>
+	</string>
+	<string id="mp_text">
+		<text>Text</text>
+	</string>
+	<string id="mp_time2respawn">
+		<text>Time until respawn</text>
+	</string>
+	<string id="mp_time2start">
+		<text>TIME UNTIL START:</text>
+	</string>
+	<string id="mp_timeleft">
+		<text>Time remaining: %d:%d; Agreed: %.2f</text>
+	</string>
+	<string id="mp_training_camp">
+		<text>Training camp</text>
+	</string>
+	<string id="mp_vote_hint">
+		<text>Vote FOR-[$$ACTION_VOTE_YES$$]\nVote AGAINST-[$$ACTION_VOTE_NO$$]\nResults-[$$ACTION_VOTE$$]</text>
+	</string>
+	<string id="mp_vote_no">
+		<text>No</text>
+	</string>
+	<string id="mp_vote_yes">
+		<text>Yes</text>
+	</string>
+	<string id="mp_voted">
+		<text>Voted</text>
+	</string>
+	<string id="mp_voted_no">
+		<text>No</text>
+	</string>
+	<string id="mp_voted_yes">
+		<text>Yes</text>
+	</string>
+	<string id="mp_voting_broken">
+		<text>Vote cancelled by server!</text>
+	</string>
+	<string id="mp_voting_started">
+		<text>Vote '%s' started by %s.</text>
+	</string>
+	<string id="mp_voting_started_msg">
+		<text>Voting has started!</text>
+	</string>
+	<string id="mp_weather_clear">
+		<text>1. Clear</text>
+	</string>
+	<string id="mp_weather_cloudy">
+		<text>4. Cloudy</text>
+	</string>
+	<string id="mp_weather_night">
+		<text>3. Night</text>
+	</string>
+	<string id="mp_weather_rain">
+		<text>2. Rain</text>
+	</string>
+	<string id="mp_with_backstab">
+		<text>Backstabbed!</text>
+	</string>
+	<string id="mp_with_headshot">
+		<text>Headshot!</text>
+	</string>
+	<string id="mp_with_eyeshot">
+		<text>Eyeshot!</text>
+	</string>
+	<string id="mp_you_captured_artefact">
+		<text>You captured the enemy artifact, now take it to yours!</text>
+	</string>
+	<string id="mp_you_captured_own_artefact">
+		<text>You got the artifact. Activate it to return it to your base!</text>
+	</string>
+	<string id="mp_your_rank">
+		<text>Your rank is now</text>
+	</string>
+	<string id="self">
+		<text>It’s you</text>
+	</string>
+	<string id="st_mp_disabled_voting">
+		<text>Voting is not available on this server.</text>
+	</string>
+	<string id="st_mp_no_current_voting">
+		<text>No active votes.</text>
+	</string>
+	<string id="st_mp_only_one_voting">
+		<text>Only one active vote permitted.</text>
+	</string>
+	<string id="st_mp_ready">
+		<text>READY</text>
+	</string>
+	<string id="st_mp_not_ready">
+		<text>NOT READY</text>
+	</string>	
+	<string id="st_mp_say_to_all">
+		<text>To all</text>
+	</string>
+	<string id="st_mp_say_to_team">
+		<text>To team</text>
+	</string>
+	<string id="st_mp_voting_failed">
+		<text>Vote failed!</text>
+	</string>
+	<string id="st_mp_voting_succeed">
+		<text>Vote successful!</text>
+	</string>
+	<string id="team_base_1">
+		<text>Freedom base</text>
+	</string>
+	<string id="team_base_2">
+		<text>Mercenary base</text>
+	</string>
+	<string id="team_base_3">
+		<text>Free Sltalkers base</text>
+	</string>
+	<string id="team_base_4">
+		<text>Bandits base</text>
+	</string>	
+	<string id="team_base_5">
+		<text>Crear Sky's base</text>
+	</string>	
+	<string id="team_base_6">
+		<text>Duty's base</text>
+	</string>	
+	<string id="team_base_7">
+		<text>Monolith's base</text>
+	</string>	
+	<string id="team_base_8">
+		<text>Scientists base</text>
+	</string>	
+	<string id="team_base_9">
+		<text>Military base</text>
+	</string>		
+	<string id="ui_mp_ah">
+		<text>2. Artifact hunt</text>
+	</string>
+	<string id="ui_mp_cta">
+		<text>4. Capture the artifact</text>
+	</string>
+	<string id="ui_mp_dm">
+		<text>1. Free for all</text>
+	</string>
+	<string id="ui_mp_gamespy_creating_new_profile">
+		<text>Create a new profile...</text>
+	</string>
+	<string id="ui_mp_gamespy_getting_account_profiles">
+		<text>Obtaining account profiles...</text>
+	</string>
+	<string id="ui_mp_gamespy_loading_rewards_hello">
+		<text>Hello,</text>
+	</string>
+	<string id="ui_mp_gamespy_logining_to_profile">
+		<text>Connecting to profile...</text>
+	</string>
+	<string id="ui_mp_gamespy_profile_created">
+		<text>Profile created successfully. Please connect to it.</text>
+	</string>
+	<string id="ui_mp_gamespy_suggesting_unique_name">
+		<text>Verifying unique name...</text>
+	</string>
+	<string id="ui_mp_gamespy_use_existing_profile">
+		<text>Do you want to use the existing profile with the name</text>
+	</string>
+	<string id="ui_mp_gamespy_verify_account_profiles">
+		<text>Account found. Obtaining registered profiles...</text>
+	</string>
+	<string id="ui_mp_gamespy_verify_account_profiles_error1">
+		<text>You already have a profile. Please connect to it.</text>
+	</string>
+	<string id="ui_mp_gamespy_verify_email">
+		<text>Verifying account...</text>
+	</string>
+	<string id="ui_mp_gamespy_verify_nickname_error1">
+		<text>This unique name is already in use. Please choose from the drop-down list below or enter another one.</text>
+	</string>
+	<string id="ui_mp_gamespy_verify_password_error1">
+		<text>Passwords do not match!</text>
+	</string>
+	<string id="ui_mp_tdm">
+		<text>3. Team play</text>
+	</string>
+	<string id="ui_mp_rp">
+		<text>Role play</text>
+	</string>
+	<string id="ui_st_btn_copy_url">
+		<text>Copy link</text>
+	</string>
+	<string id="ui_st_btn_download_map">
+		<text>Load map</text>
+	</string>
+	<string id="ui_st_description">
+		<text>Description</text>
+	</string>
+	<string id="ui_st_map_data_corrupted">
+		<text>Map incorrect or corrupt</text>
+	</string>
+	<string id="ui_st_map_not_found">
+		<text>Map not found</text>
+	</string>
+	<string id="ui_st_mp_awards">
+		<text>Awards</text>
+	</string>
+	<string id="ui_st_mp_best_results">
+		<text>Records</text>
+	</string>
+	<string id="ui_st_mp_check_avaliability">
+		<text>Check</text>
+	</string>
+	<string id="ui_st_mp_confirm_password">
+		<text>Confirm password</text>
+	</string>
+	<string id="ui_st_mp_email">
+		<text>E-mail</text>
+	</string>
+	<string id="ui_st_mp_forgot_password">
+		<text>Forgot password?</text>
+	</string>
+	<string id="ui_st_mp_gamespy_account_creation">
+		<text>GameSpy ID creation page</text>
+	</string>
+	<string id="ui_st_mp_password">
+		<text>Password</text>
+	</string>
+	<string id="ui_st_mp_remember_me">
+		<text>REMEMBER</text>
+	</string>
+	<string id="ui_st_mp_unique_nickname">
+		<text>Unique name</text>
+	</string>
+	<string id="ui_st_mp_unique_nickname_change">
+		<text>Unique name successfully changed to</text>
+	</string>
+	<string id="ui_st_team">	   
+		<text>Faction</text>
+	</string>
+	<string id="ui_st_team0_name">
+		<text>Stalker</text>
+	</string>
+	<string id="ui_st_team1_name">
+		<text>Freedom</text>
+	</string>	
+	<string id="ui_st_team2_name">
+		<text>Mercenaries</text>
+	</string>
+	<string id="ui_st_team3_name">
+		<text>Free Stalkers</text>
+	</string>	
+	<string id="ui_st_team4_name">
+		<text>Bandits</text>
+	</string>	
+	<string id="ui_st_team5_name">
+		<text>Clear Sky</text>
+	</string>
+	<string id="ui_st_team6_name">
+		<text>Duty</text>
+	</string>	
+	<string id="ui_st_team7_name">
+		<text>Monolith</text>
+	</string>
+	<string id="ui_st_team8_name">
+		<text>Scientists</text>
+	</string>	
+	<string id="ui_st_team9_name">
+		<text>Military</text>
+	</string>	
+	<string id="ui_st_mp_create_new_account">
+		<text>New profile</text>
+	</string>
+	<string id="ui_st_mp_gamespy_login_page">
+		<text>GameSpy ID authorization</text>
+	</string>
+	<string id="mpd_play">
+		<text>play</text>
+	</string>
+	<string id="mpd_rewind">
+		<text>rewind</text>
+	</string>
+	<string id="mpd_restart">
+		<text>restart</text>
+	</string>
+	<string id="mpd_rewind_until_start">
+		<text>to the start</text>
+	</string>
+	<string id="mpd_rewind_until_kill">
+		<text>to the kill</text>
+	</string>
+	<string id="mpd_rewind_until_die">
+		<text>to the death</text>
+	</string>
+	<string id="mpd_rewind_until_arttake">
+		<text>to the artifact capture</text>
+	</string>
+	<string id="mpd_rewind_until_artdrop">
+		<text>to the artifact loss</text>
+	</string>
+	<string id="mpd_rewind_until_artdeliver">
+		<text>to the artifact delivery</text>
+	</string>
+	<string id="mpd_any_player">
+		<text>any</text>
+	</string>
+	<string id="mm_mp_login">
+		<text>Login</text>
+	</string>
+	<string id="ui_mp_no_clip">
+		<text>Noclip</text>
+	</string>
+	<string id="ui_mp_am_screen_all">
+		<text>Screenshot all</text>
+	</string>
+	<string id="ui_mp_am_screen_selected">
+		<text>Scrn. selected player</text>
+	</string>
+	<string id="ui_mp_am_config_selected">
+		<text>Cfg for selected player</text>
+	</string>
+	<string id="ui_mp_am_kick_selected">
+		<text>Kick selected player</text>
+	</string>
+	<string id="ui_mp_am_ban_selected">
+		<text>Ban selected player</text>
+	</string>
+	<string id="ui_mp_am_restart">
+		<text>Restart</text>
+	</string>
+	<string id="ui_mp_am_fast_restart">
+		<text>Fast restart</text>
+	</string>
+	<string id="ui_mp_am_change_weather">
+		<text>Change weather</text>
+	</string>
+	<string id="ui_mp_am_set_change_rate">
+		<text>Weather change speed</text>
+	</string>
+	<string id="ui_mp_am_change_game_type">
+		<text>Change game type</text>
+	</string>
+	<string id="ui_mp_am_change_game_limits">
+		<text>Change game settings</text>
+	</string>
+	<string id="ui_mp_am_stop_cur_voting">
+		<text>Stop current vote</text>
+	</string>
+	<string id="ui_mp_am_set_time_limit">
+		<text>Time limit (0, 180)</text>
+	</string>
+	<string id="ui_mp_am_set_frag_limit">
+		<text>Frag limit (0, 1000)</text>
+	</string>
+	<string id="ui_mp_am_set_art_limit">
+		<text>Artifact limit (0, 100)</text>
+	</string>
+	<string id="ui_mp_am_set_warm_up_time">
+		<text>Warm up time (0, 3600)</text>
+	</string>
+	<string id="ui_mp_am_set_invincible_time">
+		<text>Spwn prot time (0, 60 CTA)</text>
+	</string>
+	<string id="ui_mp_am_set_damage_block_time">
+		<text>Spwn prot time (0, 600 T/DM)</text>
+	</string>
+	<string id="ui_mp_am_set_reinforcement_time">
+		<text>Respawn time (-1, 3600)</text>
+	</string>
+	<string id="mp_gp_unknown_error_4">
+		<text>Uknown profile error (code: 4)</text>
+	</string>
+	<string id="ui_mp_am_10_minutes">
+		<text>10 minutes</text>
+	</string>
+	<string id="ui_mp_am_30_minutes">
+		<text>30 minutes</text>
+	</string>
+	<string id="ui_mp_am_1_hour">
+		<text>1 hour</text>
+	</string>
+	<string id="ui_mp_am_6_hours">
+		<text>6 hours</text>
+	</string>
+	<string id="ui_mp_am_1_day">
+		<text>1 day</text>
+	</string>
+	<string id="ui_mp_am_1_week">
+		<text>1 week</text>
+	</string>
+	<string id="ui_mp_am_1_month">
+		<text>1 month</text>
+	</string>
+	<string id="ui_mp_am_3_monthes">
+		<text>3 months</text>
+	</string>
+	<string id="ui_mp_am_forever">
+		<text>Permanently</text>
+	</string>
+	<string id="mp_gp_unique_nick_too_short">
+		<text>The nickname is too short</text>
+	</string>
+	<string id="mp_gp_unknown_error_512">
+		<text>Profile creation error</text>
+	</string>
+	<!--monster names in killfeed-->
+	<string id="dog_weak">
+		<text>Albino dog</text>
+	</string>
+	<string id="dog_normal">
+		<text>Blind dog</text>
+	</string>
+	<string id="dog_cute">
+		<text>Rat hound</text>
+	</string>
+	<string id="dog_strong">
+		<text>Wild dog</text>
+	</string>	
+	<string id="flesh_weak">
+		<text>Prairie flesh</text>
+	</string>	
+	<string id="flesh_normal">
+		<text>Forest flesh</text>
+	</string>	
+	<string id="flesh_strong">
+		<text>Swamp flesh</text>
+	</string>
+	<string id="flesh_replica">
+		<text>Flesh</text>
+	</string>
+	<string id="boar_weak">
+		<text>Young boar</text>
+	</string>
+	<string id="boar_normal">
+		<text>Grown boar</text>
+	</string>
+	<string id="boar_strong">
+		<text>Mature boar</text>
+	</string>	
+	<string id="bloodsucker_weak">
+		<text>Bloodsucker</text>
+	</string>
+	<string id="bloodsucker_normal">
+		<text>Swamp bloodsucker</text>
+	</string>
+	<string id="bloodsucker_strong">
+		<text>Dark bloodsucker</text>
+	</string>	
+	<string id="bloodsucker_indoor">
+		<text>Underground bloodsucker</text>
+	</string>	
+	<string id="df_cat_bloodsucker">
+		<text>Tunnel bloodsucker</text>
+	</string>	
+	<string id="snork_weak">
+		<text>Snork</text>
+	</string>
+	<string id="snork_normal">
+		<text>Scavenger snork</text>
+	</string>
+	<string id="snork_strong">
+		<text>Man-eating snork</text>
+	</string>
+	<string id="pseudodog_weak">
+		<text>Pseudo-dog</text>
+	</string>
+	<string id="pseudodog_normal">
+		<text>Mature pseudo-dog</text>
+	</string>
+	<string id="pseudodog_strong">
+		<text>Gray pseudo-dog</text>
+	</string>
+	<string id="psy_dog_normal">
+		<text>Psy-dog</text>
+	</string>
+	<string id="psy_dog_phantom">
+		<text>Psy-dog phantom</text>
+	</string>	
+	<string id="chimera_normal">
+		<text>Chimera</text>
+	</string>	
+	<string id="burer_normal">
+		<text>Burer</text>
+	</string>	
+	<string id="m_controller_normal">
+		<text>Controller</text>
+	</string>	
+	<string id="gigant_normal">
+		<text>Pseudo giant</text>
+	</string>
+	<string id="tushkano_normal">
+		<text>Rodent</text>
+	</string>	
+	<string id="tushkano_strong">
+		<text>Hardened Rodent</text>
+	</string>
+	<string id="gigant_boss">
+		<text>KINGPIN</text>
+	</string>		
+	<string id="m_phantom">
+		<text>Phantom</text>
+	</string>
+	<string id="m_poltergeist_normal_tele">
+		<text>Poltergeist</text>
+	</string>
+	<string id="m_poltergeist_normal_flame">
+		<text>Pyrogeist</text>
+	</string>
+	<string id="m_fracture_e">
+		<text>Fracture</text>
+	</string>
+	<string id="fracture_normal">
+		<text>Fracture</text>
+	</string>
+	<string id="zombie_weak">
+		<text>Lab Zombie</text>
+	</string>
+	<string id="zombie_normal">
+		<text>Civilian Zombie</text>
+	</string>
+	<string id="zombie_strong">
+		<text>Hardened Zombie</text>
+	</string>
+	<string id="zombie_lab_1">
+		<text>Subject zombie</text>
+	</string>
+	<string id="zombie_lab_2">
+		<text>Subject zombie</text>
+	</string>
+	<string id="zombie_lab_3">
+		<text>Subject zombie</text>
+	</string>
+	<string id="zombie_lab_4">
+		<text>Subject zombie</text>
+	</string>
+	<string id="zombie_ghost">
+		<text>Zombie-ghost</text>
+	</string>
+	<string id="zombie_trup_1">
+		<text>Walking corpse</text>
+	</string>
+	<string id="zombie_trup_2">
+		<text>Walking corpse</text>
+	</string>
+	<string id="zombie_trup_3">
+		<text>Walking corpse</text>
+	</string>
+	<string id="m_cat_e">
+		<text>Cat-bayun</text>
+	</string>
+	<string id="cat_normal">
+		<text>Cat-bayun</text>
+	</string>
+	<!--anomaly names in killfeed-->	
+	<string id="zone_mine_electric_weak">
+		<text>"Electro"</text>
+	</string>
+	<string id="zone_mine_electric_average">
+		<text>"Electro"</text>
+	</string>
+	<string id="zone_mine_electric_strong">
+		<text>"Electro"</text>
+	</string>
+	<string id="zone_mine_static_weak">
+		<text>"Electro"</text>
+	</string>
+	<string id="zone_mine_static_average">
+		<text>"Electro"</text>
+	</string>
+	<string id="zone_mine_static_strong">
+		<text>"Electro"</text>
+	</string>	
+	<string id="zone_mine_thermal_weak">
+		<text>"Burner"</text>
+	</string>
+	<string id="zone_mine_thermal_average">
+		<text>"Burner"</text>
+	</string>
+	<string id="zone_mine_thermal_strong">
+		<text>"Burner"</text>
+	</string>	
+	<string id="zone_mine_steam_weak">
+		<text>"Steam"</text>
+	</string>
+	<string id="zone_mine_steam_average">
+		<text>"Steam"</text>
+	</string>
+	<string id="zone_mine_steam_strong">
+		<text>"Steam"</text>
+	</string>
+	<string id="zone_mine_acidic_weak">
+		<text>"Gas"</text>
+	</string>
+	<string id="zone_mine_acidic_average">
+		<text>"Gas"</text>
+	</string>
+	<string id="zone_mine_acidic_strong">
+		<text>"Gas"</text>
+	</string>
+	<string id="zone_mine_acidic_big">
+		<text>"Gas"</text>
+	</string>
+	<string id="zone_mine_chemical_weak">
+		<text>"Gas"</text>
+	</string>
+	<string id="zone_mine_chemical_average">
+		<text>"Gas"</text>
+	</string>
+	<string id="zone_mine_chemical_strong">
+		<text>"Gas"</text>
+	</string>	
+	<string id="zone_field_acidic_weak">
+		<text>Acidic field</text>
+	</string>
+	<string id="zone_field_acidic_average">
+		<text>Acidic field</text>
+	</string>
+	<string id="zone_field_acidic_strong">
+		<text>Acidic field</text>
+	</string>	
+	<string id="zone_field_thermal_weak">
+		<text>Thermal field</text>
+	</string>
+	<string id="zone_field_thermal_average">
+		<text>Thermal field</text>
+	</string>
+	<string id="zone_field_thermal_strong">
+		<text>Thermal field</text>
+	</string>	
+	<string id="zone_radioactive_weak">
+		<text>Radioactive field</text>
+	</string>
+	<string id="zone_radioactive_average">
+		<text>Radioactive field</text>
+	</string>
+	<string id="zone_radioactive_strong">
+		<text>Radioactive field</text>
+	</string>
+	<string id="zone_field_radioactive_weak">
+		<text>Radioactive field</text>
+	</string>
+	<string id="zone_field_radioactive_average">
+		<text>Radioactive field</text>
+	</string>
+	<string id="zone_field_radioactive_strong">
+		<text>Radioactive field</text>
+	</string>	
+	<string id="zone_buzz_weak">
+		<text>"Fruit Punch"</text>
+	</string>
+	<string id="zone_buzz_average">
+		<text>"Fruit Punch"</text>
+	</string>
+	<string id="zone_buzz_strong">
+		<text>"Fruit Punch"</text>
+	</string>	
+	<string id="campfire">
+		<text>Campfire</text>
+	</string>
+	<string id="zone_field_psychic_weak">
+		<text>Psy-field</text>
+	</string>
+	<string id="zone_field_psychic_average">
+		<text>Psy-field</text>
+	</string>
+	<string id="zone_field_psychic_strong">
+		<text>Psy-field</text>
+	</string>	
+	<string id="zone_zharka_static_weak">
+		<text>"Burner"</text>
+	</string>
+	<string id="zone_zharka_static_average">
+		<text>"Burner"</text>
+	</string>
+	<string id="zone_zharka_static_strong">
+		<text>"Burner"</text>
+	</string>	
+	<string id="zone_witches_galantine_weak">
+		<text>"Electro"</text>
+	</string>
+	<string id="zone_witches_galantine_average">
+		<text>"Electro"</text>
+	</string>
+	<string id="zone_witches_galantine_strong">
+		<text>"Electro"</text>
+	</string>
+	<string id="zone_burning_fuzz_weak">
+		<text>"Burning fuzz"</text>
+	</string>
+	<string id="zone_burning_fuzz_average">
+		<text>"Burning fuzz"</text>
+	</string>
+	<string id="zone_burning_fuzz_strong">
+		<text>"Burning fuzz"</text>
+	</string>
+	<string id="zone_mine_gravitational_weak">
+		<text>"Springboard"</text>
+	</string>
+	<string id="zone_mine_gravitational_average">
+		<text>"Vortex"</text>
+	</string>
+	<string id="zone_mine_gravitational_strong">
+		<text>"Whirligig"</text>
+	</string>
+	<string id="zone_mine_gravitational_big">
+		<text>"Whirligig"</text>
+	</string>
+	<string id="zone_gravi_zone">
+		<text>"Vortex"</text>
+	</string>
+	<string id="zone_mine_field">
+		<text>Mine</text>
+	</string>
+	<string id="fireball_zone">
+		<text>"Comet"</text>
+	</string>
+	<string id="fireball_electric_zone">
+		<text>"Tesla"</text>
+	</string>
+	<string id="fireball_acidic_zone">
+		<text>"Venus"</text>
+	</string>	
+	<!----------------------------------------->			
+	<string id="mp_team_stalkers">
+		<text>STALKERS</text>
+	</string>	
+	<string id="mp_ready_df">
+		<text>CONTINUE</text>
+	</string>
+	<string id="mp_lobby_skin">
+		<text>UNIFORM</text>
+	</string>
+	<string id="mp_lobby_team">
+		<text>FACTION</text>
+	</string>
+	<string id="st_mp_start">
+		<text>START</text>
+	</string>
+	<string id="mp_lobby_welcome">
+		<text>Welcome to the </text>
+	</string>	
+	<string id="mp_squad_new_leader_self">
+		<text>You are the new squad leader</text>
+	</string>	
+	<string id="mp_squad_update">
+		<text>SQUAD UPDATED</text>
+	</string>
+	<string id="mp_squad_make_leader_0">
+		<text>You appointed</text>
+	</string>
+	<string id="mp_squad_make_leader_1">
+		<text>squad leader</text>
+	</string>
+	<string id="mp_squad_make_leader_self">
+		<text>You are the new squad leader</text>
+	</string>
+	<string id="mp_squad_disbanded">
+		<text>Squad was disbanded</text>
+	</string>
+	<string id="mp_squad_self_left">
+		<text>You have left the squad</text>
+	</string>
+	<string id="mp_squad_kick">
+		<text>You were kicked from the squad</text>
+	</string>
+	<string id="mp_squad_invite">
+		<text>invites you to the squad</text>
+	</string>
+	<string id="mp_squad_cancel_0">
+		<text>Invite from</text>
+	</string>
+	<string id="mp_squad_cancel_1">
+		<text>cancelled or expired</text>
+	</string>
+	<string id="mp_joined_to_squad">
+		<text>joined the squad</text>
+	</string>
+	<string id="mp_left_squad">
+		<text>left the squad</text>
+	</string>	
+	<string id="mp_squad_title">
+		<text>SQUAD</text>
+	</string>
+	<string id="mp_new_rank">
+		<text>NEW RANK RECIEVED</text>
+	</string>	
+	<string id="mp_chat_prefix_all">
+		<text>To all</text>
+	</string>
+	<string id="mp_chat_prefix_team">
+		<text>Faction</text>
+	</string>
+	<string id="mp_chat_prefix_squad">
+		<text>Squad</text>
+	</string>
+	<string id="mp_round_time">
+		<text>ROUND TIME:</text>
+	</string>	
+	<string id="mp_end_result_lose">
+		<text>DEFEAT</text>
+	</string>
+	<string id="mp_end_result_win">
+		<text>VICTORY</text>
+	</string>	
+	<string id="mp_wave">
+		<text>WAVE</text>
+	</string>
+	<string id="mp_waves">
+		<text>WAVES</text>
+	</string>	
+	<string id="mp_player_readiness">
+		<text>PLAYERS READINESS</text>
+	</string>	
+		<string id="st_df_all_boxes_found_cap">
+		<text>Crates found</text>
+	</string>
+	<string id="st_df_all_boxes_found_text">
+		<text>All crates have been found</text>
+	</string>
+	<string id="mp_lobby_character">
+		<text>CHARACTER</text>
+	</string>	
+	<string id="mp_voting">
+		<text>VOTING</text>
+	</string>
+	<string id="mp_empty_lobby_slot">
+		<text>EMPTY</text>
+	</string>
+	<string id="mp_lobby_is_ready_hint">
+		<text>NOT AVAILABLE WHILE READY</text>
+	</string>
+	<string id="st_min_players_to_start">
+		<text>MINIMUM PLAYERS TO START:</text>
+	</string>
+	<string id="mp_lobby_ready_players_count">
+		<text>%u OF %u PLAYERS ARE READY</text>
+	</string>
+	<string id="mp_lobby_time_to_start">
+		<text>STARTING IN:</text>
+	</string>
+	<string id="mp_enemies_in_game_default">
+		<text>%u ENEMIES IN GAME</text>
+	</string>
+	<string id="mp_enemies_in_game_one">
+		<text>%u ENEMY IN GAME</text>
+	</string>
+	<string id="mp_enemies_in_game_twenty_one">
+		<text>%u ENEMIES IN GAME</text>
+	</string>
+	<string id="mp_enemies_in_game_two_three_four">
+		<text>%u ENEMIES IN GAME</text>
+	</string>
+	<string id="st_df_unity">
+		<text>Unity</text>
+	</string>
+	<string id="st_mp_next_map">
+		<text>NEXT LEVEL</text>
+	</string>
+	<string id="st_mp_time_to_start">
+		<text>TIME TO START</text>
+	</string>
+	<string id="st_mp_mutants">
+		<text>MUTANTS</text>
+	</string>
+	<string id="wait_for_server_respond">
+		<text>WAITING FOR SERVER RESPOND...</text>
+	</string>
+	<string id="st_dm_target">
+		<text>REACH GOAL</text>
+	</string>
+	<string id="st_character_not_selected">
+		<text>STORY CHARACTER NOT SELECTED</text>
+	</string>
+	<string id="st_character_not_selected_hint">
+		<text>CAN'T START THE GAME UNTIL A STORY CHARACTER IS SELECTED</text>
+	</string>
+	<string id="st_character_is_unavailable">
+		<text>STORY CHARACTER IS ALREADY TAKEN</text>
+	</string>
+	<string id="st_character_is_unavailable_hint">
+		<text>STORY CHARACTER IS TAKEN BY A DIFFERENT PLAYER</text>
+	</string>
+	<string id="st_character_hint">
+		<text>THIS IS A STORY CHARACTER, ONLY ONE PLAYER CAN SELECT IT</text>
+	</string>
+	<string id="st_world_mark">
+		<text>Mark</text>
+	</string>
+	<string id="st_inventory_box">
+		<text>Stash</text>
+	</string>
+	<string id="st_item_notify">
+		<text>marks</text>
+	</string>	
+</string_table>

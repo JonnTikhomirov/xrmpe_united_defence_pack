@@ -1,0 +1,971 @@
+[wpn_protecta]:identity_immunities,weapon_probability,default_weapon_params
+GroupControlSection			= spawn_group
+$spawn                   	= "weapons\protecta"					; option for Level Editor
+$npc			 			= on				; option for Level Editor
+$prefetch 		 			= 8
+scheduled                	= off              ; option for ALife Simulator
+cform                    	= skeleton
+class                    	= WP_ASHTG
+description					= st_wpn_protecta_descr
+
+ef_main_weapon_type			= 1
+ef_weapon_type				= 9
+
+default_to_ruck         = false
+sprint_allowed          = true
+
+repair_group = protecta
+
+def_hide_bones = scope1, scope2, scope3, scope4, barrel_long, flash, laser, bolt_foregrip_rail, handler, rail, rail_lam, body, stock, sight
+
+;----------------------------------------------------------------------------
+cost					 	= 9000
+weapon_class			 	        = shotgun
+inv_weight					= 4.2
+
+upgrades = vartree_protecta_barrel1, vartree_protecta_mag, vartree_protecta_rail, vartree_protecta_sights, vartree_protecta_stock
+installed_upgrades = 
+upgrade_scheme = upgrade_scheme_protecta
+
+banned_upgrades = up_saiga12_
+
+;--TTX---------------------------------------------------------------------------
+hit_power        			= 0.9, 0.9, 0.9, 0.9
+hit_impulse      			= 120
+hit_type 					= fire_wound
+fire_distance            	= 200
+bullet_speed			 	= 235			;начальная скорость пули
+rpm                      	= 165           ;60 = 1 секунда
+rpm_empty_click 	   	= 200
+
+hud                      	= wpn_protecta_hud
+
+misfire_probability        = 0.005 ;вероятность осечки при максимальном износе  !!!old - now not working
+;изношенность, при которой появляется шанс осечки
+misfire_start_condition		= 0.5
+;изношеность при которой шанс осечки становится константным
+misfire_end_condition		= 0.1
+;шанс осечки при изношености больше чем misfireStartCondition
+misfire_start_prob	     	= 0.003
+;шанс осечки при изношености больше чем misfireEndCondition
+misfire_end_prob	     	= 0.4
+;увеличение изношености при одиночном выстреле
+condition_shot_dec      	= 0.0026
+;увеличение изношености при выстреле очередью
+condition_queue_shot_dec	= 0.0026
+
+no_jam_in_first_shot = true
+ammo_in_chamber = false
+need_first_shoot_anims = true
+need_final_close_anims = true
+
+tri_state_reload			= on
+
+ammo_limit		 			= 60
+ammo_current		 		= 10
+ammo_elapsed		 		= 0
+
+ammo_mag_size		 		= 12
+ammo_class		 			= ammo_12x76_zhekan, ammo_12x70_buck, ammo_12x76_dart
+ammo_bones_sections     	= wpn_protecta_ammo_bones_blue, wpn_protecta_ammo_bones_red, wpn_protecta_ammo_bones_green
+fire_modes					= 1
+
+;---дисперсия---------------------------------------------------------------------------
+;базовая дисперсия
+fire_dispersion_base		= 0.25  ;угол (в градусах) базовой дисперсии оружия (оружия зажатого в тисках)
+crosshair_inertion			= 7.75
+
+;отдача
+cam_return				= 0
+cam_relax_speed         = 10	;скорость возврата в исходное положение
+cam_relax_speed_ai      = 360
+cam_dispersion          = 4.6	;увеличения угла (в градусах) с каждым выстрелом
+cam_dispersion_inc		= 2.0	;увеличениe cam_dispersion с каждым выстрелом
+cam_dispersion_frac		= 0.7
+cam_max_angle			= 15.0	;максимальный угол отдачи
+cam_max_angle_horz		= 15.0	;(degree) maximum shot horizontal degree
+cam_step_angle_horz		= 3.0	;(degree) size of step camera moved in horizontal position while shooting
+
+PDM_disp_base 				= 3.0
+PDM_disp_vel_factor 		= 2.0
+PDM_disp_accel_factor 		= 2.0
+PDM_disp_crouch	 			= 1.0
+PDM_disp_crouch_no_acc 		= 1.0
+
+zoom_cam_relax_speed		= 10     ; scope & ironsight
+zoom_cam_relax_speed_ai		= 120.75
+zoom_cam_dispersion			= 3.8
+zoom_cam_dispersion_inc		= 2.3
+zoom_cam_dispersion_frac	= 0.7
+zoom_cam_max_angle			= 10.0
+zoom_cam_max_angle_horz		= 10.0
+zoom_cam_step_angle_horz	= 3.0
+
+fire_dispersion_condition_factor = 3	;увеличение дисперсии в процентах при максимальном износе
+
+;---DOF-------------------------------------------------------------------------
+zoom_dof					= 0.5, 1.0, 180
+;reload_dof           = 0.0, 0.5, 5, 1.7
+;-------------------------------------------------------------------------------
+holder_range_modifier	= 1.0               ; во сколько раз увеличивается eye_range
+holder_fov_modifier		= 1.0              ; во сколько раз увеличивается eye_fov
+
+min_radius               	= 0
+max_radius               	= 50
+
+hit_probability_gd_novice	= 0.70
+hit_probability_gd_stalker	= 0.70
+hit_probability_gd_veteran	= 0.70
+hit_probability_gd_master	= 0.70
+
+;-------------------------------------------------------------------------------
+position                 	= -0.024, -0.097, 0.
+orientation              	= 0, -4, 0      ;значение устанавливается в градусах
+
+position_new_anm                = -0.029, -0.089, 0.0
+orientation_new_anm             = 4, -5, 7
+
+
+shell_point				= 0.0, 0.180, 0.647
+fire_point              = 0.0, 0.158, 0.647
+fire_point2				= 0.0, 0.158, 0.647
+hand_dependence 	 		= 1
+single_handed				= 0
+
+slot 				 		= 2		; // secondary
+animation_slot		 		= 10		; type of the animation that will be used
+use_third_person_anims      = true               ; нужно ли использовать анимацию на мировой модели оружия / есть ли idle анимация
+
+inv_name					= st_wpn_protecta
+inv_name_short				= st_wpn_protecta
+
+inv_grid_width				= 4
+inv_grid_height				= 2
+inv_grid_x					= 1
+inv_grid_y					= 23
+
+element_icon_0 = icon_element_protecta_body
+element_icon_offset_x_0 = 0
+element_icon_offset_y_0 = 0
+
+upgr_icon_x = 0
+upgr_icon_y = 914
+upgr_icon_width = 294
+upgr_icon_height = 110
+
+kill_msg_x				= 148
+kill_msg_y				= 215
+kill_msg_width			= 64
+kill_msg_height			= 21
+
+flame_particles		   	= weapons\generic_weapon05
+smoke_particles		   	= weapons\generic_shoot_00
+
+
+;--STRAP PARAMETERS-----------------------------------------------------------------
+;под мишкой
+strap_position         		= -0.26,-0.15,0.15			; position (offset) and orientation of the weapon when it is strapped
+strap_orientation      		= -15,-9,110				; (3rd person view in degrees)
+strap_bone0					= bip01_spine2
+strap_bone1					= bip01_spine1
+
+startup_ammo             	= 10
+visual                   	= dynamics\weapons\wpn_protecta\wpn_protecta
+
+light_color		 			= 0.6,0.5,0.3
+light_range		 			= 6.0
+light_var_color		 		= 0.05
+light_var_range		 		= 0.5
+light_time 		 			= 0.2
+
+ph_mass			 			= 3
+
+;addons
+scope_status			= 2
+silencer_status			= 0
+grenade_launcher_status		= 0
+
+silencer_light_color    = 0.6,0.5,0.3
+silencer_light_range    = 0.01
+silencer_light_var_color= 0.05
+silencer_light_var_range= 0.01
+silencer_light_time     = 0.01
+
+scopes_sect		= scope_eotech_protecta, scope_aimpoint_protecta, scope_elcan_protecta, scope_pn23_protecta
+
+zoom_enabled            = true                                               
+zoom_rotate_time	= 0.25
+scope_zoom_factor	= 85
+ironsight_zoom_factor   = 85
+
+enable_breechblock_sound = false
+
+;звуки
+snd_draw		    = weapons\winchester1300\mechanics\winchester1300_draw
+snd_holster		    = weapons\winchester1300\mechanics\winchester1300_hide
+snd_shoot		= weapons\protecta\layers\protecta_shoot_a_1
+snd_shoot1		= weapons\protecta\layers\protecta_shoot_a_2
+snd_shoot2		= weapons\protecta\layers\protecta_shoot_a_3
+snd_shoot3		= weapons\protecta\layers\protecta_shoot_a_4
+snd_silncer_shot        = weapons\saiga12\layers\saiga12_silencer_a_1
+snd_silncer_shot1        = weapons\saiga12\layers\saiga12_silencer_a_2
+snd_silncer_shot2        = weapons\saiga12\layers\saiga12_silencer_a_3
+snd_breechblock = weapons\winchester1300\mechanics\winchester1300_pump_1
+snd_breechblock1 = weapons\winchester1300\mechanics\winchester1300_pump_2
+snd_breechblock2 = weapons\winchester1300\mechanics\winchester1300_pump_3
+snd_jam = weapons\winchester1300\mechanics\winchester1300_pump_jammed
+snd_jammed_click			= weapons\winchester1300\mechanics\winchester1300_check
+
+snd_empty					= weapons\toz34\mechanics\toz34_dry_1
+snd_empty1					= weapons\toz34\mechanics\toz34_dry_2
+snd_reload		    = weapons\winchester1300\mechanics\winchester1300_reload_start_1
+snd_reload_jammed       = weapons\protecta\mechanics\protecta_revival
+snd_changecartridgetype     = weapons\winchester1300\mechanics\winchester1300_reload_start_1
+
+snd_open_weapon             = weapons\protecta\mechanics\protecta_reload_start
+snd_open_weapon_empty       = weapons\protecta\mechanics\protecta_reload_start
+snd_add_cartridge	    = weapons\protecta\mechanics\protecta_reload_ammo_1
+snd_add_cartridge1	    = weapons\protecta\mechanics\protecta_reload_ammo_2
+snd_add_cartridge2	    = weapons\protecta\mechanics\protecta_reload_ammo_3
+snd_add_cartridge3	    = weapons\protecta\mechanics\protecta_reload_ammo_4
+snd_add_cartridge4	    = weapons\protecta\mechanics\protecta_reload_ammo_5
+snd_add_cartridge5	    = weapons\protecta\mechanics\protecta_reload_ammo_6
+snd_add_cartridge_empty     = weapons\protecta\mechanics\protecta_reload_ammo_1
+snd_add_cartridge_preloaded = weapons\protecta\mechanics\protecta_reload_ammo_2
+snd_close_weapon            = weapons\protecta\mechanics\protecta_reload_end
+snd_close_weapon_final      = weapons\protecta\mechanics\protecta_reload_last_end
+snd_close_weapon_preloaded  = weapons\protecta\mechanics\winchester1300_reload_end
+snd_aim_start           = weapons\winchester1300\mechanics\winchester1300_aim_start
+snd_aim_end             = weapons\winchester1300\mechanics\winchester1300_aim_end
+
+silencer_smoke_particles   = weapons\generic_shoot_00
+
+use_world_anims=true
+
+wanm_idle = idle
+wanm_idle_empty = idle
+wanm_idle_jammed = idle_jammed
+wanm_idle_first = idle_first
+
+wanm_shoot = shoot
+wanm_shoot_jammed = idle_jammed
+
+wanm_shoot_last = shoot
+wanm_shoot_last_jammed = idle_jammed
+
+
+wanm_reload = idle
+wanm_reload_empty = idle
+wanm_reload_jammed = idle
+
+[wpn_protecta_hud]:hud_base
+
+hud_fov = 0.75
+
+shell_point			= = 0.0,-9.0,0.0
+shell_dir                     	= 0.0, 1.0, 0.0
+shell_bone			= wpn_body
+
+
+fire_point		= 0, 0.057, 0.719
+fire_bone			= wpn_body
+
+
+attach_place_idx		= 0
+item_visual                   	= dynamics\weapons\wpn_protecta\wpn_protecta_hud
+
+hands_position				= 0.0,0.014,-0.011
+hands_orientation			= 0.0,0.0,0.0
+
+hands_position_16x9			= 0.0,0.014,-0.011
+hands_orientation_16x9			= 0.0,0.0,0.0
+
+item_position				= 0.0,0.0,0.0
+item_orientation			= 0.0,0.0,0.0
+
+
+use_advanced_ammo_bones = true
+ammo_params_section = wpn_protecta_ammo_bones
+
+ammo_params_toggle_shooting = true			; запретить обновлять косточки при выстрелах
+ammo_params_use_last_cartridge_type = true		; будет ли использоваться тип последнего патрона (true) или тип, которым оружие заряжено; ставим true и не паримся
+ammo_params_use_previous_shot_type = true
+ammo_params_section_0 = wpn_protecta_ammo_bones_blue
+ammo_params_section_1 = wpn_protecta_ammo_bones_red 
+
+aim_hud_offset_pos = 0.000000,-0.023,0.00
+aim_hud_offset_rot = -0.027,0.000000,0.000000
+
+aim_hud_offset_pos_16x9 = 0.000000,-0.023,0.00
+aim_hud_offset_rot_16x9 = -0.027,0.000000,0.000000
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+prohibit_suicide = false		;включаем суицид
+suicide_by_animation=true		;кроме смещения будет играться анимация
+custom_suicide_shot = true		; показываем, что необходима особая анимация самоубийственного выстрела
+
+anm_suicide			= striker12_suicide
+lock_time_anm_suicide 		= 7.37
+anm_stop_suicide 		= striker12_suicide_end
+lock_time_anm_stop_suicide 	= 1.37
+suicide_delay = 0.25 ;0.5
+
+anm_suicide_first = striker12_suicide
+lock_time_anm_suicide_first 		= 7.37
+anm_stop_suicide_first 		= striker12_suicide_end
+lock_time_anm_stop_suicide_first 	= 1.37
+
+anm_shoot_suicide                = winchester1300_suicide_shoot
+anm_shoot_suicide_sil            = winchester1300_suicide_shoot
+anm_shoot_last_suicide           = winchester1300_suicide_shoot
+anm_shoot_last_suicide_sil       = winchester1300_suicide_shoot
+
+anm_shoot_first_suicide                = winchester1300_suicide_shoot
+anm_shoot_first_suicide_sil            = winchester1300_suicide_shoot
+anm_shoot_last_first_suicide           = winchester1300_suicide_shoot
+anm_shoot_last_first_suicide_sil       = winchester1300_suicide_shoot
+
+hud_move_suicide_offset_pos = 0, 0, 0
+hud_move_suicide_offset_rot = 0,0,0
+
+hud_move_suicide_offset_pos_16x9 = 0, 0, 0
+hud_move_suicide_offset_rot_16x9 = 0,0,0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+;Идл обычный
+
+anm_idle			    = striker12_idle
+anm_idle_empty			= striker12_idle
+anm_idle_jammed			= striker12_idle, idle_jammed
+anm_idle_first			= striker12_idle, idle_first
+
+;Идл - сосредоточенный
+anm_idle_slow			= striker12_idle
+anm_idle_slow_empty		= striker12_idle
+anm_idle_slow_jammed	= striker12_idle, idle_jammed
+anm_idle_slow_first		= striker12_idle, idle_first
+
+;Идл - присев
+anm_idle_crouch			= striker12_idle
+anm_idle_crouch_empty	= striker12_idle
+anm_idle_crouch_jammed	= striker12_idle, idle_jammed
+anm_idle_crouch_first	= striker12_idle, idle_first
+
+;Идл - сосредоточенный и присев
+anm_idle_crouch_slow		= striker12_idle
+anm_idle_crouch_slow_empty	= striker12_idle
+anm_idle_crouch_slow_jammed	= striker12_idle, idle_jammed
+anm_idle_crouch_slow_first	= striker12_idle, idle_first
+
+;//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+;Обычное движение
+anm_idle_moving			            = striker12_walk
+anm_idle_moving_empty		        = striker12_walk
+anm_idle_moving_jammed		        = striker12_walk, idle_jammed
+anm_idle_moving_first				= striker12_walk, idle_first
+
+;Замедленное движение
+anm_idle_moving_slow			= striker12_walk_slow
+anm_idle_moving_slow_empty		= striker12_walk_slow
+anm_idle_moving_slow_jammed		= striker12_walk_slow, idle_jammed
+anm_idle_moving_slow_first		= striker12_walk_slow, idle_first
+
+;Движение в присяде
+anm_idle_moving_crouch			    = striker12_walk_slow_down
+anm_idle_moving_crouch_empty		= striker12_walk_slow_down
+anm_idle_moving_crouch_jammed		= striker12_walk_slow_down, idle_jammed
+anm_idle_moving_crouch_first		= striker12_walk_slow_down, idle_first
+
+;Замедленное движение в присяде
+anm_idle_moving_crouch_slow		    = striker12_walk_slow_super
+anm_idle_moving_crouch_slow_empty	= striker12_walk_slow_super
+anm_idle_moving_crouch_slow_jammed	= striker12_walk_slow_super, idle_jammed
+anm_idle_moving_crouch_slow_first	= striker12_walk_slow_super, idle_first
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+; включаем анимы движения в прицеливании по направлениям
+enable_directions_anm_idle_aim = true
+
+
+
+;вход в прицеливание
+anm_idle_aim_start		    = striker12_aim_start
+anm_idle_aim_start_empty	= striker12_aim_start
+anm_idle_aim_start_jammed	= striker12_aim_start, striker12_aim_start_jammed
+anm_idle_aim_start_first	= striker12_aim_start
+
+autoshoot_anm_idle_aim_start = true
+autoshoot_anm_idle_aim_start_empty = true
+autoshoot_anm_idle_aim_start_jammed = true
+autoshoot_anm_idle_aim_start_first = true
+
+lock_time_anm_idle_aim_start = 0.25
+lock_time_anm_idle_aim_start_empty = 0.25
+lock_time_anm_idle_aim_start_jammed = 0.25
+lock_time_anm_idle_aim_start_first = 0.25
+
+;выход из прицеливания
+anm_idle_aim_end		    = striker12_aim_end
+anm_idle_aim_end_empty		= striker12_aim_end
+anm_idle_aim_end_jammed		= striker12_aim_end, striker12_aim_end_jammed
+anm_idle_aim_end_first	    = striker12_aim_end
+
+autoshoot_anm_idle_aim_end = true
+autoshoot_anm_idle_aim_end_empty = true
+autoshoot_anm_idle_aim_end_jammed = true
+autoshoot_anm_idle_aim_end_first = true
+
+lock_time_anm_idle_aim_end = 0.25
+lock_time_anm_idle_aim_end_empty = 0.25
+lock_time_anm_idle_aim_end_jammed = 0.25
+lock_time_anm_idle_aim_end_first = 0.25
+
+;прицеливание - стоя на месте
+anm_idle_aim			= striker12_aim
+anm_idle_aim_empty		= striker12_aim
+anm_idle_aim_jammed		= striker12_aim, striker12_aim_jammed
+anm_idle_aim_first		= striker12_aim, striker12_aim_first
+
+;прицеливание с оптикой - стоя на месте
+anm_idle_aim_scope			    = striker12_aim
+anm_idle_aim_scope_empty		= striker12_aim
+anm_idle_aim_scope_jammed		= striker12_aim, striker12_aim_jammed
+anm_idle_aim_scope_first		= striker12_aim, striker12_aim_first
+
+;прицеливание - идем вперед
+anm_idle_aim_moving_forward		    = striker12_aim_walk, striker12_aim
+anm_idle_aim_moving_forward_empty	= striker12_aim_walk, striker12_aim
+anm_idle_aim_moving_forward_jammed	= striker12_aim_walk, striker12_aim_jammed
+anm_idle_aim_moving_forward_first	= striker12_aim_walk, striker12_aim_first
+
+;прицеливание - идем назад
+anm_idle_aim_moving_back		    = striker12_aim_walk, striker12_aim
+anm_idle_aim_moving_back_empty		= striker12_aim_walk, striker12_aim
+anm_idle_aim_moving_back_jammed		= striker12_aim_walk, striker12_aim_jammed
+anm_idle_aim_moving_back_first		= striker12_aim_walk, striker12_aim_first
+
+;прицеливание - идем влево
+anm_idle_aim_moving_left		    = striker12_aim_walk_left, striker12_aim
+anm_idle_aim_moving_left_empty		= striker12_aim_walk_left, striker12_aim
+anm_idle_aim_moving_left_jammed		= striker12_aim_walk_left, striker12_aim_jammed
+anm_idle_aim_moving_left_first		= striker12_aim_walk_left, striker12_aim_first
+
+;прицеливание - идем вправо
+anm_idle_aim_moving_right		    = striker12_aim_walk_right, striker12_aim
+anm_idle_aim_moving_right_empty		= striker12_aim_walk_right, striker12_aim
+anm_idle_aim_moving_right_jammed	= striker12_aim_walk_right, striker12_aim_jammed
+anm_idle_aim_moving_right_first		= striker12_aim_walk_right, striker12_aim_first
+
+;прицеливание - идем вперед и вправо
+anm_idle_aim_moving_forward_right		    = striker12_aim_walk_right, striker12_aim
+anm_idle_aim_moving_forward_right_empty		= striker12_aim_walk_right, striker12_aim
+anm_idle_aim_moving_forward_right_jammed	= striker12_aim_walk_right, striker12_aim_jammed
+anm_idle_aim_moving_forward_right_first		= striker12_aim_walk_right, striker12_aim_first
+
+;прицеливание - идем вперед и влево
+anm_idle_aim_moving_forward_left		    = striker12_aim_walk_left, striker12_aim
+anm_idle_aim_moving_forward_left_empty		= striker12_aim_walk_left, striker12_aim
+anm_idle_aim_moving_forward_left_jammed		= striker12_aim_walk_left, striker12_aim_jammed
+anm_idle_aim_moving_forward_left_first		= striker12_aim_walk_left, striker12_aim_first
+
+;прицеливание - идем назад и вправо
+anm_idle_aim_moving_back_right			    = striker12_aim_walk_right, striker12_aim
+anm_idle_aim_moving_back_right_empty		= striker12_aim_walk_right, striker12_aim
+anm_idle_aim_moving_back_right_jammed		= striker12_aim_walk_right, striker12_aim_jammed
+anm_idle_aim_moving_back_right_first		= striker12_aim_walk_right, striker12_aim_first
+
+;прицеливание - идем назад и влево
+anm_idle_aim_moving_back_left			    = striker12_aim_walk_left, striker12_aim
+anm_idle_aim_moving_back_left_empty		    = striker12_aim_walk_left, striker12_aim
+anm_idle_aim_moving_back_left_jammed		= striker12_aim_walk_left, striker12_aim_jammed
+anm_idle_aim_moving_back_left_first			= striker12_aim_walk_left, striker12_aim_first
+
+;прицеливание с оптикой - идем вперед
+anm_idle_aim_scope_moving		                = striker12_aim_walk, striker12_aim
+anm_idle_aim_scope_moving_empty	                = striker12_aim_walk, striker12_aim
+anm_idle_aim_scope_moving_jammed	            = striker12_aim_walk, striker12_aim_jammed
+anm_idle_aim_scope_moving_first					= striker12_aim_walk, striker12_aim_first
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+;вход в спринт
+anm_idle_sprint_start             = striker12_sprint_start
+anm_idle_sprint_start_empty       = striker12_sprint_start
+anm_idle_sprint_start_jammed      = striker12_sprint_start, idle_jammed
+anm_idle_sprint_start_first		  = striker12_sprint_start, idle_first
+
+lock_time_anm_idle_sprint_start = 0.15
+lock_time_anm_idle_sprint_start_empty = 0.15
+lock_time_anm_idle_sprint_start_jammed = 0.15
+lock_time_anm_idle_sprint_start_first = 0.15
+
+;выход из спринта
+anm_idle_sprint_end             = striker12_sprint_end
+anm_idle_sprint_end_empty       = striker12_sprint_end
+anm_idle_sprint_end_jammed      = striker12_sprint_end, idle_jammed
+anm_idle_sprint_end_first		= striker12_sprint_end, idle_first
+
+lock_time_anm_idle_sprint_end        = 0.25
+lock_time_anm_idle_sprint_end_empty  = 0.25
+lock_time_anm_idle_sprint_end_jammed = 0.25
+lock_time_anm_idle_sprint_end_first	 = 0.25
+
+;собственно спринт
+anm_idle_sprint			    = striker12_sprint
+anm_idle_sprint_empty		= striker12_sprint
+anm_idle_sprint_jammed		= striker12_sprint, idle_jammed
+anm_idle_sprint_first		= striker12_sprint, idle_first
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+;начало релоада
+anm_open			        = striker12_reload_start
+anm_open_empty		        = striker12_reload_start
+
+ejection_delay_anm_open = 1000
+ejection_delay_anm_open_empty = 1000
+
+anm_open_first				= striker12_reload_noshell_start
+snd_anm_open_first 			= weapons\protecta\protecta_reload_noshell_start
+
+add_cartridge_in_open = true	;Говорим, что open содержит в себе добавление в магазин патрона
+empty_preload_mode = true	;после анимы anm_open_empty надо играть add_cartridge_preloaded или close_preloaded (т.к. в anm_open_empty загоняется патрон в патронник)
+
+lock_time_start_anm_open =  1.0 ;время от старта анимации до зарядки (обновления счетчика) патрона  (если патрон заряжается в open, иначе ставить просто один параметр lock_time_anm_open)
+lock_time_end_anm_open = 0.7 	;время от момента зарядки патрона (обновления счетчика) до момента, когда можно прерывать аниму
+				;если lock_time_start + lock_time_end превышают время проигрывания анимации, то прервать выстрелом набивание магазина будет невозможно! Целесообразно устанавливать время суммарного лока так, чтобы оно было на не менее 100мс меньше времени анимы, чтобы апдейт на остановку стрельбы успел пройти
+lock_time_start_anm_open_empty = 1.0
+lock_time_end_anm_open_empty = 0.7 
+
+lock_time_start_anm_open_first = 0.6
+lock_time_end_anm_open_first = 0.73	
+
+
+;добавление патрона
+anm_add_cartridge			        = striker12_reload_ammo
+anm_add_cartridge_empty			    = striker12_reload_ammo 	; в случае add_cartridge_in_open=true параметр не используется по понятным причинам 
+anm_add_cartridge_first			    = striker12_reload_ammo
+anm_add_cartridge_preloaded		    = striker12_reload_ammo 
+anm_add_cartridge_empty_preloaded   = striker12_reload_ammo  	;указывать аналогично обычному anm_add_cartridge_preloaded, затычка от потенциального вылета
+anm_add_cartridge_first_preloaded   = striker12_reload_ammo 
+
+lock_time_start_anm_add_cartridge           = 0.70		;аналогично параметрам у open
+lock_time_end_anm_add_cartridge             = 0.33
+lock_time_start_anm_add_cartridge_empty	    = 0.70		;аналогично параметрам у open
+lock_time_end_anm_add_cartridge_empty	    = 0.33
+lock_time_start_anm_add_cartridge_first     = 0.70		;аналогично параметрам у open
+lock_time_end_anm_add_cartridge_first       = 0.33
+lock_time_start_anm_add_cartridge_preloaded = 0.70		
+lock_time_end_anm_add_cartridge_preloaded   = 0.33
+lock_time_start_anm_add_cartridge_first_preloaded = 0.70		
+lock_time_end_anm_add_cartridge_first_preloaded  = 0.33
+
+
+
+
+;конец релоада
+anm_close			                = striker12_reload_end
+anm_close_final		                = striker12_reload_last_end 	;завершение перезарядки после полного заполнения магазина
+anm_close_first		                = striker12_reload_end
+anm_close_first_final				= striker12_reload_last_end
+anm_close_empty			            = striker12_reload_end       	;бесполезен, когда add_cartridge_in_open=true; иначе играется, если мы вдруг передумали заряжать пустое ружье, не зарядив ни одного патрона туда
+anm_close_preloaded		            = striker12_reload_end			;завершение перезарядки после зарядки одного патрона сразу во время anm_open
+anm_close_preloaded_final           = striker12_reload_last_end		;завершение перезарядки после зарядки одного патрона сразу во время anm_open, после чего магазин стал полным
+anm_close_first_preloaded	        = striker12_reload_end
+anm_close_first_preloaded_final	    = striker12_reload_last_end
+anm_close_empty_preloaded           = striker12_reload_last_end 	;указывать аналогично обычному anm_close_preloaded, затычка от потенциального вылета при выбрасывании во время релоада всех патронов на землю
+
+snd_anm_open_first 			= weapons\protecta\protecta_reload_noshell_start
+snd_anm_close_final = weapons\protecta\protecta_reload_last_end
+snd_anm_close_first_final = weapons\protecta\protecta_reload_last_end
+snd_anm_close_preloaded_final = weapons\protecta\protecta_reload_last_end
+snd_anm_close_first_preloaded_final = weapons\protecta\protecta_reload_last_end
+
+
+;Разрядка//////////////////////////////////////////////////////////////////////////
+use_unloadmag_anim = true
+lock_time_anm_unload_mag = 0.8
+anm_unload_mag                               = striker12_draw
+lock_time_anm_unload_mag_jammed = 0.8
+anm_unload_mag_jammed                        = striker12_draw  
+lock_time_anm_unload_mag_empty = 0.8
+anm_unload_mag_empty                         = striker12_draw
+lock_time_anm_unload_mag_first = 0.8
+anm_unload_mag_first                         = striker12_draw
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+;скука - включить при необходимости
+disable_bore = false
+
+anm_bore			= striker12_bore
+anm_bore_empty			= striker12_bore
+anm_bore_jammed			= striker12_bore, idle_jammed
+anm_bore_first			= striker12_bore, idle_first
+
+
+;доставание
+anm_show			    = striker12_draw
+anm_show_empty			= striker12_draw
+anm_show_jammed			= striker12_draw, idle_jammed
+anm_show_first		    = striker12_draw, idle_first
+
+
+;убирание
+anm_hide			    = striker12_hide
+anm_hide_empty			= striker12_hide
+anm_hide_jammed			= striker12_hide, idle_jammed
+anm_hide_first		    = striker12_hide, idle_first
+
+
+;Стрельба
+anm_shoot			 = striker12_shoot
+anm_shoot_first		         = striker12_shoot_first
+anm_shoot_last			 = striker12_shoot
+anm_shoot_last_first	         = striker12_shoot_first
+
+force_cam_anim_anm_shoot = true
+force_cam_anim_anm_shoot_first = true
+force_cam_anim_anm_shoot_last = true
+force_cam_anim_anm_shoot_last_first	= true
+
+anm_shoot_sil			 = striker12_shoot
+anm_shoot_first_sil		         = striker12_shoot_first
+anm_shoot_last_sil			 = striker12_shoot
+anm_shoot_last_first_sil	         = striker12_shoot_first
+
+force_cam_anim_anm_shoot_sil = true
+force_cam_anim_anm_shoot_first_sil = true
+force_cam_anim_anm_shoot_last_sil = true
+force_cam_anim_anm_shoot_last_first_sil	= true
+
+anm_shoot_aim			 = striker12_aim_shoot
+anm_shoot_aim_first		 = striker12_aim_shoot_first
+anm_shoot_aim_last		 = striker12_aim_shoot
+anm_shoot_aim_last_first         = striker12_aim_shoot_first
+
+force_cam_anim_anm_shoot_aim			 = true
+force_cam_anim_anm_shoot_aim_first		 = true
+force_cam_anim_anm_shoot_aim_last		 = true
+force_cam_anim_anm_shoot_aim_last_first  = true
+
+anm_shoot_aim_sil			 = striker12_aim_shoot
+anm_shoot_aim_first_sil		 = striker12_aim_shoot_first
+anm_shoot_aim_last_sil		 = striker12_aim_shoot
+anm_shoot_aim_last_first_sil         = striker12_aim_shoot_first
+
+force_cam_anim_anm_shoot_aim_sil			 = true
+force_cam_anim_anm_shoot_aim_first_sil		 = true
+force_cam_anim_anm_shoot_aim_last_sil		 = true
+force_cam_anim_anm_shoot_aim_last_first_sil  = true
+
+anm_shoot_aim_scope		 	= striker12_aim_shoot_scope
+anm_shoot_aim_scope_first 		= striker12_aim_shoot_scope, striker12_aim_shoot_first
+anm_shoot_aim_scope_last 		= striker12_aim_shoot_scope
+anm_shoot_aim_scope_last_first	        = striker12_aim_shoot_scope, striker12_aim_shoot_first
+
+force_cam_anim_anm_shoot_aim_scope		 	= true
+force_cam_anim_anm_shoot_aim_scope_first 		= true
+force_cam_anim_anm_shoot_aim_scope_last 		= true
+force_cam_anim_anm_shoot_aim_scope_last_first	        = true
+
+anm_shoot_aim_scope_sil		 	= striker12_aim_shoot_scope
+anm_shoot_aim_scope_first_sil 		= striker12_aim_shoot_scope, striker12_aim_shoot_first
+anm_shoot_aim_scope_last_sil 		= striker12_aim_shoot_scope
+anm_shoot_aim_scope_last_first_sil	        = striker12_aim_shoot_scope, striker12_aim_shoot_first
+
+force_cam_anim_anm_shoot_aim_scope_sil		 	= true
+force_cam_anim_anm_shoot_aim_scope_first_sil 		= true
+force_cam_anim_anm_shoot_aim_scope_last_sil 		= true
+force_cam_anim_anm_shoot_aim_scope_last_first_sil	        = true
+
+; выстрел с переходом в состояние клина
+anm_shoot_jammed		    		= striker12_shoot, striker12_shoot_jammed
+anm_shoot_jammed_first		    	= striker12_shoot, striker12_shoot_jammed
+anm_shoot_aim_jammed				= striker12_aim_shoot, striker12_aim_shoot_jammed
+anm_shoot_aim_jammed_first			= striker12_aim_shoot, striker12_aim_shoot_jammed
+anm_shoot_aim_scope_jammed			= striker12_aim_shoot, striker12_aim_shoot_jammed
+anm_shoot_aim_scope_jammed_first	= striker12_aim_shoot, striker12_aim_shoot_jammed
+
+force_cam_anim_anm_shoot_jammed	= true
+force_cam_anim_anm_shoot_jammed_first = true
+force_cam_anim_anm_shoot_aim_jammed	= true
+force_cam_anim_anm_shoot_aim_jammed_first = true
+force_cam_anim_anm_shoot_aim_scope_jammed = true
+force_cam_anim_anm_shoot_aim_scope_jammed_first	= true
+
+anm_shoot_jammed_sil		    		= striker12_shoot, striker12_shoot_jammed
+anm_shoot_jammed_first_sil		    	= striker12_shoot, striker12_shoot_jammed
+anm_shoot_aim_jammed_sil				= striker12_aim_shoot, striker12_aim_shoot_jammed
+anm_shoot_aim_jammed_first_sil			= striker12_aim_shoot, striker12_aim_shoot_jammed
+anm_shoot_aim_scope_jammed_sil			= striker12_aim_shoot, striker12_aim_shoot_jammed
+anm_shoot_aim_scope_jammed_first_sil	= striker12_aim_shoot, striker12_aim_shoot_jammed
+
+force_cam_anim_anm_shoot_jammed_sil	= true
+force_cam_anim_anm_shoot_jammed_first_sil = true
+force_cam_anim_anm_shoot_aim_jammed_sil	= true
+force_cam_anim_anm_shoot_aim_jammed_first_sil = true
+force_cam_anim_anm_shoot_aim_scope_jammed_sil = true
+force_cam_anim_anm_shoot_aim_scope_jammed_first_sil	= true
+
+;Осечки
+anm_fakeshoot_empty 		    = striker12_dry_empty
+anm_fakeshoot_jammed 		    = striker12_dry, idle_jammed
+anm_fakeshoot_aim_empty         = striker12_aim_dry, striker12_aim
+anm_fakeshoot_aim_jammed        = striker12_aim_dry, striker12_aim_jammed
+
+lock_time_anm_fakeshoot_empty = 0.22
+lock_time_anm_fakeshoot_jammed = 1.20
+lock_time_anm_fakeshoot_aim_empty = 0.22
+lock_time_anm_fakeshoot_aim_jammed = 0.22
+
+;расклин
+anm_reload_jammed			= striker12_revival
+anm_reload_jammed_last		= striker12_revival
+first_state_after_jammed = true
+
+;Включение ЛЦУ//////////////////////////////////////////////////////////////////////////
+anm_laser_on = striker12_lam
+lock_time_start_anm_laser_on = 0.45
+lock_time_end_anm_laser_on = 0.65
+
+anm_laser_on_empty = striker12_lam
+lock_time_start_anm_laser_on_empty = 0.45
+lock_time_end_anm_laser_on_empty = 0.65
+
+anm_laser_on_jammed = striker12_lam, idle_jammed
+lock_time_start_anm_laser_on_jammed = 0.45
+lock_time_end_anm_laser_on_jammed = 0.65
+
+anm_laser_on_first = striker12_lam, idle_first
+lock_time_start_anm_laser_on_first = 0.45
+lock_time_end_anm_laser_on_first = 0.65
+
+
+;Выключение ЛЦУ//////////////////////////////////////////////////////////////////////////
+anm_laser_off = striker12_lam
+lock_time_start_anm_laser_off = 0.45
+lock_time_end_anm_laser_off = 0.65
+
+anm_laser_off_empty = striker12_lam
+lock_time_start_anm_laser_off_empty = 0.45
+lock_time_end_anm_laser_off_empty = 0.65
+
+anm_laser_off_jammed = striker12_lam, idle_jammed
+lock_time_start_anm_laser_off_jammed = 0.45
+lock_time_end_anm_laser_off_jammed = 0.65
+
+anm_laser_off_first = striker12_lam, idle_first
+lock_time_start_anm_laser_off_first = 0.45
+lock_time_end_anm_laser_off_first = 0.65
+
+;Включение фонаря//////////////////////////////////////////////////////////////////////////
+anm_torch_on = striker12_lam
+lock_time_start_anm_torch_on = 0.45
+lock_time_end_anm_torch_on = 0.65
+
+anm_torch_on_empty = striker12_lam
+lock_time_start_anm_torch_on_empty = 0.45
+lock_time_end_anm_torch_on_empty = 0.65
+
+anm_torch_on_jammed = striker12_lam, idle_jammed
+lock_time_start_anm_torch_on_jammed = 0.45
+lock_time_end_anm_torch_on_jammed = 0.65
+
+anm_torch_on_first = striker12_lam, idle_first
+lock_time_start_anm_torch_on_first = 0.45
+lock_time_end_anm_torch_on_first = 0.65
+
+
+;Выключение фонаря//////////////////////////////////////////////////////////////////////////
+anm_torch_off = striker12_lam
+lock_time_start_anm_torch_off = 0.45
+lock_time_end_anm_torch_off = 0.65
+
+anm_torch_off_empty = striker12_lam
+lock_time_start_anm_torch_off_empty = 0.45
+lock_time_end_anm_torch_off_empty = 0.65
+
+anm_torch_off_jammed = striker12_lam, idle_jammed
+lock_time_start_anm_torch_off_jammed = 0.45
+lock_time_end_anm_torch_off_jammed = 0.65
+
+anm_torch_off_first = striker12_lam, idle_first
+lock_time_start_anm_torch_off_first = 0.45
+lock_time_end_anm_torch_off_first = 0.65
+
+
+;включение налобника//////////////////////////////////////////////////////////////////////////
+anm_headlamp_on = striker12_headflash
+lock_time_start_anm_headlamp_on = 0.58
+lock_time_end_anm_headlamp_on = 0.5
+
+anm_headlamp_on_empty = striker12_headflash
+lock_time_start_anm_headlamp_on_empty = 0.58
+lock_time_end_anm_headlamp_on_empty = 0.5
+
+anm_headlamp_on_jammed = striker12_headflash, idle_jammed
+lock_time_start_anm_headlamp_on_jammed = 0.58
+lock_time_end_anm_headlamp_on_jammed = 0.5
+
+anm_headlamp_on_first = striker12_headflash, idle_first
+lock_time_start_anm_headlamp_on_first = 0.58
+lock_time_end_anm_headlamp_on_first = 0.5
+
+;выключение налобника//////////////////////////////////////////////////////////////////////////
+anm_headlamp_off = striker12_headflash
+lock_time_start_anm_headlamp_off = 0.58
+lock_time_end_anm_headlamp_off = 0.5
+
+anm_headlamp_off_empty = striker12_headflash
+lock_time_start_anm_headlamp_off_empty = 0.58
+lock_time_end_anm_headlamp_off_empty = 0.5
+
+anm_headlamp_off_jammed = striker12_headflash, idle_jammed
+lock_time_start_anm_headlamp_off_jammed = 0.58
+lock_time_end_anm_headlamp_off_jammed = 0.5
+
+anm_headlamp_off_first = striker12_headflash, idle_first
+lock_time_start_anm_headlamp_off_first = 0.58
+lock_time_end_anm_headlamp_off_first = 0.5
+
+
+;включение пнв//////////////////////////////////////////////////////////////////////////
+anm_nv_on = striker12_headflash
+anm_nv_on_empty = striker12_headflash
+anm_nv_on_jammed = striker12_headflash, idle_jammed
+anm_nv_on_first = striker12_headflash, idle_first
+
+
+;выключение пнв//////////////////////////////////////////////////////////////////////////
+anm_nv_off = striker12_headflash
+anm_nv_off_empty = striker12_headflash
+anm_nv_off_jammed = striker12_headflash, idle_jammed
+anm_nv_off_first = striker12_headflash, idle_first
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+;затычка от вылетов
+anm_reload		= striker12_dry
+anm_reload_last		= striker12_dry
+anm_reload_first	= striker12_dry
+
+[wpn_protecta_hud_rail]:wpn_protecta_hud
+aim_hud_offset_pos_16x9 = 0.000200,-0.0249000,0.000000
+aim_hud_offset_rot_16x9 = -0.0310000,0.000000,0.000000
+aim_hud_offset_pos = 0.001800,-0.0249000,0.000000
+aim_hud_offset_rot = -0.0310000,-0.00000,0.000000
+
+[wpn_protecta_ammo_bones_red]
+bullets = bullet_red, bullet_red2
+shells = shell_red
+
+[wpn_protecta_ammo_bones_blue]
+bullets = bullet_blue, bullet_blue2
+shells = shell_blue
+
+[wpn_protecta_ammo_bones_green]
+bullets = bullet_green, bullet_green2
+shells = shell_green
+
+[scope_eotech_protecta]
+scope_name 					= wpn_addon_scope_susat_x1.6
+scope_x              	= 43                 ; offset in inventory icon
+scope_y                 = -7
+bone = scope1
+
+hud_fov_zoom = 1.0
+use_scope_anims = true ;говорит, что надо использовать анимации с суффиксом _scope в прицеливании с данным прицелом
+
+aim_hud_offset_pos = 0.000150,-0.057100,-0.02
+aim_hud_offset_rot = 0.000000,0.000000,0.000000
+aim_hud_offset_pos_16x9 = 0.000190,-0.05710,-0.02
+aim_hud_offset_rot_16x9 = 0.000000,0.000000,0.000000
+
+gl_hud_offset_pos          = 0.0,0.012,-0.05
+gl_hud_offset_rot          = 0.0,0.0,0.0
+
+gl_hud_offset_pos_16x9     = 0.0,0.012,-0.1
+gl_hud_offset_rot_16x9     = 0.0,0.0,0.0
+
+inertion_aim_origin_offset = 0.015
+inertion_aim_speed = 8
+
+
+[scope_aimpoint_protecta]
+scope_name 					= wpn_addon_scope_susat_dusk
+scope_x              	= 42                ; offset in inventory icon
+scope_y                 = -8
+bone = scope2
+
+hud_fov_zoom = 0.6
+use_scope_anims = true ;говорит, что надо использовать анимации с суффиксом _scope в прицеливании с данным прицелом
+
+aim_hud_offset_pos = -0.000050,-0.061500,-0.02
+aim_hud_offset_rot = 0.000000,0.000000,0.000000
+aim_hud_offset_pos_16x9 = 0.000190,-0.061500,-0.02
+aim_hud_offset_rot_16x9 = 0.000000,0.000000,0.000000
+
+gl_hud_offset_pos          = 0.0,0.012,-0.0
+gl_hud_offset_rot          = 0.0,0.0,0.0
+
+gl_hud_offset_pos_16x9     = 0.0,0.012,-0.05
+gl_hud_offset_rot_16x9     = 0.0,0.0,0.0
+
+inertion_aim_origin_offset = 0.015
+inertion_aim_speed = 8
+
+
+[scope_elcan_protecta]
+scope_name 					= wpn_addon_scope_susat_custom
+scope_x              	= 19                ; offset in inventory icon
+scope_y                 = -8
+hud_fov_zoom = 0.6
+use_scope_anims = true ;говорит, что надо использовать анимации с суффиксом _scope в прицеливании с данным прицелом
+
+bone = scope3
+
+aim_hud_offset_pos = 0.000800,-0.071900,-0.06
+aim_hud_offset_rot = -0.030000,-0.002000,0.000000
+aim_hud_offset_pos_16x9 = 0.000800,-0.071900,-0.06
+aim_hud_offset_rot_16x9 = -0.030000,-0.002000,0.000000
+
+gl_hud_offset_pos          = 0.0,0.012,-0.0
+gl_hud_offset_rot          = 0.0,0.0,0.0
+
+gl_hud_offset_pos_16x9     = 0.0,0.012,-0.05
+gl_hud_offset_rot_16x9     = 0.0,0.0,0.0
+
+inertion_aim_origin_offset = 0.015
+inertion_aim_speed = 10
+
+alter_zoom_allowed = true
+hud_fov_alter_zoom_factor = 0.6
+alter_aim_hud_offset_pos = 0.000200,-0.097800,0.000000
+alter_aim_hud_offset_rot = 0.008300,-0.000310,0.000000
+alter_aim_hud_offset_pos_16x9 = 0.000200,-0.097800,0.000000
+alter_aim_hud_offset_rot_16x9 = 0.008100,-0.000300,0.000000
+
+
+[scope_pn23_protecta]
+scope_name 					= wpn_addon_scope_susat_night
+scope_x              	= 7                 ; offset in inventory icon
+scope_y                 = -8
+hud_fov_zoom = 0.7
+use_scope_anims = true ;говорит, что надо использовать анимации с суффиксом _scope в прицеливании с данным прицелом
+
+bone = scope4
+
+aim_hud_offset_pos = -0.000200,-0.087700,-0.013
+aim_hud_offset_rot = -0.030000,-0.002000,0.000000
+aim_hud_offset_pos_16x9 = 0.000200,-0.087700,-0.013
+aim_hud_offset_rot_16x9 = -0.030000,0.000000,0.000000
+
+gl_hud_offset_pos          = 0.0,0.012,0.12
+gl_hud_offset_rot          = 0.0,0.0,0.0
+
+gl_hud_offset_pos_16x9     = 0.0,0.012,0.07
+gl_hud_offset_rot_16x9     = 0.0,0.0,0.0
+
+inertion_aim_origin_offset = 0.015
+inertion_aim_speed = 10 

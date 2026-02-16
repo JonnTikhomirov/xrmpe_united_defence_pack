@@ -1,0 +1,10 @@
+[logic]
+active = sr_idle@end ; sr_idle@random_teleport
+
+[sr_idle@random_teleport]
+on_player_inside = {~25} %=run_postprocess(blink) =xrmpe_teleport_local_actor(df_nii_teleport_walk_01)%
+on_player_inside2 = {~25} %=run_postprocess(blink) =xrmpe_teleport_local_actor(df_nii_teleport_walk_02)%
+on_player_inside3 = {~25} %=run_postprocess(blink) =xrmpe_teleport_local_actor(df_nii_teleport_walk_03)%
+on_player_inside4 = {~25} %=run_postprocess(blink) =xrmpe_teleport_local_actor(df_nii_teleport_walk_04)%
+
+[sr_idle@end]

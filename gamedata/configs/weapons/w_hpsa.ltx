@@ -1,0 +1,387 @@
+[wpn_hpsa]:identity_immunities,weapon_probability,default_weapon_params
+$spawn                  	= "weapons\hpsa"		; option for Level Editor
+cform             			= skeleton
+class                   	= WP_HPSA
+description					= st_wpn_hpsa_descr
+
+ef_weapon_type				= 5
+
+tracers                           = off
+tracers_color_ID                  = 2
+
+;-----------------------------------------------------------------------------
+cost					= 1000
+inv_weight				= 0.89
+
+upgrades = vartree_hpsa_ejector, vartree_hpsa_buffer, vartree_hpsa_zatvor, vartree_hpsa_sights, vartree_hpsa_mag, vartree_hpsa_handle
+installed_upgrades      =
+upgrade_scheme          = upgrade_scheme_hpsa
+
+def_hide_bones = barrel_silencer, sight
+def_show_bones = barrel
+
+;-TTX-----------------------------------------------------------------------------
+hit_power           		= 0.59, 0.59, 0.59, 0.59
+hit_impulse	 		 		= 50
+hit_type 					= fire_wound
+fire_distance           	= 200
+bullet_speed		 		= 381
+rpm                     	= 320
+
+use_aim_bullet				= false		;Поддерживается ли первая суппер пуля
+time_to_aim					= 2.0
+
+hud                     	= wpn_hpsa_hud
+
+misfire_probability        = 0.005 ;вероятность осечки при максимальном износе  !!!old - now not working
+;изношенность, при которой появляется шанс осечки
+misfire_start_condition		= 0.5
+;изношеность при которой шанс осечки становится константным
+misfire_end_condition		= 0.1
+;шанс осечки при изношености больше чем misfireStartCondition
+misfire_start_prob	     	= 0.0075
+;шанс осечки при изношености больше чем misfireEndCondition
+misfire_end_prob	     	= 0.075
+;увеличение изношености при одиночном выстреле
+condition_shot_dec      	= 0.0019
+;увеличение изношености при выстреле очередью
+condition_queue_shot_dec	= 0.0019
+
+ammo_elapsed		 	= 13
+ammo_mag_size		 	= 13
+ammo_class		 		= ammo_9x19_fmj, ammo_9x19_pbp
+hand_dependence		 	= 1
+single_handed			= 1
+
+;---DOF-------------------------------------------------------------------------
+zoom_dof					= -1000, 1.0, 1000
+reload_dof				= 0.0, 0.5, 5, 1.7
+
+;-дисперсия-------------------------------------------------------------------------------
+;базовая дисперсия
+fire_dispersion_base	= 0.27 ;0.18 			;угол (в градусах) базовой дисперсии оружия (оружия зажатого в тисках)
+crosshair_inertion		= 3.45
+
+;отдача
+cam_return				= 0
+cam_relax_speed         = 5				;скорость возврата в исходное положение
+cam_relax_speed_ai      = 360
+cam_dispersion          = 0.9				;увеличения угла (в градусах) с каждым выстрелом
+cam_dispersion_inc		= 0.9				;увеличениe cam_dispersion с каждым выстрелом
+cam_dispersion_frac		= 1.0				;ствол будет подыматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+cam_max_angle			= 30.0			;максимальный угол отдачи
+cam_max_angle_horz		= 5.0			;(degree) maximum shot horizontal degree
+cam_step_angle_horz		= 1.0				;(degree) size of step camera moved in horizontal position while shooting
+
+PDM_disp_base 				= 1.4
+PDM_disp_vel_factor 		= 1.1
+PDM_disp_accel_factor 		= 1.1
+PDM_disp_crouch	 				= 1.0
+PDM_disp_crouch_no_acc 			= 1.0
+
+fire_dispersion_condition_factor = 12		;увеличение дисперсии в процентах при максимальном износе
+
+zoom_cam_relax_speed        = 10    ; scope & ironsight
+zoom_cam_relax_speed_ai     = 120.75
+zoom_cam_dispersion         = 0.3
+zoom_cam_dispersion_inc     = 0.75
+zoom_cam_dispersion_frac    = 0.7
+zoom_cam_max_angle          = 5.0
+zoom_cam_max_angle_horz     = 10.0
+zoom_cam_step_angle_horz    = 1.5
+						
+;-------------------------------------------------------------------------------
+holder_range_modifier	= 1.0               ; во сколько раз увеличивается eye_range
+holder_fov_modifier		= 1.0              ; во сколько раз увеличивается eye_fov
+
+min_radius              	= 0
+max_radius              	= 30
+
+hit_probability_gd_novice	= 0.80
+hit_probability_gd_stalker	= 0.80
+hit_probability_gd_veteran	= 0.80
+hit_probability_gd_master	= 0.80
+
+;-------------------------------------------------------------------------------
+slot 			 		= 1
+animation_slot			= 1									; type of the animation that will be used
+use_third_person_anims      = true               ; нужно ли использовать анимацию на мировой модели оружия / есть ли idle анимация
+allow_sprint_while_reload = true 				 ; можно ли спринтовать во время перезарядки
+
+inv_name				= st_wpn_hpsa
+inv_name_short			= st_wpn_hpsa
+
+
+inv_grid_width			= 2
+inv_grid_height			= 1
+inv_grid_x				= 5
+inv_grid_y				= 26
+
+upgr_icon_x			= 600
+upgr_icon_y			= 614
+upgr_icon_width		= 192
+upgr_icon_height   	= 128
+
+kill_msg_x				= 423
+kill_msg_y				= 150
+kill_msg_width			= 39
+kill_msg_height			= 30
+
+;-------------------------------------------------------------------------------
+hud                     	= wpn_hpsa_hud
+visual                  	= dynamics\weapons\wpn_hpsa\wpn_hpsa.ogf
+
+position                	= -0.021, -0.085, 0.0
+orientation             	= 0, 0, 0
+
+position_new_anm                = -0.053, -0.072, -0.012
+orientation_new_anm             = -20, -16, 8
+
+fire_point              	= 0.0, 0.133, 0.179
+fire_point2                     = 0.0, 0.148, 0.161
+
+;--STRAP PARAMETERS-----------------------------------------------------------------
+;strap_position         	= -0.1,-0.45,0.2			; position (offset) and orientation of the weapon when it is strapped
+;strap_orientation      	= 1.57,0,0						; (3rd person view)
+;strap_bone0					= bip01_spine2
+;strap_bone1					= bip01_spine1
+
+flame_particles		   	= weapons\generic_weapon03
+smoke_particles		   	= weapons\generic_shoot_00
+
+shell_point		 				= 0.0, 0.133, 0.047
+shell_dir		 				= 0.0, 0.0, 0.4
+shell_particles	 			= weapons\generic_shells_r
+
+;-------------------------------------------------------------------------------
+light_color		 				= 0.6,0.5,0.3
+light_range		 				= 2.0
+light_var_color		 		= 0.05
+light_var_range		 		= 0.5
+light_time 		 				= 0.2
+
+ph_mass			 				= 1
+
+;addons
+scope_status				= 0
+silencer_status				= 2
+grenade_launcher_status		= 0
+
+zoom_enabled					= true
+zoom_rotate_time				= 0.25
+scope_zoom_factor	    		= 85
+
+;звуки
+snd_draw				    	= weapons\pm\mechanics\pm_draw ;weapons\desert_eagle\mechanics\desert_eagle_draw
+snd_holster						= weapons\pm\mechanics\pm_hide ;weapons\desert_eagle\mechanics\desert_eagle_hide
+snd_shoot						= weapons\browning\layers\browning_shoot_a_1
+snd_empty		                = weapons\sr1m\mechanics\sr1m_dry_1
+snd_reload						= weapons\browning\mechanics\browning_reload
+snd_reload_empty       		    = weapons\browning\mechanics\browning_reload_empty
+snd_reload_jammed               = weapons\browning\mechanics\browning_revival
+snd_reload_jammed_last          = weapons\browning\mechanics\browning_revival_last
+snd_shutter                   = weapons\browning\mechanics\browning_shutter
+snd_aim_start           		= weapons\pm\mechanics\pm_aim_start ;weapons\desert_eagle\mechanics\desert_eagle_aim_start
+snd_aim_end             		= weapons\pm\mechanics\pm_aim_end ;weapons\desert_eagle\mechanics\desert_eagle_aim_end
+snd_jammed_click     = weapons\pm\mechanics\pm_check
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; silencer
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+silencer_name  			= wpn_addon_silencer_919		; section name for the attachable silencer
+silencer_x 				= 74						; offset in inventory icon
+silencer_y 				= -18
+
+;params when silencer is attached
+;similar to corresponding params without prefix silencer_
+
+;silencer_flame_particles 	= weapons\generic_weapon01
+silencer_smoke_particles 	= weapons\generic_shoot_00
+snd_silncer_shot				= weapons\fiveseven\layers\fiveseven_silencer_a_1
+snd_silncer_shot1				= weapons\fiveseven\layers\fiveseven_silencer_a_2
+snd_silncer_shot2				= weapons\fiveseven\layers\fiveseven_silencer_a_3
+silencer_light_color			= 0.6,0.5,0.3
+silencer_light_range			= 0.01
+silencer_light_var_color	= 0.05
+silencer_light_var_range	= 0.01
+silencer_light_time 			= 0.01
+
+[wpn_hpsa_hud]:hud_base
+zoom_dof_near = 0.48
+zoom_dof_focus = 0.53
+
+hud_fov = 0.6
+hud_fov_zoom = 0.5
+
+hands_position				= 0.0,-0.13,0.03
+hands_orientation			= 0.0,0.0,0.0
+
+hands_position_16x9			= 0.0,-0.13,0.03
+hands_orientation_16x9			= 0.0,0.0,0.0
+
+aim_hud_offset_pos = 0.000000,0.019000,0.0
+aim_hud_offset_rot = -0.011000,0.000000,0.0
+
+aim_hud_offset_pos_16x9 = 0.000000,0.019000,0.0
+aim_hud_offset_rot_16x9 = -0.011000,0.000000,0.0
+
+item_position			= 0.0,0.0,0.0
+item_orientation		= 0.0,0.0,0.0
+
+item_visual             	= dynamics\weapons\wpn_hpsa\wpn_hpsa_hud.ogf
+attach_place_idx		= 0
+
+shell_point			= 0.0,-9.0,0.0
+shell_bone              	= wpn_body
+
+fire_point			= -0.010,0.10,0.37
+fire_bone               	= wpn_body
+
+disable_bore = true
+enable_directions_anm_idle_aim = true
+
+;Доставание///////////////////////////////////////////////////
+anm_show                   = browning_draw
+anm_show_empty             = browning_draw, idle_empty
+anm_show_jammed            = browning_draw, idle_jammed
+
+;Убирание/////////////////////////////////////////////////////
+anm_hide                   = browning_hide
+anm_hide_empty             = browning_hide, idle_empty
+anm_hide_jammed            = browning_hide, idle_jammed
+
+;Бездействие//////////////////////////////////////////////////
+anm_idle                            = browning_idle
+anm_idle_empty                      = browning_idle, idle_empty
+anm_idle_jammed                     = browning_idle, idle_jammed
+
+;Бездействие в прицеливании///////////////////////////////////
+anm_idle_aim_start             = browning_aim_start
+anm_idle_aim_start_empty       = browning_aim_start, idle_empty
+anm_idle_aim_start_jammed      = browning_aim_start, idle_jammed
+
+anm_idle_aim                   = browning_aim
+anm_idle_aim_empty             = browning_aim, idle_empty
+anm_idle_aim_jammed            = browning_aim, idle_jammed
+
+anm_idle_aim_end               = browning_aim_end
+anm_idle_aim_end_empty         = browning_aim_end, idle_empty
+anm_idle_aim_end_jammed        = browning_aim_end, idle_jammed
+
+;Ходьба ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving 					= browning_walk
+anm_idle_moving_jammed 					= browning_walk, idle_jammed
+anm_idle_moving_empty					= browning_walk, idle_empty
+
+;Ходьба медленная (SHIFT) ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving_slow 					= browning_slow
+anm_idle_moving_slow_jammed 				= browning_slow, idle_jammed
+anm_idle_moving_slow_empty				= browning_slow, idle_empty
+
+;Ходьба в полуприсяди (CTRL) ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving_crouch 					        = browning_slow_down
+anm_idle_moving_crouch_jammed 					= browning_slow_down, idle_jammed
+anm_idle_moving_crouch_empty					= browning_slow_down, idle_empty
+
+;Ходьба в присяде (CTRL+SHIFT) ВПЕРЕД/////////////////////////////////////////////////////////////////////////
+anm_idle_moving_crouch_slow 					= browning_slow_super
+anm_idle_moving_crouch_slow_jammed 				= browning_slow_super, idle_jammed
+anm_idle_moving_crouch_slow_empty				= browning_slow_super, idle_empty
+
+;ходьба в прицеливании ВПЕРЕД//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward                   = browning_aim_walk
+anm_idle_aim_moving_forward_empty             = browning_aim_walk, idle_empty
+anm_idle_aim_moving_forward_jammed            = browning_aim_walk, idle_jammed
+
+
+;ходьба в прицеливании НАЗАД//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back                   = browning_aim_walk_back
+anm_idle_aim_moving_back_empty             = browning_aim_walk_back, idle_empty
+anm_idle_aim_moving_back_jammed            = browning_aim_walk_back, idle_jammed
+
+
+;ходьба в прицеливании ВЛЕВО//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_left                   = browning_aim_walk_left  
+anm_idle_aim_moving_left_empty             = browning_aim_walk_left  , idle_empty
+anm_idle_aim_moving_left_jammed            = browning_aim_walk_left  , idle_jammed
+
+
+;ходьба в прицеливании ВПРАВО//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_right                   = browning_aim_walk_right 
+anm_idle_aim_moving_right_empty             = browning_aim_walk_right , idle_empty
+anm_idle_aim_moving_right_jammed            = browning_aim_walk_right , idle_jammed
+ 
+
+;ходьба в прицеливании ВПЕРЕД+ВЛЕВО////////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward_left                   = browning_aim_walk_left
+anm_idle_aim_moving_forward_left_empty             = browning_aim_walk_left, idle_empty
+anm_idle_aim_moving_forward_left_jammed            = browning_aim_walk_left, idle_jammed
+
+
+;ходьба в прицеливании ВПЕРЕД+ВПРАВО///////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward_right                   = browning_aim_walk_right
+anm_idle_aim_moving_forward_right_empty             = browning_aim_walk_right, idle_empty
+anm_idle_aim_moving_forward_right_jammed            = browning_aim_walk_right, idle_jammed
+
+
+;ходьба в прицеливании НАЗАД+ВЛЕВО/////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back_left                   = browning_aim_walk_left
+anm_idle_aim_moving_back_left_empty             = browning_aim_walk_left, idle_empty
+anm_idle_aim_moving_back_left_jammed            = browning_aim_walk_left, idle_jammed
+
+
+;ходьба в прицеливании НАЗАД+ВПРАВО////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back_right                   = browning_aim_walk_right
+anm_idle_aim_moving_back_right_empty             = browning_aim_walk_right, idle_empty
+anm_idle_aim_moving_back_right_jammed            = browning_aim_walk_right, idle_jammed
+
+;Бег//////////////////////////////////////////////////////////////////
+lock_time_anm_idle_sprint_start = 0.15
+lock_time_anm_idle_sprint_start_empty = 0.15
+lock_time_anm_idle_sprint_start_jammed = 0.15
+anm_idle_sprint_start             = browning_sprint_start
+anm_idle_sprint_start_empty       = browning_sprint_start, idle_empty
+anm_idle_sprint_start_jammed      = browning_sprint_start, idle_jammed
+
+
+anm_idle_sprint                   = browning_sprint
+anm_idle_sprint_empty             = browning_sprint, idle_empty
+anm_idle_sprint_jammed            = browning_sprint, idle_jammed
+
+
+lock_time_anm_idle_sprint_end        = 0.4
+lock_time_anm_idle_sprint_end_empty  = 0.4
+lock_time_anm_idle_sprint_end_jammed = 0.4
+anm_idle_sprint_end             = browning_sprint_end
+anm_idle_sprint_end_empty       = browning_sprint_end, idle_empty
+anm_idle_sprint_end_jammed      = browning_sprint_end, idle_jammed
+
+;Скука////////////////////////////////////////////////////////////////////
+anm_bore                   = browning_draw
+anm_bore_empty             = browning_draw
+anm_bore_jammed            = browning_draw
+
+;Выстрелы обычными патронами/////////////////////////////////////////////////////////////////////
+anm_shoot                = browning_shoot
+anm_shoot_jammed	 = browning_shoot, idle_jammed
+anm_shoot_last           = browning_shoot_empty
+anm_shoot_aim            = browning_aim_shoot
+anm_shoot_aim_jammed	 = browning_aim_shoot, idle_jammed
+anm_shoot_aim_last       = browning_aim_shoot_empty
+
+;Осечка//////////////////////////////////////////////////
+anm_fakeshoot_empty      = browning_dry_empty, idle_empty
+anm_fakeshoot_aim_empty      = browning_aim_dry, idle_empty
+anm_fakeshoot_jammed     = browning_dry, idle_jammed
+anm_fakeshoot_aim_jammed     = browning_aim_dry, idle_jammed
+
+;Перезарядка/////////////////////////////////////////////////////////////////////
+anm_reload                       = browning_reload
+anm_reload_empty                 = browning_reload_full
+anm_reload_jammed                = browning_revival
+anm_reload_jammed_last           = browning_revival_last
+
+;-----------------------------------------------------------------------------
+; Уникальные
+;-----------------------------------------------------------------------------

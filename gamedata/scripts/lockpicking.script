@@ -1,0 +1,185 @@
+-- Lockpicking system
+local ui
+local object
+local current_pos = 0
+local move_timestamp = 0
+local cur_velocity = 0
+local velocity = 0.00001
+
+local pins = { }
+local LEFT_BORDER_IDX = 1
+local RIGHT_BORDER_IDX = 2
+local PIN_LOCK_STATUS_IDX = 3
+local SOUND_PLAYED_IDX = 4
+
+local pin_aim_snd
+
+local lockpick_sections = {
+	"device_lockpick_1",
+	"device_lockpick_2",
+	"device_lockpick_3"
+}
+
+status = {
+	no_trait = 0,
+	need_lockpick = 1,
+	ok = 2
+}
+
+function cleanup()
+	getLocalActor():set_fov_coeff(1)
+	object = nil
+	ui:HideDialog()
+	ui = nil
+	
+	move_timestamp = 0
+	current_pos = 0
+	cur_velocity = 0
+	
+	pins = { }
+	level.set_3d_eff_volume(1.0)
+end
+
+function get_status()
+	if getLocalActor() then
+		for k, v in pairs(lockpick_sections) do
+			if getLocalActor():object(v) then
+				return status.ok
+			end
+		end
+	end
+	
+	return status.need_lockpick
+end
+
+function fill_pins()
+	pins = { 
+		{0.1, 0.3, false, false},
+		{0.6, 0.7, false, false},
+		{0.8, 0.9, false, false}
+	}
+end
+
+function on_use(obj)
+	ui = ui_lockpicking.lockpicking_dialog()
+	ui:SetVisualName("dynamics\\lock\\dev_lock.ogf")
+	ui:ShowDialog(true)
+	ui:PlayCycle("draw")
+	
+	object = obj
+	getLocalActor():set_fov_coeff(0.447)
+	level.set_3d_eff_volume(0.05)
+	
+	if not pin_aim_snd then
+		pin_aim_snd = sound_object("interface\\select_button")
+	end
+	
+	fill_pins()
+end
+
+function on_close()
+	xr_logic.issue_event(object, object.st, "lockpicking_finished", false)
+	cleanup()
+end
+
+function on_lockpick()
+	xr_logic.issue_event(object, object.st, "lockpicking_finished", true)
+	cleanup()
+end
+
+function update()
+	if cur_velocity > 0 then
+		cur_velocity = cur_velocity + velocity * device().f_time_delta
+	else
+		cur_velocity = cur_velocity - velocity * device().f_time_delta
+	end
+	
+	if device():time_global() - move_timestamp > 500 then
+		cur_velocity = 0
+	end
+	
+	current_pos = current_pos + cur_velocity
+	
+	if current_pos > 1 then
+		current_pos = 1
+	elseif current_pos < 0 then
+		current_pos = 0
+	end
+		
+	for k,v in pairs(pins) do
+		if current_pos >= v[LEFT_BORDER_IDX] and 
+			current_pos <= v[RIGHT_BORDER_IDX] and not v[PIN_LOCK_STATUS_IDX] then
+			if not v[SOUND_PLAYED_IDX] then
+				pin_aim_snd:play(nil, 0, sound_object.s2d)
+				v[SOUND_PLAYED_IDX] = true
+			end
+		else
+			v[SOUND_PLAYED_IDX] = false
+		end
+	end
+	
+	local unlocked_num = 0
+	for k,v in pairs(pins) do
+		if v[PIN_LOCK_STATUS_IDX] then
+			unlocked_num = unlocked_num + 1
+		end
+	end
+	
+	ui:SetCurrentPosText("current_pos: "..tostring(current_pos).." unlocked pins: "..tostring(unlocked_num))
+end
+
+function on_mouse_move(dt, isForward)
+	local pos_dt = dt / 1000	
+	cur_velocity = pos_dt
+	
+	if isForward then
+		current_pos = current_pos + pos_dt
+		
+		if current_pos > 1 then
+			current_pos = 1
+		end
+	else
+		current_pos = current_pos - pos_dt
+		cur_velocity = -cur_velocity
+		
+		if current_pos < 0 then
+			current_pos = 0
+		end
+	end
+	
+	move_timestamp = device():time_global()
+end
+
+function on_mouse_click()
+	local success = false
+	
+	for k, v in pairs(pins) do
+		if current_pos >= v[LEFT_BORDER_IDX] and 
+			current_pos <= v[RIGHT_BORDER_IDX] and not v[PIN_LOCK_STATUS_IDX] then
+			v[PIN_LOCK_STATUS_IDX] = true
+			--printf_msg("pin unlocked")
+			success = true
+			break
+		end
+	end
+	
+	--if not success then
+	--	printf_msg("pick damaged")
+	--end
+end
+
+function on_space_pressed()
+	local success = true
+	
+	for k, v in pairs(pins) do
+		if not v[PIN_LOCK_STATUS_IDX] then
+			success = false
+		end
+	end
+	
+	if success then
+		lockpicking.on_lockpick()
+	--else
+	--	printf_msg("break pick")
+	end
+end

@@ -1,0 +1,61 @@
+<w>
+	<team1_icon x="594" y="0" width="264" height="45" stretch="1">
+		<texture>ui_inGame2_Mp_HUD_left_panel</texture>
+        <text align="c" vert_align="c" font="graffiti32" r="0" g="255" b="0">ui_st_team1_name</text>
+	</team1_icon>
+	<team2_icon x="1030" y="0" width="264" height="45" stretch="1">
+		<texture>ui_inGame2_Mp_HUD_right_panel</texture>
+        <text x="30" align="c" vert_align="c" font="graffiti32" r="0" g="0" b="255">ui_st_team2_name</text>
+	</team2_icon>
+
+	<team1_score x="881" y="0" width="126" height="58">
+		<text align="l" vert_align="c" font="graffiti32" r="0" g="255" b="0"/>
+	</team1_score>
+	<team2_score x="881" y="0" width="126" height="58">
+		<text align="r" vert_align="c" font="graffiti32" r="0" g="0" b="255"/>
+	</team2_score>
+
+	<money_wnd x="115" y="104" width="229" height="225">
+		<money_indicator x="0" y="0" width="229" height="32" stretch="1">
+			<text x="14" align="l" vert_align="c" font="din_next20_bold" outline="1">0 RUB</text>
+			<texture>ui_ingame_info_panel_left</texture>
+		</money_indicator>
+		<money_change x="53" y="59" width="151" height="42">
+			<text font="letterica18" align="c" vert_align="c" r="238" g="155" b="23"></text>
+		</money_change>
+		<money_bonus_list x="53" y="101" width="151" height="42" always_show_scroll="0">
+			<font font="letterica18" align="c" vert_align="c" r="0" g="255" b="0"/>
+		</money_bonus_list>
+	</money_wnd>
+
+	<player_rank x="60" y="60" width="40" height="44" stretch="1">
+		<text x="55" y="-6" font="din_next17_bold" align="l" vert_align="t" outline="1"/>
+	</player_rank>
+
+	<player_exp_progress x="118" y="85" width="256" height="6" horz="1" min="0" max="1">
+		<background anchor="mid-center" width="262" height="12" stretch="1">
+			<texture>ui_ingame_medium_health_bar_bcg</texture>
+		</background>		
+		<progress anchor="mid-center" stretch="1">
+			<texture color="yellow_mpe">ui_ingame_medium_health_bar</texture>
+		</progress>
+	</player_exp_progress>
+
+	<player_exp_counter x="228" y="55" width="150" height="22" complex_mode="1">
+		<text font="din_next17_bold" align="r" vert_align="c" outline="1"/>
+	</player_exp_counter>
+
+	<fraglimit x="858" y="0" width="172" height="58">
+		<text align="c" vert_align="c" font="letterica18" r="200" g="200" b="200"/>
+    </fraglimit>
+
+	<reinforcement x="499" y="31" width="26" height="26">
+        <text font="letterica18" r="200" g="200" b="200" align="c" vert_align="c" complex_mode="0"/>
+	</reinforcement>
+
+    <global anchor="fullscreen">
+	    <auto_static x="858" y="0" width="172" height="58" stretch="1">
+		    <texture>ui_inGame2_Mp_HUD_DM</texture>
+	    </auto_static>
+    </global>
+</w>

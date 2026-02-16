@@ -1,0 +1,103 @@
+<w>
+    <file name="ui\ui_actor_lobby">
+	    <texture id="ui_lobby_small_button_d" 		x="119"	y="0" 	width="115" height="35"/>	
+	    <texture id="ui_lobby_small_button_e" 		x="119"	y="0" 	width="115" height="35"/>
+	    <texture id="ui_lobby_small_button_h" 		x="0"	y="0" 	width="115" height="35"/>
+	    <texture id="ui_lobby_small_button_t" 		x="0"	y="0" 	width="115" height="35"/>
+
+		<texture id="ui_lobby_small_caption"   		x="0"	y="590" width="220" height="35"/>
+		<texture id="ui_lobby_medium_caption"   	x="0"	y="39" 	width="275" height="35"/>		
+		<texture id="ui_lobby_caption"   			x="0"	y="217" width="400" height="35"/>	
+		<texture id="ui_lobby_selector_background"  x="0"	y="78" 	width="400" height="135"/>
+		
+		<texture id="ui_lobby_chat_edit_box_b" 		x="0"	y="217" width="4" 	height="35"/>
+	    <texture id="ui_lobby_chat_edit_box_back" 	x="4"	y="217" width="392" height="35"/>
+	    <texture id="ui_lobby_chat_edit_box_e" 		x="396" y="217" width="4" 	height="35"/>
+		
+		<texture id="ui_lobby_small_panel"   		x="224"	y="590" width="80" 	height="35"/>		
+		
+		<texture id="ui_xrmpe_scroll_btn_up_d" 	x="279" y="39" width="16" 	height="16"/>
+		<texture id="ui_xrmpe_scroll_btn_up_e" 	x="299" y="39" width="16" 	height="16"/>
+		<texture id="ui_xrmpe_scroll_btn_up_h" 	x="319" y="39" width="16" 	height="16"/>
+		<texture id="ui_xrmpe_scroll_btn_up_t" 	x="319" y="39" width="16" 	height="16"/>
+		
+		<texture id="ui_xrmpe_scroll_btn_down_d" 	x="279" y="58" 	width="16" 	height="16"/>
+		<texture id="ui_xrmpe_scroll_btn_down_e" 	x="299" y="58" 	width="16" 	height="16"/>
+		<texture id="ui_xrmpe_scroll_btn_down_h" 	x="319" y="58" 	width="16" 	height="16"/>
+		<texture id="ui_xrmpe_scroll_btn_down_t" 	x="319" y="58" 	width="16" 	height="16"/>
+		
+		<texture id="ui_xrmpe_scroll_back_b"  		x="359" y="47" 	width="16" 	height="16"/>
+		<texture id="ui_xrmpe_scroll_back_back"  	x="359" y="47" 	width="16" 	height="16"/>
+		<texture id="ui_xrmpe_scroll_back_e"  		x="359" y="47" 	width="16" 	height="16"/>		
+		
+		<texture id="ui_xrmpe_scroll_box_b"   		x="339" y="38" 	width="16" 	height="9"/>
+		<texture id="ui_xrmpe_scroll_box_back"   	x="339" y="47" 	width="16" 	height="16"/>
+		<texture id="ui_xrmpe_scroll_box_e"   		x="339" y="63" 	width="16" 	height="9"/>
+
+		<texture id="ui_st_defence_small_icon"   	x="117" y="929"	width="22" 	height="22"/>
+		<texture id="ui_st_openworld_small_icon"   	x="259" y="0" 	width="22" 	height="22"/>		
+		<texture id="ui_st_cooperative_small_icon"  x="117" y="832" width="22" 	height="22"/>
+		<texture id="ui_st_battleroyale_small_icon"	x="117" y="906" width="22" 	height="22"/>
+		
+		<texture id="ui_st_artefacthunt_small_icon"  x="117" y="832" width="22" 	height="22"/>
+		<texture id="ui_st_capture_the_artefact_small_icon"  x="117" y="832" width="22" 	height="22"/>
+		<texture id="ui_st_deathmatch_small_icon"  x="117" y="832" width="22" 	height="22"/>
+		<texture id="ui_st_team_deathmatch_small_icon"  x="117" y="832" width="22" 	height="22"/>
+
+		<texture id="ui_lobby_left_grad_panel"  			x="377" y="469" width="647" height="72"/>		
+		<texture id="ui_lobby_left_grad_panel_clipped"  	x="407" y="469" width="617" height="72"/>		
+		<texture id="ui_lobby_left_fade_line_medium" 		x="140" y="949" width="330" height="2" />
+		
+		<texture id="ui_minimalistic_scroll_2_back_b"  		x="577" y="991" 	width="8" 	height="4"/>
+		<texture id="ui_minimalistic_scroll_2_back_back"  	x="577" y="991" 	width="8" 	height="32"/>
+		<texture id="ui_minimalistic_scroll_2_back_e"  		x="577" y="1019" 	width="8" 	height="4"/>		
+		
+		<texture id="ui_minimalistic_scroll_2_box_b"   		x="569" y="991" 	width="8" 	height="4"/>
+		<texture id="ui_minimalistic_scroll_2_box_back"   	x="569" y="991" 	width="8" 	height="32"/>
+		<texture id="ui_minimalistic_scroll_2_box_e"   		x="569" y="1019" 	width="8" 	height="4"/>
+
+		<texture id="ui_skin_selector_item_btn_d" 	x="536" y="542"	width="122"	height="122"/>
+		<texture id="ui_skin_selector_item_btn_e" 	x="536" y="542"	width="122"	height="122"/>
+		<texture id="ui_skin_selector_item_btn_h" 	x="658" y="542"	width="122"	height="122"/>
+		<texture id="ui_skin_selector_item_btn_t" 	x="780" y="542"	width="122"	height="122"/>
+		
+		<texture id="ui_player_avatar_ready_frame" 	x="902" y="542"	width="122"	height="122"/>
+		<texture id="ui_empty_player_avatar" 		x="0" y="836"	width="116"	height="116"/>
+
+		<texture id="ui_lobby_player_item_bg" 		x="140" y="898"	width="328"	height="50"/>
+		<texture id="ui_lobby_player_ready_icon" 	x="534" y="964"	width="30"	height="30"/>
+		<texture id="ui_player_avatar_border_ready" 	x="469" y="902"	width="46"	height="46"/>
+		<texture id="ui_player_avatar_border_voice" 	x="516" y="902"	width="46"	height="46"/>
+		<texture id="ui_player_avatar_border_default" 	x="0"	y="789"	width="46"	height="46"/>			
+		<texture id="ui_player_avatar_border_dead" 		x="47"	y="789"	width="46"	height="46"/>			
+		<texture id="ui_player_avatar_border_wounded" 	x="273"	y="808"	width="46"	height="46"/>			
+		
+		<texture id="ui_lobby_right_grad_message_red"		x="117" y="855" width="452" height="42"/>	
+		<texture id="ui_lobby_right_grad_message_yellow"	x="0"	y="982" width="452" height="42"/>	
+		
+		<texture id="ui_lobby_warning_red_icon"		x="453"	y="984" width="40" height="40"/>	
+		<texture id="ui_lobby_time_yellow_icon"		x="494"	y="984" width="40" height="40"/>
+		
+		<texture id="ui_lobby_start_btn_d" 	x="585" y="664"	width="439"	height="72"/>
+		<texture id="ui_lobby_start_btn_e" 	x="585" y="952"	width="439"	height="72"/>
+		<texture id="ui_lobby_start_btn_h" 	x="585" y="736"	width="439"	height="72"/>
+		<texture id="ui_lobby_start_btn_t" 	x="585" y="808"	width="439"	height="72"/>
+
+		<texture id="ui_default_start_btn_d" 	x="585" y="664"	width="439"	height="72"/>
+		<texture id="ui_default_start_btn_e" 	x="585" y="952"	width="439"	height="72"/>
+		<texture id="ui_default_start_btn_h" 	x="585" y="736"	width="439"	height="72"/>
+		<texture id="ui_default_start_btn_t" 	x="585" y="736"	width="439"	height="72"/>
+
+		<texture id="ui_button_hint_default_b" 		x="140"	y="826" width="2" 	height="28"/>
+	    <texture id="ui_button_hint_default_back" 	x="142"	y="826" width="128" height="28"/>
+	    <texture id="ui_button_hint_default_e" 		x="270" y="826" width="2" 	height="28"/>
+
+		<texture id="ui_hint_icon_red"	x="534" y="994" width="30"	height="30"/>
+		
+		<texture id="ui_lobby_unique_character_icon"	x="509" y="959" width="24"	height="24"/>
+    </file>
+	
+	<file name="ui\ui_left_grad">
+		<texture id="ui_left_grad_big" x="0" y="0" width="701" height="1024"/>	
+	</file>
+</w>

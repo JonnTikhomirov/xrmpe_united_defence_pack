@@ -1,0 +1,19 @@
+[ph_heavy]
+
+[collide]
+ignore_static
+
+[logic]
+active = ph_button@check_wave_start
+
+[ph_button@check_wave_start]
+anim = $editor
+on_info = {+defence_wave_last_start -all_df_cir_music_on} ph_button@wait %+all_df_cir_music_on =play_sound(df_cir_music_playlist)%
+
+[ph_button@wait]
+anim = $editor
+on_signal = sound_end | ph_button@pause %=stop_sound(df_cir_music_playlist) -all_df_cir_music_on%
+
+[ph_button@pause]
+anim = $editor
+on_game_timer = 44 | ph_button@check_wave_start

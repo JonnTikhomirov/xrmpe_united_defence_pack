@@ -1,0 +1,97 @@
+delayed_tasks = { }
+
+function give_task_to_client(task_id, gameID)
+	if getLocalActor() then
+		local t = getLocalActor():get_task(tostring(task_id), true)
+		if t then
+			return
+		end
+	end
+
+	if gameID ~= nil then
+		GiveTaskToClient(task_id, gameID)
+	else
+		GiveTaskToClient(task_id)
+	end
+end
+
+function ask_server_for_reward()
+	AskServerForReward()
+end
+
+function add_delayed_task(task_id)
+	--printf_msg("adding add_delayed_task %s", tostring(task_id))
+	delayed_tasks[task_id] = { }
+	for k,v in pairs(db.mp_actors) do
+		table.insert(delayed_tasks[task_id], v:id())
+	end
+end
+
+function update_delayed_tasks()
+	local n = 0
+	for k, v in pairs(delayed_tasks) do
+		n = n + 1
+	end
+	
+	if n == 0 then
+		return
+	end
+	
+	for task_id,actors in pairs(delayed_tasks) do
+		local index = 1
+		for k,actor_id in pairs(actors) do
+			if IsActorNetReady(actor_id) then
+				--printf_msg("giving delayed task %s %s", task_id, db.mp_actors[actor_id]:name())
+				client_tasks.give_task_to_client(task_id, actor_id)
+				table.remove(delayed_tasks[task_id], index)
+				break
+			end		
+			index = index + 1
+		end
+		
+		if #actors == 0 then
+			delayed_tasks[task_id] = nil
+		end
+	end
+end
+
+function save_delayed_tasks(packet)
+	local num = 0
+	for k,v in pairs(delayed_tasks) do
+		num = num + 1
+	end
+
+	packet:w_u16(num)
+
+	for task_id,actors in pairs(delayed_tasks) do
+		packet:w_stringZ(tostring(task_id))
+		num = 0
+		for k,v in pairs(actors) do
+			num = num + 1
+		end
+		
+		packet:w_u16(num)		
+		for k,actor_id in pairs(actors) do
+			packet:w_u16(actor_id)
+		end
+	end
+end
+
+function load_delayed_tasks(packet)
+	delayed_tasks = { }
+	
+	local tasks_num = packet:r_u16()
+	
+	if tasks_num > 0 then
+		for i=1, tasks_num do
+			local task_id = packet:r_stringZ()
+			delayed_tasks[task_id] = { }
+			
+			local actors_num = packet:r_u16()
+			for i=1, actors_num do
+				local actor_id = packet:r_u16()
+				table.insert(delayed_tasks[task_id], actor_id)
+			end
+		end
+	end
+end

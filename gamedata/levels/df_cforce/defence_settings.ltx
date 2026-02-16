@@ -1,0 +1,34 @@
+[defence_gamedata]
+spawn_delay = 1 ; время задержки между спавном мутантов (в секундах)
+;spawn_particles = anomaly2\teleport_out ; партикл, с которым спавнятся монстры, можно удалить
+;spawn_sound = ambient\defence\defence_teleport ; звук, с которым спавнятся монстры, можно удалить
+start_time = 19 ; стартовое время на локации, работает аналогично консольной команде sv_setenvtime, возможные значения 0-23, можно удалить
+
+
+[defence_modifiers]
+surge = false
+phantoms = false
+
+
+[defence_team]
+logo = stalker_medium ; логотип команды для лобби
+messages_menu_faction = 9 ; Нейтралы
+skins = df_neutral_face_1, df_neutral_face_2, df_neutral_face_3, df_neutral_face_4, df_neutral_face_5, df_neutral_face_6, df_neutral_face_7, df_neutral_face_8, df_neutral_face_9, df_neutral_face_10, df_neutral_face_11, df_neutral_face_12
+
+
+[wave_provisions]
+wave_1 = wp1_var1
+
+
+[wave_provisions_variants]
+wp1_var1 = conserva:1:0.01
+
+
+[monster_waves]
+wave_1 = wm1_var1
+
+
+[monster_wave_variants]
+wm_test = m_poltergeist_normal_flame:1:1:true
+;
+wm1_var1 = zombie_lab_1:5:1, zombie_lab_2:5:1, zombie_lab_3:5:1, zombie_lab_4:5:1, zombie_ghost:5:1, gigant_boss:1:1:true, zombie_trup_1:5:1, zombie_trup_2:5:1, zombie_trup_3:5:1, zombie_ghost:5:1

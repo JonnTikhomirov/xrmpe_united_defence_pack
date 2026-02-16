@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<string_table>
+    <string id="df_escape">
+        <text>Блокпост</text>
+    </string>
+    <string id="st_df_esc_vova_vist">
+        <text>Вова Вист \n после встречи со Шрамом :)</text>
+    </string>
+</string_table>

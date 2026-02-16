@@ -1,0 +1,199 @@
+[wpn_binoc]:identity_immunities,weapon_probability,default_weapon_params
+$spawn						= "weapons\binocular"
+cform						= skeleton
+class						= WP_BINOC
+hud							= wpn_binoc_hud
+
+ef_main_weapon_type			= 5
+ef_weapon_type				= 0
+
+;---DOF-------------------------------------------------------------------------
+;zoom_dof					= -1.0, 10.0, 350
+reload_dof				= 0.0, 0.5, 5, 1.7
+;-------------------------------------------------------------------------------
+
+flame_particles		   		= weapons\generic_weapon05
+smoke_particles		   		= weapons\generic_shoot_00
+
+fire_point               	= 0.0, 0.133, 0.161
+shell_point		 			= 0.0, 0.133, 0.047
+shell_dir		 			= 0.0, 0.0, 0.4
+shell_particles	 			= weapons\generic_shells
+
+position					= -0.08 , -0.05 , 0.05
+orientation					= 0 , -90, 70
+
+position_new_anm                 		= -0.092,0.037,0.040
+orientation_new_anm              		= 122,-64,171      ;значение устанавливается в градусах
+
+attach_angle_offset			= 3.080506,-1.493053,-1.202040   ;устанавливается в радианах Angle*PI/180
+attach_position_offset		= 0.080000,0.021273,0.100000
+attach_bone_name			= bip01_r_hand
+auto_attach					= false
+
+visual						= dynamics\devices\dev_binoculars\dev_binoculars.ogf
+description					= st_binocular_descr
+hand_dependence		 		= 1
+single_handed				= 0
+
+slot 			 		= 4		; // binocular
+animation_slot			= 13	; type of the animation that will be used
+use_third_person_anims      = false               ; нужно ли использовать анимацию на мировой модели оружия / есть ли idle анимация
+
+ammo_elapsed		 		= 0
+ammo_mag_size		 		= 0
+ammo_class		 			= ammo_9x18_fmj
+
+inv_name		 			= st_binocular_name
+inv_name_short				= st_binocular_name
+inv_weight		 			= 0.0
+
+show_ammo					= false
+
+inv_grid_width				= 2
+inv_grid_height				= 1
+inv_grid_x					= 16
+inv_grid_y					= 8
+
+min_radius					= 100
+max_radius					= 150
+
+cost						= 800
+
+cam_relax_speed				= 5.5
+cam_dispersion				= 2
+cam_max_angle				= 5
+cam_max_angle_horz			= 5.0
+cam_step_angle_horz			= 0.5
+
+disp_vel_factor				= 0.1
+disp_crouch_factor			= 0.75
+
+ph_mass						= 1
+
+scope_status				= 1
+silencer_status				= 0
+grenade_launcher_status		= 0
+
+zoom_enabled				= true
+scope_texture				= wpn_crosshair_bino
+scope_zoom_factor			= 5
+
+
+fire_dispersion_base		= 0.1
+
+cam_relax_speed         	= 1.5
+cam_dispersion          	= 1.5
+cam_max_angle				= 7
+cam_max_angle_horz			= 10.0
+cam_step_angle_horz			= 1.5
+
+fire_dispersion_condition_factor = 5
+misfire_probability        = 0.0001 ;вероятность осечки при максимальном износе  !!!old - now not working
+;изношенность, при которой появляется шанс осечки
+misfire_start_condition		= 0.6
+;изношеность при которой шанс осечки становится константным
+misfire_end_condition		= 0.1
+;шанс осечки при изношености больше чем misfireStartCondition
+misfire_start_prob	     	= 0.001
+;шанс осечки при изношености больше чем misfireEndCondition
+misfire_end_prob	     	= 0.02
+;увеличение изношености при одиночном выстреле
+condition_shot_dec      	= 0.00001
+;увеличение изношености при выстреле очередью
+condition_queue_shot_dec	= 0.00002
+
+PDM_disp_base           = 1.0
+PDM_disp_vel_factor     = 1.0
+PDM_disp_accel_factor   = 1.0
+PDM_disp_crouch         = 1.0
+PDM_disp_crouch_no_acc  = 1.0
+
+hit_power                	= 1
+hit_impulse		 		 	= 1
+hit_type					= fire_wound
+
+fire_distance            	= 1
+bullet_speed		 	 	= 1
+rpm                      	= 1
+
+
+light_color		 			= 0.6,0.5,0.3
+light_range		 			= 3.0
+light_var_color		 		= 0.05
+light_var_range		 		= 0.5
+light_time 		 			= 0.2
+
+snd_draw					= device\binoculars\binoculars_draw
+snd_holster					= device\binoculars\binoculars_hide
+snd_gyro					= weapons\binoculars_gyro
+snd_zoomin					= device\binoculars\binoculars_zoom_1
+snd_zoomout					= device\binoculars\binoculars_zoom_2
+snd_shoot					= weapons\n_pb_shot
+snd_empty					= weapons\pistol_empty
+snd_reload					= weapons\pm_reload
+snd_close					= weapons\generic_close
+snd_aim_start          		= device\binoculars\binoculars_aim_start
+snd_aim_end             	= device\binoculars\binoculars_aim_end
+
+
+
+
+vision_present				= true
+vis_frame_speed				= 4				; скорость, с которой наводится рамка на цель
+vis_frame_color				= 0.7,0.7,0.7,1.0	; цвет рамки RGBA (A) Не учитывается
+found_snd					= detectors\DA-2_beep1
+catch_snd					= detectors\DA-2_beep1
+
+[wpn_binoc_hud]:hud_base
+hud_fov = 0.6
+hud_fov_zoom = 0.6
+
+hands_position				= 0.0,-0.13,0.03
+hands_orientation			= 0.0,0.0,0.0
+
+hands_position_16x9			= 0.0,-0.13,0.03
+hands_orientation_16x9			= 0.0,0.0,0.0
+
+item_position				= 0.0,0.0,0.005
+item_orientation			= 0.0,0.0,0.0
+
+item_visual             	= dynamics\devices\dev_binoculars\dev_binoculars_hud
+attach_place_idx				= 0
+
+disable_bore = true
+
+anm_show				= binocular_draw
+anm_hide				= binocular_hide
+
+anm_idle				= binocular_idle
+anm_idle_aim_start		= binocular_aim_start
+anm_idle_aim			= binocular_aim
+anm_idle_aim_end		= binocular_aim_end
+
+anm_idle_moving	 			= binocular_walk
+anm_idle_moving_slow 		= binocular_slow
+anm_idle_moving_crouch 	    = binocular_slow_down
+anm_idle_moving_crouch_slow = binocular_slow_super
+
+anm_idle_sprint_start           = binocular_sprint_start
+anm_idle_sprint	 		= binocular_sprint
+anm_idle_sprint_end             = binocular_sprint_end
+
+anm_bore				= binocular_hide
+
+aim_hud_offset_pos			= 0.0,0.0,0.0
+aim_hud_offset_rot			= 0.0,0.0,0.0
+
+aim_hud_offset_pos_16x9		= 0.0,0.0,0.0
+aim_hud_offset_rot_16x9		= 0.0,0.0,0.0
+
+gl_hud_offset_pos				= 0,0,0
+gl_hud_offset_rot				= 0,0,0
+
+lean_hud_offset_pos			= 0,0,0
+lean_hud_offset_rot			= 0,0,0
+
+
+
+

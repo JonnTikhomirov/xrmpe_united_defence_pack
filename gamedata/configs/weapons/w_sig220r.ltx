@@ -1,0 +1,71 @@
+[wpn_sig220r]:wpn_sig220
+$spawn               = "weapons\sig220r"   ; name and section in level editor
+description					= st_wpn_sig220r_descr
+cost					= 3400         ; the price of the item
+
+def_hide_bones = sight, barrel_silencer, mag, flash, laser
+def_show_bones = barrel
+
+hud                     	= wpn_sig220r_hud
+
+upgrades = vartree_sig220r_body, vartree_sig220r_ramka, vartree_sig220r_shell_ejector, vartree_sig220r_sights, vartree_sig220r_laser, vartree_sig220r_handle
+installed_upgrades = 
+upgrade_scheme = upgrade_scheme_sig220r
+
+inv_name                = st_wpn_sig220r
+inv_name_short          = st_wpn_sig220r
+
+inv_grid_width			= 2
+inv_grid_height			= 1
+inv_grid_x			= 16
+inv_grid_y			= 28
+
+upgr_icon_x			= 1598
+upgr_icon_y			= 534
+upgr_icon_width		        = 170
+upgr_icon_height   	        = 139
+
+kill_msg_x				= 236
+kill_msg_y				= 120
+kill_msg_width			= 31
+kill_msg_height			= 30
+
+ammo_elapsed		 	= 11
+ammo_mag_size		 	= 11
+
+hit_power           		= 0.68, 0.68, 0.68, 0.68
+
+condition_shot_dec      	= 0.0004
+condition_queue_shot_dec	= 0.0004
+
+silencer_x 					= 61						; offset in inventory icon
+silencer_y 					= -18
+
+visual = dynamics\weapons\wpn_sig220\wpn_sig220r.ogf
+
+[wpn_sig220r_hud]:wpn_sig220_hud
+item_visual             	= dynamics\weapons\wpn_sig220\wpn_sig220r_hud.ogf
+
+;Перезарядка/////////////////////////////////////////////////////////////////////
+anm_reload                           = p220_reload_bigmag, p220_reload
+anm_reload_empty                     = p220_reload_full_bigmag, p220_reload_full
+
+;звуки
+snd_draw							= weapons\pm\mechanics\pm_draw
+snd_holster						= weapons\pm\mechanics\pm_hide
+snd_shoot						= weapons\sig220\layers\sig220_shoot_a_1
+
+snd_empty						= weapons\pm\mechanics\pm_dry_1
+snd_reload						= weapons\sig220\mechanics\sig220_reload
+snd_reload_empty        = weapons\sig220\mechanics\sig220_reload_empty
+snd_reload_jammed       = weapons\sig220\mechanics\sig220_revival
+snd_reload_jammed_last       = weapons\sig220\mechanics\sig220_revival_last
+snd_shoot_grenade       = weapons\silence
+snd_reload_grenade      = weapons\silence
+snd_shutter                   = weapons\pm\mechanics\pm_shutter
+snd_bore				= weapons\mp5_bore
+snd_bore1				= weapons\draw_silent
+snd_aim_start           = weapons\pm\mechanics\pm_aim_start
+snd_aim_end             = weapons\pm\mechanics\pm_aim_end
+snd_silncer_shot				= weapons\glock17\layers\glock17_silencer_a_1
+snd_jammed_click     = weapons\pm\mechanics\pm_check

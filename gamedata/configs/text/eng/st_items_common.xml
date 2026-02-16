@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<string_table>
+	<!-- all kinds of game stray, and things that can be sold -->
+	<string id="st_cassette_red_name">
+		<text>Recorded cassette</text>
+	</string>
+	<string id="st_cassette_red_descr">
+		<text>Compact cassette on which the message is recorded. (quest)</text>
+	</string>
+	<string id="st_cassette_blue_name">
+		<text>Music cassette</text>
+	</string>
+	<string id="st_cassette_blue_descr">
+		<text>Musical compact cassette. Rammstein tracks recorded. (tracks)</text>
+	</string>
+	<string id="st_cassette_green_name">
+		<text>Cassette with classified materials</text>
+	</string>
+	<string id="st_cassette_green_descr">
+		<text>A compact cassette containing a secret message. (easter eggs)</text>
+	</string>
+	<string id="st_cassette_yellow_name">
+		<text>Audio recording</text>
+	</string>
+	<string id="st_cassette_yellow_descr">
+		<text>A cassette containing a message or important information.</text>
+	</string>
+	
+	<string id="st_test_ragdoll_name">
+		<text>sleeping man</text>
+	</string>
+	<string id="st_test_ragdoll_descr">
+		<text>sleeping man</text>
+	</string>
+
+    <string id="st_money_1_rub">
+        <text>Banknote 1 ruble</text>
+    </string>
+    <string id="st_money_3_rub">
+        <text>Banknote 3 rubles</text>
+    </string>
+    <string id="st_money_5_rub">
+        <text>Banknote 5 rubles</text>
+    </string>
+    <string id="st_money_10_rub">
+        <text>Banknote 10 rubles</text>
+    </string>
+    <string id="st_money_25_rub">
+        <text>Banknote 25 rubles</text>
+    </string>
+    <string id="st_money_50_rub">
+        <text>Banknote 50 rubles</text>
+    </string>
+    <string id="st_money_100_rub">
+        <text>Banknote 100 rubles</text>
+    </string>
+    <string id="st_money_200_rub">
+        <text>Banknote 200 rubles</text>
+    </string>
+    <string id="st_money_500_rub">
+        <text>Banknote 500 rubles</text>
+    </string>
+    <string id="st_money_1000_rub">
+        <text>Banknote 1000 rubles</text>
+    </string>
+    <string id="st_money_5000_rub">
+        <text>Banknote 5000 rubles</text>
+    </string>
+    <string id="st_money_rub_descr">
+        <text>Banknote state bank.</text>
+    </string>
+
+</string_table>

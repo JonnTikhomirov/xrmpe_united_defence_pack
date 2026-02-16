@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<string_table>
+	<string id="Btn_Cancel">
+		<text>CANCEL</text>
+	</string>
+	<string id="Btn_Close">
+		<text>CLOSE</text>
+	</string>
+	<string id="Btn_No">
+		<text>NO</text>
+	</string>
+	<string id="Btn_OK">
+		<text>OK</text>
+	</string>
+	<string id="Btn_Yes">
+		<text>YES</text>
+	</string>
+	<string id="Btn_Exit">
+		<text>EXIT</text>
+	</string>	
+	<string id="bad">
+		<text>Bad</text>
+	</string>
+	<string id="enemy">
+		<text>Enemy</text>
+	</string>
+	<string id="excellent">
+		<text>Excellent</text>
+	</string>
+	<string id="experienced">
+		<text>Experienced</text>
+	</string>
+	<string id="friendly">
+		<text>Friend</text>
+	</string>
+	<string id="global_map">
+		<text>Map of the Zone</text>
+	</string>
+	<string id="good">
+		<text>Good</text>
+	</string>
+	<string id="indifferent">
+		<text>Indifferent</text>
+	</string>
+	<string id="master">
+		<text>Master</text>
+	</string>
+	<string id="mm_mp_pda_hunt">
+		<text>PDA bonus</text>
+	</string>
+	<string id="mp_only_one_voting">
+		<text>Only one active vote permitted.</text>
+	</string>
+	<string id="neutral">
+		<text>Neutral</text>
+	</string>
+	<string id="novice">
+		<text>Rookie</text>
+	</string>
+	<string id="st_game">
+		<text>Game</text>
+	</string>
+	<string id="st_item_used">
+		<text>Used</text>
+	</string>
+	<string id="st_level">
+		<text>Level</text>
+	</string>
+	<string id="st_loading_ai_objects">
+		<text>Loading AI objects</text>
+	</string>
+	<string id="st_loading_alife_simulator">
+		<text>Server: Loading alife simulator</text>
+	</string>
+	<string id="st_loading_cform">
+		<text>Loading CFORM</text>
+	</string>
+	<string id="st_loading_details">
+		<text>Loading details</text>
+	</string>
+	<string id="st_loading_geometry">
+		<text>Loading geometry</text>
+	</string>
+	<string id="st_loading_saved_game">
+		<text>Loading saved game</text>
+	</string>
+	<string id="st_loading_sectors_portals">
+		<text>Loading sectors & portals</text>
+	</string>
+	<string id="st_loading_shaders">
+		<text>Loading shaders</text>
+	</string>
+	<string id="st_loading_spatial_db">
+		<text>Loading spatial-DB</text>
+	</string>
+	<string id="st_loading_textures">
+		<text>Loading textures</text>
+	</string>
+	<string id="st_mp_direct_ip">
+		<text>Direct IP</text>
+	</string>
+	<string id="st_no_active_task">
+		<text>No active task</text>
+	</string>
+	<string id="st_not_enough_money">
+		<text>Not enough money</text>
+	</string>
+	<string id="st_not_enough_money_npc">
+		<text>The NPC does not have enough money</text>
+	</string>
+	<string id="st_opening_stream">
+		<text>Opening stream</text>
+	</string>
+	<string id="st_prefetching_objects">
+		<text>Prefetching objects</text>
+	</string>
+	<string id="st_rubles">
+		<text>rubles.</text>
+	</string>
+	<string id="st_server_connecting">
+		<text>SERVER: Connecting</text>
+	</string>
+	<string id="st_server_starting">
+		<text>SERVER: Starting</text>
+	</string>
+	<string id="st_validating_cdkey">
+		<text>Validating CD Key</text>
+	</string>
+	<string id="st_video">
+		<text>Video</text>
+	</string>
+	<string id="terrible">
+		<text>Terrible</text>
+	</string>
+	<string id="ui_inv_repair">
+		<text>Repair</text>
+	</string>
+	<string id="ui_st_cant_run_r2">
+		<text>You can't run Render 2 on your PC</text>
+	</string>
+	<string id="ui_st_community">
+		<text>Faction</text>
+	</string>
+	<string id="ui_st_conn_cdkey_disabled">
+		<text>Connection error: Your CD-Key is disabled. Contact customer service.</text>
+	</string>
+	<string id="ui_st_conn_cdkey_in_use">
+		<text>Connection error: CD-Key already in use.</text>
+	</string>
+	<string id="ui_st_conn_cdkey_invalid">
+		<text>Connection error: Invalid CD-Key.</text>
+	</string>
+	<string id="ui_st_conn_invalid_host">
+		<text>Connection error: Invalid host</text>
+	</string>
+	<string id="ui_st_conn_invalid_pass">
+		<text>Connection error: Invalid password</text>
+	</string>
+	<string id="ui_st_conn_new_patch">
+		<text>A new patch is available.\n Version: %s\n Location: %s\nDo you want to download it now?</text>
+	</string>
+	<string id="ui_st_conn_no_new_patch">
+		<text>No new patches currently available</text>
+	</string>
+	<string id="ui_st_conn_rejected_server">
+		<text>Connection error: connection rejected by server</text>
+	</string>
+	<string id="ui_st_conn_sess_full">
+		<text>Connection error: server full</text>
+	</string>
+	<string id="ui_st_version_differs_header">
+		<text>DIFFERENT VERSION</text>
+	</string>
+	<string id="ui_st_conn_version_differs">
+		<text>Connection error: Different version.</text>
+	</string>
+	<string id="ui_st_conn_addon_not_found">
+		<text>You are trying to join a server running "%s %s" addon, that you don't have installed. To join the server, you must install the addon.</text>
+	</string>
+	<string id="ui_st_conn_addon_from_vanila">
+		<text>You are trying to join a server running "%s %s" addon. To join the server, you must restart the game.\nDo it now?</text>
+	</string>
+	<string id="ui_st_conn_addon_diff_version">
+		<text>You are trying to join a server running "%s %s" addon, but your installed version is "%s %s". To join the server, you must install the correct version of the addon.</text>
+	</string>
+	<string id="ui_st_conn_switch_addon">
+		<text>You are trying to join a server running "%s %s" addon, but your current addon is "%s %s". To join the server, you must restart the game.\nDo it now?</text>
+	</string>
+	<string id="ui_st_conn_diff_addons">
+		<text>You are trying to join a server running "%s" addon, but your current addon is "%s %s". To join the server, you must install "%s".</text>
+	</string>
+	<string id="ui_st_conn_vanila_from_addon">
+		<text>You are trying to join a server without an addon, but you are running "%s %s" addon. To join the server, you must restart the game.\nDo it now?</text>
+	</string>
+	<string id="ui_st_connecting_to_masterserver">
+		<text>Connecting to master server</text>
+	</string>
+	<string id="ui_st_days">
+		<text>Days</text>
+	</string>
+	<string id="ui_st_error">
+		<text>Error</text>
+	</string>
+	<string id="ui_st_error_loading">
+		<text>Load error</text>
+	</string>
+	<string id="ui_st_file_exist_owerwrite_q">
+		<text>A file with this name already exists. Do you want to overwrite it?</text>
+	</string>
+	<string id="ui_st_file_name_is_empty">
+		<text>The file name is empty</text>
+	</string>
+	<string id="ui_st_hours">
+		<text>Hours</text>
+	</string>
+	<string id="ui_st_kicked_by_battleye">
+		<text>Was disconnected by BattleEye protection system:</text>
+	</string>
+	<string id="ui_st_kicked_by_server">
+		<text>DISCONNECTED BY SERVER</text>
+	</string>
+	<string id="ui_st_leave">
+		<text>Leave</text>
+	</string>
+	<string id="ui_st_load_game_confirm">
+		<text>Loading this game will cause unsaved data to be lost. Proceed?</text>
+	</string>
+	<string id="ui_st_mins">
+		<text>min</text>
+	</string>
+	<string id="ui_st_months">
+		<text>months</text>
+	</string>
+	<string id="ui_st_opponent_items">
+		<text>BACKPACK</text>
+	</string>
+	<string id="ui_st_params">
+		<text>Parameters</text>
+	</string>
+	<string id="ui_st_patch_download_error">
+		<text>Unable to download the patch.</text>
+	</string>
+	<string id="ui_st_patch_download_success">
+		<text>Patch successfully downloaded. Do you want to install it?</text>
+	</string>
+	<string id="ui_st_price">
+		<text>Price</text>
+	</string>
+	<string id="ui_st_rank">
+		<text>RANK</text>
+	</string>
+	<string id="ui_st_relation">
+		<text>Attitude</text>
+	</string>
+	<string id="ui_st_reputation">
+		<text>Reputation</text>
+	</string>
+	<string id="ui_st_secs">
+		<text>sec</text>
+	</string>
+	<string id="ui_st_select_one_map">
+		<text>Please select at least one map</text>
+	</string>
+	<string id="ui_st_take_all">
+		<text>Take all</text>
+	</string>
+	<string id="ui_st_time_remains">
+		<text>Remaining</text>
+	</string>
+	<string id="ui_st_voting_disabled">
+		<text>Vote failed</text>
+	</string>
+	<string id="ui_st_want_to_leave_game_q">
+		<text>Do you really want to leave the game?</text>
+	</string>
+	<string id="ui_total_price">
+		<text>Total</text>
+	</string>
+	<string id="very_bad">
+		<text>very bad</text>
+	</string>
+	<string id="very_good">
+		<text>very good</text>
+	</string>
+	<string id="veteran">
+		<text>Veteran</text>
+	</string>
+	<string id="ui_st_inv_repair">
+		<text>Repair</text>
+	</string>
+	<string id="ui_repair_button_hint">
+		<text>Repair selected item</text>
+	</string>
+	<string id="st_key_notbinded">
+		<text>...</text>
+	</string>
+	<string id="ui_st_upgrade">
+		<text>Repair/modifications</text>
+	</string>
+	<string id="ui_st_buy">
+		<text>Buy</text>
+	</string>
+	<string id="ui_st_sell">
+		<text>Sell</text>
+	</string>
+	<string id="ui_st_trade">
+		<text>Trade</text>
+	</string>
+	<string id="ui_st_exit_hint">
+		<text>Close window ($$ACTION_USE$$)</text>
+	</string>
+	<string id="ui_st_trade_hint">
+		<text>Open trading window ($$ACTION_SPRINT_TOGGLE$$)</text>
+	</string>
+	<string id="ui_st_upgrade_hint">
+		<text>Open repair and modification window ($$ACTION_SPRINT_TOGGLE$$)</text>
+	</string>
+	<string id="ui_st_take_all_hint">
+		<text>Move all items to your backpack ($$ACTION_SPRINT_TOGGLE$$)</text>
+	</string>
+	<string id="ui_st_buy_hint">
+		<text>Buy selected items</text>
+	</string>
+	<string id="ui_st_sell_hint">
+		<text>Sell selected items</text>
+	</string>
+	<string id="ui_st_work_in_progress_hint">
+		<text>WORK IN PROGRESS</text>
+	</string>
+    <string id="st_turn_radio_on">
+        <text>[$$ACTION_USE$$] On</text>
+    </string>
+    <string id="st_turn_radio_off">
+        <text>[$$ACTION_USE$$] Off</text>
+    </string>
+</string_table>

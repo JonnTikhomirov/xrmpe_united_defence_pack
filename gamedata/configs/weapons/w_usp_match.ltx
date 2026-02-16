@@ -1,0 +1,91 @@
+[wpn_usp_match]:wpn_usp
+$spawn                  	= "weapons\usp_match"		; option for Level Editor
+description          	= st_wpn_usp_match_descr
+cost					= 3600         ; the price of the item
+inv_weight				= 1.080
+
+;upgrades = vartree_wpn_usp_nimble_body, vartree_wpn_usp_nimble_zz, vartree_wpn_usp_nimble_ramka, vartree_wpn_usp_nimble_sights, vartree_wpn_usp_nimble_mag, vartree_wpn_usp_nimble_handle
+;installed_upgrades = 
+;upgrade_scheme = upgrade_scheme_wpn_usp_nimble
+
+hud                     	= wpn_usp_match_hud
+
+fire_dispersion_base	= 0.17 ;0.15 			;угол (в градусах) базовой дисперсии оружия (оружия зажатого в тисках)
+crosshair_inertion   	= 2.40
+
+cam_relax_speed         = 8				;скорость возврата в исходное положение
+cam_relax_speed_ai      = 360
+cam_dispersion          = 1.4			;увеличения угла (в градусах) с каждым выстрелом
+cam_dispersion_inc		= 1.4			;увеличениe cam_dispersion с каждым выстрелом
+cam_dispersion_frac		= 1.0			;ствол будет подыматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+cam_max_angle			= 5.0			;максимальный угол отдачи
+cam_max_angle_horz		= 5.0			;(degree) maximum shot horizontal degree
+cam_step_angle_horz		= 0.5			;(degree) size of step camera moved in horizontal position while shooting
+zoom_cam_dispersion         = 0.4
+zoom_cam_dispersion_inc     = 0.4
+
+hit_power           		= 0.72, 0.72, 0.72, 0.72
+
+condition_shot_dec      	= 0.0004
+condition_queue_shot_dec	= 0.0004
+
+fire_dispersion_condition_factor = 7        ;увеличение дисперсии в процентах при максимальном износе
+inv_name          = st_wpn_usp_match               ; name in inventory
+inv_name_short    = st_wpn_usp_match
+
+inv_grid_x				= 18
+inv_grid_y				= 24
+
+upgr_icon_x			= 1272
+upgr_icon_y			= 270
+upgr_icon_width		= 202
+upgr_icon_height   	= 110
+
+kill_msg_x				= 152
+kill_msg_y				= 120
+kill_msg_width			= 41
+kill_msg_height			= 30
+
+
+fire_point              = 0.0, 0.133, 0.211
+
+visual                  = dynamics\weapons\wpn_usp45\wpn_usp_match.ogf
+silencer_status         = 0                   ; 1 - permanent
+
+;звуки
+snd_draw							= weapons\pm\mechanics\pm_draw
+snd_holster						= weapons\pm\mechanics\pm_hide
+snd_shoot						= weapons\usp\layers\usp_shoot_a_1
+snd_empty						= weapons\sr1m\mechanics\sr1m_dry_1
+snd_reload						= weapons\usp\mechanics\usp_reload
+snd_reload_empty        = weapons\usp\mechanics\uspmatch_reload_empty
+snd_reload_jammed       = weapons\usp\mechanics\usp_revival
+snd_reload_jammed_last       = weapons\usp\mechanics\usp_revival_last
+snd_shutter                   = weapons\usp\mechanics\usp_shutter
+snd_shoot_grenade       = weapons\gen_grenshoot
+snd_reload_grenade      = weapons\gen_grenload
+snd_bore				= weapons\mp5_bore
+snd_bore1				= weapons\draw_silent
+snd_aim_start           		= weapons\pm\mechanics\pm_aim_start
+snd_aim_end             		= weapons\pm\mechanics\pm_aim_end
+snd_silncer_shot				= weapons\glock17\layers\glock17_silencer_a_1
+snd_jammed_click     = weapons\pm\mechanics\pm_check
+
+
+[wpn_usp_match_hud]:wpn_usp_hud
+item_visual             	= dynamics\weapons\wpn_usp45\wpn_usp_match_hud.ogf
+fire_point		= -0.010,0.10,0.4
+
+aim_hud_offset_pos = 0.000000,0.018400,0.0
+aim_hud_offset_rot = 0.000100,0.000000,0.0
+
+aim_hud_offset_pos_16x9 = 0.000000,0.018400,0.0
+aim_hud_offset_rot_16x9 = 0.000100,0.000000,0.0
+
+anm_reload_empty                          = usp_reload_full
+anm_reload_empty_detector                 = usp_det_reload_full, usp_reload_full
+anm_reload_empty_ammochange               = usp_reload_full
+anm_reload_empty_ammochange_detector      = usp_det_reload_full, usp_reload_full
+
+lock_time_anm_reload_empty_detector = 3.15
+lock_time_anm_reload_empty_ammochange_detector = 3.15

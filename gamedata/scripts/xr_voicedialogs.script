@@ -1,0 +1,355 @@
+local dialogs = {}
+local played_dialogs = {}
+local speakers = {}
+
+local snd_ini
+
+local current_voiceline_idx = 0
+local current_dialog_id = ""
+local current_speaker = nil
+local current_state = "none"
+local current_pda_snd
+
+local MAX_DIALOG_DISTANCE = 20
+
+class "voice_object"
+function voice_object:__init(section, _lines, recover_line, path, on_end)
+	self.id = section
+	self.lines = _lines
+	self.recover_line = recover_line
+	self.path = path
+	self.on_end = on_end
+end
+
+function voice_object:end_callback()
+	if self.on_end ~= nil and db.actor then
+		xr_logic.pick_section_from_condlist(db.actor, nil, self.on_end)
+	end
+end
+
+function start_game_callback()
+	load_voicelines()
+end
+
+function load_voicelines()
+	dialogs = {}
+	snd_ini = ini_file("misc\\script_voicelines.ltx")
+
+	--' Итерируемся по списку тем.
+	if not snd_ini:section_exist("list") then
+		abort("There is no section [list] in script_voicelines.ltx")
+	end
+	local n = snd_ini:line_count("list")
+	local id, value = "",""
+	local category = ""
+	local max_voice_lines = 256
+	
+	for i=0,n-1 do
+		result, section, value = snd_ini:r_line("list",i,"","")
+		local _lines = {}
+		for j=0,max_voice_lines-1 do
+			local lineNumStr = "line_"..tostring(j)
+			if not snd_ini:line_exist(section, lineNumStr) then
+				break
+			end
+			
+			local lineStr = utils.cfg_get_string(snd_ini, section, lineNumStr, db.actor, true, "")
+			
+			local function split_with_comma(str)
+				local fields = {}
+				for field in str:gmatch('([^,]+)') do
+					fields[#fields+1] = field
+				end
+				return fields
+			end
+			
+			local splittedLine = split_with_comma(lineStr)
+			
+			local speaker = splittedLine[1]
+			local delay = splittedLine[2]
+			
+			local delayStartPos, delayEndPos = string.find(lineStr, delay)
+			local condlist = string.sub(lineStr, delayEndPos + 2) --+2 because of comma
+			
+			local line = {}
+			line.speaker = speaker
+			line.delay = delay
+			line.condlist = condlist
+			
+			_lines[j] = line		
+		end
+		
+		local location = utils.cfg_get_string(snd_ini, section, "location", db.actor, true, "")
+		local path = "characters_voice\\dialogs\\"..location.."\\"
+		local on_end
+		
+		local recover_line
+		if snd_ini:line_exist(section, "recover_line") then
+			recover_line = snd_ini:r_string(section, "recover_line")
+		else
+			recover_line = "characters_voice\\dialogs\\yantar\\yan_voice_dialog_recover"
+		end
+		
+		if snd_ini:line_exist(section, "on_end") then
+			local str = snd_ini:r_string(section, "on_end")
+			on_end = xr_logic.parse_condlist(nil, section, "on_end", str)
+		end
+
+		dialogs[section] = voice_object(section, _lines, recover_line, path, on_end)
+	end
+end
+
+function add_to_save_table(dialog_id)
+	if played_dialogs[dialog_id] == nil then
+		played_dialogs[dialog_id] = true
+	end
+end
+
+function load_dialogs(packet)
+	played_dialogs = {}
+	local num = packet:r_u8()
+	if num > 0 then
+		for i = 1, num do
+			local dialog_id = packet:r_stringZ()
+			--printf_msg("Loading voice dialog %s", tostring(dialog_id))
+			if dialogs[dialog_id] ~= nil then
+				dialogs[dialog_id]:end_callback()
+			end
+			add_to_save_table(dialog_id)
+		end
+	end
+end
+
+function save_dialogs(packet)
+	local num = 0
+	for k, v in pairs(played_dialogs) do
+		num = num + 1
+	end
+	packet:w_u8(num)
+	for k, v in pairs(played_dialogs) do
+		--printf_msg("Saving voice dialog %s", tostring(k))
+		packet:w_stringZ(k)
+	end
+end
+
+function is_dialog_played(dialog_id)
+	return played_dialogs[dialog_id] ~= nil
+end
+
+function start_dialog(dialog_id, first_speaker, second_speaker)
+	if is_playing() then
+		stop()
+	end
+	
+	speakers["first_speaker"] = get_story_object(first_speaker)
+	speakers["second_speaker"] = get_story_object(second_speaker)
+	
+	current_voiceline_idx = 0
+	current_dialog_id = dialog_id
+	
+	add_to_save_table(current_dialog_id)
+
+	if OnClient() then
+		local packet = game_cl.GenerateGameMessage(GM_SCRIPT_SAVE_VOICE_DIALOG)
+		packet:w_stringZ(dialog_id)
+		u_EventSendReliable(packet)
+	end
+
+	play_line()
+end
+
+function play_line()
+	local voice_line = dialogs[current_dialog_id].lines[current_voiceline_idx]
+	local condlist = voice_line.condlist
+	
+	local next_line = xr_logic.parse_condlist(nil, current_dialog_id, "next_line_cond", condlist)
+	next_line = xr_logic.pick_section_from_condlist(db.actor, self, next_line)
+	
+	local speaker = speakers[voice_line.speaker]
+	local snd_path = dialogs[current_dialog_id].path..next_line
+	local snd = sound_object(snd_path)
+	local delay = tonumber(voice_line.delay)
+	
+	if speaker ~= nil then
+		current_speaker = speaker
+		--printf_msg("Playing line %s with speaker %s", next_line, current_speaker:name())
+		local isActor = is_object_actor_by_id(current_speaker:id())
+		if isActor then
+			current_speaker:actor_speech_sound(snd_path, delay)
+		else
+			current_speaker:play_sound(snd_path)
+		end
+		assign_pda_sound(snd_path, delay)
+		current_state = "playing"
+	--else
+	--	printf_msg("Tried to play line %s, but there is no speaker", tostring(next_line))
+	end
+end
+
+function assign_pda_sound(snd, delay)
+	if getFS():exist("$game_sounds$", snd.."_pda.ogg") ~= nil then
+		if current_pda_snd ~= nil and current_pda_snd:playing() then
+			current_pda_snd:stop()
+		end
+		current_pda_snd = sound_object(snd.."_pda")
+		current_pda_snd:play_at_pos(getLocalActor(), vector():set(0,0,0), delay, sound_object.s2d)
+		current_pda_snd.volume = 0.0
+	else
+		if current_pda_snd ~= nil then
+			current_pda_snd:stop()
+			current_pda_snd = nil
+		end
+	end
+end
+
+function update_pda_snd()
+	if current_pda_snd ~= nil then
+		if is_current_speaker_current_entity() then
+			return
+		end
+		local first_speaker = speakers["first_speaker"]
+		local second_speaker = speakers["second_speaker"]
+		if first_speaker:position():distance_to(second_speaker:position()) > MAX_DIALOG_DISTANCE then
+			if current_pda_snd.volume < 1 then
+				current_pda_snd.volume = current_pda_snd.volume + 0.2
+			end
+		else
+			if current_pda_snd.volume > 0 then
+				current_pda_snd.volume = current_pda_snd.volume - 0.2
+			end
+		end
+	end
+end
+
+function is_current_speaker_current_entity()
+	return current_speaker ~= nil and getLocalActor() ~= nil and current_speaker:id() == getLocalActor():id()
+end
+
+function has_recover_line()
+	return dialogs[current_dialog_id].recover_line ~= nil
+end
+
+function play_recover_line()
+	if current_speaker and is_object_actor_by_id(current_speaker:id()) then
+		current_speaker:actor_speech_sound(dialogs[current_dialog_id].recover_line, 0)
+	end
+end
+
+function cleanup()
+	current_state = "none"
+	current_speaker = nil
+	current_pda_snd = nil
+end
+
+function stop()
+	current_state = "none"
+	if current_speaker ~= nil then
+        if is_object_actor_by_id(current_speaker:id()) then
+            current_speaker:actor_stop_speech_sound()
+        else
+            current_speaker:stop_active_sounds()
+        end
+		current_speaker = nil
+	end
+	
+	if current_pda_snd ~= nil then
+		current_pda_snd:stop()
+		current_pda_snd = nil
+	end
+	
+	if dialogs[current_dialog_id] then
+		dialogs[current_dialog_id]:end_callback()
+	end
+end
+
+function suspend()
+	current_state = "suspending"
+	if current_speaker ~= nil then
+        if is_object_actor_by_id(current_speaker:id()) then
+            current_speaker:actor_stop_speech_sound()
+        else
+            current_speaker:stop_active_sounds()
+        end
+	end
+end
+
+function recover()
+	current_state = "recovering"
+	if has_recover_line() then
+		play_recover_line()
+	end
+end
+
+function is_playing()
+	return current_state ~= "none"
+end
+
+function check_recover_conditions()
+	local first_speaker = speakers["first_speaker"]
+	local second_speaker = speakers["second_speaker"]
+	
+	if not first_speaker or not second_speaker then
+		return false
+	end
+	
+	if not first_speaker:alive() or not second_speaker:alive() then
+		return false
+	end
+	
+	if first_speaker:position():distance_to(second_speaker:position()) > MAX_DIALOG_DISTANCE and not current_pda_snd then
+		return false
+	end
+	
+	return true
+end
+
+function update()
+	if current_state == "playing" then	
+		--wait for the end of current line
+		local is_playing = false
+		
+		if is_object_actor_by_id(current_speaker:id()) then
+			is_playing = current_speaker:is_actor_current_speech_snd_feedback()
+		else
+			is_playing = current_speaker:active_sound_count(true) >= 1 
+		end
+
+		if not is_playing then
+			current_voiceline_idx = current_voiceline_idx + 1
+			if current_voiceline_idx > #dialogs[current_dialog_id].lines then
+				stop()
+			else
+				play_line()
+			end
+			
+		else
+			update_pda_snd()
+			
+			if not current_speaker:alive() then
+				stop()
+			end
+			
+			if not check_recover_conditions() then
+				suspend()
+			end
+			
+		end
+	elseif current_state == "suspending" then
+	
+		if check_recover_conditions() then
+			recover()
+		end
+		
+	elseif current_state == "recovering" then
+		if is_object_actor_by_id(current_speaker:id()) then
+			if not current_speaker:is_actor_current_speech_snd_feedback() then
+				play_line()
+			end
+		else
+			if current_speaker:active_sound_count(true) < 1 then
+				play_line()
+			end
+		end
+		
+	end
+end

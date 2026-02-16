@@ -1,0 +1,162 @@
+<w>
+	<items_hierarchy>
+		<level name="root" btn_ref ="">
+			<level name="pistols" btn_ref="btn_tab_pistols" horz_al="1"/>
+			<level name="submachines" btn_ref="btn_tab_submachines" horz_al="1"/>
+			<level name="assault" btn_ref="btn_tab_assault" horz_al="1"/>
+			<level name="shotgun" btn_ref="btn_tab_shotgun" horz_al="1"/>
+			<level name="sniper_rifles" btn_ref="btn_tab_sniper" horz_al="1"/>
+			<level name="heavy_weapons" btn_ref="btn_tab_heavy" horz_al="1"/>
+			<level name="granades" btn_ref="btn_tab_granades" horz_al="1"/>
+			<level name="outfits" btn_ref="btn_tab_outfits" horz_al="1"/>
+			<level name="equipment" btn_ref="btn_tab_equipment" horz_al="1"/>
+		</level>
+	</items_hierarchy>
+
+	<main anchor="mid-center" width="1920" height="1080">
+		<auto_text x="60" y="146" width="150" height="28">
+			<text font="din_next17" color="dark_gray_mpe" vert_align="c" align="l">ui_st_supply</text>
+		</auto_text>
+
+		<auto_frameline x="60" y="172" width="768" height="2" vertical="0">
+			<texture>ui_mainmenu_line_horizontal</texture>
+		</auto_frameline>
+
+		<auto_text x="60" y="886" width="150" height="28">
+			<text font="din_next17" color="dark_gray_mpe" vert_align="c" align="l">ui_st_presets</text>
+		</auto_text>
+
+		<auto_frameline x="60" y="912" width="768" height="2" vertical="0">
+			<texture>ui_mainmenu_line_horizontal</texture>
+		</auto_frameline>
+
+		<auto_text anchor="top-right" x="908" y="146" width="160" height="28">
+			<text font="din_next17" color="dark_gray_mpe" vert_align="c" align="l">ui_st_equipment</text>
+		</auto_text>
+
+		<auto_frameline anchor="top-right" x="60" y="172" width="1008" height="2" vertical="0">
+			<texture>ui_mainmenu_line_horizontal</texture>
+		</auto_frameline>
+
+		<auto_text anchor="top-right" x="908" y="658" width="160" height="28">
+			<text font="din_next17" color="dark_gray_mpe" vert_align="c" align="l">ui_st_opponent_items</text>
+		</auto_text>
+
+		<auto_frameline anchor="top-right" x="60" y="684" width="1008" height="2" vertical="0">
+			<texture>ui_mainmenu_line_horizontal</texture>
+		</auto_frameline>
+	</main>
+
+	<item_color_restr_rank	r="128" g="0" b="0" a="128"/>
+	<item_color_restr_money r="255" g="255" b="0" a="128"/>
+	<item_color_normal	r="255" g="255" b="255" a="255"/>
+
+	<money_color_positive	r="135" g="123" b="116" a="255"/>
+	<money_color_negative	r="255" g="0" b="0" a="255"/>
+
+	<money_lineview anchor="top-right" x="60" y="144" height="28" items_indent="9">
+		<static_curr_items_money height="28">
+			<text font="din_next23_bold" vert_align="c" outline="1" color="dark_red_mpe"/>
+		</static_curr_items_money>
+		
+		<static_infinity_money y="1" width="29" height="15" stretch="1">
+			<texture>ui_ingame_infinity_icon</texture>
+		</static_infinity_money>
+
+		<static_player_money height="28">
+			<text font="din_next23_bold" vert_align="c" outline="1"/>
+		</static_player_money>
+	</money_lineview>
+
+	<static_item_rank x="466" y="855" width="70" height="66" stretch="1"/>
+
+	<static_info x="0" y="627" width="1140" height="48" light_anim="buy_menu_info" la_cyclic="0" la_texture="0" la_alpha="1">
+		<text font="letterica18" align="c" vert_align="c"/>
+	</static_info>
+
+	<static_money_change x="1381" y="100" width="151" height="48" light_anim="buy_menu_info" la_cyclic="0" la_texture="0" la_alpha="1">
+		<text font="letterica18" r="231" g="153" b="22" align="c" vert_align="c"/>
+	</static_money_change>
+	
+	<tab_control x="60" y="190" width="760" height="52">
+		<window_name>tab_control</window_name>
+	</tab_control>
+	
+	<shop_wnd x="60" y="258" width="760" height="674"/>
+
+    <lst_player_bag anchor="bot-right" x="60" y="194" width="1008" height="186"
+            cell_width="60" cell_height="60" cell_sp_x="2" cell_sp_y="2" rows_num="4" cols_num="16"
+            unlimited="1" group_similar="1"/>
+
+    <lst_shop x="0" y="0" width="775" height="606"
+            cell_width="60" cell_height="60" cell_sp_x="2" cell_sp_y="2" rows_num="10" cols_num="12"
+            unlimited="1" group_similar="1" custom_placement="0"/>
+
+
+    <lst_pistol anchor="bot-right" x="184" y="768" width="246" height="122"
+            cell_width="60" cell_height="60" cell_sp_x="2" cell_sp_y="2" rows_num="2" cols_num="4"
+            custom_placement="0" a="0" virtual_cells="1" vc_vert_align="c" vc_horiz_align="c">
+		<texture>ui_ingame_pistol_slot_bcg</texture>
+		<item_plug anchor="mid-center" y="2" width="62" height="50">ui_ingame_pistol_slot_icon</item_plug>
+		<item_name x="13" y="0" width="184" height="38">
+			<text font="din_next17_bold" vert_align="c" outline="1">st_inv_secondary_wpn</text>
+		</item_name>
+		<text_color>
+			<e color="dark_gray_mpe"/>
+			<t color="ui_white"/>
+			<d color="dark_gray_mpe"/>
+			<h color="ui_white"/>
+		</text_color>
+	</lst_pistol>
+
+    <lst_pistol_ammo x="1366" y="321" width="389" height="60" cell_width="60" cell_height="60" cell_sp_x="2" cell_sp_y="2" rows_num="1" cols_num="6" custom_placement="0" group_similar="1"/>
+
+
+    <lst_rifle anchor="bot-right" x="698" y="768" width="370" height="122"
+           cell_width="60" cell_height="60" cell_sp_x="2" cell_sp_y="2" rows_num="2" cols_num="6"
+            custom_placement="0" a="0" virtual_cells="1" vc_vert_align="c" vc_horiz_align="c">
+		<texture>ui_ingame_wpn_slot_bcg</texture>
+		<item_plug anchor="mid-center" y="3" width="253" height="73">ui_ingame_wpn_slot_icon</item_plug>
+		<item_name x="13" y="0" width="184" height="38">
+			<text font="din_next17_bold" vert_align="c" outline="1">st_inv_main_wpn</text>
+		</item_name>
+		<text_color>
+			<e color="dark_gray_mpe"/>
+			<t color="ui_white"/>
+			<d color="dark_gray_mpe"/>
+			<h color="ui_white"/>
+		</text_color>
+	</lst_rifle>
+
+    <lst_rifle_ammo x="852" y="321" width="389" height="60" cell_width="60" cell_height="60" cell_sp_x="2" cell_sp_y="2" rows_num="1" cols_num="6" custom_placement="0" group_similar="1"/>
+
+    <lst_outfit anchor="bot-right" x="884" y="442" width="184" height="244"
+            cell_width="60" cell_height="60" cell_sp_x="2" cell_sp_y="2" rows_num="3" cols_num="2"
+            custom_placement="0" a="0">
+		<texture>ui_ingame_outfit_slot_bcg</texture>
+		<item_plug anchor="mid-center" y="2" width="122" height="170">ui_ingame_outfit_slot_icon</item_plug>
+		<item_name x="13" y="0" width="184" height="38">
+			<text font="din_next17_bold" vert_align="c" outline="1">st_inv_outfit</text>
+		</item_name>
+		<text_color>
+			<e color="dark_gray_mpe"/>
+			<t color="ui_white"/>
+			<d color="dark_gray_mpe"/>
+			<h color="ui_white"/>
+		</text_color>
+	</lst_outfit>
+
+    <lst_medkit x="1051" y="396" width="130" height="60"
+            cell_width="60" cell_height="60" cell_sp_x="2" cell_sp_y="2" rows_num="1" cols_num="2"
+            custom_placement="0" group_similar="1"/>`
+
+    <lst_granade x="1583" y="396" width="130" height="181"
+            cell_width="60" cell_height="60" cell_sp_x="2" cell_sp_y="2" rows_num="3" cols_num="2"
+            custom_placement="0" group_similar="1"/>
+
+    <lst_others x="1180" y="396" width="385" height="181"
+            cell_width="60" cell_height="60" cell_sp_x="2" cell_sp_y="2" rows_num="3" cols_num="6"
+            group_similar="1"/>
+
+#include "ui\mp_buy_menu_buttons.xml"
+</w>

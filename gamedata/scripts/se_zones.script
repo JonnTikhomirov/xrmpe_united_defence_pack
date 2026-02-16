@@ -1,0 +1,392 @@
+local not_spawn_levels = {
+	l05_bar = true
+}
+
+function is_single_player_game	()
+	if (_G.alife == nil) then
+		return	(true)
+	end
+
+	if (alife() ~= nil) then
+		return	(true)
+	end
+
+	if (_G.IsGameTypeSingle == nil) then
+		return	(true)
+	end
+
+	if (IsGameTypeSingle() == true) then
+		return	(true)
+	end
+
+	return		(false)
+end
+
+class "se_zone_anom" (cse_anomalous_zone)
+function se_zone_anom:__init (section) super (section)
+	self.m_registred = false
+end
+function se_zone_anom:on_register()
+	cse_anomalous_zone.on_register(self)
+	-- Проверяем кастомдату обьекта на наличие стори айди.
+	story_objects.check_spawn_ini_for_story_id(self)
+
+	self.m_registred = true
+	self.artefact_spawn_idle = 60*60*1000*utils.cfg_get_number(system_ini(), self:section_name(), "artefact_spawn_idle", self, false, 24)
+	self.artefact_spawn_rnd = utils.cfg_get_number(system_ini(), self:section_name(), "artefact_spawn_rnd", self, false, 100)
+end
+function se_zone_anom:update()
+	cse_anomalous_zone.update(self)
+
+	if self.last_spawn_time == nil then
+		self.last_spawn_time = game.get_game_time()
+	end
+
+	if game.get_game_time():diffSec(self.last_spawn_time) >= self.artefact_spawn_idle then
+		self.last_spawn_time = game.get_game_time()
+		if math.random(100) <= self.artefact_spawn_rnd then
+			self:spawn_artefacts()
+		end
+	end
+end
+function se_zone_anom:STATE_Write(packet)
+	cse_anomalous_zone.STATE_Write(self, packet)
+
+--	if self.m_registred ~= true then
+--		return
+--	end
+	--printf("name[%s]", self:name())
+	if (is_single_player_game() == false) then
+		return
+	end
+
+	if self.last_spawn_time == nil then
+		packet:w_u8(0)
+	else
+		packet:w_u8(1)
+		utils.w_CTime(packet, self.last_spawn_time)
+	end
+end
+-- восстановление
+function se_zone_anom:STATE_Read( packet, size )
+	cse_anomalous_zone.STATE_Read( self, packet, size )
+
+	if editor() then
+		return
+	end
+--	if self.m_registred ~= true then
+--		return
+--	end
+
+	if (is_single_player_game() == false) then
+		return
+	end
+
+	local flag = packet:r_u8()
+	if flag == 1 then
+		self.last_spawn_time = utils.r_CTime(packet)
+	end
+end
+
+class "se_zone_torrid" (cse_torrid_zone)
+function se_zone_torrid:__init (section) super (section)
+	self.m_registred = false
+end
+function se_zone_torrid:on_register()
+	cse_torrid_zone.on_register(self)
+	-- Проверяем кастомдату обьекта на наличие стори айди.
+	story_objects.check_spawn_ini_for_story_id(self)
+
+	self.m_registred = true
+	self.artefact_spawn_idle = 60*60*1000*utils.cfg_get_number(system_ini(), self:section_name(), "artefact_spawn_idle", self, false, 24)
+	self.artefact_spawn_rnd = utils.cfg_get_number(system_ini(), self:section_name(), "artefact_spawn_rnd", self, false, 100)
+end
+function se_zone_torrid:update()
+	cse_torrid_zone.update(self)
+
+	if self.last_spawn_time == nil then
+		self.last_spawn_time = game.get_game_time()
+	end
+
+	if game.get_game_time():diffSec(self.last_spawn_time) >= self.artefact_spawn_idle then
+		self.last_spawn_time = game.get_game_time()
+		if math.random(100) <= self.artefact_spawn_rnd then
+			self:spawn_artefacts()
+		end
+	end
+end
+function se_zone_torrid:STATE_Write(packet)
+	cse_torrid_zone.STATE_Write(self, packet)
+
+--	if self.m_registred ~= true then
+--		return
+--	end
+	--printf("name[%s]", self:name())
+	if (is_single_player_game() == false) then
+		return
+	end
+
+	if self.last_spawn_time == nil then
+		packet:w_u8(0)
+	else
+		packet:w_u8(1)
+		utils.w_CTime(packet, self.last_spawn_time)
+	end
+end
+-- восстановление
+function se_zone_torrid:STATE_Read( packet, size )
+	cse_torrid_zone.STATE_Read( self, packet, size )
+
+	if editor() then
+		return
+	end
+--	if self.m_registred ~= true then
+--		return
+--	end
+
+	if (is_single_player_game() == false) then
+		return
+	end
+
+	local flag = packet:r_u8()
+	if flag == 1 then
+		self.last_spawn_time = utils.r_CTime(packet)
+	end
+end
+
+
+class "se_zone_visual" (cse_zone_visual)
+function se_zone_visual:__init (section) super (section)
+end
+function se_zone_visual:on_register()
+	cse_zone_visual.on_register(self)
+	-- Проверяем кастомдату обьекта на наличие стори айди.
+	story_objects.check_spawn_ini_for_story_id(self)
+
+	self.artefact_spawn_idle = 60*60*1000*utils.cfg_get_number(system_ini(), self:section_name(), "artefact_spawn_idle", self, false, 24)
+	self.artefact_spawn_rnd = utils.cfg_get_number(system_ini(), self:section_name(), "artefact_spawn_rnd", self, false, 100)
+end
+function se_zone_visual:update()
+	cse_zone_visual.update(self)
+
+	if self.last_spawn_time == nil then
+		self.last_spawn_time = game.get_game_time()
+	end
+
+	if game.get_game_time():diffSec(self.last_spawn_time) >= self.artefact_spawn_idle then
+		self.last_spawn_time = game.get_game_time()
+		if math.random(100) <= self.artefact_spawn_rnd then
+			self:spawn_artefacts()
+		end
+	end
+end
+
+function se_zone_visual:STATE_Write(packet)
+	cse_zone_visual.STATE_Write(self, packet)
+
+	if (is_single_player_game() == false) then
+		return
+	end
+
+	if self.last_spawn_time == nil then
+		packet:w_u8(0)
+	else
+		packet:w_u8(1)
+		utils.w_CTime(packet, self.last_spawn_time)
+	end
+end
+-- восстановление
+function se_zone_visual:STATE_Read( packet, size )
+	cse_zone_visual.STATE_Read( self, packet, size )
+
+	if editor() then
+		return
+	end
+
+	if (is_single_player_game() == false) then
+		return
+	end
+
+	local flag = packet:r_u8()
+	if flag == 1 then
+		self.last_spawn_time = utils.r_CTime(packet)
+	end
+end
+
+--' Рестрикторы
+class "se_restrictor" (cse_alife_space_restrictor)
+function se_restrictor:__init (section) super (section)
+	self.should_collect_data_indivdual = false
+	
+	-- Таблица для отправки логики клиенту
+	-- Ключ - ID клиентского объекта 
+	-- Для серверной логики, а также для клиента на net_Spawn используется ID 0
+	self.logic = { }
+	self.logic[SV_OBJECT_ID] = { }
+	self.logic[SV_OBJECT_ID].job_ini = ""
+	self.logic[SV_OBJECT_ID].ini_filename = ""
+	self.logic[SV_OBJECT_ID].section_logic = ""
+	self.logic[SV_OBJECT_ID].active_section = ""
+	self.logic[SV_OBJECT_ID].gulag_name = ""
+	self.logic[SV_OBJECT_ID].activation_time = 0
+	self.logic[SV_OBJECT_ID].activation_game_time = nil
+end
+
+function se_restrictor:on_register()
+	cse_alife_space_restrictor.on_register(self)
+	-- Проверяем кастомдату обьекта на наличие стори айди.
+	story_objects.check_spawn_ini_for_story_id(self)
+	
+	treasure_manager.get_treasure_manager():register_restrictor(self)
+end
+
+function se_restrictor:STATE_Write_For(packet, receiver)
+	cse_alife_space_restrictor.STATE_Write_For(self, packet, receiver)
+	
+	packet:w_bool(self.should_collect_data_indivdual)
+
+	local data = self.logic[receiver.id]
+	
+	if data == nil or data.active_section == "" then
+		packet:w_bool(false)
+	else
+		--printf_msg("STATE_Write_For: Restrictor %s for %s with active section %s activation_time: %s", tostring(self:name()), tostring(receiver.id), tostring(data.active_section), tostring(data.activation_time))
+
+		packet:w_bool(true)
+		packet:w_stringZ(data.job_ini)
+		packet:w_stringZ(data.ini_filename)
+		packet:w_stringZ(data.section_logic)
+		packet:w_stringZ(data.active_section)
+		packet:w_stringZ(data.gulag_name)
+		packet:w_s32(data.activation_time - time_server())
+		if data.activation_game_time ~= nil then
+			packet:w_bool(true)
+			utils.w_CTime(packet, data.activation_game_time)
+		else
+			packet:w_bool(false)
+		end
+	end
+end
+
+function se_restrictor:STATE_Write(packet)
+	cse_alife_space_restrictor.STATE_Write(self, packet)
+	
+	local sv_logic = self.logic[SV_OBJECT_ID]
+	
+	packet:w_bool(self.should_collect_data_indivdual)
+	if sv_logic.active_section == "" then
+		packet:w_bool(false)
+	else
+		packet:w_bool(true)
+		packet:w_stringZ(sv_logic.job_ini)
+		packet:w_stringZ(sv_logic.ini_filename)
+		packet:w_stringZ(sv_logic.section_logic)
+		packet:w_stringZ(sv_logic.active_section)
+		packet:w_stringZ(sv_logic.gulag_name)
+		packet:w_s32(sv_logic.activation_time - time_server())
+		if sv_logic.activation_game_time ~= nil then
+			packet:w_bool(true)
+			utils.w_CTime(packet, sv_logic.activation_game_time)
+		else
+			packet:w_bool(false)
+		end
+	end
+end
+
+-- восстановление NET
+function se_restrictor:STATE_Read( packet, size )
+	cse_alife_space_restrictor.STATE_Read( self, packet, size )
+	
+	if self.script_version > 12 then
+		self.should_collect_data_indivdual = packet:r_bool()
+		local has_data = packet:r_bool()
+		if has_data then
+			local sv_logic = self.logic[SV_OBJECT_ID]
+			sv_logic.job_ini = packet:r_stringZ()
+			sv_logic.ini_filename = packet:r_stringZ()
+			sv_logic.section_logic = packet:r_stringZ()
+			sv_logic.active_section = packet:r_stringZ()
+			sv_logic.gulag_name = packet:r_stringZ()
+			sv_logic.activation_time = packet:r_s32() + time_server()
+			local has_activation_game_time = packet:r_bool()
+			if has_activation_game_time then
+				sv_logic.activation_game_time = utils.r_CTime(packet)
+			end
+			
+			--printf_msg("restoring active section %s", sv_logic.active_section)
+		end
+	end
+end
+
+function se_restrictor:STATE_Write_Save(packet)
+	cse_alife_space_restrictor.STATE_Write_Save(self, packet)
+	
+	packet:w_bool(self.should_collect_data_indivdual)
+	
+	local n = 0
+	for k,v in pairs(self.logic) do
+		if v.active_section ~= "" then
+			n = n + 1
+		end
+	end
+
+	packet:w_u8(n)
+	
+	for k,v in pairs(self.logic) do
+		if v.active_section ~= "" then
+			packet:w_u16(k)
+			packet:w_stringZ(v.job_ini)
+			packet:w_stringZ(v.ini_filename)
+			packet:w_stringZ(v.section_logic)
+			packet:w_stringZ(v.active_section)
+			
+			--printf_msg("STATE_Write_Save: Restrictor %s for %s with active section %s", tostring(self:name()), tostring(k), tostring(v.active_section))
+			
+			packet:w_stringZ(v.gulag_name)
+			packet:w_s32(v.activation_time - time_server())
+			if v.activation_game_time ~= nil then
+				packet:w_bool(true)
+				utils.w_CTime(packet, v.activation_game_time)
+			else
+				packet:w_bool(false)
+			end
+		end
+	end
+end
+
+-- восстановление SAVE
+function se_restrictor:STATE_Read_Load( packet, size )
+	cse_alife_space_restrictor.STATE_Read_Load( self, packet, size )
+
+	if self.script_version > 12 then
+		self.should_collect_data_indivdual = packet:r_bool()
+		local n = packet:r_u8()
+		for i=0, n-1 do
+			local owner_id = packet:r_u16()
+			if self.logic[owner_id] == nil then
+				self.logic[owner_id] = {}
+			end
+			
+			local _logic = self.logic[owner_id]
+			_logic.job_ini = packet:r_stringZ()
+			_logic.ini_filename = packet:r_stringZ()
+			_logic.section_logic = packet:r_stringZ()
+			_logic.active_section = packet:r_stringZ()
+			--printf_msg("STATE_Read_Load: Restrictor %s for %s with active section %s", tostring(self:name()), tostring(owner_id), tostring(_logic.active_section))
+			_logic.gulag_name = packet:r_stringZ()
+			_logic.activation_time = packet:r_s32() + time_server()
+			local has_activation_game_time = packet:r_bool()
+			if has_activation_game_time then
+				_logic.activation_game_time = utils.r_CTime(packet)
+			end		
+		end
+	end	
+end
+
+function se_restrictor:keep_saved_data_anyway()
+	return true
+end
+
+function se_restrictor:collect_data_for_clients()
+	return self.should_collect_data_indivdual
+end
