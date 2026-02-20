@@ -28,5 +28,6 @@
   "undefined-global"
   ],
   "editor.insertSpaces": false,
-  "editor.detectIndentation": false
+  "editor.detectIndentation": false,
+  "search.exclude": { "**/shaders": true, "**/textures": true }
 }
