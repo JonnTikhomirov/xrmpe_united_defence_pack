@@ -15,3 +15,13 @@ function campfire_turn(actor, button, p)
 	end
 	bind_campfire.turn(actor, base, p)
 end
+
+-- +SP
+-- Респавн игроков без жизней
+function rs_dead_players()
+    game.respawn_dead_players()
+end
+
+function send_msg(actor, npc, p)
+    news_manager.send_tip(db.actor, p[1], nil, "leader", nil, nil)
+end

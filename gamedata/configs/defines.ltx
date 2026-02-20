@@ -1,0 +1,226 @@
+[hud_base]
+aim_hud_offset_pos				= 0,0,0
+aim_hud_offset_rot				= 0,0,0
+
+aim_hud_offset_pos_16x9			= 0,0,0
+aim_hud_offset_rot_16x9			= 0,0,0
+
+gl_hud_offset_pos_16x9			= 0,0,0
+gl_hud_offset_rot_16x9			= 0,0,0
+
+gl_hud_offset_pos				= 0,0,0
+gl_hud_offset_rot				= 0,0,0
+
+lean_hud_offset_pos		= 0,0,0
+lean_hud_offset_rot		= 0,0,0
+
+;наклоны оружия при ходьбе
+hud_move_speed_pos = 2		;скорость перемещения до заданной позиции
+hud_move_speed_rot = 3		;скорость доворота до заданного угла
+hud_move_stabilize_factor = 3.5 ;во сколько раз быстрее возвращаемся в нейтральное положение при идле
+hud_move_weapon_hide_factor = 3.5	;во сколько раз быстрее возвращаемся в нейтральное положение при убирании оружия
+hud_move_unzoom_factor = 2.0		;во сколько раз быстрее возвращаемся в нейтральное положение при отзуме
+hud_move_slow_factor = 0.5			;во сколько раз менять амплитуду при шаге
+hud_move_crouch_factor = 0.5		;во сколько раз менять амплитуду при присяде
+hud_move_slow_crouch_factor = 0.3	;во сколько раз менять амплитуду при полном присяде	
+
+;стрейф влево
+hud_move_left_offset_pos = -0.03, -0.018, 0
+hud_move_left_offset_rot = 0, 0, -3.5
+hud_move_left_offset_pos_16x9 = -0.03, -0.018, 0
+hud_move_left_offset_rot_16x9 = 0, 0, -3.5
+
+;стрейф вправо
+hud_move_right_offset_pos = 0.03, -0.005, 0
+hud_move_right_offset_rot = 0, 0, 5
+hud_move_right_offset_pos_16x9 = 0.03, -0.005, 0
+hud_move_right_offset_rot_16x9 = 0, 0, 5
+
+;движение вперед
+hud_move_forward_offset_pos = 0, -0.005, -0.025
+hud_move_forward_offset_rot = 0, 0, 0
+hud_move_forward_offset_pos_16x9 = 0, -0.005, -0.025
+hud_move_forward_offset_rot_16x9 = 0, 0, 0
+
+;движение назад
+hud_move_back_offset_pos = 0, -0.005, 0.035
+hud_move_back_offset_rot = 0, 0, 0
+hud_move_back_offset_pos_16x9 = 0, -0.005, 0.035
+hud_move_back_offset_rot_16x9 = 0, 0, 0
+
+;прыжок
+hud_move_jump_offset_pos = 0, 0.02, 0.015
+hud_move_jump_offset_rot = 0, -3.5, -5
+hud_move_jump_offset_pos_16x9 = 0, 0.02, 0.015
+hud_move_jump_offset_rot_16x9 = 0, -3.5, -5
+
+;падение
+hud_move_fall_offset_pos = 0, -0.02, 0.03
+hud_move_fall_offset_rot = 0, 2.2, 0
+hud_move_fall_offset_pos_16x9 = 0, -0.02, 0.03
+hud_move_fall_offset_rot_16x9 = 0, 2.2, 0
+
+;приземление - первая фаза
+hud_move_landing_offset_pos = 0, -0.02, 0.015
+hud_move_landing_offset_rot = 0, -2.2, 5
+hud_move_landing_offset_pos_16x9 = 0, -0.02, 0.015
+hud_move_landing_offset_rot_16x9 = 0, -2.2, 5
+
+;приземление - вторая фаза
+hud_move_landing2_offset_pos = 0, -0.1, 0.015
+hud_move_landing2_offset_rot = 0, -3.5, 10
+hud_move_landing2_offset_pos_16x9 = 0, -0.1, 0.015
+hud_move_landing2_offset_rot_16x9 = 0, -3.5, 10
+
+;наклон влево (постоянная компонента)
+hud_move_llookout_offset_speed_factor = 2.8
+hud_move_llookout_offset_pos 		= -0.045, -0.03, 0
+hud_move_llookout_offset_pos_16x9 	= -0.045, -0.03, 0
+
+hud_move_llookout_offset_rot 		= 0, 0, -9
+hud_move_llookout_offset_rot_16x9 	= 0, 0, -9
+
+;наклон вправо (постоянная компонента)
+hud_move_rlookout_offset_speed_factor = 2.8
+hud_move_rlookout_offset_pos 		= 0.04, -0.01, 0
+hud_move_rlookout_offset_pos_16x9 	= 0.04, -0.01, 0
+
+hud_move_rlookout_offset_rot 		= 0, 0, 10
+hud_move_rlookout_offset_rot_16x9 	= 0, 0, 10
+
+[sect_identity_immunities]
+burn_immunity			= 1.0
+strike_immunity			= 1.0
+shock_immunity			= 1.0
+wound_immunity			= 1.0
+wound_2_immunity		= 1.0
+radiation_immunity		= 1.0
+telepatic_immunity		= 1.0
+chemical_burn_immunity	= 1.0
+explosion_immunity		= 1.0
+fire_wound_immunity		= 1.0
+
+[sect_helm_immunities]
+burn_immunity			= 1.0
+strike_immunity			= 0.0
+shock_immunity			= 1.0
+wound_immunity			= 0.0
+wound_2_immunity		= 0.0
+radiation_immunity		= 0.0
+telepatic_immunity		= 0.0
+chemical_burn_immunity	= 1.0
+explosion_immunity		= 1.0
+fire_wound_immunity		= 1.0
+
+[sect_zero_immunities]
+burn_immunity			= 0.0
+strike_immunity			= 0.0
+shock_immunity			= 0.0
+wound_immunity			= 0.0
+wound_2_immunity		= 0.0
+radiation_immunity		= 0.0
+telepatic_immunity		= 0.0
+chemical_burn_immunity	= 0.0
+explosion_immunity		= 0.0
+fire_wound_immunity		= 0.0
+
+
+[identity_immunities]
+immunities_sect				= sect_identity_immunities
+slot 						= -1
+description				= no_description
+default_to_ruck             = false
+sprint_allowed              = true
+control_inertion_factor     = 1.0
+zoom_rotate_time            = 0.25
+
+[zero_immunities]:identity_immunities
+immunities_sect				= sect_zero_immunities
+
+[weapon_probability]
+hit_probability_gd_novice	= 0.20
+hit_probability_gd_stalker	= 0.30
+hit_probability_gd_veteran	= 0.40
+hit_probability_gd_master	= 0.50
+
+
+[default_weapon_params]
+use_aim_bullet				= false
+hit_power_critical			= 0.0, 0.0, 0.0, 0.0
+k_hit_critical				= 0
+frag_hit_critical			= 0
+slot 						= -1
+description				= no_description
+;-----------
+default_to_ruck             = false
+sprint_allowed              = true
+control_inertion_factor     = 1.0
+zoom_rotate_time            = 0.25
+use_first_bullet			= false
+animation_slot    = 0
+
+snd_attach_scope = weapons\addons\addon_scope_attach
+snd_detach_scope = weapons\addons\addon_scope_detach 
+snd_attach_silencer = weapons\addons\addon_silencer_attach
+snd_detach_silencer = weapons\addons\addon_silencer_detach 
+snd_attach_launcher = weapons\addons\addon_launcher_attach
+snd_detach_launcher = weapons\addons\addon_launcher_detach 
+
+wanm_idle = idle
+wanm_idle_empty = idle_empty
+wanm_idle_jammed = idle_jammed
+
+wanm_reload = reload
+wanm_reload_half = reload_half
+wanm_reload_crouch = reload_crouch
+wanm_reload_half_crouch = reload_half_crouch
+
+wanm_reload_gl = reload_gl
+wanm_reload_gl_crouch = reload_gl
+
+wanm_shoot = shoot
+wanm_shoot_jammed = idle_jammed
+wanm_shoot_last = shoot_last
+
+
+[common_ph_friction_params_on_npc_death] ;Параметры для задания изменения трения в момент смерти персонажа
+
+ph_skeleton_airr_lin_factor   = 2.0 ;550.0 (изменно из-за того, что убрано домножение коэффициент 0.002 из кода)
+ph_skeleton_airr_ang_factor   = 0.0 ;0.0 (изменно из-за того, что убрано домножение на коэффициент 0.3 из кода (0.0*0.3=0.0))
+ph_skeleton_hinger_factor1    = 1.0 ;1.0 (изменно из-за того, что убрано домножение на коэффициент 5.0 из кода)
+ph_skeleton_ddelay	     	  = 15.0 ;Время изменения значения трения в суставе с момента создания шелла, сек
+
+ph_skel_fatal_impulse_factor  = 6.0
+ph_after_death_velocity_factor= 0.75
+ph_skel_shot_up_factor        = 0.25
+
+
+
+ph_skeleton_skin_friction_start	= 0.0   ;Стартовое значение трения для оболочки
+ph_skeleton_skin_friction_end	= 2.0   ;Финальное значение трения для оболочки
+ph_skeleton_skin_ddelay			= 6.0		;Время изменения значения трения с момента создания шелла, сек.
+ph_skeleton_skin_ddelay_after_wound = 2.0 ;Время изменения значения трения с момента создания шелла, сек.(для персонажа после ранения)
+ph_pelvis_factor_low_pose_detect =0.3	;длинна луча на коллизию с землёй из центра пелвиса
+										;если коллизиться, то персонаж находиться в нижней позе(или ранен)(в этом случае для него задаються другие параметры 
+										;трения и отсутствует домножение импульса для первого хита)
+ph_character_have_wounded_state = false; имеет ли персонаж состояние раненый
+
+[monster_base]:common_ph_friction_params_on_npc_death
+actor_hit_effect 	= effector_monster_hit
+custom_data			= default_custom_data.ltx		; option for Level Editor
+
+feel_enemy_who_made_sound_max_distance = 20
+feel_enemy_who_just_hit_max_distance = 40
+feel_enemy_max_distance = 15
+; +SP
+Anomaly_Detect_Radius             = 35.0
+Anomaly_Detect_Time_Remember      = 60000 ; (мс)
+
+; MEMORY
+DynamicObjectsCount               = 32 ; количество видимых и запоминаемых объектов
+DynamicSoundsCount                = 1
+DynamicHitCount                   = 1
+; устаревшие параметры, которые читаются, но нигде не используются
+DayTime_Begin                     = 5 ; началo дня для монстра
+DayTime_End                       = 21 ; конец дня для монстра
+satiety_threshold                 = 0.5 ; below this value monster fill hunger

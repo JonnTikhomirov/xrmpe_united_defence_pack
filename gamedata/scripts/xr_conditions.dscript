@@ -1,0 +1,39 @@
+
+-- Каждая функция в этом файле используется как условие xr_logic: {=функция !функция}
+-- Если в функцию необходимо передавать параметры, то:  {=функция(парам1:парам2:...) !функция(парам1:парам2:...)}
+-- Формат: function f(actor, npc). В случае передачи параметров: function f(actor, npc, p).
+
+-- +SP
+function trade_exchanged(actor, npc)
+	return db.storage[npc:id()].trade.exchanged
+end
+
+function trading(actor, npc)
+	return db.storage[npc:id()].trade.trading
+end
+
+-- Проверка, что есть игроки в спектрах (без жизней)
+function has_dead_players()
+    return (game.dead_players_count() > 0 and get_players_count() > 2)
+end
+
+function check_wave_start(actor, npc, p)
+    if actor:has_info("defence_wave_1_start") and actor:dont_has_info("defence_wave_1_end") then
+        return true
+    elseif actor:has_info("defence_wave_2_start") and actor:dont_has_info("defence_wave_2_end") then
+        return true
+    elseif actor:has_info("defence_wave_3_start") and actor:dont_has_info("defence_wave_3_end") then
+        return true
+    elseif actor:has_info("defence_wave_4_start") and actor:dont_has_info("defence_wave_4_end") then
+        return true
+    elseif actor:has_info("defence_wave_last_start") and actor:dont_has_info("defence_wave_last_end") then
+        return true
+    end
+    return false
+end
+
+function check_players_count(actor, npc, p)
+    local d = tonumber(p[1])
+    local num_players = get_players_count()
+    return num_players == d
+end

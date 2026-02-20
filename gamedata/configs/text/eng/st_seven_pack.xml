@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<string_table>
+	<!-- 
+		ARTEFACTS: st_items_artefacts.xml
+	-->
+	<string id="st_mp_af_dummy_battery_descr">
+		<text>The composition of this artifact includes electrostatic elements, but scientists have yet to identify the exact physical conditions required for its formation. The artifact is popular in the Zone and valued by its residents and visitors for its energizing properties, although it can tire the body out through prolonged use.</text>
+	</string>
+	<!-- 
+		ITEMS: st_items_common.xml
+	-->
+	<string id="st_money_1_rub">
+		<text>Banknote 1 ruble</text>
+	</string>
+	<string id="st_money_3_rub">
+		<text>Banknote 3 rubles</text>
+	</string>
+	<string id="st_money_5_rub">
+		<text>Banknote 5 rubles</text>
+	</string>
+	<string id="st_money_10_rub">
+		<text>Banknote 10 rubles</text>
+	</string>
+	<string id="st_money_25_rub">
+		<text>Banknote 25 rubles</text>
+	</string>
+	<string id="st_money_50_rub">
+		<text>Banknote 50 rubles</text>
+	</string>
+	<string id="st_money_100_rub">
+		<text>Banknote 100 rubles</text>
+	</string>
+	<string id="st_money_200_rub">
+		<text>Banknote 200 rubles</text>
+	</string>
+	<string id="st_money_500_rub">
+		<text>Banknote 500 rubles</text>
+	</string>
+	<string id="st_money_1000_rub">
+		<text>Banknote 1000 rubles</text>
+	</string>
+	<string id="st_money_5000_rub">
+		<text>Banknote 5000 rubles</text>
+	</string>
+	<string id="st_money_rub_descr">
+		<text>Banknote state bank.</text>
+	</string>
+	<!--
+		OUTFITS: st_items_outfit.xml
+	-->
+	<string id="brown_coat_outfit_name">
+		<text>Brown leather trench coat</text>
+	</string>
+	<string id="brown_coat_outfit_description">
+		<text>A regular brown leather trench coat. Has no special purpose other than to keep the wearer warm at night or protect him from a blind dog bite. Although the trench coat is not particularly comfortable, it is often used by bandits in the Zone - either because it allows them to hide in the dark or simply due to its "cool" appearance.</text>
+	</string>
+	<string id="monolith_outfit_description">
+		<text>Stalker suit from the Monolith faction. The producer is unknown. Its protective properties are slightly worse then those of the PSZ-9a military bulletproof vest. Its structure is similar to the suit popular with neutral stalkers which combines a bulletproof vest and a radiation protection suit. It provides good protection from gunfire. Its level of anomaly protection is low due to the absence of an air filtering system.</text>
+	</string>
+	<string id="monolith_outfit_name">
+		<text>Monolith suit</text>
+	</string>
+	<string id="bandit_mid_outfit_description">
+		<text>It consists of a light military bulletproof vest with reinforcing kevlar plates. It can protect from weak weapons. The fabric of the suit is treated with a special mixture which increases anomaly activity resistance.</text>
+	</string>
+	<string id="bandit_mid_outfit_name">
+		<text>Combat outfit "Gop-Stop"</text>
+	</string>
+	<string id="csky_uber_outfit_name">
+		<text>CS-4 body armor</text>
+	</string>
+	<string id="bandit_heavy_outfit_description">
+		<text>It consists of a light military bulletproof vest with reinforcing titan plates. It can protect from submachine gun bullets. The fabric of the suit is treated with a special mixture which increases anomaly activity resistance.</text>
+	</string>
+	<string id="bandit_heavy_outfit_name">
+		<text>Combat outfit "TANK"</text>
+	</string>
+	<!--
+		WEAPONS: st_items_weapons.xml
+	-->
+	<string id="st_wpn_groza_545">
+		<text>OTs-14 "Groza-1"</text>
+	</string>
+	<string id="st_addon_silencer_pbs1">
+		<text>PBS-1 supressor</text>
+	</string>
+	<string id="st_addon_silencer_pbs1_descr">
+		<text>PBS-1 supressor is designed for silent and flameless firing from weapons of caliber 7.62x39 mm of the Kalashnikov family.</text>
+	</string>
+	<!--
+		UI
+	-->
+	<string id="flesh_replica">
+		<text>Flesh</text>
+	</string>
+	<string id="m_fracture_e">
+		<text>Fracture</text>
+	</string>
+	<string id="fracture_normal">
+		<text>Fracture</text>
+	</string>
+	<string id="zombie_lab_1">
+		<text>Subject zombie</text>
+	</string>
+	<string id="zombie_lab_2">
+		<text>Subject zombie</text>
+	</string>
+	<string id="zombie_lab_3">
+		<text>Subject zombie</text>
+	</string>
+	<string id="zombie_lab_4">
+		<text>Subject zombie</text>
+	</string>
+	<string id="zombie_ghost">
+		<text>Zombie-ghost</text>
+	</string>
+	<string id="zombie_trup_1">
+		<text>Walking corpse</text>
+	</string>
+	<string id="zombie_trup_2">
+		<text>Walking corpse</text>
+	</string>
+	<string id="zombie_trup_3">
+		<text>Walking corpse</text>
+	</string>
+	<string id="m_cat_e">
+		<text>Cat-bayun</text>
+	</string>
+	<string id="cat_normal">
+		<text>Cat-bayun</text>
+	</string>
+	<string id="zone_mine_static_weak">
+		<text>"Electro"</text>
+	</string>
+	<string id="zone_mine_static_average">
+		<text>"Electro"</text>
+	</string>
+	<string id="zone_mine_static_strong">
+		<text>"Electro"</text>
+	</string>
+	<string id="zone_mine_steam_weak">
+		<text>"Steam"</text>
+	</string>
+	<string id="zone_mine_steam_average">
+		<text>"Steam"</text>
+	</string>
+	<string id="zone_mine_steam_strong">
+		<text>"Steam"</text>
+	</string>
+	<string id="zone_mine_acidic_big">
+		<text>"Gas"</text>
+	</string>
+	<string id="zone_mine_chemical_weak">
+		<text>"Gas"</text>
+	</string>
+	<string id="zone_mine_chemical_average">
+		<text>"Gas"</text>
+	</string>
+	<string id="zone_mine_chemical_strong">
+		<text>"Gas"</text>
+	</string>
+	<string id="zone_field_radioactive_weak">
+		<text>Radioactive field</text>
+	</string>
+	<string id="zone_field_radioactive_average">
+		<text>Radioactive field</text>
+	</string>
+	<string id="zone_field_radioactive_strong">
+		<text>Radioactive field</text>
+	</string>
+	<string id="zone_burning_fuzz_weak">
+		<text>"Burning fuzz"</text>
+	</string>
+	<string id="zone_burning_fuzz_average">
+		<text>"Burning fuzz"</text>
+	</string>
+	<string id="zone_burning_fuzz_strong">
+		<text>"Burning fuzz"</text>
+	</string>
+	<string id="zone_mine_gravitational_big">
+		<text>"Whirligig"</text>
+	</string>
+	<string id="zone_gravi_zone">
+		<text>"Vortex"</text>
+	</string>
+	<string id="zone_mine_field">
+		<text>Mine</text>
+	</string>
+	<string id="fireball_zone">
+		<text>"Comet"</text>
+	</string>
+	<string id="fireball_electric_zone">
+		<text>"Tesla"</text>
+	</string>
+	<string id="fireball_acidic_zone">
+		<text>"Venus"</text>
+	</string>
+	<string id="st_turn_radio_on">
+		<text>[$$ACTION_USE$$] On</text>
+	</string>
+	<string id="st_turn_radio_off">
+		<text>[$$ACTION_USE$$] Off</text>
+	</string>
+</string_table>

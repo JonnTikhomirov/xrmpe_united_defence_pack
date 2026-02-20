@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<game_dialogs>
+    <dialog id="df_arena_start_dlg">
+        <phrase_list>
+            <phrase id="0">
+                <text>df_arena_start_dlg_0</text>
+            </phrase>
+        </phrase_list>
+    </dialog>
+    <dialog id="df_arena_fight_1_dlg">
+        <dont_has_flag>DF_ARENA_FIGHT_1_READY</dont_has_flag>
+        <phrase_list>
+            <phrase id="1">
+                <text>df_arena_fight_1_dlg_1</text>
+                <next>2</next>
+            </phrase>
+            <phrase id="0">
+                <text>df_arena_fight_1_dlg_0</text>
+                <next>1</next>
+            </phrase>
+            <phrase id="2">
+                <text>df_arena_fight_1_dlg_2</text>
+                <give_flag>DF_ARENA_FIGHT_1_READY</give_flag>
+            </phrase>
+        </phrase_list>
+    </dialog>
+    <dialog id="df_arena_fight_2_dlg">
+        <has_flag>DF_ARENA_FIGHT_1_END</has_flag>
+        <dont_has_flag>DF_ARENA_FIGHT_2_READY</dont_has_flag>
+        <phrase_list>
+            <phrase id="1">
+                <text>df_arena_fight_2_dlg_1</text>
+                <next>2</next>
+            </phrase>
+            <phrase id="0">
+                <text>df_arena_fight_2_dlg_0</text>
+                <next>1</next>
+            </phrase>
+            <phrase id="2">
+                <text>df_arena_fight_2_dlg_2</text>
+                <give_flag>DF_ARENA_FIGHT_2_READY</give_flag>
+            </phrase>
+        </phrase_list>
+    </dialog>
+    <dialog id="df_arena_fight_3_dlg">
+        <has_flag>DF_ARENA_FIGHT_1_END</has_flag>
+        <has_flag>DF_ARENA_FIGHT_2_END</has_flag>
+        <dont_has_flag>DF_ARENA_FIGHT_3_READY</dont_has_flag>
+        <phrase_list>
+            <phrase id="1">
+                <text>df_arena_fight_3_dlg_1</text>
+                <next>2</next>
+            </phrase>
+            <phrase id="0">
+                <text>df_arena_fight_3_dlg_0</text>
+                <next>1</next>
+            </phrase>
+            <phrase id="2">
+                <text>df_arena_fight_3_dlg_2</text>
+                <give_flag>DF_ARENA_FIGHT_3_READY</give_flag>
+            </phrase>
+        </phrase_list>
+    </dialog>
+    <dialog id="df_arena_fight_4_dlg">
+        <has_flag>DF_ARENA_FIGHT_1_END</has_flag>
+        <has_flag>DF_ARENA_FIGHT_2_END</has_flag>
+        <has_flag>DF_ARENA_FIGHT_3_END</has_flag>
+        <dont_has_flag>DF_ARENA_FIGHT_4_READY</dont_has_flag>
+        <phrase_list>
+            <phrase id="1">
+                <text>df_arena_fight_4_dlg_1</text>
+                <next>2</next>
+            </phrase>
+            <phrase id="0">
+                <text>df_arena_fight_4_dlg_0</text>
+                <next>1</next>
+            </phrase>
+            <phrase id="2">
+                <text>df_arena_fight_4_dlg_2</text>
+                <give_flag>DF_ARENA_FIGHT_4_READY</give_flag>
+            </phrase>
+        </phrase_list>
+    </dialog>
+    <dialog id="df_arena_fight_5_dlg">
+        <has_flag>DF_ARENA_FIGHT_1_END</has_flag>
+        <has_flag>DF_ARENA_FIGHT_2_END</has_flag>
+        <has_flag>DF_ARENA_FIGHT_3_END</has_flag>
+        <has_flag>DF_ARENA_FIGHT_4_END</has_flag>
+        <dont_has_flag>DF_ARENA_FIGHT_5_READY</dont_has_flag>
+        <phrase_list>
+            <phrase id="1">
+                <text>df_arena_fight_5_dlg_1</text>
+                <next>2</next>
+            </phrase>
+            <phrase id="0">
+                <text>df_arena_fight_5_dlg_0</text>
+                <next>1</next>
+            </phrase>
+            <phrase id="2">
+                <text>df_arena_fight_5_dlg_2</text>
+                <give_flag>DF_ARENA_FIGHT_5_READY</give_flag>
+            </phrase>
+        </phrase_list>
+    </dialog>
+</game_dialogs>

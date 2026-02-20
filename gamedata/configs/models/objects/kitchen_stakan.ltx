@@ -1,0 +1,41 @@
+[disable]
+linear_factor		= 0.1
+angular_factor		= 0.1
+
+[collide]
+;not_collide_parts
+
+[destroyed]
+dynamics\kitchen_room\part\bottle_3l_part_7
+dynamics\kitchen_room\part\bottle_3l_part_7
+
+[autoremove_parts]
+time			= 60 ;86400
+
+[collision_damage]
+link			= 0.05
+
+[particles]
+destroy_particles	= destroy_fx\destroy_bottle
+
+[particle_bones]
+link			= 0.0,0.44,0.0
+
+[sound]
+break_sound		= material\bottle\collide\bottle_break_1
+
+[damage_bones]
+default			= 1.0,-1,0.0
+link			= 1.0,-1,0.0
+
+[immunities]
+burn_immunity		= 0.25 ;коэффициенты иммунитета
+strike_immunity		= 0.5
+shock_immunity		= 0.5
+wound_immunity		= 0.5
+radiation_immunity	= 0.0
+telepatic_immunity	= 0.0
+chemical_burn_immunity	= 0.0
+explosion_immunity	= 0.5
+fire_wound_immunity	= 3.5
+

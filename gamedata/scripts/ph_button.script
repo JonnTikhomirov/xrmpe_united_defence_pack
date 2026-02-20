@@ -1,0 +1,203 @@
+----------------------------------------------------------------------------------------------------
+-- Button
+----------------------------------------------------------------------------------------------------
+-- Разработчик: Andrey Fidrya (Zmey) af@svitonline.com
+----------------------------------------------------------------------------------------------------
+
+function change_button_state_on_client(button_id, who_id)
+
+	if db.storage[button_id].ph_button ~= nil then
+		local physic_button = db.storage[button_id].ph_button.button_action
+		local who = db.storage[who_id] and db.storage[who_id].object
+		
+		if physic_button ~= nil then
+			physic_button:try_switch(who)
+		end
+	end
+end
+
+class "ph_button"
+
+function ph_button:__init(obj, storage)
+	self.object = obj
+	self.st = storage
+	
+	self.hold_percent = 0.0
+	
+	storage.button_action = self
+end
+
+function ph_button:reset_hold()
+	self.object:set_using_object(false)
+    self.hold_percent = 0.0
+	
+	if getLocalActor() ~= nil then
+		getLocalActor():set_action_percent(self.hold_percent)
+	end
+end
+
+
+function ph_button:reset_scheme()
+	self.st.signals = {}-- +SP
+	if self.st.anim ~= nil then
+		self.object:play_cycle(self.st.anim, self.st.blending)
+	end
+
+	self.last_hit_tm = time_global()
+	local st = db.storage[self.object:id()]
+	st.last_entity_pressed_id = -1
+	
+	if self.st.hold then
+		self:reset_hold()
+		self.object:set_callback(callback.hold_object, self.hold_callback, self)
+	end
+end
+
+function ph_button:update(delta)
+	if self.st.hold and self.hold_percent > 0.0 then
+        if time_global() - self.last_hit_tm > 50 then
+			self:reset_hold()
+        end
+    end
+	
+	if xr_logic.try_switch_to_another_section(self.object, self.st, db.actor) then
+		if self.st.hold then
+			self:reset_hold()
+			self.object:set_callback(callback.hold_object, nil)
+		end 
+	
+		return
+	end
+end
+
+function ph_button:try_switch(who)
+	local st = db.storage[self.object:id()]
+	
+	if who then
+		st.last_entity_pressed_id = who:id()
+	end
+	
+	if st.active_scheme and st.active_scheme == "ph_button" and self.st.on_press then
+
+		if xr_logic.switch_to_section(self.object, self.st.ini,
+		   xr_logic.pick_section_from_condlist(db.actor, self.object, self.st.on_press.condlist)) then
+		   
+		if self.st.hold then
+			self:reset_hold()
+			self.object:set_callback(callback.hold_object, nil)
+		end
+		
+		if self.st.local_use then
+			return true
+		end
+
+		if OnServer() then
+			local packet = net_packet()
+			u_EventGen(packet, 124, self.object:id()) --GE_OBJECT_CHANGE_STATE
+			if who ~= nil then
+				packet:w_u16(who:id())
+			else
+				packet:w_u16(0)
+			end
+			
+			u_EventSend(packet)
+		end
+		
+		return true
+		end
+	end
+	return false
+end
+
+function ph_button:hold_callback(obj, who, delta)
+	if not self.st.hold then
+		return
+	end
+	
+	if xr_logic.try_switch_to_another_section(self.object, self.st, db.actor) then
+		self:reset_hold()
+		return
+	end
+	
+	self.hold_percent = self.hold_percent + 0.01 * (delta * self.st.hold_multi)
+	self.last_hit_tm = time_global()
+	self.object:set_using_object(true) --поставим флаг в движке, что мы юзаем скриптовый предмет
+	
+	if getLocalActor() ~= nil then
+		getLocalActor():set_action_percent(self.hold_percent)
+	end
+	
+	if self.hold_percent > 99 then
+		self.hold_percent = 0.0
+		if xr_logic.switch_to_section(self.object, self.st.ini, xr_logic.pick_section_from_condlist(db.actor, self.object, self.st.on_hold.condlist)) then
+			self:reset_hold()
+			self.object:set_callback(callback.hold_object, nil)
+		end
+	end
+end
+
+function ph_button:hit_callback(obj, amount, local_direction, who, bone_index)
+	return
+end
+
+function ph_button:use_callback(victim, who)
+	printf("_bp: ph_button:use_callback: [%s] used by [%s]",
+		victim:name(), who:name())
+		
+	if self.st.hold then
+		return
+	end
+	
+	local local_use = OnClient() and self.st.local_use and who and who:id() == LocalActor()
+	local sv_use = not IsDedicatedServer() or (OnServer() and not self.st.local_use)
+	
+	--Сервер уже знает, что клиент нажал на объект, поэтому переключаем стейт на сервере 
+	--и в случае успеха, отправляем пакет клиенту
+	if local_use or sv_use then
+		if self:try_switch(who) then
+			return
+		end
+	end
+end
+
+---------------------------------------------------------------------------------------------------------------------
+function add_to_binder(npc, ini, scheme, section, storage)
+	printf("DEBUG: add_to_binder: npc:name()='%s', scheme='%s', section='%s'", npc:name(), scheme, section)
+
+ 	local new_action = ph_button(npc, storage)
+
+	xr_logic.subscribe_action_for_events(npc, storage, new_action)
+end
+
+function set_scheme(npc, ini, scheme, section, gulag_name)
+	local st = xr_logic.assign_storage_and_bind(npc, ini, scheme, section)
+
+	st.logic     = xr_logic.cfg_get_switch_conditions(ini, section, npc)
+	
+	st.on_press  = xr_logic.cfg_get_condlist(ini, section, "on_press", npc)
+	st.local_use  = utils.cfg_get_bool(ini, section, "local_use", npc, false, false)
+	npc:set_local_use(st.local_use)
+	
+	st.tooltip  = utils.cfg_get_string(ini, section, "tooltip", npc, false, "")
+	if st.tooltip then
+		npc:set_tip_text(st.tooltip)
+	else
+		npc:set_tip_text("")
+	end
+	
+	st.hold = utils.cfg_get_bool(ini, section, "hold", npc, false, false)
+	
+	if st.hold then
+		st.on_hold = xr_logic.cfg_get_condlist(ini, section, "on_hold", npc)
+		st.hold_multi = utils.cfg_get_number(ini, section, "hold_time_multi", nil, false, 2)
+	end
+	
+	if ini:line_exist(section, "anim") then
+		st.anim = utils.cfg_get_string(ini, section, "anim", npc, true, "")
+	end
+	st.blending = utils.cfg_get_bool (ini, section, "anim_blend", npc, false, true)
+    if st.blending == nil then 	
+       st.blending = true 
+    end
+end
+

@@ -70,10 +70,10 @@ ph_box2_center          		= 0.0,  0.65,  0.0
 ph_box2_size            		= 0.45, 0.65,  0.45
 
 stalker_restrictor_radius                        = 0.1;0.75;0.55;0.75;0.9
-stalker_small_restrictor_radius                = .1;
+stalker_small_restrictor_radius                = 0.1;.1;; +SP
 medium_monster_restrictor_radius        = 0.1
-ph_crash_speed_min                              = 15
-ph_crash_speed_max                              = 23
+ph_crash_speed_min                              = 15;17; +UP
+ph_crash_speed_max                              = 23;30; +UP
 ph_collision_damage_factor                        = 1.0
 ph_mass                                                         = 80
 
@@ -238,7 +238,7 @@ jump_power 				= 0.01 ;умешьшение силы с прыжком без у
 jump_weight_power       = 0.05  ;0.045                                        ;умешьшение силы с прыжком с учетом веса ноши, для максимального допустимого веса
 overweight_jump_k       = 5		;10                ;10                                        ;коэффициент влияние перегрузки прыжок с весом (умножается на jump_weight_power)
 
-stand_power             = -0.001.1
+stand_power             = -0.0011;-0.001.1; +SP
 walk_power              = 0.00002  ;0.000012                                ;умешьшение силы за секнду во время ходьбы без учета веса ноши
 walk_weight_power       = 0.0002   ;0.0001;                        ;умешьшение силы за секнду во время ходьбы с учетом веса ноши, для максимального допустимого веса
 overweight_walk_k       = 5			;9        ;10                                ;коэффициент влияние перегрузки ноши (умножается на walk_weight_power)

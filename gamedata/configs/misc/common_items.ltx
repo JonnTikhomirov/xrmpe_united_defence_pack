@@ -1,0 +1,207 @@
+;*******всяческие игровые  плюшки, но не путать с квестовыми, сюда можно добавлять что то типа запчастей или безделушек для продажи**************************
+
+[common_item_base]:identity_immunities
+GroupControlSection		= spawn_group
+discovery_dependency	=
+$prefetch 				= 8
+class					= II_ATTCH
+cform					= skeleton
+script_binding      	= bind_physic_object.init
+cost					= 0
+inv_weight				= 0
+
+[cassette_base]:common_item_base
+inv_weight				= 0.2
+
+[cassette_red]:cassette_base
+$spawn 					= "common_items\cassette_red"
+visual					= dynamics\devices\dev_cassette\dev_cassette_red.ogf
+inv_name				= st_cassette_red_name
+inv_name_short			= st_cassette_red_name
+description				= st_cassette_red_descr
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x				= 20
+inv_grid_y				= 1
+cost					= 5000
+
+[cassette_blue]:cassette_base
+$spawn 					= "common_items\cassette_blue"
+visual					= dynamics\devices\dev_cassette\dev_cassette_blue.ogf
+inv_name				= st_cassette_blue_name
+inv_name_short			= st_cassette_blue_name
+description				= st_cassette_blue_descr
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x				= 21
+inv_grid_y				= 1
+cost					= 10000
+
+[cassette_green]:cassette_base
+$spawn 					= "common_items\cassette_green"
+visual					= dynamics\devices\dev_cassette\dev_cassette_green.ogf
+inv_name				= st_cassette_green_name
+inv_name_short			= st_cassette_green_name
+description				= st_cassette_green_descr
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x				= 22
+inv_grid_y				= 1
+cost					= 9999
+
+[cassette_yellow]:cassette_base
+$spawn 					= "common_items\cassette_yellow"
+visual					= dynamics\devices\dev_cassette\dev_cassette_yellow.ogf
+inv_name				= st_cassette_yellow_name
+inv_name_short			= st_cassette_yellow_name
+description				= st_cassette_yellow_descr
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x				= 23
+inv_grid_y				= 1
+cost					= 1488
+
+; +SP
+[money_1_rub]:common_item_base
+$spawn             = "equipments\money\money_1_rub"
+visual             = dynamics\equipments\money_1_rub
+inv_name           = st_money_1_rub
+inv_name_short     = st_money_1_rub
+description        = st_money_rub_descr
+cost               = 1
+inv_grid_width     = 2
+inv_grid_height    = 1
+inv_grid_x         = 38
+inv_grid_y         = 0
+can_trade          = true
+
+[money_3_rub]:common_item_base
+$spawn             = "equipments\money\money_3_rub"
+visual             = dynamics\equipments\money_3_rub
+inv_name           = st_money_3_rub
+inv_name_short     = st_money_3_rub
+description        = st_money_rub_descr
+cost               = 3
+inv_grid_width     = 2
+inv_grid_height    = 1
+inv_grid_x         = 38
+inv_grid_y         = 1
+can_trade          = true
+
+[money_5_rub]:common_item_base
+$spawn             = "equipments\money\money_5_rub"
+visual             = dynamics\equipments\money_5_rub
+inv_name           = st_money_5_rub
+inv_name_short     = st_money_5_rub
+description        = st_money_rub_descr
+cost               = 5
+inv_grid_width     = 2
+inv_grid_height    = 1
+inv_grid_x         = 38
+inv_grid_y         = 2
+can_trade          = true
+
+[money_10_rub]:common_item_base
+$spawn             = "equipments\money\money_10_rub"
+visual             = dynamics\equipments\money_10_rub
+inv_name           = st_money_10_rub
+inv_name_short     = st_money_10_rub
+description        = st_money_rub_descr
+cost               = 10
+inv_grid_width     = 2
+inv_grid_height    = 1
+inv_grid_x         = 38
+inv_grid_y         = 3
+can_trade          = true
+
+[money_25_rub]:common_item_base
+$spawn             = "equipments\money\money_25_rub"
+visual             = dynamics\equipments\money_25_rub
+inv_name           = st_money_25_rub
+inv_name_short     = st_money_25_rub
+description        = st_money_rub_descr
+cost               = 25
+inv_grid_width     = 2
+inv_grid_height    = 1
+inv_grid_x         = 38
+inv_grid_y         = 4
+can_trade          = true
+
+[money_50_rub]:common_item_base
+$spawn             = "equipments\money\money_50_rub"
+visual             = dynamics\equipments\money_50_rub
+inv_name           = st_money_50_rub
+inv_name_short     = st_money_50_rub
+description        = st_money_rub_descr
+cost               = 50
+inv_grid_width     = 2
+inv_grid_height    = 1
+inv_grid_x         = 38
+inv_grid_y         = 5
+can_trade          = true
+
+[money_100_rub]:common_item_base
+$spawn             = "equipments\money\money_100_rub"
+visual             = dynamics\equipments\money_100_rub
+inv_name           = st_money_100_rub
+inv_name_short     = st_money_100_rub
+description        = st_money_rub_descr
+cost               = 100
+inv_grid_width     = 2
+inv_grid_height    = 1
+inv_grid_x         = 38
+inv_grid_y         = 6
+can_trade          = true
+
+[money_200_rub]:common_item_base
+$spawn             = "equipments\money\money_200_rub"
+visual             = dynamics\equipments\money_200_rub
+inv_name           = st_money_200_rub
+inv_name_short     = st_money_200_rub
+description        = st_money_rub_descr
+cost               = 200
+inv_grid_width     = 2
+inv_grid_height    = 1
+inv_grid_x         = 38
+inv_grid_y         = 7
+can_trade          = true
+
+[money_500_rub]:common_item_base
+$spawn             = "equipments\money\money_500_rub"
+visual             = dynamics\equipments\money_500_rub
+inv_name           = st_money_500_rub
+inv_name_short     = st_money_500_rub
+description        = st_money_rub_descr
+cost               = 500
+inv_grid_width     = 2
+inv_grid_height    = 1
+inv_grid_x         = 38
+inv_grid_y         = 8
+can_trade          = true
+
+[money_1000_rub]:common_item_base
+$spawn             = "equipments\money\money_1000_rub"
+visual             = dynamics\equipments\money_1000_rub
+inv_name           = st_money_1000_rub
+inv_name_short     = st_money_1000_rub
+description        = st_money_rub_descr
+cost               = 1000
+inv_grid_width     = 2
+inv_grid_height    = 1
+inv_grid_x         = 38
+inv_grid_y         = 9
+can_trade          = true
+
+[money_5000_rub]:common_item_base
+$spawn             = "equipments\money\money_5000_rub"
+visual             = dynamics\equipments\money_5000_rub
+inv_name           = st_money_5000_rub
+inv_name_short     = st_money_5000_rub
+description        = st_money_rub_descr
+cost               = 5000
+inv_grid_width     = 2
+inv_grid_height    = 1
+inv_grid_x         = 38
+inv_grid_y         = 10
+can_trade          = true
+; -SP

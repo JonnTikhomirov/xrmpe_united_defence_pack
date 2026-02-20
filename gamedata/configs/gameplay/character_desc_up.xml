@@ -1,5 +1,8 @@
 <?xml version='1.0' encoding="windows-1251"?>
 <xml>
+
+	#include "gameplay\character_desc_seven_pack.xml"
+
 	<specific_character id="df_neutral_normal_1" team_default = "1">
 		<name>Сталкер</name>
 		<icon x="2" y="2"></icon>
