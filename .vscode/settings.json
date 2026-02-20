@@ -26,5 +26,7 @@
   "Lua.diagnostics.disable": [
   "lowercase-global",
   "undefined-global"
-]
+  ],
+  "editor.insertSpaces": false,
+  "editor.detectIndentation": false
 }
