@@ -17,7 +17,8 @@ class "teleport"
 function teleport:__init(owner_name)
 	to_log(sModule..":> __init") --/#~#
 	self.owner_script = _G[owner_name]
-	self.ltx_path_save = self.owner_script.GetFullPath("$tool_misc$", owner_name.."\\teleport_custom.ltx")
+	--self.ltx_path_save = self.owner_script.GetFullPath("$tool_misc$", owner_name.."\\teleport_custom.ltx")-- +UP
+	self.ltx_path_save = self.owner_script.GetFullPath("$game_config$", "misc\\"..owner_name.."\\teleport_custom.ltx")-- +UP
 	self.tLocations = {} --/ массив идентификаторов локаций
 	self.tSmarts = {} --/ массив смартов для перехода
 	self.tPoints = {} --/ массив произвольных точек для перехода (конфиг)
