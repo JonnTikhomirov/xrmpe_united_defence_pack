@@ -19,7 +19,7 @@ function spawn:__init(owner_name)
 	self.tSpawnGroups = {} -- массив групп спавна
 	self.tSpawnSections = {} -- массив секций
 	self.tSmarts = {} --/ массив смартов для спавна отрядов
-	--self.sSquadsConfigRoot = Get_Cfg_String(ltx, "squads_config_settings", "config_root", "$tool_misc$") -- +UP
+	self.sSquadsConfigRoot = Get_Cfg_String(ltx, "squads_config_settings", "config_root", "$game_config$") -- +UP
 	self.color = { --/ цветовое оформление списка секций
 		[0] = GetARGB(255, 216, 186, 140), --/ секция
 		[1] = GetARGB(255,  49, 174,  66)  --/ заголовок
@@ -217,9 +217,19 @@ function spawn:PrepareData(ltx)
 		--/ чтение секций спавна
 		if group_id == "squads" then
 			-- чтение из штатных конфигов
-			local flist = self.owner_script.GetFilesList(self.sSquadsConfigRoot, "misc\\squad*.ltx", FS.FS_ListFiles + FS.FS_RootOnly)
+			-- +UP поиск по вложенным папкам без строки в fsgame почему то ломает VPS и ui файлы не читаются
+			--local flist = self.owner_script.GetFilesList(self.sSquadsConfigRoot, "squad*.ltx", FS.FS_ListFiles + FS.FS_RootOnly)
+			--for _,v in ipairs(flist) do
+				--local data = self.owner_script.ParseLtx(v.filename)
+			flist= {
+				{ filepath = "misc\\squad_descr.ltx" },
+				{ filepath = "misc\\squad_descr_df_catacomb.ltx" },
+				{ filepath = "misc\\squad_descr_df_prost_anom.ltx" },
+				{ filepath = "misc\\squad_descr_df_zastava.ltx" },
+				{ filepath = "misc\\squad_descr_xrmpe_test.ltx" },
+			}
+			-- -UP
 			for _,v in ipairs(flist) do
-				to_log(sModule..":> parsing ltx [%s]", v.filename)
 				local data = self.owner_script.ParseLtx(v.filepath)
 				for k in pairs(data) do
 					iCntSections = iCntSections + 1

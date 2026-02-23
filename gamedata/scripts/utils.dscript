@@ -1,0 +1,27 @@
+--' Вычитка свойств для спауна объектов.
+function parse_names(s)
+	s = s:match("^[^;]*")  -- +UP не учитываем комментарий
+		local t = {}
+		for name in string.gfind( s, "([%w_%-.\\]+)%p*" ) do
+				table.insert( t, name )
+		end
+		return t
+end
+
+function read_file_to_string(fspath, fullname)
+	if not getFS():exist(fspath, fullname) then
+		return nil
+	end
+	
+	local file_reader = getFS():r_open(fspath, fullname)
+	if not file_reader then
+		return nil
+	end
+
+	local str = ""
+	while not file_reader:r_eof() do
+		str = str .. string.char(file_reader:r_u8())
+	end
+
+	return str
+end
