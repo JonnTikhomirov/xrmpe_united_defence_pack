@@ -31,7 +31,18 @@
 #include "upgrades\w_vintorez_up.ltx"
 #include "upgrades\w_walther_up.ltx"
 #include "upgrades\w_wincheaster1300_up.ltx"
-
+#include "upgrades\w_bizon_up.ltx"
+#include "upgrades\w_fiveseven_up.ltx"
+#include "upgrades\w_glock17_up.ltx"
+#include "upgrades\w_grach_up.ltx"
+#include "upgrades\w_gsh18_up.ltx"
+#include "upgrades\w_p90_up.ltx"
+#include "upgrades\w_rgm40_up.ltx"
+#include "upgrades\w_saiga12_up.ltx"
+#include "upgrades\w_sr1m_up.ltx"
+#include "upgrades\w_stechkin_up.ltx"
+#include "upgrades\w_tt33_up.ltx"
+#include "upgrades\w_ump45_up.ltx"
 
 #include "w_ak74.ltx"
 #include "w_ak74u.ltx"
@@ -43,6 +54,7 @@
 #include "w_rgd5.ltx"
 #include "w_gd5.ltx"
 #include "w_rg6.ltx"
+#include "w_flashbang.ltx"
 
 #include "w_vintorez.ltx"
 #include "w_lr300.ltx"
@@ -78,9 +90,39 @@
 #include "w_g36.ltx"
 #include "w_pkm.ltx"
 
+;;;;;;;;;;;;;;;;new wpn;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+#include "w_fiveseven.ltx"
+#include "w_saiga12.ltx"
+#include "w_stechkin.ltx"
+#include "w_glock17.ltx"
+#include "w_tt33.ltx"
+#include "w_grach.ltx"
+#include "w_gsh18.ltx"
+#include "w_sr1m.ltx"
+#include "w_p90.ltx"
+#include "w_bizon.ltx"
+#include "w_mp5sd.ltx"
+#include "w_ump45.ltx"
+#include "w_apb.ltx"
+#include "w_pmm.ltx"
+#include "w_desert_eagle_silver.ltx"
+#include "w_fort17.ltx"
+#include "w_usp_match.ltx"
+#include "w_sig220r.ltx"
+#include "w_ak101.ltx"
+#include "w_sig552.ltx"
+#include "w_rgn.ltx"
+#include "w_rgo.ltx"
+#include "w_rgm40.ltx"
+#include "w_akm.ltx"
+#include "w_pmn2.ltx"
+
+[weapons_global_settings]
+grenade_types_order = mp_grenade_rgd5, mp_grenade_rgn, mp_grenade_rgo, mp_grenade_f1, mp_grenade_flashbang, mp_grenade_gd-05, grenade_rgd5, grenade_rgn, grenade_rgo, grenade_f1, grenade_flashbang, grenade_gd-05
+activated_item_types_order = mp_af_defence, mp_af_defence_heal, landmine_pmn2
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Огнестрельное оружие
+;; РћРіРЅРµСЃС‚СЂРµР»СЊРЅРѕРµ РѕСЂСѓР¶РёРµ
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 [bullet_manager]
@@ -92,23 +134,23 @@ tracer_width					= 0.08
 tracer_length_max				= 225 ;10.0	;24.0 ;14.0
 tracer_length_min				= 0 ;1 ;2		;0.2
 
-;расстояние после которого учитывается hit_probabilty полностью
+;СЂР°СЃСЃС‚РѕСЏРЅРёРµ РїРѕСЃР»Рµ РєРѕС‚РѕСЂРѕРіРѕ СѓС‡РёС‚С‹РІР°РµС‚СЃСЏ hit_probabilty РїРѕР»РЅРѕСЃС‚СЊСЋ
 hit_probability_max_dist		= 3;
 
 gravity_const					= 9.81
-;сопротивление воздуха, процент, который отнимается от скорости полета пули
+;СЃРѕРїСЂРѕС‚РёРІР»РµРЅРёРµ РІРѕР·РґСѓС…Р°, РїСЂРѕС†РµРЅС‚, РєРѕС‚РѕСЂС‹Р№ РѕС‚РЅРёРјР°РµС‚СЃСЏ РѕС‚ СЃРєРѕСЂРѕСЃС‚Рё РїРѕР»РµС‚Р° РїСѓР»Рё
 air_resistance_k				= 1 ;0.4;0.3
 
-;размер шага времени (в милисекундах), по которому проигрываются
+;СЂР°Р·РјРµСЂ С€Р°РіР° РІСЂРµРјРµРЅРё (РІ РјРёР»РёСЃРµРєСѓРЅРґР°С…), РїРѕ РєРѕС‚РѕСЂРѕРјСѓ РїСЂРѕРёРіСЂС‹РІР°СЋС‚СЃСЏ
 time_step						= 33
-;минимальная скорость (м/с), на которой пуля еще считается и показывается
+;РјРёРЅРёРјР°Р»СЊРЅР°СЏ СЃРєРѕСЂРѕСЃС‚СЊ (Рј/СЃ), РЅР° РєРѕС‚РѕСЂРѕР№ РїСѓР»СЏ РµС‰Рµ СЃС‡РёС‚Р°РµС‚СЃСЏ Рё РїРѕРєР°Р·С‹РІР°РµС‚СЃСЏ
 min_bullet_speed				= 3.0
-;cколько процентов энергии потеряет пуля при столкновении с материалом (при падении под прямым углом)
+;cРєРѕР»СЊРєРѕ РїСЂРѕС†РµРЅС‚РѕРІ СЌРЅРµСЂРіРёРё РїРѕС‚РµСЂСЏРµС‚ РїСѓР»СЏ РїСЂРё СЃС‚РѕР»РєРЅРѕРІРµРЅРёРё СЃ РјР°С‚РµСЂРёР°Р»РѕРј (РїСЂРё РїР°РґРµРЅРёРё РїРѕРґ РїСЂСЏРјС‹Рј СѓРіР»РѕРј)
 collision_energy_min			= 0.80 ;0.75; 0.90
-;сколько процентов энергии останется у пули при любом столкновении
+;СЃРєРѕР»СЊРєРѕ РїСЂРѕС†РµРЅС‚РѕРІ СЌРЅРµСЂРіРёРё РѕСЃС‚Р°РЅРµС‚СЃСЏ Сѓ РїСѓР»Рё РїСЂРё Р»СЋР±РѕРј СЃС‚РѕР»РєРЅРѕРІРµРЅРёРё
 collision_energy_max			= 0.5 ;0.7;0.50
 
-whine_sounds					= weapons\whine_1, weapons\whine_2, weapons\whine_3, weapons\whine_4, weapons\whine01, weapons\whine02
+whine_sounds					= material\bullet\collide\whistle\whistle_1, material\bullet\collide\whistle\whistle_2, material\bullet\collide\whistle\whistle_3, material\bullet\collide\whistle\whistle_4, material\bullet\collide\whistle\whistle_5, material\bullet\collide\whistle\whistle_6, material\bullet\collide\whistle\whistle_7, material\bullet\collide\whistle\whistle_8, material\bullet\collide\whistle\whistle_9, material\bullet\collide\whistle\whistle_10, material\bullet\collide\whistle\whistle_11, material\bullet\collide\ricochet\ricochet_1, material\bullet\collide\ricochet\ricochet_2, material\bullet\collide\ricochet\ricochet_3, material\bullet\collide\ricochet\ricochet_4, material\bullet\collide\ricochet\ricochet_5, material\bullet\collide\ricochet\ricochet_6, material\bullet\collide\ricochet\ricochet_7, material\bullet\collide\ricochet\ricochet_8, material\bullet\collide\ricochet\ricochet_9, material\bullet\collide\ricochet\ricochet_10, material\bullet\collide\ricochet\ricochet_11, material\bullet\collide\ricochet\ricochet_12, material\bullet\collide\ricochet\ricochet_13, material\bullet\collide\ricochet\ricochet_14, material\bullet\collide\ricochet\ricochet_15, material\bullet\collide\ricochet\ricochet_16, material\bullet\collide\ricochet\ricochet_17, material\bullet\collide\ricochet\ricochet_18, material\bullet\collide\ricochet\ricochet_19, material\bullet\collide\ricochet\ricochet_20, material\bullet\collide\ricochet\ricochet_21, material\bullet\collide\ricochet\ricochet_22, material\bullet\collide\ricochet\ricochet_23, material\bullet\collide\ricochet\ricochet_24, material\bullet\collide\ricochet\ricochet_25, material\bullet\collide\ricochet\ricochet_26, material\bullet\collide\ricochet\ricochet_27, material\bullet\collide\ricochet\ricochet_28, material\bullet\collide\ricochet\ricochet_29, material\bullet\collide\ricochet\ricochet_30, material\bullet\collide\ricochet\ricochet_31, material\bullet\collide\ricochet\ricochet_32, material\bullet\collide\ricochet\ricochet_33, material\bullet\collide\ricochet\ricochet_34, material\bullet\collide\ricochet\ricochet_35, material\bullet\collide\ricochet\ricochet_36, material\bullet\collide\ricochet\ricochet_37, material\bullet\collide\ricochet\ricochet_38, material\bullet\collide\ricochet\ricochet_39, material\bullet\collide\ricochet\ricochet_40, material\bullet\collide\ricochet\ricochet_41, material\bullet\collide\ricochet\ricochet_42, material\bullet\collide\ricochet\ricochet_43, material\bullet\collide\ricochet\ricochet_44, material\bullet\collide\ricochet\ricochet_45, material\bullet\collide\ricochet\ricochet_46, material\bullet\collide\ricochet\ricochet_47, material\bullet\collide\ricochet\ricochet_48
 explode_particles				= explosions\expl_bullet,explosions\expl_bullet_00,explosions\expl_bullet_01
 
 
@@ -129,27 +171,37 @@ color_5 = 255,  127, 	 63,     150 ;79
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; AMUNITION
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 [ammo_base]:identity_immunities,default_weapon_params
-;belt				= true;
-slot				= -1
-explosive			= false
-
-[ammo_9x18_fmj]:ammo_base
-GroupControlSection	= spawn_group
+;belt				 = true;
+slot				 = -1
+explosive			 = false
+GroupControlSection	 = spawn_group
 discovery_dependency =
+cform          		 = skeleton
+class				 = AMMO_S
+$prefetch 			 = 64
+k_dist				 = 1 ;РјР°РєСЃРёРјР°Р»СЊРЅР°СЏ РґРёСЃС‚Р°РЅС†РёСЏ РїСѓР»Рё, РїРѕСЃР»Рµ РєРѕС‚РѕСЂРѕР№ РѕРЅР° РёСЃС‡РµР·РЅРµС‚
+k_disp				 = 1 ;С‚РѕС‡РЅРѕСЃС‚СЊ РїРѕР»РµС‚Р° РїСѓР»Рё
+k_hit				 = 1 ;СѓСЂРѕРЅ (СѓРјРЅРѕР¶Р°РµС‚СЃСЏ РЅР° hit_power РѕСЂСѓР¶РёСЏ)
+k_impulse			 = 1 ;СЃ РєР°РєРѕР№ С„РёР·РёС‡РµСЃРєРѕР№ СЃРёР»РѕР№ РїСѓР»СЏ РґРѕР»Р±Р°РЅРµС‚ РїРѕ С‡РµРјСѓ С‚Рѕ (РЅР°РїСЂРёРјРµСЂ РЅР°СЃРєРѕР»СЊРєРѕ СЃРёР»СЊРЅРѕ РѕС‚РєРёРЅРµС‚СЃСЏСЋ/СЃРґРІРёРЅРµС‚СЃСЏ РѕР±СЉРµРєС‚ РїРѕ РєРѕС‚РѕСЂРѕРјСѓ СЃС‚СЂРµР»СЊРЅСѓС‚)
+k_ap				 = 1 ;РєРѕСЌС„С„РёС†РµРЅС‚ РїСЂРѕР±РёРІР°РµРјРѕСЃС‚Рё/Р±СЂРѕРЅРµР±РѕР№РЅРѕСЃС‚Рё (РЅР°СЃРєРѕР»СЊРєРѕ СЃРёР»СЊРЅРѕ РїСѓР»СЏ РїСЂРѕР±РёРІР°РµС‚ Р±СЂРѕРЅРµР¶РёР»РµС‚ (РІ РїСЂРѕС€Р»С‹С… С‡Р°СЃС‚СЏС… k_pierce))
+impair				 = 1 ;РєРѕСЌС„С„РёС†РёРµРЅС‚ РёР·РЅРѕСЃР° РѕСЂСѓР¶РёСЏ РїСЂРё СЃС‚СЂРµР»СЊР±Рµ СЃ СЌС‚РёРј РїСЂРёРїР°СЃРѕРј
+buck_shot			 = 1 ;РєРѕР»РёС‡РµСЃС‚РІРѕ РІС‹Р»РµС‚Р°СЋС‰РёС… РїСѓР»СЊ Р·Р° СЂР°Р·
+tracer				 = off ;Р±СѓРґРµС‚ Р»Рё РїСѓР»СЏ С‚СЂР°СЃСЃРёСЂСѓСЋС‰РµР№
+wm_size				 = 0.05 ;СЂР°Р·РјРµСЂ РѕС‚РІРµСЂСЃС‚РёСЏ РѕС‚ РїСѓР»Рё
+k_air_resistance 	 = 1 ;СЃРѕРїСЂРѕС‚РёРІР»РµРЅРёРµ РІРѕР·РґСѓС…Сѓ (РІР»РёСЏРµС‚ РЅР° РґР°Р»СЊРЅРѕСЃС‚СЊ РїРѕР»РµС‚Р° РїСѓР»Рё, РІ РїСЂРѕСЃС‚РѕРЅР°СЂРѕРґРёРё РЅР°СЃС‚РёР»СЊРЅРѕСЃС‚СЊ)
+
+;***********************9x18***********************
+[ammo_9x18_fmj]:ammo_base
 $spawn			= "weapons\ammo\ammo_9x18_fmj" ; option for Level Editor
-class			= AMMO_S
-cform           = skeleton
 visual          = dynamics\weapons\wpn_ammo\ammo_9x18_fmj.ogf
-description		= ammo-9x18-fmj_descr
-$prefetch 		= 64
-
+description		= st_ammo_9x18_fmj_descr
 cost			= 200
-
 box_size		= 50
 
-inv_name		= ammo-9x18-fmj
-inv_name_short	= ammo-9x18-fmj_s
+inv_name		= st_ammo_9x18_fmj
+inv_name_short	= st_ammo_9x18_fmj_short
 inv_weight		= .2
 
 inv_grid_width		= 1
@@ -157,36 +209,24 @@ inv_grid_height		= 1
 inv_grid_x			= 11
 inv_grid_y			= 12
 
-
-k_dist			= 1
-k_disp			= 1
-k_hit			= 1
-k_impulse		= 1
-k_pierce		= 0.15
+k_hit 			= 0.62
 k_ap			= 0.15
-impair			= 1
-buck_shot		= 1
-tracer			= on
-wm_size			= 0.05
 k_air_resistance = 1.5
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+tracer			= on
+
 [ammo_9x18_pmm]:ammo_base
-GroupControlSection	= spawn_group
-discovery_dependency =
 $spawn			= "weapons\ammo\ammo_9x18_pmm" ; option for Level Editor
 class			= AMMO_S
-cform           = skeleton
 visual          = dynamics\weapons\wpn_ammo\ammo_9x18_pmm.ogf
-description		= ammo-9x18-pmm_descr
-$prefetch 		= 64
+description		= st_ammo_9x18_pmm_descr
 
 cost			= 300
 
 box_size		= 50
 
-inv_name		= ammo-9x18-pmm
-inv_name_short	= ammo-9x18-pmm_s
+inv_name		= st_ammo_9x18_pmm
+inv_name_short	= st_ammo_9x18_pmm_short
 inv_weight		= .2
 
 inv_grid_width		= 1
@@ -194,36 +234,47 @@ inv_grid_height		= 1
 inv_grid_x			= 12
 inv_grid_y			= 12
 
-k_dist			= 1
-k_disp			= 1
-k_hit			= 1
-k_impulse		= 1
-k_pierce		= 0.25
+k_hit 			= 0.65
 k_ap			= 0.25
-impair			= 1
-buck_shot		= 1
+k_air_resistance = 1.4
+impair			 = 1.8
+
 tracer			= on
-wm_size         = 0.05
+
+[ammo_9x18_pbp]:ammo_base
+$spawn			= "weapons\ammo\ammo_9x18_pbp" ; option for Level Editor
+visual          = dynamics\weapons\wpn_ammo\ammo_9x18_pbp.ogf
+description		= st_ammo_9x18_pbp_descr
+cost    		= 400
+box_size		= 50
+
+inv_name		= st_ammo_9x18_pbp
+inv_name_short	= st_ammo_9x18_pbp_short
+inv_weight		= .2
+
+inv_grid_width	= 1
+inv_grid_height	= 1
+inv_grid_x		= 20
+inv_grid_y		= 31
+
+k_hit 			= 0.66
+k_ap			= 0.35
 k_air_resistance = 1.5
+impair			 = 1.4
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+tracer			= on
+
+;***********************9x19***********************
 [ammo_9x19_fmj]:ammo_base
-GroupControlSection	= spawn_group
-discovery_dependency =
 $spawn			= "weapons\ammo\ammo_9x19_fmj" ; option for Level Editor
-class			= AMMO_S
-cform                   = skeleton
-visual                  = dynamics\weapons\wpn_ammo\ammo_9x19_fmj.ogf
-description		= ammo-9x19-fmj_descr
-slot = -1
-$prefetch 		= 64
-
+visual          = dynamics\weapons\wpn_ammo\ammo_9x19_fmj.ogf
+description		= st_ammo_9x19_fmj_descr
 cost			= 250
 
 box_size		= 50
 
-inv_name		= ammo-9x19-fmj
-inv_name_short	= ammo-9x19-fmj_s
+inv_name		= st_ammo_9x19_fmj
+inv_name_short	= st_ammo_9x19_fmj_short
 inv_weight		= .24
 
 inv_grid_width		= 1
@@ -231,35 +282,22 @@ inv_grid_height		= 1
 inv_grid_x			= 15
 inv_grid_y			= 12
 
-k_dist			= 1
-k_disp			= 1
-k_hit			= 1
-k_impulse		= 1
-k_pierce		= 0.15
-k_ap			= 0.15
-impair			= 1
-buck_shot		= 1
+k_hit 			= 0.65
+k_ap			= 0.2
+k_air_resistance = 1.45
+
 tracer			= on
-wm_size         = 0.05
-k_air_resistance = 1.5
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 [ammo_9x19_pbp]:ammo_base
-GroupControlSection	= spawn_group
-discovery_dependency =
 $spawn			= "weapons\ammo\ammo_9x19_pbp" ; option for Level Editor
-class			= AMMO_S
-cform           = skeleton
 visual          = dynamics\weapons\wpn_ammo\ammo_9x19_pbp.ogf
-description		= ammo-9x19-pbp_descr
-$prefetch 		= 64
-
+description		= st_ammo_9x19_pbp_descr
 cost			= 350
 
 box_size		= 50
 
-inv_name		= ammo-9x19-pbp
-inv_name_short	= ammo-9x19-pbp_s
+inv_name		= st_ammo_9x19_pbp
+inv_name_short	= st_ammo_9x19_pbp_short
 inv_weight		= .24
 
 inv_grid_width	= 1
@@ -267,35 +305,48 @@ inv_grid_height	= 1
 inv_grid_x		= 14
 inv_grid_y		= 12
 
-k_dist			= 1
-k_disp			= 1
-k_hit			= 1.5
-k_impulse		= 1
-k_pierce		= 0.15
-k_ap			= 0.15
-impair			= 1
-buck_shot		= 1
-tracer			= on
-wm_size         = 0.05
-k_air_resistance = 1.5
+k_hit			= 0.58
+k_ap			= 0.35
+k_air_resistance = 1.35
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+tracer			= on
+
+;***********************9x21***********************
+[ammo_9x21_sp10]:ammo_base
+$spawn			= "weapons\ammo\ammo_9x21_sp10" ; option for Level Editor
+visual          = dynamics\weapons\wpn_ammo\ammo_9x21_sp10.ogf
+description		= st_ammo_9x21_sp10_descr
+cost			= 400
+
+box_size		= 50
+
+inv_name		= st_ammo_9x21_sp10
+inv_name_short	= st_ammo_9x21_sp10_short
+inv_weight		= .24
+
+inv_grid_width	= 1
+inv_grid_height	= 1
+inv_grid_x		= 18
+inv_grid_y		= 22
+
+k_hit			= 0.66
+k_ap			= 0.35
+k_air_resistance = 1.3
+
+tracer			= on
+
+;***********************11.43x23***********************
 [ammo_11.43x23_fmj]:ammo_base
-GroupControlSection	= spawn_group
-discovery_dependency =
 $spawn			= "weapons\ammo\ammo_11.43x23_fmj" ; option for Level Editor
-class			= AMMO_S
-cform           = skeleton
 visual          = dynamics\weapons\wpn_ammo\ammo_1143x23_fmj.ogf
-description		= ammo-11.43x23-fmj_descr
-$prefetch 		= 64
+description		= st_ammo_11.43x23_fmj_descr
 
 cost			= 600
 
 box_size		= 50
 
-inv_name		= ammo-11.43x23-fmj
-inv_name_short	= ammo-11.43x23-fmj_s
+inv_name		= st_ammo_11.43x23_fmj
+inv_name_short	= st_ammo_11.43x23_fmj_short
 inv_weight		= .3
 
 inv_grid_width	= 2;1
@@ -303,209 +354,211 @@ inv_grid_height	= 1
 inv_grid_x		= 9
 inv_grid_y		= 12
 
-k_dist			= 1
-k_disp			= 1
-k_hit			= 1
-k_impulse		= 1
-k_pierce		= 0.15
+k_hit			= 0.75
 k_ap			= 0.15
-impair			= 1
-buck_shot		= 1
 tracer			= on
-wm_size         = 0.05
 k_air_resistance = 1.6
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 [ammo_11.43x23_hydro]:ammo_base
-GroupControlSection	= spawn_group
-discovery_dependency =
 $spawn			= "weapons\ammo\ammo_11.43x23_hydro" ; option for Level Editor
-class			= AMMO_S
-cform           = skeleton
 visual          = dynamics\weapons\wpn_ammo\ammo_1143x23_Hydro.ogf
-description		= ammo-11.43x23-hydro_descr
-$prefetch 		= 64
+description		= st_ammo_11.43x23_hydro_descr
 
 cost			= 1000
 
 box_size		= 50
 
-inv_name		= ammo-11.43x23-hydro
-inv_name_short	= ammo-11.43x23-hydro_s
+inv_name		= st_ammo_11.43x23_hydro
+inv_name_short	= st_ammo_11.43x23_hydro_short
 inv_weight		= .3
 
-inv_grid_width		= 2;1
+inv_grid_width		= 2
 inv_grid_height		= 1
 inv_grid_x			= 7
 inv_grid_y			= 12
 
-k_dist			= 1
-k_disp			= 1
-k_hit			= 1.5
-k_impulse		= 1
-k_pierce		= 0.35
-k_ap			= 0.35
-impair			= 1
-buck_shot		= 1
-tracer			= on
-wm_size         = 0.05
+k_hit			= 0.55
+k_ap			= 0.45
 k_air_resistance = 1.6
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+tracer			= on
+
+;***********************50ae***********************
+[ammo_50ae]:ammo_base
+$spawn			= "weapons\ammo\ammo_50ae" ; option for Level Editor
+visual          = dynamics\weapons\wpn_ammo\ammo_50ae.ogf
+description		= st_ammo_50ae_descr
+
+cost			= 700
+
+box_size		= 50
+
+inv_name		= st_ammo_50ae
+inv_name_short	= st_ammo_50ae_short
+inv_weight		= .3
+
+inv_grid_width	= 2;1
+inv_grid_height	= 1
+inv_grid_x		= 14
+inv_grid_y		= 28
+
+k_hit			= 1.2
+k_ap			= 0.65
+k_air_resistance = 1.9
+
+tracer			= on
+
+;***********************5.45x39***********************
 [ammo_5.45x39_fmj]:ammo_base
-GroupControlSection	= spawn_group
-discovery_dependency =
 $spawn			= "weapons\ammo\ammo_5.45x39_fmj" ; option for Level Editor
-class			= AMMO_S
-cform           = skeleton
 visual          = dynamics\weapons\wpn_ammo\ammo_545x39_fmj.ogf
-description		= ammo-5.45x39-fmj_descr
-$prefetch 		= 64
+description		= st_ammo_5.45x39_fmj_descr
 
 cost			= 650
 
 box_size		= 60
 
-inv_name		= ammo-5.45x39-fmj
-inv_name_short	= ammo-5.45x39-fmj_s
-inv_weight		= .32
+inv_name		= st_ammo_5.45x39_fmj
+inv_name_short	= st_ammo_5.45x39_fmj_short
+inv_weight		= .62
 
 inv_grid_width		= 2
 inv_grid_height		= 1
 inv_grid_x			= 16
 inv_grid_y			= 11
 
-;;inv_icon = ui_hud2_res_back
-
-k_dist			= 1
-k_disp			= 1
-k_hit			= 1
-k_impulse		= 1
-k_pierce		= 0.45
+k_hit			= 0.33
 k_ap			= 0.45
-impair			= 1
-buck_shot		= 1
-tracer			= on
-wm_size         = 0.05
-k_air_resistance = 1.6
+k_air_resistance = 1.4
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+tracer			= on
+
 [ammo_5.45x39_ap]:ammo_base
-GroupControlSection	= spawn_group
-discovery_dependency =
 $spawn			= "weapons\ammo\ammo_5.45x39_ap" ; option for Level Editor
-class			= AMMO_S
-cform           = skeleton
 visual          = dynamics\weapons\wpn_ammo\ammo_545x39_ap.ogf
-description		= ammo-5.45x39-ap_descr
-$prefetch 		= 64
+description		= st_ammo_5.45x39_ap_descr
 
 cost			= 1100
 
 box_size		= 60
 
-inv_name		= ammo-5.45x39-ap
-inv_name_short	= ammo-5.45x39-ap_s
-inv_weight		= .32
+inv_name		= st_ammo_5.45x39_ap
+inv_name_short	= st_ammo_5.45x39_ap_short
+inv_weight		= .63
 
 inv_grid_width		= 2
 inv_grid_height		= 1
 inv_grid_x			= 12
 inv_grid_y			= 11
 
-k_dist			= 1
-k_disp			= 1
-k_hit			= 1
-k_impulse		= 1
-k_pierce		= 0.65
+k_hit			= 0.28
 k_ap			= 0.65
-impair			= 1
-buck_shot		= 1
-tracer			= on
-wm_size         = 0.05
-k_air_resistance = 1.6
+k_air_resistance = 1.2
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+tracer			= on
+
+;***********************5.56x45***********************
 [ammo_5.56x45_ss190]:ammo_base
-GroupControlSection	= spawn_group
-discovery_dependency =
 $spawn			= "weapons\ammo\ammo_5.56x45_ss190" ; option for Level Editor
-class			= AMMO_S
-cform           = skeleton
 visual          = dynamics\weapons\wpn_ammo\ammo_556x45_ss190.ogf
-description		= ammo-5.56x45-ss190_descr
-slot = -1
-$prefetch 		= 64
+description		= st_ammo_5.56x45_fmj_descr
 
 cost			= 700
 
 box_size		= 60
 
-inv_name		= ammo-5.56x45-ss190
-inv_name_short	= ammo-5.56x45-ss190_s
-inv_weight		= .33
+inv_name		= st_ammo_5.56x45_fmj
+inv_name_short	= st_ammo_5.56x45_fmj_short
+inv_weight		= .74
 
 inv_grid_width		= 2
 inv_grid_height		= 1
 inv_grid_x			= 14
 inv_grid_y			= 11
 
-k_dist			= 1
-k_disp			= 1
-k_hit			= 1
-k_impulse		= 1
-k_pierce		= 0.5
+k_hit = 0.35
 k_ap			= 0.5
-impair			= 1
-buck_shot		= 1
-tracer			= on
-wm_size         = 0.05
 k_air_resistance = 1.5
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+tracer			= on
+
 [ammo_5.56x45_ap]:ammo_base
-GroupControlSection	= spawn_group
-discovery_dependency =
 $spawn			= "weapons\ammo\ammo_5.56x45_ap" ; option for Level Editor
-class			= AMMO_S
-cform           = skeleton
 visual          = dynamics\weapons\wpn_ammo\ammo_556x45_ap.ogf
-description		= ammo-5.56x45-ap_descr
-$prefetch 		= 64
+description		= st_ammo_5.56x45_ap_descr
 
 cost			= 1150
 
 box_size		= 60
 
-inv_name		= ammo-5.56x45-ap
-inv_name_short	= ammo-5.56x45-ap_s
-inv_weight		= .33
+inv_name		= st_ammo_5.56x45_ap
+inv_name_short	= st_ammo_5.56x45_ap_short
+inv_weight		= .744
 
 inv_grid_width		= 2
 inv_grid_height		= 1
 inv_grid_x			= 10
 inv_grid_y			= 11
 
-k_dist			= 1
-k_disp			= 1
-k_hit			= 1
-k_impulse		= 1
-k_pierce		= 0.65
+k_hit = 0.3
 k_ap			= 0.65
-impair			= 1
-buck_shot		= 1
+k_air_resistance = 1.25
+
 tracer			= on
-wm_size         = 0.05
-k_air_resistance = 1.5
-;+SP
+
+;***********************5.7x28***********************
+[ammo_5.7x28]:ammo_base
+$spawn			= "weapons\ammo\ammo_5.7x28" ; option for Level Editor
+visual          = dynamics\weapons\wpn_ammo\ammo_57x28.ogf
+description		= st_ammo_5.7x28_descr
+
+cost			= 600
+
+box_size		= 50
+
+inv_name		= st_ammo_5.7x28
+inv_name_short	= st_ammo_5.7x28_short
+inv_weight		= .3
+
+inv_grid_width	= 2
+inv_grid_height	= 1
+inv_grid_x		= 12
+inv_grid_y		= 8
+
+k_hit			= 0.4
+k_ap			= 0.55
+k_air_resistance = 1.3
+
+tracer			= on
+
+;***********************7.62x25mm TT***********************
+[ammo_762x25mm_tt]:ammo_base
+$spawn			= "weapons\ammo\ammo_762x25mm_tt" ; option for Level Editor
+visual          = dynamics\weapons\wpn_ammo\ammo_tt33.ogf
+description		= st_ammo_7.62x25_descr
+cost			= 300
+
+box_size		= 50
+
+inv_name		= st_ammo_7.62x25
+inv_name_short	= st_ammo_7.62x25_short
+inv_weight		= .3
+
+inv_grid_width	= 2
+inv_grid_height	= 1
+inv_grid_x		= 14
+inv_grid_y		= 8
+
+k_hit			= 0.63
+k_ap			= 0.38
+k_air_resistance = 1.55
+
+tracer			= on
+
 ;***********************7.62x39***********************
 [ammo_7.62x39_fmj]:ammo_base
-GroupControlSection	= spawn_group;+UP
-discovery_dependency =;+UP
 $spawn			= "weapons\ammo\ammo_7.62x39_fmj" ; option for Level Editor
-class			= AMMO_S;+UP
-cform           = skeleton;+UP
-visual          = dynamics\weapons\wpn_ammo\ammo_762x39_fmj.ogf
+visual          = dynamics\weapons\wpn_ammo\ammo_762x39_fmj.ogf; +SP
 description		= st_ammo_7.62x39_fmj_descr
 
 cost			= 600
@@ -528,24 +581,19 @@ k_ap			= 0.54
 k_air_resistance = 1.3
 
 tracer			= on
-;-SP
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;***********************7.62x54***********************
 [ammo_pkm_100]:ammo_base
-GroupControlSection	= spawn_group
-discovery_dependency =
 $spawn			= "weapons\ammo\ammo_pkm_100" ; option for Level Editor
-class			= AMMO_S
-cform           = skeleton
 visual          = dynamics\weapons\wpn_ammo\ammo_pkm.ogf
-description		= ammo-7.62x54-ap_descr
-$prefetch 		= 64
+description		= st_ammo_pkm_descr
 
 cost			= 2000
 
 box_size		= 100
 
-inv_name		= ammo-7.62x54-ap_s
-inv_name_short	= ammo-7.62x54-ap_s
+inv_name		= st_ammo_pkm
+inv_name_short	= st_ammo_pkm_short
 inv_weight		= 1.3
 
 inv_grid_width		= 2
@@ -555,70 +603,100 @@ inv_grid_y			= 13
 
 hud_icon = ui_hud2_res_back
 
-k_dist			= 1
-k_disp			= 1
-k_hit			= 1
-k_impulse		= 1
-k_pierce		= 0.75
+k_hit 			= 0.5
 k_ap			= 0.75
-impair			= 1
-buck_shot		= 1
-tracer			= on
 wm_size         = 0.07
 k_air_resistance = 2
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+tracer			= on
+
 [ammo_7.62x54_7h1]:ammo_base
-GroupControlSection	= spawn_group
-discovery_dependency =
 $spawn			= "weapons\ammo\ammo_7.62x54_7h1" ; option for Level Editor
-class			= AMMO_S
-cform           = skeleton
 visual          = dynamics\weapons\wpn_ammo\ammo_762x54_7h1.ogf
-description		= ammo-7.62x54-7h14_descr
-$prefetch 		= 64
+description		= st_ammo_7.62x54_7h1_descr
 
 cost			= 400
 
-box_size		= 10
+box_size		= 30
 
-inv_name		= ammo-7.62x54-7h14
-inv_name_short	= ammo-7.62x54-7h14_s
+inv_name		= st_ammo_7.62x54_7h1
+inv_name_short	= st_ammo_7.62x54_7h1_short
 inv_weight		= .23
 
 inv_grid_width		= 2
 inv_grid_height		= 1
-inv_grid_x			= 17	;15
+inv_grid_x			= 15
 inv_grid_y			= 9
 
-k_dist			= 1
-k_disp			= 1
-k_hit			= 1
-k_impulse		= 1
-k_pierce		= 0.75
-k_ap			= 0.75
-impair			= 1
-buck_shot		= 1
-tracer			= on
-wm_size         = 0.05
-explosive		= off
+k_hit 			= 1
+k_ap			= 0.8
+wm_size         = 0.07
+k_air_resistance = 0.7
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+tracer			= on
+
+[ammo_7.62x54_ap]:ammo_base
+$spawn			= "weapons\ammo\ammo_7.62x54_ap" ; option for Level Editor
+visual          = dynamics\weapons\wpn_ammo\ammo_762x54_ap.ogf
+description		= st_ammo_7.62x54_ap_descr
+
+cost			= 600
+
+box_size		= 30
+
+inv_name		= st_ammo_7.62x54_ap
+inv_name_short	= st_ammo_7.62x54_ap_short
+inv_weight		= .23
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 15
+inv_grid_y			= 10
+
+k_hit 			= 0.5
+k_ap			= 0.75
+wm_size         = 0.07
+k_air_resistance = 2
+
+tracer			= on
+
+[ammo_7.62x54_7h14]:ammo_base
+$spawn			= "weapons\ammo\ammo_7.62x54_7h14" ; option for Level Editor
+visual          = dynamics\weapons\wpn_ammo\ammo_762x54_7h14.ogf
+description		= st_ammo_7.62x54_7h14_descr
+
+cost			= 600
+
+box_size		= 30
+
+inv_name		= st_ammo_7.62x54_7h14
+inv_name_short	= st_ammo_7.62x54_7h14_short
+inv_weight		= .23
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 17
+inv_grid_y			= 9
+
+k_hit 			= 1.5
+k_ap			= 0.83
+wm_size         = 0.07
+k_air_resistance = 0.7
+
+tracer			= on
+
+;***********************gauss***********************
 [ammo_gauss]:ammo_base
-GroupControlSection	= spawn_group
-discovery_dependency =
 $spawn			= "weapons\ammo\ammo_gauss" ; option for Level Editor
-class			= AMMO_S
-cform           = skeleton
 visual          = dynamics\weapons\wpn_ammo\ammo_gauss.ogf
-description		= ammo-gauss_descr
-$prefetch 		= 64
+description		= st_ammo_gauss_descr
 
 cost			= 2000
 
 box_size		= 10
 
-inv_name		= ammo-gauss
-inv_name_short	= ammo-gauss
+inv_name		= st_ammo_gauss
+inv_name_short	= st_ammo_gauss_short
 inv_weight		= .5
 
 inv_grid_width		= 1
@@ -626,54 +704,44 @@ inv_grid_height		= 1
 inv_grid_x			= 4
 inv_grid_y			= 14
 
-k_dist			= 1
-k_disp			= 1
-k_hit			= 1
-k_impulse		= 1
-k_pierce		= 150
+k_hit 			= 2.0
 k_ap			= 150
-impair			= 1
-buck_shot		= 1
-tracer			= off
-wm_size         = 0.05
+wm_size         = 0.1
 
 explosive		= on
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+k_air_resistance = 0.1
 
 [ammo_gauss_cardan]:ammo_gauss
 $spawn			= "weapons\ammo\ammo_gauss_cardan" ; option for Level Editor
 visual          = dynamics\weapons\wpn_ammo\ammo_gauss_custom.ogf
-description		= ammo-gauss_cardan_descr
+description		= st_ammo_gauss_cardan_descr
 
 box_size		= 6
 
-inv_name		= ammo-gauss_cardan
-inv_name_short	= ammo-gauss_cardan
+inv_name		= st_ammo_gauss_cardan
+inv_name_short	= st_ammo_gauss_cardan_short
 
 inv_grid_width		= 1
 inv_grid_height		= 1
 inv_grid_x			= 4
 inv_grid_y			= 9
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+impair			= 1.5
+k_air_resistance = 1.0
 
+
+;***********************9x39***********************
 [ammo_9x39_pab9]:ammo_base
-GroupControlSection	= spawn_group
-discovery_dependency =
 $spawn			= "weapons\ammo\ammo_9x39_pab9" ; option for Level Editor
-class			= AMMO_S
-cform           = skeleton
 visual          = dynamics\weapons\wpn_ammo\ammo_9x39_pab9.ogf
-description		= ammo-9x39-pab9_descr
-$prefetch 		= 64
+description		= st_ammo_9x39_pab9_descr
 
 cost			= 550
 
 box_size		= 30
 
-inv_name		= ammo-9x39-pab9
-inv_name_short	= ammo-9x39-pab9_s
+inv_name		= st_ammo_9x39_pab9
+inv_name_short	= st_ammo_9x39_pab9_short
 inv_weight		= .7
 
 inv_grid_width		= 2
@@ -681,34 +749,23 @@ inv_grid_height		= 1
 inv_grid_x			= 17
 inv_grid_y			= 10
 
-k_dist			= 1
-k_disp			= 1
-k_hit			= 1
-k_impulse		= 1
-k_pierce		= 0.6
-k_ap			= 0.6
-impair			= 1
-buck_shot		= 1
+k_hit			= 0.65
+k_ap			= 0.45
+k_air_resistance = 1.1
+
 tracer			= on
-wm_size         = 0.05
-k_air_resistance = 1.4
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 [ammo_9x39_ap]:ammo_base
-GroupControlSection	= spawn_group
-discovery_dependency =
 $spawn			= "weapons\ammo\ammo_9x39_ap" ; option for Level Editor
-class			= AMMO_S
-cform           = skeleton
 visual          = dynamics\weapons\wpn_ammo\ammo_9x39_ap.ogf
-description		= ammo-9x39-ap_descr
-$prefetch 		= 64
+description		= st_ammo_9x39_ap_descr
 
 cost			= 700
 
 box_size		= 30
 
-inv_name		= ammo-9x39-ap
-inv_name_short	= ammo-9x39-ap_s
+inv_name		= st_ammo_9x39_ap
+inv_name_short	= st_ammo_9x39_ap_short
 inv_weight		= .7
 
 inv_grid_width		= 2
@@ -716,70 +773,81 @@ inv_grid_height		= 1
 inv_grid_x			= 5
 inv_grid_y			= 12
 
-k_dist			= 1
-k_disp			= 1
-k_hit			= 1
-k_impulse		= 1
-k_pierce		= 0.75
-k_ap			= 0.75
-impair			= 1
-buck_shot		= 1
-tracer			= on
-wm_size         = 0.05
+k_hit			= 0.5
+k_ap			= 0.85
 k_air_resistance = 1.4
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-[ammo_12x70_buck]:ammo_base
+tracer			= on
+
+[ammo_9x39_sp5]:ammo_base
 GroupControlSection	= spawn_group
 discovery_dependency =
-$spawn			= "weapons\ammo\ammo_12x70_buck" ; option for Level Editor
-class			= AMMO_S
+$spawn			= "weapons\ammo\ammo_9x39_sp5" ; option for Level Editor
+class			= AMMO
 cform           = skeleton
+visual          = dynamics\weapons\wpn_ammo\ammo_9x39_sp5.ogf
+description		= st_ammo_9x39_sp5_descr
+
+cost			= 500
+
+box_size		= 30
+
+inv_name		= st_ammo_9x39_sp5
+inv_name_short	= st_ammo_9x39_sp5_short
+inv_weight		= .7
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 18
+inv_grid_y			= 11
+
+k_disp			= 0.5
+k_hit			= 1.5
+k_ap			= 0.8
+tracer			= on
+
+tracer			= on
+
+;***********************12x70***********************
+[ammo_12x70_buck]:ammo_base
+$spawn			= "weapons\ammo\ammo_12x70_buck" ; option for Level Editor
 visual          = dynamics\weapons\wpn_ammo\ammo_12x70_buck.ogf
-description		= ammo-12x70-buck_descr
-$prefetch 		= 64
+description		= st_ammo_12x70_buck_descr
 
 cost			= 120
 
 box_size		= 10
 
-inv_name		= ammo-12x70-buck
-inv_name_short	= ammo-12x70-buck_s
-inv_weight		= .45
+inv_name		= st_ammo_12x70_buck
+inv_name_short	= st_ammo_12x70_buck_short
+inv_weight		= .6
 
 inv_grid_width	= 2
 inv_grid_height	= 1
 inv_grid_x		= 13
 inv_grid_y		= 9
 
-k_dist			= 0.5
-k_disp			= 15
-k_hit			= 0.3
+k_dist			= 0.4
+k_disp			= 17
+k_hit			= 0.36
 k_impulse		= 0.5
-k_pierce		= 0.0
-k_ap			= 0.0
+k_ap			= 0.05
 impair			= 1
-buck_shot		= 15
-tracer			= off
+buck_shot		= 13
 wm_size         = 0.05
 k_air_resistance = 3
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 [ammo_12x76_zhekan]:ammo_base
-GroupControlSection	= spawn_group
-discovery_dependency =
 $spawn			= "weapons\ammo\ammo_12x76_zhekan" ; option for Level Editor
-class			= AMMO_S
-cform           = skeleton
 visual          = dynamics\weapons\wpn_ammo\ammo_12x76_zhekan.ogf
-description		= ammo-12x76-zhekan_descr
-$prefetch 		= 64
+description		= st_ammo_12x70_zhekan_descr
 
 cost			= 250
 
 box_size		= 10
 
-inv_name		= ammo-12x76-zhekan
-inv_name_short	= ammo-12x76-zhekan_s
+inv_name		= st_ammo_12x70_zhekan
+inv_name_short	= st_ammo_12x70_zhekan_short
 inv_weight		= .50
 
 inv_grid_width		= 2
@@ -787,164 +855,83 @@ inv_grid_height		= 1
 inv_grid_x			= 11
 inv_grid_y			= 10
 
-k_dist			= 1
-k_disp			= 1
-k_hit			= 1
-k_impulse		= 1
-k_pierce		= 0.55
-k_ap			= 0.55
-impair			= 1
-buck_shot		= 1
+k_disp			= 1.07
+k_hit = 1.35
+k_ap			= 0.3
+k_air_resistance = 1.1
+
 tracer			= on
-wm_size         = 0.05
-explosive		= off
-k_air_resistance = 1.3
 
+[ammo_12x76_dart]:ammo_base
+$spawn			= "weapons\ammo\ammo_12x76_dart" ; option for Level Editor
+visual          = dynamics\weapons\wpn_ammo\ammo_12x76_dart.ogf
+description		= st_ammo_12x76_dart_descr
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+cost			= 220
+
+box_size		= 10
+
+inv_name		= st_ammo_12x76_dart
+inv_name_short	= st_ammo_12x76_dart_short
+inv_weight		= .5
+
+inv_grid_width	= 2
+inv_grid_height	= 1
+inv_grid_x		= 13
+inv_grid_y		= 10
+
+k_dist			= 1.5
+k_disp			= 1.08
+k_hit			= 1.35
+
+k_ap			= 0.5
+k_air_resistance = 1.5
+
+tracer			= on
+
+;***********************heli ammo***********************
+
 [ammo_12x76_zhekan_heli]:ammo_12x76_zhekan ; Do not use! Fake zhekan for helicopter
 $spawn			= ;"weapons\ammo\ammo_12x76_zhekan_heli" ; option for Level Editor
 explosive		= on
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-[ammo_og-7b]:ammo_base
-GroupControlSection	= spawn_group
-discovery_dependency =
-$spawn			= "weapons\ammo\ammo_og-7b" ; option for Level Editor
-class			= S_OG7B
-cform           = skeleton
-visual          = dynamics\weapons\wpn_ammo\ammo_og_7b.ogf
-description		= ammo-og-7b_descr
-$prefetch 		= 64
 
-cost			= 2000
-
-box_size		= 1
-
-inv_name		= ammo-og-7b
-inv_name_short	= ammo-og-7b_s
-inv_weight		= 2.0
-
-inv_grid_width		= 3
-inv_grid_height		= 1
-inv_grid_x			= 15
-inv_grid_y			= 19
-
-
-k_dist			= 1
-k_disp			= 1
-k_hit			= 1
-k_impulse		= 1
-k_pierce		= 0.25
-k_ap		= 0.25
-impair			= 1.15
-buck_shot		= 0
-tracer			= off
-wm_size         = 0.1
-
-wallmark_section			= explosion_marks
-
-;могут ли боеприпасы быть неограниченными : 1 - могут, 0 - не могут
-can_be_unlimited = true ;false
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Grenades for Attachable grenade launcher
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;*******************************************************
+;Grenades for Attachable grenade launcher // Fake Missiles and Grenades
+;*******************************************************
 
 [ammo_vog-25]:ammo_base
-GroupControlSection	= spawn_group
-discovery_dependency =
 $spawn			= "weapons\ammo\ammo_vog-25" ; option for Level Editor
 class			= S_VOG25
-cform           = skeleton
 visual          = dynamics\weapons\wpn_ammo\ammo_vog_25.ogf
-description		= ammo-vog-25_descr
-
-$prefetch 		= 64
+description		= st_ammo_vog25_descr
 
 cost			= 300
 
 box_size		= 1
 
-inv_name		= ammo-vog-25
-inv_name_short	= ammo-vog-25_s
-inv_weight		= .08
+inv_name		= st_ammo_vog25
+inv_name_short	= st_ammo_vog25_short
+inv_weight		= .250
 
 inv_grid_width		= 1
 inv_grid_height		= 1
-inv_grid_x			= 19
-inv_grid_y			= 9
+inv_grid_x		= 19
+inv_grid_y		= 9
 
-kill_msg_x			= 38
-kill_msg_y			= 233
+kill_msg_x		= 137
+kill_msg_y		= 180
 kill_msg_width		= 21
-kill_msg_height		= 22
+kill_msg_height		= 30
 
-k_dist			= 1
-k_disp			= 1
-k_hit			= 1
-k_impulse		= 1
-k_pierce		= 0.25
+k_hit			= 3.0
 k_ap			= 0.25
-impair			= 1
 buck_shot		= 0
-tracer			= off
-wm_size         = 0.05
 
 fake_grenade_name = wpn_fake_missile
 
-;могут ли боеприпасы быть неограниченными : 1 - могут, 0 - не могут
+;РјРѕРіСѓС‚ Р»Рё Р±РѕРµРїСЂРёРїР°СЃС‹ Р±С‹С‚СЊ РЅРµРѕРіСЂР°РЅРёС‡РµРЅРЅС‹РјРё : 1 - РјРѕРіСѓС‚, 0 - РЅРµ РјРѕРіСѓС‚
 can_be_unlimited = true ;false
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-[ammo_m209]:ammo_base
-GroupControlSection	= spawn_group
-discovery_dependency =
-$spawn			= "weapons\ammo\ammo_m209" ; option for Level Editor
-class			= S_M209
-cform           = skeleton
-visual          = dynamics\weapons\wpn_ammo\ammo_m209.ogf
-description		= ammo-m209_descr
-slot = -1
-$prefetch 		= 64
-
-cost			= 350
-
-box_size		= 1
-
-inv_name		= ammo-m209
-inv_name_short	= ammo-m209_s
-inv_weight		= .08
-
-inv_grid_width		= 1
-inv_grid_height		= 1
-inv_grid_x			= 5
-inv_grid_y			= 13
-
-kill_msg_x			= 61
-kill_msg_y			= 232
-kill_msg_width		= 19
-kill_msg_height		= 22
-
-
-k_dist			= 1
-k_disp			= 1
-k_hit			= 1
-k_impulse		= 1
-k_pierce		= 0.25
-k_ap			= 0.25
-impair			= 1
-buck_shot		= 0
-tracer			= off
-wm_size         = 0.05
-
-fake_grenade_name = wpn_fake_missile2
-
-;могут ли боеприпасы быть неограниченными : 1 - могут, 0 - не могут
-can_be_unlimited = true ;false
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Fake Missiles and Grenades
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 [wpn_fake_missile]:identity_immunities,default_weapon_params
 visual              = dynamics\weapons\wpn_ammo\ammo_vog_25.ogf
 cform               = skeleton
@@ -954,8 +941,9 @@ $prefetch 			= 32
 inv_weight			= 0
 
 cost				= 150
+can_take			= false
 
-blast				= 3.0
+blast				= 4.3
 blast_r				= 4
 blast_impulse		= 100
 ;delete
@@ -964,7 +952,7 @@ blast_impulse_factor = 1
 
 frags				= 10
 frags_r				= 10
-frag_hit			= 0.50
+frag_hit			= 0.70
 frag_hit_impulse	= 50
 
 hit_type_blast		= explosion
@@ -975,12 +963,12 @@ up_throw_factor		= 0.7
 
 ;trail				= weapons\rpg_trail_01, weapons\rpg_trail_02
 
-explode_particles	= explosions\explosion_01
+explode_particles	        = explosions\explosion_01
 
 
 light_color		         = 1.9,1.2,0.5
-light_range		         = 25.0
-light_time 		         = 0.5
+light_range		         = 0.01
+light_time 		         = 0.01
 
 
 ph_mass			 = 5
@@ -991,19 +979,19 @@ jump_height = 0
 
 wm_size         = 0.05
 
-;трассы от осколков
+;С‚СЂР°СЃСЃС‹ РѕС‚ РѕСЃРєРѕР»РєРѕРІ
 fragment_speed				= 100
 
-explode_duration		 = 5		;подолжительность взрыва (с)
+explode_duration		 = 5		;РїРѕРґРѕР»Р¶РёС‚РµР»СЊРЅРѕСЃС‚СЊ РІР·СЂС‹РІР° (СЃ)
 
-;звуки
-snd_explode = weapons\f1_explode
+;Р·РІСѓРєРё
+snd_explode = weapons\ammo\vog25\layers\vog25_explosion_a_1
 ;wallmarks
 wallmark_section		= explosion_marks
 
-;свойства которые читаются, но не используются
-inv_name		= ammo-vog-25
-inv_name_short	= ammo-vog-25
+;СЃРІРѕР№СЃС‚РІР° РєРѕС‚РѕСЂС‹Рµ С‡РёС‚Р°СЋС‚СЃСЏ, РЅРѕ РЅРµ РёСЃРїРѕР»СЊР·СѓСЋС‚СЃСЏ
+inv_name		= st_ammo_vog25
+inv_name_short	= st_ammo_vog25_short
 inv_weight		= .2
 
 inv_grid_width		= 1
@@ -1011,16 +999,51 @@ inv_grid_height		= 1
 inv_grid_x			= 19
 inv_grid_y			= 10
 
-kill_msg_x			= 17
-kill_msg_y			= 232
+kill_msg_x		= 137
+kill_msg_y		= 180
 kill_msg_width		= 21
-kill_msg_height		= 22
+kill_msg_height		= 30
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Свойства CustomRocket
+;; РЎРІРѕР№СЃС‚РІР° CustomRocket
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-engine_present		= false		;присутствует ли в ракете двигатель
-lights_enabled		= false		;свет вокруг ракеты, во время полета
+engine_present		= false		;РїСЂРёСЃСѓС‚СЃС‚РІСѓРµС‚ Р»Рё РІ СЂР°РєРµС‚Рµ РґРІРёРіР°С‚РµР»СЊ
+lights_enabled		= false		;СЃРІРµС‚ РІРѕРєСЂСѓРі СЂР°РєРµС‚С‹, РІРѕ РІСЂРµРјСЏ РїРѕР»РµС‚Р°
 force_explode_time  = 10000
+
+[ammo_vog-25p]:ammo_base
+$spawn			= "weapons\ammo\ammo_vog-25p" ; option for Level Editor
+class			= S_VOG25
+visual                  = dynamics\weapons\wpn_ammo\ammo_vog_25p.ogf
+description		= st_ammo_vog25p_descr
+
+cost			= 500
+
+box_size		= 1
+
+inv_name		= st_ammo_vog25p
+inv_name_short	= st_ammo_vog25p_short
+inv_weight		= 0.275
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x		= 19
+inv_grid_y		= 10
+
+kill_msg_x		= 163
+kill_msg_y		= 180
+kill_msg_width		= 20
+kill_msg_height		= 30
+
+k_hit			= 2.5
+k_dist			= 1.3
+k_ap			= 0.25
+buck_shot		= 0
+tracer			= off
+
+fake_grenade_name = wpn_fake_missile1
+
+;РјРѕРіСѓС‚ Р»Рё Р±РѕРµРїСЂРёРїР°СЃС‹ Р±С‹С‚СЊ РЅРµРѕРіСЂР°РЅРёС‡РµРЅРЅС‹РјРё : 1 - РјРѕРіСѓС‚, 0 - РЅРµ РјРѕРіСѓС‚
+can_be_unlimited = true ;false
 
 [wpn_fake_missile1]:identity_immunities,default_weapon_params
 $prefetch 			= 32
@@ -1031,8 +1054,360 @@ class               = G_FAKE
 inv_weight			= 0
 
 cost				= 150
+can_take			= false
 
-blast				= 2.00;150
+blast				= 2.9
+blast_r				= 7
+blast_impulse		= 350
+;delete
+blast_impulse_factor = 1
+
+
+frags				= 20
+frags_r				= 15
+frag_hit			= 0.50
+frag_hit_impulse	= 50
+
+hit_type_blast		= explosion
+hit_type_frag		= fire_wound
+
+up_throw_factor		= 0.7
+
+;trail				= weapons\rpg_trail_01, weapons\rpg_trail_02
+
+explode_particles	        = explosions\explosion_01
+
+
+light_color		    = 1.9,1.4,0.5
+light_range		    = 0.01 ;14.0
+light_time 		    = 0.01 ;0.85
+
+
+ph_mass			 = 5
+;engine_f			= 530
+;engine_u			= 90
+
+jump_height = 1.5
+
+;С‚СЂР°СЃСЃС‹ РѕС‚ РѕСЃРєРѕР»РєРѕРІ
+fragment_speed		= 100
+
+wm_size         	= 0.05
+;wallmarks
+wallmark_section		 = explosion_marks
+explode_duration		 = 5		;РїРѕРґРѕР»Р¶РёС‚РµР»СЊРЅРѕСЃС‚СЊ РІР·СЂС‹РІР° (СЃ)
+
+;Р·РІСѓРєРё
+snd_explode = weapons\ammo\vog25\layers\vog25_explosion_a_1
+
+;СЃРІРѕР№СЃС‚РІР° РєРѕС‚РѕСЂС‹Рµ С‡РёС‚Р°СЋС‚СЃСЏ, РЅРѕ РЅРµ РёСЃРїРѕР»СЊР·СѓСЋС‚СЃСЏ
+inv_name		= st_ammo_vog25
+inv_name_short	= st_ammo_vog25_short
+inv_weight		= .2
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 19
+inv_grid_y			= 9
+
+kill_msg_x		= 163
+kill_msg_y		= 180
+kill_msg_width		= 20
+kill_msg_height		= 30
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; РЎРІРѕР№СЃС‚РІР° CustomRocket
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+engine_present		= false		;РїСЂРёСЃСѓС‚СЃС‚РІСѓРµС‚ Р»Рё РІ СЂР°РєРµС‚Рµ РґРІРёРіР°С‚РµР»СЊ
+lights_enabled 		= false			;СЃРІРµС‚ РІРѕРєСЂСѓРі СЂР°РєРµС‚С‹, РІРѕ РІСЂРµРјСЏ РїРѕР»РµС‚Р°
+trail_light_color 	= 0.6,0.5,0.3
+trail_light_range 	= 8.0
+force_explode_time  = 10000
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[ammo_m209]:ammo_base
+$spawn			= "weapons\ammo\ammo_m209" ; option for Level Editor
+class			= S_M209
+visual          = dynamics\weapons\wpn_ammo\ammo_m433hedp.ogf
+description		= st_ammo_m209_descr
+
+cost			= 350
+
+box_size		= 1
+
+inv_name		= st_ammo_m209
+inv_name_short	= st_ammo_m209_short
+inv_weight		= .08
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 5
+inv_grid_y			= 13
+
+kill_msg_x			= 108
+kill_msg_y			= 180
+kill_msg_width		= 23
+kill_msg_height		= 30
+
+k_hit			= 3.2
+k_ap			= 0.25
+buck_shot		= 0
+
+fake_grenade_name = wpn_fake_missile2
+
+;РјРѕРіСѓС‚ Р»Рё Р±РѕРµРїСЂРёРїР°СЃС‹ Р±С‹С‚СЊ РЅРµРѕРіСЂР°РЅРёС‡РµРЅРЅС‹РјРё : 1 - РјРѕРіСѓС‚, 0 - РЅРµ РјРѕРіСѓС‚
+can_be_unlimited = true ;false
+
+[wpn_fake_missile2]:identity_immunities,default_weapon_params
+$prefetch 			= 32
+visual              = dynamics\weapons\wpn_ammo\ammo_m433hedp_exploder.ogf
+cform               = skeleton
+class               = G_FAKE
+slot 				= -1
+description			=
+inv_weight			= 0
+
+cost				= 150
+can_take			= false
+
+blast				= 3.5;150
+blast_r				= 4
+blast_impulse		= 100
+;delete
+blast_impulse_factor = 1
+
+
+frags				= 12
+frags_r				= 7
+frag_hit			= 0.50
+frag_hit_impulse	= 50
+
+hit_type_blast		= explosion
+hit_type_frag		= fire_wound
+
+up_throw_factor		= 0.7
+
+;trail				= weapons\rpg_trail_01, weapons\rpg_trail_02
+
+explode_particles	= explosions\explosion_01
+
+
+light_color		         = 1.9,1.4,0.5
+light_range		         = 0.01 ;14.0
+light_time 		         = 0.01 ;0.85
+
+
+ph_mass			 = 5
+;engine_f			= 530
+;engine_u			= 90
+
+jump_height = 0
+
+;С‚СЂР°СЃСЃС‹ РѕС‚ РѕСЃРєРѕР»РєРѕРІ
+fragment_speed				= 100
+;wallmarks
+wallmark_section			= explosion_marks
+wm_size						= 0.1 ;0.05
+
+explode_duration			 = 5		;РїРѕРґРѕР»Р¶РёС‚РµР»СЊРЅРѕСЃС‚СЊ РІР·СЂС‹РІР° (СЃ)
+
+;Р·РІСѓРєРё
+snd_explode = weapons\ammo\m209\layers\m209_explosion_a_1
+
+;СЃРІРѕР№СЃС‚РІР° РєРѕС‚РѕСЂС‹Рµ С‡РёС‚Р°СЋС‚СЃСЏ, РЅРѕ РЅРµ РёСЃРїРѕР»СЊР·СѓСЋС‚СЃСЏ
+inv_name		= ammo-m209
+inv_name_short	= "M209"
+inv_weight		= .2
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 5
+inv_grid_y			= 13
+
+kill_msg_x			= 108
+kill_msg_y			= 180
+kill_msg_width		= 23
+kill_msg_height		= 30
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; РЎРІРѕР№СЃС‚РІР° CustomRocket
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+engine_present		= false		;РїСЂРёСЃСѓС‚СЃС‚РІСѓРµС‚ Р»Рё РІ СЂР°РєРµС‚Рµ РґРІРёРіР°С‚РµР»СЊ
+lights_enabled 		= false			;СЃРІРµС‚ РІРѕРєСЂСѓРі СЂР°РєРµС‚С‹, РІРѕ РІСЂРµРјСЏ РїРѕР»РµС‚Р°
+trail_light_color 	= 0.6,0.5,0.3
+trail_light_range 	= 8.0
+force_explode_time  = 10000
+
+[ammo_og-7b]:ammo_base
+$spawn			= "weapons\ammo\ammo_og-7b" ; option for Level Editor
+class			= S_OG7B
+cform           = skeleton
+visual          = dynamics\weapons\wpn_ammo\ammo_og_7b.ogf
+description		= st_ammo_og_7b_descr
+
+cost			= 2000
+
+box_size		= 1
+
+inv_name		= st_ammo_og_7b
+inv_name_short	= st_ammo_og_7b_short
+inv_weight		= 2.6
+
+inv_grid_width				= 5
+inv_grid_height				= 1
+inv_grid_x				= 6
+inv_grid_y				= 0
+
+k_hit			= 3.0
+k_ap		        = 0.25
+impair			= 1.15
+buck_shot		= 0
+wm_size                 = 0.1
+
+wallmark_section			= explosion_marks
+
+fake_rocket_name = wpn_fake_missile3
+
+;РјРѕРіСѓС‚ Р»Рё Р±РѕРµРїСЂРёРїР°СЃС‹ Р±С‹С‚СЊ РЅРµРѕРіСЂР°РЅРёС‡РµРЅРЅС‹РјРё : 1 - РјРѕРіСѓС‚, 0 - РЅРµ РјРѕРіСѓС‚
+can_be_unlimited = true ;false
+
+[wpn_fake_missile3]:identity_immunities,default_weapon_params
+$prefetch 		 		= 32
+visual                  = dynamics\weapons\wpn_rpg7\wpn_rpg7_missile.ogf
+cform                   = skeleton
+class                   = G_RPG7
+
+inv_weight				= 0
+kill_msg_x				= 3
+kill_msg_y				= 180
+kill_msg_width				= 95
+kill_msg_height				= 30
+
+cost					= 200
+can_take			= false
+;---------------------------------------------------------------
+blast					= 5.00
+blast_r					= 10;15
+blast_impulse				= 350
+blast_impulse_factor 			= 1
+
+frags					= 8
+frags_r					= 25
+frag_hit				= 1.50
+frag_hit_impulse			= 275
+
+hit_type_blast				= explosion
+hit_type_frag				= fire_wound
+
+up_throw_factor				= 0.25
+;---------------------------------------------------------------
+
+wm_size                  		= 0.1
+wallmark_section			= explosion_marks
+
+light_color		         	= 1.9,1.4,0.5
+light_range		         	= 24.0
+light_time 		         	= 1.28
+
+ph_mass			 			= 5
+
+jump_height 				= 0
+
+explode_particles			= explosions\explosion_04
+
+
+;С‚СЂР°СЃСЃС‹ РѕС‚ РѕСЃРєРѕР»РєРѕРІ
+fragment_speed	     		= 100
+
+explode_duration		 	= 5		;РїРѕРґРѕР»Р¶РёС‚РµР»СЊРЅРѕСЃС‚СЊ РІР·СЂС‹РІР° (СЃ)
+
+;Р·РІСѓРєРё
+snd_explode 				= weapons\rpg7\layers\rpg7_explosion_a_1
+snd_fly_sound				= weapons\rpg7\layers\rpg7_rocket_fly
+
+;СЃРІРѕР№СЃС‚РІР° РєРѕС‚РѕСЂС‹Рµ С‡РёС‚Р°СЋС‚СЃСЏ, РЅРѕ РЅРµ РёСЃРїРѕР»СЊР·СѓСЋС‚СЃСЏ (РЅР°РґРѕ СѓР±СЂР°С‚СЊ)
+inv_name					= "Og-7b"
+inv_name_short				= "Og-7b"
+inv_weight					= .2
+
+inv_grid_width				= 4
+inv_grid_height				= 1
+inv_grid_x					= 15
+inv_grid_y					= 5
+
+kill_msg_x				= 3
+kill_msg_y				= 180
+kill_msg_width				= 95
+kill_msg_height				= 30
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; РЎРІРѕР№СЃС‚РІР° CustomRocket
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+engine_present				= true		;РїСЂРёСЃСѓС‚СЃС‚РІСѓРµС‚ Р»Рё РІ СЂР°РєРµС‚Рµ РґРІРёРіР°С‚РµР»СЊ
+engine_work_time			= 3000		;РІСЂРµРјСЏ СЂР°Р±РѕС‚С‹ РґРІРёРіР°С‚РµР»СЏ (РІ РјРёР»РёСЃРµРєСѓРЅРґР°С…)
+engine_impulse				= 300
+engine_impulse_up			= 133,906	;137.34 ;137.34 = 2*9.81*7 - Р·РЅР°С‡РµРЅРёРµ СЌС‚РѕРіРѕ РїР°СЂР°РјРµС‚СЂР° (РєРѕС‚РѕСЂС‹Р№ СЏРІР»СЏРµС‚СЃСЏ РЅРµРєРѕР№ РїРѕРґСЉРµРјРЅРѕР№ СЃРёР»РѕР№, РІРѕРїСЂРµРєРё РЅР°Р·РІР°РЅРёСЋ),
+										;РїСЂРё РєРѕС‚РѕСЂРѕРј СЂР°РєРµС‚Р° РјР°СЃСЃРѕР№ 7РєРі РЅРµ РѕРїСѓСЃРєР°РµС‚СЃСЏ РїРѕРґ РґРµР№СЃРІРёРµРј
+										;РіСЂР°РІРёС‚Р°С†РёРё. 2*9.81=19.62 - СѓСЃРєРѕСЂРµРЅРёРµ СЃРІРѕР±РѕРґРЅРѕРіРѕ РїР°РґРµРЅРёСЏ РІ РјРёСЂРµ СЃС‚Р°Р»РєРµСЂРѕРІ
+										;РїСЂРё РјРµРЅСЊС€РёС… Р·РЅР°С‡РµРЅРёСЏС… СЂР°РєРµС‚Р° Р±СѓРґРµС‚ РѕРїСѓСЃРєР°С‚СЊСЃСЏ, РїСЂРё Р±РѕР»СЊС€РёС… РїРѕРґРЅРёРјР°С‚СЊСЃСЏ
+lights_enabled 				= true		;СЃРІРµС‚ РІРѕРєСЂСѓРі СЂР°РєРµС‚С‹, РІРѕ РІСЂРµРјСЏ РїРѕР»РµС‚Р°
+trail_light_color 			= 0.6,0.5,0.3
+trail_light_range 			= 15.0
+
+engine_particles 			= weapons\rpg_trail_00
+fly_particles	 			= weapons\rpg_trail_01
+
+force_explode_time			= 30000; msec
+
+;new
+
+[ammo_m397a1]:ammo_base
+$spawn			= "weapons\ammo\ammo_m397a1" ; option for Level Editor
+class			= S_M209
+visual          = dynamics\weapons\wpn_ammo\ammo_m397a1.ogf
+description		= st_ammo_m397a1_descr
+
+cost			= 500
+
+box_size		= 1
+
+inv_name		= st_ammo_m397a1
+inv_name_short	= st_ammo_m397a1_short
+inv_weight		= 0.275
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x		= 5
+inv_grid_y		= 15
+
+kill_msg_x		= 292
+kill_msg_y		= 180
+kill_msg_width		= 23
+kill_msg_height		= 30
+
+k_hit			= 2.5
+k_dist			= 1.3
+k_ap			= 0.25
+buck_shot		= 0
+
+fake_grenade_name = wpn_fake_missile4
+
+;РјРѕРіСѓС‚ Р»Рё Р±РѕРµРїСЂРёРїР°СЃС‹ Р±С‹С‚СЊ РЅРµРѕРіСЂР°РЅРёС‡РµРЅРЅС‹РјРё : 1 - РјРѕРіСѓС‚, 0 - РЅРµ РјРѕРіСѓС‚
+can_be_unlimited = true ;false
+
+[wpn_fake_missile4]:identity_immunities,default_weapon_params
+$prefetch 			= 32
+visual              = dynamics\weapons\wpn_ammo\ammo_m397a1_exploder.ogf
+cform               = skeleton
+class               = G_FAKE
+
+inv_weight			= 0
+
+cost				= 150
+can_take			= false
+
+blast				= 4.5;150
 blast_r				= 4
 blast_impulse		= 350
 ;delete
@@ -1051,12 +1426,12 @@ up_throw_factor		= 0.7
 
 ;trail				= weapons\rpg_trail_01, weapons\rpg_trail_02
 
-explode_particles	= explosions\explosion_01
+explode_particles	        = explosions\explosion_01
 
 
 light_color		    = 1.9,1.4,0.5
-light_range		    = 14.0
-light_time 		    = 0.85
+light_range		    = 0.01 ;14.0
+light_time 		    = 0.01 ;0.85
 
 
 ph_mass			 = 5
@@ -1065,20 +1440,20 @@ ph_mass			 = 5
 
 jump_height = 1
 
-;трассы от осколков
+;С‚СЂР°СЃСЃС‹ РѕС‚ РѕСЃРєРѕР»РєРѕРІ
 fragment_speed		= 100
 
 wm_size         	= 0.05
 ;wallmarks
 wallmark_section		 = explosion_marks
-explode_duration		 = 5		;подолжительность взрыва (с)
+explode_duration		 = 5		;РїРѕРґРѕР»Р¶РёС‚РµР»СЊРЅРѕСЃС‚СЊ РІР·СЂС‹РІР° (СЃ)
 
-;звуки
-snd_explode = weapons\f1_explode
+;Р·РІСѓРєРё
+snd_explode = weapons\ammo\vog25\layers\vog25_explosion_a_1
 
-;свойства которые читаются, но не используются
-inv_name		= ammo-vog-25p
-inv_name_short	= ammo-vog-25p
+;СЃРІРѕР№СЃС‚РІР° РєРѕС‚РѕСЂС‹Рµ С‡РёС‚Р°СЋС‚СЃСЏ, РЅРѕ РЅРµ РёСЃРїРѕР»СЊР·СѓСЋС‚СЃСЏ
+inv_name		= st_ammo_m397a1
+inv_name_short	= st_ammo_m397a1
 inv_weight		= .2
 
 inv_grid_width		= 1
@@ -1093,89 +1468,21 @@ kill_msg_height		= 22
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Свойства CustomRocket
+;; РЎРІРѕР№СЃС‚РІР° CustomRocket
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-engine_present		= false		;присутствует ли в ракете двигатель
-lights_enabled 		= true			;свет вокруг ракеты, во время полета
+engine_present		= false		;РїСЂРёСЃСѓС‚СЃС‚РІСѓРµС‚ Р»Рё РІ СЂР°РєРµС‚Рµ РґРІРёРіР°С‚РµР»СЊ
+lights_enabled 		= false			;СЃРІРµС‚ РІРѕРєСЂСѓРі СЂР°РєРµС‚С‹, РІРѕ РІСЂРµРјСЏ РїРѕР»РµС‚Р°
 trail_light_color 	= 0.6,0.5,0.3
 trail_light_range 	= 8.0
 force_explode_time  = 10000
 
-[wpn_fake_missile2]:identity_immunities,default_weapon_params
-$prefetch 		= 32
-visual              = dynamics\weapons\wpn_ammo\ammo_m209.ogf
-cform               = skeleton
-class               = G_FAKE
-slot 				= -1
-description			=
-inv_weight			= 0
-
-cost				= 150
-
-blast				= 3.0;150
-blast_r				= 4
-blast_impulse		= 100
-;delete
-blast_impulse_factor = 1
-
-
-frags				= 10
-frags_r				= 10
-frag_hit			= 0.50
-frag_hit_impulse	= 50
-
-hit_type_blast		= explosion
-hit_type_frag		= fire_wound
-
-up_throw_factor		= 0.7
-
-;trail				= weapons\rpg_trail_01, weapons\rpg_trail_02
-
-explode_particles	= explosions\explosion_01
-
-
-light_color		         = 1.9,1.4,0.5
-light_range		         = 14.0
-light_time 		         = 0.85
-
-
-ph_mass			 = 5
-;engine_f			= 530
-;engine_u			= 90
-
-jump_height = 1
-
-;трассы от осколков
-fragment_speed				= 100
-;wallmarks
-wallmark_section			= explosion_marks
-wm_size						= 0.1 ;0.05
-
-explode_duration			 = 5		;подолжительность взрыва (с)
-
-;звуки
-snd_explode = weapons\f1_explode
-
-;свойства которые читаются, но не используются
-inv_name		= ammo-m209
-inv_name_short	= "M209"
-inv_weight		= .2
-
-inv_grid_width		= 1
-inv_grid_height		= 1
-inv_grid_x			= 5
-inv_grid_y			= 13
-
-kill_msg_x			= 61
-kill_msg_y			= 232
-kill_msg_width		= 19
-kill_msg_height		= 22
+;///////////////////////////////////////////////////////////////////////////////////////////////
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Свойства CustomRocket
+;; РЎРІРѕР№СЃС‚РІР° CustomRocket
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-engine_present		= false		;присутствует ли в ракете двигатель
-lights_enabled 		= true			;свет вокруг ракеты, во время полета
+engine_present		= false		;РїСЂРёСЃСѓС‚СЃС‚РІСѓРµС‚ Р»Рё РІ СЂР°РєРµС‚Рµ РґРІРёРіР°С‚РµР»СЊ
+lights_enabled 		= true			;СЃРІРµС‚ РІРѕРєСЂСѓРі СЂР°РєРµС‚С‹, РІРѕ РІСЂРµРјСЏ РїРѕР»РµС‚Р°
 trail_light_color 	= 0.6,0.5,0.3
 trail_light_range 	= 8.0
 force_explode_time  = 10000
@@ -1194,7 +1501,7 @@ class				= S_EXPLO
 cform				= skeleton
 visual		 		= dynamics\balon\balon_01.ogf
 inv_name			=
-inv_name_short		=
+inv_name_short		= st_explosive_tank_short
 inv_weight			= .1
 
 inv_grid_width		= 1
@@ -1202,21 +1509,21 @@ inv_grid_height		= 1
 inv_grid_x			= 9
 inv_grid_y			= 9
 
-;вещь невозможно подобрать
+;РІРµС‰СЊ РЅРµРІРѕР·РјРѕР¶РЅРѕ РїРѕРґРѕР±СЂР°С‚СЊ
 can_take			= false
 
 cost				= 50
 ;-------------------------------------------------------------------------------
-blast				= 1.50
+blast				= 2.80
 blast_r				= 8
 blast_impulse		= 250
 ;delete
 blast_impulse_factor = 1
 
 
-frags				= 5
-frags_r				= 15
-frag_hit			= 0.75
+frags				= 6
+frags_r				= 20
+frag_hit			= 0.95
 frag_hit_impulse	= 150
 
 hit_type_blast		= explosion
@@ -1232,18 +1539,18 @@ light_color		         = 1.9,1.3,0.5
 light_range		         = 30.0
 light_time 		         = 1.5
 
-;трассы от осколков
+;С‚СЂР°СЃСЃС‹ РѕС‚ РѕСЃРєРѕР»РєРѕРІ
 fragment_speed				= 100
 
-explode_duration		 = 5		;подолжительность взрыва (с)
+explode_duration		 = 5		;РїРѕРґРѕР»Р¶РёС‚РµР»СЊРЅРѕСЃС‚СЊ РІР·СЂС‹РІР° (СЃ)
 ;wallmarks
 wallmark_section		= explosion_marks
-;звуки
-snd_explode = weapons\f1_explode
+;Р·РІСѓРєРё
+snd_explode = ambient\explosions\barrel_explosion_a_1
 immunities_sect			= explosive_fuelcan_immunities_sect
 
 [explosive_fuelcan_immunities_sect]
-;коэффициенты для попаданий различными типами хитов
+;РєРѕСЌС„С„РёС†РёРµРЅС‚С‹ РґР»СЏ РїРѕРїР°РґР°РЅРёР№ СЂР°Р·Р»РёС‡РЅС‹РјРё С‚РёРїР°РјРё С…РёС‚РѕРІ
 burn_immunity			= 0.0
 strike_immunity			= 1.0
 shock_immunity			= 1.0
@@ -1256,7 +1563,8 @@ fire_wound_immunity		= 0.7
 
 [explosive_gaz_balon]:explosive_fuelcan
 $spawn                        = "weapons\explosive\gaz_balon"
-visual                        = dynamics\balon\gaz_balon.ogf 
+visual                        = dynamics\balon\gaz_balon.ogf
+inv_name_short                = st_explosive_gaz_balon_short
 
 
 [explosive_tank]:identity_immunities,delayed_action_fuse,default_weapon_params
@@ -1269,28 +1577,28 @@ class				= S_EXPLO
 cform				= skeleton
 visual				= dynamics\balon\kanistra.ogf
 inv_name			=
-inv_name_short		=
+inv_name_short		= st_explosive_fuelcan_short
 inv_weight			= .1
 
 inv_grid_width		= 1
 inv_grid_height		= 1
 inv_grid_x			= 9
 inv_grid_y			= 9
-;вещь невозможно подобрать
+;РІРµС‰СЊ РЅРµРІРѕР·РјРѕР¶РЅРѕ РїРѕРґРѕР±СЂР°С‚СЊ
 can_take			= false
 
 cost				= 50
 ;-------------------------------------------------------------------------------
-blast				= 1.50
-blast_r				= 8
+blast				= 1.90
+blast_r				= 10
 blast_impulse		= 250
 ;delete
 blast_impulse_factor = 1
 
 
-frags				= 5
-frags_r				= 15
-frag_hit			= 0.75
+frags				= 6
+frags_r				= 20
+frag_hit			= 0.85
 frag_hit_impulse	= 150
 
 hit_type_blast		= explosion
@@ -1306,19 +1614,19 @@ light_color		         = 1.9,1.3,0.5
 light_range		         = 30.0
 light_time 		         = 1
 
-;трассы от осколков
-fragment_speed				= 100		;скорость осколков (м/с)
+;С‚СЂР°СЃСЃС‹ РѕС‚ РѕСЃРєРѕР»РєРѕРІ
+fragment_speed				= 100		;СЃРєРѕСЂРѕСЃС‚СЊ РѕСЃРєРѕР»РєРѕРІ (Рј/СЃ)
 
-explode_duration		 = 5		;подолжительность взрыва (с)
+explode_duration		 = 5		;РїРѕРґРѕР»Р¶РёС‚РµР»СЊРЅРѕСЃС‚СЊ РІР·СЂС‹РІР° (СЃ)
 ;wallmarks
 wallmark_section		= explosion_marks
 
-;звуки
-snd_explode = weapons\f1_explode
+;Р·РІСѓРєРё
+snd_explode = ambient\explosions\barrel_explosion_a_1
 immunities_sect			= explosive_tank_immunities_sect
 
 [explosive_tank_immunities_sect]
-;коэффициенты для попаданий различными типами хитов
+;РєРѕСЌС„С„РёС†РёРµРЅС‚С‹ РґР»СЏ РїРѕРїР°РґР°РЅРёР№ СЂР°Р·Р»РёС‡РЅС‹РјРё С‚РёРїР°РјРё С…РёС‚РѕРІ
 burn_immunity			= 0.0
 strike_immunity			= 1.0
 shock_immunity			= 1.0
@@ -1340,19 +1648,19 @@ class				= S_EXPLO
 cform				= skeleton
 visual				= dynamics\balon\bochka_fuel.ogf
 inv_name			=
-inv_name_short		=
+inv_name_short		= st_explosive_barrel_short
 inv_weight			= .1
 
 inv_grid_width		= 1
 inv_grid_height		= 1
 inv_grid_x			= 9
 inv_grid_y			= 9
-;вещь невозможно подобрать
+;РІРµС‰СЊ РЅРµРІРѕР·РјРѕР¶РЅРѕ РїРѕРґРѕР±СЂР°С‚СЊ
 can_take			= false
 
 cost				= 500
 ;-------------------------------------------------------------------------------
-blast				= 1.50
+blast				= 2.50
 blast_r				= 8
 blast_impulse		= 250
 ;delete
@@ -1360,8 +1668,8 @@ blast_impulse_factor = 1
 
 
 frags				= 5
-frags_r				= 15
-frag_hit			= 0.75
+frags_r				= 18
+frag_hit			= 0.8
 frag_hit_impulse	= 150
 
 hit_type_blast		= explosion
@@ -1377,15 +1685,15 @@ light_color		         = 1.9,1.4,0.5
 light_range		         = 14.0
 light_time 		         = 0.85
 
-;трассы от осколков
-fragment_speed				= 100		;скорость осколков (м/с)
+;С‚СЂР°СЃСЃС‹ РѕС‚ РѕСЃРєРѕР»РєРѕРІ
+fragment_speed				= 100		;СЃРєРѕСЂРѕСЃС‚СЊ РѕСЃРєРѕР»РєРѕРІ (Рј/СЃ)
 
-explode_duration		 = 5		;подолжительность взрыва (с)
+explode_duration		 = 5		;РїРѕРґРѕР»Р¶РёС‚РµР»СЊРЅРѕСЃС‚СЊ РІР·СЂС‹РІР° (СЃ)
 
 ;wallmarks
 wallmark_section		 = explosion_marks
-;звуки
-snd_explode = weapons\f1_explode
+;Р·РІСѓРєРё
+snd_explode = ambient\explosions\barrel_explosion_a_1
 immunities_sect			= explosive_barrel_low_immunities_sect
 
 ;time_to_explode			= 0.f
@@ -1407,7 +1715,7 @@ inv_grid_width		= 1
 inv_grid_height		= 1
 inv_grid_x			= 9
 inv_grid_y			= 9
-;вещь невозможно подобрать
+;РІРµС‰СЊ РЅРµРІРѕР·РјРѕР¶РЅРѕ РїРѕРґРѕР±СЂР°С‚СЊ
 can_take			= false
 
 cost				= 500
@@ -1437,34 +1745,18 @@ light_color		         = 1.9,1.4,0.5
 light_range		         = 14.0
 light_time 		         = 0.85
 
-;трассы от осколков
-fragment_speed				= 100		;скорость осколков (м/с)
+;С‚СЂР°СЃСЃС‹ РѕС‚ РѕСЃРєРѕР»РєРѕРІ
+fragment_speed				= 100		;СЃРєРѕСЂРѕСЃС‚СЊ РѕСЃРєРѕР»РєРѕРІ (Рј/СЃ)
 
-explode_duration		 = 2		;подолжительность взрыва (с)
+explode_duration		 = 2		;РїРѕРґРѕР»Р¶РёС‚РµР»СЊРЅРѕСЃС‚СЊ РІР·СЂС‹РІР° (СЃ)
 
 ;wallmarks
 wallmark_section		 = explosion_marks
-;звуки
-snd_explode = weapons\t_rgd5_explosion
+;Р·РІСѓРєРё
+snd_explode = weapons\grenades\f1\layers\f1_explosion_a_1
 immunities_sect			= explosive_explosive_grenade_immunities_sect
 
 ;time_to_explode			= 0.f
-
-;------------------------ pri_a25_enter_door_explosive_grenade --------------
-[pri_a25_enter_door_explosive_grenade]:explosive_grenade
-$spawn              = "dynamic_objects\scene_objects\pri_a25_enter_door_explosive_grenade"
-story_id 			= pri_a25_enter_door_explosive_grenade
-hit_type_blast = chemical_burn
-hit_type_frag = chemical_burn
-visual				= dynamics\light\light_signal.ogf
-
-
-;------------------------- pri_a25_antenna_grenade --------------
-[pri_a25_antenna_grenade]:explosive_grenade
-$spawn              = "dynamic_objects\scene_objects\pri_a25_antenna_grenade"
-story_id 			= pri_a25_antenna_grenade
-visual				= dynamics\light\light_signal.ogf
-
 
 [explosive_explosive_grenade_immunities_sect]
 burn_immunity			= 0.0
@@ -1495,7 +1787,7 @@ inv_grid_width		= 1
 inv_grid_height		= 1
 inv_grid_x			= 9
 inv_grid_y			= 9
-;вещь невозможно подобрать
+;РІРµС‰СЊ РЅРµРІРѕР·РјРѕР¶РЅРѕ РїРѕРґРѕР±СЂР°С‚СЊ
 can_take			= false
 
 cost				= 500
@@ -1525,21 +1817,21 @@ light_color		         = 1.9,1.4,0.5
 light_range		         = 14.0
 light_time 		         = 0.85
 
-;трассы от осколков
-fragment_speed				= 50		;скорость осколков (м/с)
+;С‚СЂР°СЃСЃС‹ РѕС‚ РѕСЃРєРѕР»РєРѕРІ
+fragment_speed				= 50		;СЃРєРѕСЂРѕСЃС‚СЊ РѕСЃРєРѕР»РєРѕРІ (Рј/СЃ)
 
-explode_duration		 = 5		;подолжительность взрыва (с)
+explode_duration		 = 5		;РїРѕРґРѕР»Р¶РёС‚РµР»СЊРЅРѕСЃС‚СЊ РІР·СЂС‹РІР° (СЃ)
 
 ;wallmarks
 wallmark_section		 = explosion_marks
-;звуки
-snd_explode = weapons\rpg7_explode
+;Р·РІСѓРєРё
+snd_explode = weapons\rpg7\layers\rpg7_explosion_a_1
 immunities_sect			= explosive_hide_immunities_sect
 
 ;time_to_explode			= 0.f
 
 [explosive_hide_immunities_sect]
-;коэффициенты для попаданий различными типами хитов
+;РєРѕСЌС„С„РёС†РёРµРЅС‚С‹ РґР»СЏ РїРѕРїР°РґР°РЅРёР№ СЂР°Р·Р»РёС‡РЅС‹РјРё С‚РёРїР°РјРё С…РёС‚РѕРІ
 burn_immunity			= 0.0
 strike_immunity			= 0.0
 shock_immunity			= 0.0
@@ -1567,7 +1859,7 @@ inv_grid_width		= 1
 inv_grid_height		= 1
 inv_grid_x			= 9
 inv_grid_y			= 9
-;вещь невозможно подобрать
+;РІРµС‰СЊ РЅРµРІРѕР·РјРѕР¶РЅРѕ РїРѕРґРѕР±СЂР°С‚СЊ
 can_take			= false
 
 cost				= 500
@@ -1597,22 +1889,22 @@ light_color		         = 0,0,0
 light_range		         = 0.0
 light_time 		         = 0.85
 
-;трассы от осколков
-fragment_speed				= 25		;скорость осколков (м/с)
+;С‚СЂР°СЃСЃС‹ РѕС‚ РѕСЃРєРѕР»РєРѕРІ
+fragment_speed				= 25		;СЃРєРѕСЂРѕСЃС‚СЊ РѕСЃРєРѕР»РєРѕРІ (Рј/СЃ)
 
-explode_duration		 = 2		;подолжительность взрыва (с)
+explode_duration		 = 2		;РїРѕРґРѕР»Р¶РёС‚РµР»СЊРЅРѕСЃС‚СЊ РІР·СЂС‹РІР° (СЃ)
 
 ;wallmarks
 wallmark_section		 = explosion_marks
-;звуки
-snd_explode = weapons\f1_explode_
+;Р·РІСѓРєРё
+snd_explode = ambient\crack\metal_box_break
 immunities_sect			= explosive_barrel_low_immunities_sect
 
 ;time_to_explode			= 0.f
 
 
 [explosive_barrel_low_immunities_sect]
-;коэффициенты для попаданий различными типами хитов
+;РєРѕСЌС„С„РёС†РёРµРЅС‚С‹ РґР»СЏ РїРѕРїР°РґР°РЅРёР№ СЂР°Р·Р»РёС‡РЅС‹РјРё С‚РёРїР°РјРё С…РёС‚РѕРІ
 burn_immunity			= 1
 strike_immunity			= 1
 shock_immunity			= 1
@@ -1634,28 +1926,34 @@ class				= S_EXPLO
 cform				= skeleton
 visual				= dynamics\balon\bochka_fuel.ogf
 inv_name			=
-inv_name_short		=
+inv_name_short		= st_explosive_barrel_short
 inv_weight			= .1
 
 inv_grid_width		= 1
 inv_grid_height		= 1
 inv_grid_x			= 9
 inv_grid_y			= 9
-;вещь невозможно подобрать
+
+kill_msg_x			= 487
+kill_msg_y			= 2
+kill_msg_width		= 24
+kill_msg_height		= 20
+
+;РІРµС‰СЊ РЅРµРІРѕР·РјРѕР¶РЅРѕ РїРѕРґРѕР±СЂР°С‚СЊ
 can_take			= false
 
 cost				= 500
 ;-------------------------------------------------------------------------------
-blast				= 1.50
-blast_r				= 8
+blast				= 2.50
+blast_r				= 10
 blast_impulse		= 250
 ;delete
 blast_impulse_factor = 1
 
 
-frags				= 5
-frags_r				= 15
-frag_hit			= 0.75
+frags				= 6
+frags_r				= 20
+frag_hit			= 0.95
 frag_hit_impulse	= 150
 
 hit_type_blast		= explosion
@@ -1671,20 +1969,20 @@ light_color		         = 1.9,1.4,0.5
 light_range		         = 14.0
 light_time 		         = 0.85
 
-;трассы от осколков
-fragment_speed				= 100		;скорость осколков (м/с)
+;С‚СЂР°СЃСЃС‹ РѕС‚ РѕСЃРєРѕР»РєРѕРІ
+fragment_speed				= 100		;СЃРєРѕСЂРѕСЃС‚СЊ РѕСЃРєРѕР»РєРѕРІ (Рј/СЃ)
 
-explode_duration		 = 5		;подолжительность взрыва (с)
+explode_duration		 = 5		;РїРѕРґРѕР»Р¶РёС‚РµР»СЊРЅРѕСЃС‚СЊ РІР·СЂС‹РІР° (СЃ)
 
 
-;звуки
-snd_explode = weapons\f1_explode
+;Р·РІСѓРєРё
+snd_explode = ambient\explosions\barrel_explosion_a_1
 immunities_sect			= explosive_barrel_immunities_sect
 ;wallmarks
 wallmark_section		= explosion_marks
 
 [explosive_barrel_immunities_sect]
-;коэффициенты для попаданий различными типами хитов
+;РєРѕСЌС„С„РёС†РёРµРЅС‚С‹ РґР»СЏ РїРѕРїР°РґР°РЅРёР№ СЂР°Р·Р»РёС‡РЅС‹РјРё С‚РёРїР°РјРё С…РёС‚РѕРІ
 burn_immunity			= 0.0
 strike_immunity			= 1
 shock_immunity			= 1
@@ -1706,19 +2004,19 @@ class				= S_EXPLO
 cform				= skeleton
 visual				= dynamics\balon\kanistra.ogf
 inv_name			=
-inv_name_short		=
+inv_name_short		= st_explosive_fuelcan_short
 inv_weight			= .1
 
 inv_grid_width		= 1
 inv_grid_height		= 1
 inv_grid_x			= 9
 inv_grid_y			= 9
-;вещь невозможно подобрать
+;РІРµС‰СЊ РЅРµРІРѕР·РјРѕР¶РЅРѕ РїРѕРґРѕР±СЂР°С‚СЊ
 can_take			= false
 
 cost				= 500
 ;-------------------------------------------------------------------------------
-blast				= 1.50
+blast				= 1.80
 blast_r				= 8
 blast_impulse		= 250
 ;delete
@@ -1726,8 +2024,8 @@ blast_impulse_factor = 1
 
 
 frags				= 5
-frags_r				= 15
-frag_hit			= 0.75
+frags_r				= 18
+frag_hit			= 0.8
 frag_hit_impulse	= 150
 
 hit_type_blast		= explosion
@@ -1743,20 +2041,20 @@ light_color		         = 1.9,1.2,0.5
 light_range		         = 30.0
 light_time 		         = 1
 
-;трассы от осколков
-fragment_speed				= 100		;скорость осколков (м/с)
+;С‚СЂР°СЃСЃС‹ РѕС‚ РѕСЃРєРѕР»РєРѕРІ
+fragment_speed				= 100		;СЃРєРѕСЂРѕСЃС‚СЊ РѕСЃРєРѕР»РєРѕРІ (Рј/СЃ)
 
-explode_duration		 = 5		;подолжительность взрыва (с)
+explode_duration		 = 5		;РїРѕРґРѕР»Р¶РёС‚РµР»СЊРЅРѕСЃС‚СЊ РІР·СЂС‹РІР° (СЃ)
 
 
-;звуки
-snd_explode = weapons\f1_explode
+;Р·РІСѓРєРё
+snd_explode = ambient\explosions\barrel_explosion_a_1
 immunities_sect			= explosive_mobiltank_immunities_sect
 ;wallmarks
 wallmark_section		= explosion_marks
 
 [explosive_mobiltank_immunities_sect]
-;коэффициенты для попаданий различными типами хитов
+;РєРѕСЌС„С„РёС†РёРµРЅС‚С‹ РґР»СЏ РїРѕРїР°РґР°РЅРёР№ СЂР°Р·Р»РёС‡РЅС‹РјРё С‚РёРїР°РјРё С…РёС‚РѕРІ
 burn_immunity			= 0.0
 strike_immunity			= 1.0
 shock_immunity			= 1.0
@@ -1778,7 +2076,7 @@ class				= S_EXPLO
 cform				= skeleton
 visual		 		= dynamics\box\expl_dinamit.ogf
 inv_name			=
-inv_name_short		=
+inv_name_short		= st_explosive_dinamit_short
 inv_weight			= 10.0
 
 inv_grid_width		= 1
@@ -1786,13 +2084,13 @@ inv_grid_height		= 1
 inv_grid_x			= 9
 inv_grid_y			= 9
 
-;вещь невозможно подобрать
+;РІРµС‰СЊ РЅРµРІРѕР·РјРѕР¶РЅРѕ РїРѕРґРѕР±СЂР°С‚СЊ
 can_take			= false
 
 cost				= 50
 ;-------------------------------------------------------------------------------
-blast				= 3.00
-blast_r				= 10
+blast				= 4.00
+blast_r				= 15
 blast_impulse		= 250
 ;delete
 blast_impulse_factor = 1
@@ -1816,20 +2114,20 @@ light_color		         = 1.9,1.3,0.5
 light_range		         = 30.0
 light_time 		         = 1.5
 
-;трассы от осколков
+;С‚СЂР°СЃСЃС‹ РѕС‚ РѕСЃРєРѕР»РєРѕРІ
 fragment_speed				= 200
 
-explode_duration		 = 5		;подолжительность взрыва (с)
+explode_duration		 = 5		;РїРѕРґРѕР»Р¶РёС‚РµР»СЊРЅРѕСЃС‚СЊ РІР·СЂС‹РІР° (СЃ)
 
-;звуки
-snd_explode = weapons\f1_explode
+;Р·РІСѓРєРё
+snd_explode = ambient\explosions\barrel_explosion_a_1
 immunities_sect			= dinamit_immunities_sect
 ;condition_to_explode        =0.f
 ;wallmarks
 wallmark_section		= explosion_marks
 
 [dinamit_immunities_sect]
-;коэффициенты для попаданий различными типами хитов
+;РєРѕСЌС„С„РёС†РёРµРЅС‚С‹ РґР»СЏ РїРѕРїР°РґР°РЅРёР№ СЂР°Р·Р»РёС‡РЅС‹РјРё С‚РёРїР°РјРё С…РёС‚РѕРІ
 burn_immunity			= 0.0
 strike_immunity			= 0.0
 shock_immunity			= 0.0
@@ -1839,270 +2137,402 @@ telepatic_immunity		= 0.0
 chemical_burn_immunity	= 1.0
 explosion_immunity		= 0.5
 fire_wound_immunity		= 0.05
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;	WEAPON ADDON
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-[wpn_addon_scope]:identity_immunities
+
+[addon_base]:identity_immunities
 GroupControlSection	= spawn_group
 discovery_dependency =
-$spawn			= "weapons\addons\scope" ; option for Level Editor
-class			= WP_SCOPE
+script_binding      = bind_physic_object.init
 cform           = skeleton
-visual          = dynamics\weapons\wpn_upgrade\wpn_scope.ogf
 $prefetch 		= 32
-description		= st_addon_scope_descr
-cost			= 800
 
-holder_range_modifier	= 1.2
-holder_fov_modifier		= 1.0
+;;;;;;;;;;;;;;;;;;;;;;;;РїСЂРёС†РµР»С‹ Р»Р°СЃС‚РѕС‡РєРёРЅ С…РІРѕСЃС‚;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-inv_name		= st_addon_scope
-inv_name_short	= st_addon_scope
-inv_weight		= .2
-
-inv_grid_width		= 2
-inv_grid_height		= 1
-inv_grid_x			= 10
-inv_grid_y			= 17
-scope_texture		= wpn_crosshair
-scope_zoom_factor	= 25		;ПСО-1 2X
-
-[wpn_addon_scope_x2.7]:identity_immunities
-GroupControlSection	= spawn_group
-discovery_dependency =
-$spawn			= "weapons\addons\scope_x2.7" ; option for Level Editor
+[wpn_addon_scope]:addon_base
+$spawn			= "weapons\addons\scopes\scope" ; option for Level Editor
 class			= WP_SCOPE
-cform           = skeleton
-visual          = dynamics\weapons\wpn_upgrade\wpn_scope.ogf
-$prefetch 		= 32
-description		= st_addon_scope_x2.7_descr
+visual          = dynamics\weapons\addons\scopes\pso1sn.ogf
+description		= st_addon_scope_pso1m2_descr
 cost			= 2000
 
 holder_range_modifier	= 1.2
 holder_fov_modifier		= 1.0
 
-inv_name		= st_addon_scope_x2.7
-inv_name_short	= st_addon_scope_x2.7
-inv_weight		= .2
+inv_name		= st_addon_scope_pso1m2
+inv_name_short	= st_addon_scope_pso1m2
+inv_weight		= .62
 
 inv_grid_width		= 2
 inv_grid_height		= 1
 inv_grid_x			= 10
-inv_grid_y			= 16
-scope_texture		= wpn_crosshair
-scope_zoom_factor	= 40		;ПСО-1 2X
-
-[wpn_addon_scope_detector]:identity_immunities
-GroupControlSection	= spawn_group
-discovery_dependency =
-$spawn			= "weapons\addons\scope_detector" ; option for Level Editor
-class			= WP_SCOPE
-cform           = skeleton
-visual          = dynamics\weapons\wpn_upgrade\wpn_scope.ogf
-$prefetch 		= 32
-description		= st_addon_scope_detector_descr
-cost			= 10000
-
-holder_range_modifier	= 1.2
-holder_fov_modifier		= 1.0
-
-inv_name		= st_addon_scope_detector
-inv_name_short	= st_addon_scope_detector
-inv_weight		= .2
-
-inv_grid_width		= 2
-inv_grid_height		= 1
-inv_grid_x			= 4
-inv_grid_y			= 16
-scope_texture		= wpn_crosshair
-scope_alive_detector = scope_detector
-scope_zoom_factor	= 30		;ПСО-1 2X
-
-[wpn_addon_scope_night]:identity_immunities
-GroupControlSection	= spawn_group
-discovery_dependency =
-$spawn			= "weapons\addons\scope_night" ; option for Level Editor
-class			= WP_SCOPE
-cform           = skeleton
-visual          = dynamics\weapons\wpn_upgrade\wpn_scope.ogf
-$prefetch 		= 32
-description		= st_addon_scope_night_vision_descr
-cost			= 3000
-
-holder_range_modifier	= 1.2
-holder_fov_modifier		= 1.0
-
-inv_name		= st_addon_scope_night_vision
-inv_name_short	= st_addon_scope_night_vision
-inv_weight		= .2
-
-inv_grid_width		= 2
-inv_grid_height		= 1
-inv_grid_x			= 4
 inv_grid_y			= 17
-scope_texture		= wpn_crosshair
-scope_nightvision = scope_nightvision
-scope_zoom_factor	= 30		;ПСО-1 2X
+scope_texture		= wpn_crosshair_pso1sn
+scope_zoom_factor	= 25
+min_lens_factor = 15		//РјРёРЅРёРјР°Р»СЊРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ РєСЂР°С‚РЅРѕСЃС‚Рё РїСЂРёС†РµР»Р° (РєСЂР°С‚РЅРѕСЃС‚СЊ С‚Р°РєРѕРІР° РїСЂРё СѓСЃР»РѕРІРёРё, С‡С‚Рѕ РїСЂРёС†РµР» РЅР° РІРµСЃСЊ СЌРєСЂР°РЅ)
+max_lens_factor = 15		//РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ РєСЂР°С‚РЅРѕСЃС‚СЊ РїСЂРёС†РµР»Р°
 
-[wpn_addon_scope_susat]:identity_immunities
-GroupControlSection	= spawn_group
-discovery_dependency =
-$spawn			= "weapons\addons\scope_susat" ; option for Level Editor
+[wpn_addon_scope_x2.7]:addon_base
+$spawn			= "weapons\addons\scopes\scope_x2.7" ; option for Level Editor
 class			= WP_SCOPE
-cform           = skeleton
-visual          = dynamics\weapons\wpn_upgrade\wpn_scope_susat.ogf
-description		= st_addon_scope_susat_descr
-slot = -1
-;$prefetch 		= 64
+visual          = dynamics\weapons\addons\scopes\pso1as.ogf
+description		= st_addon_scope_pso1m2_1_descr
+cost			= 2000
 
-cost			= 900
-
-holder_range_modifier	= 1.3
+holder_range_modifier	= 1.2
 holder_fov_modifier		= 1.0
 
-inv_name		= st_addon_scope_susat
-inv_name_short	= st_addon_scope_susat
-inv_weight		= .2
+inv_name		= st_addon_scope_pso1m2_1
+inv_name_short	= st_addon_scope_pso1m2_1
+inv_weight		= .62
 
-inv_grid_width		= 1
-inv_grid_height		= 1
-inv_grid_x			= 11
-inv_grid_y			= 18
-scope_texture		= wpn_crosshair_l85
-scope_zoom_factor	= 30		;SUSAT 2X
-
-[wpn_addon_scope_susat_x1.6]:identity_immunities
-GroupControlSection	= spawn_group
-discovery_dependency =
-$spawn			= "weapons\addons\scope_susat_x1.6" ; option for Level Editor
-class			= WP_SCOPE
-cform           = skeleton
-visual          = dynamics\weapons\wpn_upgrade\wpn_scope_susat.ogf
-description		= st_addon_scope_susat_x1.6_descr
-slot = -1
-;$prefetch 		= 64
-
-cost			= 900
-
-holder_range_modifier	= 1.3
-holder_fov_modifier		= 1.0
-
-inv_name		= st_addon_scope_susat_x1.6
-inv_name_short	= st_addon_scope_susat_x1.6
-inv_weight		= .2
-
-inv_grid_width		= 1
+inv_grid_width		= 2
 inv_grid_height		= 1
 inv_grid_x			= 10
-inv_grid_y			= 18
-scope_texture		= wpn_crosshair_l85
-scope_zoom_factor	= 50		;SUSAT 1.6X
+inv_grid_y			= 16
+scope_texture		= wpn_crosshair_pso1as
+scope_zoom_factor	= 40
 
-[wpn_addon_scope_susat_custom]:identity_immunities
-GroupControlSection	= spawn_group
-discovery_dependency =
-$spawn			= "weapons\addons\scope_susat_custom" ; option for Level Editor
+[wpn_addon_scope_cobra]:addon_base
+$spawn			= "weapons\addons\scopes\scope_cobra" ; option for Level Editor
 class			= WP_SCOPE
-cform           = skeleton
-visual          = dynamics\weapons\wpn_upgrade\wpn_scope_susat.ogf
-description		= st_addon_scope_susat_custom_descr
-slot = -1
-;$prefetch 		= 64
+visual          = dynamics\weapons\addons\scopes\cobra.ogf
+description		= st_addon_scope_cobra_descr
+cost			= 1600
 
-cost			= 5500
-
-holder_range_modifier	= 1.3
+holder_range_modifier	= 1.2
 holder_fov_modifier		= 1.0
 
-inv_name		= st_addon_scope_susat_custom
-inv_name_short	= st_addon_scope_susat_custom
-inv_weight		= .2
+inv_name		= st_addon_scope_cobra
+inv_name_short	= st_addon_scope_cobra
+inv_weight		= .41
 
 inv_grid_width		= 1
 inv_grid_height		= 1
-inv_grid_x			= 15
-inv_grid_y			= 22
-scope_texture		= wpn_crosshair_l85
-scope_dynamic_zoom = on
-scope_zoom_factor	= 30		;SUSAT 2X
+inv_grid_x		= 16
+inv_grid_y		= 7
+scope_zoom_factor	= 60
 
-[wpn_addon_scope_susat_dusk]:identity_immunities
-GroupControlSection	= spawn_group
-discovery_dependency =
-$spawn			= "weapons\addons\scope_susat_dusk" ; option for Level Editor
+collimator = true
+
+[wpn_addon_scope_kashtan]:addon_base
+$spawn			= "weapons\addons\scopes\scope_kashtan" ; option for Level Editor
 class			= WP_SCOPE
-cform           = skeleton
-visual          = dynamics\weapons\wpn_upgrade\wpn_scope_susat.ogf
-description		= st_addon_scope_susat_dusk_descr
-slot = -1
-;$prefetch 		= 64
+visual          = dynamics\weapons\addons\scopes\kashtan.ogf
+description		= st_addon_scope_kashtan_descr
+cost			= 800
 
-cost			= 2500
-
-holder_range_modifier	= 1.3
+holder_range_modifier	= 1.2
 holder_fov_modifier		= 1.0
 
-inv_name		= st_addon_scope_susat_dusk
-inv_name_short	= st_addon_scope_susat_dusk
-inv_weight		= .2
-
-inv_grid_width		= 1
-inv_grid_height		= 1
-inv_grid_x			= 5
-inv_grid_y			= 15
-scope_texture		= wpn_crosshair_l85
-scope_nightvision = scope_contrast
-scope_zoom_factor	= 50		;SUSAT 2X
-
-[wpn_addon_scope_susat_night]:identity_immunities
-GroupControlSection	= spawn_group
-discovery_dependency =
-$spawn			= "weapons\addons\scope_susat_night" ; option for Level Editor
-class			= WP_SCOPE
-cform           = skeleton
-visual          = dynamics\weapons\wpn_upgrade\wpn_scope_susat.ogf
-description		= st_addon_scope_susat_night_vision_descr
-slot = -1
-;$prefetch 		= 64
-
-cost			= 3500
-
-holder_range_modifier	= 1.3
-holder_fov_modifier		= 1.0
-
-inv_name		= st_addon_scope_susat_night_vision
-inv_name_short	= st_addon_scope_susat_night_vision
-inv_weight		= .2
-
-inv_grid_width		= 1
-inv_grid_height		= 1
-inv_grid_x			= 14
-inv_grid_y			= 22
-scope_texture		= wpn_crosshair_l85
-scope_nightvision = scope_nightvision
-scope_zoom_factor	= 30		;SUSAT 2X
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-[wpn_addon_silencer]:identity_immunities
-GroupControlSection	= spawn_group
-discovery_dependency =
-$spawn			= "weapons\addons\silencer" ; option for Level Editor
-class			= WP_SILEN
-cform           = skeleton
-visual          = dynamics\weapons\wpn_upgrade\wpn_silencer.ogf
-description		= st_addon_silencer_descr
-$prefetch 		= 32
-slot = -1
-cost			= 200
-inv_name		= st_addon_silencer
-inv_name_short	= st_addon_silencer
-inv_weight		= 0.1
+inv_name		= st_addon_scope_kashtan
+inv_name_short	= st_addon_scope_kashtan
+inv_weight		= .5
 
 inv_grid_width		= 1
 inv_grid_height		= 1
 inv_grid_x			= 18
 inv_grid_y			= 1
+scope_texture		= wpn_crosshair_kashtan
+scope_zoom_factor	= 15
+
+[wpn_addon_scope_pka]:addon_base
+$spawn			= "weapons\addons\scopes\scope_pka" ; option for Level Editor
+class			= WP_SCOPE
+visual          = dynamics\weapons\addons\scopes\pka.ogf
+description		= st_addon_scope_pka_descr
+cost			= 1600
+
+holder_range_modifier	= 1.2
+holder_fov_modifier		= 1.0
+
+inv_name		= st_addon_scope_pka
+inv_name_short	= st_addon_scope_pka
+inv_weight		= .6
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x		= 18
+inv_grid_y		= 6
+scope_texture		= wpn_crosshair
+scope_zoom_factor	= 60
+
+collimator = true
+
+[wpn_addon_scope_detector]:addon_base
+$spawn			= "weapons\addons\scopes\scope_detector" ; option for Level Editor
+class			= WP_SCOPE
+visual          = dynamics\weapons\addons\scopes\1pn93x4.ogf
+description		= st_addon_scope_1pn93_4_descr
+cost			= 10000
+
+holder_range_modifier	= 1.2
+holder_fov_modifier		= 1.0
+
+inv_name		= st_addon_scope_1pn93_4
+inv_name_short	= st_addon_scope_1pn93_4
+inv_weight		= 1.3
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 4
+inv_grid_y			= 16
+scope_texture		= wpn_crosshair_1pn93x4
+scope_zoom_factor	= 25
+scope_nightvision	= scope_nightvision
+scope_nightvision_min_factor = 0.5
+
+[wpn_addon_scope_night]:addon_base
+$spawn			= "weapons\addons\scopes\scope_night" ; option for Level Editor
+class			= WP_SCOPE
+visual          = dynamics\weapons\addons\scopes\1pn93x1.ogf
+description		= st_addon_scope_1pn93_1_descr
+cost			= 3000
+
+holder_range_modifier	= 1.2
+holder_fov_modifier		= 1.0
+
+inv_name		= st_addon_scope_1pn93_1
+inv_name_short	= st_addon_scope_1pn93_1
+inv_weight		= 1.0
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 4
+inv_grid_y			= 17
+scope_texture		= wpn_crosshair_1pn93x1
+scope_zoom_factor	= 20
+scope_nightvision	= scope_nightvision
+scope_nightvision_min_factor = 0.5
+
+[wpn_addon_scope_pgo7v]:addon_base
+$spawn			= "weapons\addons\scopes\scope_pgo7v" ; option for Level Editor
+class			= WP_SCOPE
+visual          = dynamics\weapons\addons\scopes\pgo7v.ogf
+description		= st_addon_scope_pgo7v_descr
+cost			= 3000
+
+holder_range_modifier	= 1.2
+holder_fov_modifier		= 1.0
+
+inv_name		= st_addon_scope_pgo7v
+inv_name_short	        = st_addon_scope_pgo7v
+inv_weight		= .62
+
+inv_grid_width	        = 1
+inv_grid_height	        = 1
+inv_grid_x		= 19
+inv_grid_y		= 22
+
+scope_texture		= wpn_crosshair_pgo7v
+scope_zoom_factor	= 25
+
+;;;;;;;;;;;;;;;;;;;;;;;;РїСЂРёС†РµР»С‹ РїРёРєР°С‚РёРЅРЅРё;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[wpn_addon_scope_susat]:addon_base
+$spawn			= "weapons\addons\scopes\scope_susat" ; option for Level Editor
+class			= WP_SCOPE
+visual          = dynamics\weapons\addons\scopes\susat.ogf
+description		= st_addon_scope_susat_descr
+cost			= 2000
+
+holder_range_modifier	= 1.2
+holder_fov_modifier		= 1.0
+
+inv_name		= st_addon_scope_susat
+inv_name_short	= st_addon_scope_susat
+inv_weight		= .417
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 19
+inv_grid_y			= 1
+scope_texture		= wpn_crosshair_susat
+scope_zoom_factor	= 25
+
+[wpn_addon_scope_susat_x1.6]:addon_base
+$spawn			= "weapons\addons\scopes\scope_susat_x1.6" ; option for Level Editor
+class			= WP_SCOPE
+visual          = dynamics\weapons\addons\scopes\eotech.ogf
+description		= st_addon_scope_eotech_descr
+cost			= 1800
+
+holder_range_modifier	= 1.2
+holder_fov_modifier		= 1.0
+
+inv_name		= st_addon_scope_eotech
+inv_name_short	        = st_addon_scope_eotech
+inv_weight		= .255
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x		= 14
+inv_grid_y		= 22
+scope_zoom_factor	= 60
+
+collimator = true
+
+[wpn_addon_scope_susat_custom]:addon_base
+$spawn			= "weapons\addons\scopes\scope_susat_custom" ; option for Level Editor
+class			= WP_SCOPE
+visual          = dynamics\weapons\addons\scopes\elcan.ogf
+description		= st_addon_scope_elcan_descr
+cost			= 800
+
+holder_range_modifier	= 1.2
+holder_fov_modifier		= 1.0
+
+inv_name		= st_addon_scope_elcan
+inv_name_short	= st_addon_scope_elcan
+inv_weight		= .66
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 10
+inv_grid_y			= 18
+scope_texture		= wpn_crosshair_elcan
+scope_zoom_factor	= 30
+
+[wpn_addon_scope_susat_dusk]:addon_base
+$spawn			= "weapons\addons\scopes\scope_susat_dusk" ; option for Level Editor
+class			= WP_SCOPE
+visual          = dynamics\weapons\addons\scopes\aimpoint.ogf
+description		= st_addon_scope_aimpoint_descr
+cost			= 2000
+
+holder_range_modifier	= 1.2
+holder_fov_modifier		= 1.0
+
+inv_name		= st_addon_scope_aimpoint
+inv_name_short	= st_addon_scope_aimpoint
+inv_weight		= .376
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x		= 15
+inv_grid_y		= 22
+scope_zoom_factor	= 60
+
+collimator = true
+
+[wpn_addon_scope_susat_night]:addon_base
+$spawn			= "weapons\addons\scopes\scope_susat_night" ; option for Level Editor
+class			= WP_SCOPE
+visual          = dynamics\weapons\addons\scopes\pn23.ogf
+description		= st_addon_scope_pn23_descr
+cost			= 10000
+
+holder_range_modifier	= 1.2
+holder_fov_modifier		= 1.0
+
+inv_name		= st_addon_scope_pn23
+inv_name_short	= st_addon_scope_pn23
+inv_weight		= 0.83
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 14
+inv_grid_y			= 31
+scope_texture		= wpn_crosshair_pn23
+scope_zoom_factor	= 25
+scope_nightvision       = scope_nightvision
+scope_nightvision_min_factor = 0.5
+
+;;;;;;;;;;;;;;;;;;;;;;;;РїСЂРёС†РµР»С‹ РІРёРІРµСЂ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[wpn_addon_scope_pu]:addon_base
+$spawn			= "weapons\addons\scopes\scope_pu" ; option for Level Editor
+class			= WP_SCOPE
+visual          = dynamics\weapons\addons\scopes\pu.ogf
+description		= st_addon_scope_pu_descr
+cost			= 600
+
+holder_range_modifier	= 1.2
+holder_fov_modifier		= 1.0
+
+inv_name		= st_addon_scope_pu
+inv_name_short	= st_addon_scope_pu
+inv_weight		= .5
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 18
+inv_grid_y			= 26
+scope_texture		= wpn_crosshair_pu
+scope_zoom_factor	= 20
+
+[wpn_addon_scope_rakurs]:addon_base
+$spawn			= "weapons\addons\scopes\scope_rakurs" ; option for Level Editor
+class			= WP_SCOPE
+visual          = dynamics\weapons\addons\scopes\rakurs.ogf
+description		= st_addon_scope_rakurs_descr
+cost			= 1600
+
+holder_range_modifier	= 1.2
+holder_fov_modifier		= 1.0
+
+inv_name		= st_addon_scope_rakurs
+inv_name_short	        = st_addon_scope_rakurs
+inv_weight		= .5
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x		= 9
+inv_grid_y		= 26
+scope_zoom_factor	= 60
+
+collimator = true
+
+[wpn_addon_scope_po4x34]:addon_base
+$spawn			= "weapons\addons\scopes\scope_po4x34" ; option for Level Editor
+class			= WP_SCOPE
+visual          = dynamics\weapons\addons\scopes\po4x34.ogf
+description		= st_addon_scope_po4x34_descr
+cost			= 3000
+
+holder_range_modifier	= 1.2
+holder_fov_modifier		= 1.0
+
+inv_name		= st_addon_scope_po4x34
+inv_name_short	= st_addon_scope_po4x34
+inv_weight		= .36
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 18
+inv_grid_y			= 8
+
+scope_texture		= wpn_crosshair_po4x34
+scope_zoom_factor	= 16
+zoom_hide_ui = true
+
+need_lens_frame = true		//РІРєР»СЋС‡Р°РµС‚ РґР»СЏ СЌС‚РѕРіРѕ РїСЂРёС†РµР»Р° РґРІРѕР№РЅРѕР№ СЂРµРЅРґРµСЂ РІ РїСЂРёС†РµР»РёРІР°РЅРёРё
+min_lens_factor = 6		//РјРёРЅРёРјР°Р»СЊРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ РєСЂР°С‚РЅРѕСЃС‚Рё РїСЂРёС†РµР»Р° (РєСЂР°С‚РЅРѕСЃС‚СЊ С‚Р°РєРѕРІР° РїСЂРё СѓСЃР»РѕРІРёРё, С‡С‚Рѕ РїСЂРёС†РµР» РЅР° РІРµСЃСЊ СЌРєСЂР°РЅ)
+max_lens_factor = 6		//РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ РєСЂР°С‚РЅРѕСЃС‚СЊ РїСЂРёС†РµР»Р°
+lens_factor_levels_count = 5	//С‡РёСЃР»Рѕ РїРѕРІРѕСЂРѕС‚РѕРІ РєРѕР»РµСЃРёРєР° РѕС‚ РјР°РєСЃРёРјР°Р»СЊРЅРѕРіРѕ Р·СѓРјР° РґРѕ РјРёРЅРёРјР°Р»СЊРЅРѕРіРѕ Рё РЅР°РѕР±РѕСЂРѕС‚
+zoom_mouse_sense_koef = 0.5
+
+scope_abberation = 0.011
+
+;;;;;;;;;;;;;;;;;;;РіР»СѓС€РёС‚РµР»Рё;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[wpn_addon_silencer]:addon_base
+$spawn			= "weapons\addons\silencers\silencer_9x18" ; option for Level Editor
+class			= WP_SILEN
+visual          = dynamics\weapons\addons\silencers\silencer_918.ogf
+description		= st_addon_silencer_9x18_descr
+slot = -1
+cost			= 200
+inv_name		= st_addon_silencer_9x18
+inv_name_short	= st_addon_silencer_9x18
+inv_weight		= 0.1
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 14
+inv_grid_y			= 25
 
 bullet_hit_power_k		= 0.8
 bullet_hit_impulse_k	= 0.7
@@ -2111,55 +2541,417 @@ fire_dispersion_base_k	= 1.25
 cam_dispersion_k		= 0.8
 cam_dispersion_inc_k	= 0.9
 
-[wpn_addon_grenade_launcher]:identity_immunities
-GroupControlSection	= spawn_group
-discovery_dependency =
-$spawn			= "weapons\addons\grenade_launcher" ; option for Level Editor
+[wpn_addon_silencer_pb]:addon_base
+$spawn			= "weapons\addons\silencers\silencer_pb" ; option for Level Editor
+class			= WP_SILEN
+visual          = dynamics\weapons\addons\silencers\silencer_pb.ogf
+description		= st_addon_silencer_pb_descr
+slot = -1
+cost			= 200
+inv_name		= st_addon_silencer_pb
+inv_name_short	= st_addon_silencer_pb
+inv_weight		= 0.2
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 18
+inv_grid_y			= 28
+
+bullet_hit_power_k		= 0.8
+bullet_hit_impulse_k	= 0.7
+bullet_speed_k	 		= 0.8
+fire_dispersion_base_k	= 1.25
+cam_dispersion_k		= 0.8
+cam_dispersion_inc_k	= 0.9
+
+[wpn_addon_silencer_apb]:addon_base
+$spawn			= "weapons\addons\silencers\silencer_apb" ; option for Level Editor
+class			= WP_SILEN
+visual                  = dynamics\weapons\addons\silencers\silencer_apb.ogf
+description		=st_addon_silencer_apb_descr
+slot = -1
+cost			= 200
+inv_name		= st_addon_silencer_apb
+inv_name_short	        = st_addon_silencer_apb
+inv_weight		= 0.4
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 14
+inv_grid_y			= 29
+
+bullet_hit_power_k		= 1.2
+bullet_hit_impulse_k	= 1.0
+bullet_speed_k	 		= 1.0
+fire_dispersion_base_k	= 1.25
+cam_dispersion_k		= 0.8
+cam_dispersion_inc_k	= 0.9
+
+[wpn_addon_silencer_9x18smg]:addon_base
+$spawn			= "weapons\addons\silencers\silencer_9x18smg" ; option for Level Editor
+class			= WP_SILEN
+visual          = dynamics\weapons\addons\silencers\silencer_918smg.ogf
+description		= st_addon_silencer_9x18smg_descr
+slot = -1
+cost			= 200
+inv_name		= st_addon_silencer_9x18smg
+inv_name_short	= st_addon_silencer_9x18smg
+inv_weight		= 0.1
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 18
+inv_grid_y			= 30
+
+bullet_hit_power_k		= 0.8
+bullet_hit_impulse_k	= 0.7
+bullet_speed_k	 		= 0.8
+fire_dispersion_base_k	= 1.25
+cam_dispersion_k		= 0.8
+cam_dispersion_inc_k	= 0.9
+
+[wpn_addon_silencer_919]:addon_base
+$spawn			= "weapons\addons\silencers\silencer_919" ; option for Level Editor
+class			= WP_SILEN
+visual          = dynamics\weapons\addons\silencers\silencer_919.ogf
+description		= st_addon_silencer_9x19_descr
+slot = -1
+cost			= 250
+inv_name		= st_addon_silencer_9x19
+inv_name_short	= st_addon_silencer_9x19
+inv_weight		= 0.1
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 12
+inv_grid_y			= 25
+
+bullet_hit_power_k		= 0.8
+bullet_hit_impulse_k	= 0.7
+bullet_speed_k	 		= 0.8
+fire_dispersion_base_k	= 1.25
+cam_dispersion_k		= 0.8
+cam_dispersion_inc_k	= 0.9
+
+[wpn_addon_silencer_921]:addon_base
+$spawn			= "weapons\addons\silencers\silencer_921" ; option for Level Editor
+class			= WP_SILEN
+visual          = dynamics\weapons\addons\silencers\silencer_921.ogf
+description		= st_addon_silencer_9x21_descr
+slot = -1
+cost			= 250
+inv_name		= st_addon_silencer_9x21
+inv_name_short	= st_addon_silencer_9x21
+inv_weight		= 0.1
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 18
+inv_grid_y			= 27
+
+bullet_hit_power_k		= 0.8
+bullet_hit_impulse_k	= 0.7
+bullet_speed_k	 		= 0.8
+fire_dispersion_base_k	= 1.25
+cam_dispersion_k		= 0.8
+cam_dispersion_inc_k	= 0.9
+
+[wpn_addon_silencer_colt_p220]:addon_base
+$spawn			= "weapons\addons\silencers\silencer_45" ; option for Level Editor
+class			= WP_SILEN
+visual          = dynamics\weapons\addons\silencers\silencer_45.ogf
+description		= st_addon_silencer_colt_p220_descr
+slot = -1
+cost			= 330
+inv_name		= st_addon_silencer_colt_p220
+inv_name_short	= st_addon_silencer_colt_p220
+inv_weight		= 0.3
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 14
+inv_grid_y			= 24
+
+bullet_hit_power_k		= 0.8
+bullet_hit_impulse_k	= 0.7
+bullet_speed_k	 		= 0.8
+fire_dispersion_base_k	= 1.25
+cam_dispersion_k		= 0.8
+cam_dispersion_inc_k	= 0.9
+
+[wpn_addon_silencer_hexagon12]:addon_base
+$spawn			= "weapons\addons\silencers\silencer_hexagon12" ; option for Level Editor
+class			= WP_SILEN
+visual          = dynamics\weapons\addons\silencers\silencer_hexagon12.ogf
+description		= st_addon_silencer_hexagon12_descr
+slot = -1
+cost			= 200
+inv_name		= st_addon_silencer_hexagon12
+inv_name_short	= st_addon_silencer_hexagon12
+inv_weight		= 0.2
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 18
+inv_grid_y			= 29
+
+bullet_hit_power_k		= 0.8
+bullet_hit_impulse_k	= 0.7
+bullet_speed_k	 		= 0.8
+fire_dispersion_base_k	= 1.25
+cam_dispersion_k		= 0.8
+cam_dispersion_inc_k	= 0.9
+
+[wpn_addon_silencer_svd]:addon_base
+$spawn			= "weapons\addons\silencers\silencer_svd" ; option for Level Editor
+class			= WP_SILEN
+visual          = dynamics\weapons\addons\silencers\silencer_svd.ogf
+description		= st_addon_silencer_svd_descr
+slot = -1
+cost			= 300
+inv_name		= st_addon_silencer_svd
+inv_name_short	= st_addon_silencer_svd
+inv_weight		= 0.7
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 18
+inv_grid_y			= 2
+
+bullet_hit_power_k		= 1.0
+bullet_hit_impulse_k	= 1.0
+bullet_speed_k	 		= 0.9
+fire_dispersion_base_k	= 1.0
+cam_dispersion_k		= 0.8
+cam_dispersion_inc_k	= 0.9
+
+[wpn_addon_silencer_m4_2000]:addon_base
+$spawn			= "weapons\addons\silencers\silencer_m4_2000" ; option for Level Editor
+class			= WP_SILEN
+visual          = dynamics\weapons\addons\silencers\silencer_tgpa.ogf
+description		= st_addon_silencer_m4_2000_descr
+slot = -1
+cost			= 350
+inv_name		= st_addon_silencer_m4_2000
+inv_name_short	= st_addon_silencer_m4_2000
+inv_weight		= 0.49
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 14
+inv_grid_y			= 30
+
+bullet_hit_power_k		= 0.8
+bullet_hit_impulse_k	= 0.7
+bullet_speed_k	 		= 0.8
+fire_dispersion_base_k	= 1.25
+cam_dispersion_k		= 0.8
+cam_dispersion_inc_k	= 0.9
+
+[wpn_addon_silencer_tgpa]:addon_base
+$spawn			= "weapons\addons\silencers\silencer_tgpa" ; option for Level Editor
+class			= WP_SILEN
+visual          = dynamics\weapons\addons\silencers\silencer_tgpa.ogf
+description		= st_addon_silencer_tgpa_descr
+slot = -1
+cost			= 300
+inv_name		= st_addon_silencer_tgpa
+inv_name_short	= st_addon_silencer_tgpa
+inv_weight		= 0.7
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 14
+inv_grid_y			= 23
+
+bullet_hit_power_k		= 0.8
+bullet_hit_impulse_k	= 0.7
+bullet_speed_k	 		= 0.8
+fire_dispersion_base_k	= 1.25
+cam_dispersion_k		= 0.8
+cam_dispersion_inc_k	= 0.9
+
+[wpn_addon_silencer_pbs1]:addon_base
+$spawn			= "weapons\addons\silencers\silencer_pbs1" ; option for Level Editor
+class			= WP_SILEN
+visual          = dynamics\weapons\addons\silencers\silencer_pbs1.ogf
+description		= st_addon_silencer_pbs1_descr
+slot = -1
+cost			= 300
+inv_name		= st_addon_silencer_pbs1
+inv_name_short	= st_addon_silencer_pbs1
+inv_weight		= 0.55
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 16
+inv_grid_y			= 33
+
+bullet_hit_power_k		= 0.8
+bullet_hit_impulse_k	= 0.7
+bullet_speed_k	 		= 0.8
+fire_dispersion_base_k	= 1.25
+cam_dispersion_k		= 0.8
+cam_dispersion_inc_k	= 0.9
+
+[wpn_addon_silencer_57x28]:addon_base
+$spawn			= "weapons\addons\silencers\silencer_57x28" ; option for Level Editor
+class			= WP_SILEN
+visual          = dynamics\weapons\addons\silencers\silencer_57x28.ogf
+description		= st_addon_silencer_57x28_descr
+slot = -1
+cost			= 330
+inv_name		= st_addon_silencer_57x28
+inv_name_short	= st_addon_silencer_57x28
+inv_weight		= 0.3
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 16
+inv_grid_y			= 24
+
+
+bullet_hit_power_k		= 0.8
+bullet_hit_impulse_k	= 0.7
+bullet_speed_k	 		= 0.8
+fire_dispersion_base_k	= 1.25
+cam_dispersion_k		= 0.8
+cam_dispersion_inc_k	= 0.9
+
+[wpn_addon_silencer_pistol_57x28]:addon_base
+$spawn			= "weapons\addons\silencers\silencer_pistol_57x28" ; option for Level Editor
+class			= WP_SILEN
+visual          = dynamics\weapons\addons\silencers\silencer_sfn57.ogf
+description		= st_addon_silencer_pistol_57x28_descr
+slot = -1
+cost			= 330
+inv_name		= st_addon_silencer_pistol_57x28
+inv_name_short	= st_addon_silencer_pistol_57x28
+inv_weight		= 0.3
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 16
+inv_grid_y			= 23
+
+
+bullet_hit_power_k		= 0.8
+bullet_hit_impulse_k	= 0.7
+bullet_speed_k	 		= 0.8
+fire_dispersion_base_k	= 1.25
+cam_dispersion_k		= 0.8
+cam_dispersion_inc_k	= 0.9
+
+[wpn_addon_silencer_groza]:addon_base
+$spawn			= "weapons\addons\silencers\silencer_groza" ; option for Level Editor
+class			= WP_SILEN
+visual          = dynamics\weapons\addons\silencers\silencer_groza.ogf
+description		= st_addon_silencer_groza_descr
+slot = -1
+cost			= 300
+inv_name		= st_addon_silencer_groza
+inv_name_short	= st_addon_silencer_groza
+inv_weight		= 0.48
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 16
+inv_grid_y			= 32
+
+bullet_hit_power_k		= 0.8
+bullet_hit_impulse_k	= 0.7
+bullet_speed_k	 		= 0.8
+fire_dispersion_base_k	= 1.25
+cam_dispersion_k		= 0.8
+cam_dispersion_inc_k	= 0.9
+
+;;;;;;;;;;;;;;;;;;;РїРѕРґСЃС‚РІРѕР»РєРё;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[wpn_addon_grenade_launcher]:addon_base
+$spawn			= "weapons\addons\grenade_launchers\grenade_launcher" ; option for Level Editor
 class			= WP_GLAUN
-cform           = skeleton
-visual          = dynamics\weapons\wpn_upgrade\wpn_grenade_launcher.ogf
-description		= st_grenade_launcher_descr
-$prefetch 		= 32
+visual          = dynamics\weapons\addons\grenade_launchers\wpn_grenade_launcher.ogf
+description		= st_addon_gl_gp25_descr
 
 cost					 = 2000
-inv_name		= st_grenade_launcher
-inv_name_short	= st_grenade_launcher
-inv_weight		= 1.3
+inv_name		= st_addon_gl_gp25
+inv_name_short	= st_addon_gl_gp25
+inv_weight		= 1.5
 
 inv_grid_width		= 2
 inv_grid_height		= 1
 inv_grid_x			= 18
 inv_grid_y			= 0
-grenade_vel 		= 32 ;55
+grenade_vel 		= 70
 
-[wpn_addon_grenade_launcher_m203]:identity_immunities
-GroupControlSection	= spawn_group
-discovery_dependency =
-$spawn			= "weapons\addons\grenade_launcher_m203" ; option for Level Editor
+[wpn_addon_grenade_launcher_l123a2]:addon_base
+$spawn			= "weapons\addons\grenade_launchers\grenade_launcher_l123a2" ; option for Level Editor
 class			= WP_GLAUN
-cform           = skeleton
-visual          = dynamics\weapons\wpn_upgrade\wpn_grenade_launcher_m203.ogf
-description		= st_grenade_launcher_m203_descr
-$prefetch 		= 32
+visual          = dynamics\weapons\addons\grenade_launchers\wpn_grenade_launcher_l123a2.ogf
+description		= st_addon_gl_l123a2_descr
+
+cost					 = 2500
+inv_name		= st_addon_gl_l123a2
+inv_name_short	= st_addon_gl_l123a2
+inv_weight		= 1.5
+
+inv_grid_width		= 3
+inv_grid_height		= 2
+inv_grid_x			= 4
+inv_grid_y			= 27
+grenade_vel 		= 70
+
+[wpn_addon_grenade_launcher_m203]:addon_base
+$spawn			= "weapons\addons\grenade_launchers\grenade_launcher_m203" ; option for Level Editor
+class			= WP_GLAUN
+visual          = dynamics\weapons\addons\grenade_launchers\wpn_grenade_launcher_m203.ogf
+description		= st_addon_gl_m203_descr
 slot = -1
 cost					 = 1500
-inv_name		= st_grenade_launcher_m203
-inv_name_short	= st_grenade_launcher_m203
+inv_name		= st_addon_gl_m203
+inv_name_short	= st_addon_gl_m203
 inv_weight		= 1.36
 
 inv_grid_width		= 2
 inv_grid_height		= 1
 inv_grid_x			= 17
 inv_grid_y			= 3
-grenade_vel 		= 32 ;76
+grenade_vel 		= 76
+
+[wpn_addon_grenade_launcher_groza]:addon_base
+$spawn			= "weapons\addons\grenade_launchers\grenade_launcher_groza" ; option for Level Editor
+class			= WP_GLAUN
+visual          = dynamics\weapons\addons\grenade_launchers\wpn_grenade_launcher_groza.ogf
+description		= st_addon_gl_groza_descr
+
+cost			= 2000
+inv_name		= st_addon_gl_groza
+inv_name_short	= st_addon_gl_groza
+inv_weight		= 1.3
+
+inv_grid_width		= 3
+inv_grid_height		= 1
+inv_grid_x			= 5
+inv_grid_y			= 11
+grenade_vel 		= 70
 
 ;;;;;;;;;;;;;Advanced scope settings;;;;;;;;;;;;;;;;
 
 [scope_detector]
-vis_frame_speed				= 4				; скорость, с которой наводится рамка на цель
-vis_frame_color				= 0.7,0.7,0.7,1.0	; цвет рамки RGBA (A) Не учитывается
+vis_frame_speed				= 14				; СЃРєРѕСЂРѕСЃС‚СЊ, СЃ РєРѕС‚РѕСЂРѕР№ РЅР°РІРѕРґРёС‚СЃСЏ СЂР°РјРєР° РЅР° С†РµР»СЊ
+vis_frame_color				= 0.7,0.7,0.7,1.0	; С†РІРµС‚ СЂР°РјРєРё RGBA (A) РќРµ СѓС‡РёС‚С‹РІР°РµС‚СЃСЏ
 found_snd					= detectors\DA-2_beep1
 catch_snd					= detectors\DA-2_beep1
+
+[scope_nightvision_gauss]
+snd_night_vision_on			= $silent
+snd_night_vision_off		= $silent
+snd_night_vision_idle		= $silent
+snd_night_vision_broken		= $silent
+
+pp_eff_name = nightvision_gauss.ppe
+pp_eff_cyclic = 1
+pp_eff_overlap = false
 
 [scope_nightvision]
 snd_night_vision_on			= weapons\nv_start
@@ -2167,7 +2959,7 @@ snd_night_vision_off		= weapons\nv_off
 snd_night_vision_idle		= weapons\nv_loop
 snd_night_vision_broken		= weapons\nv_off
 
-pp_eff_name = nightvision_3.ppe
+pp_eff_name = nightvision_scope.ppe
 pp_eff_cyclic = 1
 pp_eff_overlap = false
 
@@ -2175,3 +2967,5 @@ pp_eff_overlap = false
 pp_eff_name = contrast.ppe
 pp_eff_cyclic = 1
 pp_eff_overlap = false
+
+#include "weapons_unique.ltx"
