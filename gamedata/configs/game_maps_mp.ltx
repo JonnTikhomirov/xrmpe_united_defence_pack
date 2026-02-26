@@ -27,6 +27,15 @@
 		df_agroprom			 =
 		df_most_smerti			 =
 		df_pripyat_center			 =
+	;+SP
+	df_escape
+	df_limansk
+	df_pripyat
+	df_radar
+	df_tir
+	df_yantar
+	df_arena
+	;-SP
 
 [mp_agroprom]
         weathers                         = [default]
@@ -115,3 +124,32 @@
 
 [df_pripyat_center]
 	weathers                         = weather_df_pripyat_center
+; +SP
+[df_escape]
+weathers     = dynamic_default; +UP
+minimap_zoom = 2.0
+
+[df_limansk]
+weathers     = w_df_lim
+minimap_zoom = 1.4
+
+[df_pripyat]
+weathers     = dynamic_default; +UP
+minimap_zoom = 1.2
+
+[df_radar]
+weathers     = dynamic_default; +UP
+minimap_zoom = 1.2
+
+[df_tir]
+weathers     = dynamic_default; +UP
+minimap_zoom = 1.4
+
+[df_yantar]
+weathers     = dynamic_default; +UP
+minimap_zoom = 1.4
+
+[df_arena]
+weathers     = dynamic_default; +UP
+minimap_zoom = 4.0
+; -SP
