@@ -88,7 +88,12 @@ function on_game_load()
   if db.storage[db.actor:id()].pstor == nil then
     db.storage[db.actor:id()].pstor = {}
   end
-	math.randomseed (device():time_global())
+	-- +UP нормальный рандом
+	--math.randomseed (device():time_global())
+	math.randomseed(os.time())
+	-- отбрасываем несколько первых значений (низкокачественные первые байты)
+	math.random(); math.random(); math.random()
+	-- -UP
   for func,o in pairs(callbacks.game_load) do
     func(o.userobj)
   end  
