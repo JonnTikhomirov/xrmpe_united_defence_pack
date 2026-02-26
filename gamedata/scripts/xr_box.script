@@ -106,9 +106,13 @@ function ph_item_box:spawn_items()
 
 	for k,v in pairs(spawn_items) do
 		--' По каждому объекту необходимо получить количество
-		local number = math.ceil(math.random(count_by_level[k].min, count_by_level[k].max))
-		--' Необходимо заспавнить нужное количество.
-		create_items(self.obj, k, number, v)
+		if count_by_level[k] ~= nil and count_by_level[k].min ~= nil and count_by_level[k].max ~= nil then-- +UP
+			local number = math.ceil(math.random(count_by_level[k].min, count_by_level[k].max))
+			--' Необходимо заспавнить нужное количество.
+			create_items(self.obj, k, number, v)
+		else-- +UP
+			to_log("xr_box: wrong count [%s] for box [%s]", k, self.obj:name())-- +UP
+		end-- +UP
 	end
 end
 
@@ -132,7 +136,7 @@ function create_items(obj, section, number, rnd)
 						number)
 			end
 		end
-		else
+	else
 		for i=1,number do
 			--' Проверяем вероятность появить каждый объект в отдельности
 			if math.random(100) <=  rnd then
