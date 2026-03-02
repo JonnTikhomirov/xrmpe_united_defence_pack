@@ -240,9 +240,9 @@ class				= II_MEDKI
 [mp_energy_drink]:energy_drink
 $spawn             	= "network\equipment\mp_energy_drink"
 class				= II_BOTTL
-boost_power_restore	= 0.013 
+boost_power_restore	= 0.04;0.013 ; +UP
 
-boost_time				= 60.0
+boost_time				= 120;60.0; +UP
 boost_radiation_restore	= 0
 
 [mp_bandage]:bandage
@@ -444,6 +444,24 @@ can_remove 			= false
 immunities_sect = mp_explosive_barrel_immunities_sect
 time_to_explode		= 0.f
 explode_on_contact  = true
+
+;+UP
+[mp_energy_drink_nonstop]:energy_drink_nonstop
+$spawn             	= "network\equipment\mp_energy_drink_nonstop"
+class				= II_BOTTL
+boost_power_restore	= 0.05
+
+boost_time				= 300
+boost_radiation_restore	= 0
+
+[mp_drug_psy_blockade]:drug_psy_blockade
+$spawn             	= "network\equipment\mp_drug_psy_blockade"
+class				= II_FOOD
+
+[mp_drug_booster]:drug_booster
+$spawn             	= "network\equipment\mp_drug_booster"
+class				= II_FOOD
+;-UP
 
 ; +SP
 [mp_af_battery]:af_dummy_battery
