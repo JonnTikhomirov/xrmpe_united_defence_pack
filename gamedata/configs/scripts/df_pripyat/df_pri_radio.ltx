@@ -13,4 +13,6 @@ on_press = ph_button@work %=play_sound(df_arena_radio_theme)%
 
 [ph_button@work]
 anim = $editor
+tooltip = st_turn_radio_off
 on_signal = sound_end | ph_button@wait %=stop_sound(df_arena_radio_theme)%
+on_press = ph_button@wait %=stop_sound(df_arena_radio_theme)%
