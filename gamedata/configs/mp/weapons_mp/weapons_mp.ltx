@@ -1,6 +1,6 @@
 [mp_wpn_abakan]:wpn_abakan
     $spawn                            = "network\weapons\assault\mp_wpn_abakan"; name and section in level editor
-    ;class                			  = W_AK74;-- +UP
+    class                			  = W_AK74
 	use_first_bullet				  = true	 ;есть ли эффект первого выстрела (точного)
 	first_bullet_dispertion			  = 0.01	 ;дисперсия для первого выстрела
 	first_bullet_timeout			  = 1000	 ;время между первыми выстрелами
@@ -62,7 +62,7 @@
 	def_show_bones 					  = mag30, handler, foregrip_rail
 	def_hide_bones 					  = mag45, mag45_black, mag60, handler2, scope_cobra, scope_rakurs, scope_pso_sniper, scope_kashtan, scope_pka, scope_pso_assault, scope_nv_sniper, scope_nv_assault, flash, light, laser, line, line2, sight, sight2, foregrip, knife, tilnik
     $spawn                            = "network\weapons\assault\mp_wpn_ak74"
-    ;class                			  = W_AK74;-- +UP
+    class                			  = W_AK74
 	use_first_bullet				  = true	;есть ли эффект первого выстрела (точного)
 	first_bullet_dispertion			  = 0.01	;дисперсия для первого выстрела
 	first_bullet_timeout			  = 1000	;время между первыми выстрелами
@@ -128,7 +128,7 @@
 	def_show_bones 					  = rail, foregrip_wood, bone, body, handler, mag30
 	def_hide_bones 					  = mag45, mag45_black, mag30_black, mag60, body2, body3, bone2, handler2, handler3, foregrip_plastic, flash_rail, scope_kashtan, scope_rakurs, scope_cobra, scope_pso_sniper, scope_pso_assault, scope_pka, scope_nv_sniper, scope_nv_assault, flash, light, laser, line, sight, silencer1
     $spawn                            = "network\weapons\assault\mp_wpn_ak74u"
-	;class                			  = W_VAL ; class of the weapon that corresponding to CPP class;-- +UP
+	class                			  = W_VAL ; class of the weapon that corresponding to CPP class
 	use_first_bullet				  = true	;есть ли эффект первого выстрела (точного)
 	first_bullet_dispertion			  = 0.012;дисперсия для первого выстрела
 	first_bullet_timeout			  = 500	;время между первыми выстрелами
@@ -195,7 +195,7 @@
 	def_hide_bones 					  = barrel, sight
 	def_show_bones 					  = barrel_silencer
     $spawn                            = "network\weapons\pistols\mp_wpn_beretta"
-    ;class                   		  = W_PM;-- +UP
+    class                   		  = W_PM
 	use_first_bullet				  = true	;есть ли эффект первого выстрела (точного)
 	first_bullet_dispertion			  = 0.015;дисперсия для первого выстрела
 	first_bullet_timeout			  = 500	;время между первыми выстрелами
@@ -212,14 +212,14 @@
 
 [mp_wpn_binoc]:wpn_binoc
     $spawn                            = "network\weapons\other\mp_wpn_binoc"      
-    ;class						      = W_BINOC ;-- +UP
+    class						      = W_BINOC 
     ammo_class                        = mp_ammo_9x18_fmj  
     use_aim_bullet                    = false   
 	fire_distance           		  = 1000 ; maximum fire distance that bullet can fly
 
 [mp_wpn_bm16]:wpn_bm16
     $spawn                            = "network\weapons\shotguns\mp_wpn_bm16"
-    ;class                   		  = W_BM16;-- +UP
+    class                   		  = W_BM16
 	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)
     ammo_class                        = mp_ammo_12x70_buck, mp_ammo_12x76_zhekan, mp_ammo_12x76_dart
     bullet_speed                      = 360    
@@ -231,7 +231,7 @@
 [mp_wpn_colt1911]:wpn_colt1911
 	def_hide_bones 					  = barrel, barrel_compensator, sight
     $spawn                            = "network\weapons\pistols\mp_wpn_colt1911"
-    ;class                   		  = W_PM;-- +UP
+    class                   		  = W_PM
 	use_first_bullet				  = true	;есть ли эффект первого выстрела (точного)
 	first_bullet_dispertion			  = 0.015	;дисперсия для первого выстрела
 	first_bullet_timeout			  = 500	;время между первыми выстрелами
@@ -248,7 +248,7 @@
 
 [mp_wpn_desert_eagle]:wpn_desert_eagle
     $spawn                            = "network\weapons\pistols\mp_wpn_desert_eagle"
-    ;class                   		  = W_PM;-- +UP
+    class                   		  = W_PM
 	use_first_bullet				  = true	;есть ли эффект первого выстрела (точного)
 	first_bullet_dispertion			  = 0.015	;дисперсия для первого выстрела
 	first_bullet_timeout			  = 750 ;500	;время между первыми выстрелами
@@ -288,7 +288,7 @@
 	def_hide_bones 					  = barrel, sight
 	def_show_bones					  = barrel_silencer
     $spawn                            = "network\weapons\pistols\mp_wpn_fort"
-    ;class                    	      = W_PM;-- +UP
+    class                    	      = W_PM
 	use_first_bullet				  = true	;есть ли эффект первого выстрела (точного)
 	first_bullet_dispertion			  = 0.015	;дисперсия для первого выстрела
 	first_bullet_timeout			  = 500	;время между первыми выстрелами
@@ -309,7 +309,7 @@
 
 [mp_wpn_gauss]:wpn_gauss
     $spawn                            = "network\weapons\sniper_rifles\mp_wpn_gauss"
-    ;class                   		  = W_SVD;-- +UP
+    class                   		  = W_SVD
 	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)    
     ammo_class                        = mp_ammo_gauss
     bullet_speed                      = 15000     
@@ -322,16 +322,16 @@
 
 [mp_wpn_groza]:wpn_groza
     $spawn                            = "network\weapons\assault\mp_wpn_groza"
-    ;class                   		  = W_GROZA;-- +UP
+    class                   		  = W_GROZA
 	use_first_bullet				  = true	;есть ли эффект первого выстрела (точного)
 	first_bullet_dispertion			  = 0.01	;дисперсия для первого выстрела
 	first_bullet_timeout			  = 1000	;время между первыми выстрелами
 	first_bullet_velocity_limit		  = 1.0	;предельная скорость актера при которой будет первый точный выстрел
     ammo_class                        = mp_ammo_9x39_pab9,mp_ammo_9x39_ap, mp_ammo_9x39_sp5
-    bullet_speed                      = 680  
+    bullet_speed                      = 280; 680 ;+UP
     grenade_class                     = mp_ammo_vog-25, mp_ammo_vog-25p
     grenade_launcher_name             = mp_wpn_addon_grenade_launcher_groza
-    hit_power                         = 0.73
+    hit_power                         = 0.78;0.73; +UP
     scopes_sect						  = mp_scope_po4x34_groza  
     silencer_name                     = mp_wpn_addon_silencer_groza    
     use_aim_bullet                    = true     
@@ -378,7 +378,7 @@
 [mp_wpn_hpsa]:wpn_hpsa
 	def_hide_bones 					  = sight
     $spawn                            = "network\weapons\pistols\mp_wpn_hpsa"
-    ;class                   		  = W_PM;-- +UP
+    class                   		  = W_PM
 	use_first_bullet				  = true	;есть ли эффект первого выстрела (точного)
 	first_bullet_dispertion			  = 0.015	;дисперсия для первого выстрела
 	first_bullet_timeout			  = 500	;время между первыми выстрелами
@@ -396,7 +396,7 @@
 
 [mp_wpn_knife]:wpn_knife
     $spawn                            = "network\weapons\other\mp_wpn_knife"    
-	;class							  = W_KNIFE;-- +UP
+	class							  = W_KNIFE
 	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)
     ammo_class                        = mp_ammo_9x18_fmj
     bullet_speed                      = 1000       
@@ -412,7 +412,7 @@
 
 [mp_wpn_l85]:wpn_l85
     $spawn                            = "network\weapons\assault\mp_wpn_l85"
-    ;class                   		  = W_AK74;-- +UP
+    class                   		  = W_AK74
 	use_first_bullet				  = true	;есть ли эффект первого выстрела (точного)
 	first_bullet_dispertion			  = 0.01	;дисперсия для первого выстрела
 	first_bullet_timeout			  = 1000	;время между первыми выстрелами
@@ -469,7 +469,7 @@
 
 [mp_wpn_lr300]:wpn_lr300
     $spawn                            = "network\weapons\assault\mp_wpn_lr300"
-    ;class                   		  = W_AK74;-- +UP
+    class                   		  = W_AK74
     ;PDM_disp_accel_factor            = 0.83 ;0.93 ;1.2     
     ;PDM_disp_base                    = 0.27 ;0.3 ;0.4     
     ;PDM_disp_crouch                  = 1.0     
@@ -530,7 +530,7 @@
 	def_hide_bones 					  = stock_plastic, stock_short, grip_handler, grip_sd, grip_rail, flash_sd, laser_sd, flash, laser, grip_sd_rail, mag40, mag30_sd, scope1, scope2, scope3, scope4, sight
 	def_show_bones 					  = rail, mag30, stock_teleskop, grip, iron_sight
     $spawn                            = "network\weapons\assault\mp_wpn_mp5"
-	;class							  = W_VAL ;-- +UP
+	class							  = W_VAL 
 	use_first_bullet				  = true	;есть ли эффект первого выстрела (точного)
 	first_bullet_dispertion			  = 0.012;дисперсия для первого выстрела
 	first_bullet_timeout			  = 500	;время между первыми выстрелами
@@ -579,7 +579,7 @@
 
 [mp_wpn_pb]:wpn_pb
     $spawn                            = "network\weapons\pistols\mp_wpn_pb"
-    ;class                   		  = W_PM;-- +UP
+    class                   		  = W_PM
 	use_first_bullet				  = true	;есть ли эффект первого выстрела (точного)
 	first_bullet_dispertion			  = 0.015	;дисперсия для первого выстрела
 	first_bullet_timeout			  = 500	;время между первыми выстрелами
@@ -597,7 +597,7 @@
 
 [mp_wpn_pkm]:wpn_pkm
 	$spawn							  = "network\weapons\heavy_weapons\mp_wpn_pkm"
-	;class                   		  = W_VAL;-- +UP
+	class                   		  = W_VAL
     ;PDM_disp_accel_factor            = 1.65 ;1.84 ;2.45    
     ;PDM_disp_base                    = 0.87 ;0.97 ;1.3
     ;PDM_disp_crouch                  = 1 ;0.2     
@@ -644,7 +644,7 @@
     def_hide_bones					  = sight, barrel
 	def_show_bones					  = barrel_silencer
     $spawn                            = "network\weapons\pistols\mp_wpn_pm"
-    ;class                   		  = W_PM;-- +UP
+    class                   		  = W_PM
 	use_first_bullet				  = true	;есть ли эффект первого выстрела (точного)
 	first_bullet_dispertion			  = 0.015	;дисперсия для первого выстрела
 	first_bullet_timeout			  = 500	;время между первыми выстрелами
@@ -662,7 +662,7 @@
 
 [mp_wpn_rg-6]:wpn_rg-6
     $spawn                            = "network\weapons\heavy_weapons\mp_wpn_rg-6"
-    ;class                   		  = W_RG6;-- +UP
+    class                   		  = W_RG6
     ;PDM_disp_accel_factor            = 1.1     
     ;PDM_disp_base                    = 1.0     
     ;PDM_disp_crouch                  = 1.0     
@@ -694,7 +694,7 @@
 
 [mp_wpn_rpg7]:wpn_rpg7
     $spawn                            = "network\weapons\heavy_weapons\mp_wpn_rpg7"
-    ;class                    		  = W_RPG7;-- +UP
+    class                    		  = W_RPG7
 	use_first_bullet				  = false	;есть ли эффект первого выстрела (точного)      
     ammo_class                        = mp_ammo_og-7b
     bullet_speed                      = 200
@@ -709,7 +709,7 @@
 [mp_wpn_sig220]:wpn_sig220
 	def_hide_bones 					  = sight, barrel, mag2, flash, laser
     $spawn                            = "network\weapons\pistols\mp_wpn_sig220"
-    ;class                   		  = W_PM;-- +UP
+    class                   		  = W_PM
 	use_first_bullet				  = true	;есть ли эффект первого выстрела (точного)
 	first_bullet_dispertion			  = 0.015	;дисперсия для первого выстрела
 	first_bullet_timeout			  = 500	;время между первыми выстрелами
@@ -727,7 +727,7 @@
 
 [mp_wpn_sig550]:wpn_sig550
     $spawn                            = "network\weapons\assault\mp_wpn_sig550"
-    ;class                   		  = W_AK74;-- +UP
+    class                   		  = W_AK74
 	visual                  		  = dynamics\weapons\wpn_sig550\wpn_sig550_tactical.ogf
 	use_first_bullet				  = true	;есть ли эффект первого выстрела (точного)
 	first_bullet_dispertion			  = 0.01	;дисперсия для первого выстрела
@@ -769,6 +769,12 @@
 	
 [mp_wpn_sig550_hud]:wpn_sig550_hud
 item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
+
+aim_hud_offset_pos = -0.000100,0.0023,0.000000; + SP
+aim_hud_offset_rot = 0.0130,0.000000,0.00000; + SP
+
+aim_hud_offset_pos_16x9 = -0.000100,0.0023,0.000000; + SP
+aim_hud_offset_rot_16x9 = 0.0130,0.000000,0.00000; + SP
 	
 [mp_scope_eotech_sig550]:scope_eotech_sig550
 	scope_name 						  = mp_wpn_addon_scope_susat_x1.6
@@ -787,7 +793,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 
 [mp_wpn_svd]:wpn_svd
     $spawn                            = "network\weapons\sniper_rifles\mp_wpn_svd"
-    ;class                   		  = W_SVD;-- +UP
+    class                   		  = W_SVD
 	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)             
     ammo_class                        = mp_ammo_7.62x54_7h1, mp_ammo_7.62x54_7h14, mp_ammo_7.62x54_ap
     bullet_speed                      = 950   
@@ -842,7 +848,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 
 [mp_wpn_svu]:wpn_svu
     $spawn                            = "network\weapons\sniper_rifles\mp_wpn_svu"
-    ;class                   		  = W_SVU;-- +UP
+    class                   		  = W_SVU
 	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)            
     ammo_class                        = mp_ammo_7.62x54_7h1, mp_ammo_7.62x54_7h14, mp_ammo_7.62x54_ap
     bullet_speed                      = 900
@@ -898,7 +904,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	def_hide_bones 					  = stock_short, barrel_short, sight, scope2, scope3, scope4_sight
 	def_show_bones 					  = stock, barrel, rail
     $spawn                            = "network\weapons\shotguns\mp_wpn_toz34"
-    ;class                    		  = W_BM16;-- +UP
+    class                    		  = W_BM16
 	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)               
 	ammo_class                        = mp_ammo_12x70_buck, mp_ammo_12x76_zhekan, mp_ammo_12x76_dart
     bullet_speed                      = 450    
@@ -917,7 +923,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 
 [mp_wpn_usp]:wpn_usp
     $spawn                            = "network\weapons\pistols\mp_wpn_usp"
-    ;class                   		  = W_PM;-- +UP
+    class                   		  = W_PM
 	use_first_bullet				  = true	;есть ли эффект первого выстрела (точного)
 	first_bullet_dispertion			  = 0.015	;дисперсия для первого выстрела
 	first_bullet_timeout			  = 500	;время между первыми выстрелами
@@ -937,13 +943,13 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	def_show_bones 					  = mag20, rail_handler
 	def_hide_bones 				 	  = mag, scope_rakurs, scope_kashtan, scope_cobra, scope_pka, scope_pso_sniper, scope_pso_assault, scope_nv_sniper, scope_nv_assault, tactical_handler, sheka, flash, laser, light, line, rail_lam, sight
     $spawn                            = "network\weapons\assault\mp_wpn_val"
-	;class                   		  = W_VAL;-- +UP
+	class                   		  = W_VAL
 	use_first_bullet				  = true	;есть ли эффект первого выстрела (точного)
 	first_bullet_dispertion			  = 0.005	;дисперсия для первого выстрела
 	first_bullet_timeout			  = 750;время между первыми выстрелами
 	first_bullet_velocity_limit		  = 3.0	;предельная скорость актера при которой будет первый точный выстрел             
     ammo_class                        = mp_ammo_9x39_pab9, mp_ammo_9x39_ap, mp_ammo_9x39_sp5
-    bullet_speed                      = 650       
+    bullet_speed                      = 290;650; +UP       
     hit_power                         = 0.78
 	scopes_sect 					  = mp_scope_pka_val, mp_scope_pso1m2x1_val, mp_scope_nvas_val, mp_scope_cobra_val, mp_scope_kashtan_val, mp_scope_pso1_val, mp_scope_nvsn_val, mp_scope_rakurs_val    
     silencer_name                     = mp_wpn_addon_silencer 
@@ -1001,7 +1007,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	def_show_bones					  = mag, rail_handler
 	def_hide_bones 					  = mag20, scope_rakurs, scope_kashtan, scope_cobra, scope_pka, scope_pso_sniper, scope_pso_assault, scope_nv_sniper, scope_nv_assault, tactical_handler, sheka, flash, laser, light, line, rail_lam, sight
     $spawn                            = "network\weapons\sniper_rifles\mp_wpn_vintorez"
-	;class                   		  = W_VAL;-- +UP
+	class                   		  = W_VAL
 	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)
 	first_bullet_dispertion			  = 0.01	;дисперсия для первого выстрела
 	first_bullet_timeout			  = 800	;время между первыми выстрелами
@@ -1065,7 +1071,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 [mp_wpn_walther]:wpn_walther
 	def_hide_bones 					  = barrel_compensator, flash, laser, sight
     $spawn                            = "network\weapons\pistols\mp_wpn_walther"
-    ;class                   		  = W_PM;-- +UP
+    class                   		  = W_PM
 	use_first_bullet				  = true	;есть ли эффект первого выстрела (точного)
 	first_bullet_dispertion			  = 0.015	;дисперсия для первого выстрела
 	first_bullet_timeout			  = 500	;время между первыми выстрелами
@@ -1084,7 +1090,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 [mp_wpn_wincheaster1300]:wpn_wincheaster1300
 	def_hide_bones 					  = scope1, scope2, scope3, scope4, barrel_short, flash, laser, bolt_foregrip_rail, stock, sight, sight_short, stock_tactical, magazine, shell_blue, bullet_blue
     $spawn                            = "network\weapons\shotguns\mp_wpn_wincheaster1300"
-    ;                    		  = W_SHOTGN;-- +UP
+    class                    		  = W_SHOTGN
 	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)           
     ammo_class                        = mp_ammo_12x70_buck, mp_ammo_12x76_zhekan, mp_ammo_12x76_dart
     hit_power                         = 0.34
@@ -1110,7 +1116,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 
 [mp_wpn_protecta]:wpn_protecta
     $spawn                            = "network\weapons\shotguns\mp_wpn_protecta"
-    ;class                    	      = W_SHOTGN;-- +UP
+    class                    	      = W_SHOTGN
 	def_hide_bones = scope1, scope2, scope3, scope4, barrel_long, flash, laser, bolt_foregrip_rail, handler, rail_lam, body, stock, sight
     ;PDM_disp_accel_factor            = 0     
     ;PDM_disp_base                    = 0.55 ;1.3 ;1.53     
@@ -1159,7 +1165,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	
 [mp_wpn_tt33]:wpn_tt33
     $spawn                            = "network\weapons\pistols\mp_wpn_tt33"
-    ;class                   		  = W_PM ;-- +UP
+    class                   		  = W_PM 
 	hit_power           			  = 0.76
     ammo_class                        = mp_ammo_762x25mm_tt
 	cam_return                    	  = 1 	      ;возврат прицела оружия в начальное состояние, 0 = не возвращать
@@ -1168,7 +1174,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	def_hide_bones 					  = sight, barrel, body
 	def_show_bones 					  = barrel_silencer
     $spawn                            = "network\weapons\pistols\mp_wpn_stechkin"
-	;class                   		  = W_VAL;-- +UP
+	class                   		  = W_VAL
 	hit_power           			  = 0.51, 0.51, 0.51, 0.51
     ammo_class                        = mp_ammo_9x18_fmj, mp_ammo_9x18_pmm, mp_ammo_9x18_pbp
 	silencer_status					  = 2
@@ -1199,7 +1205,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	def_hide_bones 				      = sight, barrel, body
 	def_show_bones 					  = barrel_silencer
     $spawn                            = "network\weapons\pistols\mp_wpn_apb"
-	;class                   		  = W_VAL;-- +UP
+	class                   		  = W_VAL
 	hit_power           			  = 0.49, 0.49, 0.49, 0.49
     ammo_class                        = mp_ammo_9x18_fmj, mp_ammo_9x18_pmm, mp_ammo_9x18_pbp
 	silencer_name  					  = mp_wpn_addon_silencer_apb	
@@ -1230,7 +1236,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	def_hide_bones 					  = sight, picatinia, laser, flash, barrel, barrel_compensator
 	def_show_bones 					  = barrel_silencer
     $spawn                            = "network\weapons\pistols\mp_wpn_sr1m"
-    ;class                   		  = W_PM;-- +UP
+    class                   		  = W_PM
 	hit_power           			  = 0.60, 0.60, 0.60, 0.60
     ammo_class                        = mp_ammo_9x21_sp10
 	silencer_status                   = 2
@@ -1241,7 +1247,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	def_hide_bones 					  = sight, barrel
 	def_show_bones 					  = barrel_silencer
     $spawn                            = "network\weapons\pistols\mp_wpn_pmm"
-    ;class                   		  = W_PM;-- +UP
+    class                   		  = W_PM
 	hit_power           			  = 0.52, 0.52, 0.52, 0.52
     ammo_class                        = mp_ammo_9x18_fmj, mp_ammo_9x18_pmm, mp_ammo_9x18_pbp
 	silencer_status                   = 2
@@ -1250,7 +1256,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 
 [mp_wpn_gsh18]:wpn_gsh18
     $spawn                            = "network\weapons\pistols\mp_wpn_gsh18"
-    ;class                   		  = W_PM;-- +UP
+    class                   		  = W_PM
     ammo_class                        = mp_ammo_9x19_fmj, mp_ammo_9x19_pbp
 	silencer_status                   = 2
 	hit_power           			  = 0.59
@@ -1261,7 +1267,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	def_show_bones 					  = barrel_silencer
 	def_hide_bones 					  = barrel, barrel_compensator, sight, flash, laser, body
     $spawn                            = "network\weapons\pistols\mp_wpn_grach"
-    ;class                   		  = W_PM;-- +UP
+    class                   		  = W_PM
 	hit_power           			  = 0.57, 0.57, 0.57, 0.57
     ammo_class                        = mp_ammo_9x19_fmj, mp_ammo_9x19_pbp
 	silencer_status                   = 2
@@ -1272,7 +1278,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	def_show_bones 					  = barrel_silencer, bolt_auto, mag
 	def_hide_bones 					  = flash, laser, line, light, barrel_compensator, barrel, bolt, bone, bone2, mag2, sight
     $spawn                            = "network\weapons\pistols\mp_wpn_glock17"
-	;class                   		  = W_VAL;-- +UP
+	class                   		  = W_VAL
 	fire_modes             			  = 1, -1
 	fire_dispersion_base			  = 0.28
 	inv_weight						  = 0.65
@@ -1310,7 +1316,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	
 [mp_wpn_fiveseven]:wpn_fiveseven
     $spawn                            = "network\weapons\pistols\mp_wpn_fiveseven"
-    ;class                   		  = W_PM;-- +UP
+    class                   		  = W_PM
 	hit_power                         = 0.87
     ammo_class                        = mp_ammo_5.7x28
 	silencer_status                   = 2
@@ -1319,7 +1325,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 
 [mp_wpn_desert_eagle_silver]:wpn_desert_eagle_silver
     $spawn                            = "network\weapons\pistols\mp_wpn_desert_eagle_silver"
-    ;class                   		  = W_PM;-- +UP
+    class                   		  = W_PM
 	hit_power                         = 1.5
     ammo_class                        = mp_ammo_50ae	
 	cam_return                    	  = 1 	      ;возврат прицела оружия в начальное состояние, 0 = не возвращать
@@ -1346,7 +1352,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	
 [mp_wpn_fort17]:wpn_fort17
     $spawn                            = "network\weapons\pistols\mp_wpn_fort17"
-    ;class                   		  = W_PM;-- +UP
+    class                   		  = W_PM
 	hit_power                         = 0.63
     ammo_class                        = mp_ammo_9x18_fmj, mp_ammo_9x18_pmm, mp_ammo_9x18_pbp	
 	silencer_status                   = 2
@@ -1355,7 +1361,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	
 [mp_wpn_sig220r]:wpn_sig220r
     $spawn                            = "network\weapons\pistols\mp_wpn_sig220r"
-    ;class                   		  = W_PM;-- +UP
+    class                   		  = W_PM
 	hit_power                         = 0.68
     ammo_class                        = mp_ammo_11.43x23_fmj, mp_ammo_11.43x23_hydro
 	silencer_status                   = 2
@@ -1364,7 +1370,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	
 [mp_wpn_usp_match]:wpn_usp_match
     $spawn                            = "network\weapons\pistols\mp_wpn_usp_match"
-    ;class                   		  = W_PM;-- +UP
+    class                   		  = W_PM
 	hit_power                         = 0.72
     ammo_class                        = mp_ammo_11.43x23_fmj, mp_ammo_11.43x23_hydro
 	cam_return                    	  = 1 	      ;возврат прицела оружия в начальное состояние, 0 = не возвращать
@@ -1373,7 +1379,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	def_show_bones					  = mag30, handler, foregrip_rail
 	def_hide_bones 					  = mag45, mag45_black, mag60, handler2, scope_cobra, scope_rakurs, scope_pso_sniper, scope_kashtan, scope_pka, scope_pso_assault, scope_nv_sniper, scope_nv_assault, flash, light, laser, line, line2, sight, sight2, foregrip, knife, tilnik
     $spawn                            = "network\weapons\assault\mp_wpn_ak101"; name and section in level editor
-    ;class                			  = W_AK74;-- +UP
+    class                			  = W_AK74
 	hit_power            			  = 0.70, 0.70, 0.70, 0.70
     ammo_class                        = mp_ammo_5.56x45_ss190, mp_ammo_5.56x45_ap
     grenade_class                     = mp_ammo_vog-25, mp_ammo_vog-25p; name of the ltx-section of used grenades
@@ -1429,7 +1435,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	
 [mp_wpn_bizon]:wpn_bizon
     $spawn                            = "network\weapons\assault\mp_wpn_bizon"; name and section in level editor
-	;class                   		  = W_VAL;-- +UP
+	class                   		  = W_VAL
 	hit_power           			  = 0.41, 0.41, 0.41, 0.41
     ammo_class                        = mp_ammo_9x18_fmj, mp_ammo_9x18_pmm, mp_ammo_9x18_pbp
 	scopes_sect		                  = mp_scope_cobra_bizon, mp_scope_nvas_bizon, mp_scope_pso1m2x1_bizon, mp_scope_pka_bizon, mp_scope_kashtan_bizon, mp_scope_pso1_bizon, mp_scope_nvsn_bizon
@@ -1482,7 +1488,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	def_show_bones 					  = rail, mag30_sd, stock_teleskop, grip_sd
 	hit_power                         = 0.46, 0.46, 0.46, 0.46
     $spawn                            = "network\weapons\assault\mp_wpn_mp5sd" ;name and section in level editor
-	;class                   		  = W_VAL;-- +UP
+	class                   		  = W_VAL
     ammo_class                        = mp_ammo_9x19_fmj, mp_ammo_9x19_pbp
 	scopes_sect 					  = mp_scope_eotech_mp5sd, mp_scope_aimpoint_mp5sd, mp_scope_elcan_mp5sd, mp_scope_pn23_mp5sd
     scope_status                      = 2   
@@ -1522,7 +1528,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 
 [mp_wpn_saiga12]:wpn_saiga12
     $spawn                            = "network\weapons\assault\mp_wpn_saiga12" ;name and section in level editor
-    ;class                			  = W_SHOTGN;-- +UP
+    class                			  = W_SHOTGN
 	hit_power            			  = 0.43, 0.43, 0.43, 0.43
     ammo_class                        = mp_ammo_12x76_zhekan, mp_ammo_12x70_buck, mp_ammo_12x76_dart  
 	scopes_sect 					  = mp_scope_cobra_saiga12, mp_scope_pso1m2x1_saiga12, mp_scope_nvas_saiga12, mp_scope_pka_saiga12, mp_scope_kashtan_saiga12, mp_scope_pso1_saiga12, mp_scope_nvsn_saiga12
@@ -1551,7 +1557,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	
 [mp_wpn_p90]:wpn_p90
     $spawn                            = "network\weapons\assault\mp_wpn_p90"; name and section in level editor
-	;class                   		  = W_VAL;-- +UP
+	class                   		  = W_VAL
     ammo_class                        = mp_ammo_5.7x28
     silencer_name                     = mp_wpn_addon_silencer_57x28; section name for the attachable silencer
 	
@@ -1577,7 +1583,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	
 [mp_wpn_sig552]:wpn_sig552            
     $spawn                            = "network\weapons\assault\mp_wpn_sig552" ;name and section in level editor
-	;class                   		  = W_VAL;-- +UP
+	class                   		  = W_VAL
 	hit_power						  = 0.50, 0.50, 0.50, 0.50
     ammo_class                        = mp_ammo_5.56x45_ss190, mp_ammo_5.56x45_ap
 	scopes_sect 					  = mp_scope_eotech_sig552, mp_scope_aimpoint_sig552, mp_scope_elcan_sig552, mp_scope_pn23_sig552
@@ -1619,7 +1625,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	def_hide_bones 					  = stock_plastic, stock_short, grip_handler, grip_sd, grip_rail, flash_sd, laser_sd, flash, laser, grip_sd_rail, mag40, mag30_sd, scope1, scope2, scope3, scope4, sight
 	def_show_bones 					  = rail, mag30, stock_teleskop, grip, iron_sight
     $spawn                            = "network\weapons\assault\mp_wpn_ump45" ;name and section in level editor
-	;class                   		  = W_VAL;-- +UP
+	class                   		  = W_VAL
 	hit_power						  = 0.54, 0.54, 0.54, 0.54
     ammo_class                        = mp_ammo_11.43x23_fmj, mp_ammo_11.43x23_hydro
 	inv_weight        				  = 3.45
@@ -1664,7 +1670,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	def_show_bones = mag30, handler, foregrip
 	def_hide_bones = mag45, mag45_black, mag60, handler2, scope_cobra, scope_rakurs, scope_pso_sniper, scope_kashtan, scope_pka, scope_pso_assault, scope_nv_sniper, scope_nv_assault, flash, light, laser, line, line2, sight, sight2, foregrip_rail, knife, tilnik
     $spawn                            = "network\weapons\assault\mp_wpn_akm"; name and section in level editor
-    ;class                			  = W_AK74;-- +UP
+    class                			  = W_AK74
 	hit_power            			  = 0.94, 0.94, 0.94, 0.94
     ammo_class           = mp_ammo_7.62x39_fmj  ; name of the ltx-section of used ammo
     grenade_class                     = mp_ammo_vog-25, mp_ammo_vog-25p; name of the ltx-section of used grenades
@@ -1720,12 +1726,12 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	
 [mp_wpn_rgm-40]:wpn_rgm-40
     $spawn                            = "network\weapons\heavy_weapons\mp_wpn_rgm-40"
-    ;class                   		  = W_RG6 ;-- +UP
+    class                   		  = W_RG6 
     ammo_class                        = mp_ammo_vog-25, mp_ammo_vog-25p
 	
 [mp_grenade_f1]:grenade_f1
 	$spawn							  = "network\ammo\mp_grenade_f1"
-	;class							  = G_F1;-- +UP
+	class							  = G_F1
     can_be_unlimited                  = false
 	blast							  = 4.8;2.20
 	blast_r							  = 7
@@ -1738,28 +1744,28 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 
 [mp_grenade_gd-05]:grenade_gd-05
 	$spawn							  = "network\ammo\mp_grenade_gd-05"
-	;class							  = G_F1;-- +UP
+	class							  = G_F1
     can_be_unlimited                  = false
 	explode_duration				  = 25
 
 [mp_grenade_flashbang]:grenade_flashbang
 	$spawn							  = "network\ammo\mp_grenade_flashbang"
-	;class							  = G_F1;-- +UP
+	class							  = G_F1
     can_be_unlimited                  = false
 	
 [mp_grenade_rgo]:grenade_rgo
 	$spawn							  = "network\ammo\mp_grenade_rgo"
-	;class							  = G_RGD5;-- +UP
+	class							  = G_RGD5
     can_be_unlimited                  = false
 	
 [mp_grenade_rgn]:grenade_rgn
 	$spawn							  = "network\ammo\mp_grenade_rgn"
-	;class							  = G_RGD5;-- +UP
+	class							  = G_RGD5
     can_be_unlimited                  = false
 
 [mp_grenade_rgd5]:grenade_rgd5
 	$spawn							  = "network\ammo\mp_grenade_rgd5"
-	;class							  = G_RGD5;-- +UP
+	class							  = G_RGD5
     can_be_unlimited                  = false 
 	blast							  = 3.7 ;2.0
 	blast_r							  = 5 ;4
@@ -1774,89 +1780,89 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 
 [mp_wpn_addon_grenade_launcher]:wpn_addon_grenade_launcher
 	$spawn							  = "network\addons\grenade_launchers\grenade_launcher" ; option for Level Editor
-	;class							  = W_GLAUNC;-- +UP
+	class							  = W_GLAUNC
 	grenade_vel						  = 50 ;76
 	
 [mp_wpn_addon_grenade_launcher_l123a2]:wpn_addon_grenade_launcher_l123a2
 	$spawn							  = "network\addons\grenade_launchers\grenade_launcher_l123a2" ; option for Level Editor
-	;class							  = W_GLAUNC;-- +UP	
+	class							  = W_GLAUNC	
 	grenade_vel 					  = 50
 
 [mp_wpn_addon_grenade_launcher_m203]:wpn_addon_grenade_launcher_m203
 	$spawn							  = "network\addons\grenade_launchers\grenade_launcher_m203" ; option for Level Editor
-	;class							  = W_GLAUNC;-- +UP
+	class							  = W_GLAUNC
 	grenade_vel						  = 50 ;76
 	
 [mp_wpn_addon_grenade_launcher_groza]:wpn_addon_grenade_launcher_groza
 	$spawn							  = "network\addons\grenade_launchers\grenade_launcher_groza" ; option for Level Editor
-	;class							  = W_GLAUNC;-- +UP
+	class							  = W_GLAUNC
 	grenade_vel						  = 50 ;76
 	
 ;;;;прицелы ласточкин хвост
 
 [mp_wpn_addon_scope]:wpn_addon_scope
 	$spawn							  = "network\addons\scopes\scope" ; option for Level Editor
-	;class							  = W_SCOPE;-- +UP
+	class							  = W_SCOPE
 	
 [mp_wpn_addon_scope_x2.7]:wpn_addon_scope_x2.7
 	$spawn							  = "network\addons\scopes\scope_x2.7" ; option for Level Editor
-	;class							  = W_SCOPE;-- +UP
+	class							  = W_SCOPE
 	
 [mp_wpn_addon_scope_pka]:wpn_addon_scope_pka
 	$spawn			 				  = "network\addons\scopes\scope_pka" ; option for Level Editor
-	;class							  = W_SCOPE;-- +UP
+	class							  = W_SCOPE
 	
 [mp_wpn_addon_scope_pgo7v]:wpn_addon_scope_pgo7v
 	$spawn							  = "network\addons\scopes\scope_pgo7v" ; option for Level Editor
-	;class						   	  = W_SCOPE;-- +UP
+	class						   	  = W_SCOPE
 	
 [mp_wpn_addon_scope_detector]:wpn_addon_scope_detector
 	$spawn							  = "network\addons\scopes\scope_detector" ; option for Level Editor
-	;class							  = W_SCOPE;-- +UP
+	class							  = W_SCOPE
 	
 [mp_wpn_addon_scope_night]:wpn_addon_scope_night
 	$spawn							  = "network\addons\scopes\scope_night" ; option for Level Editor
-	;class							  = W_SCOPE;-- +UP
+	class							  = W_SCOPE
 	
 [mp_wpn_addon_scope_cobra]:wpn_addon_scope_cobra
 	$spawn							  = "network\addons\scopes\scope_cobra" ; option for Level Editor
-	;class							  = W_SCOPE;-- +UP
+	class							  = W_SCOPE
 	
 [mp_wpn_addon_scope_kashtan]:wpn_addon_scope_kashtan
 	$spawn							  = "network\addons\scopes\scope_kashtan" ; option for Level Editor
-	;class							  = WP_SCOPE;-- +UP
+	class							  = WP_SCOPE
 
 [mp_wpn_addon_scope_po4x34]:wpn_addon_scope_po4x34
 	$spawn							  = "network\addons\scopes\scope_po4x34" ; option for Level Editor
-	;class							  = WP_SCOPE;-- +UP	
+	class							  = WP_SCOPE	
 	
 ;;;;прицелы пикатинни
 
 [mp_wpn_addon_scope_susat]:wpn_addon_scope_susat
 	$spawn							  = "network\addons\scopes\scope_susat" ; option for Level Editor
-	;class							  = W_SCOPE;-- +UP
+	class							  = W_SCOPE
 	
 [mp_wpn_addon_scope_susat_dusk]:wpn_addon_scope_susat_dusk
 	$spawn							  = "network\addons\scopes\scope_susat_dusk" ; option for Level Editor
-	;class							  = W_SCOPE;-- +UP
+	class							  = W_SCOPE
 	
 [mp_wpn_addon_scope_susat_custom]:wpn_addon_scope_susat_custom
 	$spawn							  = "network\addons\scopes\scope_susat_custom" ; option for Level Editor
-	;class							  = W_SCOPE;-- +UP
+	class							  = W_SCOPE
 	
 [mp_wpn_addon_scope_susat_x1.6]:wpn_addon_scope_susat_x1.6
 	$spawn							  = "network\addons\scopes\scope_susat_x1.6" ; option for Level Editor
-	;class							  = W_SCOPE;-- +UP
+	class							  = W_SCOPE
 	
 [mp_wpn_addon_scope_susat_night]:wpn_addon_scope_susat_night
 	$spawn							  = "network\addons\scopes\scope_susat_night" ; option for Level Editor
-	;class							  = W_SCOPE;-- +UP
+	class							  = W_SCOPE
 	
 ;;;;прицелы вивер
 
 [mp_wpn_addon_scope_pu]:wpn_addon_scope_pu
 	$spawn							  = "network\addons\scopes\scope_pu" ; option for Level Editor
-	;class							  = W_SCOPE;-- +UP
+	class							  = W_SCOPE
 	
 [mp_wpn_addon_scope_rakurs]:wpn_addon_scope_rakurs
 	$spawn							  = "network\addons\scopes\scope_rakurs" ; option for Level Editor
@@ -1866,7 +1872,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 
 [mp_wpn_addon_silencer]:wpn_addon_silencer
 	$spawn							  = "network\addons\silencers\silencer" ; option for Level Editor
-	;class							  = W_SILENC;-- +UP
+	class							  = W_SILENC
 	bullet_hit_power_k				  = 1
 	bullet_hit_impulse_k			  = 1
 	bullet_speed_k	 				  = 0.91
@@ -1876,7 +1882,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	
 [mp_wpn_addon_silencer_apb]:wpn_addon_silencer_apb
 	$spawn							  = "network\addons\silencers\silencer_apb" ; option for Level Editor
-	;class							  = W_SILENC;-- +UP
+	class							  = W_SILENC
 	bullet_hit_power_k				  = 1
 	bullet_hit_impulse_k			  = 1
 	bullet_speed_k	 				  = 0.91
@@ -1886,7 +1892,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	
 [mp_wpn_addon_silencer_pb]:wpn_addon_silencer_pb
 	$spawn							  = "network\addons\silencers\silencer_pb" ; option for Level Editor
-	;class							  = W_SILENC;-- +UP
+	class							  = W_SILENC
 	bullet_hit_power_k				  = 1
 	bullet_hit_impulse_k			  = 1
 	bullet_speed_k	 				  = 0.91
@@ -1896,7 +1902,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 
 [mp_wpn_addon_silencer_9x18smg]:wpn_addon_silencer_9x18smg
 	$spawn							  = "network\addons\silencers\silencer_918smg" ; option for Level Editor
-	;class							  = W_SILENC;-- +UP
+	class							  = W_SILENC
 	bullet_hit_power_k				  = 1
 	bullet_hit_impulse_k			  = 1
 	bullet_speed_k	 				  = 0.91
@@ -1906,7 +1912,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	
 [mp_wpn_addon_silencer_919]:wpn_addon_silencer_919
 	$spawn							  = "network\addons\silencers\silencer_919" ; option for Level Editor
-	;class							  = W_SILENC;-- +UP
+	class							  = W_SILENC
 	bullet_hit_power_k				  = 1
 	bullet_hit_impulse_k			  = 1
 	bullet_speed_k	 				  = 0.91
@@ -1916,7 +1922,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 
 [mp_wpn_addon_silencer_921]:wpn_addon_silencer_921
 	$spawn							  = "network\addons\silencers\silencer_921" ; option for Level Editor
-	;class							  = W_SILENC;-- +UP
+	class							  = W_SILENC
 	bullet_hit_power_k				  = 1
 	bullet_hit_impulse_k			  = 1
 	bullet_speed_k	 				  = 0.91
@@ -1926,7 +1932,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	
 [mp_wpn_addon_silencer_colt_p220]:wpn_addon_silencer_colt_p220
 	$spawn							  = "network\addons\silencers\silencer_45" ; option for Level Editor
-	;class							  = W_SILENC;-- +UP
+	class							  = W_SILENC
 	bullet_hit_power_k				  = 1
 	bullet_hit_impulse_k			  = 1
 	bullet_speed_k	 				  = 0.91
@@ -1936,7 +1942,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 
 [mp_wpn_addon_silencer_hexagon12]:wpn_addon_silencer_hexagon12
 	$spawn							  = "network\addons\silencers\silencer_hexagon12" ; option for Level Editor
-	;class							  = W_SILENC;-- +UP
+	class							  = W_SILENC
 	bullet_hit_power_k				  = 1
 	bullet_hit_impulse_k			  = 1
 	bullet_speed_k	 				  = 0.91
@@ -1946,7 +1952,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	
 [mp_wpn_addon_silencer_svd]:wpn_addon_silencer_svd
 	$spawn							  = "network\addons\silencers\silencer_svd" ; option for Level Editor
-	;class							  = W_SILENC;-- +UP
+	class							  = W_SILENC
 	bullet_hit_power_k				  = 1
 	bullet_hit_impulse_k			  = 1
 	bullet_speed_k	 				  = 0.91
@@ -1956,7 +1962,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 
 [mp_wpn_addon_silencer_m4_2000]:wpn_addon_silencer_m4_2000
 	$spawn							  = "network\addons\silencers\silencer_m4_2000" ; option for Level Editor
-	;class							  = W_SILENC;-- +UP
+	class							  = W_SILENC
 	bullet_hit_power_k				  = 1
 	bullet_hit_impulse_k			  = 1
 	bullet_speed_k	 				  = 0.91
@@ -1966,7 +1972,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	
 [mp_wpn_addon_silencer_tgpa]:wpn_addon_silencer_tgpa
 	$spawn							  = "network\addons\silencers\silencer_tgpa" ; option for Level Editor
-	;class							  = W_SILENC;-- +UP
+	class							  = W_SILENC
 	bullet_hit_power_k				  = 1
 	bullet_hit_impulse_k			  = 1
 	bullet_speed_k	 				  = 0.91
@@ -1976,7 +1982,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 
 [mp_wpn_addon_silencer_57x28]:wpn_addon_silencer_57x28
 	$spawn							  = "network\addons\silencers\silencer_57x28" ; option for Level Editor
-	;class							  = W_SILENC;-- +UP
+	class							  = W_SILENC
 	bullet_hit_power_k				  = 1
 	bullet_hit_impulse_k			  = 1
 	bullet_speed_k	 				  = 0.91
@@ -1986,7 +1992,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 
 [mp_wpn_addon_silencer_pistol_57x28]:wpn_addon_silencer_pistol_57x28
 	$spawn							  = "network\addons\silencers\silencer_pistol_57x28" ; option for Level Editor
-	;class							  = W_SILENC;-- +UP
+	class							  = W_SILENC
 	bullet_hit_power_k				  = 1
 	bullet_hit_impulse_k			  = 1
 	bullet_speed_k	 				  = 0.91
@@ -1996,7 +2002,7 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	
 [mp_wpn_addon_silencer_groza]:wpn_addon_silencer_groza
 	$spawn							  = "network\addons\silencers\silencer_groza" ; option for Level Editor
-	;class							  = W_SILENC;-- +UP
+	class							  = W_SILENC
 	bullet_hit_power_k				  = 1
 	bullet_hit_impulse_k			  = 1
 	bullet_speed_k	 				  = 0.91
@@ -2006,10 +2012,35 @@ item_visual					          = dynamics\weapons\wpn_sig550\wpn_sig550_tactical_hud
 	
 [mp_wpn_addon_silencer_pbs1]:wpn_addon_silencer_pbs1
 	$spawn							  = "network\addons\silencers\silencer_pbs1" ; option for Level Editor
-	;class							  = W_SILENC;-- +UP
+	class							  = W_SILENC
 	bullet_hit_power_k				  = 1
 	bullet_hit_impulse_k			  = 1
 	bullet_speed_k	 				  = 0.91
 	fire_dispersion_base_k	          = 1.25
 	cam_dispersion_k		          = 1.0
-	cam_dispersion_inc_k	          = 1.0			
+	cam_dispersion_inc_k	          = 1.0
+
+; +SP
+[mp_wpn_groza_545]:mp_wpn_groza
+$spawn				= "network\weapons\assault\mp_wpn_groza_545"
+ammo_elapsed			= 30
+ammo_mag_size			= 30
+ammo_class			= mp_ammo_5.45x39_fmj, mp_ammo_5.45x39_ap
+bullet_speed			= 880
+hit_power			= 0.78, 0.78, 0.78, 0.78
+fire_distance			= 600
+rpm				= 840
+
+def_hide_bones = scope1, scope2, scope3, scope4, scope5, mag_20, mag45, mag45_black, mag60, flash, light, sight, grip, laser, foregrip_rail, launcher_scope_static, shell5x45, bullet5x45, bullet5x45_2, ammo_chamber_5x45, handler2
+def_show_bones = planka, dtc, handler, usm, spusk, launcher_scope, mag30, foregrip, shell, bullet, bullet_2, ammo_chamber, wpn_silencer_9x39
+
+inv_name			= st_wpn_groza_545
+inv_name_short			= st_wpn_groza_545
+
+inv_grid_x			= 14
+inv_grid_y			= 37
+
+kill_msg_x			= 430
+kill_msg_y			= 65
+kill_msg_width			= 47
+kill_msg_height			= 22	

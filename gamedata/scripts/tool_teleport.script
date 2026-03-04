@@ -17,7 +17,8 @@ class "teleport"
 function teleport:__init(owner_name)
 	to_log(sModule..":> __init") --/#~#
 	self.owner_script = _G[owner_name]
-	self.ltx_path_save = self.owner_script.GetFullPath("$tool_misc$", owner_name.."\\teleport_custom.ltx")
+	--self.ltx_path_save = self.owner_script.GetFullPath("$tool_misc$", owner_name.."\\teleport_custom.ltx")-- +UP
+	self.ltx_path_save = "misc\\"..owner_name.."\\teleport_custom.ltx"-- +UP
 	self.tLocations = {} --/ массив идентификаторов локаций
 	self.tSmarts = {} --/ массив смартов для перехода
 	self.tPoints = {} --/ массив произвольных точек для перехода (конфиг)
@@ -250,7 +251,7 @@ function teleport:PrepareData(ltx)
 	to_log(sModule..":> PrepareData locations=[%d], points=[%d]", iCntLocations, iCntPoints)
 
 	-- проверка доступности пространства имён IO (OGSR)
-	if type(io) ~= "table" then return end --/>
+	--if type(io) ~= "table" then return end --/>--+UP
 
 	--/ чтение редактируемых точек из файла
 	iCntPoints = 0
@@ -304,7 +305,8 @@ end
 -- запись редактируемых точек в файл
 function teleport:SaveCustomPoints()
 	-- проверка доступности пространства имён IO (OGSR)
-	if type(io) ~= "table" then return end --/>
+	--if type(io) ~= "table" then return end --/>--+UP
+	if true then return end --+UP не пишем в VFS
 	to_log(sModule..":> SaveCustomPoints start to %s", self.ltx_path_save)
 
 	local iCntPoints = 0

@@ -243,13 +243,16 @@ function mp_actor_binder:update(delta)
 	end
 	
 	if self.bCheckStart then
-		printf("SET DEFAULT INFOS")
-		if not has_alife_info("global_dialogs") then
-			self.object:give_info_portion("global_dialogs")
-		end
-		if not has_alife_info("level_changer_icons") then
-			self.object:give_info_portion("level_changer_icons")
-		end
+		-- +SP
+		--printf("SET DEFAULT INFOS")
+		-- old del
+		--if not has_alife_info("global_dialogs") then
+		--	self.object:give_info_portion("global_dialogs")
+		--end
+		--if not has_alife_info("level_changer_icons") then
+		--	self.object:give_info_portion("level_changer_icons")
+		--end
+		-- -SP
 		self.bCheckStart = false
 	end
 	
@@ -450,11 +453,13 @@ function actor_binder:info_callback(npc, info_id)
 end
 ----------------------------------------------------------------------------------------------------------------------
 function actor_binder:on_trade (item, sell_bye, money)
-	if sell_bye == true then
-		 game_stats.money_trade_update (money)
-	else
-		 game_stats.money_trade_update (-money)
-	end
+	-- +SP
+	--if sell_bye == true then
+	--	game_stats.money_trade_update (money)
+	--else
+	--	game_stats.money_trade_update (-money)
+	--end
+	-- -SP
 end
 ----------------------------------------------------------------------------------------------------------------------
 function actor_binder:article_callback(npc, group, name)
@@ -588,13 +593,16 @@ function actor_binder:update(delta)
 		end
 		
 		if self.bCheckStart then
-			printf("SET DEFAULT INFOS")
-			if not has_alife_info("global_dialogs") then
-				self.object:give_info_portion("global_dialogs")
-			end
-			if not has_alife_info("level_changer_icons") then
-				self.object:give_info_portion("level_changer_icons")
-			end
+			-- +SP
+			--printf("SET DEFAULT INFOS")
+			-- old del
+			--if not has_alife_info("global_dialogs") then
+			--	self.object:give_info_portion("global_dialogs")
+			--end
+			--if not has_alife_info("level_changer_icons") then
+			--	self.object:give_info_portion("level_changer_icons")
+			--end
+			-- -SP
 			self.bCheckStart = false
 		end
 	

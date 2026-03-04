@@ -15,7 +15,7 @@ function info:__init(owner_name)
 	to_log(sModule..":> __init") --/#~#
 	self.owner_script = _G[owner_name]
 	self.tInfos = {} -- массив идентификаторов локаций
-	self.sInfoConfigRoot = Get_Cfg_String(ltx, "info_config_settings", "config_root", "$tool_gameplay$")
+	self.sInfoConfigRoot = Get_Cfg_String(ltx, "info_config_settings", "config_root", "$game_config$") -- +UP
 	self.color = { --/ цветовое оформление инфопорций в разных статусах
 		[0] = GetARGB(255, 216, 186, 140), --/ статус неизвестен, не выдана
 		[1] = GetARGB(255,  49, 174,  66)  --/ выдана
@@ -80,20 +80,33 @@ function info:PrepareData(ltx)
 	to_log(sModule..":> PrepareData from module config, infos=[%d]", iCntInfos)
 
 	-- проверка доступности пространства имён IO (движок) и выход в случае отсутствия
-	if type(io) ~= "table" then
-		self.tInfos = self.owner_script.SortTableByValue(self.tInfos, "asc", "info")
-		return --/>
-	end
+	-- +UP
+	-- if type(io) ~= "table" then
+	-- 	self.tInfos = self.owner_script.SortTableByValue(self.tInfos, "asc", "info")
+	-- 	return --/>
+	-- end
+	-- -UP
 
 	--/ дополнительное чтение инфопорций из конфигурационных файлов игры при их наличии и доступности IO
 	iCntInfos = 0
 	local xml2lua, handler_tree = xml_utils.get_xml2lua(), xml_utils.get_tree_handler()
-	local flist = self.owner_script.GetFilesList(self.sInfoConfigRoot, "info_*.xml", FS.FS_ListFiles + FS.FS_RootOnly)
+	-- +UP поиск по вложенным папкам без строки в fsgame почему то ломает VPS и ui файлы не читаются
+	--local flist = self.owner_script.GetFilesList(self.sInfoConfigRoot, "info_*.xml", FS.FS_ListFiles + FS.FS_RootOnly)
+	flist= {
+		{ filepath = "gameplay\\info_portions.xml" },
+	}
+	-- -UP
 	for _,v in ipairs(flist) do
 		to_log(sModule..":> parsing xml [%s]", v.filename)
 		local handler = handler_tree:new()
 		local parser = xml2lua.parser(handler)
-		parser:parse(xml2lua.loadFile(v.filepath))
+		-- +UP поддержка VPS
+		--parser:parse(xml2lua.loadFile(v.filepath))
+		local str = utils.read_file_to_string("$game_config$", v.filepath)
+		if str then
+			parser:parse(str)
+		end
+		-- -UP
 		local infos = handler.root.game_information_portions
 		if type(infos.info_portion) == "table" and table.size(infos.info_portion) > 1 then infos = infos.info_portion end
 		if infos then

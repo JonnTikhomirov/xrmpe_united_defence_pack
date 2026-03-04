@@ -704,11 +704,15 @@ function GetFilesList(root, mask, flags)
 	if f_cnt == 0 then return t end --/>
 
 	for i = 0, f_cnt - 1 do
-		local filename = flist:GetAt(i):NameFull()
-		local file = f:exist(root or "$game_config$", flist:GetAt(i):NameFull())
-		if file and file.name and file.ptr == 0 then -- указатель file.ptr == 0 --> файл распакован
-			table.insert(t, { filename = filename, filepath = file.name })
-		end
+		-- +UP
+		-- local filename = flist:GetAt(i):NameFull()
+		-- to_log(sModule..":> GetFilesList %s", filename)
+		-- local file = f:exist(root or "$game_config$", flist:GetAt(i):NameFull())
+		-- if file and file.name and file.ptr == 0 then -- указатель file.ptr == 0 --> файл распакован
+			-- table.insert(t, { filename = filename, filepath = file.name })
+		-- end
+		table.insert(t, { filename = flist:GetAt(i):NameFull(), filepath = flist:GetAt(i):NameFull() })
+		-- -UP
 	end
 	return t --/>
 end
@@ -718,9 +722,20 @@ end
 -- name (строка|число) = value (строка|число|true|false)
 function ParseLtx(filename)
 	assert(type(filename) == 'string', 'Parameter "filename" must be a string.')
-	local file = assert(io.open(filename, 'r'), 'Error loading file : ' .. filename)
+	-- +UP
+	--local file = assert(io.open(filename, 'r'), 'Error loading file : ' .. filename)
+	--for line in file:lines() do
 	local data, section = {}, nil
-	for line in file:lines() do
+	if true then
+		return data
+	end
+	local str = utils.read_file_to_string("$game_config$", filename)	
+	if not str then
+		to_log(sModule..":> ParseLtx not open %s", filename)
+		return data
+	end
+	for _,line in ipairs(string.split(str, "\n")) do
+	-- -UP
 		local tempSection = line:match('^%s*%[([^%]%[]+)%].*$')
 		if tempSection then
 			section = tonumber(tempSection) or tempSection
@@ -739,7 +754,7 @@ function ParseLtx(filename)
 			data[section][param] = value
 		end
 	end
-	file:close()
+	--file:close()-- -UP
 	return data
 end
 

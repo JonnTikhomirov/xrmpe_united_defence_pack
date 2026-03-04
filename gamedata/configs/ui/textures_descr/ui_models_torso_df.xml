@@ -1,0 +1,82 @@
+<w>
+    <file name="ui\ui_models_torso_df">
+
+        <texture id="df_bandit_face_1"       x="0" y="0" width="120" height="120" />
+        <texture id="df_bandit_face_2"       x="120" y="0" width="120" height="120" />
+        <texture id="df_bandit_face_3"       x="240" y="0" width="120" height="120" />
+        <texture id="df_bandit_face_4"       x="360" y="0" width="120" height="120" />
+
+        <texture id="df_dolg_face_1"         x="480" y="0" width="120" height="120" />
+        <texture id="df_dolg_face_2"         x="600" y="0" width="120" height="120" />
+        <texture id="df_dolg_face_3"         x="720" y="0" width="120" height="120" />
+        <texture id="df_dolg_face_4"         x="840" y="0" width="120" height="120" />
+        <texture id="df_dolg_face_5"         x="0" y="120" width="120" height="120" />
+        <texture id="df_dolg_face_6"         x="120" y="120" width="120" height="120" />
+        <texture id="df_dolg_face_7"         x="240" y="120" width="120" height="120" />
+        <texture id="df_dolg_face_8"         x="360" y="120" width="120" height="120" />
+        <texture id="df_dolg_face_9"         x="480" y="120" width="120" height="120" />
+        <texture id="df_dolg_face_10"        x="600" y="120" width="120" height="120" />
+        <texture id="df_dolg_face_11"        x="720" y="120" width="120" height="120" />
+        <texture id="df_dolg_face_12"        x="840" y="120" width="120" height="120" />
+
+        <texture id="df_freedom_face_1"      x="0" y="240" width="120" height="120" />
+        <texture id="df_freedom_face_2"      x="120" y="240" width="120" height="120" />
+        <texture id="df_freedom_face_3"      x="240" y="240" width="120" height="120" />
+        <texture id="df_freedom_face_4"      x="360" y="240" width="120" height="120" />
+        <texture id="df_freedom_face_5"      x="480" y="240" width="120" height="120" />
+        <texture id="df_freedom_face_6"      x="600" y="240" width="120" height="120" />
+        <texture id="df_freedom_face_7"      x="720" y="240" width="120" height="120" />
+        <texture id="df_freedom_face_8"      x="840" y="240" width="120" height="120" />
+        <texture id="df_freedom_face_9"      x="0" y="360" width="120" height="120" />
+        <texture id="df_freedom_face_10"     x="120" y="360" width="120" height="120" />
+        <texture id="df_freedom_face_11"     x="240" y="360" width="120" height="120" />
+        <texture id="df_freedom_face_12"     x="360" y="360" width="120" height="120" />
+
+        <texture id="df_monolith_face_1"     x="480" y="360" width="120" height="120" />
+        <texture id="df_monolith_face_2"     x="600" y="360" width="120" height="120" />
+        <texture id="df_monolith_face_3"     x="720" y="360" width="120" height="120" />
+        <texture id="df_monolith_face_4"     x="840" y="360" width="120" height="120" />
+        <texture id="df_monolith_face_5"     x="0" y="480" width="120" height="120" />
+        <texture id="df_monolith_face_6"     x="120" y="480" width="120" height="120" />
+        <texture id="df_monolith_face_7"     x="240" y="480" width="120" height="120" />
+        <texture id="df_monolith_face_8"     x="360" y="480" width="120" height="120" />
+        <texture id="df_monolith_face_9"     x="480" y="480" width="120" height="120" />
+        <texture id="df_monolith_face_10"    x="600" y="480" width="120" height="120" />
+        <texture id="df_monolith_face_11"    x="720" y="480" width="120" height="120" />
+        <texture id="df_monolith_face_12"    x="840" y="480" width="120" height="120" />
+
+        <texture id="df_nebo_face_1"         x="0" y="600" width="120" height="120" />
+        <texture id="df_nebo_face_2"         x="120" y="600" width="120" height="120" />
+        <texture id="df_nebo_face_3"         x="240" y="600" width="120" height="120" />
+        <texture id="df_nebo_face_4"         x="360" y="600" width="120" height="120" />
+        <texture id="df_nebo_face_5"         x="480" y="600" width="120" height="120" />
+        <texture id="df_nebo_face_6"         x="600" y="600" width="120" height="120" />
+        <texture id="df_nebo_face_7"         x="720" y="600" width="120" height="120" />
+
+        <texture id="df_neutral_face_1"      x="840" y="600" width="120" height="120" />
+        <texture id="df_neutral_face_2"      x="0" y="720" width="120" height="120" />
+        <texture id="df_neutral_face_3"      x="120" y="720" width="120" height="120" />
+        <texture id="df_neutral_face_4"      x="240" y="720" width="120" height="120" />
+        <texture id="df_neutral_face_5"      x="360" y="720" width="120" height="120" />
+        <texture id="df_neutral_face_6"      x="480" y="720" width="120" height="120" />
+        <texture id="df_neutral_face_7"      x="600" y="720" width="120" height="120" />
+        <texture id="df_neutral_face_8"      x="720" y="720" width="120" height="120" />
+        <texture id="df_neutral_face_9"      x="840" y="720" width="120" height="120" />
+        <texture id="df_neutral_face_10"     x="0" y="840" width="120" height="120" />
+        <texture id="df_neutral_face_11"     x="120" y="840" width="120" height="120" />
+        <texture id="df_neutral_face_12"     x="240" y="840" width="120" height="120" />
+
+        <texture id="df_soldier_face_1"      x="360" y="840" width="120" height="120" />
+        <texture id="df_soldier_face_2"      x="480" y="840" width="120" height="120" />
+        <texture id="df_soldier_face_3"      x="600" y="840" width="120" height="120" />
+        <texture id="df_soldier_face_4"      x="720" y="840" width="120" height="120" />
+        <texture id="df_soldier_face_5"      x="840" y="840" width="120" height="120" />
+        <texture id="df_soldier_face_6"      x="0" y="960" width="120" height="120" />
+        <texture id="df_soldier_face_7"      x="120" y="960" width="120" height="120" />
+        <texture id="df_soldier_face_8"      x="240" y="960" width="120" height="120" />
+
+        <texture id="df_ecolog_face_1"       x="360" y="960" width="120" height="120" />
+        <texture id="df_ecolog_face_2"       x="480" y="960" width="120" height="120" />
+
+    </file>
+</w>

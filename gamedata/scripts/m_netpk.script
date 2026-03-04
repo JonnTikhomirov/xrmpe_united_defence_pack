@@ -93,11 +93,21 @@ end
 local only_bases = bits_mode[0] --/ constant
 --/ converter for manipulating read/write of state part of subpackets
 local only_st = function(mode)
-	return bit_and(bits_mode[mode or 3], 1) --/> number-flag
+	-- +UP
+	--return bit_and(bits_mode[mode or 3], 1) --/> number-flag
+	local m = bit_and(bits_mode[mode or 3], 1)
+	if bit_and(mode or 0, 4) ~= 0 then m = m + 4 end --/ сохраняем debug бит
+	return m
+	-- -UP
 end
 --/ converter for manipulating read/write of update part of subpackets
 local only_up = function(mode)
-	return bit_and(bits_mode[mode or 3], 2) --/> number-flag
+	-- +UP
+	--return bit_and(bits_mode[mode or 3], 2) --/> number-flag
+	local m = bit_and(bits_mode[mode or 3], 2)
+	if bit_and(mode or 0, 4) ~= 0 then m = m + 4 end --/ сохраняем debug бит
+	return m
+	-- -UP
 end
 --/ -----------------------------------------------------------------
 --/ HELPERs functions

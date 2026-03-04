@@ -1,0 +1,19 @@
+<character id="escape_trader">
+	<class>trader</class>
+	<specific_character>escape_trader</specific_character>
+</character>
+<character id="df_arena_enemy_wave_1">
+	<class>df_arena_enemy_wave_1</class>
+</character>
+<character id="df_arena_enemy_wave_2">
+	<class>df_arena_enemy_wave_2</class>
+</character>
+<character id="df_arena_enemy_wave_3">
+	<class>df_arena_enemy_wave_3</class>
+</character>
+<character id="df_arena_enemy_wave_4">
+	<class>df_arena_enemy_wave_4</class>
+</character>
+<character id="df_arena_enemy_wave_5">
+	<class>df_arena_enemy_wave_5</class>
+</character>

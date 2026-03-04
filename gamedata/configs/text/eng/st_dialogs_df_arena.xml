@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<string_table>
+    <string id="df_arena_fight_1_dlg_0">
+        <text>I want to participate...</text>
+    </string>
+    <string id="df_arena_fight_1_dlg_1">
+        <text>When you're ready, head to the exit. And yes, if you're not alone, the fight won't start until everyone's gathered at the exit.</text>
+    </string>
+    <string id="df_arena_fight_1_dlg_2">
+        <text>Understood.</text>
+    </string>
+    <string id="df_arena_fight_2_dlg_0">
+        <text>I want to participate...</text>
+    </string>
+    <string id="df_arena_fight_2_dlg_1">
+        <text>When you're ready, head to the exit. And yes, if you're not alone, the fight won't start until everyone's gathered at the exit.</text>
+    </string>
+    <string id="df_arena_fight_2_dlg_2">
+        <text>Understood.</text>
+    </string>
+    <string id="df_arena_fight_3_dlg_0">
+        <text>I want to participate...</text>
+    </string>
+    <string id="df_arena_fight_3_dlg_1">
+        <text>When you're ready, head to the exit. And yes, if you're not alone, the fight won't start until everyone's gathered at the exit.</text>
+    </string>
+    <string id="df_arena_fight_3_dlg_2">
+        <text>Understood.</text>
+    </string>
+    <string id="df_arena_fight_4_dlg_0">
+        <text>I want to participate...</text>
+    </string>
+    <string id="df_arena_fight_4_dlg_1">
+        <text>When you're ready, head to the exit. And yes, if you're not alone, the fight won't start until everyone's gathered at the exit.</text>
+    </string>
+    <string id="df_arena_fight_4_dlg_2">
+        <text>Understood.</text>
+    </string>
+    <string id="df_arena_fight_5_dlg_0">
+        <text>I want to participate...</text>
+    </string>
+    <string id="df_arena_fight_5_dlg_1">
+        <text>When you're ready, head to the exit. And yes, if you're not alone, the fight won't start until everyone's gathered at the exit.</text>
+    </string>
+    <string id="df_arena_fight_5_dlg_2">
+        <text>Understood.</text>
+    </string>
+    <string id="df_arena_start_dlg_0">
+        <text>Welcome to the Arena.</text>
+    </string>
+    <string id="df_arena_start_dlg_1">
+        <text>Exit.</text>
+    </string>
+</string_table>

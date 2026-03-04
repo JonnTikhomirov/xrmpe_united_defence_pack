@@ -16,11 +16,11 @@ function CTreasureManager:__init()
 		max_activated  = 0,  -- global hard cap (0 = no cap)
 	}
 
+	self.scanned_objects = {}
 	self.chunks = nil
-	self.level_loaded = false        -- whether level file existed and was loaded
 	self.use_level_mode = false      -- whether to run chunked/weighted activation
 	self.activated_on_level = false
-	-- -UP
+	m_netpk.attach()
 end
 -- +UP
 -- helper
@@ -42,122 +42,113 @@ local function weighted_pick(ids, weights)
 	end
 end
 
--- Try to load a level file. Returns true if found and loaded.
-function CTreasureManager:load_level_file()
+function CTreasureManager:get_level_ini()
+	local str = utils.read_file_to_string("$game_levels$", "df_pripyat\\secrets.ltx")
 	
-	local level_name = level.name()
-	if not level_name or level_name == "" then return false end
-	local fname = getFS():update_path("$game_data$", string.format("levels\\%s\\secrets.ltx", level_name))
-	
-	if not fname or not getFS():exist(fname) then
-		return false
+	local ok, ini = true, nil
+	if str ~= "" then
+		ok, ini = pcall(function()
+			return create_ini_file(str)
+		end)
 	end
 
-	local ok, data = pcall(function()
-		local file = io.open(fname)
-		if not file then return nil end
-		local str = file:read("*a")
-		file:close()
-		return lua_helper.fParse_CustomData(str)
-	end)
-	if not ok or not data then
-		printf("TreasureManager:load_level_file() error: %s", data)
-		return false
-	end
-	
-	self.level_loaded  = true
-	self.use_level_mode = true
-
-	if data.defaults then
-		local d = data.defaults
-		self.level_defaults.chunk_size    = to_number(d.chunk_size)    or 0
-		self.level_defaults.chunk_height  = to_number(d.chunk_height)  or 0
-		self.level_defaults.min_per_chunk = to_number(d.min_per_chunk) or 0
-		self.level_defaults.max_per_chunk = to_number(d.max_per_chunk) or 1
-		self.level_defaults.max_activated = to_number(d.max_activated) or 0
+	if not ok then
+		printf("load_level_file() error: %s", data)
+		return nil
 	end
 
-	-- list
-	if not data.list then
-		return true
-	end
-
-	-- secrets
-	for id,prob in pairs(data.list) do
-		id = strip_comment(id)
-		if id and id ~= "" then
-			local sec = data[id]
-			if sec then
-				self.secrets[id] = {
-					items = {},
-					given = false,
-					empty = nil,
-					refreshing = false,
-					checked = false,
-					to_find = 0,
-					prob = to_number(prob) or 1
-				}
-
-				for k,v in pairs(sec) do
-					k = strip_comment(k)
-					if not k or k == "" then
-						--skip
-					elseif k == "empty" then
-						self.secrets[id].empty =
-							xr_logic.parse_condlist(nil, "treasure_manager", "empty_cond", v)
-					elseif k == "refreshing" then
-						self.secrets[id].refreshing =
-							xr_logic.parse_condlist(nil, "treasure_manager", "refreshing_cond", v)
-					else
-						self:AddItem(id, k, v)
-					end
-				end
-			else
-				abort("There is no section [%s] in secrets.ltx", tostring(id))
-			end
-		end
-	end
-	return true
+	return ini
 end
 
-function CTreasureManager:AddItem(secret_id, item_section, spawn_params)
-	printf("AddItem: secret_id=%s, item_section=%s, spawn_params=%s", secret_id, item_section, spawn_params)
-	local item_params = self.secrets[secret_id].items[item_section]
-	if not item_params then
-		item_params = {}
-	end
-	local tbl = utils.parse_spawns(spawn_params)
-	if tbl then
-		for i=1,#tbl do
-			if item_params[i] then
-				item_params[i].count = item_params[i].count + (to_number(tbl[i].section or 0) or 0)
-				local delta = to_number(tbl[i].prob or 1) - item_params[i].prob
-				item_params[i].prob = item_params[i].prob + delta / 2 -- усредняем шанс
-			else
-				table.insert(item_params,{count = to_number(tbl[i].section), prob = to_number(tbl[i].prob or 1)})
+
+-- ============================================================================
+-- НОВАЯ ФУНКЦИЯ: Сканирование всех объектов на уровне
+-- Вызывается один раз при первом update
+-- ============================================================================
+function CTreasureManager:scan_level_objects()
+	if self.objects_scanned then return end
+	
+	to_log("CTreasureManager:scan_level_objects() - сканирование всех объектов уровня")
+	
+	-- Проходим по всем возможным ID серверных объектов (0-65535)
+	for i = 0, 65535 do
+		local se_obj = alife():object(i)
+		if se_obj then
+			local spawn_ini = se_obj:spawn_ini()
+			if spawn_ini and spawn_ini:section_exist("secret") then
+				local result, id, value = spawn_ini:r_line("secret", 0, "", "")
+				
+				if id == "name" and value ~= "" then
+					
+					-- 1. ПРОВЕРКА: Существует ли тайник в конфиге?
+					if not self.secrets[value] then
+						printf(string.format(
+							"ERROR: Объект [%s] ID=%d ссылается на НЕСУЩЕСТВУЮЩИЙ тайник [%s]",
+							se_obj:section_name(), se_obj.id, value
+						))
+						-- Не прерываем цикл, просто помечаем как ошибку
+					else
+						-- 2. ПРОВЕРКА: Есть ли секция для этого предмета в конфиге тайника?
+						local item_sect = se_obj:section_name()
+						if not self.secrets[value].items[item_sect] then
+							printf(string.format(
+								"WARNING: Предмет [%s] (ID=%d) НЕ ЗАРЕГИСТРИРОВАН в конфиге тайника [%s]",
+								item_sect, se_obj.id, value
+							))
+						end
+					end
+					
+					-- Объект принадлежит тайнику с именем value
+					if not self.scanned_objects[value] then
+						self.scanned_objects[value] = {}
+					end
+					
+					local sect_name = se_obj:section_name()
+					if not self.scanned_objects[value][sect_name] then
+						self.scanned_objects[value][sect_name] = {}
+					end
+					
+					-- Сохраняем ID объекта
+					local already_exists = false
+					for _, existing_id in ipairs(self.scanned_objects[value][sect_name]) do
+						if existing_id == se_obj.id then
+							already_exists = true
+							break
+						end
+					end
+					
+					if not already_exists then
+						table.insert(self.scanned_objects[value][sect_name], se_obj.id)
+						to_log(string.format("Добавлен объект %s (ID=%d) в тайник %s", sect_name, se_obj.id, value))
+					else
+						to_log(string.format("ПРОПУЩЕН дубликат объекта %s (ID=%d)", sect_name, se_obj.id))
+					end
+				end
 			end
 		end
 	end
-	self.secrets[secret_id].items[item_section] = item_params
+	
+	self.objects_scanned = true
+	to_log("CTreasureManager:scan_level_objects() - завершено")
 end
 -- +UP
 
 function CTreasureManager:initialize()
 	-- +UP
-	if self:load_level_file() then
+	local ini = self:get_level_ini()
+	if ini then
 		to_log("TreasureManager: level-файл перекрывает misc")
-		return -- level-файл полностью перекрывает misc
-	end
-	-- -UP
-	local ini = ini_file("misc\\secrets.ltx")
-	-- +UP
-	-- пробуем defaults@level
-	local level_name
-	if level and level.name then pcall(function() level_name = level.name() end) end
-	local defaults_sec = level_name and ("defaults@"..level_name)
-
-	if defaults_sec and ini:section_exist(defaults_sec) then
 		self.use_level_mode = true
+	else
+		ini = ini_file("misc\\secrets.ltx")
+	end
+	-- пробуем defaults@level
+	local defaults_sec = "defaults@"..level.name()
+	if not ini:section_exist(defaults_sec) then
+		defaults_sec = "defaults"
+	end
+
+	if ini:section_exist(defaults_sec) then
 		self.level_defaults.chunk_size    = ini:r_float(defaults_sec,"chunk_size")
 		self.level_defaults.chunk_height  = ini:r_float(defaults_sec,"chunk_height")
 		self.level_defaults.min_per_chunk = ini:r_u32(defaults_sec,"min_per_chunk")
@@ -192,7 +183,24 @@ function CTreasureManager:initialize()
 					-- 	local tbl = {count = to_number(tbl[i].section), prob = to_number(tbl[i].prob or 1)}
 					-- 	table.insert(self.secrets[id].items[item_section], tbl)
 					-- end
-					self:AddItem(id, item_section, str)
+					-- Парсим параметры: секция, количество, вероятность
+					local tbl = utils.parse_names(str)
+					local count = 1
+					local prob = 1.0
+					
+					if #tbl >= 1 then
+						local c = tonumber(tbl[1])
+						if c then count = math.floor(c) end
+					end
+					if #tbl >= 2 then
+						local p = tonumber(tbl[2])
+						if p then prob = p end
+					end
+					
+					self.secrets[id].items[item_section] = {
+						count = count,
+						prob = prob
+					}
 					-- -UP
 				end
 			end
@@ -226,22 +234,23 @@ function CTreasureManager:fill(se_obj, treasure_id)
 end
 
 function CTreasureManager:register_item(se_obj)
-	to_log("CTreasureManager:register_item "..se_obj:name().."")-- TODO: убрать лог
-	local spawn_ini = se_obj:spawn_ini()
-	if(spawn_ini:section_exist("secret")) then
-		local result, id, value
-		result, id, value	= spawn_ini:r_line("secret",0,"","")
-		if id ~= "name" then
-			printf("There is no 'name' field in [secret] section for object [%s]", se_obj:name())-- +UP
-		else--end-- +UP
-		if value == "" then
-				printf("Field 'name' in [secret] section got no value for object [%s]", se_obj:name())-- +UP
-			else-- +UP
-				return self:fill(se_obj, value)-- +UP
-			end
-		end-- +UP
-	end
-	return false -- +UP
+	-- +UP
+	-- local spawn_ini = se_obj:spawn_ini()
+	-- if(spawn_ini:section_exist("secret")) then
+	-- 	local result, id, value
+	-- 	result, id, value	= spawn_ini:r_line("secret",0,"","")
+	-- 	if id ~= "name" then
+	-- 		printf("There is no 'name' field in [secret] section for object [%s]", se_obj:name())-- +UP
+	-- 	else--end-- +UP
+	-- 	if value == "" then
+	-- 			printf("Field 'name' in [secret] section got no value for object [%s]", se_obj:name())-- +UP
+	-- 		else-- +UP
+	-- 			return self:fill(se_obj, value)-- +UP
+	-- 		end
+	-- 	end-- +UP
+	-- end
+	return false
+	-- -UP
 end
 
 function CTreasureManager:register_restrictor(se_obj)
@@ -290,11 +299,13 @@ end
 -- activation pipeline: only runs when use_level_mode==true
 function CTreasureManager:activate_level_secrets()
 	if not self.use_level_mode or self.activated_on_level then return end
-	to_log("CTreasureManager:activate_level_secrets()")-- TODO: убрать лог
+	
+	-- Сначала сканируем все объекты на уровне
+	self:scan_level_objects()
+
 	local chunks = self:build_chunks()
 	local activated = {}
-	printf("TreasureManager:activate_level_secrets() chunks")-- TODO: убрать лог
-	print_table(chunks)-- TODO: убрать лог
+	
 	for _,chunk in pairs(chunks) do
 		local ids, weights = {}, {}
 		for _,id in ipairs(chunk.secrets) do
@@ -338,34 +349,34 @@ function CTreasureManager:activate_level_secrets()
 		end
 	end
 
-	for _,id in ipairs(activated) do
-		self:spawn_treasure(id)
+	for id, _ in pairs(self.secrets) do
+		local is_activated = table_has_value(activated, id)
+		self:spawn_treasure(id, is_activated)
 	end
 	to_log("TreasureManager:activate_level_secrets: items_from_secrets")
 	table.print(self.items_from_secrets)
-	to_log("TreasureManager:activate_level_secrets: secret_restrs")
-	table.print(self.secret_restrs)
 	self.activated_on_level = true
+
 end
 -- -UP
 
 function CTreasureManager:update()
 	if not(self.items_spawned) then
-		if not self.use_level_mode then-- +UP
+		-- +UP
+		if self.use_level_mode and not self.activated_on_level then
+			self:activate_level_secrets()
+			self.activated_on_level = true
+			self.items_spawned = true
+		-- -UP
+		elseif not self.use_level_mode then-- +UP
+			self:scan_level_objects()-- +UP
 			for k,v in pairs(self.secrets) do
-				self:spawn_treasure(k)
+				self:spawn_treasure(k, true)
 			end
 			self.items_spawned = true
 		end-- +UP
 	end
-	-- +UP
-	if self.use_level_mode and not self.activated_on_level then
-		self:activate_level_secrets()
-		to_log("TreasureManager:activate_level_secrets: secrets")
-		table.print(self.secrets)
-		self.items_spawned = true
-	end
-	-- -UP
+
 	local global_time = time_global()
 	if(self.check_time and global_time-self.check_time<=500) then
 		return
@@ -394,6 +405,23 @@ function CTreasureManager:update()
 				if (sect=="true") then
 					v.given = false
 					v.checked = false
+					-- +UP
+					v.to_find = 0
+					-- При респавне нужно реактивировать объекты
+					if v.disabled_ids then
+						for _, obj_id in ipairs(v.disabled_ids) do
+							local se_obj = alife():object(obj_id)
+							if se_obj then
+								se_obj:can_switch_online(true)
+							end
+						end
+						v.disabled_ids = nil
+					end
+					-- Пересканируем объекты для этого тайника
+					self.objects_scanned = false
+					self:scan_level_objects()
+					self:spawn_treasure(k)
+					-- -UP
 					printf("Given secret [%s] now is avaliable!", k)
 				end
 			end
@@ -401,47 +429,111 @@ function CTreasureManager:update()
 	end
 end
 
-function CTreasureManager:spawn_treasure(treasure_id)
+-- +UP
+function CTreasureManager:spawn_treasure(treasure_id, is_activated)
 	if not(self.secrets[treasure_id]) then
 		abort("There is no stored secret [%s]", tostring(treasure_id))
 	end
+	
 	if(self.secrets[treasure_id].given) then
-		printf("Secret [%s] already given!", treasure_id)
 		return
 	end
-	for item_section,item_params in pairs(self.secrets[treasure_id].items) do
-		for num = 1,#item_params do
-			for i = 1,item_params[num].count do
-				local prob = math.random()
-				if(prob < (item_params[num].prob or 1)) then-- +UP
-					if(item_params[num].item_ids and item_params[num].item_ids[i]) then
-						local se_obj = alife():object(item_params[num].item_ids[i])
-						if se_obj then-- +UP
-							local obj = alife():create( item_section,
-													se_obj.position,
-													se_obj.m_level_vertex_id,
-													se_obj.m_game_vertex_id)
-							obj.angle = se_obj.angle
-							obj:use_ai_locations(se_obj:used_ai_locations())
-							self.items_from_secrets[obj.id] = self.secret_restrs[treasure_id]
-							self.secrets[treasure_id].to_find = self.secrets[treasure_id].to_find + 1
-						end-- +UP
+	
+	if is_activated == nil then
+		is_activated = true
+	end
+
+	-- Если еще не сканировали объекты - делаем это сейчас
+	if not self.objects_scanned then
+		self:scan_level_objects()
+	end
+	
+	local secret_data = self.secrets[treasure_id]
+	local scanned_items = self.scanned_objects[treasure_id]
+	
+	if not scanned_items then
+		to_log("spawn_treasure: нет объектов для тайника " .. treasure_id)
+		return
+	end
+
+	local total_spawned = 0
+	local released_ids = {}
+	
+	if not is_activated then
+		to_log("spawn_treasure: тайник " .. treasure_id .. " НЕ активирован, удаляем все предметы")
+		
+		for item_section, objects in pairs(scanned_items) do
+			for _, obj_id in ipairs(objects) do
+				local se_obj = alife():object(obj_id)
+				if se_obj then
+					alife():release(se_obj, true)
+					table.insert(released_ids, obj_id)
+					to_log("  Удалён объект " .. obj_id .. " (" .. item_section .. ")")
+				end
+			end
+		end
+		
+		secret_data.to_find = 0
+		secret_data.released_ids = released_ids
+		return
+	end
+
+	for item_section, config in pairs(secret_data.items) do
+		local objects = scanned_items[item_section]
+		if objects then
+			local max_count = config.count or 1
+			local prob = config.prob or 1.0
+			--printf("sect=%s in treasure_id=%s, max_count=%d, prob=%f", item_section, treasure_id, max_count, prob)
+			-- Копируем и перемешиваем
+			local shuffled = {}
+			for _, obj_id in ipairs(objects) do
+				table.insert(shuffled, obj_id)
+			end
+			
+			for i = #shuffled, 2, -1 do
+				local j = math.random(i)
+				shuffled[i], shuffled[j] = shuffled[j], shuffled[i]
+			end
+			
+			local spawned_for_section = 0
+			
+			for _, obj_id in ipairs(shuffled) do
+				local se_obj = alife():object(obj_id)
+				if se_obj then
+					local should_keep = false
+					
+					-- Сначала проверяем шанс
+					if math.random() < prob then
+						-- Затем проверяем лимит
+						if spawned_for_section < max_count then
+							should_keep = true
+							spawned_for_section = spawned_for_section + 1 -- Увеличиваем ТОЛЬКО если оставили
+						end
+					end
+					
+					if should_keep then
+						-- Оставляем (ничего не делаем)
+						total_spawned = total_spawned + 1
+						self.items_from_secrets[obj_id] = self.secret_restrs[treasure_id]
 					else
-						printf("spawn_treasure() not item_ids, id=%s, item_section=%s", treasure_id, item_section) -- +UP
---[[
-						log("----------->error id="..treasure_id)
-						print_table(self.secrets[treasure_id])
-						log("----------->item_section="..tostring(item_section))
-						log("----------->num="..tostring(num))
-						log("----------->i="..tostring(i))
-						log("----------->prob="..tostring(prob))
-]]
+						-- Удаляем
+						--printf("Disable obj_id=%s in treasure_id=%s", obj_id, treasure_id)
+						alife():release(se_obj, true)
+						table.insert(released_ids, obj_id)
 					end
 				end
 			end
 		end
 	end
+	
+	secret_data.to_find = total_spawned
+	
+	-- Сохраняем ID выключенных объектов для save/load
+	secret_data.disabled_ids = disabled_ids
+	
+	to_log("spawn_treasure: " .. treasure_id .. " активировано " .. total_spawned .. " предметов")
 end
+-- -UP
 
 function CTreasureManager:give_treasure(treasure_id, spawn)
 	if not(self.secrets[treasure_id]) then
@@ -483,7 +575,7 @@ function CTreasureManager:give_random()
 end
 
 function CTreasureManager:on_item_take(obj_id)
-	to_log("TreasureManager:on_item_take: obj_id=%s", obj_id)
+	to_log("TreasureManager:on_item_take: obj_id=%s", obj_id)-- TODO: убрать лог
 	local restr_id = self.items_from_secrets[obj_id]
 	local treasure_id = nil
 	for k,v in pairs(self.secret_restrs) do
@@ -493,10 +585,10 @@ function CTreasureManager:on_item_take(obj_id)
 		end
 	end
 	if(treasure_id) then
-		to_log("TreasureManager: treasure_id=%s", treasure_id)
+		to_log("TreasureManager: treasure_id=%s", treasure_id)-- TODO: убрать лог
 		self.secrets[treasure_id].to_find = self.secrets[treasure_id].to_find - 1
 		if(self.secrets[treasure_id].to_find==0) then
-			to_log("TreasureManager:to_find==0: treasure_id=%s", treasure_id)
+			to_log("TreasureManager:to_find==0: treasure_id=%s", treasure_id)-- TODO: убрать лог
 			if self.secret_restrs[treasure_id] then-- +UP
 				level.map_remove_object_spot(self.secret_restrs[treasure_id], "treasure")
 			end-- +UP

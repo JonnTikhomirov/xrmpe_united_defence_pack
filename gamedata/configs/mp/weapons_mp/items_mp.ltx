@@ -223,7 +223,7 @@ item_visual                  	= dynamics\artefacts\artefact_defence_heal_hud
 ;new items
 [mp_medkit]:medkit
 $spawn             	= "network\equipment\mp_medkit"
-;class				= II_MEDKI;-- +UP
+class				= II_MEDKI
 boost_time				= 5.0 ;10.0
 boost_health_restore	= 0.1
 boost_radiation_restore	= 0.0
@@ -231,30 +231,30 @@ boost_bleeding_restore	= 0.05
 
 [mp_medkit_scientic]:medkit_scientic
 $spawn             	= "network\equipment\mp_medkit_scientic"
-;class				= II_MEDKI;-- +UP
+class				= II_MEDKI
 
 [mp_medkit_army]:medkit_army
 $spawn             	= "network\equipment\mp_medkit_army"
-;class				= II_MEDKI;-- +UP
+class				= II_MEDKI
 
 [mp_energy_drink]:energy_drink
 $spawn             	= "network\equipment\mp_energy_drink"
-;class				= II_BOTTL;-- +UP
-boost_power_restore	= 0.013 
+class				= II_BOTTL
+boost_power_restore	= 0.04;0.013 ; +UP
 
-boost_time				= 60.0
+boost_time				= 120;60.0; +UP
 boost_radiation_restore	= 0
 
 [mp_bandage]:bandage
 $spawn             	= "network\equipment\mp_bandage"
-;class				= II_BANDG;-- +UP
+class				= II_BANDG
 
 boost_time				= 5.0
 boost_bleeding_restore	= 0.15
 
 [mp_antirad]:antirad
 $spawn             	= "network\equipment\mp_antirad"
-;class				= II_ANTIR;-- +UP
+class				= II_ANTIR
 
 boost_radiation_restore	= 0.19
 
@@ -263,11 +263,11 @@ boost_time			= 10.0
 
 [mp_drug_coagulant]:drug_coagulant
 $spawn             	= "network\equipment\mp_drug_coagulant"
-;class				= II_FOOD;-- +UP
+class				= II_FOOD
 
 [mp_drug_radioprotector]:drug_radioprotector
 $spawn             	= "network\equipment\mp_drug_radioprotector"
-;class				= II_FOOD;-- +UP
+class				= II_FOOD
 
 ;old items
 [mp_medkit_old]:identity_immunities
@@ -283,7 +283,7 @@ inv_name			= st_medkit
 inv_name_short		= st_medkit
 inv_weight			= 0.1
 
-inv_grid_width		= 2
+inv_grid_width		= 1; +SP
 inv_grid_height		= 1
 inv_grid_x			= 6
 inv_grid_y			= 14
@@ -402,15 +402,15 @@ fire_wound_immunity      = 0.6
 
 [mp_explosive_fuelcan]:explosive_fuelcan
 $spawn 				= "network\explosive\fuelcan"
-;class				= II_EXPLO;-- +UP
+class				= II_EXPLO
 
 [mp_explosive_tank]:explosive_tank
 $spawn 				= "network\explosive\tank"
-;class				= II_EXPLO;-- +UP
+class				= II_EXPLO
 
 [mp_explosive_barrel]:explosive_barrel
 $spawn 				= "network\explosive\barrel_low"
-;class				= II_EXPLO;-- +UP
+class				= II_EXPLO
 immunities_sect			= mp_explosive_barrel_immunities_sect
 time_to_explode			=0.f
 
@@ -428,7 +428,7 @@ fire_wound_immunity		= 1.5
 
 [mp_explosive_gaz_balon]:explosive_gaz_balon
 $spawn              = "network\explosive\gaz_balon"
-;class				= II_EXPLO;-- +UP
+class				= II_EXPLO
 description			= st_af_quest_b14_twisted_descr
 inv_name			= st_explosive_gaz_balon_short
 inv_name_short		= st_explosive_gaz_balon_short
@@ -444,3 +444,43 @@ can_remove 			= false
 immunities_sect = mp_explosive_barrel_immunities_sect
 time_to_explode		= 0.f
 explode_on_contact  = true
+
+;+UP
+[mp_energy_drink_nonstop]:energy_drink_nonstop
+$spawn             	= "network\equipment\mp_energy_drink_nonstop"
+class				= II_BOTTL
+boost_power_restore	= 0.05
+
+boost_time				= 300
+boost_radiation_restore	= 0
+
+[mp_drug_psy_blockade]:drug_psy_blockade
+$spawn             	= "network\equipment\mp_drug_psy_blockade"
+class				= II_FOOD
+
+[mp_drug_booster]:drug_booster
+$spawn             	= "network\equipment\mp_drug_booster"
+class				= II_FOOD
+;-UP
+
+; +SP
+[mp_af_battery]:af_dummy_battery
+$spawn                       = "network\artefacts\mp_af_battery"
+class                        = SCRPTART
+af_rank                      = 0
+description                  = st_mp_af_dummy_battery_descr
+inv_weight                   = 0.1
+health_restore_speed         = 0.0
+radiation_restore_speed      = 0.0
+satiety_restore_speed        = -0.0004
+power_restore_speed          = 0.05 ;0.025
+bleeding_restore_speed       = 0.0
+
+; Для df_radar в качестве освещения
+[af_electra_flash_light]:af_electra_flash
+$spawn                       = "network\artefact\af_electra_flash_light"
+af_rank                      = 0
+jump_height                  = .0
+trail_light_color            = 0.698,0.8,1
+trail_light_range            = 16.0
+can_take                     = false ; можно ли взять предмет

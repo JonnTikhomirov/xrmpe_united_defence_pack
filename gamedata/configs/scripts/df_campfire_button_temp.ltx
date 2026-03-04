@@ -1,0 +1,15 @@
+[logic]
+active = sr_button@disabled
+type = shared
+
+[sr_button@disabled]
+tooltip = st_fire_turn_on
+local_use = false
+on_press = sr_button@enabled %=campfire_turn%
+
+[sr_button@enabled]
+tooltip = st_fire_turn_off
+local_use = false
+on_press = sr_button@disabled %=campfire_turn(false)%
+on_timer = 180000 | sr_button@disabled %=campfire_turn(false)% ; горит 3 минуты
+

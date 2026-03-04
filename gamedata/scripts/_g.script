@@ -723,6 +723,9 @@ function start_game_callback()
 	aa = alife()
 
 	fill_tables()
+	-- +UP
+	--print_clsids()
+	-- -UP
 	smart_names.init_smart_names_table()
 	task_manager.clear_task_manager()
 	sound_theme.load_sound()
@@ -890,7 +893,36 @@ ammo_section["ammo_12x70_buck"]		= true
 ammo_section["ammo_12x76_zhekan"]	= true
 ammo_section["ammo_12x76_dart"]		= true
 ammo_section["ammo_pkm_100"]		= true
-
+-- +SP
+-- mp
+ammo_section["mp_ammo_11.43x23_fmj"] = true
+ammo_section["mp_ammo_11.43x23_hydro"] = true
+ammo_section["mp_ammo_12x70_buck"] = true
+ammo_section["mp_ammo_12x76_dart"] = true
+ammo_section["mp_ammo_12x76_zhekan"] = true
+ammo_section["mp_ammo_5.45x39_ap"] = true
+ammo_section["mp_ammo_5.45x39_fmj"] = true
+ammo_section["mp_ammo_5.56x45_ap"] = true
+ammo_section["mp_ammo_5.56x45_ss190"] = true
+ammo_section["mp_ammo_5.7x28"] = true
+ammo_section["mp_ammo_50ae"] = true
+ammo_section["mp_ammo_7.62x39_fmj"] = true
+ammo_section["mp_ammo_7.62x54_7h1"] = true
+ammo_section["mp_ammo_7.62x54_7h14"] = true
+ammo_section["mp_ammo_7.62x54_ap"] = true
+ammo_section["mp_ammo_762x25mm_tt"] = true
+ammo_section["mp_ammo_9x18_fmj"] = true
+ammo_section["mp_ammo_9x18_pbp"] = true
+ammo_section["mp_ammo_9x18_pmm"] = true
+ammo_section["mp_ammo_9x19_fmj"] = true
+ammo_section["mp_ammo_9x19_pbp"] = true
+ammo_section["mp_ammo_9x21_sp10"] = true
+ammo_section["mp_ammo_9x39_ap"] = true
+ammo_section["mp_ammo_9x39_pab9"] = true
+ammo_section["mp_ammo_9x39_sp5"] = true
+ammo_section["mp_ammo_gauss"] = true
+ammo_section["mp_ammo_pkm_100"] = true
+-- -SP
 
 quest_section = {}
 ---Преобразует строку в соответствии со значением.
@@ -1161,6 +1193,97 @@ function to_number(s, default)
     s = strip_comment(s)
     local n = tonumber(s)
     return n ~= nil and n or default
+end
+
+function print_clsids()
+	to_log("clsid:")
+	classes = {
+		"wpn_vintorez_s",
+		"wpn_ak74_s",
+		"wpn_lr300_s",
+		"wpn_hpsa_s",
+		"wpn_pm_s",
+		"wpn_shotgun_s",
+		"wpn_auto_shotgun_s",
+		"wpn_bm16_s",
+		"wpn_svd_s",
+		"wpn_svu_s",
+		"wpn_rg6_s",
+		"wpn_rpg7_s",
+		"wpn_val_s",
+		"wpn_walther_s",
+		"wpn_usp45_s",
+		"wpn_groza_s",
+		"wpn_knife_s",
+		"wpn_grenade_f1_s",
+		"wpn_grenade_rgd5_s",
+		"wpn_fn2000",
+		"wpn_ak74",
+		"wpn_lr300",
+		"wpn_hpsa",
+		"wpn_pm",
+		"wpn_fort",
+		"wpn_shotgun",
+		"wpn_auto_shotgun",
+		"wpn_svd",
+		"wpn_svu",
+		"wpn_rpg7",
+		"wpn_val",
+		"wpn_vintorez",
+		"wpn_walther",
+		"wpn_usp45",
+		"wpn_groza",
+		"wpn_knife",
+		"wpn_bm16",
+		"wpn_rg6",
+		"wpn_stat_mgun",
+		"wpn_grenade_f1",
+		"wpn_grenade_rgd5",
+		"wpn_grenade_launcher",
+		"wpn_grenade_launcher_s",
+		"wpn_silencer",
+		"wpn_silencer_s",
+		"wpn_scope",
+		"wpn_scope_s",
+	    "obj_antirad",
+		"obj_antirad_s",
+		"obj_attachable",
+		"obj_bandage",
+		"obj_bandage_s",
+		"obj_bolt",
+		"obj_bottle",
+		"obj_bottle_s",
+		"obj_breakable",
+		"obj_climable",
+		"obj_document",
+		"obj_explosive",
+		"obj_explosive_s",
+		"obj_food",
+		"obj_food_s",
+		"obj_medkit",
+		"obj_medkit_s",
+		"obj_pda_s",
+		"obj_phskeleton",
+		"obj_phys_destroyable",
+		"obj_physic",
+		"helmet",
+		"equ_exo",
+		"equ_military",
+		"equ_scientific",
+		"equ_stalker",
+		"equ_stalker_s",
+		"device_detector_advanced",
+		"device_detector_elite",
+		"device_detector_scientific",
+		"device_detector_simple",
+		"device_flare",
+		"device_pda",
+		"device_torch",
+		"device_torch_s",}
+
+	for k,v in ipairs(classes) do
+		to_log("	%s = %s", v,clsid[v])
+	end
 end
 
 -- ++ The Tool

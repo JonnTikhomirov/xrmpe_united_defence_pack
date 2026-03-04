@@ -12,4 +12,10 @@
 	<string id="speech_laugh">
 		<text>Смех</text>
 	</string>
+	<string id="st_fire_turn_on">
+		<text>Зажечь</text>
+	</string>
+	<string id="st_fire_turn_off">
+		<text>Погасить</text>
+	</string>
 </string_table>
