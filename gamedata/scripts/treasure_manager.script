@@ -43,7 +43,7 @@ local function weighted_pick(ids, weights)
 end
 
 function CTreasureManager:get_level_ini()
-	local str = utils.read_file_to_string("$game_levels$", "df_pripyat\\secrets.ltx")
+	local str = utils.read_file_to_string("$level$", "secrets.ltx")
 	
 	local ok, ini = true, nil
 	if str ~= "" then
