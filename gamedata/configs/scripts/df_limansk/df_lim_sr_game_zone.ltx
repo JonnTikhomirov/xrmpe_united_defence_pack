@@ -1,0 +1,20 @@
+[logic]
+active = sr_idle@check_players
+
+[sr_idle@respawn_players]
+on_info = {=has_dead_players} %=rs_dead_players%
+
+[sr_idle@check_players]
+on_player_inside = {=local_actor_alive} sr_timer@to_dead %=run_postprocess(postprocess_rad_strong:228:true)%
+on_player_inside2 = {!local_actor_alive} %=stop_postprocess(228)%
+
+[sr_timer@to_dead]
+type = dec
+start_value = 5000
+string = st_out_game_zone
+timer_id = hud_timer_out_zone
+time_style = s
+sound = df_restricted
+sound_force = true
+on_value = 0 | sr_idle@check_players %=kill_me%
+on_player_outside = sr_idle@check_players %=stop_postprocess(228)%
