@@ -18,4 +18,10 @@
 	<string id="st_fire_turn_off">
 		<text>Погасить</text>
 	</string>
+	<string id="st_af_defence_lumen_descr">
+		<text>Призрачный маяк, наполняющий окрестности мертвенно-бледным, лунным сиянием. Красиво? Безусловно.</text>
+	</string>
+	<string id="st_af_defence_lumen_sun_descr">
+		<text>Аномальный ломтик июльского солнца, отпусти его - и он вернётся на небо. Но помни: темнота не прячет тебя от Зоны, темнота прячет Зону от тебя.</text>
+	</string>
 </string_table>
