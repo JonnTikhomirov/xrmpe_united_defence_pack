@@ -1,15 +1,12 @@
 [logic]
-active = sr_idle@start
+active = sr_idle@wave_1_before
 type = sv_only
-
-[sr_idle@start]
-on_game_timer = 1 | sr_idle@wave_1_before
 
 [sr_idle@wave_1_before]
 on_info = {+defence_wave_1_start} sr_idle@wave_1
 
 [sr_idle@wave_1]
-on_info = {+defence_wave_1_end} sr_idle@wave_2_before %=df_spawn(mp_af_defence_lumen:1:0.5:false:true)%
+on_info = {+defence_wave_1_end} sr_idle@wave_2_before %=df_spawn(mp_af_defence_lumen:1:0.4:false:true)%
 
 [sr_idle@wave_2_before]
 on_info = {+defence_wave_2_start} sr_idle@wave_2
