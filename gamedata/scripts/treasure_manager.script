@@ -21,6 +21,7 @@ function CTreasureManager:__init()
 	self.use_level_mode = false      -- whether to run chunked/weighted activation
 	self.activated_on_level = false
 	m_netpk.attach()
+	self.inventory_boxes_id = {}
 end
 -- +UP
 -- helper
@@ -249,6 +250,9 @@ function CTreasureManager:register_item(se_obj)
 	-- 		end
 	-- 	end-- +UP
 	-- end
+	if se_obj:clsid() == clsid.inventory_box_s and self.inventory_boxes_id[se_obj.id] == nil then
+		table.insert(self.inventory_boxes_id, se_obj.id)
+	end
 	return false
 	-- -UP
 end

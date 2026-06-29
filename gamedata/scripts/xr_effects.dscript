@@ -16,6 +16,56 @@ function campfire_turn(actor, button, p)
 	bind_campfire.turn(actor, base, p)
 end
 
+-- кладет предмет в ящики как лут обороны, но с параметром только ночного спавна
+function df_spawn(actor, npc, p)
+	
+	local item = p[1]
+	local count = p[2] or 1
+	local prob = p[3] or 1
+	local ignore_players = p[4] or false
+	local night_only = p[5] or false
+
+	if type(ignore_players) == "string" then
+		ignore_players = string.toboolean(ignore_players)
+	end
+	
+	if type(night_only) == "string" then
+		night_only = string.toboolean(night_only)
+	end
+	
+	if type(item) ~= "string" then
+		to_log("df_spawn: item is not string")
+		return
+	end
+	if not system_ini():section_exist(item) then
+		to_log("df_spawn: section %s not found", item)
+		return
+	end
+
+	if count == 0 or night_only == true and level.get_time_hours() >= 5 and level.get_time_hours() < 20 then
+		return
+	end
+
+	if ignore_players ~= true and count > 0 then
+		count = count * (get_players_count() - 1)
+	end
+	
+	boxes_id = treasure_manager.get_treasure_manager().inventory_boxes_id
+
+	if #boxes_id == 0 then
+		return
+	end
+
+	for i=1, count do
+		if math.random() < prob then
+			local box_id = boxes_id[math.random(1, #boxes_id)]
+			to_log("df_spawn: create %s %s", item, box_id)
+			alife():create(item,vector(),0,0,box_id)
+		end
+	end
+	
+end
+
 -- +SP
 -- Респавн игроков без жизней
 function rs_dead_players()

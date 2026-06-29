@@ -367,6 +367,24 @@ function actor_binder:net_spawn(data)
 	self.loaded = false
 	benchmark.main()							          --' Distemper 06.2008 --
 	
+	-- +UP
+	if OnServer() then -- проходит 1 раз
+		local ini = ini_file("game.ltx")
+		if ini:section_exist(level.name()) and ini:line_exist(level.name(), "logic_restrictors") then
+			local logic_srs = ini:r_string(level.name(), "logic_restrictors")
+			if logic_srs ~= "" then
+				for _, sr in ipairs(utils.parse_names(logic_srs)) do
+					if sr ~= "" and system_ini():section_exist(sr) then
+						alife():create(sr, vector(), 0, 0)
+						to_log("! levels logic_restrictor section [%s] create", sr)
+					else
+						to_log("! levels logic_restrictor section [%s] not found", sr)
+					end
+				end
+			end
+		end
+	end
+	-- -UP
 	return true
 end
 ----------------------------------------------------------------------------------------------------------------------
