@@ -1,0 +1,47 @@
+[logic]
+active = sr_idle@wave_1_before
+type = sv_only
+
+[sr_idle@wave_1_before]
+on_info = {+defence_wave_1_start} sr_idle@wave_1
+
+[sr_idle@wave_1]
+on_info = {+defence_wave_1_end} sr_idle@wave_2_before %=df_spawn(mp_af_defence_lumen:1:0.4:false:true)%
+
+[sr_idle@wave_2_before]
+on_info = {+defence_wave_2_start} sr_idle@wave_2
+
+[sr_idle@wave_2]
+on_info = {+defence_wave_2_end} sr_idle@wave_3_before %=df_spawn(mp_af_defence_lumen:1:0.5:true) =df_spawn(mp_af_defence_lumen:1:0.4:false:true)%
+
+[sr_idle@wave_3_before]
+on_info = {+defence_wave_3_start} sr_idle@wave_3
+
+[sr_idle@wave_3]
+on_info = {+defence_wave_3_end} sr_idle@wave_4_before %=df_spawn(mp_af_defence_lumen:1:0.5:true) =df_spawn(mp_af_defence_lumen:2:0.4:false:true)%
+
+[sr_idle@wave_4_before]
+on_info = {+defence_wave_4_start} sr_idle@wave_4
+
+[sr_idle@wave_4]
+on_info = {+defence_wave_4_end} sr_idle@wave_5_before %=df_spawn(mp_af_defence_lumen:1:0.5:true) =df_spawn(mp_af_defence_lumen:1:0.4:false:true) =df_spawn(mp_af_defence_lumen_sun:1:0.3:false:true)%
+
+[sr_idle@wave_5_before]
+on_info = {+defence_wave_5_start} sr_idle@wave_5
+
+[sr_idle@wave_5]
+on_info = {+defence_wave_5_end} sr_idle@wave_6_before %=df_spawn(mp_af_defence_lumen:1:0.5:true) =df_spawn(mp_af_defence_lumen:1:0.4:false:true) =df_spawn(mp_af_defence_lumen_sun:1:0.5:false:true)%
+
+[sr_idle@wave_6_before]
+on_info = {+defence_wave_6_start} sr_idle@wave_6
+
+[sr_idle@wave_6]
+on_info = {+defence_wave_6_end} sr_idle@wave_7_before %=df_spawn(mp_af_defence_lumen:2:1) =df_spawn(mp_af_defence_lumen_sun:1:1)%
+
+[sr_idle@wave_7_before]
+on_info = {+defence_wave_7_start} sr_idle@wave_7
+
+[sr_idle@wave_7]
+
+
+
