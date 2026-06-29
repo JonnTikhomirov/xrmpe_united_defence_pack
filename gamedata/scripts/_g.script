@@ -723,9 +723,7 @@ function start_game_callback()
 	aa = alife()
 
 	fill_tables()
-	-- +UP
-	--print_clsids()
-	-- -UP
+
 	smart_names.init_smart_names_table()
 	task_manager.clear_task_manager()
 	sound_theme.load_sound()
@@ -741,6 +739,21 @@ function start_game_callback()
 	-- Tестирование оптимизации
 	--local test_object = test_object.test_object_class()
 	--test_object:test()
+
+	-- +UP
+	print_clsids()
+	-- local ini = ini_file("game.ltx")
+	-- if ini:section_exist(level.name()) and ini:line_exist(level.name(), "logic_restrictor") then
+	-- 	to_log("levels logic_restrictor section [%s] found", level.name())
+	-- 	local logic_restr = ini:r_string(level.name(), "logic_restrictor")
+	-- 	if(logic_restr ~= "") and system_ini():section_exist(logic_restr) then
+	-- 		alife():create(logic_restr, vector(), 0, 0)
+	-- 		to_log("levels logic_restrictor section [%s] create", level.name())
+	-- 	else
+	-- 		to_log("! levels logic_restrictor section [%s] not found", logic_restr)
+	-- 	end
+	-- end
+	-- -UP
 end
 
 ---Усталость.
@@ -1279,7 +1292,9 @@ function print_clsids()
 		"device_flare",
 		"device_pda",
 		"device_torch",
-		"device_torch_s",}
+		"device_torch_s",
+		"inventory_box",
+		"inventory_box_s"}
 
 	for k,v in ipairs(classes) do
 		to_log("	%s = %s", v,clsid[v])
