@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<string_table>
+	<string id="tool_weather_fix">
+		<text>Fix</text>
+	</string>
+	<string id="tool_weather_add_minute">
+		<text>+ minute</text>
+	</string>
+	<string id="tool_weather_add_hour">
+		<text>+ hour</text>
+	</string>
+	<string id="speech_laugh">
+		<text>Laugh</text>
+	</string>
+	<string id="st_fire_turn_on">
+		<text>Ignite</text>
+	</string>
+	<string id="st_fire_turn_off">
+		<text>Extinguish</text>
+	</string>
+	<string id="st_af_defence_lumen_descr">
+		<text>A ghostly lighthouse, filling the surroundings with a deathly pale, moonlight glow. Is it beautiful? Definitely.</text>
+	</string>
+	<string id="st_af_defence_lumen_sun_descr">
+		<text>An abnormal slice of the July sun, let it go and it will return to the sky. But remember: the darkness doesn't hide you from the Zone, the darkness hides the Zone from you.</text>
+	</string>
+</string_table>
