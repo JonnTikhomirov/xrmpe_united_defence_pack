@@ -1,0 +1,10 @@
+[logic]
+active = remark@enemy
+on_death = death@enemy
+
+[remark@enemy]
+anim = guard
+on_info = nil %=hit_npc_from_actor%
+
+[death@enemy]
+on_info = %=inc_counter(enemy_dead)%

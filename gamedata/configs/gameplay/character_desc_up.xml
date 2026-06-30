@@ -1,8 +1,1443 @@
 <?xml version='1.0' encoding="windows-1251"?>
 <xml>
 
-	#include "gameplay\character_desc_seven_pack.xml"
+	<!-- +SP -->
+	<specific_character id="escape_trader" no_random = "1">
+		<name>st_df_arena_trader</name>
+		<icon>ui_npc_u_trader_1</icon>
+		<bio>NULL</bio>
+		<class>trader</class>
+		<community>trader</community>
+		<visual>actors\stalker_trader\stalker_trader_1</visual>
+		<rank>100</rank>
+		<reputation>0</reputation>
+		<money min="500000" max="500000" infinitive="1"/>
+		<supplies>
+		[spawn] \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+		<start_dialog>df_arena_start_dlg</start_dialog>
+		<actor_dialog>df_arena_fight_1_dlg</actor_dialog>
+		<actor_dialog>df_arena_fight_2_dlg</actor_dialog>
+		<actor_dialog>df_arena_fight_3_dlg</actor_dialog>
+		<actor_dialog>df_arena_fight_4_dlg</actor_dialog>
+		<actor_dialog>df_arena_fight_5_dlg</actor_dialog>
+		<actor_dialog>actor_break_dialog</actor_dialog>
+	</specific_character>
+	<specific_character id="df_arena_enemy_wave_1_default_0" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_2</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_1</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_2</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_pb = 1, silencer \n
+		mp_ammo_9x18_fmj = 1 \n
 
+		money_100_rub = 5, prob=0.8 \n
+		money_200_rub = 4, prob=0.8 \n
+		money_500_rub = 2, prob=0.8 \n
+		money_1000_rub = 1, prob=0.8 \n
+
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_1_default_1" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_2</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_1</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_2</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_pmm \n
+		mp_ammo_9x18_pmm = 1 \n
+
+		money_100_rub = 5, prob=0.8 \n
+		money_200_rub = 4, prob=0.8 \n
+		money_500_rub = 2, prob=0.8 \n
+		money_1000_rub = 1, prob=0.8 \n
+
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_1_default_2" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_2</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_1</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_2</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_fort \n
+		mp_ammo_9x18_fmj = 1 \n
+
+		money_100_rub = 5, prob=0.8 \n
+		money_200_rub = 4, prob=0.8 \n
+		money_500_rub = 2, prob=0.8 \n
+		money_1000_rub = 1, prob=0.8 \n
+
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_1_default_3" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_2</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_1</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_2</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_fort17 \n
+		mp_ammo_9x18_fmj = 1 \n
+
+		money_100_rub = 5, prob=0.8 \n
+		money_200_rub = 4, prob=0.8 \n
+		money_500_rub = 2, prob=0.8 \n
+		money_1000_rub = 1, prob=0.8 \n
+
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_1_default_4" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_2</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_1</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_2</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_tt33 \n
+		mp_ammo_762x25mm_tt = 1 \n
+
+		money_100_rub = 5, prob=0.8 \n
+		money_200_rub = 4, prob=0.8 \n
+		money_500_rub = 2, prob=0.8 \n
+		money_1000_rub = 1, prob=0.8 \n
+
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_1_default_5" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_2</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_1</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_2</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_sr1m \n
+		mp_ammo_9x21_sp10 = 1 \n
+
+		money_100_rub = 5, prob=0.8 \n
+		money_200_rub = 4, prob=0.8 \n
+		money_500_rub = 2, prob=0.8 \n
+		money_1000_rub = 1, prob=0.8 \n
+
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_1_default_6" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_2</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_1</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_2</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_grach \n
+		mp_ammo_9x19_fmj = 1 \n
+
+		money_100_rub = 5, prob=0.8 \n
+		money_200_rub = 4, prob=0.8 \n
+		money_500_rub = 2, prob=0.8 \n
+		money_1000_rub = 1, prob=0.8 \n
+
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_1_default_7" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_2</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_1</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_2</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_gsh18 \n
+		mp_ammo_9x19_fmj = 1 \n
+
+		money_100_rub = 5, prob=0.8 \n
+		money_200_rub = 4, prob=0.8 \n
+		money_500_rub = 2, prob=0.8 \n
+		money_1000_rub = 1, prob=0.8 \n
+
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_1_default_8" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_2</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_1</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_2</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_hpsa \n
+		mp_ammo_9x19_fmj = 1 \n
+
+		money_100_rub = 5, prob=0.8 \n
+		money_200_rub = 4, prob=0.8 \n
+		money_500_rub = 2, prob=0.8 \n
+		money_1000_rub = 1, prob=0.8 \n
+
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_1_default_9" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_2</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_1</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_2</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_beretta \n
+		mp_ammo_9x19_fmj = 1 \n
+
+		money_100_rub = 5, prob=0.8 \n
+		money_200_rub = 4, prob=0.8 \n
+		money_500_rub = 2, prob=0.8 \n
+		money_1000_rub = 1, prob=0.8 \n
+
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_1_default_10" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_2</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_1</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_2</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_walther \n
+		mp_ammo_9x19_fmj = 1 \n
+
+		money_100_rub = 5, prob=0.8 \n
+		money_200_rub = 4, prob=0.8 \n
+		money_500_rub = 2, prob=0.8 \n
+		money_1000_rub = 1, prob=0.8 \n
+
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_1_default_11" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_2</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_1</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_2</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_colt1911 \n
+		mp_ammo_11.43x23_fmj = 1 \n
+
+		money_100_rub = 5, prob=0.8 \n
+		money_200_rub = 4, prob=0.8 \n
+		money_500_rub = 2, prob=0.8 \n
+		money_1000_rub = 1, prob=0.8 \n
+
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_1_default_12" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_2</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_1</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_2</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_sig220 \n
+		mp_ammo_11.43x23_fmj = 1 \n
+
+		money_100_rub = 5, prob=0.8 \n
+		money_200_rub = 4, prob=0.8 \n
+		money_500_rub = 2, prob=0.8 \n
+		money_1000_rub = 1, prob=0.8 \n
+
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_1_default_13" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_2</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_1</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_2</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_sig220r \n
+		mp_ammo_11.43x23_fmj = 1 \n
+
+		money_100_rub = 5, prob=0.8 \n
+		money_200_rub = 4, prob=0.8 \n
+		money_500_rub = 2, prob=0.8 \n
+		money_1000_rub = 1, prob=0.8 \n
+
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_1_default_14" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_2</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_1</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_2</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_usp \n
+		mp_ammo_11.43x23_fmj = 1 \n
+
+		money_100_rub = 5, prob=0.8 \n
+		money_200_rub = 4, prob=0.8 \n
+		money_500_rub = 2, prob=0.8 \n
+		money_1000_rub = 1, prob=0.8 \n
+
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_1_default_15" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_2</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_1</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_2</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_usp_match \n
+		mp_ammo_11.43x23_fmj = 1 \n
+
+		money_100_rub = 5, prob=0.8 \n
+		money_200_rub = 4, prob=0.8 \n
+		money_500_rub = 2, prob=0.8 \n
+		money_1000_rub = 1, prob=0.8 \n
+
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_1_default_16" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_2</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_1</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_2</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_fiveseven \n
+		mp_ammo_5.7x28 = 1 \n
+
+		money_100_rub = 5, prob=0.8 \n
+		money_200_rub = 4, prob=0.8 \n
+		money_500_rub = 2, prob=0.8 \n
+		money_1000_rub = 1, prob=0.8 \n
+
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_2_default_0" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_2</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_2</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_2</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_desert_eagle \n
+		mp_ammo_50ae = 1 \n
+
+		money_100_rub = 5, prob=0.8 \n
+		money_200_rub = 7, prob=0.8 \n
+		money_500_rub = 3, prob=0.8 \n
+		money_1000_rub = 2, prob=0.8 \n
+
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_2_default_1" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_2</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_2</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_2</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_desert_eagle_silver \n
+		mp_ammo_50ae = 1 \n
+
+		money_100_rub = 5, prob=0.8 \n
+		money_200_rub = 7, prob=0.8 \n
+		money_500_rub = 3, prob=0.8 \n
+		money_1000_rub = 2, prob=0.8 \n
+
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_2_default_2" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_2</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_2</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_2</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_bm16 \n; +UP
+		mp_ammo_12x70_buck = 1 \n
+
+		money_100_rub = 5, prob=0.8 \n
+		money_200_rub = 7, prob=0.8 \n
+		money_500_rub = 3, prob=0.8 \n
+		money_1000_rub = 2, prob=0.8 \n
+
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_2_default_3" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_2</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_2</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_2</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_toz34 \n; +UP
+		mp_ammo_12x70_buck = 1 \n
+
+		money_100_rub = 5, prob=0.8 \n
+		money_200_rub = 7, prob=0.8 \n
+		money_500_rub = 3, prob=0.8 \n
+		money_1000_rub = 2, prob=0.8 \n
+
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_2_default_4" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_2</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_2</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_2</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_bm16 \n
+		mp_ammo_12x70_buck = 1 \n
+
+		money_100_rub = 5, prob=0.8 \n
+		money_200_rub = 7, prob=0.8 \n
+		money_500_rub = 3, prob=0.8 \n
+		money_1000_rub = 2, prob=0.8 \n
+
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_2_default_5" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_2</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_2</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_2</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_toz34 \n
+		mp_ammo_12x70_buck = 1 \n
+
+		money_100_rub = 5, prob=0.8 \n
+		money_200_rub = 7, prob=0.8 \n
+		money_500_rub = 3, prob=0.8 \n
+		money_1000_rub = 2, prob=0.8 \n
+
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_2_default_6" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_2</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_2</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_2</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_wincheaster1300 \n
+		mp_ammo_12x70_buck = 1 \n
+
+		money_100_rub = 5, prob=0.8 \n
+		money_200_rub = 7, prob=0.8 \n
+		money_500_rub = 3, prob=0.8 \n
+		money_1000_rub = 2, prob=0.8 \n
+
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_2_default_7" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_2</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_2</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_2</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_wincheaster1300 \n; +UP
+		mp_ammo_12x70_buck = 1 \n
+
+		money_100_rub = 5, prob=0.8 \n
+		money_200_rub = 7, prob=0.8 \n
+		money_500_rub = 3, prob=0.8 \n
+		money_1000_rub = 2, prob=0.8 \n
+
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_2_default_8" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_2</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_2</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_2</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_saiga12 \n
+		mp_ammo_12x76_zhekan = 1 \n
+
+		money_100_rub = 5, prob=0.8 \n
+		money_200_rub = 7, prob=0.8 \n
+		money_500_rub = 3, prob=0.8 \n
+		money_1000_rub = 2, prob=0.8 \n
+
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_3_default_0" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_3</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_3</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_1</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_bizon \n
+		mp_ammo_9x18_fmj = 1 \n
+
+		money_100_rub = 3, prob=0.8 \n
+		money_200_rub = 4, prob=0.8 \n
+		money_500_rub = 3, prob=0.8 \n
+		money_1000_rub = 3, prob=0.8 \n
+		money_5000_rub = 1, prob=0.3 \n
+
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_3_default_1" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_3</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_3</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_1</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_mp5 \n
+		mp_ammo_9x19_fmj = 1 \n
+
+		money_100_rub = 3, prob=0.8 \n
+		money_200_rub = 4, prob=0.8 \n
+		money_500_rub = 3, prob=0.8 \n
+		money_1000_rub = 3, prob=0.8 \n
+		money_5000_rub = 1, prob=0.3 \n
+
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_3_default_2" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_3</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_3</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_1</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_mp5sd \n
+		mp_ammo_9x19_fmj = 1 \n
+
+		money_100_rub = 3, prob=0.8 \n
+		money_200_rub = 4, prob=0.8 \n
+		money_500_rub = 3, prob=0.8 \n
+		money_1000_rub = 3, prob=0.8 \n
+		money_5000_rub = 1, prob=0.3 \n
+
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_3_default_3" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_3</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_3</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_1</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_ump45 \n
+		mp_ammo_11.43x23_fmj = 1 \n
+
+		money_100_rub = 3, prob=0.8 \n
+		money_200_rub = 4, prob=0.8 \n
+		money_500_rub = 3, prob=0.8 \n
+		money_1000_rub = 3, prob=0.8 \n
+		money_5000_rub = 1, prob=0.3 \n
+
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_3_default_4" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_3</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_3</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_1</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_p90 \n
+		mp_ammo_5.7x28 = 1 \n
+
+		money_100_rub = 3, prob=0.8 \n
+		money_200_rub = 4, prob=0.8 \n
+		money_500_rub = 3, prob=0.8 \n
+		money_1000_rub = 3, prob=0.8 \n
+		money_5000_rub = 1, prob=0.3 \n
+
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_4_default_0" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_3</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_4</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_1</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_ak74u \n
+		mp_ammo_5.45x39_fmj = 1 \n
+
+		money_100_rub = 2, prob=0.8 \n
+		money_200_rub = 3, prob=0.8 \n
+		money_500_rub = 4, prob=0.8 \n
+		money_1000_rub = 3, prob=0.8 \n
+		money_5000_rub = 1, prob=0.3 \n
+
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_4_default_1" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_3</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_4</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_1</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_sig552 \n
+		mp_ammo_5.56x45_ss190 = 1 \n
+
+		money_100_rub = 2, prob=0.8 \n
+		money_200_rub = 3, prob=0.8 \n
+		money_500_rub = 4, prob=0.8 \n
+		money_1000_rub = 3, prob=0.8 \n
+		money_5000_rub = 1, prob=0.3 \n
+
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_4_default_2" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_3</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_4</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_1</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_val \n
+		mp_ammo_9x39_pab9 = 1 \n
+
+		money_100_rub = 2, prob=0.8 \n
+		money_200_rub = 3, prob=0.8 \n
+		money_500_rub = 4, prob=0.8 \n
+		money_1000_rub = 3, prob=0.8 \n
+		money_5000_rub = 1, prob=0.3 \n
+
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_4_default_3" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_3</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_4</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_1</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_l85 \n
+		mp_ammo_5.56x45_ss190 = 1 \n
+
+		money_100_rub = 2, prob=0.8 \n
+		money_200_rub = 3, prob=0.8 \n
+		money_500_rub = 4, prob=0.8 \n
+		money_1000_rub = 3, prob=0.8 \n
+		money_5000_rub = 1, prob=0.3 \n
+
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_4_default_4" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_3</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_4</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_1</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_vintorez \n
+		mp_ammo_9x39_sp5 = 1 \n
+
+		money_100_rub = 2, prob=0.8 \n
+		money_200_rub = 3, prob=0.8 \n
+		money_500_rub = 4, prob=0.8 \n
+		money_1000_rub = 3, prob=0.8 \n
+		money_5000_rub = 1, prob=0.3 \n
+
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_5_default_0" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_4</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_5</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_4</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_ak101 \n
+		mp_ammo_5.56x45_ss190 = 1 \n
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_5_default_1" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_4</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_5</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_4</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_abakan \n
+		mp_ammo_5.45x39_fmj = 1 \n
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_5_default_2" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_4</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_5</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_4</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_ak74 \n
+		mp_ammo_5.45x39_fmj = 1 \n
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_5_default_3" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_4</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_5</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_4</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_akm \n
+		mp_ammo_7.62x39_fmj = 1 \n
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_5_default_4" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_4</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_5</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_4</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_groza = 1, silencer \n
+		mp_ammo_9x39_pab9 = 1 \n
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_5_default_5" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_4</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_5</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_4</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_groza_545 \n
+		mp_ammo_5.45x39_fmj = 1 \n
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_5_default_6" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_4</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_5</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_4</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_lr300 \n
+		mp_ammo_5.56x45_ss190 = 1 \n
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+
+	<specific_character id="df_arena_enemy_wave_5_default_7" team_default = "1">
+		<name>st_df_arena_enemy</name>
+		<icon>ui_portret_merc_4</icon>
+		<bio>NULL</bio>
+		<class>df_arena_enemy_wave_5</class>
+		<community>killer</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<rank>30</rank>
+		<reputation>-1000</reputation>
+		<money min="0" max="0" infinitive="0"/>
+		<visual>actors\stalker_merc\stalker_merc_4</visual>
+		<supplies>
+		[spawn] \n
+		mp_wpn_sig550 \n
+		mp_ammo_5.56x45_ss190 = 1 \n
+		mp_medkit_army = 1, prob=0.5 \n
+		mp_bandage = 1, prob=0.7 \n
+		mp_energy_drink = 1, prob=0.3 \n
+
+		mp_grenade_flashbang = 2 \n
+		mp_grenade_gd-05 = 1 \n
+		</supplies>
+	#include "gameplay\character_criticals_4.xml"
+	#include "gameplay\character_dialogs.xml"
+	</specific_character>
+	<!-- -SP -->
 	<specific_character id="df_neutral_normal_1" team_default = "1">
 		<name>Сталкер</name>
 		<icon x="2" y="2"></icon>

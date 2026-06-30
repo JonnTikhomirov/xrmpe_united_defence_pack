@@ -3478,82 +3478,84 @@ function check_info_portions(tbl_info)
 	return true --/>
 end
 --/
-function give_info(info_id)
-	-- + UP
-	-- if type(info_id) == 'string' and db.actor then
-	-- 	if db.actor:dont_has_info(info_id) then
-	-- 		db.actor:give_info_portion(info_id)
-	if type(info_id) == 'string' and getLocalActor() then
-		if getLocalActor():dont_has_info(info_id) then
-			getLocalActor():give_info_portion(info_id)
-	-- - UP
-		end
-	else
-		-- + UP
-		-- abort("give_info: db.actor=["..type(db.actor).."], type_info="..type(info_id))
-		abort("give_info: getLocalActor()=["..type(getLocalActor()).."], type_info="..type(info_id))
-		-- - UP
-	end
-end
-function give_info_portions(tbl_info)
-	-- + UP
-	-- if type(tbl_info) == 'table' and db.actor then
-	if type(tbl_info) == 'table' and getLocalActor() then
-	-- - UP
-		for _,info_id in pairs(tbl_info) do
-			-- + UP
-			-- if db.actor:dont_has_info(info_id) then
-				-- db.actor:give_info_portion(info_id)
-			if getLocalActor():dont_has_info(info_id) then
-				getLocalActor():give_info_portion(info_id)
-			-- - UP
-			end
-		end
-	else
-		-- + UP
-		-- abort("give_info_portions: db.actor=["..type(db.actor).."], type_table="..type(tbl_info))
-		abort("give_info_portions: getLocalActor()=["..type(getLocalActor()).."], type_table="..type(tbl_info))
-		-- - UP
-	end
-end
---/
-function disable_info(info_id)
-	-- + UP
-	-- if type(info_id) == 'string' and db.actor then
-	-- 	if db.actor:has_info(info_id) then
-	-- 		db.actor:disable_info_portion(info_id)
-	if type(info_id) == 'string' and getLocalActor() then
-		if getLocalActor():has_info(info_id) then
-			getLocalActor():disable_info_portion(info_id)
-	-- - UP
-		end
-	else
-		-- + UP
-		-- abort("disable_info: db.actor=["..type(db.actor).."], type_info="..type(info_id),true)
-		abort("disable_info: getLocalActor()=["..type(getLocalActor()).."], type_info="..type(info_id),true)
-		-- - UP
-	end
-end
-function disable_info_portions(tbl_info)
-	-- + UP
-	-- if type(tbl_info) == 'table' and db.actor then
-	if type(tbl_info) == 'table' and getLocalActor() then
-	-- - UP
-		for _,info_id in pairs(tbl_info) do
-			-- + UP
-			-- if db.actor:has_info(info_id) then
-			if getLocalActor():has_info(info_id) then
-				getLocalActor():disable_info_portion(info_id)
-			-- - UP
-			end
-		end
-	else
-		-- + UP
-		-- abort("disable_info_portions: db.actor=["..type(db.actor).."], type_table="..type(tbl_info))
-		abort("disable_info_portions: getLocalActor()=["..type(getLocalActor()).."], type_table="..type(tbl_info))
-		-- - UP
-	end
-end
+-- +UP
+-- function give_info(info_id)
+-- 	-- +UP
+-- 	-- if type(info_id) == 'string' and db.actor then
+-- 	-- 	if db.actor:dont_has_info(info_id) then
+-- 	-- 		db.actor:give_info_portion(info_id)
+-- 	if type(info_id) == 'string' and getLocalActor() then
+-- 		if getLocalActor():dont_has_info(info_id) then
+-- 			getLocalActor():give_info_portion(info_id)
+-- 	-- -UP
+-- 		end
+-- 	else
+-- 		-- +UP
+-- 		-- abort("give_info: db.actor=["..type(db.actor).."], type_info="..type(info_id))
+-- 		abort("give_info: getLocalActor()=["..type(getLocalActor()).."], type_info="..type(info_id))
+-- 		-- -UP
+-- 	end
+-- end
+-- function give_info_portions(tbl_info)
+-- 	-- +UP
+-- 	-- if type(tbl_info) == 'table' and db.actor then
+-- 	if type(tbl_info) == 'table' and getLocalActor() then
+-- 	-- -UP
+-- 		for _,info_id in pairs(tbl_info) do
+-- 			-- +UP
+-- 			-- if db.actor:dont_has_info(info_id) then
+-- 				-- db.actor:give_info_portion(info_id)
+-- 			if getLocalActor():dont_has_info(info_id) then
+-- 				getLocalActor():give_info_portion(info_id)
+-- 			-- -UP
+-- 			end
+-- 		end
+-- 	else
+-- 		-- +UP
+-- 		-- abort("give_info_portions: db.actor=["..type(db.actor).."], type_table="..type(tbl_info))
+-- 		abort("give_info_portions: getLocalActor()=["..type(getLocalActor()).."], type_table="..type(tbl_info))
+-- 		-- -UP
+-- 	end
+-- end
+-- --/
+-- function disable_info(info_id)
+-- 	-- +UP
+-- 	-- if type(info_id) == 'string' and db.actor then
+-- 	-- 	if db.actor:has_info(info_id) then
+-- 	-- 		db.actor:disable_info_portion(info_id)
+-- 	if type(info_id) == 'string' and getLocalActor() then
+-- 		if getLocalActor():has_info(info_id) then
+-- 			getLocalActor():disable_info_portion(info_id)
+-- 	-- -UP
+-- 		end
+-- 	else
+-- 		-- +UP
+-- 		-- abort("disable_info: db.actor=["..type(db.actor).."], type_info="..type(info_id),true)
+-- 		abort("disable_info: getLocalActor()=["..type(getLocalActor()).."], type_info="..type(info_id),true)
+-- 		-- -UP
+-- 	end
+-- end
+-- function disable_info_portions(tbl_info)
+-- 	-- +UP
+-- 	-- if type(tbl_info) == 'table' and db.actor then
+-- 	if type(tbl_info) == 'table' and getLocalActor() then
+-- 	-- -UP
+-- 		for _,info_id in pairs(tbl_info) do
+-- 			-- +UP
+-- 			-- if db.actor:has_info(info_id) then
+-- 			if getLocalActor():has_info(info_id) then
+-- 				getLocalActor():disable_info_portion(info_id)
+-- 			-- -UP
+-- 			end
+-- 		end
+-- 	else
+-- 		-- +UP
+-- 		-- abort("disable_info_portions: db.actor=["..type(db.actor).."], type_table="..type(tbl_info))
+-- 		abort("disable_info_portions: getLocalActor()=["..type(getLocalActor()).."], type_table="..type(tbl_info))
+-- 		-- -UP
+-- 	end
+-- end
+-- -UP
 --/ -----------------------------------------------------------------
 isVector = function(obj)
 	return type(obj) == 'userdata' and type(obj.getP) == 'function' and tonumber(obj.x) and tonumber(obj.y) and tonumber(obj.z) --/>
