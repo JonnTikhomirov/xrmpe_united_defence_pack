@@ -10,7 +10,7 @@
 		<community>trader</community>
 		<visual>actors\stalker_trader\stalker_trader_1</visual>
 		<rank>100</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 		<money min="500000" max="500000" infinitive="1"/>
 		<supplies>
 		[spawn] \n
@@ -1448,7 +1448,7 @@
 		<community>stalker</community>
 		
 		<rank>40</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_neutral\stalker_neutral_2</visual>
 		<snd_config>characters_voice\human_03\stalker\</snd_config>
@@ -1473,7 +1473,7 @@
 		<community>stalker</community>
 		
 		<rank>40</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_neutral\stalker_neutral_2</visual>
 		<snd_config>characters_voice\human_02\stalker\</snd_config>
@@ -1497,7 +1497,7 @@
 		<community>stalker</community>
 		
 		<rank>40</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_neutral\stalker_neutral_2_mask</visual>
 		<snd_config>characters_voice\human_01\stalker\</snd_config>
@@ -1520,7 +1520,7 @@
 		<community>stalker</community>
 		
 		<rank>40</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_neutral\stalker_neutral_2_mask_1</visual>
 		<snd_config>characters_voice\human_02\stalker\</snd_config>
@@ -1543,7 +1543,7 @@
 		<community>stalker</community>
 		
 		<rank>40</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_neutral\stalker_neutral_2_mask_2</visual>
 		<snd_config>characters_voice\human_01\stalker\</snd_config>
@@ -1568,7 +1568,7 @@
 		<community>stalker</community>
 			
 		<rank>70</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_neutral\stalker_neutral_nauchniy</visual>
 		<snd_config>characters_voice\human_03\stalker\</snd_config>
@@ -1591,7 +1591,7 @@
 		<community>stalker</community>
 			
 		<rank>70</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_neutral\stalker_neutral_nauchniy</visual>
 		<snd_config>characters_voice\human_03\stalker\</snd_config>
@@ -1616,7 +1616,7 @@
 		<community>stalker</community>
 	
 		<rank>70</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_neutral\stalker_neutral_nauchniy</visual>
 		<snd_config>characters_voice\human_03\stalker\</snd_config>
@@ -1641,7 +1641,7 @@
 		<community>stalker</community>
 			
 		<rank>70</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_neutral\stalker_neutral_3</visual>
 		<snd_config>characters_voice\human_03\stalker\</snd_config>
@@ -1666,7 +1666,7 @@
 		<community>stalker</community>
 		
 		<rank>95</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_neutral\stalker_neutral_3</visual>
 		<snd_config>characters_voice\human_03\stalker\</snd_config>
@@ -1690,7 +1690,7 @@
 		<community>stalker</community>
 		
 		<rank>95</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_neutral\stalker_neutral_4</visual>
 		<snd_config>characters_voice\human_03\stalker\</snd_config>
@@ -1715,7 +1715,7 @@
 		<community>stalker</community>
 		
 		<rank>95</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_neutral\stalker_neutral_4</visual>
 		<snd_config>characters_voice\human_03\stalker\</snd_config>
@@ -1741,7 +1741,7 @@
 		<community>dolg</community>
 		
 		<rank>40</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_dolg\stalker_dolg_2_mask_1</visual>
 		<snd_config>characters_voice\human_01\dolg\</snd_config>
@@ -1765,7 +1765,7 @@
 		<community>dolg</community>
 		
 		<rank>40</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_dolg\stalker_dolg_2_mask_2</visual>
 		<snd_config>characters_voice\human_01\dolg\</snd_config>
@@ -1789,7 +1789,7 @@
 		<community>dolg</community>
 		
 		<rank>40</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_dolg\stalker_dolg_1</visual>
 		<snd_config>characters_voice\human_01\dolg\</snd_config>
@@ -1813,7 +1813,7 @@
 		<community>dolg</community>
 		
 		<rank>40</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_dolg\stalker_dolg_1</visual>
 		<snd_config>characters_voice\human_01\dolg\</snd_config>
@@ -1838,7 +1838,7 @@
 		<community>dolg</community>
 			
 		<rank>70</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_dolg\stalker_dolg_3</visual>
 		<snd_config>characters_voice\human_01\dolg\</snd_config>
@@ -1863,7 +1863,7 @@
 		<community>dolg</community>
 			
 		<rank>70</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_dolg\stalker_dolg_3</visual>
 		<snd_config>characters_voice\human_01\dolg\</snd_config>
@@ -1889,7 +1889,7 @@
 		<community>dolg</community>
 		
 		<rank>70</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_dolg\stalker_dolg_3</visual>
 		<snd_config>characters_voice\human_01\dolg\</snd_config>
@@ -1912,7 +1912,7 @@
 		<community>dolg</community>
 		
 		<rank>95</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_dolg\stalker_dolg_4</visual>
 		<snd_config>characters_voice\human_01\dolg\</snd_config>
@@ -1935,7 +1935,7 @@
 		<community>dolg</community>
 		
 		<rank>95</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_dolg\stalker_dolg_4</visual>
 		<snd_config>characters_voice\human_01\dolg\</snd_config>
@@ -1958,7 +1958,7 @@
 		<community>dolg</community>
 		
 		<rank>95</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_dolg\stalker_dolg_4</visual>
 		<snd_config>characters_voice\human_01\dolg\</snd_config>
@@ -1985,7 +1985,7 @@
 		<community>freedom</community>
 		
 		<rank>40</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_freedom\stalker_freedom_1</visual>
 		<snd_config>characters_voice\human_01\freedom\</snd_config>
@@ -2009,7 +2009,7 @@
 		<community>freedom</community>
 		
 		<rank>40</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_freedom\stalker_freedom_1_mask</visual>
 		<snd_config>characters_voice\human_03\freedom\</snd_config>
@@ -2033,7 +2033,7 @@
 		<community>freedom</community>
 		
 		<rank>40</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_freedom\stalker_freedom_2</visual>
 		<snd_config>characters_voice\human_01\freedom\</snd_config>
@@ -2057,7 +2057,7 @@
 		<community>freedom</community>
 		
 		<rank>40</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_freedom\stalker_freedom_2</visual>
 		<snd_config>characters_voice\human_01\freedom\</snd_config>
@@ -2081,7 +2081,7 @@
 		<community>freedom</community>
 		
 		<rank>40</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_freedom\stalker_freedom_3</visual>
 		<snd_config>characters_voice\human_01\freedom\</snd_config>
@@ -2105,7 +2105,7 @@
 		<community>freedom</community>
 		
 		<rank>40</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_freedom\stalker_freedom_3</visual>
 		<snd_config>characters_voice\human_01\freedom\</snd_config>
@@ -2129,7 +2129,7 @@
 		<community>freedom</community>
 		
 		<rank>40</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_freedom\stalker_freedom_3</visual>
 		<snd_config>characters_voice\human_01\freedom\</snd_config>
@@ -2153,7 +2153,7 @@
 		<community>freedom</community>
 		
 		<rank>40</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_freedom\stalker_freedom_1_mask</visual>
 		<snd_config>characters_voice\human_03\freedom\</snd_config>
@@ -2176,7 +2176,7 @@
 		<community>freedom</community>
 		
 		<rank>40</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_freedom\stalker_freedom_3</visual>
 		<snd_config>characters_voice\human_01\freedom\</snd_config>
@@ -2199,7 +2199,7 @@
 		<community>freedom</community>
 		
 		<rank>40</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_freedom\stalker_freedom_4</visual>
 		<snd_config>characters_voice\human_03\freedom\</snd_config>
@@ -2224,7 +2224,7 @@
 		<community>freedom</community>
 		
 		<rank>40</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_freedom\stalker_freedom_4</visual>
 		<snd_config>characters_voice\human_03\freedom\</snd_config>
@@ -2251,7 +2251,7 @@
 		<community>army</community>
 		
 		<rank>40</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_soldier\stalker_soldier_1</visual>
 		<snd_config>characters_voice\human_01\military\</snd_config>
@@ -2274,7 +2274,7 @@
 		<community>army</community>
 		
 		<rank>40</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_soldier\stalker_soldier_1</visual>
 		<snd_config>characters_voice\human_02\military\</snd_config>
@@ -2298,7 +2298,7 @@
 		<community>army</community>
 		
 		<rank>40</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_soldier\stalker_soldier_1</visual>
 		<snd_config>characters_voice\human_01\military\</snd_config>
@@ -2322,7 +2322,7 @@
 		<community>army</community>
 			
 		<rank>70</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_soldier\stalker_soldier_2</visual>
 		<snd_config>characters_voice\human_01\military\</snd_config>
@@ -2345,7 +2345,7 @@
 		<community>army</community>
 			
 		<rank>70</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_soldier\stalker_soldier_2</visual>
 		<snd_config>characters_voice\human_02\military\</snd_config>
@@ -2369,7 +2369,7 @@
 		<community>army</community>
 		
 		<rank>70</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_soldier\stalker_soldier_3</visual>
 		<snd_config>characters_voice\human_03\military\</snd_config>
@@ -2392,7 +2392,7 @@
 		<community>army</community>
 		
 		<rank>70</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_soldier\stalker_soldier_3</visual>
 		<snd_config>characters_voice\human_03\military\</snd_config>
@@ -2415,7 +2415,7 @@
 		<community>army</community>
 		
 		<rank>95</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_soldier\stalker_soldier_4</visual>
 		<snd_config>characters_voice\human_03\military\</snd_config>
@@ -2436,7 +2436,7 @@
 		<community>army</community>
 		
 		<rank>95</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_soldier\stalker_soldier_4</visual>
 		<snd_config>characters_voice\human_03\military\</snd_config>
@@ -2459,7 +2459,7 @@
 		<community>army</community>
 		
 		<rank>95</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_soldier\stalker_soldier_4</visual>
 		<snd_config>characters_voice\human_03\military\</snd_config>
@@ -2482,7 +2482,7 @@
 		<community>army</community>
 		
 		<rank>95</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_soldier\stalker_soldier_4</visual>
 		<snd_config>characters_voice\human_03\military\</snd_config>
@@ -2505,7 +2505,7 @@
 		<community>army</community>
 		
 		<rank>95</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_soldier\stalker_soldier_4</visual>
 		<snd_config>characters_voice\human_03\military\</snd_config>

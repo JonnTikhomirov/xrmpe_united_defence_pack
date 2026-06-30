@@ -803,7 +803,12 @@ function bind_stalker_cl:net_spawn(data)
 		set_level_spot(self.object:id(), data.level_spot_id)
 		trade_manager.trade_init(self.object, data.trade_ini)
 	end
-	  
+	-- +UP
+	local rep = data:reputation()
+	if rep == -1000 then
+		data.goodwill = -1000
+	end
+	-- -UP
 	if data.goodwill ~= 127 then
 		local goodwill = data.goodwill
 		if getLocalActor() then
