@@ -793,7 +793,7 @@ function bind_stalker_cl:net_spawn(data)
 	if not object_binder.net_spawn(self, data) then
 		return false
 	end
-	
+
 	db.add_obj(self.object)
 	self.object:set_callback(callback.death, bind_stalker_cl.death_callback, self)
 	self.object:set_callback(callback.hit, bind_stalker_cl.hit_callback, self)													   
@@ -806,7 +806,7 @@ function bind_stalker_cl:net_spawn(data)
 	-- +UP
 	local rep = data:reputation()
 	if rep == -1000 then
-		data.goodwill = -1000
+		data.goodwill = -5000
 	end
 	-- -UP
 	if data.goodwill ~= 127 then

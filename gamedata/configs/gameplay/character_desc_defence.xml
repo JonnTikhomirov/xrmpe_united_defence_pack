@@ -2612,7 +2612,7 @@
 		<snd_config>characters_voice\human_01\zombied\</snd_config>
 
 		<rank>0</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation><!--  +UP  -->
 
 		<visual>actors\stalker_zombied\stalker_zombied_1</visual>
 		<crouch_type>0</crouch_type>
@@ -2636,7 +2636,7 @@
 		<snd_config>characters_voice\human_01\zombied\</snd_config>
 
 		<rank>0</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation><!--  +UP  -->
 
 		<visual>actors\stalker_zombied\stalker_zombied_1</visual>
 		<crouch_type>0</crouch_type>
@@ -2660,7 +2660,7 @@
 		<snd_config>characters_voice\human_01\zombied\</snd_config>
 
 		<rank>0</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation><!--  +UP  -->
 
 		<visual>actors\stalker_zombied\stalker_zombied_1</visual>
 		<crouch_type>0</crouch_type>
@@ -2686,7 +2686,7 @@
 		<snd_config>characters_voice\human_01\zombied\</snd_config>
 
 		<rank>10</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation><!--  +UP  -->
 
 		<visual>actors\stalker_zombied\stalker_zombied_2</visual>
 		<crouch_type>0</crouch_type>
@@ -2710,7 +2710,7 @@
 		<snd_config>characters_voice\human_01\zombied\</snd_config>
 
 		<rank>10</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation><!--  +UP  -->
 
 		<visual>actors\stalker_zombied\stalker_zombied_2</visual>
 		<crouch_type>0</crouch_type>
@@ -2734,7 +2734,7 @@
 		<snd_config>characters_voice\human_01\zombied\</snd_config>
 
 		<rank>10</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation><!--  +UP  -->
 
 		<visual>actors\stalker_zombied\stalker_zombied_2</visual>
 		<crouch_type>0</crouch_type>
@@ -2758,7 +2758,7 @@
 		<snd_config>characters_voice\human_01\zombied\</snd_config>
 
 		<rank>10</rank>
-		<reputation>0</reputation>
+		<reputation>-1000</reputation><!--  +UP  -->
 
 		<visual>actors\stalker_zombied\stalker_zombied_2</visual>
 		<crouch_type>0</crouch_type>
@@ -2784,7 +2784,7 @@
     <snd_config>characters_voice\human_01\zombied\</snd_config>
 
     <rank>20</rank>
-    <reputation>0</reputation>
+    <reputation>-1000</reputation><!--  +UP  -->
 
     <visual>actors\stalker_zombied\stalker_zombied_3</visual>
     <crouch_type>0</crouch_type>
@@ -2808,7 +2808,7 @@
     <snd_config>characters_voice\human_01\zombied\</snd_config>
 
     <rank>20</rank>
-    <reputation>0</reputation>
+    <reputation>-1000</reputation><!--  +UP  -->
 
     <visual>actors\stalker_zombied\stalker_zombied_3</visual>
     <crouch_type>0</crouch_type>
@@ -2832,7 +2832,7 @@
     <snd_config>characters_voice\human_01\zombied\</snd_config>
 
     <rank>20</rank>
-    <reputation>0</reputation>
+    <reputation>-1000</reputation><!--  +UP  -->
 
     <visual>actors\stalker_zombied\stalker_zombied_3</visual>
     <crouch_type>0</crouch_type>
@@ -2856,7 +2856,7 @@
     <snd_config>characters_voice\human_01\zombied\</snd_config>
 
     <rank>20</rank>
-    <reputation>0</reputation>
+    <reputation>-1000</reputation><!--  +UP  -->
 
     <visual>actors\stalker_zombied\stalker_zombied_3</visual>
     <crouch_type>0</crouch_type>
@@ -2882,7 +2882,7 @@
     <snd_config>characters_voice\human_01\zombied\</snd_config>
 
     <rank>25</rank>
-    <reputation>0</reputation>
+    <reputation>-1000</reputation><!--  +UP  -->
 
     <visual>actors\stalker_zombied\stalker_zombied_4</visual>
     <crouch_type>0</crouch_type>
@@ -2907,7 +2907,7 @@
     <snd_config>characters_voice\human_01\zombied\</snd_config>
 
     <rank>25</rank>
-    <reputation>0</reputation>
+    <reputation>-1000</reputation><!--  +UP  -->
 
     <visual>actors\stalker_zombied\stalker_zombied_4</visual>
     <crouch_type>0</crouch_type>
@@ -2932,7 +2932,7 @@
     <snd_config>characters_voice\human_01\zombied\</snd_config>
 
     <rank>25</rank>
-    <reputation>0</reputation>
+    <reputation>-1000</reputation><!--  +UP  -->
 
     <visual>actors\stalker_zombied\stalker_zombied_4</visual>
     <crouch_type>0</crouch_type>
@@ -2957,7 +2957,7 @@
     <snd_config>characters_voice\human_01\zombied\</snd_config>
 
     <rank>25</rank>
-    <reputation>0</reputation>
+    <reputation>-1000</reputation><!--  +UP  -->
 
     <visual>actors\stalker_zombied\stalker_zombied_4</visual>
     <crouch_type>0</crouch_type>
