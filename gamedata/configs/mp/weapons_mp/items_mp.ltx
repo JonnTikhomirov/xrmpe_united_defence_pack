@@ -556,6 +556,28 @@ spawning				=	1.0,	false,		"ambient\artifacts\rayofhope\rayofhope_blowout",	0.90
 
 [artefact_hud_defence_lumen_sun]:artefact_hud
 item_visual                  	= dynamics\artefacts\af_fire
+
+[df_ignition]:identity_immunities; спички
+GroupControlSection   	= spawn_group
+discovery_dependency  	=
+$spawn          		= "equipment\df_ignition"
+cform                   = skeleton
+class         			= II_ATTCH
+visual                  = dynamics\equipments\match.ogf
+cost          			= 0
+inv_name        		= st_item_ignition
+inv_name_short      	= st_item_ignition
+description             = st_item_ignition_descr
+inv_weight        		= 0.0
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x				= 20
+inv_grid_y				= 21
+attach_angle_offset   	= -1.571,-1.308,-1.458    ;устанавливаетсљ в радианах Angle*PI/180
+attach_position_offset  = 0.105, -0.004, 0.003
+attach_bone_name    	= bip01_l_hand
+auto_attach       		= false
+
 ;-UP
 
 ; +SP

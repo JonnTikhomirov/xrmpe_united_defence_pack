@@ -24,4 +24,13 @@
 	<string id="st_af_defence_lumen_sun_descr">
 		<text>Аномальный ломтик июльского солнца, отпусти его - и он вернётся на небо. Но помни: темнота не прячет тебя от Зоны, темнота прячет Зону от тебя.</text>
 	</string>
+	<string id="st_item_ignition">
+		<text>Спички</text>
+	</string>
+	<string id="st_item_ignition_descr">
+		<text>Почти пустой спичечный коробок, хватит лишь на один костёр. Ночью в Зоне огонь не столько согревает, сколько отвоёвывает у тьмы несколько метров жизни.</text>
+	</string>
+	<string id="st_need_matches">
+		<text>Нужны спички</text>
+	</string>
 </string_table>

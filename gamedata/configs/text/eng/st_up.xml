@@ -24,4 +24,10 @@
 	<string id="st_af_defence_lumen_sun_descr">
 		<text>An abnormal slice of the July sun, let it go and it will return to the sky. But remember: the darkness doesn't hide you from the Zone, the darkness hides the Zone from you.</text>
 	</string>
+	<string id="st_item_ignition">
+		<text>Matches</text>
+	</string>
+	<string id="st_item_ignition_descr">
+		<text>An almost empty matchbox, just enough for one bonfire. At night, in the Zone, the fire does not so much warm up as it wins a few meters of life from the darkness.</text>
+	</string>
 </string_table>
