@@ -1,11 +1,10 @@
 [logic]
 active = sr_button@disabled
-type = shared
 
 [sr_button@disabled]
-tooltip = st_fire_turn_on
+tooltip = {=isClient =actor_has_item(df_ignition)} st_fire_turn_on, st_need_matches
 local_use = false
-on_press = sr_button@enabled %=campfire_turn%
+on_press = {=isClient =actor_has_item(df_ignition)} sr_button@enabled %=play_sound(df_campfire_ingition) =remove_item(df_ignition) =campfire_turn%, {=isServer =actor_has_item(df_ignition)} sr_button@enabled %=campfire_turn%
 
 [sr_button@enabled]
 tooltip = st_fire_turn_off
