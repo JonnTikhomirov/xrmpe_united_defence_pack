@@ -87,10 +87,16 @@ function sr_button:hold_callback(obj, who, delta)
 		if xr_logic.switch_to_section(self.object, self.st.ini, xr_logic.pick_section_from_condlist(db.actor, self.object, self.st.on_hold.condlist)) then
 			self.object:set_tip_text("")
 			
-			if self.st.tooltip then -- +UP
-				self.object:set_tip_text(self.st.tooltip) -- +UP
-			end -- +UP
-
+			-- +UP
+			local tooltip = ""
+			if self.st.tooltip then
+				tooltip = xr_logic.pick_section_from_condlist(db.actor, self.object, self.st.tooltip.condlist)
+				if not tooltip then
+					tooltip = ""
+				end
+			end
+			self.object:set_tip_text(tooltip)
+			-- -UP
 			self:complete_hold()
 		end
 	end
@@ -107,11 +113,17 @@ function sr_button:try_switch()
 			self:complete_hold()
 		end
 		
+		-- +UP
+		local tooltip = ""
+		if self.st.tooltip then
+			tooltip = xr_logic.pick_section_from_condlist(db.actor, self.object, self.st.tooltip.condlist)
+			if not tooltip then
+				tooltip = ""
+			end
+		end
+		self.object:set_tip_text(tooltip)
+		-- -UP
 		self.object:set_tip_text("")
-
-		if self.st.tooltip then -- +UP
-			self.object:set_tip_text(self.st.tooltip) -- +UP
-		end -- +UP
 
 		if self.st.local_use then
 			return true
@@ -137,10 +149,20 @@ function sr_button:update(delta)
     end
 		
 	local actor = db.actor
-
+	
 	if xr_logic.try_switch_to_another_section(self.object, self.st, actor) then
 		return
 	end	
+	-- +UP
+	local tooltip = ""
+	if self.st.tooltip then
+		tooltip = xr_logic.pick_section_from_condlist(db.actor, self.object, self.st.tooltip.condlist)
+		if not tooltip then
+			tooltip = ""
+		end
+	end
+	self.object:set_tip_text(tooltip)
+	-- -UP
 end
 
 ---------------------------------------------------------------------------------------------------------------------
@@ -157,7 +179,7 @@ function set_scheme(npc, ini, scheme, section, gulag_name)
 	local st = xr_logic.assign_storage_and_bind(npc, ini, scheme, section)
 	st.logic = xr_logic.cfg_get_switch_conditions(ini, section, npc)
 	
-	st.tooltip  = utils.cfg_get_string(ini, section, "tooltip", npc, false, "")
+	st.tooltip  = xr_logic.cfg_get_condlist(ini, section, "tooltip", npc) -- utils.cfg_get_string(ini, section, "tooltip", npc, false, "")-- +UP
 	st.on_press  = xr_logic.cfg_get_condlist(ini, section, "on_press", npc)
 	
 	st.hold = utils.cfg_get_bool(ini, section, "hold", npc, false, false)
@@ -171,7 +193,15 @@ function set_scheme(npc, ini, scheme, section, gulag_name)
 	npc:set_local_use(st.local_use)
 	
 	if st.tooltip then
-		npc:set_tip_text(st.tooltip)
+		-- +UP
+		--npc:set_tip_text(st.tooltip)
+		local tooltip = xr_logic.pick_section_from_condlist(db.actor, npc, st.tooltip.condlist)
+		if tooltip then
+			npc:set_tip_text(tooltip)
+		else
+			npc:set_tip_text("")
+		end
+		-- -UP
 	else
 		npc:set_tip_text("")
 	end
