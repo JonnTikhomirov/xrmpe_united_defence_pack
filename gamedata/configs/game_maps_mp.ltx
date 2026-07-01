@@ -16,6 +16,8 @@
 		df_zastava                   	 =
 		df_prost_anom                    =
 		df_catacomb                      =
+		df_polygon                       =
+;+dmr
 		df_yanov_station		 =
 		df_school_1			 =
 		df_marsh_hutor			 =
@@ -26,7 +28,7 @@
 		df_volhov			 =
 		df_agroprom			 =
 		df_most_smerti			 =
-		df_pripyat_center			 =
+;-dmr
 	;+SP
 	df_escape
 	df_limansk
@@ -36,6 +38,7 @@
 	df_yantar
 	df_arena
 	;-SP
+	df_pripyat_center			 = ;+UP
 
 [mp_agroprom]
         weathers                         = [default]
@@ -94,6 +97,10 @@
         weathers                         = dynamic_indoor;indoor_ambient; +UP
 		logic_restrictors = df_catacomb_logic_restrictor; +UP
 
+[df_polygon]
+        weathers                         = dynamic_default;[default]; +UP
+
+; +dmr
 [df_yanov_station]
 	weathers			= dynamic_default
 	logic_restrictors = defence_logic_restrictor; +UP
@@ -137,10 +144,7 @@
 [df_most_smerti]
 	weathers                         = dynamic_default
 	logic_restrictors = defence_logic_restrictor; +UP
-
-[df_pripyat_center]
-	weathers                         = weather_df_pripyat_center
-	logic_restrictors = defence_logic_restrictor; +UP
+; -dmr
 	
 ; +SP
 [df_escape]
@@ -177,3 +181,8 @@ logic_restrictors = defence_logic_restrictor; +UP
 weathers     = indoor; +UP
 minimap_zoom = 4.0
 ; -SP
+
+; +UP
+[df_pripyat_center]
+	weathers	= weather_df_pripyat_center
+	logic_restrictors = defence_logic_restrictor
