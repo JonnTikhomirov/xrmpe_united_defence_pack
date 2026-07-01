@@ -484,6 +484,15 @@ function motivator_binder:update(delta)
 		end
 		self.need_relation_update = false
 	end]]--
+	-- +UP ссорим с игроками + достаем оружие
+	if self.df_up_init ~= true and self.object:alive() then
+		local sobj = alife():object(self.object:id())
+		if sobj and sobj:reputation() == -1000 then
+			xr_effects.hit_npc_from_actor(getNearestActor(self.object), self.object)
+		end
+		self.df_up_init = true
+	end
+	-- -UP
 end
 
 function motivator_binder:reload(section)
