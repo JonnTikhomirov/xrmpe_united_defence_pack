@@ -4,7 +4,7 @@ on_death = death@enemy
 
 [remark@enemy]
 anim = guard
-on_info = nil %=hit_npc_from_actor%
+on_info = nil;%=hit_npc_from_actor% ; +UP
 
 [death@enemy]
-on_info = %=inc_counter(enemy_dead)%
+on_info = %=inc_counter(enemy_dead) =set_arena_inventory%; +UP

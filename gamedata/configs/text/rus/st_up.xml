@@ -33,4 +33,19 @@
 	<string id="st_need_matches">
 		<text>Нужны спички</text>
 	</string>
+	<string id="st_arena_fight_1_ready">
+		<text>Раунд 1 начинается...</text>
+	</string>
+	<string id="st_arena_fight_2_ready">
+		<text>Раунд 2 начинается...</text>
+	</string>
+	<string id="st_arena_fight_3_ready">
+		<text>Раунд 3 начинается...</text>
+	</string>
+	<string id="st_arena_fight_4_ready">
+		<text>Раунд 4 начинается...</text>
+	</string>
+	<string id="st_arena_fight_5_ready">
+		<text>Раунд 5 начинается...</text>
+	</string>
 </string_table>

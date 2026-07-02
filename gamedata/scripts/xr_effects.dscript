@@ -1,6 +1,6 @@
 -- +UP
 function campfire_turn(actor, button, p)
-	
+
 	if not button then
 		to_log("campfire_turn: button is nil")
 		return
@@ -64,6 +64,123 @@ function df_spawn(actor, npc, p)
 		end
 	end
 	
+end
+
+local arena_enemy_faction = killer
+
+function arena_spawn(actor, npc, p)
+	--' p[2] - имя патрульного пути где спа унить.
+	local rank = p[1]
+	if rank == nil then
+		abort("Wrong rank for 'arena_spawn'")
+	end
+
+	local index = p[2]
+	if index == nil then
+		abort("Wrong path index for 'arena_spawn' function %s", tostring(path_name))
+	end
+
+	if index < 10 then
+		index = "0"..index
+	end
+
+	local path_name = "df_arena_enemy_sp_"..index
+	if not level.patrol_path_exists(path_name) then
+		abort("Path %s doesnt exist. Function 'arena_spawn'", tostring(path_name))
+	end
+	local ptr = patrol(path_name)
+
+	if arena_enemy_faction == nil then
+		abort("Faction is nil. Function 'arena_spawn'")
+	end
+
+	local spawn_sect = "df_arena_"..arena_enemy_faction.."_"..rank
+	
+	local se_obj = alife():create(spawn_sect,
+								ptr:point(0),
+								ptr:level_vertex_id(0),
+								ptr:game_vertex_id(0))
+end
+
+function randomize_arena_enemy_faction(actor, npc, p)
+	local new_index = math.random(1, #p)
+	local new_faction = p[new_index]
+	if new_faction == arena_enemy_faction and #p > 1 then
+		new_index = new_index + 1
+		new_faction = p[new_index]
+		if new_faction == nil then
+			new_faction = p[1]
+		end
+	end
+	arena_enemy_faction = new_faction
+end
+
+function set_arena_inventory(actor, npc, p)
+
+	local to_remove = {
+		[clsid.wpn_grenade_f1] = true,
+		[clsid.wpn_grenade_f1_s] = true,
+		[clsid.wpn_grenade_fake] = true,
+		[clsid.wpn_grenade_launcher] = true,
+		[clsid.wpn_grenade_launcher_s] = true,
+		[clsid.wpn_grenade_rgd5] = true,
+		[clsid.wpn_grenade_rgd5_s] = true,
+		[clsid.wpn_grenade_rpg7] = true
+	}
+
+	local function transfer_object_item(item)
+		if to_remove[item:clsid()] then
+			alife():release(alife():object(item:id()), true)
+		end
+	end
+	npc:inventory_for_each(transfer_object_item)
+
+	local ranks_items = {
+		[300] = { -- normal
+			{ "money_100_rub", 5, 0.6 },
+			{ "money_200_rub", 4, 0.6 },
+			{ "money_500_rub", 2, 0.6 },
+			{ "money_1000_rub", 1, 0.6 }
+		},
+		[600] = { -- veteran
+			{ "money_100_rub", 5, 0.6 },
+			{ "money_200_rub", 7, 0.6 },
+			{ "money_500_rub", 3, 0.6 },
+			{ "money_1000_rub", 2, 0.6 },
+			{ "money_5000_rub", 1, 0.1 }
+		},
+		[900] = { -- master
+			{ "money_100_rub", 5, 0.6 },
+			{ "money_200_rub", 3, 0.6 },
+			{ "money_500_rub", 3, 0.6 },
+			{ "money_1000_rub", 2, 0.6 },
+			{ "money_5000_rub", 1, 0.3 }
+		},
+	}
+
+	local items_rank = 0
+	for rank, items in pairs(ranks_items) do
+		if npc:rank() >= rank and items_rank < rank then
+			items_rank = rank
+		end
+	end
+
+	local selected_items = ranks_items[items_rank]
+	if selected_items then
+		for _, item in ipairs(selected_items) do
+			local count = item[2]
+			local prob = item[3]
+			for i = 1, count do
+				if math.random() < prob then
+					alife():create(item[1], vector(), 0, 0, npc:id())
+				end
+			end
+		end
+	end
+end
+
+function send_tip_temer(actor, npc, p)
+	news_manager.send_tip(actor, p[1], nil, p[2], p[4], p[3])
 end
 
 -- +SP

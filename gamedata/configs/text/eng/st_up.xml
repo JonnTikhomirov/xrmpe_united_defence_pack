@@ -30,4 +30,19 @@
 	<string id="st_item_ignition_descr">
 		<text>An almost empty matchbox, just enough for one bonfire. At night, in the Zone, the fire does not so much warm up as it wins a few meters of life from the darkness.</text>
 	</string>
+	<string id="st_arena_fight_1_ready">
+		<text>Round 1 begins...</text>
+	</string>
+	<string id="st_arena_fight_2_ready">
+		<text>Round 2 begins...</text>
+	</string>
+	<string id="st_arena_fight_3_ready">
+		<text>Round 3 begins...</text>
+	</string>
+	<string id="st_arena_fight_4_ready">
+		<text>Round 4 begins...</text>
+	</string>
+	<string id="st_arena_fight_5_ready">
+		<text>Round 5 begins...</text>
+	</string>
 </string_table>

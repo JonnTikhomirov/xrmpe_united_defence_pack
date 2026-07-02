@@ -1,5 +1,6 @@
 [logic]
 active = sr_idle@teleport_2
+type = cl_only;+UP
 
 [sr_idle@teleport_2]
 on_player_inside = {~25} %=run_postprocess(blink) =xrmpe_teleport_local_actor(df_arena_teleport_to_safe_5)%
