@@ -24,1419 +24,6 @@
 		<actor_dialog>df_arena_fight_5_dlg</actor_dialog>
 		<actor_dialog>actor_break_dialog</actor_dialog>
 	</specific_character>
-	<specific_character id="df_arena_enemy_wave_1_default_0" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_2</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_1</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_2</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_pb = 1, silencer \n
-		mp_ammo_9x18_fmj = 1 \n
-
-		money_100_rub = 5, prob=0.8 \n
-		money_200_rub = 4, prob=0.8 \n
-		money_500_rub = 2, prob=0.8 \n
-		money_1000_rub = 1, prob=0.8 \n
-
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_1_default_1" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_2</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_1</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_2</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_pmm \n
-		mp_ammo_9x18_pmm = 1 \n
-
-		money_100_rub = 5, prob=0.8 \n
-		money_200_rub = 4, prob=0.8 \n
-		money_500_rub = 2, prob=0.8 \n
-		money_1000_rub = 1, prob=0.8 \n
-
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_1_default_2" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_2</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_1</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_2</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_fort \n
-		mp_ammo_9x18_fmj = 1 \n
-
-		money_100_rub = 5, prob=0.8 \n
-		money_200_rub = 4, prob=0.8 \n
-		money_500_rub = 2, prob=0.8 \n
-		money_1000_rub = 1, prob=0.8 \n
-
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_1_default_3" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_2</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_1</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_2</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_fort17 \n
-		mp_ammo_9x18_fmj = 1 \n
-
-		money_100_rub = 5, prob=0.8 \n
-		money_200_rub = 4, prob=0.8 \n
-		money_500_rub = 2, prob=0.8 \n
-		money_1000_rub = 1, prob=0.8 \n
-
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_1_default_4" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_2</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_1</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_2</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_tt33 \n
-		mp_ammo_762x25mm_tt = 1 \n
-
-		money_100_rub = 5, prob=0.8 \n
-		money_200_rub = 4, prob=0.8 \n
-		money_500_rub = 2, prob=0.8 \n
-		money_1000_rub = 1, prob=0.8 \n
-
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_1_default_5" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_2</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_1</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_2</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_sr1m \n
-		mp_ammo_9x21_sp10 = 1 \n
-
-		money_100_rub = 5, prob=0.8 \n
-		money_200_rub = 4, prob=0.8 \n
-		money_500_rub = 2, prob=0.8 \n
-		money_1000_rub = 1, prob=0.8 \n
-
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_1_default_6" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_2</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_1</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_2</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_grach \n
-		mp_ammo_9x19_fmj = 1 \n
-
-		money_100_rub = 5, prob=0.8 \n
-		money_200_rub = 4, prob=0.8 \n
-		money_500_rub = 2, prob=0.8 \n
-		money_1000_rub = 1, prob=0.8 \n
-
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_1_default_7" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_2</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_1</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_2</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_gsh18 \n
-		mp_ammo_9x19_fmj = 1 \n
-
-		money_100_rub = 5, prob=0.8 \n
-		money_200_rub = 4, prob=0.8 \n
-		money_500_rub = 2, prob=0.8 \n
-		money_1000_rub = 1, prob=0.8 \n
-
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_1_default_8" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_2</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_1</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_2</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_hpsa \n
-		mp_ammo_9x19_fmj = 1 \n
-
-		money_100_rub = 5, prob=0.8 \n
-		money_200_rub = 4, prob=0.8 \n
-		money_500_rub = 2, prob=0.8 \n
-		money_1000_rub = 1, prob=0.8 \n
-
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_1_default_9" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_2</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_1</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_2</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_beretta \n
-		mp_ammo_9x19_fmj = 1 \n
-
-		money_100_rub = 5, prob=0.8 \n
-		money_200_rub = 4, prob=0.8 \n
-		money_500_rub = 2, prob=0.8 \n
-		money_1000_rub = 1, prob=0.8 \n
-
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_1_default_10" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_2</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_1</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_2</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_walther \n
-		mp_ammo_9x19_fmj = 1 \n
-
-		money_100_rub = 5, prob=0.8 \n
-		money_200_rub = 4, prob=0.8 \n
-		money_500_rub = 2, prob=0.8 \n
-		money_1000_rub = 1, prob=0.8 \n
-
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_1_default_11" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_2</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_1</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_2</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_colt1911 \n
-		mp_ammo_11.43x23_fmj = 1 \n
-
-		money_100_rub = 5, prob=0.8 \n
-		money_200_rub = 4, prob=0.8 \n
-		money_500_rub = 2, prob=0.8 \n
-		money_1000_rub = 1, prob=0.8 \n
-
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_1_default_12" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_2</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_1</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_2</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_sig220 \n
-		mp_ammo_11.43x23_fmj = 1 \n
-
-		money_100_rub = 5, prob=0.8 \n
-		money_200_rub = 4, prob=0.8 \n
-		money_500_rub = 2, prob=0.8 \n
-		money_1000_rub = 1, prob=0.8 \n
-
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_1_default_13" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_2</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_1</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_2</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_sig220r \n
-		mp_ammo_11.43x23_fmj = 1 \n
-
-		money_100_rub = 5, prob=0.8 \n
-		money_200_rub = 4, prob=0.8 \n
-		money_500_rub = 2, prob=0.8 \n
-		money_1000_rub = 1, prob=0.8 \n
-
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_1_default_14" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_2</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_1</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_2</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_usp \n
-		mp_ammo_11.43x23_fmj = 1 \n
-
-		money_100_rub = 5, prob=0.8 \n
-		money_200_rub = 4, prob=0.8 \n
-		money_500_rub = 2, prob=0.8 \n
-		money_1000_rub = 1, prob=0.8 \n
-
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_1_default_15" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_2</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_1</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_2</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_usp_match \n
-		mp_ammo_11.43x23_fmj = 1 \n
-
-		money_100_rub = 5, prob=0.8 \n
-		money_200_rub = 4, prob=0.8 \n
-		money_500_rub = 2, prob=0.8 \n
-		money_1000_rub = 1, prob=0.8 \n
-
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_1_default_16" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_2</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_1</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_2</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_fiveseven \n
-		mp_ammo_5.7x28 = 1 \n
-
-		money_100_rub = 5, prob=0.8 \n
-		money_200_rub = 4, prob=0.8 \n
-		money_500_rub = 2, prob=0.8 \n
-		money_1000_rub = 1, prob=0.8 \n
-
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_2_default_0" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_2</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_2</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_2</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_desert_eagle \n
-		mp_ammo_50ae = 1 \n
-
-		money_100_rub = 5, prob=0.8 \n
-		money_200_rub = 7, prob=0.8 \n
-		money_500_rub = 3, prob=0.8 \n
-		money_1000_rub = 2, prob=0.8 \n
-
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_2_default_1" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_2</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_2</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_2</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_desert_eagle_silver \n
-		mp_ammo_50ae = 1 \n
-
-		money_100_rub = 5, prob=0.8 \n
-		money_200_rub = 7, prob=0.8 \n
-		money_500_rub = 3, prob=0.8 \n
-		money_1000_rub = 2, prob=0.8 \n
-
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_2_default_2" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_2</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_2</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_2</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_bm16 \n; +UP
-		mp_ammo_12x70_buck = 1 \n
-
-		money_100_rub = 5, prob=0.8 \n
-		money_200_rub = 7, prob=0.8 \n
-		money_500_rub = 3, prob=0.8 \n
-		money_1000_rub = 2, prob=0.8 \n
-
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_2_default_3" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_2</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_2</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_2</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_toz34 \n; +UP
-		mp_ammo_12x70_buck = 1 \n
-
-		money_100_rub = 5, prob=0.8 \n
-		money_200_rub = 7, prob=0.8 \n
-		money_500_rub = 3, prob=0.8 \n
-		money_1000_rub = 2, prob=0.8 \n
-
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_2_default_4" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_2</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_2</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_2</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_bm16 \n
-		mp_ammo_12x70_buck = 1 \n
-
-		money_100_rub = 5, prob=0.8 \n
-		money_200_rub = 7, prob=0.8 \n
-		money_500_rub = 3, prob=0.8 \n
-		money_1000_rub = 2, prob=0.8 \n
-
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_2_default_5" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_2</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_2</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_2</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_toz34 \n
-		mp_ammo_12x70_buck = 1 \n
-
-		money_100_rub = 5, prob=0.8 \n
-		money_200_rub = 7, prob=0.8 \n
-		money_500_rub = 3, prob=0.8 \n
-		money_1000_rub = 2, prob=0.8 \n
-
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_2_default_6" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_2</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_2</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_2</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_wincheaster1300 \n
-		mp_ammo_12x70_buck = 1 \n
-
-		money_100_rub = 5, prob=0.8 \n
-		money_200_rub = 7, prob=0.8 \n
-		money_500_rub = 3, prob=0.8 \n
-		money_1000_rub = 2, prob=0.8 \n
-
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_2_default_7" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_2</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_2</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_2</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_wincheaster1300 \n; +UP
-		mp_ammo_12x70_buck = 1 \n
-
-		money_100_rub = 5, prob=0.8 \n
-		money_200_rub = 7, prob=0.8 \n
-		money_500_rub = 3, prob=0.8 \n
-		money_1000_rub = 2, prob=0.8 \n
-
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_2_default_8" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_2</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_2</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_2</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_saiga12 \n
-		mp_ammo_12x76_zhekan = 1 \n
-
-		money_100_rub = 5, prob=0.8 \n
-		money_200_rub = 7, prob=0.8 \n
-		money_500_rub = 3, prob=0.8 \n
-		money_1000_rub = 2, prob=0.8 \n
-
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_3_default_0" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_3</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_3</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_1</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_bizon \n
-		mp_ammo_9x18_fmj = 1 \n
-
-		money_100_rub = 3, prob=0.8 \n
-		money_200_rub = 4, prob=0.8 \n
-		money_500_rub = 3, prob=0.8 \n
-		money_1000_rub = 3, prob=0.8 \n
-		money_5000_rub = 1, prob=0.3 \n
-
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_3_default_1" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_3</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_3</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_1</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_mp5 \n
-		mp_ammo_9x19_fmj = 1 \n
-
-		money_100_rub = 3, prob=0.8 \n
-		money_200_rub = 4, prob=0.8 \n
-		money_500_rub = 3, prob=0.8 \n
-		money_1000_rub = 3, prob=0.8 \n
-		money_5000_rub = 1, prob=0.3 \n
-
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_3_default_2" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_3</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_3</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_1</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_mp5sd \n
-		mp_ammo_9x19_fmj = 1 \n
-
-		money_100_rub = 3, prob=0.8 \n
-		money_200_rub = 4, prob=0.8 \n
-		money_500_rub = 3, prob=0.8 \n
-		money_1000_rub = 3, prob=0.8 \n
-		money_5000_rub = 1, prob=0.3 \n
-
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_3_default_3" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_3</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_3</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_1</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_ump45 \n
-		mp_ammo_11.43x23_fmj = 1 \n
-
-		money_100_rub = 3, prob=0.8 \n
-		money_200_rub = 4, prob=0.8 \n
-		money_500_rub = 3, prob=0.8 \n
-		money_1000_rub = 3, prob=0.8 \n
-		money_5000_rub = 1, prob=0.3 \n
-
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_3_default_4" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_3</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_3</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_1</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_p90 \n
-		mp_ammo_5.7x28 = 1 \n
-
-		money_100_rub = 3, prob=0.8 \n
-		money_200_rub = 4, prob=0.8 \n
-		money_500_rub = 3, prob=0.8 \n
-		money_1000_rub = 3, prob=0.8 \n
-		money_5000_rub = 1, prob=0.3 \n
-
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_4_default_0" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_3</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_4</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_1</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_ak74u \n
-		mp_ammo_5.45x39_fmj = 1 \n
-
-		money_100_rub = 2, prob=0.8 \n
-		money_200_rub = 3, prob=0.8 \n
-		money_500_rub = 4, prob=0.8 \n
-		money_1000_rub = 3, prob=0.8 \n
-		money_5000_rub = 1, prob=0.3 \n
-
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_4_default_1" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_3</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_4</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_1</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_sig552 \n
-		mp_ammo_5.56x45_ss190 = 1 \n
-
-		money_100_rub = 2, prob=0.8 \n
-		money_200_rub = 3, prob=0.8 \n
-		money_500_rub = 4, prob=0.8 \n
-		money_1000_rub = 3, prob=0.8 \n
-		money_5000_rub = 1, prob=0.3 \n
-
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_4_default_2" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_3</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_4</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_1</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_val \n
-		mp_ammo_9x39_pab9 = 1 \n
-
-		money_100_rub = 2, prob=0.8 \n
-		money_200_rub = 3, prob=0.8 \n
-		money_500_rub = 4, prob=0.8 \n
-		money_1000_rub = 3, prob=0.8 \n
-		money_5000_rub = 1, prob=0.3 \n
-
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_4_default_3" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_3</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_4</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_1</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_l85 \n
-		mp_ammo_5.56x45_ss190 = 1 \n
-
-		money_100_rub = 2, prob=0.8 \n
-		money_200_rub = 3, prob=0.8 \n
-		money_500_rub = 4, prob=0.8 \n
-		money_1000_rub = 3, prob=0.8 \n
-		money_5000_rub = 1, prob=0.3 \n
-
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_4_default_4" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_3</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_4</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_1</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_vintorez \n
-		mp_ammo_9x39_sp5 = 1 \n
-
-		money_100_rub = 2, prob=0.8 \n
-		money_200_rub = 3, prob=0.8 \n
-		money_500_rub = 4, prob=0.8 \n
-		money_1000_rub = 3, prob=0.8 \n
-		money_5000_rub = 1, prob=0.3 \n
-
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_5_default_0" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_4</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_5</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_4</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_ak101 \n
-		mp_ammo_5.56x45_ss190 = 1 \n
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_5_default_1" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_4</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_5</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_4</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_abakan \n
-		mp_ammo_5.45x39_fmj = 1 \n
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_5_default_2" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_4</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_5</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_4</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_ak74 \n
-		mp_ammo_5.45x39_fmj = 1 \n
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_5_default_3" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_4</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_5</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_4</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_akm \n
-		mp_ammo_7.62x39_fmj = 1 \n
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_5_default_4" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_4</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_5</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_4</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_groza = 1, silencer \n
-		mp_ammo_9x39_pab9 = 1 \n
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_5_default_5" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_4</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_5</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_4</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_groza_545 \n
-		mp_ammo_5.45x39_fmj = 1 \n
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_5_default_6" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_4</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_5</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_4</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_lr300 \n
-		mp_ammo_5.56x45_ss190 = 1 \n
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
-
-	<specific_character id="df_arena_enemy_wave_5_default_7" team_default = "1">
-		<name>st_df_arena_enemy</name>
-		<icon>ui_portret_merc_4</icon>
-		<bio>NULL</bio>
-		<class>df_arena_enemy_wave_5</class>
-		<community>killer</community>
-		<terrain_sect>stalker_terrain</terrain_sect>
-		<snd_config>characters_voice\human_03\killer\</snd_config>
-		<rank>30</rank>
-		<reputation>-1000</reputation>
-		<money min="0" max="0" infinitive="0"/>
-		<visual>actors\stalker_merc\stalker_merc_4</visual>
-		<supplies>
-		[spawn] \n
-		mp_wpn_sig550 \n
-		mp_ammo_5.56x45_ss190 = 1 \n
-		mp_medkit_army = 1, prob=0.5 \n
-		mp_bandage = 1, prob=0.7 \n
-		mp_energy_drink = 1, prob=0.3 \n
-
-		mp_grenade_flashbang = 2 \n
-		mp_grenade_gd-05 = 1 \n
-		</supplies>
-	#include "gameplay\character_criticals_4.xml"
-	#include "gameplay\character_dialogs.xml"
-	</specific_character>
 	<!-- -SP -->
 	<specific_character id="df_neutral_normal_1" team_default = "1">
 		<name>Сталкер</name>
@@ -1447,7 +34,7 @@
 		<class>neutral_normal</class>
 		<community>stalker</community>
 		
-		<rank>40</rank>
+		<rank>350</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_neutral\stalker_neutral_2</visual>
@@ -1468,35 +55,11 @@
 		<icon x="2" y="2"></icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
-		
-		<class>neutral_normal</class>
-		<community>stalker</community>
-		
-		<rank>40</rank>
-		<reputation>-1000</reputation>
-
-		<visual>actors\stalker_neutral\stalker_neutral_2</visual>
-		<snd_config>characters_voice\human_02\stalker\</snd_config>
-		<supplies>
-			[spawn] \n
-			mp_wpn_mp5 \n
-			mp_ammo_9x19_fmj = 1 \n
-			mp_wpn_fort \n
-			mp_ammo_9x18_pmm = 1, prob=0.5 \n
-			mp_grenade_rgd5 = 1, prob=0.4 \n
-		</supplies>
-	</specific_character>
-
-	<specific_character id="df_neutral_normal_3" team_default = "1">
-		<name>Сталкер</name>
-		<icon x="2" y="2"></icon>
-		<map_icon x="1" y="0"></map_icon>
-		<bio></bio>
 
 		<class>neutral_normal</class>
 		<community>stalker</community>
 		
-		<rank>40</rank>
+		<rank>350</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_neutral\stalker_neutral_2_mask</visual>
@@ -1510,7 +73,7 @@
 		</supplies>
 	</specific_character>
 
-	<specific_character id="df_neutral_normal_4" team_default = "1">
+	<specific_character id="df_neutral_normal_3" team_default = "1">
 		<name>Сталкер</name>
 		<icon x="2" y="2"></icon>
 		<map_icon x="1" y="0"></map_icon>
@@ -1519,7 +82,7 @@
 		<class>neutral_normal</class>
 		<community>stalker</community>
 		
-		<rank>40</rank>
+		<rank>350</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_neutral\stalker_neutral_2_mask_1</visual>
@@ -1533,7 +96,7 @@
 		</supplies>
 	</specific_character>
 	
-	<specific_character id="df_neutral_normal_5" team_default = "1">
+	<specific_character id="df_neutral_normal_4" team_default = "1">
 		<name>Сталкер</name>
 		<icon x="2" y="2"></icon>
 		<map_icon x="1" y="0"></map_icon>
@@ -1542,18 +105,18 @@
 		<class>neutral_normal</class>
 		<community>stalker</community>
 		
-		<rank>40</rank>
+		<rank>350</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_neutral\stalker_neutral_2_mask_2</visual>
 		<snd_config>characters_voice\human_01\stalker\</snd_config>
 		<supplies>
 			[spawn] \n
-			mp_wpn_ak74 = 1 \n
-			mp_ammo_5.45x39_fmj \n
-			mp_wpn_pm \n
-			mp_ammo_9x18_pbp \n
-      		mp_grenade_rgd5 = 1, prob=0.4 \n
+			mp_wpn_mp5 = 1 \n
+			mp_ammo_9x19_fmj = 1 \n
+			mp_wpn_fort \n
+			mp_ammo_9x18_pmm = 1, prob=0.5 \n
+			mp_grenade_rgd5 = 1, prob=0.4 \n
 		</supplies>
 	</specific_character>
 	
@@ -1567,7 +130,7 @@
 		<class>neutral_veteran</class>
 		<community>stalker</community>
 			
-		<rank>70</rank>
+		<rank>650</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_neutral\stalker_neutral_nauchniy</visual>
@@ -1599,7 +162,7 @@
 			[spawn] \n
 			mp_wpn_l85 = 1 \n
 			mp_ammo_5.56x45_ss190 = 1 \n
-			mp_wpn_stechkin \n
+			mp_wpn_pmm \n
 			mp_ammo_9x18_pmm = 1 \n
 			mp_grenade_f1 = 1, prob=0.6 \n
 		</supplies>
@@ -1665,7 +228,7 @@
 		<class>neutral_master</class>
 		<community>stalker</community>
 		
-		<rank>95</rank>
+		<rank>950</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_neutral\stalker_neutral_3</visual>
@@ -1689,7 +252,7 @@
 		<class>neutral_master</class>
 		<community>stalker</community>
 		
-		<rank>95</rank>
+		<rank>950</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_neutral\stalker_neutral_4</visual>
@@ -1704,31 +267,316 @@
       		mp_grenade_f1 = 1, prob=0.8 \n
 		</supplies>
 	</specific_character>
+	<!-- Bandit -->
 
-	<specific_character id="df_neutral_master_3" team_default = "1">
-		<name>Сталкер мастер</name>
-		<icon x="10" y="0"></icon>
+	<specific_character id="df_bandit_normal_1" team_default = "1">
+		<name>Бандит</name>
+		<icon>ui_inGame2_bandit_1</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
+		<class>bandit_normal</class>
+		<community>bandit</community>
 
-		<class>neutral_master</class>
-		<community>stalker</community>
-		
-		<rank>95</rank>
+		<rank>350</rank>
 		<reputation>-1000</reputation>
 
-		<visual>actors\stalker_neutral\stalker_neutral_4</visual>
-		<snd_config>characters_voice\human_03\stalker\</snd_config>
+		<visual>actors\stalker_bandit\stalker_bandit_1</visual>
+		<snd_config>characters_voice\human_01\bandit\</snd_config>
+
+		<supplies>
+		[spawn] \n
+			mp_wpn_mp5 \n
+			mp_ammo_9x19_fmj = 1 \n
+			mp_wpn_fort \n
+			mp_ammo_9x18_pmm = 1, prob=0.5 \n
+			mp_grenade_rgd5 = 1, prob=0.4 \n
+		</supplies>
+	</specific_character>
+	
+	<specific_character id="df_bandit_normal_2" team_default = "1">
+		<name>Бандит</name>
+		<icon>ui_inGame2_bandit_1</icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+		<class>bandit_normal</class>
+		<community>bandit</community>
+
+		<rank>350</rank>
+		<reputation>-1000</reputation>
+
+		<visual>actors\stalker_bandit\stalker_bandit_1</visual>
+		<snd_config>characters_voice\human_02\bandit\</snd_config>
+
 		<supplies>
 			[spawn] \n
-			mp_wpn_groza = 1 \n
-			mp_ammo_9x39_pab9 \n
-			mp_wpn_beretta \n
-			mp_ammo_9x19_pbp = 1 \n
-      		mp_grenade_f1 = 1, prob=0.8 \n
+			mp_wpn_ak74u = 1 \n
+			mp_ammo_5.45x39_ap = 1 \n
+			mp_grenade_flashbang = 1 \n
+			mp_grenade_rgd5 = 1, prob=1 \n
 		</supplies>
 	</specific_character>
 
+	<specific_character id="df_bandit_veteran_1" team_default = "1">
+		<name>Бугор</name>
+		<icon>ui_inGame2_bandit_2</icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+		<class>bandit_veteran</class>
+		<community>bandit</community>
+
+		<rank>650</rank>
+		<reputation>-1000</reputation>
+
+		<visual>actors\stalker_bandit\stalker_bandit_2</visual>
+		<snd_config>characters_voice\human_03\bandit\</snd_config>
+
+		<supplies>
+			[spawn] \n
+			mp_wpn_abakan = 1 \n
+			mp_ammo_5.45x39_fmj = 1 \n
+			mp_grenade_flashbang = 1 \n
+			mp_grenade_rgd5 = 1, prob=1 \n
+		</supplies>
+	</specific_character>
+
+	<specific_character id="df_bandit_veteran_2" team_default = "1">
+		<name>Бугор</name>
+		<icon>ui_inGame2_bandit_2</icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+		<class>bandit_veteran</class>
+		<community>bandit</community>
+
+		<rank>650</rank>
+		<reputation>-1000</reputation>
+
+		<visual>actors\stalker_bandit\stalker_bandit_2</visual>
+		<snd_config>characters_voice\human_03\bandit\</snd_config>
+
+		<supplies>
+			[spawn] \n
+			mp_wpn_ak74 = 1 \n
+			mp_ammo_5.45x39_fmj = 1 \n
+			mp_grenade_flashbang = 1 \n
+			mp_grenade_rgd5 = 1, prob=1 \n
+		</supplies>
+	</specific_character>
+
+	<specific_character id="df_bandit_veteran_3" team_default = "1">
+		<name>Бугор</name>
+		<icon>ui_inGame2_bandit_2</icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+		<class>bandit_veteran</class>
+		<community>bandit</community>
+
+		<rank>650</rank>
+		<reputation>-1000</reputation>
+
+		<visual>actors\stalker_bandit\stalker_bandit_2</visual>
+		<snd_config>characters_voice\human_02\bandit\</snd_config>
+
+		<supplies>
+			[spawn] \n
+			mp_wpn_sig552 = 1 \n
+			mp_ammo_5.56x45_ap = 1 \n
+      		mp_wpn_beretta \n
+			mp_ammo_9x19_fmj = 1, prob=0.8 \n
+      		mp_grenade_flashbang = 2 \n
+      		mp_grenade_f1 = 1, prob=0.6 \n
+		</supplies>
+	</specific_character>
+	
+	<specific_character id="df_bandit_veteran_4" team_default = "1">
+		<name>Бугор</name>
+		<icon>ui_inGame2_bandit_2</icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+		<class>bandit_veteran</class>
+		<community>bandit</community>
+
+		<rank>650</rank>
+		<reputation>-1000</reputation>
+
+		<visual>actors\stalker_bandit\stalker_bandit_3</visual>
+		<snd_config>characters_voice\human_02\bandit\</snd_config>
+
+		<supplies>
+			[spawn] \n
+			mp_wpn_abakan = 1 \n
+			mp_ammo_5.45x39_fmj = 1 \n
+			mp_grenade_flashbang = 1 \n
+			mp_grenade_rgd5 = 1, prob=1 \n
+		</supplies>
+	</specific_character>
+
+	<specific_character id="df_bandit_veteran_5" team_default = "1">
+		<name>Бугор</name>
+		<icon>ui_inGame2_bandit_2</icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+		<class>bandit_veteran</class>
+		<community>bandit</community>
+
+		<rank>650</rank>
+		<reputation>-1000</reputation>
+
+		<visual>actors\stalker_bandit\stalker_bandit_3</visual>
+		<snd_config>characters_voice\human_01\bandit\</snd_config>
+
+		<supplies>
+			[spawn] \n
+			mp_wpn_ak74 = 1 \n
+			mp_ammo_5.45x39_ap = 1 \n
+			mp_grenade_flashbang = 1 \n
+			mp_grenade_rgd5 = 1, prob=1 \n
+		</supplies>
+	</specific_character>
+
+	<specific_character id="df_bandit_veteran_6" team_default = "1">
+		<name>Бугор</name>
+		<icon>ui_inGame2_bandit_2</icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+		<class>bandit_veteran</class>
+		<community>bandit</community>
+
+		<rank>650</rank>
+		<reputation>-1000</reputation>
+
+		<visual>actors\stalker_bandit\stalker_bandit_4</visual>
+		<snd_config>characters_voice\human_02\bandit\</snd_config>
+
+		<supplies>
+			[spawn] \n
+			mp_wpn_sig552 = 1 \n
+			mp_ammo_5.56x45_ap = 1 \n
+      		mp_wpn_beretta \n
+			mp_ammo_9x19_fmj = 1, prob=0.8 \n
+      		mp_grenade_flashbang = 2 \n
+      		mp_grenade_f1 = 1, prob=0.6 \n
+		</supplies>
+	</specific_character>
+	
+	<specific_character id="df_bandit_veteran_7" team_default = "1">
+		<name>Бугор</name>
+		<icon>ui_inGame2_bandit_2</icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+		<class>bandit_veteran</class>
+		<community>bandit</community>
+
+		<rank>650</rank>
+		<reputation>-1000</reputation>
+
+		<visual>actors\stalker_bandit\stalker_bandit_4</visual>
+		<snd_config>characters_voice\human_02\bandit\</snd_config>
+
+		<supplies>
+			[spawn] \n
+			mp_wpn_abakan = 1 \n
+			mp_ammo_5.45x39_fmj = 1 \n
+			mp_grenade_flashbang = 1 \n
+			mp_grenade_rgd5 = 1, prob=1 \n
+		</supplies>
+	</specific_character>
+
+	<specific_character id="df_bandit_veteran_8" team_default = "1">
+		<name>Бугор</name>
+		<icon>ui_inGame2_bandit_2</icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+		<class>bandit_veteran</class>
+		<community>bandit</community>
+
+		<rank>650</rank>
+		<reputation>-1000</reputation>
+
+		<visual>actors\stalker_bandit\stalker_bandit_4</visual>
+		<snd_config>characters_voice\human_01\bandit\</snd_config>
+
+		<supplies>
+			[spawn] \n
+			mp_wpn_ak74 = 1 \n
+			mp_ammo_5.45x39_ap = 1 \n
+			mp_grenade_flashbang = 1 \n
+			mp_grenade_rgd5 = 1, prob=1 \n
+		</supplies>
+	</specific_character>
+
+	<specific_character id="df_bandit_veteran_9" team_default = "1">
+		<name>Бугор</name>
+		<icon>ui_inGame2_bandit_2</icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+		<class>bandit_veteran</class>
+		<community>bandit</community>
+
+		<rank>650</rank>
+		<reputation>-1000</reputation>
+
+		<visual>actors\stalker_bandit\stalker_bandit_4</visual>
+		<snd_config>characters_voice\human_02\bandit\</snd_config>
+
+		<supplies>
+			[spawn] \n
+			mp_wpn_sig552 = 1 \n
+			mp_ammo_5.56x45_ap = 1 \n
+      		mp_wpn_beretta \n
+			mp_ammo_9x19_fmj = 1, prob=0.8 \n
+      		mp_grenade_flashbang = 2 \n
+      		mp_grenade_f1 = 1, prob=0.6 \n
+		</supplies>
+	</specific_character>
+
+	<specific_character id="df_bandit_master_1" team_default = "1">
+		<name>Авторитет</name>
+		<icon>ui_inGame2_bandit_2</icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+		<class>bandit_master</class>
+		<community>bandit</community>
+
+		<rank>950</rank>
+		<reputation>-1000</reputation>
+
+		<visual>actors\stalker_mp\df_bandit_5</visual>
+		<snd_config>characters_voice\human_03\bandit\</snd_config>
+
+		<supplies>
+			[spawn] \n
+			mp_wpn_val = 1, 1, 0, 0 \n
+			mp_ammo_9x39_ap = 1 \n
+			mp_wpn_desert_eagle = 1 \n
+			mp_ammo_50ae = 1 \n
+      		mp_grenade_flashbang = 2 \n
+      		mp_grenade_f1 = 2, prob=1 \n
+		</supplies>
+	</specific_character>
+
+	<specific_character id="df_bandit_master_2" team_default = "1">
+		<name>Бандит мастер</name>
+		<icon>ui_inGame2_bandit_2</icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+		<class>bandit_master</class>
+		<community>bandit</community>
+
+		<rank>950</rank>
+		<reputation>-1000</reputation>
+
+		<visual>actors\stalker_mp\df_bandit_5</visual>
+		<snd_config>characters_voice\human_03\bandit\</snd_config>
+
+		<supplies>
+			[spawn] \n
+			mp_wpn_groza = 1 \n
+			mp_ammo_9x39_ap \n
+			mp_wpn_desert_eagle = 1 \n
+			mp_ammo_50ae = 1 \n
+			mp_grenade_f1 = 2, prob=1 \n
+		</supplies>
+	</specific_character>
 	<!-- Duty -->
 
 	<specific_character id="df_duty_normal_1" team_default = "1">
@@ -1740,7 +588,7 @@
 		<class>duty_normal</class>
 		<community>dolg</community>
 		
-		<rank>40</rank>
+		<rank>350</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_dolg\stalker_dolg_2_mask_1</visual>
@@ -1764,7 +612,7 @@
 		<class>duty_normal</class>
 		<community>dolg</community>
 		
-		<rank>40</rank>
+		<rank>350</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_dolg\stalker_dolg_2_mask_2</visual>
@@ -1788,7 +636,7 @@
 		<class>duty_normal</class>
 		<community>dolg</community>
 		
-		<rank>40</rank>
+		<rank>350</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_dolg\stalker_dolg_1</visual>
@@ -1812,7 +660,7 @@
 		<class>duty_normal</class>
 		<community>dolg</community>
 		
-		<rank>40</rank>
+		<rank>350</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_dolg\stalker_dolg_1</visual>
@@ -1837,7 +685,7 @@
 		<class>duty_veteran</class>
 		<community>dolg</community>
 			
-		<rank>70</rank>
+		<rank>650</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_dolg\stalker_dolg_3</visual>
@@ -1862,7 +710,7 @@
 		<class>duty_veteran</class>
 		<community>dolg</community>
 			
-		<rank>70</rank>
+		<rank>650</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_dolg\stalker_dolg_3</visual>
@@ -1888,7 +736,7 @@
 		<class>duty_sniper</class>
 		<community>dolg</community>
 		
-		<rank>70</rank>
+		<rank>650</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_dolg\stalker_dolg_3</visual>
@@ -1911,7 +759,7 @@
 		<class>duty_master</class>
 		<community>dolg</community>
 		
-		<rank>95</rank>
+		<rank>950</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_dolg\stalker_dolg_4</visual>
@@ -1934,7 +782,7 @@
 		<class>duty_master</class>
 		<community>dolg</community>
 		
-		<rank>95</rank>
+		<rank>950</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_dolg\stalker_dolg_4</visual>
@@ -1957,7 +805,7 @@
 		<class>duty_master</class>
 		<community>dolg</community>
 		
-		<rank>95</rank>
+		<rank>950</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_dolg\stalker_dolg_4</visual>
@@ -1984,7 +832,7 @@
 		<class>freedom_normal</class>
 		<community>freedom</community>
 		
-		<rank>40</rank>
+		<rank>350</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_freedom\stalker_freedom_1</visual>
@@ -2008,7 +856,7 @@
 		<class>freedom_normal</class>
 		<community>freedom</community>
 		
-		<rank>40</rank>
+		<rank>350</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_freedom\stalker_freedom_1_mask</visual>
@@ -2032,7 +880,7 @@
 		<class>freedom_normal</class>
 		<community>freedom</community>
 		
-		<rank>40</rank>
+		<rank>350</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_freedom\stalker_freedom_2</visual>
@@ -2056,7 +904,7 @@
 		<class>freedom_normal</class>
 		<community>freedom</community>
 		
-		<rank>40</rank>
+		<rank>350</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_freedom\stalker_freedom_2</visual>
@@ -2080,7 +928,7 @@
 		<class>freedom_veteran</class>
 		<community>freedom</community>
 		
-		<rank>40</rank>
+		<rank>650</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_freedom\stalker_freedom_3</visual>
@@ -2104,14 +952,14 @@
 		<class>freedom_veteran</class>
 		<community>freedom</community>
 		
-		<rank>40</rank>
+		<rank>650</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_freedom\stalker_freedom_3</visual>
 		<snd_config>characters_voice\human_01\freedom\</snd_config>
 		<supplies>
 			[spawn] \n
-			mp_wpn_lr300 = 1, scope \n
+			mp_wpn_lr300 = 1 \n
 			mp_ammo_5.56x45_ss190 = 1 \n
 			mp_wpn_glock17 \n
 			mp_ammo_9x19_pbp \n
@@ -2128,7 +976,7 @@
 		<class>freedom_veteran</class>
 		<community>freedom</community>
 		
-		<rank>40</rank>
+		<rank>650</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_freedom\stalker_freedom_3</visual>
@@ -2152,7 +1000,7 @@
 		<class>freedom_sniper</class>
 		<community>freedom</community>
 		
-		<rank>40</rank>
+		<rank>650</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_freedom\stalker_freedom_1_mask</visual>
@@ -2175,7 +1023,7 @@
 		<class>freedom_sniper</class>
 		<community>freedom</community>
 		
-		<rank>40</rank>
+		<rank>650</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_freedom\stalker_freedom_3</visual>
@@ -2198,7 +1046,7 @@
 		<class>freedom_master</class>
 		<community>freedom</community>
 		
-		<rank>40</rank>
+		<rank>950</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_freedom\stalker_freedom_4</visual>
@@ -2223,7 +1071,7 @@
 		<class>freedom_master</class>
 		<community>freedom</community>
 		
-		<rank>40</rank>
+		<rank>950</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_freedom\stalker_freedom_4</visual>
@@ -2239,6 +1087,225 @@
 		</supplies>
 	</specific_character>
 
+	<!--  Killer  -->
+
+	<specific_character id="df_killer_normal_1" team_default = "1">
+		<name>Наемник</name>
+		<icon>ui_inGame2_merc_1</icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+
+		<class>killer_normal</class>
+		<community>killer</community>
+
+		<rank>350</rank>
+		<reputation>-1000</reputation>
+
+		<visual>actors\stalker_merc\stalker_merc_2</visual>
+		<snd_config>characters_voice\human_01\killer\</snd_config>
+		<supplies>
+			[spawn] \n
+			mp_wpn_sig552 \n
+			mp_ammo_5.56x45_ap = 1 \n
+			mp_wpn_walther \n
+			mp_ammo_9x19_pbp \n
+      		mp_grenade_f1 = 1, prob=1 \n
+		</supplies>
+	</specific_character>
+
+	<specific_character id="df_killer_normal_2" team_default = "1">
+		<name>Наемник</name>
+		<icon>ui_inGame2_merc_1</icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+
+		<class>killer_normal</class>
+		<community>killer</community>
+
+		<rank>350</rank>
+		<reputation>-1000</reputation>
+
+		<visual>actors\stalker_merc\stalker_merc_2</visual>
+		<snd_config>characters_voice\human_01\killer\</snd_config>
+		<supplies>
+			[spawn] \n
+			mp_wpn_l85 = 1, scope \n
+			mp_ammo_5.56x45_ap = 1 \n
+			mp_wpn_walther \n
+			mp_ammo_9x19_pbp \n
+			mp_grenade_f1 = 1, prob=1 \n
+		</supplies>
+	</specific_character>
+
+	<specific_character id="df_killer_veteran_1" team_default = "1">
+		<name>Наемник ветеран</name>
+		<icon>ui_inGame2_merc_1</icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+
+		<class>killer_veteran</class>
+		<community>killer</community>
+
+		<rank>650</rank>
+		<reputation>-1000</reputation>
+
+		<visual>actors\stalker_merc\stalker_merc_2</visual>
+		<snd_config>characters_voice\human_01\killer\</snd_config>
+		<supplies>
+			[spawn] \n
+			mp_wpn_sig550 \n
+			mp_ammo_5.56x45_ap = 1 \n
+			mp_wpn_usp \n
+			mp_ammo_9x19_pbp \n
+			mp_grenade_f1 = 1, prob=1 \n
+		</supplies>
+	</specific_character>
+
+	<specific_character id="df_killer_veteran_2" team_default = "1">
+		<name>Наемник ветеран</name>
+		<icon>ui_inGame2_merc_1</icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+
+		<class>killer_veteran</class>
+		<community>killer</community>
+
+		<rank>650</rank>
+		<reputation>-1000</reputation>
+
+		<visual>actors\stalker_merc\stalker_merc_2</visual>
+		<snd_config>characters_voice\human_01\killer\</snd_config>
+		<supplies>
+			[spawn] \n
+			mp_wpn_lr300 = 1, scope \n
+			mp_ammo_5.56x45_ap = 1 \n
+			mp_wpn_glock17 \n
+			mp_ammo_9x19_pbp \n
+			mp_grenade_f1 = 2, prob=1 \n
+		</supplies>
+	</specific_character>
+
+	<specific_character id="df_killer_veteran_3" team_default = "1">
+		<name>Наемник ветеран</name>
+		<icon>ui_inGame2_merc_1</icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+
+		<class>killer_veteran</class>
+		<community>killer</community>
+
+		<rank>650</rank>
+		<reputation>-1000</reputation>
+
+		<visual>actors\stalker_merc\stalker_merc_1</visual>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<supplies>
+			[spawn] \n
+			mp_wpn_sig550 \n
+			mp_ammo_5.56x45_ap = 1 \n
+			mp_wpn_usp \n
+			mp_ammo_9x19_pbp \n
+			mp_grenade_f1 = 1, prob=1 \n
+		</supplies>
+	</specific_character>
+
+	<specific_character id="df_killer_veteran_4" team_default = "1">
+		<name>Наемник ветеран</name>
+		<icon>ui_inGame2_merc_1</icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+
+		<class>killer_veteran</class>
+		<community>killer</community>
+
+		<rank>650</rank>
+		<reputation>-1000</reputation>
+
+		<visual>actors\stalker_merc\stalker_merc_1</visual>
+		<snd_config>characters_voice\human_03\killer\</snd_config>
+		<supplies>
+			[spawn] \n
+			mp_wpn_lr300 = 1, scope \n
+			mp_ammo_5.56x45_ap = 1 \n
+			mp_wpn_glock17 \n
+			mp_ammo_9x19_pbp \n
+			mp_grenade_f1 = 2, prob=1 \n
+		</supplies>
+	</specific_character>
+
+	<specific_character id="df_killer_sniper_1" team_default = "1">
+		<name>Снайпер</name>
+		<icon>ui_inGame2_merc_1</icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+
+		<class>killer_sniper</class>
+		<community>killer</community>
+
+		<rank>650</rank>
+		<reputation>-1000</reputation>
+
+		<visual>actors\stalker_merc\stalker_merc_2</visual>
+		<snd_config>characters_voice\human_01\killer\</snd_config>
+		<supplies>
+			[spawn] \n
+			mp_wpn_svd = 1, scope, silencer \n
+			mp_ammo_7.62x54_ap = 1 \n
+			mp_wpn_glock17 \n
+			mp_ammo_9x19_pbp \n
+		</supplies>
+	</specific_character>
+
+	<specific_character id="df_killer_master_1" team_default = "1">
+		<name>Головорез</name>
+		<icon>ui_inGame2_merc_1</icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+
+		<class>killer_master</class>
+		<community>killer</community>
+
+		<rank>950</rank>
+		<reputation>-1000</reputation>
+
+		<visual>actors\stalker_merc\stalker_merc_4</visual>
+		<snd_config>characters_voice\human_01\killer\</snd_config>
+		<supplies>
+			[spawn] \n
+			mp_wpn_lr300 = 1, scope, silencer \n
+			mp_ammo_5.56x45_ap = 1 \n
+			mp_wpn_glock17 \n
+			mp_ammo_9x19_pbp = 2 \n
+			mp_grenade_flashbang = 2
+			mp_grenade_f1 = 2, prob=1 \n
+		</supplies>
+	</specific_character>
+
+	<specific_character id="df_killer_master_2" team_default = "1">
+		<name>Головорез</name>
+		<icon>ui_inGame2_merc_1</icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+
+		<class>killer_master</class>
+		<community>killer</community>
+
+		<rank>950</rank>
+		<reputation>-1000</reputation>
+
+		<visual>actors\stalker_merc\stalker_merc_4</visual>
+		<snd_config>characters_voice\human_01\killer\</snd_config>
+		<supplies>
+			[spawn] \n
+			mp_wpn_sig550 = 1, scope, silencer \n
+			mp_ammo_5.56x45_ap = 1 \n
+			mp_wpn_glock17 \n
+			mp_ammo_9x19_pbp = 2 \n
+			mp_grenade_flashbang = 2
+			mp_grenade_f1 = 2, prob=1 \n
+		</supplies>
+	</specific_character>
+
 	<!--  military  -->
 
 	<specific_character id="df_military_normal_1" team_default = "1">
@@ -2250,7 +1317,7 @@
 		<class>military_normal</class>
 		<community>army</community>
 		
-		<rank>40</rank>
+		<rank>350</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_soldier\stalker_soldier_1</visual>
@@ -2273,7 +1340,7 @@
 		<class>military_normal</class>
 		<community>army</community>
 		
-		<rank>40</rank>
+		<rank>350</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_soldier\stalker_soldier_1</visual>
@@ -2297,7 +1364,7 @@
 		<class>military_normal</class>
 		<community>army</community>
 		
-		<rank>40</rank>
+		<rank>350</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_soldier\stalker_soldier_1</visual>
@@ -2321,7 +1388,7 @@
 		<class>military_veteran</class>
 		<community>army</community>
 			
-		<rank>70</rank>
+		<rank>650</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_soldier\stalker_soldier_2</visual>
@@ -2344,7 +1411,7 @@
 		<class>military_veteran</class>
 		<community>army</community>
 			
-		<rank>70</rank>
+		<rank>650</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_soldier\stalker_soldier_2</visual>
@@ -2368,7 +1435,7 @@
 		<class>military_veteran</class>
 		<community>army</community>
 		
-		<rank>70</rank>
+		<rank>650</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_soldier\stalker_soldier_3</visual>
@@ -2391,7 +1458,7 @@
 		<class>military_veteran</class>
 		<community>army</community>
 		
-		<rank>70</rank>
+		<rank>650</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_soldier\stalker_soldier_3</visual>
@@ -2414,7 +1481,7 @@
 		<class>military_sniper</class>
 		<community>army</community>
 		
-		<rank>95</rank>
+		<rank>650</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_soldier\stalker_soldier_4</visual>
@@ -2435,7 +1502,7 @@
 		<class>military_master</class>
 		<community>army</community>
 		
-		<rank>95</rank>
+		<rank>950</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_soldier\stalker_soldier_4</visual>
@@ -2458,7 +1525,7 @@
 		<class>military_master</class>
 		<community>army</community>
 		
-		<rank>95</rank>
+		<rank>950</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_soldier\stalker_soldier_4</visual>
@@ -2481,7 +1548,7 @@
 		<class>military_master</class>
 		<community>army</community>
 		
-		<rank>95</rank>
+		<rank>950</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_soldier\stalker_soldier_4</visual>
@@ -2504,7 +1571,7 @@
 		<class>military_master</class>
 		<community>army</community>
 		
-		<rank>95</rank>
+		<rank>950</rank>
 		<reputation>-1000</reputation>
 
 		<visual>actors\stalker_soldier\stalker_soldier_4</visual>
@@ -2517,5 +1584,297 @@
 			mp_ammo_11.43x23_hydro = 1 \n
 		</supplies>
 	</specific_character>
+
+	<!--  monolith  -->
+
+	<specific_character id="df_monolith_normal_1" team_default = "1">
+		<name>Боец Монолита</name>
+		<icon x="2" y="2"></icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+
+		<class>monolith_normal</class>
+		<community>monolith</community>
+		
+		<rank>350</rank>
+		<reputation>-1000</reputation>
+
+		<visual>actors\stalker_mp\df_monolith_2</visual>
+		<snd_config>characters_voice\human_01\monolith\</snd_config>
+		<supplies>
+			[spawn] \n
+			mp_wpn_ak74 \n
+			mp_ammo_5.45x39_ap = 1 \n
+			mp_grenade_rgd5 = 1, prob=1 \n
+		</supplies>
+	</specific_character>
+
+	<specific_character id="df_monolith_normal_2" team_default = "1">
+		<name>Боец Монолита</name>
+		<icon x="2" y="2"></icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+
+		<class>monolith_normal</class>
+		<community>monolith</community>
+		
+		<rank>350</rank>
+		<reputation>-1000</reputation>
+
+		<visual>actors\stalker_mp\df_monolith_2</visual>
+		<snd_config>characters_voice\human_01\monolith\</snd_config>
+		<supplies>
+			[spawn] \n
+			mp_wpn_abakan = 1 \n
+			mp_ammo_5.45x39_fmj \n
+			mp_grenade_rgd5 = 1, prob=1 \n
+		</supplies>
+	</specific_character>
+
+	<specific_character id="df_monolith_normal_3" team_default = "1">
+		<name>Боец Монолита</name>
+		<icon x="2" y="2"></icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+
+		<class>monolith_normal</class>
+		<community>monolith</community>
+		
+		<rank>350</rank>
+		<reputation>-1000</reputation>
+
+		<visual>actors\stalker_mp\df_monolith_2</visual>
+		<snd_config>characters_voice\human_01\monolith\</snd_config>
+		<supplies>
+			[spawn] \n
+			mp_wpn_lr300 = 1 \n
+			mp_ammo_5.56x45_ss190 = 1 \n
+			mp_grenade_f1 = 2, prob=1 \n
+		</supplies>
+	</specific_character>
+
+	<specific_character id="df_monolith_veteran_1" team_default = "1">
+		<name>Адепт Монолита</name>
+		<icon x="2" y="2"></icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+
+		<class>monolith_veteran</class>
+		<community>monolith</community>
+		
+		<rank>650</rank>
+		<reputation>-1000</reputation>
+
+		<visual>actors\stalker_monolith\stalker_monolith_1</visual>
+		<snd_config>characters_voice\human_01\monolith\</snd_config>
+		<supplies>
+			[spawn] \n
+			mp_wpn_lr300 = 1, scope \n
+			mp_ammo_5.56x45_ap = 1 \n
+			mp_grenade_f1 = 2, prob=1 \n
+		</supplies>
+	</specific_character>
+
+	<specific_character id="df_monolith_veteran_2" team_default = "1">
+		<name>Адепт Монолита</name>
+		<icon x="2" y="2"></icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+
+		<class>monolith_veteran</class>
+		<community>monolith</community>
+		
+		<rank>650</rank>
+		<reputation>-1000</reputation>
+
+		<visual>actors\stalker_monolith\stalker_monolith_1</visual>
+		<snd_config>characters_voice\human_01\monolith\</snd_config>
+		<supplies>
+			[spawn] \n
+			mp_wpn_groza = 1 \n
+			mp_ammo_9x39_pab9 = 1 \n
+			mp_grenade_flashbang = 1 \n
+			mp_grenade_f1 = 1, prob=1 \n
+		</supplies>
+	</specific_character>
+	
+	<specific_character id="df_monolith_veteran_3" team_default = "1">
+		<name>Адепт Монолита</name>
+		<icon x="2" y="2"></icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+
+		<class>monolith_veteran</class>
+		<community>monolith</community>
+		
+		<rank>650</rank>
+		<reputation>-1000</reputation>
+
+		<visual>actors\stalker_monolith\stalker_monolith_3</visual>
+		<snd_config>characters_voice\human_01\monolith\</snd_config>
+		<supplies>
+			[spawn] \n
+			mp_wpn_lr300 = 1 \n
+			mp_ammo_5.56x45_ap = 1 \n
+			mp_grenade_f1 = 2, prob=1 \n
+		</supplies>
+	</specific_character>
+
+	<specific_character id="df_monolith_veteran_4" team_default = "1">
+		<name>Адепт Монолита</name>
+		<icon x="2" y="2"></icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+
+		<class>monolith_veteran</class>
+		<community>monolith</community>
+		
+		<rank>650</rank>
+		<reputation>-1000</reputation>
+
+		<visual>actors\stalker_monolith\stalker_monolith_3</visual>
+		<snd_config>characters_voice\human_01\monolith\</snd_config>
+		<supplies>
+			[spawn] \n
+			mp_wpn_sig550 \n
+			mp_ammo_5.56x45_ap = 1 \n
+			mp_wpn_usp \n
+			mp_ammo_9x19_pbp \n
+			mp_grenade_f1 = 1, prob=1 \n
+		</supplies>
+	</specific_character>
+
+	<specific_character id="df_monolith_sniper_1" team_default = "1">
+		<name>Адепт Монолита</name>
+		<icon x="2" y="2"></icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+
+		<class>monolith_sniper</class>
+		<community>monolith</community>
+		
+		<rank>650</rank>
+		<reputation>-1000</reputation>
+
+		<visual>actors\stalker_monolith\stalker_monolith_2</visual>
+		<snd_config>characters_voice\human_01\monolith\</snd_config>
+		<supplies>
+			[spawn] \n
+			mp_wpn_svd = 1, scope \n
+			mp_ammo_7.62x54_ap = 1 \n
+		</supplies>
+	</specific_character>
+
+	<specific_character id="df_monolith_sniper_2" team_default = "1">
+		<name>Адепт Монолита</name>
+		<icon x="2" y="2"></icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+
+		<class>monolith_sniper</class>
+		<community>monolith</community>
+		
+		<rank>650</rank>
+		<reputation>-1000</reputation>
+
+		<visual>actors\stalker_monolith\stalker_monolith_2</visual>
+		<snd_config>characters_voice\human_01\monolith\</snd_config>
+		<supplies>
+			[spawn] \n
+			mp_wpn_svu = 1, scope \n
+			mp_ammo_7.62x54_ap = 1 \n
+		</supplies>
+	</specific_character>
+
+	<specific_character id="df_monolith_master_1" team_default = "1">
+		<name>Страж Монолита</name>
+		<icon x="2" y="2"></icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+
+		<class>monolith_master</class>
+		<community>monolith</community>
+		
+		<rank>950</rank>
+		<reputation>-1000</reputation>
+
+		<visual>actors\stalker_monolith\stalker_monolith_4</visual>
+		<snd_config>characters_voice\human_01\monolith\</snd_config>
+		<supplies>
+			[spawn] \n
+			mp_wpn_val = 1, scope \n
+			mp_ammo_9x39_ap = 1 \n
+			mp_grenade_flashbang = 2 \n
+			mp_grenade_f1 = 2 \n
+		</supplies>
+	</specific_character>
+
+	<specific_character id="df_monolith_master_2" team_default = "1">
+		<name>Страж Монолита</name>
+		<icon x="2" y="2"></icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+
+		<class>monolith_master</class>
+		<community>monolith</community>
+		
+		<rank>950</rank>
+		<reputation>-1000</reputation>
+
+		<visual>actors\stalker_monolith\stalker_monolith_4</visual>
+		<snd_config>characters_voice\human_01\monolith\</snd_config>
+		<supplies>
+			[spawn] \n
+			mp_wpn_ak101 = 1, scope \n
+			mp_ammo_5.56x45_ap = 1 \n
+			mp_grenade_flashbang = 2, prob=1\n
+      		mp_grenade_f1 = 2, prob=1 \n
+		</supplies>
+	</specific_character>
+
+	<specific_character id="df_monolith_master_3" team_default = "1">
+		<name>Страж Монолита</name>
+		<icon x="2" y="2"></icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+
+		<class>monolith_master</class>
+		<community>monolith</community>
+		
+		<rank>950</rank>
+		<reputation>-1000</reputation>
+
+		<visual>actors\stalker_monolith\stalker_monolith_4</visual>
+		<snd_config>characters_voice\human_01\monolith\</snd_config>
+		<supplies>
+			[spawn] \n
+			mp_wpn_akm \n
+			mp_ammo_7.62x39_fmj = 1 \n
+			mp_grenade_flashbang = 2 \n
+			mp_grenade_f1 = 1, prob=1 \n
+		</supplies>
+	</specific_character>
+
+	<specific_character id="df_monolith_master_4" team_default = "1">
+		<name>Страж Монолита</name>
+		<icon x="2" y="2"></icon>
+		<map_icon x="1" y="0"></map_icon>
+		<bio></bio>
+
+		<class>monolith_master</class>
+		<community>monolith</community>
+		
+		<rank>950</rank>
+		<reputation>-1000</reputation>
+
+		<visual>actors\stalker_monolith\stalker_monolith_4</visual>
+		<snd_config>characters_voice\human_01\monolith\</snd_config>
+		<supplies>
+			[spawn] \n
+			mp_wpn_rpg7 = 1 \n
+			mp_ammo_og-7b \n
+		</supplies>
+	</specific_character>
+
 </xml>
 

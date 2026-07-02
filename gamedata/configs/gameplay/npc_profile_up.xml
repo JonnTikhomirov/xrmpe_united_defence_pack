@@ -8,6 +8,16 @@
 	<class>neutral_master</class>
 </character>
 
+<character id="bandit_normal">
+	<class>bandit_normal</class>
+</character>
+<character id="bandit_veteran">
+	<class>bandit_veteran</class>
+</character>
+<character id="bandit_master">
+	<class>bandit_master</class>
+</character>
+
 <character id="duty_normal">
 	<class>duty_normal</class>
 </character>
@@ -34,6 +44,19 @@
 	<class>freedom_master</class>
 </character>
 
+<character id="killer_normal">
+	<class>killer_normal</class>
+</character>
+<character id="killer_veteran">
+	<class>killer_veteran</class>
+</character>
+<character id="killer_sniper">
+	<class>killer_sniper</class>
+</character>
+<character id="killer_master">
+	<class>killer_master</class>
+</character>
+
 <character id="military_normal">
 	<class>military_normal</class>
 </character>
@@ -45,4 +68,17 @@
 </character>
 <character id="military_master">
 	<class>military_master</class>
+</character>
+
+<character id="monolith_normal">
+	<class>monolith_normal</class>
+</character>
+<character id="monolith_veteran">
+	<class>monolith_veteran</class>
+</character>
+<character id="monolith_sniper">
+	<class>monolith_sniper</class>
+</character>
+<character id="monolith_master">
+	<class>monolith_master</class>
 </character>
