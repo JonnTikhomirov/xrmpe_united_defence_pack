@@ -99,6 +99,15 @@ function mp_actor_binder:net_spawn(data)
 		-- -- The Tool	
 		if keylogger then keylogger.on_load() end
 		if tool then tool.OnLoad() end
+	else
+		-- +UP ссорим с игроком при возраждении, для нпс которых спавинили скриптово
+		for _,v in ipairs(db.heli_enemies) do
+			to_log("mp_actor_binder:net_spawn(): npc rep='%s'", v:name())
+			if v:character_reputation() == -1000 then
+				SetGoodwillForce(v:id(), self.object:id(), -5000)
+			end
+		end
+		-- -UP
 	end
 	-- - UP
 
@@ -803,7 +812,7 @@ function bind_stalker_cl:net_spawn(data)
 		set_level_spot(self.object:id(), data.level_spot_id)
 		trade_manager.trade_init(self.object, data.trade_ini)
 	end
-
+	
 	if data.goodwill ~= 127 then
 		local goodwill = data.goodwill
 		if getLocalActor() then
