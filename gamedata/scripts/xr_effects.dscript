@@ -17,7 +17,7 @@ function campfire_turn(actor, button, p)
 end
 
 -- кладет предмет в ящики как лут обороны, но с параметром только ночного спавна
-function df_spawn(actor, npc, p)
+function df_loot(actor, npc, p)
 	
 	local item = p[1]
 	local count = p[2] or 1
