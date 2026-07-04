@@ -82,3 +82,13 @@
 <character id="monolith_master">
 	<class>monolith_master</class>
 </character>
+
+<character id="zombied_normal">
+	<class>zombied_normal</class>
+</character>
+<character id="zombied_veteran">
+	<class>zombied_veteran</class>
+</character>
+<character id="zombied_master">
+	<class>zombied_master</class>
+</character>

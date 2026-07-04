@@ -130,4 +130,13 @@
 	<string id="st_df_monolith_master">
 		<text>Monolith guardian</text>
 	</string>
+	<string id="st_df_zombied_normal">
+		<text>Zombied</text>
+	</string>
+	<string id="st_df_zombied_veteran">
+		<text>Zombied veteran</text>
+	</string>
+	<string id="st_df_zombied_master">
+		<text>Zombied master</text>
+	</string>
 </string_table>

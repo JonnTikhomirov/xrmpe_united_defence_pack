@@ -132,5 +132,13 @@
 	<string id="st_df_monolith_master">
 		<text>Страж Монолита</text>
 	</string>
-	
+	<string id="st_df_zombied_normal">
+		<text>Зомбированный</text>
+	</string>
+	<string id="st_df_zombied_veteran">
+		<text>Зомбированный ветеран</text>
+	</string>
+	<string id="st_df_zombied_master">
+		<text>Зомбированный мастер</text>
+	</string>
 </string_table>
