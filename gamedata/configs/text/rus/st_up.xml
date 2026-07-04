@@ -54,4 +54,83 @@
 	<string id="st_wpn_grenade_flare_descr">
 		<text>Зажигается при ударе о поверхность</text>
 	</string>
+	<string id="st_df_neutral_normal">
+		<text>Сталкер</text>
+	</string>
+	<string id="st_df_neutral_veteran">
+		<text>Сталкер ветеран</text>
+	</string>
+	<string id="st_df_neutral_master">
+		<text>Сталкер мастер</text>
+	</string>
+	<string id="st_df_bandit_normal">
+		<text>Бандит</text>
+	</string>
+	<string id="st_df_bandit_veteran">
+		<text>Бугор</text>
+	</string>
+	<string id="st_df_bandit_master">
+		<text>Авторитет</text>
+	</string>
+	<string id="st_df_duty_normal">
+		<text>Боец Долга</text>
+	</string>
+	<string id="st_df_duty_veteran">
+		<text>Ветеран Долга</text>
+	</string>
+	<string id="st_df_duty_sniper">
+		<text>Снайпер Долга</text>
+	</string>
+	<string id="st_df_duty_master">
+		<text>Мастер Долга</text>
+	</string>
+	<string id="st_df_freedom_normal">
+		<text>Боец Свободы</text>
+	</string>
+	<string id="st_df_freedom_veteran">
+		<text>Ветеран Свободы</text>
+	</string>
+	<string id="st_df_freedom_sniper">
+		<text>Снайпер Свободы</text>
+	</string>
+	<string id="st_df_freedom_master">
+		<text>Мастер Свободы</text>
+	</string>
+	<string id="st_df_killer_normal">
+		<text>Наемник</text>
+	</string>
+	<string id="st_df_killer_veteran">
+		<text>Наемник ветеран</text>
+	</string>
+	<string id="st_df_killer_sniper">
+		<text>Снайпер</text>
+	</string>
+	<string id="st_df_killer_master">
+		<text>Головорез</text>
+	</string>
+	<string id="st_df_military_normal">
+		<text>Солдат</text>
+	</string>
+	<string id="st_df_military_veteran">
+		<text>Боец спецназа</text>
+	</string>
+	<string id="st_df_military_sniper">
+		<text>Снайпер спецназа</text>
+	</string>
+	<string id="st_df_military_master">
+		<text>Ветеран спецназа</text>
+	</string>
+	<string id="st_df_monolith_normal">
+		<text>Боец Монолита</text>
+	</string>
+	<string id="st_df_monolith_veteran">
+		<text>Адепт Монолита</text>
+	</string>
+	<string id="st_df_monolith_sniper">
+		<text>Снайпер Монолита</text>
+	</string>
+	<string id="st_df_monolith_master">
+		<text>Страж Монолита</text>
+	</string>
+	
 </string_table>
