@@ -45,4 +45,10 @@
 	<string id="st_arena_fight_5_ready">
 		<text>Round 5 begins...</text>
 	</string>
+	<string id="st_wpn_grenade_flare">
+		<text>Flare</text>
+	</string>
+	<string id="st_wpn_grenade_flare_descr">
+		<text>Ignites on impact with the surface</text>
+	</string>
 </string_table>

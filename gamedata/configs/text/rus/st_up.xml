@@ -48,4 +48,10 @@
 	<string id="st_arena_fight_5_ready">
 		<text>Раунд 5 начинается...</text>
 	</string>
+	<string id="st_wpn_grenade_flare">
+		<text>Флаер</text>
+	</string>
+	<string id="st_wpn_grenade_flare_descr">
+		<text>Зажигается при ударе о поверхность</text>
+	</string>
 </string_table>
