@@ -27,7 +27,7 @@
 	<!-- -SP -->
 	<specific_character id="df_neutral_normal_1" team_default = "1">
 		<name>st_df_neutral_normal</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_neutral_2</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -52,7 +52,7 @@
 
 	<specific_character id="df_neutral_normal_2" team_default = "1">
 		<name>st_df_neutral_normal</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_neutral_2_mask_1</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -75,7 +75,7 @@
 
 	<specific_character id="df_neutral_normal_3" team_default = "1">
 		<name>st_df_neutral_normal</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_neutral_2_mask_1</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -98,7 +98,7 @@
 	
 	<specific_character id="df_neutral_normal_4" team_default = "1">
 		<name>st_df_neutral_normal</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_neutral_2_mask_2</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -122,7 +122,7 @@
 	
 	<specific_character id="df_neutral_veteran_1" team_default = "1">
 		<name>st_df_neutral_veteran</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_neutral_nauchniy</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 		
@@ -145,7 +145,7 @@
 
 	<specific_character id="df_neutral_veteran_2" team_default = "1">
 		<name>st_df_neutral_veteran</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_neutral_nauchniy</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -170,7 +170,7 @@
 
 	<specific_character id="df_neutral_veteran_3" team_default = "1">
 		<name>st_df_neutral_veteran</name>
-		<icon x="20" y="8"></icon>
+		<icon>ui_portret_neutral_nauchniy</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -195,7 +195,7 @@
 
 	<specific_character id="df_neutral_veteran_4" team_default = "1">
 		<name>st_df_neutral_veteran</name>
-		<icon x="20" y="8"></icon>
+		<icon>ui_portret_neutral_3</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -218,7 +218,7 @@
 
 	<specific_character id="df_neutral_master_1" team_default = "1">
 		<name>st_df_neutral_master</name>
-		<icon x="10" y="0"></icon>
+		<icon>ui_portret_neutral_3</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -242,7 +242,7 @@
 
 	<specific_character id="df_neutral_master_2" team_default = "1">
 		<name>st_df_neutral_master</name>
-		<icon x="10" y="0"></icon>
+		<icon>ui_portret_neutral_4</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -264,11 +264,12 @@
       		mp_grenade_f1 = 1, prob=0.8 \n
 		</supplies>
 	</specific_character>
+	
 	<!-- Bandit -->
 
 	<specific_character id="df_bandit_normal_1" team_default = "1">
 		<name>st_df_bandit_normal</name>
-		<icon>ui_inGame2_bandit_1</icon>
+		<icon>ui_portret_bandit_1</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 		<class>bandit_normal</class>
@@ -292,7 +293,7 @@
 	
 	<specific_character id="df_bandit_normal_2" team_default = "1">
 		<name>st_df_bandit_normal</name>
-		<icon>ui_inGame2_bandit_1</icon>
+		<icon>ui_portret_bandit_1</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 		<class>bandit_normal</class>
@@ -315,7 +316,7 @@
 
 	<specific_character id="df_bandit_veteran_1" team_default = "1">
 		<name>st_df_bandit_veteran</name>
-		<icon>ui_inGame2_bandit_2</icon>
+		<icon>ui_portret_bandit_2</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 		<class>bandit_veteran</class>
@@ -338,7 +339,7 @@
 
 	<specific_character id="df_bandit_veteran_2" team_default = "1">
 		<name>st_df_bandit_veteran</name>
-		<icon>ui_inGame2_bandit_2</icon>
+		<icon>ui_portret_bandit_2</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 		<class>bandit_veteran</class>
@@ -361,7 +362,7 @@
 
 	<specific_character id="df_bandit_veteran_3" team_default = "1">
 		<name>st_df_bandit_veteran</name>
-		<icon>ui_inGame2_bandit_2</icon>
+		<icon>ui_portret_bandit_2</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 		<class>bandit_veteran</class>
@@ -386,7 +387,7 @@
 	
 	<specific_character id="df_bandit_veteran_4" team_default = "1">
 		<name>st_df_bandit_veteran</name>
-		<icon>ui_inGame2_bandit_2</icon>
+		<icon>ui_portret_bandit_3</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 		<class>bandit_veteran</class>
@@ -409,7 +410,7 @@
 
 	<specific_character id="df_bandit_veteran_5" team_default = "1">
 		<name>st_df_bandit_veteran</name>
-		<icon>ui_inGame2_bandit_2</icon>
+		<icon>ui_portret_bandit_3</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 		<class>bandit_veteran</class>
@@ -432,7 +433,7 @@
 
 	<specific_character id="df_bandit_veteran_6" team_default = "1">
 		<name>st_df_bandit_veteran</name>
-		<icon>ui_inGame2_bandit_2</icon>
+		<icon>ui_portret_bandit_4</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 		<class>bandit_veteran</class>
@@ -457,7 +458,7 @@
 	
 	<specific_character id="df_bandit_veteran_7" team_default = "1">
 		<name>st_df_bandit_veteran</name>
-		<icon>ui_inGame2_bandit_2</icon>
+		<icon>ui_portret_bandit_4</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 		<class>bandit_veteran</class>
@@ -480,7 +481,7 @@
 
 	<specific_character id="df_bandit_veteran_8" team_default = "1">
 		<name>st_df_bandit_veteran</name>
-		<icon>ui_inGame2_bandit_2</icon>
+		<icon>ui_portret_bandit_4</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 		<class>bandit_veteran</class>
@@ -503,7 +504,7 @@
 
 	<specific_character id="df_bandit_veteran_9" team_default = "1">
 		<name>st_df_bandit_veteran</name>
-		<icon>ui_inGame2_bandit_2</icon>
+		<icon>ui_portret_bandit_4</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 		<class>bandit_veteran</class>
@@ -528,7 +529,7 @@
 
 	<specific_character id="df_bandit_master_1" team_default = "1">
 		<name>st_df_bandit_master</name>
-		<icon>ui_inGame2_bandit_2</icon>
+		<icon>ui_portret_bandit_4</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 		<class>bandit_master</class>
@@ -553,7 +554,7 @@
 
 	<specific_character id="df_bandit_master_2" team_default = "1">
 		<name>st_df_bandit_master</name>
-		<icon>ui_inGame2_bandit_2</icon>
+		<icon>ui_portret_bandit_4</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 		<class>bandit_master</class>
@@ -578,7 +579,7 @@
 
 	<specific_character id="df_duty_normal_1" team_default = "1">
 		<name>st_df_duty_normal</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_dolg_2_mask_1</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -602,7 +603,7 @@
 
 	<specific_character id="df_duty_normal_2" team_default = "1">
 		<name>st_df_duty_normal</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_dolg_2_mask_2</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -626,7 +627,7 @@
 
 	<specific_character id="df_duty_normal_3" team_default = "1">
 		<name>st_df_duty_normal</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_dolg_1</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -650,7 +651,7 @@
 
 	<specific_character id="df_duty_normal_4" team_default = "1">
 		<name>st_df_duty_normal</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_dolg_1</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -675,7 +676,7 @@
 
 	<specific_character id="df_duty_veteran_1" team_default = "1">
 		<name>st_df_duty_veteran</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_dolg_3</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 		
@@ -700,7 +701,7 @@
 
 	<specific_character id="df_duty_veteran_2" team_default = "1">
 		<name>st_df_duty_veteran</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_dolg_3</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 		
@@ -726,7 +727,7 @@
 
 	<specific_character id="df_duty_sniper_1" team_default = "1">
 		<name>st_df_duty_sniper</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_dolg_3</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 		
@@ -749,7 +750,7 @@
 
 	<specific_character id="df_duty_master_1" team_default = "1">
 		<name>st_df_duty_master</name>
-		<icon x="10" y="0"></icon>
+		<icon>ui_portret_dolg_4</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -772,7 +773,7 @@
 
 	<specific_character id="df_duty_master_2" team_default = "1">
 		<name>st_df_duty_master</name>
-		<icon x="10" y="0"></icon>
+		<icon>ui_portret_dolg_4</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -795,7 +796,7 @@
 
 	<specific_character id="df_duty_master_3" team_default = "1">
 		<name>st_df_duty_master</name>
-		<icon x="10" y="0"></icon>
+		<icon>ui_portret_dolg_4</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -822,7 +823,7 @@
 
 	<specific_character id="df_freedom_normal_1" team_default = "1">
 		<name>st_df_freedom_normal</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_freedom_1</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -846,7 +847,7 @@
 
 	<specific_character id="df_freedom_normal_2" team_default = "1">
 		<name>st_df_freedom_normal</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_freedom_1_mask</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -870,7 +871,7 @@
 
 	<specific_character id="df_freedom_normal_3" team_default = "1">
 		<name>st_df_freedom_normal</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_freedom_2</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -894,7 +895,7 @@
 
 	<specific_character id="df_freedom_normal_4" team_default = "1">
 		<name>st_df_freedom_normal</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_freedom_2</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -918,7 +919,7 @@
 
 	<specific_character id="df_freedom_veteran_1" team_default = "1">
 		<name>st_df_freedom_veteran</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_freedom_3</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -942,7 +943,7 @@
 
 	<specific_character id="df_freedom_veteran_2" team_default = "1">
 		<name>st_df_freedom_veteran</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_freedom_3</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -966,7 +967,7 @@
 
 	<specific_character id="df_freedom_veteran_3" team_default = "1">
 		<name>st_df_freedom_veteran</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_freedom_3</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -990,7 +991,7 @@
 
 	<specific_character id="df_freedom_sniper_1" team_default = "1">
 		<name>st_df_freedom_sniper</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_freedom_1_mask</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -1013,7 +1014,7 @@
 
 	<specific_character id="df_freedom_sniper_2" team_default = "1">
 		<name>st_df_freedom_sniper</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_freedom_3</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -1036,7 +1037,7 @@
 
 	<specific_character id="df_freedom_master_1" team_default = "1">
 		<name>st_df_freedom_master</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_freedom_4</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -1061,7 +1062,7 @@
 
 	<specific_character id="df_freedom_master_2" team_default = "1">
 		<name>st_df_freedom_master</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_freedom_4</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -1088,7 +1089,7 @@
 
 	<specific_character id="df_killer_normal_1" team_default = "1">
 		<name>st_df_killer_normal</name>
-		<icon>ui_inGame2_merc_1</icon>
+		<icon>ui_portret_merc_2</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -1112,7 +1113,7 @@
 
 	<specific_character id="df_killer_normal_2" team_default = "1">
 		<name>st_df_killer_normal</name>
-		<icon>ui_inGame2_merc_1</icon>
+		<icon>ui_portret_merc_2</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -1136,7 +1137,7 @@
 
 	<specific_character id="df_killer_veteran_1" team_default = "1">
 		<name>st_df_killer_veteran</name>
-		<icon>ui_inGame2_merc_1</icon>
+		<icon>ui_portret_merc_2</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -1160,7 +1161,7 @@
 
 	<specific_character id="df_killer_veteran_2" team_default = "1">
 		<name>st_df_killer_veteran</name>
-		<icon>ui_inGame2_merc_1</icon>
+		<icon>ui_portret_merc_2</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -1184,7 +1185,7 @@
 
 	<specific_character id="df_killer_veteran_3" team_default = "1">
 		<name>st_df_killer_veteran</name>
-		<icon>ui_inGame2_merc_1</icon>
+		<icon>ui_portret_merc_2</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -1208,7 +1209,7 @@
 
 	<specific_character id="df_killer_veteran_4" team_default = "1">
 		<name>st_df_killer_veteran</name>
-		<icon>ui_inGame2_merc_1</icon>
+		<icon>ui_portret_merc_2</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -1232,7 +1233,7 @@
 
 	<specific_character id="df_killer_sniper_1" team_default = "1">
 		<name>st_df_killer_sniper</name>
-		<icon>ui_inGame2_merc_1</icon>
+		<icon>ui_portret_merc_2</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -1254,8 +1255,8 @@
 	</specific_character>
 
 	<specific_character id="df_killer_master_1" team_default = "1">
-		<name>killer_master</name>
-		<icon>ui_inGame2_merc_1</icon>
+		<name>st_df_killer_master</name>
+		<icon>ui_portret_merc_4</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -1279,8 +1280,8 @@
 	</specific_character>
 
 	<specific_character id="df_killer_master_2" team_default = "1">
-		<name>killer_master</name>
-		<icon>ui_inGame2_merc_1</icon>
+		<name>st_df_killer_master</name>
+		<icon>ui_portret_merc_4</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -1307,7 +1308,7 @@
 
 	<specific_character id="df_military_normal_1" team_default = "1">
 		<name>st_df_military_normal</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_soldier_1_face_1</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -1330,7 +1331,7 @@
 
 	<specific_character id="df_military_normal_2" team_default = "1">
 		<name>st_df_military_normal</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_soldier_1_face_2</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 		
@@ -1354,7 +1355,7 @@
 
 	<specific_character id="df_military_normal_3" team_default = "1">
 		<name>st_df_military_normal</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_soldier_1_face_1</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -1378,7 +1379,7 @@
 
 	<specific_character id="df_military_veteran_1" team_default = "1">
 		<name>st_df_military_veteran</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_soldier_2</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 		
@@ -1401,7 +1402,7 @@
 
 	<specific_character id="df_military_veteran_2" team_default = "1">
 		<name>st_df_military_veteran</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_soldier_2</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -1425,7 +1426,7 @@
 
 	<specific_character id="df_military_veteran_3" team_default = "1">
 		<name>st_df_military_veteran</name>
-		<icon x="20" y="8"></icon>
+		<icon>ui_portret_soldier_2</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -1448,7 +1449,7 @@
 
 	<specific_character id="df_military_veteran_4" team_default = "1">
 		<name>st_df_military_veteran</name>
-		<icon x="20" y="8"></icon>
+		<icon>ui_portret_soldier_2</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -1471,7 +1472,7 @@
 	
 	<specific_character id="df_military_sniper_1" team_default = "1">
 		<name>st_df_military_sniper</name>
-		<icon x="20" y="8"></icon>
+		<icon>ui_portret_soldier_4</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -1492,7 +1493,7 @@
 
 	<specific_character id="df_military_master_1" team_default = "1">
 		<name>st_df_military_master</name>
-		<icon x="10" y="0"></icon>
+		<icon>ui_portret_soldier_4</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -1515,7 +1516,7 @@
 
 	<specific_character id="df_military_master_2" team_default = "1">
 		<name>st_df_military_master</name>
-		<icon x="10" y="0"></icon>
+		<icon>ui_portret_soldier_4</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -1538,7 +1539,7 @@
 
 	<specific_character id="df_military_master_3" team_default = "1">
 		<name>st_df_military_master</name>
-		<icon x="10" y="0"></icon>
+		<icon>ui_portret_soldier_4</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -1561,7 +1562,7 @@
 
 	<specific_character id="df_military_master_4" team_default = "1">
 		<name>st_df_military_master</name>
-		<icon x="10" y="0"></icon>
+		<icon>ui_portret_soldier_4</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -1586,7 +1587,7 @@
 
 	<specific_character id="df_monolith_normal_1" team_default = "1">
 		<name>st_df_monolith_normal</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_monolith_2</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -1608,7 +1609,7 @@
 
 	<specific_character id="df_monolith_normal_2" team_default = "1">
 		<name>st_df_monolith_normal</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_monolith_2</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -1630,7 +1631,7 @@
 
 	<specific_character id="df_monolith_normal_3" team_default = "1">
 		<name>st_df_monolith_normal</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_monolith_2</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -1652,7 +1653,7 @@
 
 	<specific_character id="df_monolith_veteran_1" team_default = "1">
 		<name>st_df_monolith_veteran</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_monolith_1</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -1674,7 +1675,7 @@
 
 	<specific_character id="df_monolith_veteran_2" team_default = "1">
 		<name>st_df_monolith_veteran</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_monolith_1</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -1697,7 +1698,7 @@
 	
 	<specific_character id="df_monolith_veteran_3" team_default = "1">
 		<name>st_df_monolith_veteran</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_monolith_3</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -1719,7 +1720,7 @@
 
 	<specific_character id="df_monolith_veteran_4" team_default = "1">
 		<name>st_df_monolith_veteran</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_monolith_3</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -1743,7 +1744,7 @@
 
 	<specific_character id="df_monolith_sniper_1" team_default = "1">
 		<name>st_df_monolith_sniper</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_monolith_2</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -1763,8 +1764,8 @@
 	</specific_character>
 
 	<specific_character id="df_monolith_sniper_2" team_default = "1">
-		<name>Адепт Монолита</name>
-		<icon x="2" y="2"></icon>
+		<name>st_df_monolith_sniper</name>
+		<icon>ui_portret_monolith_2</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -1785,7 +1786,7 @@
 
 	<specific_character id="df_monolith_sniper_3" team_default = "1">
 		<name>st_df_monolith_sniper</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_monolith_3</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -1805,7 +1806,7 @@
 
 	<specific_character id="df_monolith_master_1" team_default = "1">
 		<name>st_df_monolith_master</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_monolith_4</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -1828,7 +1829,7 @@
 
 	<specific_character id="df_monolith_master_2" team_default = "1">
 		<name>st_df_monolith_master</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_monolith_4</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -1851,7 +1852,7 @@
 
 	<specific_character id="df_monolith_master_3" team_default = "1">
 		<name>st_df_monolith_master</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_monolith_4</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
@@ -1874,7 +1875,7 @@
 
 	<specific_character id="df_monolith_master_4" team_default = "1">
 		<name>st_df_monolith_master</name>
-		<icon x="2" y="2"></icon>
+		<icon>ui_portret_monolith_4</icon>
 		<map_icon x="1" y="0"></map_icon>
 		<bio></bio>
 
