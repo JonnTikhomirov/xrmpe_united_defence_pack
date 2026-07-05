@@ -8,7 +8,7 @@
 
 aim_ratio = 1000/50
 min_ratio = 1500
-
+df_idle_state = "assault" -- +UP
 --' Эвалуатор, который синхронизирует менеджер.
 --' Мы уже в безраличном состоянии idle или нет
 class "evaluator_state_mgr_idle" (property_evaluator)
@@ -17,7 +17,7 @@ function evaluator_state_mgr_idle:__init(name, state_manager) super (nil, name)
 	self.mgr = nil
 end
 function evaluator_state_mgr_idle:evaluate()
-	local t = self.st.target_state == "idle" and
+	local t = (self.st.target_state == "idle" or self.st.is_df_enemy and self.st.target_state == df_idle_state) and -- self.st.target_state == "idle" and -- +UP
 			 --not self.st.planner:evaluator(self.st.properties["locked"]):evaluate() and
 			not self.st.planner:evaluator(self.st.properties["animstate_locked"]):evaluate() and
 			not self.st.planner:evaluator(self.st.properties["animation_locked"]):evaluate() and
@@ -88,7 +88,7 @@ function evaluator_state_mgr_idle_alife:evaluate()
 
 --	if db.storage[self.st.npc:id()].active_section == nil then  --Заремил, потому что чуваки пока у них есть активная секция срывались в алайф без корректного завершения анимаций
 		if xr_meet.is_meet(self.object) == false then
-			local t = self.st.target_state == "idle" and
+			local t = (self.st.target_state == "idle" or self.st.is_df_enemy and self.st.target_state == df_idle_state) and -- self.st.target_state == "idle" and -- +UP
 				--not self.st.planner:evaluator(self.st.properties["locked"]):evaluate() and
 				not self.st.planner:evaluator(self.st.properties["weapon_locked"]):evaluate() and
 				not self.st.planner:evaluator(self.st.properties["animstate_locked"]):evaluate() and
@@ -106,6 +106,7 @@ function evaluator_state_mgr_idle_alife:evaluate()
 	--		printf("%s", utils.to_str(self.st.planner:evaluator(self.st.properties["animation"]):evaluate()))
 
 			if t == true then self.st.alife = true end
+			if self.st.is_df_enemy then self.st.alife = false end -- +UP
 			if self.st.alife == true then
 				return true
 			end
@@ -193,9 +194,14 @@ end
 function act_state_mgr_to_idle:initialize()
 	action_base.initialize(self)
 --'	self.object:movement_enabled(true)
-
 	self.object:inactualize_patrol_path		()
-
+	-- +UP
+	if self.st.is_df_enemy then
+		self.st:set_state(df_idle_state, nil, nil, nil, {fast_set = true})
+		action_base.execute(self)
+		return
+	end
+	-- -UP
 	if self.object:best_enemy() then
 		self.st:set_state("idle", nil, nil, nil, {fast_set = true})
 		return
@@ -211,6 +217,13 @@ end
 function act_state_mgr_to_idle:execute()
 	utils.send_to_nearest_accessible_vertex( self.object, self.object:level_vertex_id() )
 	self.object:set_path_type           	( game_object.level_path )
+	-- +UP
+	if self.st.is_df_enemy then
+		self.st:set_state(df_idle_state, nil, nil, nil, {fast_set = true})
+		action_base.execute(self)
+		return
+	end
+	-- -UP
 	if self.object:best_enemy() then
 		self.st:set_state("idle", nil, nil, nil, {fast_set = true})
 		action_base.execute(self)
@@ -283,6 +296,9 @@ end
 function eva_state_mgr_locked:evaluate()
 	--printf("%s weapon locked %s", self.object:name(), tostring(self.st.planner:evaluator(self.st.properties["weapon_locked"]):evaluate()))
 	--printf("%s turning %s", self.object:name(), tostring(self.object:is_body_turning()))
+	to_log("eva_state_mgr_locked: self.st.planner:initialized %s", self.st.planner:initialized())
+	to_log("eva_state_mgr_locked: self.st.planner:evaluator %s", self.st.planner:evaluator(self.st.properties["weapon_locked"]):evaluate())
+	to_log("eva_state_mgr_locked: self.object:is_body_turning %s", self.object:is_body_turning())
 
 	return self.st.planner:initialized() and (
 			 self.st.planner:evaluator(self.st.properties["weapon_locked"]):evaluate() or
@@ -421,6 +437,12 @@ function state_manager:__init(npc)
 	self.current_object = nil
 	self.combat = false
 	self.alife = true
+	-- +UP
+	self.is_df_enemy = npc:character_reputation() == -1000
+	if self.is_df_enemy then
+		self.alife = false
+	end
+	-- -UP
 	self.need_reweapon = false
 
 	self.animation_position = nil

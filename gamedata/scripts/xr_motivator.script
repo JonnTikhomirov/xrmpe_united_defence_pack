@@ -179,7 +179,6 @@ function motivator_binder:net_spawn(sobject)
 		sobject.goodwill = -5000 -- отправляется на клиент только когда нпс спавнится обороной, не скриптово
 		for v in alife():actors() do
 			SetGoodwillForce(self.object:id(), v.id, -5000) -- если спавним скриптово
-			self.object:make_object_visible_somewhen(db.storage[v.id].object) -- достаем оружие
 		end
 	end
 	-- -UP
