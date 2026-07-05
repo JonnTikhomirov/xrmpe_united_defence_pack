@@ -296,10 +296,6 @@ end
 function eva_state_mgr_locked:evaluate()
 	--printf("%s weapon locked %s", self.object:name(), tostring(self.st.planner:evaluator(self.st.properties["weapon_locked"]):evaluate()))
 	--printf("%s turning %s", self.object:name(), tostring(self.object:is_body_turning()))
-	to_log("eva_state_mgr_locked: self.st.planner:initialized %s", self.st.planner:initialized())
-	to_log("eva_state_mgr_locked: self.st.planner:evaluator %s", self.st.planner:evaluator(self.st.properties["weapon_locked"]):evaluate())
-	to_log("eva_state_mgr_locked: self.object:is_body_turning %s", self.object:is_body_turning())
-
 	return self.st.planner:initialized() and (
 			 self.st.planner:evaluator(self.st.properties["weapon_locked"]):evaluate() or
 			 self.object:is_body_turning() )
