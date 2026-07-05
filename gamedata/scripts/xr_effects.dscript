@@ -16,14 +16,13 @@ function campfire_turn(actor, button, p)
 	bind_campfire.turn(actor, base, p)
 end
 
--- кладет предмет в ящики как лут обороны, но с параметром только ночного спавна
+-- кладет предмет в ящики как лут обороны
 function df_loot(actor, npc, p)
 	
 	local item = p[1]
 	local count = p[2] or 1
 	local prob = p[3] or 1
 	local ignore_players = p[4] or false
-	local night_only = p[5] or false
 
 	if type(ignore_players) == "string" then
 		ignore_players = string.toboolean(ignore_players)
@@ -42,7 +41,7 @@ function df_loot(actor, npc, p)
 		return
 	end
 
-	if count == 0 or night_only == true and level.get_time_hours() >= 5 and level.get_time_hours() < 20 then
+	if count == 0 then
 		return
 	end
 
@@ -63,7 +62,6 @@ function df_loot(actor, npc, p)
 			alife():create(item,vector(),0,0,box_id)
 		end
 	end
-	
 end
 
 local arena_enemy_faction = killer

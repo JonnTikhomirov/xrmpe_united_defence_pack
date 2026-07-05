@@ -3,74 +3,73 @@ active = sr_idle@start_before
 type = sv_only
 
 [sr_idle@start_before]
-on_info = {+all_players_spawned} sr_idle@wave_1_before
-on_info2 = {+all_players_spawned =time_hour_in_range(20:5)} sr_idle@wave_1_before %=spawn_to_all_players(mp_grenade_flare)%
+on_info = {+all_players_spawned =time_hour_in_range(21:3)} sr_idle@wave_1_before %=spawn_to_all_players(mp_grenade_flare)%, {+all_players_spawned} sr_idle@wave_1_before
 
 [sr_idle@wave_1_before]
 on_info = {+defence_wave_1_start} sr_idle@wave_1
 
 [sr_idle@wave_1]
-on_info = {+defence_wave_1_end} sr_idle@wave_2_before %=df_loot(mp_af_defence_lumen:1:0.4:false:true) =df_loot(mp_grenade_flare:1:0.3:false:true)%
+on_info = {+defence_wave_1_end =time_hour_in_range(21:3)} sr_idle@wave_2_before %=df_loot(mp_af_defence_lumen:1:0.4) =df_loot(mp_grenade_flare:1:0.5)%, {+defence_wave_1_end} sr_idle@wave_2_before
 
 [sr_idle@wave_2_before]
 on_info = {+defence_wave_2_start} sr_idle@wave_2
 
 [sr_idle@wave_2]
-on_info = {+defence_wave_2_end} sr_idle@wave_3_before %=df_loot(mp_af_defence_lumen:1:0.4:false:true) =df_loot(mp_grenade_flare:1:0.4:false:true)%
+on_info = {+defence_wave_2_end =time_hour_in_range(21:3)} sr_idle@wave_3_before %=df_loot(mp_af_defence_lumen:1:0.4) =df_loot(mp_grenade_flare:1:0.5)%,{+defence_wave_2_end} sr_idle@wave_3_before
 
 [sr_idle@wave_3_before]
 on_info = {+defence_wave_3_start} sr_idle@wave_3
 
 [sr_idle@wave_3]
-on_info = {+defence_wave_3_end} sr_idle@wave_4_before %=df_loot(mp_af_defence_lumen:2:0.5:false:true) =df_loot(mp_grenade_flare:2:0.4:false:true)%
+on_info = {+defence_wave_3_end =time_hour_in_range(21:3)} sr_idle@wave_4_before %=df_loot(mp_af_defence_lumen:2:0.5) =df_loot(mp_grenade_flare:2:0.4)%, {+defence_wave_3_end} sr_idle@wave_4_before
 
 [sr_idle@wave_4_before]
 on_info = {+defence_wave_4_start} sr_idle@wave_4
 
 [sr_idle@wave_4]
-on_info = {+defence_wave_4_end} sr_idle@wave_5_before %=df_loot(mp_af_defence_lumen:1:0.6:false:true) =df_loot(mp_af_defence_lumen_sun:1:0.3:false:true) =df_loot(mp_grenade_flare:1:0.5:false:true)%
+on_info = {+defence_wave_4_end =time_hour_in_range(21:3)} sr_idle@wave_5_before %=df_loot(mp_af_defence_lumen:1:0.6) =df_loot(mp_af_defence_lumen_sun:1:0.3) =df_loot(mp_grenade_flare:1:0.5)%, {+defence_wave_4_end} sr_idle@wave_5_before
 
 [sr_idle@wave_5_before]
 on_info = {+defence_wave_5_start} sr_idle@wave_5
 
 [sr_idle@wave_5]
-on_info = {+defence_wave_5_end} sr_idle@wave_6_before %=df_loot(mp_af_defence_lumen:1:0.6:false:true) =df_loot(mp_af_defence_lumen_sun:1:0.4:false:true) =df_loot(mp_grenade_flare:1:0.5:false:true)%
+on_info = {+defence_wave_5_end =time_hour_in_range(21:3)} sr_idle@wave_6_before %=df_loot(mp_af_defence_lumen:1:0.6) =df_loot(mp_af_defence_lumen_sun:1:0.4) =df_loot(mp_grenade_flare:1:0.5)%, {+defence_wave_5_end} sr_idle@wave_6_before
 
 [sr_idle@wave_6_before]
 on_info = {+defence_wave_6_start} sr_idle@wave_6
 
 [sr_idle@wave_6]
-on_info = {+defence_wave_6_end} sr_idle@wave_7_before %=df_loot(mp_af_defence_lumen:2:0.7:false:true) =df_loot(mp_af_defence_lumen_sun:1:0.5:false:true) =df_loot(mp_grenade_flare:1:0.5:false:true)%
+on_info = {+defence_wave_6_end =time_hour_in_range(21:3)} sr_idle@wave_7_before %=df_loot(mp_af_defence_lumen:2:0.7) =df_loot(mp_af_defence_lumen_sun:1:0.5) =df_loot(mp_grenade_flare:1:0.5)%, {+defence_wave_6_end} sr_idle@wave_7_before
 
 [sr_idle@wave_7_before]
 on_info = {+defence_wave_7_start} sr_idle@wave_7
 
 [sr_idle@wave_7]
-on_info = {+defence_wave_7_end} sr_idle@wave_8_before %=df_loot(mp_af_defence_lumen:2:0.7:false:true) =df_loot(mp_af_defence_lumen_sun:1:0.6:false:true) =df_loot(mp_grenade_flare:1:0.5:false:true)%
+on_info = {+defence_wave_7_end =time_hour_in_range(21:3)} sr_idle@wave_8_before %=df_loot(mp_af_defence_lumen:2:0.7) =df_loot(mp_af_defence_lumen_sun:1:0.6) =df_loot(mp_grenade_flare:1:0.5)%, {+defence_wave_7_end} sr_idle@wave_8_before
 
 [sr_idle@wave_8_before]
 on_info = {+defence_wave_8_start} sr_idle@wave_8
 
 [sr_idle@wave_8]
-on_info = {+defence_wave_8_end} sr_idle@wave_9_before %=df_loot(mp_af_defence_lumen:1:0.8:false:true) =df_loot(mp_af_defence_lumen_sun:1:0.7:false:true) =df_loot(mp_grenade_flare:1:0.5:false:true)%
+on_info = {+defence_wave_8_end =time_hour_in_range(21:3)} sr_idle@wave_9_before %=df_loot(mp_af_defence_lumen:1:0.8) =df_loot(mp_af_defence_lumen_sun:1:0.7) =df_loot(mp_grenade_flare:1:0.5)%, {+defence_wave_8_end} sr_idle@wave_9_before
 
 [sr_idle@wave_9_before]
 on_info = {+defence_wave_9_start} sr_idle@wave_9
 
 [sr_idle@wave_9]
-on_info = {+defence_wave_9_end} sr_idle@wave_10_before %=df_loot(mp_af_defence_lumen:1:1:false:true) =df_loot(mp_af_defence_lumen_sun:1:1:false:true) =df_loot(mp_grenade_flare:1:1:false:true)%
+on_info = {+defence_wave_9_end =time_hour_in_range(21:3)} sr_idle@wave_10_before %=df_loot(mp_af_defence_lumen:1:1) =df_loot(mp_af_defence_lumen_sun:1:1) =df_loot(mp_grenade_flare:1:1)%, {+defence_wave_9_end} sr_idle@wave_10_before 
 
 [sr_idle@wave_10_before]
 on_info = {+defence_wave_10_start} sr_idle@wave_10
 
 [sr_idle@wave_10]
-on_info = {+defence_wave_10_end} sr_idle@wave_11_before %=df_loot(mp_af_defence_lumen:1:1:false:true) =df_loot(mp_af_defence_lumen_sun:1:1:false:true) =df_loot(mp_grenade_flare:1:1:false:true)%
+on_info = {+defence_wave_10_end =time_hour_in_range(21:3)} sr_idle@wave_11_before %=df_loot(mp_af_defence_lumen:1:1) =df_loot(mp_af_defence_lumen_sun:1:1) =df_loot(mp_grenade_flare:1:1)%, {+defence_wave_10_end} sr_idle@wave_11_before
 
 [sr_idle@wave_11_before]
 on_info = {+defence_wave_11_start} sr_idle@wave_11
 
 [sr_idle@wave_11]
-on_info = {+defence_wave_11_end} sr_idle@wave_12_before %=df_loot(mp_af_defence_lumen:1:1:false:true) =df_loot(mp_af_defence_lumen_sun:1:1:false:true) =df_loot(mp_grenade_flare:1:1:false:true)%
+on_info = {+defence_wave_11_end =time_hour_in_range(21:3)} sr_idle@wave_12_before %=df_loot(mp_af_defence_lumen:1:1) =df_loot(mp_af_defence_lumen_sun:1:1) =df_loot(mp_grenade_flare:1:1)%, {+defence_wave_11_end} sr_idle@wave_12_before
 
 [sr_idle@wave_12_before]
 on_info = {+defence_wave_12_start} sr_idle@wave_12
