@@ -430,6 +430,7 @@ function actor_binder:net_spawn(data)
 				local finalMinute = totalMinsFromMidnight % 60
 				
 				get_console():execute(string.format("sv_setenvtime %d:%d", finalHour, finalMinute))
+				self.weather_manager:reset()
 			end
 		end
 	end
