@@ -102,7 +102,6 @@ function mp_actor_binder:net_spawn(data)
 	else
 		-- +UP ссорим с игроком при возраждении, дл€ нпс которых спавинили скриптово
 		for _,v in ipairs(db.heli_enemies) do
-			to_log("mp_actor_binder:net_spawn(): npc rep='%s'", v:name())
 			if v:character_reputation() == -1000 then
 				SetGoodwillForce(v:id(), self.object:id(), -5000)
 			end
@@ -379,17 +378,58 @@ function actor_binder:net_spawn(data)
 	-- +UP
 	if OnServer() then -- проходит 1 раз
 		local ini = ini_file("game.ltx")
-		if ini:section_exist(level.name()) and ini:line_exist(level.name(), "logic_restrictors") then
-			local logic_srs = ini:r_string(level.name(), "logic_restrictors")
-			if logic_srs ~= "" then
-				for _, sr in ipairs(utils.parse_names(logic_srs)) do
-					if sr ~= "" and system_ini():section_exist(sr) then
-						alife():create(sr, vector(), 0, 0)
-						to_log("! levels logic_restrictor section [%s] create", sr)
-					else
-						to_log("! levels logic_restrictor section [%s] not found", sr)
+		if ini:section_exist(level.name()) then
+
+			local section = "logic_restrictors"
+			if ini:line_exist(level.name(), section) then
+				local logic_srs = ini:r_string(level.name(), section)
+				if logic_srs ~= "" then
+					for _, sr in ipairs(utils.parse_names(logic_srs)) do
+						if sr ~= "" and system_ini():section_exist(sr) then
+							alife():create(sr, vector(), 0, 0)
+							to_log("! levels logic_restrictor section [%s] create", sr)
+						else
+							to_log("! levels logic_restrictor section [%s] not found", sr)
+						end
 					end
 				end
+			end
+		end
+
+		section = "start_hours_range"
+		if ini:line_exist(level.name(), section) then
+			
+			local logic_srs = ini:r_string(level.name(), section)
+
+			if logic_srs and logic_srs ~= "" then
+				local range = utils.parse_names(logic_srs)
+				local startHour = tonumber(range[1])
+				local endHour = tonumber(range[2])
+
+				if startHour < endHour then
+					-- ѕр€мой диапазон (например, с 10 до 15)
+					totalMinutes = (endHour - startHour) * 60
+				elseif startHour > endHour then
+					-- ƒиапазон через полночь (например, с 22 до 6)
+					totalMinutes = (24 - startHour + endHour) * 60
+				else
+					-- ≈сли часы равны (например, 10 до 10), берем случайные минуты внутри 1 часа
+					totalMinutes = 60 
+				end
+
+				-- √енерируем случайное смещение в минутах.
+				-- ¬ычитаем 1, чтобы врем€ не перешагивало в следующий час 
+				-- (например, дл€ 22-6 максимум будет 05:59, а не 06:00).
+				local randomOffset = math.random(0, math.max(0, totalMinutes - 1))
+
+				-- —читаем итоговое врем€ в минутах от начала суток
+				local totalMinsFromMidnight = startHour * 60 + randomOffset
+
+				-- ¬ычисл€ем часы и минуты с учетом перехода через 24:00 (используем остаток от делени€ на 24)
+				local finalHour = math.floor(totalMinsFromMidnight / 60) % 24
+				local finalMinute = totalMinsFromMidnight % 60
+				
+				get_console():execute(string.format("sv_setenvtime %d:%d", finalHour, finalMinute))
 			end
 		end
 	end

@@ -80,25 +80,31 @@
 [df_derevnya]
         weathers                         = dynamic_default;default_np_cloudy; +UP
 		logic_restrictors = defence_logic_restrictor; +UP
+		start_hours_range = 0, 24; +UP
 
 [df_baryer]
         weathers                         = dynamic_default
 		logic_restrictors = defence_logic_restrictor; +UP
+		start_hours_range = 0, 24; +UP
 		
 [df_zastava]
 		weathers                         = dynamic_default
 		logic_restrictors = defence_logic_restrictor; +UP
+		start_hours_range = 0, 24; +UP
 		
 [df_prost_anom]
 		weathers                         = dynamic_default;default_np_foggy; +UP
 		logic_restrictors = defence_logic_restrictor; +UP
+		start_hours_range = 0, 24; +UP
 		
 [df_catacomb]
         weathers                         = dynamic_indoor;indoor_ambient; +UP
 		logic_restrictors = df_catacomb_logic_restrictor; +UP
+		start_hours_range = 0, 24; +UP
 
 [df_polygon]
         weathers                         = dynamic_default;[default]; +UP
+		start_hours_range = 0, 24; +UP
 
 ; +dmr
 [df_yanov_station]
@@ -151,16 +157,19 @@
 weathers     = dynamic_default; +UP
 minimap_zoom = 2.0
 logic_restrictors = defence_logic_restrictor; +UP
+start_hours_range = 0, 24; +UP
 
 [df_limansk]
 weathers     = dynamic_default; +UP
 minimap_zoom = 1.4
 logic_restrictors = defence_logic_restrictor, defence_logic_restrictor_ignitions; +UP
+start_hours_range = 0, 24; +UP
 
 [df_pripyat]
 weathers     = dynamic_default; +UP
 minimap_zoom = 1.2
 logic_restrictors = defence_logic_restrictor, defence_logic_restrictor_ignitions; +UP
+start_hours_range = 0, 24; +UP
 
 [df_radar]
 weathers     = dynamic_default; +UP
@@ -176,6 +185,7 @@ logic_restrictors = defence_logic_restrictor; +UP
 weathers     = dynamic_default; +UP
 minimap_zoom = 1.4
 logic_restrictors = defence_logic_restrictor; +UP
+start_hours_range = 0, 24; +UP
 
 [df_arena]
 weathers     = indoor; +UP
@@ -185,5 +195,6 @@ logic_restrictors = df_arena_logic_restrictor_tips; +UP
 
 ; +UP
 [df_pripyat_center]
-	weathers	= weather_df_pripyat_center
-	logic_restrictors = defence_logic_restrictor, defence_logic_restrictor_ignitions
+weathers	= weather_df_pripyat_center
+logic_restrictors = defence_logic_restrictor, defence_logic_restrictor_ignitions
+start_hours_range = 0, 24

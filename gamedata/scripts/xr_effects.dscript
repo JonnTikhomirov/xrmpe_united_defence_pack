@@ -183,6 +183,31 @@ function send_tip_temer(actor, npc, p)
 	news_manager.send_tip(actor, p[1], nil, p[2], p[4], p[3])
 end
 
+function spawn_to_all_players(actor, npc, p)
+	local section = p[1]
+	if section == nil then
+		to_log("spawn_to_all_players: section is null")
+		return
+	end
+	
+	local count = p[2] or 1
+	if count == nil then
+		to_log("spawn_to_all_players: Wrong count")
+		return
+	end
+
+	if not alife() then
+		to_log("spawn_to_all_players: No alife")
+		return
+	end
+
+	for v in alife():actors() do
+		for i=1, count do
+			alife():create(section, vector(), 0, 0, v.id)
+		end
+	end
+end
+
 -- +SP
 -- Респавн игроков без жизней
 function rs_dead_players()

@@ -1,6 +1,10 @@
 [logic]
-active = sr_idle@wave_1_before
+active = sr_idle@start_before
 type = sv_only
+
+[sr_idle@start_before]
+on_info = {+all_players_spawned} sr_idle@wave_1_before
+on_info2 = {+all_players_spawned =time_hour_in_range(20:5)} sr_idle@wave_1_before %=spawn_to_all_players(mp_grenade_flare)%
 
 [sr_idle@wave_1_before]
 on_info = {+defence_wave_1_start} sr_idle@wave_1
