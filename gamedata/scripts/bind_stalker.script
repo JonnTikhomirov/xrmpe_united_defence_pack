@@ -394,43 +394,43 @@ function actor_binder:net_spawn(data)
 					end
 				end
 			end
-		end
 
-		section = "start_hours_range"
-		if ini:line_exist(level.name(), section) then
-			
-			local logic_srs = ini:r_string(level.name(), section)
-
-			if logic_srs and logic_srs ~= "" then
-				local range = utils.parse_names(logic_srs)
-				local startHour = tonumber(range[1])
-				local endHour = tonumber(range[2])
-
-				if startHour < endHour then
-					-- Прямой диапазон (например, с 10 до 15)
-					totalMinutes = (endHour - startHour) * 60
-				elseif startHour > endHour then
-					-- Диапазон через полночь (например, с 22 до 6)
-					totalMinutes = (24 - startHour + endHour) * 60
-				else
-					-- Если часы равны (например, 10 до 10), берем случайные минуты внутри 1 часа
-					totalMinutes = 60 
-				end
-
-				-- Генерируем случайное смещение в минутах.
-				-- Вычитаем 1, чтобы время не перешагивало в следующий час 
-				-- (например, для 22-6 максимум будет 05:59, а не 06:00).
-				local randomOffset = math.random(0, math.max(0, totalMinutes - 1))
-
-				-- Считаем итоговое время в минутах от начала суток
-				local totalMinsFromMidnight = startHour * 60 + randomOffset
-
-				-- Вычисляем часы и минуты с учетом перехода через 24:00 (используем остаток от деления на 24)
-				local finalHour = math.floor(totalMinsFromMidnight / 60) % 24
-				local finalMinute = totalMinsFromMidnight % 60
+			section = "start_hours_range"
+			if ini:line_exist(level.name(), section) then
 				
-				get_console():execute(string.format("sv_setenvtime %d:%d", finalHour, finalMinute))
-				self.weather_manager:reset()
+				local logic_srs = ini:r_string(level.name(), section)
+
+				if logic_srs and logic_srs ~= "" then
+					local range = utils.parse_names(logic_srs)
+					local startHour = tonumber(range[1])
+					local endHour = tonumber(range[2])
+
+					if startHour < endHour then
+						-- Прямой диапазон (например, с 10 до 15)
+						totalMinutes = (endHour - startHour) * 60
+					elseif startHour > endHour then
+						-- Диапазон через полночь (например, с 22 до 6)
+						totalMinutes = (24 - startHour + endHour) * 60
+					else
+						-- Если часы равны (например, 10 до 10), берем случайные минуты внутри 1 часа
+						totalMinutes = 60 
+					end
+
+					-- Генерируем случайное смещение в минутах.
+					-- Вычитаем 1, чтобы время не перешагивало в следующий час 
+					-- (например, для 22-6 максимум будет 05:59, а не 06:00).
+					local randomOffset = math.random(0, math.max(0, totalMinutes - 1))
+
+					-- Считаем итоговое время в минутах от начала суток
+					local totalMinsFromMidnight = startHour * 60 + randomOffset
+
+					-- Вычисляем часы и минуты с учетом перехода через 24:00 (используем остаток от деления на 24)
+					local finalHour = math.floor(totalMinsFromMidnight / 60) % 24
+					local finalMinute = totalMinsFromMidnight % 60
+					
+					get_console():execute(string.format("sv_setenvtime %d:%d", finalHour, finalMinute))
+					self.weather_manager:reset()
+				end
 			end
 		end
 	end
