@@ -965,30 +965,6 @@
 		</supplies>
 	</specific_character>
 
-	<specific_character id="df_freedom_veteran_3" team_default = "1">
-		<name>st_df_freedom_veteran</name>
-		<icon>ui_portret_freedom_3</icon>
-		<map_icon x="1" y="0"></map_icon>
-		<bio></bio>
-
-		<class>freedom_veteran</class>
-		<community>freedom</community>
-		
-		<rank>650</rank>
-		<reputation>-1000</reputation>
-
-		<visual>actors\stalker_freedom\stalker_freedom_3</visual>
-		<snd_config>characters_voice\human_01\freedom\</snd_config>
-		<supplies>
-			[spawn] \n
-			mp_wpn_ak101 = 1 \n
-			mp_ammo_5.56x45_ss190 = 1 \n
-			mp_wpn_glock17 \n
-			mp_ammo_9x19_pbp \n
-      		mp_grenade_f1 = 2, prob=0.8 \n
-		</supplies>
-	</specific_character>
-
 	<specific_character id="df_freedom_sniper_1" team_default = "1">
 		<name>st_df_freedom_sniper</name>
 		<icon>ui_portret_freedom_1_mask</icon>
