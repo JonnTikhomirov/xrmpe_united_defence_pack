@@ -380,22 +380,7 @@ function actor_binder:net_spawn(data)
 		local ini = ini_file("game.ltx")
 		if ini:section_exist(level.name()) then
 
-			local section = "logic_restrictors"
-			if ini:line_exist(level.name(), section) then
-				local logic_srs = ini:r_string(level.name(), section)
-				if logic_srs ~= "" then
-					for _, sr in ipairs(utils.parse_names(logic_srs)) do
-						if sr ~= "" and system_ini():section_exist(sr) then
-							alife():create(sr, vector(), 0, 0)
-							to_log("! levels logic_restrictor section [%s] create", sr)
-						else
-							to_log("! levels logic_restrictor section [%s] not found", sr)
-						end
-					end
-				end
-			end
-
-			section = "start_hours_range"
+			local section = "start_hours_range"
 			if ini:line_exist(level.name(), section) then
 				
 				local logic_srs = ini:r_string(level.name(), section)
@@ -430,6 +415,21 @@ function actor_binder:net_spawn(data)
 					
 					get_console():execute(string.format("sv_setenvtime %d:%d", finalHour, finalMinute))
 					self.weather_manager:reset()
+				end
+			end
+
+			section = "logic_restrictors"
+			if ini:line_exist(level.name(), section) then
+				local logic_srs = ini:r_string(level.name(), section)
+				if logic_srs ~= "" then
+					for _, sr in ipairs(utils.parse_names(logic_srs)) do
+						if sr ~= "" and system_ini():section_exist(sr) then
+							alife():create(sr, vector(), 0, 0)
+							to_log("! levels logic_restrictor section [%s] create", sr)
+						else
+							to_log("! levels logic_restrictor section [%s] not found", sr)
+						end
+					end
 				end
 			end
 		end
