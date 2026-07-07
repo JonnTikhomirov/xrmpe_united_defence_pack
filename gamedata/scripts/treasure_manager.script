@@ -47,10 +47,12 @@ function CTreasureManager:get_level_ini()
 	local str = utils.read_file_to_string("$level$", "secrets.ltx")
 	
 	local ok, ini = true, nil
-	if str ~= "" then
+	if str and str ~= "" then
 		ok, ini = pcall(function()
 			return create_ini_file(str)
 		end)
+	else
+		return nil
 	end
 
 	if not ok then
@@ -140,6 +142,7 @@ function CTreasureManager:initialize()
 	if ini then
 		to_log("TreasureManager: level-файл перекрывает misc")
 		self.use_level_mode = true
+		return
 	else
 		ini = ini_file("misc\\secrets.ltx")
 	end
@@ -456,7 +459,9 @@ function CTreasureManager:spawn_treasure(treasure_id, is_activated)
 	local scanned_items = self.scanned_objects[treasure_id]
 	
 	if not scanned_items then
-		to_log("spawn_treasure: нет объектов для тайника " .. treasure_id)
+		if use_level_mode then
+			to_log("spawn_treasure: нет объектов для тайника " .. treasure_id)
+		end
 		return
 	end
 
@@ -579,7 +584,6 @@ function CTreasureManager:give_random()
 end
 
 function CTreasureManager:on_item_take(obj_id)
-	to_log("TreasureManager:on_item_take: obj_id=%s", obj_id)-- TODO: убрать лог
 	local restr_id = self.items_from_secrets[obj_id]
 	local treasure_id = nil
 	for k,v in pairs(self.secret_restrs) do
@@ -589,10 +593,8 @@ function CTreasureManager:on_item_take(obj_id)
 		end
 	end
 	if(treasure_id) then
-		to_log("TreasureManager: treasure_id=%s", treasure_id)-- TODO: убрать лог
 		self.secrets[treasure_id].to_find = self.secrets[treasure_id].to_find - 1
 		if(self.secrets[treasure_id].to_find==0) then
-			to_log("TreasureManager:to_find==0: treasure_id=%s", treasure_id)-- TODO: убрать лог
 			if self.secret_restrs[treasure_id] then-- +UP
 				level.map_remove_object_spot(self.secret_restrs[treasure_id], "treasure")
 			end-- +UP
