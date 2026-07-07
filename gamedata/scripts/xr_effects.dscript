@@ -41,11 +41,11 @@ function df_loot(actor, npc, p)
 		return
 	end
 
-	if count == 0 then
+	if count < 1 then
 		return
 	end
 
-	if ignore_players ~= true and count > 0 then
+	if ignore_players ~= true then
 		count = count * (get_players_count() - 1)
 	end
 	
