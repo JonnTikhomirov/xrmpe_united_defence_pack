@@ -26,7 +26,7 @@ function read_file_to_string(fspath, fullname)
 	return str
 end
 
-all_players_in_zone = function(npc, zone, connected_only)
+function all_players_in_zone(npc, zone, connected_only)
 	if zone == nil then
 		return false
 	end
