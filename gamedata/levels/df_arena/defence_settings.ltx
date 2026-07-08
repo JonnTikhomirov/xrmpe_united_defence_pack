@@ -1,0 +1,54 @@
+[defence_gamedata]
+spawn_delay = 1 ; время задержки между спавном мутантов (в секундах)
+;spawn_particles = anomaly2\teleport_out ; партикл, с которым спавнятся монстры, можно удалить
+;spawn_sound = ambient\defence\defence_teleport ; звук, с которым спавнятся монстры, можно удалить
+start_time = 12 ; стартовое время на локации, работает аналогично консольной команде sv_setenvtime, возможные значения 0-23, можно удалить
+
+
+[defence_modifiers]
+surge = false
+phantoms = false
+
+
+[defence_team]
+;+UP
+; logo = freedom_medium ; логотип команды для лобби
+; messages_menu_faction = 4 ; Свобода
+; skins = df_freedom_face_1, df_freedom_face_2, df_freedom_face_3, df_freedom_face_4, df_freedom_face_5, df_freedom_face_6, df_freedom_face_7, df_freedom_face_8, df_freedom_face_9, df_freedom_face_10, df_freedom_face_11, df_freedom_face_12
+logo = stalker_medium ;логотип команды для лобби
+messages_menu_faction = 9 ; Вольные
+skins =  df_neutral_face_1, df_neutral_face_12, df_neutral_face_13, gosling_neutral, df_neutral_face_14, df_neutral_face_2, df_neutral_face_3, df_neutral_face_4, df_neutral_face_5, df_neutral_face_6, df_neutral_face_7, df_neutral_face_8, df_neutral_face_9, df_neutral_face_10, df_neutral_face_11
+;-UP
+
+[wave_provisions]
+wave_1 = wp1_var1
+wave_2 = wp1_var1
+wave_3 = wp1_var1
+wave_4 = wp1_var1
+
+
+[wave_provisions_variants]
+wp1_var1 = conserva:1:0.01
+
+
+[monster_waves]
+wave_1 = wm1_var1
+;wave_2 = wm2_var1
+;wave_3 = wm3_var1
+;wave_4 = wm4_var1
+;wave_5 = wm5_var1
+
+
+[monster_wave_variants]
+wm_test = m_poltergeist_normal_flame:1:1:true
+wm_test2 = zombie_weak:1:1:true
+;
+wm1_var1 = df_arena_enemy_1:1:0.0001 ;df_arena_enemy_1:2:1
+;
+wm2_var1 = df_arena_enemy_2:2:1, df_arena_enemy_1:1:0.5
+;
+wm3_var1 = df_arena_enemy_3:2:1, df_arena_enemy_2:1:0.5
+;
+wm4_var1 = df_arena_enemy_4:3:1, df_arena_enemy_3:1:0.5
+;
+wm5_var1 = df_arena_enemy_5:1:1, df_arena_enemy_4:1:1, df_arena_enemy_3:1:1, df_arena_enemy_2:1:1, df_arena_enemy_1:1:0.5

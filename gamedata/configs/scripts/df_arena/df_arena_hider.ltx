@@ -1,0 +1,30 @@
+[logic]
+active = walker@df_arena_hider_start
+can_select_weapon = false
+show_spot = false
+
+[walker@df_arena_hider_start]
+path_walk = df_arena_hider_walk
+path_look = df_arena_hider_look
+meet = no_meet
+combat_ignore_cond = true
+combat_ignore_keep_when_attacked = true
+invulnerable = true
+gather_items_enabled = false
+help_wounded_enabled = false
+corpse_detection_enabled = false
+on_info = {+DF_ARENA_FIGHT_5_READY +DF_ARENA_FIGHT_START} walker@df_arena_hider_del
+show_spot = false
+
+[walker@df_arena_hider_del]
+path_walk = df_arena_hider_walk
+path_look = df_arena_hider_look
+meet = no_meet
+combat_ignore_cond = true
+combat_ignore_keep_when_attacked = true
+invulnerable = true
+gather_items_enabled = false
+help_wounded_enabled = false
+corpse_detection_enabled = false
+on_game_timer = 100 | %=destroy_object%
+show_spot = false

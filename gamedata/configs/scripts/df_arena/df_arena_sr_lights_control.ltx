@@ -1,0 +1,14 @@
+[logic]
+active = sr_idle@start
+
+[sr_idle@start]
+on_info = sr_idle@off_light_lobby %=turn_off(df_arena_light_red_id_1) =turn_off(df_arena_light_red_id_2)%
+
+[sr_idle@off_light_lobby]
+on_info = {+all_players_spawned} sr_idle@switch_light_1 %=turn_off(df_arena_light_lobby_1)%
+
+[sr_idle@switch_light_1]
+on_info = {+DF_ARENA_FIGHT_START} sr_idle@switch_light_2 %=turn_off(df_arena_light_green_id_1) =turn_off(df_arena_light_green_id_2) =turn_on(df_arena_light_red_id_1) =turn_on(df_arena_light_red_id_2)%
+
+[sr_idle@switch_light_2]
+on_info = {-DF_ARENA_FIGHT_START} sr_idle@switch_light_1 %=turn_off(df_arena_light_red_id_1) =turn_off(df_arena_light_red_id_2) =turn_on(df_arena_light_green_id_1) =turn_on(df_arena_light_green_id_2)%

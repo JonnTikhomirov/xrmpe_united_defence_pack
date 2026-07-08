@@ -1,0 +1,34 @@
+[logic]
+active = sr_idle@check_start
+type = sv_only;+UP
+
+[sr_idle@check_start]
+on_info = {+DF_ARENA_FIGHT_5_READY +DF_ARENA_FIGHT_START} sr_idle@check_num_players %=randomize_arena_enemy_faction(military:monolith)%; +UP
+
+[sr_idle@check_num_players]
+on_info = {=check_players_count(5)} sr_idle@num_players_4, {=check_players_count(4)} sr_idle@num_players_3, {=check_players_count(3)} sr_idle@num_players_2, {=check_players_count(2)} sr_idle@num_players_1
+
+[sr_idle@num_players_1]
+; on_info = sr_idle@teleport_players %=spawn_object(df_arena_enemy_5:df_arena_enemy_sp_01) =spawn_object(df_arena_enemy_4:df_arena_enemy_sp_02) =spawn_object(df_arena_enemy_3:df_arena_enemy_sp_03) =spawn_object(df_arena_enemy_2:df_arena_enemy_sp_04) =spawn_object(df_arena_enemy_1:df_arena_enemy_sp_05)%;+UP
+on_info = sr_idle@teleport_players %=arena_spawn(master:1) =arena_spawn(master:2) =arena_spawn(master:3) =arena_spawn(veteran:4) =arena_spawn(veteran:5)%;+UP
+
+[sr_idle@num_players_2]
+; on_info = sr_idle@teleport_players %=spawn_object(df_arena_enemy_5:df_arena_enemy_sp_01) =spawn_object(df_arena_enemy_4:df_arena_enemy_sp_02) =spawn_object(df_arena_enemy_3:df_arena_enemy_sp_03) =spawn_object(df_arena_enemy_2:df_arena_enemy_sp_04) =spawn_object(df_arena_enemy_1:df_arena_enemy_sp_05) =spawn_object(df_arena_enemy_5:df_arena_enemy_sp_06) =spawn_object(df_arena_enemy_4:df_arena_enemy_sp_07) =spawn_object(df_arena_enemy_3:df_arena_enemy_sp_08) =spawn_object(df_arena_enemy_2:df_arena_enemy_sp_09) =spawn_object(df_arena_enemy_1:df_arena_enemy_sp_10)%;+UP
+on_info = sr_idle@teleport_players %=arena_spawn(master:1) =arena_spawn(master:2) =arena_spawn(master:3) =arena_spawn(veteran:4) =arena_spawn(veteran:5) =arena_spawn(master:6) =arena_spawn(master:7) =arena_spawn(master:8) =arena_spawn(veteran:9) =arena_spawn(veteran:10)%;+UP
+
+[sr_idle@num_players_3]
+; on_info = sr_idle@teleport_players %=spawn_object(df_arena_enemy_5:df_arena_enemy_sp_01) =spawn_object(df_arena_enemy_4:df_arena_enemy_sp_02) =spawn_object(df_arena_enemy_3:df_arena_enemy_sp_03) =spawn_object(df_arena_enemy_2:df_arena_enemy_sp_04) =spawn_object(df_arena_enemy_1:df_arena_enemy_sp_05) =spawn_object(df_arena_enemy_5:df_arena_enemy_sp_06) =spawn_object(df_arena_enemy_4:df_arena_enemy_sp_07) =spawn_object(df_arena_enemy_3:df_arena_enemy_sp_08) =spawn_object(df_arena_enemy_2:df_arena_enemy_sp_09) =spawn_object(df_arena_enemy_1:df_arena_enemy_sp_10) =spawn_object(df_arena_enemy_5:df_arena_enemy_sp_11) =spawn_object(df_arena_enemy_4:df_arena_enemy_sp_12) =spawn_object(df_arena_enemy_3:df_arena_enemy_sp_13) =spawn_object(df_arena_enemy_2:df_arena_enemy_sp_14) =spawn_object(df_arena_enemy_1:df_arena_enemy_sp_15)%;+UP
+on_info = sr_idle@teleport_players %=arena_spawn(master:1) =arena_spawn(master:2) =arena_spawn(master:3) =arena_spawn(veteran:4) =arena_spawn(veteran:5) =arena_spawn(master:6) =arena_spawn(master:7) =arena_spawn(master:8) =arena_spawn(veteran:9) =arena_spawn(veteran:10) =arena_spawn(master:11) =arena_spawn(master:12) =arena_spawn(master:13) =arena_spawn(veteran:14) =arena_spawn(veteran:15)%;+UP
+
+[sr_idle@num_players_4]
+; on_info = sr_idle@teleport_players %=spawn_object(df_arena_enemy_5:df_arena_enemy_sp_01) =spawn_object(df_arena_enemy_4:df_arena_enemy_sp_02) =spawn_object(df_arena_enemy_3:df_arena_enemy_sp_03) =spawn_object(df_arena_enemy_2:df_arena_enemy_sp_04) =spawn_object(df_arena_enemy_1:df_arena_enemy_sp_05) =spawn_object(df_arena_enemy_5:df_arena_enemy_sp_06) =spawn_object(df_arena_enemy_4:df_arena_enemy_sp_07) =spawn_object(df_arena_enemy_3:df_arena_enemy_sp_08) =spawn_object(df_arena_enemy_2:df_arena_enemy_sp_09) =spawn_object(df_arena_enemy_1:df_arena_enemy_sp_10) =spawn_object(df_arena_enemy_5:df_arena_enemy_sp_11) =spawn_object(df_arena_enemy_4:df_arena_enemy_sp_12) =spawn_object(df_arena_enemy_3:df_arena_enemy_sp_13) =spawn_object(df_arena_enemy_2:df_arena_enemy_sp_14) =spawn_object(df_arena_enemy_1:df_arena_enemy_sp_15) =spawn_object(df_arena_enemy_5:df_arena_enemy_sp_16) =spawn_object(df_arena_enemy_4:df_arena_enemy_sp_17) =spawn_object(df_arena_enemy_3:df_arena_enemy_sp_18) =spawn_object(df_arena_enemy_2:df_arena_enemy_sp_19) =spawn_object(df_arena_enemy_1:df_arena_enemy_sp_20)%;+UP
+on_info = sr_idle@teleport_players %=arena_spawn(master:1) =arena_spawn(master:2) =arena_spawn(master:3) =arena_spawn(veteran:4) =arena_spawn(veteran:5) =arena_spawn(master:6) =arena_spawn(master:7) =arena_spawn(master:8) =arena_spawn(veteran:9) =arena_spawn(veteran:10) =arena_spawn(master:11) =arena_spawn(master:12) =arena_spawn(master:13) =arena_spawn(veteran:14) =arena_spawn(veteran:15) =arena_spawn(master:16) =arena_spawn(master:17) =arena_spawn(master:18) =arena_spawn(veteran:19) =arena_spawn(veteran:20)%;+UP
+
+[sr_idle@teleport_players]
+on_info = sr_idle@check_end %=xrmpe_teleport_actors(df_arena_teleport_to_fight_walk:df_arena_teleport_to_fight_look)%
+
+[sr_idle@check_end]
+on_info = {=check_players_count(5) =counter_equal(enemy_dead:20)} sr_idle@end, {=check_players_count(4) =counter_equal(enemy_dead:15)} sr_idle@end, {=check_players_count(3) =counter_equal(enemy_dead:10)} sr_idle@end, {=check_players_count(2) =counter_equal(enemy_dead:5)} sr_idle@end
+
+[sr_idle@end]
+on_info = nil %+DF_ARENA_FIGHT_5_END =set_counter(enemy_dead:0) -DF_ARENA_FIGHT_START%

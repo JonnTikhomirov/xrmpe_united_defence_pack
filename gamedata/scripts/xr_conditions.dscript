@@ -3,6 +3,17 @@
 -- Если в функцию необходимо передавать параметры, то:  {=функция(парам1:парам2:...) !функция(парам1:парам2:...)}
 -- Формат: function f(actor, npc). В случае передачи параметров: function f(actor, npc, p).
 
+-- текущий час в диапозоне p[1] <-> p[2]
+function time_hour_in_range(actor, npc, p)
+	local currentHour = level.get_time_hours()
+
+	if p[1] < p[2] then-- Обычный диапазон (например, 8-18)
+		return currentHour >= p[1] and currentHour < p[2]
+	else-- Диапазон через полночь (например, 22-6)
+		return currentHour >= p[1] or currentHour < p[2]
+	end
+end
+
 -- +SP
 function trade_exchanged(actor, npc)
 	return db.storage[npc:id()].trade.exchanged
@@ -37,3 +48,5 @@ function check_players_count(actor, npc, p)
     local num_players = get_players_count()
     return num_players == d
 end
+
+

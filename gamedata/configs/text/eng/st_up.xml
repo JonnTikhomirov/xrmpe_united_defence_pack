@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<string_table>
+	<string id="tool_weather_fix">
+		<text>Fix</text>
+	</string>
+	<string id="tool_weather_add_minute">
+		<text>+ minute</text>
+	</string>
+	<string id="tool_weather_add_hour">
+		<text>+ hour</text>
+	</string>
+	<string id="speech_laugh">
+		<text>Laugh</text>
+	</string>
+	<string id="st_fire_turn_on">
+		<text>Ignite</text>
+	</string>
+	<string id="st_fire_turn_off">
+		<text>Extinguish</text>
+	</string>
+	<string id="st_af_defence_lumen_descr">
+		<text>A ghostly lighthouse, filling the surroundings with a deathly pale, moonlight glow. Is it beautiful? Definitely.</text>
+	</string>
+	<string id="st_af_defence_lumen_sun_descr">
+		<text>An abnormal slice of the July sun, let it go and it will return to the sky. But remember: the darkness doesn't hide you from the Zone, the darkness hides the Zone from you.</text>
+	</string>
+	<string id="st_item_ignition">
+		<text>Matches</text>
+	</string>
+	<string id="st_item_ignition_descr">
+		<text>An almost empty matchbox, just enough for one bonfire. At night, in the Zone, the fire does not so much warm up as it wins a few meters of life from the darkness.</text>
+	</string>
+	<string id="st_arena_fight_1_ready">
+		<text>Round 1 begins...</text>
+	</string>
+	<string id="st_arena_fight_2_ready">
+		<text>Round 2 begins...</text>
+	</string>
+	<string id="st_arena_fight_3_ready">
+		<text>Round 3 begins...</text>
+	</string>
+	<string id="st_arena_fight_4_ready">
+		<text>Round 4 begins...</text>
+	</string>
+	<string id="st_arena_fight_5_ready">
+		<text>Round 5 begins...</text>
+	</string>
+	<string id="st_wpn_grenade_flare">
+		<text>Flare</text>
+	</string>
+	<string id="st_wpn_grenade_flare_descr">
+		<text>Ignites on impact with the surface</text>
+	</string>
+
+	<string id="st_df_neutral_normal">
+		<text>Stalker</text>
+	</string>
+	<string id="st_df_neutral_veteran">
+		<text>Stalker veteran</text>
+	</string>
+	<string id="st_df_neutral_master">
+		<text>Stalker master</text>
+	</string>
+	<string id="st_df_bandit_normal">
+		<text>Bandit</text>
+	</string>
+	<string id="st_df_bandit_veteran">
+		<text>Chief</text>
+	</string>
+	<string id="st_df_bandit_master">
+		<text>Kingpin</text>
+	</string>
+	<string id="st_df_duty_normal">
+		<text>Duty warrior</text>
+	</string>
+	<string id="st_df_duty_veteran">
+		<text>Duty veteran</text>
+	</string>
+	<string id="st_df_duty_sniper">
+		<text>Duty sniper</text>
+	</string>
+	<string id="st_df_duty_master">
+		<text>Duty master</text>
+	</string>
+	<string id="st_df_freedom_normal">
+		<text>Freedom warrior</text>
+	</string>
+	<string id="st_df_freedom_veteran">
+		<text>Freedom veteran</text>
+	</string>
+	<string id="st_df_freedom_sniper">
+		<text>Freedom sniper</text>
+	</string>
+	<string id="st_df_freedom_master">
+		<text>Freedom master</text>
+	</string>
+	<string id="st_df_killer_normal">
+		<text>Merc</text>
+	</string>
+	<string id="st_df_killer_veteran">
+		<text>Merc veteran</text>
+	</string>
+	<string id="st_df_killer_sniper">
+		<text>Sniper</text>
+	</string>
+	<string id="st_df_killer_master">
+		<text>Cutthroat</text>
+	</string>
+	<string id="st_df_military_normal">
+		<text>Soldier</text>
+	</string>
+	<string id="st_df_military_veteran">
+		<text>Specops soldier</text>
+	</string>
+	<string id="st_df_military_sniper">
+		<text>Specops sniper</text>
+	</string>
+	<string id="st_df_military_master">
+		<text>Specops veteran</text>
+	</string>
+	<string id="st_df_monolith_normal">
+		<text>Monolith warrior</text>
+	</string>
+	<string id="st_df_monolith_veteran">
+		<text>Monolith Adept</text>
+	</string>
+	<string id="st_df_monolith_sniper">
+		<text>Monolith sniper</text>
+	</string>
+	<string id="st_df_monolith_master">
+		<text>Monolith guardian</text>
+	</string>
+	<string id="st_df_zombied_normal">
+		<text>Zombied</text>
+	</string>
+	<string id="st_df_zombied_veteran">
+		<text>Zombied veteran</text>
+	</string>
+	<string id="st_df_zombied_master">
+		<text>Zombied master</text>
+	</string>
+</string_table>

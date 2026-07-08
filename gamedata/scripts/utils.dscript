@@ -25,3 +25,25 @@ function read_file_to_string(fspath, fullname)
 
 	return str
 end
+
+function all_players_in_zone(npc, zone, connected_only)
+	if zone == nil then
+		return false
+	end
+	
+	local has_actors = false
+	for k,v in pairs(db.mp_actors) do
+		has_actors = true
+		
+		local net_ready = true
+		if connected_only then
+			net_ready = IsActorNetReady(v:id())
+		end
+		
+		if net_ready and not zone:inside(v:position()) and v.health > 0 then-- +UP на арене не срабатывало пока труп не исчез
+			return false
+		end
+	end
+
+	return has_actors
+end

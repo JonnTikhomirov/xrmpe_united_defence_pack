@@ -1,0 +1,20 @@
+[logic]
+active = sr_idle@check_all_before_fight_1
+type = sv_only;+UP
+
+[sr_idle@check_all_before_fight_1]
+on_all_players_inside = {+DF_ARENA_FIGHT_1_READY -DF_ARENA_FIGHT_1_END -DF_ARENA_FIGHT_START} sr_idle@check_all_before_fight_2 %+DF_ARENA_FIGHT_START%
+
+[sr_idle@check_all_before_fight_2]
+on_all_players_inside = {+DF_ARENA_FIGHT_2_READY -DF_ARENA_FIGHT_2_END -DF_ARENA_FIGHT_START} sr_idle@check_all_before_fight_3 %+DF_ARENA_FIGHT_START%
+
+[sr_idle@check_all_before_fight_3]
+on_all_players_inside = {+DF_ARENA_FIGHT_3_READY -DF_ARENA_FIGHT_3_END -DF_ARENA_FIGHT_START} sr_idle@check_all_before_fight_4 %+DF_ARENA_FIGHT_START%
+
+[sr_idle@check_all_before_fight_4]
+on_all_players_inside = {+DF_ARENA_FIGHT_4_READY -DF_ARENA_FIGHT_4_END -DF_ARENA_FIGHT_START} sr_idle@check_all_before_fight_5 %+DF_ARENA_FIGHT_START%
+
+[sr_idle@check_all_before_fight_5]
+on_all_players_inside = {+DF_ARENA_FIGHT_5_READY -DF_ARENA_FIGHT_5_END -DF_ARENA_FIGHT_START} sr_idle@end %+DF_ARENA_FIGHT_START%
+
+[sr_idle@end]

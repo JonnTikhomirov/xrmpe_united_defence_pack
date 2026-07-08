@@ -461,6 +461,123 @@ class				= II_FOOD
 [mp_drug_booster]:drug_booster
 $spawn             	= "network\equipment\mp_drug_booster"
 class				= II_FOOD
+
+[mp_af_defence_lumen]:af_electra_moonlight
+$spawn				= "artefacts\DF_LUMEN_ART"
+class				= AF_DF
+visual				= dynamics\artefacts\artefact_electra_blue.ogf
+hud					= artefact_hud_defence_lumen;artefact_hud_defence
+slot = 10
+healing_step 		= 0.0001
+default_to_ruck		= false
+cform				= skeleton
+belt				= false
+af_rank				= 0
+description			= st_af_defence_lumen_descr
+
+inv_grid_x			= 15
+inv_grid_y			= 1
+
+artefact_activation_gravity_range = 25
+artefact_activation_seq		= af_activation_defence_lumen
+
+trail_light_color 		= 0.14, 0.22, 0.29
+trail_light_range 		= 10.0
+
+;звуки
+snd_draw                = device\rayofhope\rayofhope_draw
+snd_holster             = device\rayofhope\rayofhope_hide
+snd_idle             	= device\rayofhope\rayofhope_idle
+snd_activation          = device\rayofhope\rayofhope_activation
+
+particles_bone			= link
+
+hit_absorbation_sect = af_defence_absorbation
+
+health_restore_speed		= 0
+radiation_restore_speed		= 0
+satiety_restore_speed		= 0
+power_restore_speed			= 0
+bleeding_restore_speed		= 0
+
+[artefact_hud_defence_lumen]:artefact_hud
+item_visual                  	= dynamics\artefacts\af_soul
+
+[af_activation_defence_lumen]
+;-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+;format:				time(sec),	is_looped_snd,		sound_name,	         			light_R,G,B,  	light_range,    	particle_name,							af_animation_name
+;-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+starting				=	2.0,	false,		"ambient\artifacts\rayofhope\rayofhope_start",		0.14, 0.22, 0.29,  	10.0,		"anomaly2\artefact_electra_blast_start",	"idle"
+flying					=	200.0,	true,		"ambient\artifacts\rayofhope\rayofhope_loop",		0.14, 0.22, 0.29,  	80.0,		"artefact\artefact_electra",				"idle"
+idle_before_spawning	=	15.0,	false,		"ambient\artifacts\rayofhope\rayofhope_end",		0.14, 0.22, 0.29,  	60.0,		"anomaly2\artefact_electra_blast_finished",	"idle"
+spawning				=	1.0,	false,		"ambient\artifacts\rayofhope\rayofhope_blowout", 	0.14, 0.22, 0.29,  	100.0,		"artefact\af_electra_hide",					"destroying"
+
+[mp_af_defence_lumen_sun]:af_fire
+$spawn				= "artefacts\DF_LUMEN_SUN_ART"
+class				= AF_DF
+hud					= artefact_hud_defence_lumen_sun
+slot = 10
+healing_step 		= 0.000
+default_to_ruck		= false
+cform				= skeleton
+belt				= false
+af_rank				= 0
+description			= st_af_defence_lumen_sun_descr
+
+artefact_activation_gravity_range = 30
+artefact_activation_seq		= af_activation_defence_lumen_sun
+
+trail_light_range 		= 15.0
+
+;звуки
+snd_draw                = device\rayofhope\rayofhope_draw
+snd_holster             = device\rayofhope\rayofhope_hide
+snd_idle             	= anomaly\steam
+snd_activation          = anomaly\steam_hit
+
+particles_bone			= link
+
+hit_absorbation_sect = af_defence_absorbation
+
+health_restore_speed		= 0
+radiation_restore_speed		= 0
+satiety_restore_speed		= 0
+power_restore_speed			= 0
+bleeding_restore_speed		= 0
+
+[af_activation_defence_lumen_sun]
+;-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+;format:				time(sec),	is_looped_snd,		sound_name,	         			light_R,G,B,  	light_range,    	particle_name,							af_animation_name
+;-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+starting				=	2.0,	false,		"anomaly\gravi_rumble1",							0.90, 0.819, 0.5,	5.0,			"_samples_particles_\orange_circles",	"idle"
+flying					=	200.0,	true,		"anomaly\gravi_rumble1",							0.90, 0.819, 0.693,	120.0,			"_samples_particles_\orange_circles",	"idle"	
+idle_before_spawning	=	15.0,	false,		"ambient\artifacts\rayofhope\rayofhope_end",		0.90, 0.819, 0.693,	60.0,			"anomaly2\effects\static_lava_01",	"idle"
+spawning				=	1.0,	false,		"ambient\artifacts\rayofhope\rayofhope_blowout",	0.90, 0.819, 0.693,	100.0,			"anomaly2\effects\static_lava_01",	"destroying"
+
+[artefact_hud_defence_lumen_sun]:artefact_hud
+item_visual                  	= dynamics\artefacts\af_fire
+
+[df_ignition]:identity_immunities; спички
+GroupControlSection   	= spawn_group
+discovery_dependency  	=
+$spawn          		= "equipment\df_ignition"
+cform                   = skeleton
+class         			= II_ATTCH
+visual                  = dynamics\equipments\match.ogf
+cost          			= 0
+inv_name        		= st_item_ignition
+inv_name_short      	= st_item_ignition
+description             = st_item_ignition_descr
+inv_weight        		= 0.0
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x				= 20
+inv_grid_y				= 21
+attach_angle_offset   	= -1.571,-1.308,-1.458    ;устанавливаетсљ в радианах Angle*PI/180
+attach_position_offset  = 0.105, -0.004, 0.003
+attach_bone_name    	= bip01_l_hand
+auto_attach       		= false
+
 ;-UP
 
 ; +SP

@@ -1,0 +1,40 @@
+[logic]
+active = sr_idle@wait_f1
+
+
+[sr_idle@wait_f1]
+on_info = {+DF_ARENA_FIGHT_1_READY +DF_ARENA_FIGHT_START} sr_idle@wait_f11 %=play_sound(df_arena_start_theme) =send_msg(st_df_arena_fight_start)%
+
+[sr_idle@wait_f11]
+on_info = {+DF_ARENA_FIGHT_1_END} sr_idle@wait_f2 %=play_sound(df_arena_win_theme) =send_msg(st_df_arena_fight_end)%
+
+
+[sr_idle@wait_f2]
+on_info = {+DF_ARENA_FIGHT_2_READY +DF_ARENA_FIGHT_START} sr_idle@wait_f21 %=play_sound(df_arena_start_theme) =send_msg(st_df_arena_fight_start)%
+
+[sr_idle@wait_f21]
+on_info = {+DF_ARENA_FIGHT_2_END} sr_idle@wait_f3 %=play_sound(df_arena_win_theme) =send_msg(st_df_arena_fight_end)%
+
+
+[sr_idle@wait_f3]
+on_info = {+DF_ARENA_FIGHT_3_READY +DF_ARENA_FIGHT_START} sr_idle@wait_f31 %=play_sound(df_arena_start_theme) =send_msg(st_df_arena_fight_start)%
+
+[sr_idle@wait_f31]
+on_info = {+DF_ARENA_FIGHT_3_END} sr_idle@wait_f4 %=play_sound(df_arena_win_theme) =send_msg(st_df_arena_fight_end)%
+
+
+[sr_idle@wait_f4]
+on_info = {+DF_ARENA_FIGHT_4_READY +DF_ARENA_FIGHT_START} sr_idle@wait_f41 %=play_sound(df_arena_start_theme) =send_msg(st_df_arena_fight_start)%
+
+[sr_idle@wait_f41]
+on_info = {+DF_ARENA_FIGHT_4_END} sr_idle@wait_f5 %=play_sound(df_arena_win_theme) =send_msg(st_df_arena_fight_end)%
+
+
+[sr_idle@wait_f5]
+on_info = {+DF_ARENA_FIGHT_5_READY +DF_ARENA_FIGHT_START} sr_idle@wait_f51 %=play_sound(df_arena_start_theme) =send_msg(st_df_arena_fight_start)%
+
+[sr_idle@wait_f51]
+on_info = {+DF_ARENA_FIGHT_5_END} sr_idle@wait_ff %=play_sound(df_arena_win_theme) =send_msg(st_df_arena_fight_end)%
+
+
+[sr_idle@wait_ff]

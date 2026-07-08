@@ -328,7 +328,7 @@
 	first_bullet_timeout			  = 1000	;время между первыми выстрелами
 	first_bullet_velocity_limit		  = 1.0	;предельная скорость актера при которой будет первый точный выстрел
     ammo_class                        = mp_ammo_9x39_pab9,mp_ammo_9x39_ap, mp_ammo_9x39_sp5
-    bullet_speed                      = 280; 680 ;+UP
+    bullet_speed                      = 380; 680 ;+UP
     grenade_class                     = mp_ammo_vog-25, mp_ammo_vog-25p
     grenade_launcher_name             = mp_wpn_addon_grenade_launcher_groza
     hit_power                         = 0.78;0.73; +UP
@@ -354,7 +354,7 @@
 	zoom_cam_relax_speed         = 5     ; scope & ironsight
 	zoom_cam_relax_speed_ai      = 120
 	zoom_cam_dispersion          = 0.25
-	zoom_cam_dispersion_inc      = 0.02
+	zoom_cam_dispersion_inc      = 0.5;0.02;+UP
 	zoom_cam_dispersion_frac     = 0.75
 	zoom_cam_max_angle           = 13.0
 	zoom_cam_max_angle_horz      = 20.0
@@ -1648,10 +1648,10 @@ aim_hud_offset_rot_16x9 = 0.0130,0.000000,0.00000; + SP
 	zoom_cam_relax_speed         = 5     ; scope & ironsight
 	zoom_cam_relax_speed_ai      = 120
 	zoom_cam_dispersion          = 0.3
-	zoom_cam_dispersion_inc      = 0.02
+	zoom_cam_dispersion_inc      = 0.2;0.02;+UP
 	zoom_cam_dispersion_frac     = 0.8
 	zoom_cam_max_angle           = 13.0
-	zoom_cam_max_angle_horz      = 20.0
+	zoom_cam_max_angle_horz      = 25;20.0;+UP
 	zoom_cam_step_angle_horz     = 1.3
 	
 [mp_scope_eotech_ump]:scope_eotech_ump
@@ -2044,3 +2044,39 @@ kill_msg_x			= 430
 kill_msg_y			= 65
 kill_msg_width			= 47
 kill_msg_height			= 22	
+
+;+UP
+[mp_grenade_flare]:mp_grenade_gd-05
+$spawn					= "network\ammo\mp_grenade_flare"
+visual					= dynamics\weapons\wpn_grenade_flare\wpn_grenade_flare.ogf
+hud						= mp_grenade_flare_hud
+inv_name				= st_wpn_grenade_flare
+inv_name_short			= st_wpn_grenade_flare
+description				= st_wpn_grenade_flare_descr
+
+inv_grid_x				= 21
+inv_grid_y				= 21
+
+explode_particles		= anomaly2\dev_flare
+
+destroy_time			= 10000
+explode_duration		= 60000
+light_time				= 60
+lights_enabled			= true
+light_color				= 0.604,0.737,0.314
+light_range				= 18.0
+
+explosion_on_kick 		 	    = true
+safe_time 				 	    = 0
+explosion_on_hit 			    = true
+explosion_hit_types 	 	    = 6, 8 
+explosive_while_not_activated   = false
+help_explosive_info 		    = true
+
+detonation_threshold_hit 	    = 0
+
+snd_explode = device\dev_flare
+
+[mp_grenade_flare_hud]:bolt_hud
+item_visual				= dynamics\weapons\wpn_grenade_flare\wpn_grenade_flare
+item_position			= 0.01,-0.1,0.01
