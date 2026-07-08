@@ -1223,8 +1223,8 @@
 		<snd_config>characters_voice\human_01\killer\</snd_config>
 		<supplies>
 			[spawn] \n
-			mp_wpn_svd = 1, scope, silencer \n
-			mp_ammo_7.62x54_ap = 1 \n
+			mp_wpn_sr25 = 1, scope, silencer \n
+			mp_ammo_7.62x51 = 1 \n
 			mp_wpn_glock17 \n
 			mp_ammo_9x19_pbp \n
 		</supplies>
@@ -1371,6 +1371,8 @@
 			[spawn] \n
 			mp_wpn_abakan = 1 \n
 			mp_ammo_5.45x39_ap = 1 \n
+			mp_wpn_stechkin \n
+      		mp_ammo_9x18_pmm = 1 \n
       		mp_grenade_flashbang = 2 \n
       		mp_grenade_f1 = 2, prob=1 \n
 		</supplies>
@@ -1392,10 +1394,8 @@
 		<snd_config>characters_voice\human_02\military\</snd_config>
 		<supplies>
 			[spawn] \n
-			mp_wpn_abakan = 1, scope \n
+			mp_wpn_rpk = 1, scope \n
 			mp_ammo_5.45x39_ap = 1 \n
-      		mp_wpn_stechkin \n
-      		mp_ammo_9x18_pmm = 1 \n
       		mp_grenade_f1 = 1, prob=1 \n
 		</supplies>
 	</specific_character>
@@ -1710,10 +1710,8 @@
 		<snd_config>characters_voice\human_01\monolith\</snd_config>
 		<supplies>
 			[spawn] \n
-			mp_wpn_sig550 \n
-			mp_ammo_5.56x45_ap = 1 \n
-			mp_wpn_usp \n
-			mp_ammo_9x19_pbp \n
+			mp_wpn_val \n
+			mp_ammo_9x39_ap = 1 \n
 			mp_grenade_f1 = 1, prob=1 \n
 		</supplies>
 	</specific_character>
@@ -1796,7 +1794,7 @@
 		<snd_config>characters_voice\human_01\monolith\</snd_config>
 		<supplies>
 			[spawn] \n
-			mp_wpn_val = 1, scope \n
+			mp_wpn_vihr = 1, scope \n
 			mp_ammo_9x39_ap = 1 \n
 			mp_grenade_flashbang = 2 \n
 			mp_grenade_f1 = 2 \n
@@ -1819,7 +1817,7 @@
 		<snd_config>characters_voice\human_01\monolith\</snd_config>
 		<supplies>
 			[spawn] \n
-			mp_wpn_ak101 = 1, scope \n
+			mp_wpn_fn2000 = 1 \n
 			mp_ammo_5.56x45_ap = 1 \n
 			mp_grenade_flashbang = 2, prob=1\n
       		mp_grenade_f1 = 2, prob=1 \n
