@@ -176,6 +176,7 @@ function motivator_binder:net_spawn(sobject)
 	end
 	-- +UP ссорим с игроками + достаем оружие
 	if self.object:character_reputation() == -1000 then
+		self.st.is_df_enemy = true
 		sobject.goodwill = -5000 -- отправляется на клиент только когда нпс спавнится обороной, не скриптово
 		for v in alife():actors() do
 			SetGoodwillForce(self.object:id(), v.id, -5000) -- если спавним скриптово

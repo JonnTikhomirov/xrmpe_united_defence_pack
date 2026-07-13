@@ -1301,6 +1301,11 @@ function print_clsids()
 	end
 end
 
+function is_df_enemy(npc)
+	local st = db.storage[npc:id()]
+	return st and st.is_df_enemy == true
+end
+
 -- ++ The Tool
 --/-------------------------------------------------------------------
 --/#+# initialize modules [lua_helper/lua_extensions]

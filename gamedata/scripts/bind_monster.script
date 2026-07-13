@@ -256,6 +256,11 @@ function generic_object_binder:net_spawn(sobject)
 --	printf("net_spawn mpos[%s][%s][%s]", tostring(pos.x), tostring(pos.y), tostring(pos.z))
 
 	db.add_obj(self.object)
+	-- +UP
+	db.add_enemy(self.object)
+	self.e_index = db.heli_enemy_count - 1
+	self.st.is_df_enemy = true
+	-- -UP
 
 --******************************* Телепорт на первую точку пути работы смарттеррейна...*****************************
 	local se_obj = alife():object(self.object:id())
@@ -311,6 +316,7 @@ function generic_object_binder:net_destroy()
 	------------------------------------------------n
 
 	db.del_obj(self.object)
+	db.delete_enemy(self.e_index)--+UP
 	db.storage[self.object:id()] = nil
 	object_binder.net_destroy(self)
 end
