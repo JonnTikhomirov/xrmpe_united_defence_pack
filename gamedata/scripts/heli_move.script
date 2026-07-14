@@ -135,7 +135,7 @@ function heli_move:update( delta )
 		if xr_logic.try_switch_to_another_section(self.object, self.a, db.actor) then
 					return
 		end
-		--self.heli_fire:update_enemy_state()
+		self.heli_fire:update_enemy_state()-- +UP
 	if self.was_callback then
 		self:update_movement_state()
 		self.was_callback = false

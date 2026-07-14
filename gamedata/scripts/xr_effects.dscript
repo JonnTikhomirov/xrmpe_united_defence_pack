@@ -214,6 +214,32 @@ function make_nearest_actor_visible_to_npc(actor,npc,p)
 	npc:make_object_visible_somewhen(mp_actor)
 end
 
+function play_particle_at_npc(actor, npc, p)
+	local particle = p[1]
+	if particle == nil then
+		abort("Wrong particle name for 'play_particle_at_npc'")
+	end
+	to_log("play_particle_at_npc: particle %s pos %s %s %s", particle, npc:position().x, npc:position().y, npc:position().z)
+	local bone = p[2] or "link"
+	-- npc:start_particles(particle, bone)
+	local particle = particles_object(particle)
+	particle:play_at_pos(npc:position())
+end
+
+function heli_say(actor, npc, p)
+	for _, v in ipairs(p) do
+		if v == nil or v == "" then
+			to_log("Wrong sound for 'heli_say'")
+		else
+			bind_heli.heli_say(npc, v)
+		end
+	end
+end
+
+function heli_stop_say(actor, npc, p)
+	bind_heli.heli_stop_say(npc)
+end
+
 -- +SP
 -- Респавн игроков без жизней
 function rs_dead_players()

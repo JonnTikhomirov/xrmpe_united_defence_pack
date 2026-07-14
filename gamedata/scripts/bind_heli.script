@@ -61,7 +61,7 @@ function heli_binder:reinit()
 	self.snd_hit	= utils.cfg_get_string( object_ini, "helicopter", "snd_hit", self.object, false, "", "heli_hit")
 	self.snd_damage = utils.cfg_get_string( object_ini, "helicopter", "snd_damage", self.object, false, "", "heli_damaged")
 	self.snd_down	= utils.cfg_get_string( object_ini, "helicopter", "snd_down", self.object, false, "", "heli_down")
-
+	
 	-- на случай загрузки
 	self.st.last_alt       = self.heliObject:GetRealAltitude()
 	self.st.alt_check_time = time_global() + 1000
@@ -91,6 +91,7 @@ function heli_binder:update( delta )
 	self:check_health()
 
 	xr_sound.update(self.object:id())
+	heli_say_update(self.object)-- +UP
 end
 
 function heli_binder:net_spawn( data )
@@ -147,11 +148,13 @@ function heli_binder:check_health()
 		if health < self.flame_start_health and not heli.m_flame_started then
 			heli_start_flame( self.object )
 			--xr_sound.set_sound_play(self.object:id(), self.snd_damage)
+			heli_say(self.object, self.snd_damage, true) -- +UP
 		end
 
 		if health <= 0.005 and not self.st.immortal then
 			heli_die( self.object )
 			--xr_sound.set_sound_play(self.object:id(), self.snd_down)
+			heli_say(self.object, self.snd_down, true) -- +UP
 		end
 	end
 end
@@ -162,8 +165,11 @@ function heli_binder:on_hit( power, impulse, hit_type, enemy_id )
 
 	local enemy        = level.object_by_id( enemy_id )
 	local enemy_cls_id = get_clsid( enemy )
-	self.heli_fire.enemy = enemy
-	self.heli_fire:update_hit()
+	-- +UP
+	--self.heli_fire.enemy = enemy
+	--self.heli_fire:update_hit()
+	self.heli_fire:update_hit(enemy)
+	-- -UP
 	-- если обидчик актёр или сталкер, то сделать его своим врагом
 	if enemy_cls_id == clsid.actor or enemy_cls_id == clsid.script_stalker then
 --		if not self.st.combat.enemy_id then
@@ -219,4 +225,95 @@ function heli_die( obj )
 	db.del_heli( obj )
 	st.last_alt       = heli:GetRealAltitude()
 	st.alt_check_time = time_global() + 1000
+end
+
+-- +UP
+local function init_heli_voice_data(npc)
+	db.storage[npc:id()].heli_voice = {
+		queue = {},
+		snd_obj = nil,
+		playing = nil,
+		finish_time = 0
+	}
+end
+
+local function get_heli_voice_data(npc)
+	local storage = db.storage[npc:id()]
+
+	if storage.heli_voice == nil then
+		init_heli_voice_data(npc)
+	end
+
+	return storage.heli_voice
+end
+
+-- Добавить фразу в очередь
+function heli_say(npc, sound, unique)
+	if npc == nil or sound == nil then
+		return
+	end
+
+	local voice = get_heli_voice_data(npc)
+	
+	if unique == true then
+		for _, v in ipairs(voice.queue) do
+			if v == sound then
+				return
+			end
+		end
+	end
+
+	table.insert(voice.queue, sound)
+
+	heli_say_update(npc)
+end
+
+-- Остановить звук и очистить очередь
+function heli_stop_say(npc)
+	if npc == nil then
+		return
+	end
+
+	local voice = get_heli_voice_data(npc)
+	
+	if voice.snd_obj ~= nil then
+		voice.snd_obj:stop()
+	end
+	init_heli_voice_data(npc)
+end
+
+-- Обновление очереди
+function heli_say_update(npc)
+	local voice = get_heli_voice_data(npc)
+	local now = time_global()
+
+	-- Еще проигрывается предыдущая фраза
+	if voice.playing ~= nil and now < voice.finish_time then
+		return
+	end
+
+	voice.playing = nil
+
+	-- Очередь пуста
+	if #voice.queue == 0 then
+		return
+	end
+
+	local sound = table.remove(voice.queue, 1)
+
+	-- Не удалось начать воспроизведение
+	snd_obj = xr_sound.set_sound_play(npc:id(), sound)
+	if snd_obj == nil then
+		return
+	end
+
+	local duration = 0
+
+	if sound_theme.theme[sound] ~= nil then
+		duration = sound_theme.theme[sound].min_idle or 0
+	end
+
+	voice.snd_obj = snd_obj
+	voice.playing = sound
+	voice.finish_time = now + duration * 1000
 end

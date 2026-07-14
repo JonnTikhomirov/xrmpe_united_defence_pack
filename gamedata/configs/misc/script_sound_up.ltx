@@ -3,6 +3,13 @@
 [list_script_sound_up]:list_script_sound_seven_pack
 df_pripyat_center_radio_theme
 df_campfire_ingition
+df_yantar_heli_come
+df_yantar_heli_death_1
+df_yantar_heli_death_2
+df_yantar_heli_death_3
+df_yantar_heli_down
+heli_see_enemy
+heli_kill_enemy
 
 [df_pripyat_center_radio_theme]
 type = 3d
@@ -15,3 +22,52 @@ type = 3d
 path = device\inv_matches
 shuffle = rnd
 idle = 0,0,100
+
+[df_yantar_heli_come]
+type = actor
+npc_prefix = false
+path = characters_voice\scenario\yantar\heli_come
+shuffle = seq
+idle = 5,5,100
+
+[df_yantar_heli_death_1]
+type = actor
+npc_prefix = false
+path = vehicles\helicopter\death_1
+shuffle = seq
+idle = 2,2,100
+
+[df_yantar_heli_death_2]
+type = actor
+npc_prefix = false
+path = vehicles\helicopter\death_2
+shuffle = seq
+idle = 4,4,100
+
+[df_yantar_heli_death_3]
+type = actor
+npc_prefix = false
+path = vehicles\helicopter\death_5
+shuffle = seq
+idle = 2,2,100
+
+[df_yantar_heli_down]
+type = 3d
+npc_prefix = false
+path = vehicles\helicopter\helicopter_down
+shuffle = seq
+idle = 1,1,100
+
+[heli_see_enemy]
+type = actor
+npc_prefix = false
+path = vehicles\helicopter\see_enemy_
+shuffle = rnd
+idle = 6,6,100
+
+[heli_kill_enemy]
+type = actor
+npc_prefix = false
+path = vehicles\helicopter\kill_enemy_
+shuffle = rnd
+idle = 2,4,100

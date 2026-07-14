@@ -141,4 +141,7 @@
 	<string id="st_df_zombied_master">
 		<text>Зомбированный мастер</text>
 	</string>
+	<string id="df_helicopter">
+        <text>Вертолет</text>
+    </string>
 </string_table>

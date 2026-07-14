@@ -3,7 +3,7 @@ Helicopter combat
 Андрущенко Иван
 
 --------------------------------------------------------------------------------------------------]]
-local heli_firer = {}
+local heli_firer = {} 
 
 function get_heli_firer(obj)
     if heli_firer[obj:id()] == nil then
@@ -23,11 +23,11 @@ function heli_fire:__init(obj)
     self.flag_by_enemy  = true
     self.hit_count      = 0
     self.fire_id        = nil
-    self.enumy_die      = true
+    self.enemy_die      = true -- +UP
     self.enemy_time     = time_global()
     self.upd_vis        = 0
     self.show_health    = false
-    
+    self.hidden_time    = 0 -- +UP Время, когда враг скрылся из виду 
 end
 
 function heli_fire:update_enemy_state()
@@ -37,22 +37,62 @@ function heli_fire:update_enemy_state()
         self.hit_count = 0
         self.flag_by_enemy  = true
     end
-    if self.enemy and self.enemy_die and self.enemy_ == "all" then
-        self:update_enemy_arr()
-    end
-    if self.enemy and time_global() - self.enemy_time > self.upd_vis * 1000 then
-        --'printf("self.upd_vis  = %d", self.upd_vis);
-        if not heli:isVisible( self.enemy )then
-            if self.enemy_ == "all" then
+	-- +UP
+	-- if self.enemy and self.enemy_die and self.enemy_ == "all" then
+    --     self:update_enemy_arr()
+    -- end
+    -- if self.enemy and time_global() - self.enemy_time > self.upd_vis * 1000 then
+    --     --'printf("self.upd_vis  = %d", self.upd_vis);
+    --     if not heli:isVisible( self.enemy )then
+    --         if self.enemy_ == "all" then
+    --             self:update_enemy_arr()
+    --         end
+    --     end
+    --     self.enemy_time = time_global()
+    -- end
+    -- if self.enemy then
+    --     if not heli:isVisible( self.enemy )then
+    --         self.flag_by_enemy = true
+    --     end
+	-- 1. Цель умерла
+    if self.enemy and is_dead(self.enemy) then
+        self.enemy = nil
+        self.fire_point = nil
+        self.enemy_die = true
+        self.flag_by_enemy = true
+		if math.random() < 0.2 then
+			bind_heli.heli_say(self.obj, "heli_kill_enemy", true)
+		end
+    -- 2. Цель жива
+    elseif self.enemy then
+        if heli:isVisible(self.enemy) then
+            self.hidden_time = 0
+            self.fire_point = nil
+            -- Периодический поиск лучшей цели
+            if time_global() - self.enemy_time > self.upd_vis * 1000 then
                 self:update_enemy_arr()
+                self.enemy_time = time_global()
+            end
+        else
+            -- Враг скрылся, но жив -> запоминаем позицию
+            if self.hidden_time == 0 then
+                self.hidden_time = time_global()
+                self.fire_point = self.enemy:position()
+            end
+            -- Стреляем по позиции 5 секунд
+            if time_global() - self.hidden_time > 5000 then
+                self.fire_point = nil
+                self.enemy = nil
+                self.enemy_die = true
+                self.flag_by_enemy = true
             end
         end
-        self.enemy_time = time_global()
-    end
-    if self.enemy then
-        if not heli:isVisible( self.enemy )then
-            self.flag_by_enemy = true
-        end
+    -- 3. Цели нет вообще
+    else
+        self.hidden_time = 0
+        self.fire_point = nil
+        self:update_enemy_arr()
+	-- -UP
     end
 
     self:set_enemy()
@@ -76,92 +116,277 @@ function heli_fire:set_enemy()
     if self.flag_by_enemy then
         heli:ClearEnemy()
         --'printf("ClearEnemy()")
-        self.enemy_die = false
-        if self.enemy then
-		    if heli:isVisible( self.enemy ) then
-			    heli:SetEnemy( self.enemy)
-                self.flag_by_enemy = false
-		    end
+	-- +UP
+    --  self.enemy_die = false
+	-- 	if self.enemy then
+	-- 	    if heli:isVisible( self.enemy ) then
+	-- 		    heli:SetEnemy( self.enemy)
+    --             self.flag_by_enemy = false
+	-- 	    end
+    --     else
+    --         if self.enemy_ then
+	-- 	        if self.enemy_ == "actor" then
+    -- 		        if db.actor then
+    --                     self.enemy = db.actor
+    --                 end
+    --             else
+    --                 if self.enemy_ == "all" then
+    --                     self:update_enemy_arr()
+    --                 else
+    --                     if self.enemy_ ~= "nil" then
+    --                         self.enemy_id = id_by_sid( tonumber( self.enemy_ ) )
+    --                         self.enemy = level.object_by_id( self.enemy_id )
+    --                     end
+    --                 end
+    --             end
+    --         end
+    --         if self.enemy then
+    --             heli:SetEnemy( self.enemy)
+    --             --'printf("set_enemy(self.enemy, actor or SID)")
+    --         else
+    --             self.enemy_die = true
+    --         end
+    --         self.flag_by_enemy = false
+    --     end
+    -- end
+    -- if not self.enemy_die and self.enemy:death_time() > 0 then
+    --     --'printf("ClearEnemy()")
+    --     heli:ClearEnemy()
+    --     self.enemy_die = true
+    -- end
+	-- if self.enemy_die and self.fire_point then
+	--     heli:SetEnemy(self.fire_point)
+	-- end
+        self.flag_by_enemy = false
+
+        if not self.enemy or is_dead(self.enemy) then
+            if self.enemy_ == "actor" or self.enemy_ == "all" or self.enemy_ == "defence" then
+                self:update_enemy_arr()
+            elseif self.enemy_ and self.enemy_ ~= "nil" then
+                self.enemy_id = id_by_sid(tonumber(self.enemy_))
+                self.enemy = level.object_by_id(self.enemy_id)
+            end
+        end
+
+        if self.enemy and not is_dead(self.enemy) then
+            self.enemy_die = false
         else
-            if self.enemy_ then
-		        if self.enemy_ == "actor" then
-    		        if db.actor then
-                        self.enemy = db.actor
-                    end
-                else
-                    if self.enemy_ == "all" then
-                        self:update_enemy_arr()
-                    else
-                        if self.enemy_ ~= "nil" then
-                            self.enemy_id = id_by_sid( tonumber( self.enemy_ ) )
-                            self.enemy = level.object_by_id( self.enemy_id )
-                        end
-                    end
-                end
-            end
-            if self.enemy then
-                heli:SetEnemy( self.enemy)
-                --'printf("set_enemy(self.enemy, actor or SID)")
-            else
-                self.enemy_die = true
-            end
-            self.flag_by_enemy = false
+            self.enemy = nil
+            self.enemy_die = true
         end
     end
-    if not self.enemy_die and self.enemy:death_time() > 0 then
-        --'printf("ClearEnemy()")
-        heli:ClearEnemy()
-        self.enemy_die = true
-    end
-    if self.enemy_die and self.fire_point then
-        heli:SetEnemy(self.fire_point)
-    end
+
+    -- Применяем состояние к движку вертолёта
+	local target = nil
+
+	if not self.enemy_die and self.enemy
+		and heli:isVisible(self.enemy)
+		and (self.enemy_ ~= "defence"
+			or is_fire_safe(self.obj:position(), self.enemy:position()))  -- что бы не попадали по игрокам
+	then
+		target = self.enemy
+
+		if math.random() < 0.3 then
+			bind_heli.heli_say(self.obj, "heli_see_enemy", true)
+		end
+	elseif self.fire_point
+		and (self.enemy_ ~= "defence"
+			or is_fire_safe(self.obj:position(), self.fire_point))  -- что бы не попадали по игрокам
+	then
+		target = self.fire_point
+	end
+
+	if target then
+		heli:SetEnemy(target)
+	else
+		heli:ClearEnemy() -- гарантированная остановка стрельбы
+	end
+    -- -UP
 end
 
-function heli_fire:update_hit()
+-- Важно: функция теперь принимает аргумент attacker (объект, который нанес урон вертолету)-- +UP
+function heli_fire:update_hit(attacker) -- +UP
     if self.show_health then
         self:set_cs_heli_progress_health()
     else
         self:cs_remove()
     end
-    if self.enemy:id() == self.fire_id then
-        if self.enemy_ ~= "nil" then
-            self.hit_count = self.hit_count + 1
-	else 
-		self.hit_count = 0
-        end
+	-- +UP
+    -- if self.enemy:id() == self.fire_id then
+    --     if self.enemy_ ~= "nil" then
+    --         self.hit_count = self.hit_count + 1
+	-- else 
+	-- 	self.hit_count = 0
+    --     end
+    -- else
+    --     self.fire_id = self.enemy:id()
+ 	if 
+		not attacker
+		or not self.enemy_ 
+		or self.enemy_ == "nil"
+		or self.enemy_ == "actor" and not db.mp_actors[attacker:id()] -- игонор НПС
+		or self.enemy_ == "defence" and db.mp_actors[attacker:id()] -- игонор игроков
+		or is_dead(attacker)
+		then 
+		return
+	end
+	
+	bind_heli.heli_say(self.obj, "heli_hit", true)
+
+    if attacker:id() == self.fire_id then
+        self.hit_count = self.hit_count + 1
     else
-        self.fire_id = self.enemy:id()
+        self.fire_id = attacker:id()
+	-- -UP
         self.hit_count = 1
     end
+    -- +UP
+    -- Переключение огня на того, кто нанес несколько попаданий (игнорируя дистанцию)
+    if self.hit_count > 2 then
+        self.hit_count = 0
+        self.enemy = attacker
+        self.flag_by_enemy = true
+        self.enemy_time = time_global()
+        self.hidden_time = 0
+        self.fire_point = nil
+    end
+	-- -UP
 end
 
 function heli_fire:update_enemy_arr()
-    --'printf("update_enemy_arr()")
+	--'printf("update_enemy_arr()")
     local heli = self.obj:get_helicopter()
-    local index = 0
+	-- +UP
+--     local index = 0
+--     local min_dist2D = 65000
+--    --' printf("heli_enemy_count=%d", db.heli_enemy_count)
+--     while index < db.heli_enemy_count do
+--         if db.heli_enemies[index] then
+--             if heli:isVisible( db.heli_enemies[index] ) then
+--                 if distance_2d( self.obj:position(), db.heli_enemies[index]:position() ) < min_dist2D then
+--                     self.enemy = db.heli_enemies[index]
+--                     min_dist2D = distance_2d( self.obj:position(), db.heli_enemies[index]:position() )
+--                     self.flag_by_enemy  = true
+--                 end
+--             end
+--         end
+--         index = index + 1
+--     end
+--     if heli:isVisible( db.actor ) and random_choice( false, true) or db.heli_enemy_count==0 then
+--         if distance_2d( self.obj:position(), db.actor:position() ) <= min_dist2D*2 then 
+--             self.enemy = db.actor
+--             min_dist2D = distance_2d( self.obj:position(), db.actor:position() )
+--         end
+--     end
     local min_dist2D = 65000
-   --' printf("heli_enemy_count=%d", db.heli_enemy_count)
-    while index < db.heli_enemy_count do
-        if db.heli_enemies[index] then
-            if heli:isVisible( db.heli_enemies[index] ) then
-                if distance_2d( self.obj:position(), db.heli_enemies[index]:position() ) < min_dist2D then
-                    self.enemy = db.heli_enemies[index]
-                    min_dist2D = distance_2d( self.obj:position(), db.heli_enemies[index]:position() )
-                    self.flag_by_enemy  = true
+    local best_target = nil
+    
+    local search_mp_actors = (self.enemy_ == "all" or self.enemy_ == "actor")
+    local search_heli_enemies = (self.enemy_ == "all" or self.enemy_ == "defence")
+    
+    -- Поиск среди игроков
+    if search_mp_actors and db.mp_actors then
+        for _, actor_obj in pairs(db.mp_actors) do
+            if actor_obj and not is_dead(actor_obj) and heli:isVisible(actor_obj) then
+                local dist = distance_2d(self.obj:position(), actor_obj:position())
+                if dist < min_dist2D then
+                    min_dist2D = dist
+                    best_target = actor_obj
                 end
             end
         end
-        index = index + 1
     end
-    if heli:isVisible( db.actor ) and random_choice( false, true) or db.heli_enemy_count==0 then
-        if distance_2d( self.obj:position(), db.actor:position() ) <= min_dist2D*2 then 
-            self.enemy = db.actor
-            min_dist2D = distance_2d( self.obj:position(), db.actor:position() )
+    
+    -- Поиск среди defence-целей
+    if search_heli_enemies and db.heli_enemies then
+        for i = 0, db.heli_enemy_count - 1 do
+            local enemy_obj = db.heli_enemies[i]
+            if	enemy_obj
+				and (self.enemy_ == "all" or self.enemy_ == "defence" and is_df_enemy(enemy_obj))
+				and not is_dead(enemy_obj) and heli:isVisible(enemy_obj)
+				then
+                local dist = distance_2d(self.obj:position(), enemy_obj:position())
+                if dist < min_dist2D then
+                    min_dist2D = dist
+                    best_target = enemy_obj
+                end
+            end
         end
     end
+    
+    -- Если нашли новую ближайшую цель -> переключаемся
+    if best_target and (not self.enemy or self.enemy:id() ~= best_target:id()) then
+        self.enemy = best_target
+        self.flag_by_enemy = true
+        self.hidden_time = 0
+        self.fire_point = nil
+    end
+	-- -UP
 end
 
 function distance_2d( a, b )
 	return math.sqrt( (b.x-a.x)^2 + (b.z-a.z)^2 )
+end
+
+-- +UP
+function is_dead(npc)
+	return npc:death_time() > 0 or npc.health <= 0 or not npc:alive()
+end
+
+-- Проверка безопасности стрельбы: нет ли игроков на линии огня или рядом с целью
+function is_fire_safe(heli_pos, target_pos)
+	if not db.mp_actors then return true end
+	
+	-- Вектор от вертолета к цели
+	local dir_to_target = {
+		x = target_pos.x - heli_pos.x,
+		y = target_pos.y - heli_pos.y,
+		z = target_pos.z - heli_pos.z
+	}
+	local len_target = math.sqrt(dir_to_target.x^2 + dir_to_target.y^2 + dir_to_target.z^2)
+	if len_target < 0.01 then return true end
+	
+	-- Нормализация
+	dir_to_target.x = dir_to_target.x / len_target
+	dir_to_target.y = dir_to_target.y / len_target
+	dir_to_target.z = dir_to_target.z / len_target
+	
+	for _, actor_obj in pairs(db.mp_actors) do
+		if actor_obj and not is_dead(actor_obj) then
+			local ok_pos, actor_pos = pcall(function() return actor_obj:position() end)
+			if ok_pos and actor_pos then
+				-- Вектор от вертолета к игроку
+				local dx = actor_pos.x - heli_pos.x
+				local dy = actor_pos.y - heli_pos.y
+				local dz = actor_pos.z - heli_pos.z
+				local len_actor = math.sqrt(dx*dx + dy*dy + dz*dz)
+				
+				if len_actor > 0.01 then
+					-- Скалярное произведение (косинус угла)
+					local dot = (dx * dir_to_target.x + dy * dir_to_target.y + dz * dir_to_target.z) / len_actor
+					
+					-- Игрок находится впереди вертолета (dot > 0)
+					if dot > 0 then
+						-- Расстояние от игрока до луча стрельбы (перпендикуляр)
+						local proj_len = dot * len_actor
+						local perp_x = dx - dir_to_target.x * proj_len
+						local perp_y = dy - dir_to_target.y * proj_len
+						local perp_z = dz - dir_to_target.z * proj_len
+						local perp_dist = math.sqrt(perp_x^2 + perp_y^2 + perp_z^2)
+						
+						-- ОПАСНАЯ ЗОНА:
+						-- 1. Игрок ближе 10м к линии огня И находится между вертолетом и целью
+						-- 2. Игрок находится в радиусе 4м от самой цели
+						local dist_to_target = distance_2d(actor_pos, target_pos)
+						
+						if (perp_dist < 10.0 and proj_len < len_target) or dist_to_target < 4.0 then
+							return false
+						end
+					end
+				end
+			end
+		end
+	end
+	
+	return true
 end
