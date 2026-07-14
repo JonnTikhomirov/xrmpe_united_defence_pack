@@ -28,7 +28,7 @@ def_show_bones          = ironsight, foregrip_handler
 
 ;--TTX----------------------------------------------------------------------------
 
-hit_power            = 1;0.95;+UP
+hit_power            = 1.0, 1.0, 1.0, 1.0;0.95;+UP
 hit_impulse          = 100
 hit_type             = fire_wound
 fire_distance        = 1000
@@ -134,10 +134,10 @@ upgr_icon_y			= 840
 upgr_icon_width		= 292
 upgr_icon_height   	= 98
 
-kill_msg_x			= 828
-kill_msg_y			= 95
+kill_msg_x			= 1;828; +UP
+kill_msg_y			= 326;95; +UP
 kill_msg_width		= 81
-kill_msg_height		= 22
+kill_msg_height		= 23;22; +UP
 
 slot 			 			= 2
 animation_slot				= 2	

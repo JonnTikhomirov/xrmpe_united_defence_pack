@@ -28,12 +28,12 @@ silencer_bone = wpn_silencer
 def_hide_bones_override_when_gl_attached = handguard, rail_handguard, grip, bayonet
 
 ;--TTX--------------------------------------------------------------------------
-hit_power               = 1.1, 1.1, 1.1, 1.1
+hit_power               = 0.95, 0.95, 0.95, 0.95;1.1, 1.1, 1.1, 1.1; +UP
 hit_impulse             = 100
 hit_type				= fire_wound
-rpm                     = 600 
-fire_distance           = 1000
-bullet_speed			= 900	;начальная скорость пули
+rpm                     = 710;600; +UP
+fire_distance           = 200;1000; +UP
+bullet_speed			= 450;900; +UP	;начальная скорость пули
 rpm_empty_click         = 30
 
 use_aim_bullet          = false                ;Поддерживается ли первая суппер пуля
@@ -135,8 +135,8 @@ upgr_icon_y			= 750
 upgr_icon_width		= 250
 upgr_icon_height   	= 150
 
-kill_msg_x              = 519
-kill_msg_y              = 219
+kill_msg_x              = 99;519; +UP
+kill_msg_y              = 282;219; +UP
 kill_msg_width          = 80
 kill_msg_height         = 33
 
