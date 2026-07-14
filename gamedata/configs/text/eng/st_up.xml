@@ -139,4 +139,7 @@
 	<string id="st_df_zombied_master">
 		<text>Zombied master</text>
 	</string>
+	<string id="df_helicopter">
+		<text>Helicopter</text>
+	</string>
 </string_table>
