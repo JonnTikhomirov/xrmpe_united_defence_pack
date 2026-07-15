@@ -434,7 +434,7 @@ function state_manager:__init(npc)
 	self.combat = false
 	self.alife = true
 	-- +UP
-	self.is_df_enemy = npc:character_reputation() == -1000
+	self.is_df_enemy = is_df_enemy(npc)
 	if self.is_df_enemy then
 		self.alife = false
 	end

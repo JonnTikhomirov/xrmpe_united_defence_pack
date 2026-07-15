@@ -1306,6 +1306,16 @@ function is_df_enemy(npc)
 	return st and st.is_df_enemy == true
 end
 
+function set_df_enemy_relation_to_actor(npc, actor)
+	local actor_id = nil
+	if type(actor.id) == "function" then
+		actor_id = actor:id()
+	else
+		actor_id = actor.id
+	end
+	SetGoodwillForce(npc:id(), actor_id, -10000)
+end
+
 -- ++ The Tool
 --/-------------------------------------------------------------------
 --/#+# initialize modules [lua_helper/lua_extensions]
