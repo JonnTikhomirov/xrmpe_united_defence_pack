@@ -6,7 +6,7 @@ path_move = df_yan_heli_idle
 path_look = df_yan_heli_way
 engine_sound = false
 max_velocity = 100
-on_info = {+all_players_spawned} heli_move@come
+on_info = {+defence_wave_7_start} heli_move@come
 
 [heli_move@come]
 path_move = df_yan_heli_way_come
@@ -23,28 +23,21 @@ engine_sound = true
 enemy = defence
 use_rocket = false
 fire_trail = true
-on_signal = path_end | heli_move@anomaly %=play_particle_at_npc(anomaly2\tornado_00) =play_sound(emi_blowout) =heli_start_flame%
+on_signal = path_end | heli_move@anomaly %=play_particle_at_npc(anomaly2\tornado_00) =play_sound(emi_blowout)%
 
 [heli_move@anomaly]
 path_move = df_yan_heli_way_death
 path_look = df_yan_heli_look
 max_velocity = 10
 engine_sound = true
-on_timer = 10 | heli_move@death %=heli_stop_say =heli_say(df_yantar_heli_death_1:df_yantar_heli_death_2) =heli_start_flame%
+on_timer = 1000 | heli_move@death %=heli_stop_say =heli_say(df_yantar_heli_death_1:df_yantar_heli_death_2) =heli_start_flame%
 
 [heli_move@death]
 path_move = df_yan_heli_way_death
 path_look = df_yan_heli_look
 max_velocity = 10
 engine_sound = true
-on_timer = 2000 | %=spawn_at_npc_pos(bolt)%%
-on_timer = 7000 | heli_move@dead %=heli_say(df_yantar_heli_death_3) =heli_die%
-
-[heli_move@dead]
-path_move = df_yan_heli_way_death
-path_look = df_yan_heli_look
-max_velocity = 10
-engine_sound = false
+on_timer = 6000 | nil %=heli_stop_say =heli_say(df_yantar_heli_death_3) =heli_die%
 
 
 
