@@ -47,3 +47,12 @@ function all_players_in_zone(npc, zone, connected_only)
 
 	return has_actors
 end
+
+function play_particle(path, pos, vel)
+	local prtcle = particles_object(path)
+	prtcle:play_at_pos(pos)
+	if vel ~= nil then
+		prtcle:move_to(pos, vel)
+	end
+	return prtcle
+end

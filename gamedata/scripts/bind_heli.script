@@ -70,7 +70,7 @@ end
 
 function heli_binder:update( delta )
 	object_binder.update( self, delta )
-
+	
 	--printf( "heli_binder update" )
 --	printf( "%d", self.object:level_vertex_light( db.actor:level_vertex_id() ) )
 	
@@ -308,19 +308,14 @@ function heli_binder_cl:update(delta)
 	object_binder.update(self, delta)
 	self:update_flame()
 	self:update_sound()
+	self:update_particles()
 end
 
 function heli_binder_cl:update_flame()
 
-	if self.heli.m_flame_started == true and self.heli.m_exploded == false then
-		local pos = self.object:bone_position("front_propeller")
-		
+	if self.heli.m_flame_started == true and self.heli.m_exploded == false then		
 		if self.flame_particle == nil and self.flame_particle_path ~= nil then
-			self.flame_particle = particles_object(self.flame_particle_path)
-			self.flame_particle:play_at_pos(pos)
-		end
-		if self.flame_particle ~= nil then
-			self.flame_particle:move_to(pos, self.heli:GetCurrVelocityVec())
+			self.flame_particle = xr_effects.play_particle_at_npc(getLocalActor(), self.object, { self.flame_particle_path, "front_propeller"})
 		end
 		self.heli:TurnLighting(true)
 	else
@@ -352,6 +347,24 @@ function heli_binder_cl:update_sound()
 		end
 	elseif self.flame_snd ~= nil then
 		self.flame_snd:stop()
+	end
+end
+
+function heli_binder_cl:update_particles()
+	if not self.st.particles then
+        return
+    end
+	for i = #self.st.particles, 1, -1 do
+		local v = self.st.particles[i]
+		if v ~= nil then
+			if v[1]:playing() then
+				local pos = self.object:position()
+				if v[2] ~= nil and v[2] ~= "" then
+					pos = self.object:bone_position(v[2])
+				end
+				v[1]:move_to(pos, self.heli:GetCurrVelocityVec())
+			end
+		end
 	end
 end
 

@@ -215,15 +215,31 @@ function make_nearest_actor_visible_to_npc(actor,npc,p)
 end
 
 function play_particle_at_npc(actor, npc, p)
-	local particle = p[1]
-	if particle == nil then
+	local name = p[1]
+	if name == nil or name == "" then
 		abort("Wrong particle name for 'play_particle_at_npc'")
 	end
-	to_log("play_particle_at_npc: particle %s pos %s %s %s", particle, npc:position().x, npc:position().y, npc:position().z)
-	local bone = p[2] or "link"
-	-- npc:start_particles(particle, bone)
-	local particle = particles_object(particle)
-	particle:play_at_pos(npc:position())
+
+	local bone = p[2] or ""
+
+	if OnServer() then
+		local packet = game_cl.GenerateGameMessage(GM_SCRIPT_PLAY_PARTICLE)
+		packet:w_stringZ(name)
+		packet:w_u16(npc:id())
+		packet:w_stringZ(bone)
+		u_EventSendReliable(packet)	
+		return nil
+	else
+		local pos = npc:position()
+		if bone ~= "" then
+			pos = npc:bone_position(bone)
+		end
+		local prtcle = utils.play_particle(name, pos)
+		local st = db.storage[npc:id()]
+		st.particles = st.particles or {}
+		table.insert(st.particles, { prtcle, bone })
+		return prtcle
+	end
 end
 
 function heli_say(actor, npc, p)
