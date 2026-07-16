@@ -102,7 +102,7 @@ function mp_actor_binder:net_spawn(data)
 	else
 		-- +UP ссорим с игроком при возрождении игрока
 		if db.heli_enemies then
-			for i = 0, db.heli_enemy_count - 1 do
+			for i = 1, db.heli_enemy_count do
 				local enemy_obj = db.heli_enemies[i]
 				if enemy_obj and is_df_enemy(enemy_obj) then
 					set_df_enemy_relation_to_actor(enemy_obj, self.object)
