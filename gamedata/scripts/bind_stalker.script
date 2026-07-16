@@ -212,7 +212,7 @@ function mp_actor_binder:update(delta)
 					self.weapon_hide = false
 				end
 			end
-			
+
 			xr_sound.update(self.object:id())
 		end
 		
@@ -296,6 +296,11 @@ function mp_actor_binder:update(delta)
 		SetGoodwillForce(k, self.object:id(), v)
 	end
 	game_relations.temp_goodwill_table = { }
+	-- +UP
+	if OnClient() then
+		bind_heli.heli_explode_update()
+	end
+	-- -UP
 end
 
 function mp_actor_binder:net_destroy()
@@ -380,7 +385,7 @@ function actor_binder:net_spawn(data)
 	
 	-- +UP
 	if OnServer() then -- проходит 1 раз
-		local ini = ini_file("game.ltx")
+		local ini = game_ini()
 		if ini:section_exist(level.name()) then
 
 			local section = "start_hours_range"
@@ -708,6 +713,7 @@ function actor_binder:update(delta)
 		self:try_start_game()
 		task_manager.get_task_manager():send_server_objects_target_pos()
 		client_tasks.update_delayed_tasks()
+		bind_heli.heli_explode_update()-- +UP
 	end
 	
 	if self.already_jumped==false and jump_level.need_jump==true and (device().frame > self.spawn_frame+2000) then

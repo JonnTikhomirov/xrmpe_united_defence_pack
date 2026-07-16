@@ -58,8 +58,9 @@ GM_SCRIPT_ADDON_EVENTS = 100
 -- Add your own events after this
 -- Example:
 -- GM_SCRIPT_USE_ITEM = GM_SCRIPT_ADDON_EVENTS + 1
-GM_REMOTE_COMMAND = GM_SCRIPT_ADDON_EVENTS + 1
-GM_REMOTE_COMMAND_BATCH = GM_SCRIPT_ADDON_EVENTS + 2
+GM_REMOTE_COMMAND			= 1 + GM_SCRIPT_ADDON_EVENTS
+GM_REMOTE_COMMAND_BATCH		= 2 + GM_SCRIPT_ADDON_EVENTS
+GM_SCRIPT_HELI_UPDATE		= 3 + GM_SCRIPT_ADDON_EVENTS
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------

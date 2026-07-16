@@ -236,6 +236,10 @@ function TranslateGameMessage(packet)
 			rc.sv_handle_batch(packet)
 		end
 	-- -UP
+	elseif _type == GM_SCRIPT_HELI_UPDATE then
+		if OnClient() then
+			bind_heli.read_script_update(packet)
+		end
 	end
 end
 

@@ -131,7 +131,7 @@ function heli_move:save()
 end
 
 function heli_move:update( delta )
-
+	
 		if xr_logic.try_switch_to_another_section(self.object, self.a, db.actor) then
 					return
 		end
