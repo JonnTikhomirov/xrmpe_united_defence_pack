@@ -14,7 +14,7 @@ local sim = alife() --/ кеширование алайфа
 class "spawn"
 
 function spawn:__init(owner_name)
-	to_log(sModule..":> __init") --/#~#
+	--to_log(sModule..":> __init") --/#~#
 	self.owner_script = _G[owner_name]
 	self.tSpawnGroups = {} -- массив групп спавна
 	self.tSpawnSections = {} -- массив секций
@@ -30,7 +30,7 @@ function spawn:__finalize() end
 
 -- инициализация элементов
 function spawn:InitControls(owner, xml)
-	to_log(sModule..":> InitControls") --/#~#
+	--to_log(sModule..":> InitControls") --/#~#
 
 	-- список категорий слева
 	self.group_list = xml:InitListBox("frame_left_spawn:group_list", owner.frame_left)
@@ -171,7 +171,7 @@ end
 
 -- инициализация событий
 function spawn:InitCallbacks(owner)
-	to_log(sModule..":> InitCallbacks") --/#~#
+	--to_log(sModule..":> InitCallbacks") --/#~#
 	owner:AddCallback("spawn_group_list", ui_events.LIST_ITEM_CLICKED, self.OnGroupListItemClicked, self)
 --[[ -- для CoP пока скрываем
 	owner:AddCallback("spawn_btn_select_nearest", ui_events.BUTTON_CLICKED, self.OnBtnSelectNearestSmart, self)
@@ -200,7 +200,7 @@ end
 
 -- подготовка данных при загрузке (объекты недоступны)
 function spawn:PrepareData(ltx)
-	to_log(sModule..":> PrepareData start")
+	--to_log(sModule..":> PrepareData start")
 	local iCntGroups, iCntSections = 0, 0
 	local trim, sini = string.trim, system_ini()
 	local squad_caption = game.translate_string("tool_spawn_squad_caption").." "
@@ -249,7 +249,7 @@ function spawn:PrepareData(ltx)
 					iCntSections = iCntSections + 1
 					local section = trim(v[1])
 					if not sini:section_exist(section) then-- +UP
-						to_log(sModule..":> PrepareData section=[%s] not found", section)-- +UP
+						--to_log(sModule..":> PrepareData section=[%s] not found", section)-- +UP
 					else-- +UP
 						local item = {
 							group = group_id,
@@ -265,13 +265,13 @@ function spawn:PrepareData(ltx)
 
 	self.tSpawnSections = self.owner_script.SortTableByValue(self.tSpawnSections, "asc", "section")
 
-	to_log(sModule..":> PrepareData groups=[%d], sections=[%d]", iCntGroups, iCntSections)
+	--to_log(sModule..":> PrepareData groups=[%d], sections=[%d]", iCntGroups, iCntSections)
 end
 
 -- подготовка данных при открытии диалога в игре (объекты доступны)
 function spawn:PrepareRuntimeData()
 	if self.bSmartsLoaded then return end --/>
-	to_log(sModule..":> PrepareRuntimeData start")
+	--to_log(sModule..":> PrepareRuntimeData start")
 
 	local gg, iCntSmarts = game_graph(), 0
 
@@ -291,7 +291,7 @@ function spawn:PrepareRuntimeData()
 	self.tSmarts = self.owner_script.SortTableByValue(self.tSmarts, "asc", "id")
 
 	self.bSmartsLoaded = true
-	to_log(sModule..":> PrepareRuntimeData smarts=[%d]", iCntSmarts)
+	--to_log(sModule..":> PrepareRuntimeData smarts=[%d]", iCntSmarts)
 end
 
 -- установка состояния органов управления под доп. диалогом
@@ -361,7 +361,7 @@ end
 
 -- открытие и инициализация раздела
 function spawn:OnTabChange()
-	to_log(sModule..":> OnTabChange start")
+	--to_log(sModule..":> OnTabChange start")
 	self.group_list:Show(true)
 	for _,group in ipairs(self.tSpawnGroups) do
 		self.owner:AddPrimaryListItem(self.group_list, group.name, group.id, self.color[0])
@@ -387,7 +387,7 @@ end
 
 -- выбор группы спавна
 function spawn:OnGroupListItemClicked()
-	to_log(sModule..":> OnGroupListItemClicked start")
+	--to_log(sModule..":> OnGroupListItemClicked start")
 	self:ClearFields()
 
 	local group_id = self.owner:GetListItemSelectedValue(self.group_list)
@@ -478,7 +478,7 @@ end
 
 -- очистка полей
 function spawn:ClearFields(clear_all)
-	to_log(sModule..":> ClearFields start, clear_all=[%s]", tostring(clear_all))
+	--to_log(sModule..":> ClearFields start, clear_all=[%s]", tostring(clear_all))
 	if clear_all then
 		self.group_list:ScrollToBegin()
 		self.group_list:RemoveAll()
@@ -499,7 +499,7 @@ end
 
 -- скрытие полей
 function spawn:HideFields()
-	to_log(sModule..":> HideFields start")
+	--to_log(sModule..":> HideFields start")
 	self.group_list:Show(false)
 	self.owner:SetFrameShowState(false, self.section_frame)
 	self.owner:SetFrameShowState(false, self.squad_frame)
@@ -511,7 +511,7 @@ end
 
 -- кнопка Поиск (фильтр секций отрядов)
 function spawn:OnBtnFindSquad()
-	to_log(sModule..":> OnBtnFindSquad start")
+	--to_log(sModule..":> OnBtnFindSquad start")
 
 	self.squad_list:ScrollToBegin()
 	self.squad_list:RemoveAll()
@@ -530,7 +530,7 @@ end
 
 -- кнопка Поиск (фильтр секций смартов)
 function spawn:OnBtnFindSmart()
-	to_log(sModule..":> OnBtnFindSmart start")
+	--to_log(sModule..":> OnBtnFindSmart start")
 
 	self.smart_list:ScrollToBegin()
 	self.smart_list:RemoveAll()
@@ -549,7 +549,7 @@ end
 
 -- кнопка Поиск (фильтр секций объектов)
 function spawn:OnBtnFind()
-	to_log(sModule..":> OnBtnFind start")
+	--to_log(sModule..":> OnBtnFind start")
 
 	local group_id = self.owner:GetListItemSelectedValue(self.group_list)
 	if not group_id or group_id == "null" then return end --/>
@@ -571,14 +571,14 @@ end
 
 -- кнопка Сдвиг плюс
 function spawn:OnBtnShiftPlus()
-	to_log(sModule..":> OnBtnShiftPlus start")
+	--to_log(sModule..":> OnBtnShiftPlus start")
 	local value = tonumber(self.textbox_shift:GetText()) or 0
 	self.textbox_shift:SetText(string.format("%d", math.floor(value) + 1))
 end
 
 -- кнопка Сдвиг минус
 function spawn:OnBtnShiftMinus()
-	to_log(sModule..":> OnBtnShiftMinus start")
+	--to_log(sModule..":> OnBtnShiftMinus start")
 	local value = tonumber(self.textbox_shift:GetText()) or 1
 	if math.floor(value) < value then value = math.floor(value) else value = value - 1 end
 	if value < 1 then value = 1 end
@@ -612,31 +612,31 @@ end
 
 -- кнопка Сдвиг влево
 function spawn:OnBtnShiftLeft()
-	to_log(sModule..":> OnBtnShiftLeft start")
+	--to_log(sModule..":> OnBtnShiftLeft start")
 	self:SetNewPosition(-90)
 end
 
 -- кнопка Сдвиг вперёд
 function spawn:OnBtnShiftForward()
-	to_log(sModule..":> OnBtnShiftForward start")
+	--to_log(sModule..":> OnBtnShiftForward start")
 	self:SetNewPosition(0)
 end
 
 -- кнопка Сдвиг назад
 function spawn:OnBtnShiftBack()
-	to_log(sModule..":> OnBtnShiftBack start")
+	--to_log(sModule..":> OnBtnShiftBack start")
 	self:SetNewPosition(180)
 end
 
 -- кнопка Сдвиг вправо
 function spawn:OnBtnShiftRight()
-	to_log(sModule..":> OnBtnShiftRight start")
+	--to_log(sModule..":> OnBtnShiftRight start")
 	self:SetNewPosition(90)
 end
 
 -- кнопка Центрировать на игроке
 function spawn:OnBtnCurrent()
-	to_log(sModule..":> OnBtnCurrent start")
+	--to_log(sModule..":> OnBtnCurrent start")
 	-- + UP
 	-- self.textbox_gv:SetText(string.format("%d", db.actor:game_vertex_id()))
 	-- self.textbox_lv:SetText(string.format("%d", db.actor:level_vertex_id()))
@@ -676,7 +676,7 @@ end
 
 -- кнопка Создать
 function spawn:OnBtnSpawn()
-	to_log(sModule..":> OnBtnSpawn start")
+	--to_log(sModule..":> OnBtnSpawn start")
 
 	local group_id = self.owner:GetListItemSelectedValue(self.group_list)
 	if not group_id or group_id == "null" then return end --/>
@@ -740,14 +740,14 @@ end
 
 -- кнопка Плюс
 function spawn:OnBtnCountPlus()
-	to_log(sModule..":> OnBtnCountPlus start")
+	--to_log(sModule..":> OnBtnCountPlus start")
 	local value = tonumber(self.textbox_count:GetText()) or 0
 	self.textbox_count:SetText(string.format("%d", math.floor(value) + 1))
 end
 
 -- кнопка Минус
 function spawn:OnBtnCountMinus()
-	to_log(sModule..":> OnBtnCountMinus start")
+	--to_log(sModule..":> OnBtnCountMinus start")
 	local value = tonumber(self.textbox_count:GetText()) or 1
 	if math.floor(value) < value then value = math.floor(value) else value = value - 1 end
 	if value < 1 then value = 1 end
@@ -756,7 +756,7 @@ end
 
 -- чекбокс, клик
 function spawn:OnCheckboxModeClick()
-	to_log(sModule..":> OnCheckboxModeClick start")
+	--to_log(sModule..":> OnCheckboxModeClick start")
 	if not self.checkbox_mode_enabled then
 		self.checkbox_mode:SetCheck(not self.checkbox_mode:GetCheck())
 	elseif self.checkbox_mode:GetCheck() then
@@ -767,7 +767,7 @@ end
 
 -- чекбокс 2, клик
 function spawn:OnCheckboxMode2Click()
-	to_log(sModule..":> OnCheckboxMode2Click start")
+	--to_log(sModule..":> OnCheckboxMode2Click start")
 	if not self.checkbox_mode_enabled then
 		self.checkbox_mode_2:SetCheck(not self.checkbox_mode_2:GetCheck())
 	elseif self.checkbox_mode_2:GetCheck() then
@@ -778,12 +778,12 @@ end
 
 -- Спавним отряд
 function spawn:SpawnSquad(squad_id, smart_name, clear_smart)
-	to_log(sModule..":> SpawnSquad start")
+	--to_log(sModule..":> SpawnSquad start")
 
 	local board = sim_board.get_sim_board()
 	local smart = board.smarts_by_names[smart_name]
 	if smart == nil then
-		to_log(sModule..":> SpawnSquad Smart is not found by name [%s].", smart_name)
+		--to_log(sModule..":> SpawnSquad Smart is not found by name [%s].", smart_name)
 		self:ShowMessageDialog("tool_spawn_squad_smart_not_found")
 		return --/>
 	end
@@ -791,7 +791,7 @@ function spawn:SpawnSquad(squad_id, smart_name, clear_smart)
 
 	local ltx = sim_board.squad_ltx
 	if not ltx:section_exist(squad_id) then
-		to_log(sModule..":> SpawnSquad Wrong squad identificator [%s]. Squad descr doesnt exist.", tostring(squad_id))
+		--to_log(sModule..":> SpawnSquad Wrong squad identificator [%s]. Squad descr doesnt exist.", tostring(squad_id))
 		return --/>
 	end
 
@@ -840,7 +840,7 @@ end
 
 -- кнопка диалога Продолжить
 function spawn:OnBtnContinue()
-	to_log(sModule..":> OnBtnContinue start")
+	--to_log(sModule..":> OnBtnContinue start")
 	if self.dlg_spawn_mode_frame:IsShown() then
 		self:SetSpawnModeDialog(false)
 	end
@@ -851,7 +851,7 @@ end
 
 -- кнопка диалога Отменить
 function spawn:OnBtnCancel()
-	to_log(sModule..":> OnBtnCancel start")
+	--to_log(sModule..":> OnBtnCancel start")
 	if self.dlg_spawn_mode_frame:IsShown() then
 		self:SetSpawnModeDialog(false)
 	end
@@ -862,7 +862,7 @@ end
 -- Создаём отряд по заданным параметрам, mode - режим (0 - задать случайный id, 1 - удалить имеющийся отряд с тем же id, nil - ничего дополнительно не делать)
 function spawn:CreateSquad(mode)
 	local p = self.create_squad_params
-	to_log(sModule..":> CreateSquad start: smart=[%s], squad_id=[%s], clear_smart=[%s], mode=[%s]", tostring(p.smart:name()), tostring(p.squad_id), tostring(p.clear_smart), tostring(mode))
+	--to_log(sModule..":> CreateSquad start: smart=[%s], squad_id=[%s], clear_smart=[%s], mode=[%s]", tostring(p.smart:name()), tostring(p.squad_id), tostring(p.clear_smart), tostring(mode))
 	if not p or not (p.smart and p.squad_id) then return end --/>
 
 	local board = sim_board.get_sim_board()

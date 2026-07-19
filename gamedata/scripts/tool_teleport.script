@@ -15,7 +15,7 @@ local sNoValue = game.translate_string("tool_no_value") --/ стандартный текст дл
 class "teleport"
 
 function teleport:__init(owner_name)
-	to_log(sModule..":> __init") --/#~#
+	--to_log(sModule..":> __init") --/#~#
 	self.owner_script = _G[owner_name]
 	--self.ltx_path_save = self.owner_script.GetFullPath("$tool_misc$", owner_name.."\\teleport_custom.ltx")-- +UP
 	self.ltx_path_save = "misc\\"..owner_name.."\\teleport_custom.ltx"-- +UP
@@ -38,7 +38,7 @@ function teleport:__finalize() end
 
 -- инициализация элементов
 function teleport:InitControls(owner, xml)
-	to_log(sModule..":> InitControls") --/#~#
+	--to_log(sModule..":> InitControls") --/#~#
 
 	-- список локаций
 	self.location_list = xml:InitListBox("frame_left_teleport:location_list", owner.frame_left)
@@ -181,7 +181,7 @@ end
 
 -- инициализация событий
 function teleport:InitCallbacks(owner)
-	to_log(sModule..":> InitCallbacks") --/#~#
+	--to_log(sModule..":> InitCallbacks") --/#~#
 	owner:AddCallback("teleport_location_list", ui_events.LIST_ITEM_CLICKED, self.OnLocationListItemClicked, self)
 	owner:AddCallback("teleport_custom_list", ui_events.WINDOW_LBUTTON_DB_CLICK, self.OnCustomListMouseDblClicked, self)
 	owner:AddCallback("teleport_find_object_list", ui_events.LIST_ITEM_CLICKED, self.OnFindObjectListItemClicked, self)
@@ -209,7 +209,7 @@ end
 
 -- подготовка данных при загрузке (объекты недоступны)
 function teleport:PrepareData(ltx)
-	to_log(sModule..":> PrepareData start")
+	--to_log(sModule..":> PrepareData start")
 	local iCntLocations, iCntPoints = 0, 0
 	local trim = string.trim
 	local sPointCaption = game.translate_string("tool_teleport_point_caption")
@@ -248,7 +248,7 @@ function teleport:PrepareData(ltx)
 	end
 	self.tPoints = self.owner_script.SortTableByValue(self.tPoints, "asc", "name")
 
-	to_log(sModule..":> PrepareData locations=[%d], points=[%d]", iCntLocations, iCntPoints)
+	--to_log(sModule..":> PrepareData locations=[%d], points=[%d]", iCntLocations, iCntPoints)
 
 	-- проверка доступности пространства имён IO (OGSR)
 	--if type(io) ~= "table" then return end --/>--+UP
@@ -271,13 +271,13 @@ function teleport:PrepareData(ltx)
 	end
 	self.tCustomPoints = self.owner_script.SortTableByValue(self.tCustomPoints, "asc", "name")
 
-	to_log(sModule..":> PrepareData custom points=[%d]", iCntPoints)
+	--to_log(sModule..":> PrepareData custom points=[%d]", iCntPoints)
 end
 
 -- подготовка данных при открытии диалога в игре (объекты доступны)
 function teleport:PrepareRuntimeData(ltx)
 	if self.bSmartsLoaded then return end --/>
-	to_log(sModule..":> PrepareRuntimeData start")
+	--to_log(sModule..":> PrepareRuntimeData start")
 
 	local gg, iCntSmarts = game_graph(), 0
 
@@ -296,7 +296,7 @@ function teleport:PrepareRuntimeData(ltx)
 			})
 		end
 		self.tSmarts = self.owner_script.SortTableByValue(self.tSmarts, "asc", "id")
-		to_log(sModule..":> PrepareRuntimeData smarts=[%d]", iCntSmarts)
+		--to_log(sModule..":> PrepareRuntimeData smarts=[%d]", iCntSmarts)
 	end
 
 	self.bSmartsLoaded = true
@@ -370,7 +370,7 @@ end
 
 -- открытие и инициализация раздела
 function teleport:OnTabChange()
-	to_log(sModule..":> OnTabChange start")
+	--to_log(sModule..":> OnTabChange start")
 	self.location_list:Show(true)
 	-- первый элемент (телепорт) добавляем и далее выбираем по умолчанию
 	self.owner:AddPrimaryListItem(self.location_list, game.translate_string("tool_teleport_custom"), "custom", self.color[0])
@@ -435,7 +435,7 @@ end
 
 -- выбор локации
 function teleport:OnLocationListItemClicked()
-	to_log(sModule..":> OnLocationListItemClicked start")
+	--to_log(sModule..":> OnLocationListItemClicked start")
 
 	local location = self.owner:GetListItemSelectedValue(self.location_list)
 	if not location or location == "null" then return end --/>
@@ -445,14 +445,14 @@ end
 
 -- кнопка Поиск (фильтр)
 function teleport:OnBtnFind()
-	to_log(sModule..":> OnBtnFind start")
+	--to_log(sModule..":> OnBtnFind start")
 	self.find_object_list:ScrollToBegin()
 	self.find_object_list:RemoveAll()
 
 	self.tObjects = {}
 	local iCntObjectsAdded, iCntObjectsAll, obj = 0, 0, nil
 	local sFilter = self.owner_script.StringLowerRus(self.textbox_find:GetText():trim())
-	to_log(sModule..":> OnBtnFind filter=[%s]", sFilter)
+	--to_log(sModule..":> OnBtnFind filter=[%s]", sFilter)
 
 	if sFilter:len() >= 3 then
 		local bFindInBoxes = self.checkbox_boxes:GetCheck()
@@ -520,12 +520,12 @@ function teleport:OnBtnFind()
 	else
 		self.find_object_list:Enable(true)
 	end
-	to_log(sModule..":> OnBtnFind objects=[%d/%d]", iCntObjectsAdded, iCntObjectsAll)
+	--to_log(sModule..":> OnBtnFind objects=[%d/%d]", iCntObjectsAdded, iCntObjectsAll)
 end
 
 -- кнопка Сброс (фильтр)
 function teleport:OnBtnReset()
-	to_log(sModule..":> OnBtnReset start")
+	--to_log(sModule..":> OnBtnReset start")
 	self.textbox_find:SetText("")
 	self:OnBtnFind()
 end
@@ -563,13 +563,13 @@ end
 
 -- двойной клик на элементе списка редактируемых точек
 function teleport:OnCustomListMouseDblClicked()
-	to_log(sModule..":> OnCustomListMouseDblClicked start")
+	--to_log(sModule..":> OnCustomListMouseDblClicked start")
 	self:OnBtnLoad()
 end
 
 -- очистка полей
 function teleport:ClearFields(clear_all)
-	to_log(sModule..":> ClearFields start, clear_all=[%s]", tostring(clear_all))
+	--to_log(sModule..":> ClearFields start, clear_all=[%s]", tostring(clear_all))
 	if clear_all then
 		self.location_list:ScrollToBegin()
 		self.location_list:RemoveAll()
@@ -595,7 +595,7 @@ end
 
 -- скрытие полей
 function teleport:HideFields(hide_all)
-	to_log(sModule..":> HideFields start")
+	--to_log(sModule..":> HideFields start")
 	if hide_all then
 		self.location_list:Show(false)
 	end
@@ -611,19 +611,19 @@ end
 
 -- двойной клик на элементе списка точек
 function teleport:OnPointListMouseDblClicked()
-	to_log(sModule..":> OnPointListMouseDblClicked start")
+	--to_log(sModule..":> OnPointListMouseDblClicked start")
 	self:OnBtnGo()
 end
 
 -- двойной клик на элементе списка объектов
 function teleport:OnFindObjectListMouseDblClicked()
-	to_log(sModule..":> OnFindObjectListMouseDblClicked start")
+	--to_log(sModule..":> OnFindObjectListMouseDblClicked start")
 	self:OnBtnGo()
 end
 
 -- кнопка Перейти
 function teleport:OnBtnGo()
-	to_log(sModule..":> OnBtnGo start")
+	--to_log(sModule..":> OnBtnGo start")
 	local location = self.owner:GetListItemSelectedValue(self.location_list, true) -- сфокусированный элемент в приоритете
 	if not location or location == "null" then return end --/>
 
@@ -682,7 +682,7 @@ end
 
 -- кнопка Сохранить
 function teleport:OnBtnSave()
-	to_log(sModule..":> OnBtnSave start")
+	--to_log(sModule..":> OnBtnSave start")
 	if self.dlg_name_frame:IsShown() then return end
 
 	local pos_x = tonumber(self.textbox_x:GetText())
@@ -697,7 +697,7 @@ end
 
 -- кнопка диалога Сохранить
 function teleport:OnBtnNameOk()
-	to_log(sModule..":> OnBtnNameOk start")
+	--to_log(sModule..":> OnBtnNameOk start")
 	if self.dlg_name_frame:IsShown() then
 		self:SetNameDialog(false)
 	end
@@ -727,7 +727,7 @@ end
 
 -- кнопка Загрузить
 function teleport:OnBtnLoad()
-	to_log(sModule..":> OnBtnLoad start")
+	--to_log(sModule..":> OnBtnLoad start")
 
 	local point_id = self.owner:GetListItemSelectedValue(self.custom_list)
 	if not point_id or point_id == "null" then return end --/>
@@ -745,7 +745,7 @@ end
 
 -- кнопка Удалить
 function teleport:OnBtnDelete()
-	to_log(sModule..":> OnBtnDelete start")
+	--to_log(sModule..":> OnBtnDelete start")
 
 	local point_id = self.owner:GetListItemSelectedValue(self.custom_list)
 	if not point_id or point_id == "null" then return end --/>
@@ -764,7 +764,7 @@ end
 
 -- кнопка Центрировать на игроке
 function teleport:OnBtnCurrent()
-	to_log(sModule..":> OnBtnCurrent start")
+	--to_log(sModule..":> OnBtnCurrent start")
 	-- + UP
 	-- self.textbox_gv:SetText(string.format("%d", db.actor:game_vertex_id()))
 	-- self.textbox_lv:SetText(string.format("%d", db.actor:level_vertex_id()))
@@ -780,7 +780,7 @@ end
 
 -- кнопка диалога Отменить
 function teleport:OnBtnNameCancel()
-	to_log(sModule..":> OnBtnNameCancel start")
+	--to_log(sModule..":> OnBtnNameCancel start")
 	if self.dlg_name_frame:IsShown() then
 		self:SetNameDialog(false)
 	end
@@ -823,7 +823,7 @@ end
 
 -- кнопка Прыжок плюс
 function teleport:OnBtnJumpPlus()
-	to_log(sModule..":> OnBtnJumpPlus start")
+	--to_log(sModule..":> OnBtnJumpPlus start")
 	local value = tonumber(self.textbox_jump:GetText()) or 1
 	if math.ceil(value) > value then value = math.ceil(value) else value = value + 1 end
 	if value > 9999 then value = 9999 end
@@ -832,7 +832,7 @@ end
 
 -- кнопка Прыжок минус
 function teleport:OnBtnJumpMinus()
-	to_log(sModule..":> OnBtnJumpMinus start")
+	--to_log(sModule..":> OnBtnJumpMinus start")
 	local value = tonumber(self.textbox_jump:GetText()) or 1
 	if math.floor(value) < value then value = math.floor(value) else value = value - 1 end
 	if value < 1 then value = 1 end
@@ -841,7 +841,7 @@ end
 
 -- кнопка Прыжок влево
 function teleport:OnBtnJumpLeft()
-	to_log(sModule..":> OnBtnJumpLeft start")
+	--to_log(sModule..":> OnBtnJumpLeft start")
 	local value = tonumber(self.textbox_jump:GetText())
 	if not value then return end --/>
 	-- + UP
@@ -852,7 +852,7 @@ end
 
 -- кнопка Прыжок вперёд
 function teleport:OnBtnJumpForward()
-	to_log(sModule..":> OnBtnJumpForward start")
+	--to_log(sModule..":> OnBtnJumpForward start")
 	local value = tonumber(self.textbox_jump:GetText())
 	if not value then return end --/>
 	-- db.actor:set_actor_position(self.owner_script.MoveAtDirection(db.actor:position(), db.actor:direction(), 0, value))
@@ -864,7 +864,7 @@ end
 
 -- кнопка Прыжок назад
 function teleport:OnBtnJumpBack()
-	to_log(sModule..":> OnBtnJumpBack start")
+	--to_log(sModule..":> OnBtnJumpBack start")
 	local value = tonumber(self.textbox_jump:GetText())
 	if not value then return end --/>
 	-- + UP
@@ -875,7 +875,7 @@ end
 
 -- кнопка Прыжок вправо
 function teleport:OnBtnJumpRight()
-	to_log(sModule..":> OnBtnJumpRight start")
+	--to_log(sModule..":> OnBtnJumpRight start")
 	local value = tonumber(self.textbox_jump:GetText())
 	if not value then return end --/>
 	-- + UP

@@ -13,7 +13,7 @@ local sModule = script_name() --/ строковое имя файла-модуля
 class "weather"
 
 function weather:__init(owner_name)
-	to_log(sModule..":> __init") --/#~#
+	--to_log(sModule..":> __init") --/#~#
 	self.owner_script = _G[owner_name]
 	self.iSurgeTimeout = 30 -- таймаут принудительного выброса по умолчанию
 	self.tWeather = {} -- список типов погоды
@@ -27,7 +27,7 @@ function weather:__finalize() end
 
 -- инициализация элементов
 function weather:InitControls(owner, xml)
-	to_log(sModule..":> InitControls") --/#~#
+	--to_log(sModule..":> InitControls") --/#~#
 
 	-- список типов погоды
 	-- self.weather_frame = xml:InitFrame("frame_right_weather:weather_frame", owner.frame_right)<!-- + UP -->
@@ -72,7 +72,7 @@ function weather:InitControls(owner, xml)
 end
 
 function weather:InitTimeTrack(owner)
-	to_log(sModule..":> InitTimeTrack start")
+	--to_log(sModule..":> InitTimeTrack start")
 
 	self.time_track = self.xml:InitTrackBar("frame_right_weather:time_track", owner)-- к owner, причуды xrmpe
 	owner:Register(self.time_track, "weather_time_track")
@@ -101,7 +101,7 @@ end
 
 -- инициализация событий
 function weather:InitCallbacks(owner)
-	to_log(sModule..":> InitCallbacks") --/#~#
+	--to_log(sModule..":> InitCallbacks") --/#~#
 	owner:AddCallback("weather_weather_list", ui_events.WINDOW_LBUTTON_DB_CLICK, self.OnWeatherListMouseDblClicked, self)
 	owner:AddCallback("weather_checkbox_now", ui_events.BUTTON_CLICKED, self.OnCheckboxNowClick, self)
 	owner:AddCallback("weather_btn_set", ui_events.BUTTON_CLICKED, self.OnBtnSet, self)
@@ -116,7 +116,7 @@ end
 
 -- подготовка данных при загрузке (объекты недоступны)
 function weather:PrepareData(ltx)
-	to_log(sModule..":> PrepareData start")
+	--to_log(sModule..":> PrepareData start")
 	local trim, iCntWeather = string.trim, 0
 
 	--/ чтение таймаута выброса по умолчанию
@@ -143,7 +143,7 @@ end
 
 -- открытие и инициализация раздела
 function weather:OnTabChange()
-	to_log(sModule..":> OnTabChange start")
+	--to_log(sModule..":> OnTabChange start")
 	-- self.owner:SetFrameShowState(true, self.weather_frame, self.weather_frame_controls)
 	self.owner:SetFrameShowState(true, self.weather_list, self.weather_frame_controls)
 	self.owner:SetFrameShowState(true, self.weather_frame_buttons, self.weather_frame_buttons_controls)
@@ -160,13 +160,13 @@ end
 
 -- двойной клик на элементе списка типов погоды
 function weather:OnWeatherListMouseDblClicked()
-	to_log(sModule..":> OnWeatherListMouseDblClicked start")
+	--to_log(sModule..":> OnWeatherListMouseDblClicked start")
 	self:OnBtnSet()
 end
 
 -- очистка полей
 function weather:ClearFields()
-	to_log(sModule..":> ClearFields start")
+	--to_log(sModule..":> ClearFields start")
 	self.weather_list:ScrollToBegin()
 	self.weather_list:RemoveAll()
 	self.checkbox_now:SetCheck(false)
@@ -174,7 +174,7 @@ end
 
 -- скрытие полей
 function weather:HideFields()
-	to_log(sModule..":> HideFields start")
+	--to_log(sModule..":> HideFields start")
 	-- self.owner:SetFrameShowState(false, self.weather_frame)
 	-- +UP
 	-- self.owner:SetFrameShowState(false, self.weather_list)
@@ -190,7 +190,7 @@ end
 
 -- кнопка Установить
 function weather:OnBtnSet()
-	to_log(sModule..":> OnBtnSet start")
+	--to_log(sModule..":> OnBtnSet start")
 
 	local section = self.owner:GetListItemSelectedValue(self.weather_list)
 	-- + UP
@@ -209,7 +209,7 @@ end
 
 -- чекбокс, клик
 function weather:OnCheckboxNowClick()
-	to_log(sModule..":> OnCheckboxNowClick start", tostring(self.checkbox_now:GetCheck()))
+	--to_log(sModule..":> OnCheckboxNowClick start", tostring(self.checkbox_now:GetCheck()))
 	if not self.checkbox_now_enabled then self.checkbox_now:SetCheck(not self.checkbox_now:GetCheck()) end
 end
 

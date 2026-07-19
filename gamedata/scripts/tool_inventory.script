@@ -12,7 +12,7 @@ local sModule = script_name() --/ строковое имя файла-модуля
 class "inventory"
 
 function inventory:__init(owner_name)
-	to_log(sModule..":> __init") --/#~#
+	--to_log(sModule..":> __init") --/#~#
 	self.owner_script = _G[owner_name]
 	self.condition_min = 0 --/ минимальное состояние предмета
 	self.condition_max = 1 --/ максимальное состояние предмета
@@ -57,7 +57,7 @@ function inventory:__finalize() end
 
 -- инициализация элементов
 function inventory:InitControls(owner, xml)
-	to_log(sModule..":> InitControls") --/#~#
+	--to_log(sModule..":> InitControls") --/#~#
 
 	-- настройки инвентарных предметов
 	self.inventory_frame = xml:InitFrame("frame_right_inventory:inventory_frame", owner.frame_right)
@@ -89,7 +89,7 @@ end
 
 -- инициализация событий
 function inventory:InitCallbacks(owner)
-	to_log(sModule..":> InitCallbacks") --/#~#
+	--to_log(sModule..":> InitCallbacks") --/#~#
 	owner:AddCallback("inventory_inventory_list", ui_events.LIST_ITEM_CLICKED, self.OnInventoryListItemClicked, self)
 	owner:AddCallback("inventory_btn_condition_plus", ui_events.BUTTON_CLICKED, self.OnBtnConditionPlus, self)
 	owner:AddCallback("inventory_btn_condition_minus", ui_events.BUTTON_CLICKED, self.OnBtnConditionMinus, self)
@@ -109,7 +109,7 @@ end
 
 -- открытие и инициализация раздела
 function inventory:OnTabChange()
-	to_log(sModule..":> OnTabChange start")
+	--to_log(sModule..":> OnTabChange start")
 	self.inventory_frame:Show(true)
 	self.inventory_list:Show(true)
 	self:FillInventoryList()
@@ -122,7 +122,7 @@ end
 
 -- заполнение списка предметов в слотах и инвентаре
 function inventory:FillInventoryList()
-	to_log(sModule..":> FillInventoryList start")
+	--to_log(sModule..":> FillInventoryList start")
 	-- заполнение списка предметов инвентаря
 	local sini = system_ini()
 	self.tInventoryItems = { slot = {}, inventory = {} }
@@ -149,8 +149,8 @@ function inventory:FillInventoryList()
 			end
 		end
 	,nil)
-	to_log(sModule..":> FillInventoryList slot items = [%d]", table.size(self.tInventoryItems.slot))
-	to_log(sModule..":> FillInventoryList inventory items = [%d]", table.size(self.tInventoryItems.inventory))
+	--to_log(sModule..":> FillInventoryList slot items = [%d]", table.size(self.tInventoryItems.slot))
+	--to_log(sModule..":> FillInventoryList inventory items = [%d]", table.size(self.tInventoryItems.inventory))
 	self.tInventoryItems.slot = self.owner_script.SortTableByValue(self.tInventoryItems.slot, "asc", "section")
 	self.tInventoryItems.inventory = self.owner_script.SortTableByValue(self.tInventoryItems.inventory, "asc", "section")
 	for _,v in ipairs(self.tInventoryItems.slot) do
@@ -160,7 +160,7 @@ function inventory:FillInventoryList()
 	for _,v in ipairs(self.tInventoryItems.inventory) do
 		self.owner:AddSecondaryListItem(self.inventory_list, v.section, v.name, v.id, self:GetConditionColor(v.condition))
 	end
-	to_log(sModule..":> FillInventoryList list size = [%d]", self.inventory_list:GetSize())
+	--to_log(sModule..":> FillInventoryList list size = [%d]", self.inventory_list:GetSize())
 end
 
 -- цветовая дифференциация состояний предмета
@@ -171,7 +171,7 @@ end
 
 -- выбор элемента списка предметов
 function inventory:OnInventoryListItemClicked()
-	to_log(sModule..":> OnInventoryListItemClicked start")
+	--to_log(sModule..":> OnInventoryListItemClicked start")
 
 	local obj_id = self.owner:GetListItemSelectedValue(self.inventory_list)
 	if not obj_id then return end --/>
@@ -217,7 +217,7 @@ end
 
 -- очистка полей
 function inventory:ClearFields()
-	to_log(sModule..":> ClearFields start, clear_all=[%s]", tostring(clear_all))
+	--to_log(sModule..":> ClearFields start, clear_all=[%s]", tostring(clear_all))
 
 	self.inventory_list:ScrollToBegin()
 	self.inventory_list:RemoveAll()
@@ -227,14 +227,14 @@ end
 
 -- скрытие полей
 function inventory:HideFields()
-	to_log(sModule..":> HideFields start")
+	--to_log(sModule..":> HideFields start")
 	self.inventory_frame:Show(false)
 	self.inventory_frame_buttons:Show(false)
 end
 
 -- кнопка Плюс состояние
 function inventory:OnBtnConditionPlus()
-	to_log(sModule..":> OnBtnConditionPlus start")
+	--to_log(sModule..":> OnBtnConditionPlus start")
 	local value = tonumber(self.condition_value:GetText()) or self.condition_min
 	if value < self.condition_min then value = self.condition_min else value = value + 0.05 end
 	if value > self.condition_max then value = self.condition_max end
@@ -243,7 +243,7 @@ end
 
 -- кнопка Минус состояние
 function inventory:OnBtnConditionMinus()
-	to_log(sModule..":> OnBtnConditionMinus start")
+	--to_log(sModule..":> OnBtnConditionMinus start")
 	local value = tonumber(self.condition_value:GetText()) or self.condition_max
 	if value > self.condition_max then value = self.condition_max else value = value - 0.05 end
 	if value < self.condition_min then value = self.condition_min end
@@ -252,7 +252,7 @@ end
 
 -- кнопка Установить состояние
 function inventory:OnBtnConditionSet()
-	to_log(sModule..":> OnBtnConditionSet start")
+	--to_log(sModule..":> OnBtnConditionSet start")
 
 	local obj_id, oListItem = self.owner:GetListItemSelectedValue(self.inventory_list)
 	if not obj_id or obj_id == "null" then return end --/>
@@ -301,7 +301,7 @@ end
 
 -- кнопка Починить
 function inventory:OnBtnRepair()
-	to_log(sModule..":> OnBtnRepair start")
+	--to_log(sModule..":> OnBtnRepair start")
 
 	self.condition_value:SetText(string.format("%.2f", 1))
 	self:OnBtnConditionSet()
@@ -309,7 +309,7 @@ end
 
 -- кнопка Удалить предмет
 function inventory:OnBtnRemoveObject()
-	to_log(sModule..":> OnBtnRemove start")
+	--to_log(sModule..":> OnBtnRemove start")
 
 	local obj_id, oListItem = self.owner:GetListItemSelectedValue(self.inventory_list)
 	if not obj_id or obj_id == "null" then return end --/>

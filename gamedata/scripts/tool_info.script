@@ -12,7 +12,7 @@ local sModule = script_name() --/ строковое имя файла-модуля
 class "info"
 
 function info:__init(owner_name)
-	to_log(sModule..":> __init") --/#~#
+	--to_log(sModule..":> __init") --/#~#
 	self.owner_script = _G[owner_name]
 	self.tInfos = {} -- массив идентификаторов локаций
 	self.sInfoConfigRoot = Get_Cfg_String(ltx, "info_config_settings", "config_root", "$game_config$") -- +UP
@@ -26,7 +26,7 @@ function info:__finalize() end
 
 -- инициализация элементов
 function info:InitControls(owner, xml)
-	to_log(sModule..":> InitControls") --/#~#
+	--to_log(sModule..":> InitControls") --/#~#
 
 	-- список инфопорций
 	self.info_frame = xml:InitFrame("frame_right_info:info_frame", owner.frame_right)
@@ -54,7 +54,7 @@ end
 
 -- инициализация событий
 function info:InitCallbacks(owner)
-	to_log(sModule..":> InitCallbacks") --/#~#
+	--to_log(sModule..":> InitCallbacks") --/#~#
 	owner:AddCallback("info_info_list", ui_events.WINDOW_LBUTTON_DB_CLICK, self.OnInfoListMouseDblClicked, self)
 	owner:AddCallback("info_textbox_find", ui_events.EDIT_TEXT_COMMIT, self.OnBtnFind, self)
 	owner:AddCallback("info_btn_find", ui_events.BUTTON_CLICKED, self.OnBtnFind, self)
@@ -64,7 +64,7 @@ end
 
 -- подготовка данных при загрузке (объекты недоступны)
 function info:PrepareData(ltx)
-	to_log(sModule..":> PrepareData start, IO = [%s]", type(io))
+	--to_log(sModule..":> PrepareData start, IO = [%s]", type(io))
 	local iCntInfos, tInfoIds = 0, {}
 
 	--/ чтение инфопорций из конфигурационного файла модуля
@@ -77,7 +77,7 @@ function info:PrepareData(ltx)
 		end
 	end
 
-	to_log(sModule..":> PrepareData from module config, infos=[%d]", iCntInfos)
+	--to_log(sModule..":> PrepareData from module config, infos=[%d]", iCntInfos)
 
 	-- проверка доступности пространства имён IO (движок) и выход в случае отсутствия
 	-- +UP
@@ -97,7 +97,7 @@ function info:PrepareData(ltx)
 	}
 	-- -UP
 	for _,v in ipairs(flist) do
-		to_log(sModule..":> parsing xml [%s]", v.filename)
+		--to_log(sModule..":> parsing xml [%s]", v.filename)
 		local handler = handler_tree:new()
 		local parser = xml2lua.parser(handler)
 		-- +UP поддержка VPS
@@ -133,12 +133,12 @@ function info:PrepareData(ltx)
 
 	self.tInfos = self.owner_script.SortTableByValue(self.tInfos, "asc", "info")
 
-	to_log(sModule..":> PrepareData from game xml, additional infos=[%d]", iCntInfos)
+	--to_log(sModule..":> PrepareData from game xml, additional infos=[%d]", iCntInfos)
 end
 
 -- открытие и инициализация раздела
 function info:OnTabChange()
-	to_log(sModule..":> OnTabChange start")
+	--to_log(sModule..":> OnTabChange start")
 	self.owner:SetFrameShowState(true, self.info_frame, self.info_frame_controls)
 	self.owner:SetFrameShowState(true, self.info_frame_buttons, self.info_frame_buttons_controls)
 	self.owner:AddSecondaryListItem(self.info_list, game.translate_string("tool_info_filter"), nil, "null", self.color[0])
@@ -147,7 +147,7 @@ end
 
 -- очистка полей
 function info:ClearFields()
-	to_log(sModule..":> ClearFields start")
+	--to_log(sModule..":> ClearFields start")
 	self.info_list:ScrollToBegin()
 	self.info_list:RemoveAll()
 	self.textbox_find:SetText("")
@@ -155,14 +155,14 @@ end
 
 -- скрытие полей
 function info:HideFields()
-	to_log(sModule..":> HideFields start")
+	--to_log(sModule..":> HideFields start")
 	self.owner:SetFrameShowState(false, self.info_frame)
 	self.owner:SetFrameShowState(false, self.info_frame_buttons)
 end
 
 -- кнопка Поиск (фильтр)
 function info:OnBtnFind()
-	to_log(sModule..":> OnBtnFind start")
+	--to_log(sModule..":> OnBtnFind start")
 	self.info_list:ScrollToBegin()
 	self.info_list:RemoveAll()
 
@@ -184,7 +184,7 @@ end
 
 -- двойной клик на элементе списка инфопорций
 function info:OnInfoListMouseDblClicked()
-	to_log(sModule..":> OnInfoListMouseDblClicked start")
+	--to_log(sModule..":> OnInfoListMouseDblClicked start")
 
 	local info, oListItem = self.owner:GetListItemSelectedValue(self.info_list)
 	if not info or info == "null" then return end --/>
@@ -206,7 +206,7 @@ end
 
 -- кнопка Выдать
 function info:OnBtnGive()
-	to_log(sModule..":> OnBtnGive start")
+	--to_log(sModule..":> OnBtnGive start")
 
 	local info, oListItem = self.owner:GetListItemSelectedValue(self.info_list)
 	if not info or info == "null" then return end --/>
@@ -221,7 +221,7 @@ end
 
 -- кнопка Отменить
 function info:OnBtnDisable()
-	to_log(sModule..":> OnBtnDisable start")
+	--to_log(sModule..":> OnBtnDisable start")
 
 	local info, oListItem = self.owner:GetListItemSelectedValue(self.info_list)
 	if not info or info == "null" then return end --/>
