@@ -196,6 +196,8 @@ function spawn:InitCallbacks(owner)
 	owner:AddCallback("spawn_btn_shift_right", ui_events.BUTTON_CLICKED, self.OnBtnShiftRight, self)
 	owner:AddCallback("spawn_btn_continue", ui_events.BUTTON_CLICKED, self.OnBtnContinue, self)
 	owner:AddCallback("spawn_btn_cancel", ui_events.BUTTON_CLICKED, self.OnBtnCancel, self)
+
+	owner:AddCallback("spawn_section_list", ui_events.WINDOW_LBUTTON_DB_CLICK, self.OnBtnSpawn, self)-- +UP
 end
 
 -- подготовка данных при загрузке (объекты недоступны)
