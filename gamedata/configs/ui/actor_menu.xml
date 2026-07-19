@@ -9,7 +9,7 @@
 <!--anchor="mid-center"-->
 	<main anchor="mid-center" x="0" y="0" width="1536" height="1080">
 	    <auto_static x="512" y="0" width="1024" height="1080" stretch="1">
-		    <texture>ui_inGame2_inventory_back</texture>
+		    <texture a="235">ui_inGame2_inventory_back</texture><!-- <texture>ui_inGame2_inventory_back</texture> +UP -->
 	    </auto_static>
 	</main>
 
