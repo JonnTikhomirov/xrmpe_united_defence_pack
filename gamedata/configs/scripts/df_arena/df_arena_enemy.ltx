@@ -7,4 +7,4 @@ anim = guard
 on_info = nil %=make_nearest_actor_visible_to_npc%;%=hit_npc_from_actor% ; +UP
 
 [death@enemy]
-on_info = %=inc_counter(enemy_dead) =set_arena_inventory%; +UP
+on_info = %=inc_counter(enemy_dead) =arena_on_enemy_death%; +UP

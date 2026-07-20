@@ -109,7 +109,6 @@ function mp_actor_binder:net_spawn(data)
 				end
 			end
 		end
-		-- -UP
 	end
 	-- - UP
 
@@ -214,6 +213,12 @@ function mp_actor_binder:update(delta)
 			end
 
 			xr_sound.update(self.object:id())
+			-- +UP
+			local a_manager = arena_manager.get_manager()
+			if a_manager ~= nil then
+				a_manager:on_mp_actor_update(self.object) -- потому что стартовый лут спавнится после net_spawn
+			end
+			-- -UP
 		end
 		
 		if not IsServerClient() then

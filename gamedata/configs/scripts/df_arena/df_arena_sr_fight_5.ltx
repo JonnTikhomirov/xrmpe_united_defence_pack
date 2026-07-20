@@ -3,7 +3,7 @@ active = sr_idle@check_start
 type = sv_only;+UP
 
 [sr_idle@check_start]
-on_info = {+DF_ARENA_FIGHT_5_READY +DF_ARENA_FIGHT_START} sr_idle@check_num_players %=randomize_arena_enemy_faction(military:monolith)%; +UP
+on_info = {+DF_ARENA_FIGHT_5_READY +DF_ARENA_FIGHT_START} sr_idle@check_num_players %=arena_reload(military:monolith) =arena_set_actors_respawn_items(mp_wpn_desert_eagle:mp_ammo_50ae:mp_ammo_50ae:mp_bandage:mp_bandage)%; +UP
 
 [sr_idle@check_num_players]
 on_info = {=check_players_count(5)} sr_idle@num_players_4, {=check_players_count(4)} sr_idle@num_players_3, {=check_players_count(3)} sr_idle@num_players_2, {=check_players_count(2)} sr_idle@num_players_1
