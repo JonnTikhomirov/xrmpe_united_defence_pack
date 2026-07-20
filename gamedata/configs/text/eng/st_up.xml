@@ -52,6 +52,9 @@
 		<text>Ignites on impact with the surface</text>
 	</string>
 
+	<string id="st_df_neutral_weak">
+		<text>Novice</text>
+	</string>
 	<string id="st_df_neutral_normal">
 		<text>Stalker</text>
 	</string>
@@ -61,6 +64,9 @@
 	<string id="st_df_neutral_master">
 		<text>Stalker master</text>
 	</string>
+	<string id="st_df_bandit_weak">
+		<text>Lackey</text>
+	</string>
 	<string id="st_df_bandit_normal">
 		<text>Bandit</text>
 	</string>
@@ -69,6 +75,15 @@
 	</string>
 	<string id="st_df_bandit_master">
 		<text>Kingpin</text>
+	</string>
+	<string id="st_df_csky_normal">
+		<text>Clear sky warrior</text>
+	</string>
+	<string id="st_df_csky_veteran">
+		<text>Clear sky veteran</text>
+	</string>
+	<string id="st_df_csky_master">
+		<text>Clear sky master</text>
 	</string>
 	<string id="st_df_duty_normal">
 		<text>Duty warrior</text>

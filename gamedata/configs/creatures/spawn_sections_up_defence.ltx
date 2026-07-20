@@ -18,6 +18,12 @@ transparency_threshold		= 0.9; видимость всквозь ВСЕ
 vision_danger_section			= sniper_vision_free
 vision_free_section				= sniper_vision_free
 
+[neutral_weak]:stalker_defence
+$spawn                     = "respawn\neutral_weak"
+character_profile     = neutral_weak
+community = stalker
+spec_rank = novice
+
 [neutral_normal]:stalker_defence
 $spawn                     = "respawn\neutral_normal"
 character_profile     = neutral_normal
@@ -36,6 +42,12 @@ character_profile     = neutral_master
 community = stalker
 spec_rank = master
 
+[bandit_weak]:stalker_defence
+$spawn                     = "respawn\bandit_weak"
+character_profile     = bandit_weak
+community = bandit
+spec_rank = novice
+
 [bandit_normal]:stalker_defence
 $spawn                     = "respawn\bandit_normal"
 character_profile     = bandit_normal
@@ -52,6 +64,24 @@ spec_rank = veteran
 $spawn                     = "respawn\bandit_master"
 character_profile     = bandit_master
 community = bandit
+spec_rank = master
+
+[csky_normal]:stalker_defence
+$spawn                     = "respawn\csky_normal"
+character_profile     = csky_normal
+community = csky
+spec_rank = regular
+
+[csky_veteran]:stalker_defence
+$spawn                     = "respawn\csky_veteran"
+character_profile     = csky_veteran
+community = csky
+spec_rank = veteran
+
+[csky_master]:stalker_defence
+$spawn                     = "respawn\csky_master"
+character_profile     = csky_master
+community = csky
 spec_rank = master
 
 [duty_normal]:stalker_defence

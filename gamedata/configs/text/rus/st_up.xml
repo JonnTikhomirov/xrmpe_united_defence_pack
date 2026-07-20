@@ -54,6 +54,10 @@
 	<string id="st_wpn_grenade_flare_descr">
 		<text>Зажигается при ударе о поверхность</text>
 	</string>
+
+	<string id="st_df_neutral_weak">
+		<text>Новичек</text>
+	</string>
 	<string id="st_df_neutral_normal">
 		<text>Сталкер</text>
 	</string>
@@ -63,6 +67,9 @@
 	<string id="st_df_neutral_master">
 		<text>Сталкер мастер</text>
 	</string>
+	<string id="st_df_bandit_weak">
+		<text>Шестёрка</text>
+	</string>
 	<string id="st_df_bandit_normal">
 		<text>Бандит</text>
 	</string>
@@ -71,6 +78,15 @@
 	</string>
 	<string id="st_df_bandit_master">
 		<text>Авторитет</text>
+	</string>
+	<string id="st_df_csky_normal">
+		<text>Боец Чистого неба</text>
+	</string>
+	<string id="st_df_csky_veteran">
+		<text>Ветеран Чистого неба</text>
+	</string>
+	<string id="st_df_csky_master">
+		<text>Мастер Чистого неба</text>
 	</string>
 	<string id="st_df_duty_normal">
 		<text>Боец Долга</text>
