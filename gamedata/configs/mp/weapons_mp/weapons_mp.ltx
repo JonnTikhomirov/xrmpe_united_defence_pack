@@ -286,6 +286,7 @@
 	
 [mp_wpn_fn2000]:wpn_fn2000
     $spawn                            = "network\weapons\assault\mp_wpn_fn2000"
+	cost							= 14000; +UP
 ;+PVP
     class                   		  = W_GROZA
 	; use_first_bullet				  = true	;есть ли эффект первого выстрела (точного)
@@ -2134,6 +2135,7 @@ kill_msg_height			= 22
     fire_modes                        = 1, -1	
 	fire_distance           		  = 300;5000 ; maximum fire distance that bullet can fly; +UP
 	allow_sprint_while_reload         = true
+	cost							= 11500; +UP
 	
 [mp_scope_pso1_vihr]:scope_pso1_vihr
 	scope_name 						  = mp_wpn_addon_scope
@@ -2194,7 +2196,8 @@ kill_msg_height			= 22
 	zoom_cam_max_angle           = 13.0
 	zoom_cam_max_angle_horz      = 20.0
 	zoom_cam_step_angle_horz     = 1.0
-	
+	cost						= 10000; +UP
+
 [mp_scope_pso1_rpk]:scope_pso1_rpk
 	scope_name 						  = mp_wpn_addon_scope
 
@@ -2227,9 +2230,9 @@ kill_msg_height			= 22
 	first_bullet_velocity_limit		  = 1.0	;предельная скорость актера при которой будет первый точный выстрел
     ammo_class                        = mp_ammo_7.62x51;mp_ammo_5.56x45_ss190, mp_ammo_5.56x45_ap; +UP
     bullet_speed                      = 850;700; +UP
-	hit_power                         = 2.3;1.5; +UP
+	hit_power                         = 2.0;1.5; +UP
 	silencer_status				      = 2
-	silencer_hit_power                = 2.1;1.5; +UP
+	silencer_hit_power                = 1.9;1.5; +UP
 	scopes_sect		                  = mp_sr25_eotech, mp_sr25_susat_dusk, mp_sr25_elcan, mp_sr25_susat_night, mp_sr25_susat
     silencer_name                     = mp_wpn_addon_silencer_m4_2000
     use_aim_bullet                    = true       
@@ -2237,6 +2240,7 @@ kill_msg_height			= 22
     tracers_color_ID                  = 2            
 	fire_distance          			  = 1000;5000; +UP
 	;allow_sprint_while_reload         = true; +UP	
+	cost								= 15000; +UP
 	
 [mp_sr25_eotech]:scope_eotech_sr25
 	scope_name 						  = mp_wpn_addon_scope_susat_x1.6
