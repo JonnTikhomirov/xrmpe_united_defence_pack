@@ -107,6 +107,10 @@
 		start_hours_range = 0, 24; +UP
 		logic_restrictors = defence_logic_restrictor, df_polygon_logic_restrictor; +UP
 
+[df_lesopilka]
+	weathers                         = dynamic_default
+	logic_restrictors = defence_logic_restrictor; +UP
+
 ; +dmr
 [df_yanov_station]
 	weathers			= dynamic_default
@@ -121,10 +125,6 @@
 	logic_restrictors = defence_logic_restrictor; +UP
 
 [df_mine_coper]
-	weathers                         = dynamic_default
-	logic_restrictors = defence_logic_restrictor; +UP
-
-[df_lesopilka]
 	weathers                         = dynamic_default
 	logic_restrictors = defence_logic_restrictor; +UP
 
@@ -175,7 +175,7 @@ start_hours_range = 0, 24; +UP
 [df_yantar]
 weathers     = weather_df_pripyat_center; +UP
 minimap_zoom = 1.4
-logic_restrictors = defence_logic_restrictor; +UP
+logic_restrictors = defence_logic_restrictor, defence_logic_restrictor_ignitions; +UP
 start_hours_range = 0, 24; +UP
 
 [df_arena]
