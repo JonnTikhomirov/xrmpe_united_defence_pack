@@ -299,7 +299,7 @@ function heli_fire:update_enemy_arr()
     
     -- Поиск среди defence-целей
     if search_heli_enemies and db.heli_enemies then
-        for i = 1, db.heli_enemy_count do
+        for i = 0, db.heli_enemy_count - 1 do
             local enemy_obj = db.heli_enemies[i]
             if	enemy_obj
 				and (self.enemy_ == "all" or self.enemy_ == "defence" and is_df_enemy(enemy_obj))
