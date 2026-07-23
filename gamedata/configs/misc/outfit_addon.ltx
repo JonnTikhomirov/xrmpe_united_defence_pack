@@ -54,6 +54,10 @@ $spawn                       = "outfit\monolith_exo_outfit"
 visual                       = dynamics\outfit\monolith_exo_outfit
 actor_visual                 = actors\stalker_mp\df_monolith_exo.ogf
 
+inv_name                     = monolith_exo_outfit_name; +UP
+inv_name_short               = monolith_exo_outfit_name; +UP
+description                  = monolith_exo_outfit_description; +UP
+
 inv_grid_x                   = 24
 inv_grid_y                   = 32
 inv_grid_width		= 2
@@ -305,3 +309,33 @@ bones_koeff_protection 			= ecolog_green_outfit_damage
 
 [ecolog_green_outfit_damage]:actor_head_damage_protective
 default = 1.0, 0.39
+
+[ecolog_exo_outfit]:exo_outfit
+$spawn                        = "outfit\ecolog_exo_outfit"
+visual                        = dynamics\outfit\ecolog_exo_outfit
+actor_visual                  = actors\stalker_ecolog\stalker_nauchniy_exo.ogf
+
+inv_name                      = ecolog_exo_outfit_name
+inv_name_short                = ecolog_exo_outfit_name
+description                   = ecolog_exo_outfit_description
+
+inv_grid_width               = 2
+inv_grid_height              = 3
+inv_grid_x                   = 28
+inv_grid_y                   = 29
+
+hit_fraction_actor			  = 0.16
+bones_koeff_protection        = ecolog_exo_outfit_damage
+
+burn_protection               = 0.0700
+shock_protection              = 1.1000
+radiation_protection          = 0.0295
+chemical_burn_protection      = 0.0480
+telepatic_protection          = 0.0600
+strike_protection             = 0.5
+explosion_protection          = 0.85
+wound_protection              = 0.64
+fire_wound_protection         = 0.48
+
+[ecolog_exo_outfit_damage]:actor_head_damage_tactic
+default = 1.0, 0.62
