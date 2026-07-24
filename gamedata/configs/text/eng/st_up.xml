@@ -157,6 +157,9 @@
 	<string id="df_helicopter">
 		<text>Helicopter</text>
 	</string>
+	<string id="helicopter_missile">
+		<text>Helicopter</text>
+	</string>
 
 	<string id="monolith_exo_outfit_name">
 		<text>Monolith Exoskeleton</text>
@@ -170,5 +173,9 @@
 	</string>
 	<string id="ecolog_exo_outfit_description">
 		<text>An exoskeleton designed for use by scientific security personnel. It has excellent bullet protection, and its improved servos, which make it easier to work with heavy weapons, can be a great help in defending a science camp. During the field work, these servos will be sufficient to help transport heavy equipment, batteries, or a large number of SIM card containers that may be useful for scientific expeditions inside the Zone</text>
+	</string>
+
+	<string id="mp_explosive_barrel">
+		<text>Explosive barrel</text>
 	</string>
 </string_table>
