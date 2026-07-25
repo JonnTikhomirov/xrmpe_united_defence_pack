@@ -55,43 +55,50 @@ function heli_fire:update_enemy_state()
     --         self.flag_by_enemy = true
     --     end
 	-- 1. Цель умерла
-    if self.enemy and is_dead(self.enemy) then
-        self.enemy = nil
-        self.fire_point = nil
-        self.enemy_die = true
-        self.flag_by_enemy = true
+	if self.enemy and is_dead(self.enemy) then
+		self.enemy = nil
+		self.fire_point = nil
+		self.enemy_die = true
+		self.flag_by_enemy = true
 		if math.random() < 0.2 then
 			bind_heli.heli_say(self.obj, "heli_kill_enemy", true)
 		end
     -- 2. Цель жива
-    elseif self.enemy then
-        if heli:isVisible(self.enemy) then
-            self.hidden_time = 0
-            self.fire_point = nil
-            -- Периодический поиск лучшей цели
-            if time_global() - self.enemy_time > self.upd_vis * 1000 then
-                self:update_enemy_arr()
-                self.enemy_time = time_global()
-            end
-        else
+	elseif self.enemy then
+		local pos = self.enemy:position()
+		-- ПРОПУСК: если текущая цель ушла в мёртвую зону, сбрасываем её
+		if is_in_dead_zone(self.obj, pos) then
+			self.enemy = nil
+			self.fire_point = nil
+			self.enemy_die = true
+			self.flag_by_enemy = true
+		elseif heli:isVisible(self.enemy) then
+			self.hidden_time = 0
+			self.fire_point = pos
+			-- Периодический поиск лучшей цели
+			if time_global() - self.enemy_time > self.upd_vis * 1000 then
+				self:update_enemy_arr()
+				self.enemy_time = time_global()
+			end
+		else
             -- Враг скрылся, но жив -> запоминаем позицию
-            if self.hidden_time == 0 then
-                self.hidden_time = time_global()
-                self.fire_point = self.enemy:position()
-            end
+			if self.hidden_time == 0 then
+				self.hidden_time = time_global()
+				self.fire_point = pos
+			end
             -- Стреляем по позиции 5 секунд
-            if time_global() - self.hidden_time > 5000 then
-                self.fire_point = nil
-                self.enemy = nil
-                self.enemy_die = true
-                self.flag_by_enemy = true
-            end
-        end
+			if time_global() - self.hidden_time > 5000 then
+				self.fire_point = nil
+				self.enemy = nil
+				self.enemy_die = true
+				self.flag_by_enemy = true
+			end
+		end
     -- 3. Цели нет вообще
-    else
-        self.hidden_time = 0
-        self.fire_point = nil
-        self:update_enemy_arr()
+	else
+		self.hidden_time = 0
+		self.fire_point = nil
+		self:update_enemy_arr()
 	-- -UP
     end
 
@@ -230,26 +237,29 @@ function heli_fire:update_hit(attacker) -- +UP
 		then 
 		return
 	end
+
+	-- ПРОПУСК: не переключаемся на атакующего, если он в мёртвой зоне
+	if is_in_dead_zone(self.obj, attacker:position()) then return end
 	
 	bind_heli.heli_say(self.obj, "heli_hit", true)
 
-    if attacker:id() == self.fire_id then
-        self.hit_count = self.hit_count + 1
-    else
-        self.fire_id = attacker:id()
+	if attacker:id() == self.fire_id then
+		self.hit_count = self.hit_count + 1
+	else
+		self.fire_id = attacker:id()
 	-- -UP
-        self.hit_count = 1
-    end
-    -- +UP
-    -- Переключение огня на того, кто нанес несколько попаданий (игнорируя дистанцию)
-    if self.hit_count > 2 then
-        self.hit_count = 0
-        self.enemy = attacker
-        self.flag_by_enemy = true
-        self.enemy_time = time_global()
-        self.hidden_time = 0
-        self.fire_point = nil
-    end
+		self.hit_count = 1
+	end
+	-- +UP
+	-- Переключение огня на того, кто нанес несколько попаданий (игнорируя дистанцию)
+	if self.hit_count > 2 then
+		self.hit_count = 0
+		self.enemy = attacker
+		self.flag_by_enemy = true
+		self.enemy_time = time_global()
+		self.hidden_time = 0
+		self.fire_point = nil
+	end
 	-- -UP
 end
 
@@ -287,7 +297,11 @@ function heli_fire:update_enemy_arr()
     -- Поиск среди игроков
     if search_mp_actors and db.mp_actors then
         for _, actor_obj in pairs(db.mp_actors) do
-            if actor_obj and not is_dead(actor_obj) and heli:isVisible(actor_obj) then
+            if actor_obj 
+				and not is_dead(actor_obj)
+				and heli:isVisible(actor_obj)
+				and not is_in_dead_zone(self.obj, actor_obj:position())
+				then
                 local dist = distance_2d(self.obj:position(), actor_obj:position())
                 if dist < min_dist2D then
                     min_dist2D = dist
@@ -304,6 +318,7 @@ function heli_fire:update_enemy_arr()
             if	enemy_obj
 				and (self.enemy_ == "all" or self.enemy_ == "defence" and is_df_enemy(enemy_obj))
 				and not is_dead(enemy_obj) and heli:isVisible(enemy_obj)
+				and not is_in_dead_zone(self.obj, enemy_obj:position())
 				then
                 local dist = distance_2d(self.obj:position(), enemy_obj:position())
                 if dist < min_dist2D then
@@ -335,47 +350,83 @@ end
 
 -- Проверка безопасности стрельбы: нет ли игроков на линии огня или рядом с целью
 function is_fire_safe(heli_pos, target_pos)
-    if not db.mp_actors then return true end
+	if not db.mp_actors then return true end
+	
+	-- Вектор от вертолета к цели
+	local dir_to_target = vector()
+	dir_to_target:sub(target_pos, heli_pos)
+	local len_target = dir_to_target:magnitude()
+	if len_target < 0.01 then return true end
+	dir_to_target:normalize_safe()
+	
+	for _, actor_obj in pairs(db.mp_actors) do
+		if actor_obj and not is_dead(actor_obj) then
+			local actor_pos = actor_obj:position()
+			-- Вектор от вертолета к игроку
+			local to_actor = vector()
+			to_actor:sub(actor_pos, heli_pos)
+			local len_actor = to_actor:magnitude()
+			
+			if len_actor > 0.01 then
+				-- Скалярное произведение (проекция на луч стрельбы)
+				local dot = dir_to_target:dotproduct(to_actor) / len_actor
+				
+				if dot > 0 then
+					-- Перпендикулярное расстояние до луча
+					local proj = vector()
+					proj:mul(dir_to_target, dot * len_actor)
+					
+					local perp = vector()
+					perp:sub(to_actor, proj)
+					local perp_dist = perp:magnitude()
+					
+					-- Расстояние от игрока до цели
+					local dist_to_target = actor_pos:distance_to(target_pos)
+					
+					if (perp_dist < 10 and dot * len_actor < len_target) or dist_to_target < 4 then
+						return false
+					end
+				end
+			end
+		end
+	end
+	return true
+end
+
+-- Проверка мёртвой зоны: передняя полусфера + угол наклона пушки
+-- Возвращает true, если пушка НЕ МОЖЕТ достать до цели
+function is_in_dead_zone(heli_obj, target_pos)
+    local heli_pos = heli_obj:position()
     
-    -- Вектор от вертолета к цели
-    local dir_to_target = vector()
-    dir_to_target:sub(target_pos, heli_pos)
-    local len_target = dir_to_target:magnitude()
-    if len_target < 0.01 then return true end
-    dir_to_target:normalize_safe()
+    local to_target = vector()
+    to_target:sub(target_pos, heli_pos)
+    local dist = to_target:magnitude()
+    if dist < 0.1 then return true end
     
-    for _, actor_obj in pairs(db.mp_actors) do
-        if actor_obj and not is_dead(actor_obj) then
-            local ok_pos, actor_pos = pcall(function() return actor_obj:position() end)
-            if ok_pos and actor_pos then
-                -- Вектор от вертолета к игроку
-                local to_actor = vector()
-                to_actor:sub(actor_pos, heli_pos)
-                local len_actor = to_actor:magnitude()
-                
-                if len_actor > 0.01 then
-                    -- Скалярное произведение (проекция на луч стрельбы)
-                    local dot = dir_to_target:dotproduct(to_actor) / len_actor
-                    
-                    if dot > 0 then
-                        -- Перпендикулярное расстояние до луча
-                        local proj = vector()
-                        proj:mul(dir_to_target, dot * len_actor)
-                        
-                        local perp = vector()
-                        perp:sub(to_actor, proj)
-                        local perp_dist = perp:magnitude()
-                        
-                        -- Расстояние от игрока до цели
-                        local dist_to_target = actor_pos:distance_to(target_pos)
-                        
-                        if (perp_dist < 10 and dot * len_actor < len_target) or dist_to_target < 4 then
-                            return false
-                        end
-                    end
-                end
-            end
-        end
+    -- 1. Вертикаль: угол > 60° от горизонтали
+    local dy = heli_pos.y - target_pos.y
+    if dy > 0 then
+        local horiz_dist = math.sqrt(
+            (target_pos.x - heli_pos.x)^2 + 
+            (target_pos.z - heli_pos.z)^2
+        )
+        if horiz_dist < 0.1 then return true end
+        if dy > horiz_dist * 1.732 then return true end
     end
-    return true
+    
+    -- 2. Горизонталь: передняя полусфера 120° (60° в каждую сторону от носа)
+    local fwd = heli_obj:direction()
+    local fwd_norm = vector()
+    fwd_norm:set(fwd)
+    fwd_norm:normalize_safe()
+    
+    local to_target_norm = vector()
+    to_target_norm:set(to_target)
+    to_target_norm:normalize_safe()
+    
+    local dot = fwd_norm:dotproduct(to_target_norm)
+    -- cos(60°) = 0.5 ? отсекаем цели под углом > 60° от направления вперёд
+    if dot < 0.5 then return true end
+    
+    return false
 end
