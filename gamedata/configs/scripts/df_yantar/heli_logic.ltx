@@ -8,7 +8,7 @@ engine_sound = false
 max_velocity = 100
 invulnerable = true
 immortal = true
-on_info = {+defence_wave_7_start} heli_move@timer
+on_info = {+defence_wave_last_start} heli_move@timer
 
 [heli_move@timer]
 path_move = df_yan_heli_idle
@@ -35,7 +35,7 @@ max_velocity = 50
 engine_sound = true
 enemy = defence
 use_rocket = false
-fire_trail = true
+fire_trail = false
 invulnerable = true
 immortal = true
 on_signal = path_end | heli_move@anomaly %=play_particle_at_npc(anomaly2\tornado_00) =play_sound(emi_blowout)%
