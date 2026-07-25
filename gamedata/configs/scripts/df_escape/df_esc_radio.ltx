@@ -1,0 +1,38 @@
+[ph_heavy]
+
+[collide]
+ignore_static
+
+[logic]
+active = ph_button@start
+
+[ph_button@start]
+on_info = ph_button@check %=play_sound_by_story(rupor:df_esc_kpp_megafon_theme)%
+tooltip = st_turn_radio_on
+on_press = ph_button@music_pause %=stop_sound_by_story(rupor)%
+
+[ph_button@check]
+on_signal = sound_end | ph_button@pause %=stop_sound_by_story(rupor)%
+tooltip = st_turn_radio_on
+on_press = ph_button@music_pause %=stop_sound_by_story(rupor)%
+
+[ph_button@pause]
+on_game_timer = 600 | ph_button@start
+tooltip = st_turn_radio_on
+on_press = ph_button@music_pause
+
+[ph_button@music]
+anim = $editor
+tooltip = st_turn_radio_off
+on_info = ph_button@music_check %=play_sound_by_story(rupor:df_escape_radio_theme)%
+on_press = ph_button@pause %=stop_sound_by_story(rupor)%
+
+[ph_button@music_check]
+tooltip = st_turn_radio_off
+on_signal = sound_end | ph_button@music_pause %=stop_sound_by_story(rupor)%
+on_press = ph_button@pause %=stop_sound_by_story(rupor)%
+
+[ph_button@music_pause]
+on_game_timer = 2 | ph_button@music
+tooltip = st_turn_radio_off
+on_press = ph_button@pause %=stop_sound_by_story(rupor)%
