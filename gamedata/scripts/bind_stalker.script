@@ -411,11 +411,37 @@ function actor_binder:__init (obj) super(obj)
 					end
 				end
 			end
+
+			section = "lobby_light_offset"
+			if ini:line_exist(level.name(), section) then
+				self.lobby_light_offset = ini:r_vector(level.name(), section)
+			end
 		end
 	end
 	-- -UP
 end
+-- +UP
+function actor_binder:lobby_light_update()
+	
+	if not self.lobby_light_offset then
+		return
+	end
 
+	if xr_conditions.time_hour_in_range(self.object, self.object, {21,3}) and not has_alife_info("all_players_spawned") then
+		if self.lobby_light_id == nil or alife():object(self.lobby_light_id) == nil then
+			local pos = level.object_by_id(LocalActor()):position()
+			local lobby_light = alife():create("df_lobby_light", pos:add(self.lobby_light_offset), 0, 0)
+			if lobby_light then
+				self.lobby_light_id = lobby_light.id
+			end
+		end
+	elseif self.lobby_light_id and alife():object(self.lobby_light_id) ~= nil then
+		alife():release(alife():object(self.lobby_light_id))
+		self.lobby_light_id = nil
+	end
+
+end
+-- -UP
 ----------------------------------------------------------------------------------------------------------------------
 function actor_binder:net_spawn(data)
 --	printf("actor net spawn")
@@ -718,6 +744,7 @@ function actor_binder:update(delta)
 		task_manager.get_task_manager():send_server_objects_target_pos()
 		client_tasks.update_delayed_tasks()
 		bind_heli.heli_explode_update()-- +UP
+		self:lobby_light_update()-- +UP
 	end
 
 	-- +UP
