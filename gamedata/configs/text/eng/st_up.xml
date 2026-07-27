@@ -168,6 +168,13 @@
 		<text>High-tech armor based on an army exoskeleton. Previously unknown elements and alloys were found in the composite materials of which the servos are made, which apparently allows you to run. In addition to the technologically advanced servos, there is a heavy armored suit consisting of three parts.: an exoskeleton, tactical bulletproof vest and protective suit made of ballistic fabric and materials. The comfort of wearing this armored suit can only be compared with being buried under the Sarcophagus itself. Those who managed to capture a captured armored suit complained of terrible claustrophobia, which, however, is not a problem for a real servant of the Monolith</text>
 	</string>
 
+	<string id="ecolog_green_outfit_name">
+		<text>SSP-99M</text>
+	</string>
+	<string id="ecolog_green_outfit_description">
+		<text>High-quality modified SSP-99 jumpsuit. Added torso protection from bullet and shrapnel damage. It is intended for equipping the security of scientific expeditions. Effective protection against radiation and biological anomalies. It is resistant to chemically aggressive environments and other harmful effects on the body.</text>
+	</string>
+
 	<string id="ecolog_exo_outfit_name">
 		<text>Scientific Exoskeleton</text>
 	</string>
