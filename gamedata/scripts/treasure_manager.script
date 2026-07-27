@@ -56,7 +56,7 @@ function CTreasureManager:get_level_ini()
 	end
 
 	if not ok then
-		printf("load_level_file() error: %s", data)
+		to_log("load_level_file() error: %s", data)
 		return nil
 	end
 
@@ -85,7 +85,7 @@ function CTreasureManager:scan_level_objects()
 					
 					-- 1. ПРОВЕРКА: Существует ли тайник в конфиге?
 					if not self.secrets[value] then
-						printf(string.format(
+						to_log(string.format(
 							"ERROR: Объект [%s] ID=%d ссылается на НЕСУЩЕСТВУЮЩИЙ тайник [%s]",
 							se_obj:section_name(), se_obj.id, value
 						))
@@ -94,7 +94,7 @@ function CTreasureManager:scan_level_objects()
 						-- 2. ПРОВЕРКА: Есть ли секция для этого предмета в конфиге тайника?
 						local item_sect = se_obj:section_name()
 						if not self.secrets[value].items[item_sect] then
-							printf(string.format(
+							to_log(string.format(
 								"WARNING: Предмет [%s] (ID=%d) НЕ ЗАРЕГИСТРИРОВАН в конфиге тайника [%s]",
 								item_sect, se_obj.id, value
 							))
@@ -142,7 +142,6 @@ function CTreasureManager:initialize()
 	if ini then
 		to_log("TreasureManager: level-файл перекрывает misc")
 		self.use_level_mode = true
-		return
 	else
 		ini = ini_file("misc\\secrets.ltx")
 	end
@@ -361,7 +360,7 @@ function CTreasureManager:activate_level_secrets()
 		self:spawn_treasure(id, is_activated)
 	end
 	to_log("TreasureManager:activate_level_secrets: items_from_secrets")
-	table.print(self.items_from_secrets)
+	-- table.print(self.items_from_secrets)
 	self.activated_on_level = true
 
 end

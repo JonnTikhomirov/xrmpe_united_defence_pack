@@ -58,8 +58,11 @@ GM_SCRIPT_ADDON_EVENTS = 100
 -- Add your own events after this
 -- Example:
 -- GM_SCRIPT_USE_ITEM = GM_SCRIPT_ADDON_EVENTS + 1
-GM_REMOTE_COMMAND = GM_SCRIPT_ADDON_EVENTS + 1
-GM_REMOTE_COMMAND_BATCH = GM_SCRIPT_ADDON_EVENTS + 2
+GM_REMOTE_COMMAND			= 1 + GM_SCRIPT_ADDON_EVENTS
+GM_REMOTE_COMMAND_BATCH		= 2 + GM_SCRIPT_ADDON_EVENTS
+GM_SCRIPT_HELI_UPDATE		= 3 + GM_SCRIPT_ADDON_EVENTS
+GM_SCRIPT_PLAY_OBJ_SOUND	= 4 + GM_SCRIPT_ADDON_EVENTS
+GM_SCRIPT_PLAY_PARTICLE		= 5 + GM_SCRIPT_ADDON_EVENTS -- не зацикленные партиклы
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
@@ -1299,6 +1302,21 @@ function print_clsids()
 	for k,v in ipairs(classes) do
 		to_log("	%s = %s", v,clsid[v])
 	end
+end
+
+function is_df_enemy(npc)
+	local st = db.storage[npc:id()]
+	return st and st.is_df_enemy == true
+end
+
+function set_df_enemy_relation_to_actor(npc, actor)
+	local actor_id = nil
+	if type(actor.id) == "function" then
+		actor_id = actor:id()
+	else
+		actor_id = actor.id
+	end
+	SetGoodwillForce(npc:id(), actor_id, -10000)
 end
 
 -- ++ The Tool

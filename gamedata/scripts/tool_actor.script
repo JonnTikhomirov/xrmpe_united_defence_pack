@@ -12,7 +12,7 @@ local sModule = script_name() --/ строковое имя файла-модуля
 class "actor"
 
 function actor:__init(owner_name)
-	to_log(sModule..":> __init") --/#~#
+	--to_log(sModule..":> __init") --/#~#
 	self.owner_script = _G[owner_name]
 	self.rank_min = 0 --/ минимальный ранг игрока
 	self.rank_max = 1000 --/ максимальный ранг игрока
@@ -37,7 +37,7 @@ function actor:__finalize() end
 
 -- инициализация элементов
 function actor:InitControls(owner, xml)
-	to_log(sModule..":> InitControls") --/#~#
+	--to_log(sModule..":> InitControls") --/#~#
 
 	-- настройки игрока
 	self.actor_frame = xml:InitFrame("frame_right_actor:actor_frame", owner.frame_right)
@@ -122,7 +122,7 @@ end
 
 -- инициализация событий
 function actor:InitCallbacks(owner)
-	to_log(sModule..":> InitCallbacks") --/#~#
+	--to_log(sModule..":> InitCallbacks") --/#~#
 	owner:AddCallback("actor_btn_money_plus", ui_events.BUTTON_CLICKED, self.OnBtnMoneyPlus, self)
 	owner:AddCallback("actor_btn_money_minus", ui_events.BUTTON_CLICKED, self.OnBtnMoneyMinus, self)
 	owner:AddCallback("actor_btn_money_set", ui_events.BUTTON_CLICKED, self.OnBtnMoneySet, self)
@@ -149,7 +149,7 @@ end
 
 -- подготовка данных при загрузке (объекты недоступны)
 function actor:PrepareData(ltx)
-	to_log(sModule..":> PrepareData start")
+	--to_log(sModule..":> PrepareData start")
 	local iCntSections = 0
 	local trim, sini = string.trim, system_ini()
 	self.cheat_spawn = {}
@@ -165,7 +165,7 @@ function actor:PrepareData(ltx)
 		end
 	end
 
-	to_log(sModule..":> PrepareData spawn sections=[%d]", iCntSections)
+	--to_log(sModule..":> PrepareData spawn sections=[%d]", iCntSections)
 end
 
 -- нажатия на кнопки
@@ -179,13 +179,13 @@ end
 
 -- открытие и инициализация раздела
 function actor:OnTabChange()
-	to_log(sModule..":> OnTabChange start")
+	--to_log(sModule..":> OnTabChange start")
 	self.actor_frame:Show(true)
 end
 
 -- очистка полей
 function actor:ClearFields()
-	to_log(sModule..":> ClearFields start, clear_all=[%s]", tostring(clear_all))
+	--to_log(sModule..":> ClearFields start, clear_all=[%s]", tostring(clear_all))
 	-- + UP
 	-- self.money_value:SetText(tostring(db.actor and db.actor:money() or 0))
 	-- self.rank_value:SetText(tostring(db.actor and db.actor:character_rank() or 0))
@@ -210,20 +210,20 @@ end
 
 -- скрытие полей
 function actor:HideFields()
-	to_log(sModule..":> HideFields start")
+	--to_log(sModule..":> HideFields start")
 	self.actor_frame:Show(false)
 end
 
 -- кнопка Плюс деньги
 function actor:OnBtnMoneyPlus()
-	to_log(sModule..":> OnBtnMoneyPlus start")
+	--to_log(sModule..":> OnBtnMoneyPlus start")
 	local value = tonumber(self.money_value:GetText()) or 0
 	self.money_value:SetText(string.format("%d", math.floor(value) + 1000))
 end
 
 -- кнопка Минус деньги
 function actor:OnBtnMoneyMinus()
-	to_log(sModule..":> OnBtnMoneyMinus start")
+	--to_log(sModule..":> OnBtnMoneyMinus start")
 	local value = tonumber(self.money_value:GetText()) or 0
 	if math.floor(value) < value then value = math.floor(value) else value = value - 1000 end
 	if value < 0 then value = 0 end
@@ -232,7 +232,7 @@ end
 
 -- кнопка Установить деньги
 function actor:OnBtnMoneySet()
-	to_log(sModule..":> OnBtnMoneySet start")
+	--to_log(sModule..":> OnBtnMoneySet start")
 	local value = tonumber(self.money_value:GetText())
 	if not value or value < 0 then value = 0 end
 	value = math.floor(value)
@@ -245,7 +245,7 @@ end
 
 -- кнопка Плюс ранг
 function actor:OnBtnRankPlus()
-	to_log(sModule..":> OnBtnRankPlus start")
+	--to_log(sModule..":> OnBtnRankPlus start")
 	local value = tonumber(self.rank_value:GetText()) or -50
 	if math.floor(value) < value then value = math.floor(value) + 50 else value = value + 50 end
 	if value < self.rank_min then value = self.rank_min end
@@ -255,7 +255,7 @@ end
 
 -- кнопка Минус ранг
 function actor:OnBtnRankMinus()
-	to_log(sModule..":> OnBtnRankMinus start")
+	--to_log(sModule..":> OnBtnRankMinus start")
 	local value = tonumber(self.rank_value:GetText()) or 50
 	if math.floor(value) < value then value = math.floor(value) else value = value - 50 end
 	if value < self.rank_min then value = self.rank_min end
@@ -265,7 +265,7 @@ end
 
 -- кнопка Установить ранг
 function actor:OnBtnRankSet()
-	to_log(sModule..":> OnBtnRankSet start")
+	--to_log(sModule..":> OnBtnRankSet start")
 	local rank = tonumber(self.rank_value:GetText()) or 0
 	if rank < self.rank_min then rank = self.rank_min end
 	if rank > self.rank_max then rank = self.rank_max end
@@ -279,7 +279,7 @@ end
 
 -- кнопка Плюс репутация
 function actor:OnBtnReputationPlus()
-	to_log(sModule..":> OnBtnReputationPlus start")
+	--to_log(sModule..":> OnBtnReputationPlus start")
 	local value = tonumber(self.reputation_value:GetText()) or -100
 	if math.floor(value) < value then value = math.floor(value) + 100 else value = value + 100 end
 	if value < self.reputation_min then value = self.reputation_min end
@@ -289,7 +289,7 @@ end
 
 -- кнопка Минус репутация
 function actor:OnBtnReputationMinus()
-	to_log(sModule..":> OnBtnReputationMinus start")
+	--to_log(sModule..":> OnBtnReputationMinus start")
 	local value = tonumber(self.reputation_value:GetText()) or 100
 	if math.floor(value) < value then value = math.floor(value) else value = value - 100 end
 	if value < self.reputation_min then value = self.reputation_min end
@@ -299,7 +299,7 @@ end
 
 -- кнопка Установить репутацию
 function actor:OnBtnReputationSet()
-	to_log(sModule..":> OnBtnReputationSet start")
+	--to_log(sModule..":> OnBtnReputationSet start")
 	local reputation = tonumber(self.reputation_value:GetText()) or 0
 	if reputation < self.reputation_min then reputation = self.reputation_min end
 	if reputation > self.reputation_max then reputation = self.reputation_max end
@@ -313,7 +313,7 @@ end
 
 -- кнопка Плюс здоровье
 function actor:OnBtnHealthPlus()
-	to_log(sModule..":> OnBtnHealthPlus start")
+	--to_log(sModule..":> OnBtnHealthPlus start")
 	local value = tonumber(self.health_value:GetText()) or self.actor_powers_min
 	if value < self.actor_powers_min then value = self.actor_powers_min else value = value + 0.05 end
 	if value > self.actor_powers_max then value = self.actor_powers_max end
@@ -322,7 +322,7 @@ end
 
 -- кнопка Минус здоровье
 function actor:OnBtnHealthMinus()
-	to_log(sModule..":> OnBtnHealthMinus start")
+	--to_log(sModule..":> OnBtnHealthMinus start")
 	local value = tonumber(self.health_value:GetText()) or self.actor_powers_max
 	if value > self.actor_powers_max then value = self.actor_powers_max else value = value - 0.05 end
 	if value < self.actor_powers_min then value = self.actor_powers_min end
@@ -331,7 +331,7 @@ end
 
 -- кнопка Установить здоровье
 function actor:OnBtnHealthSet()
-	to_log(sModule..":> OnBtnHealthSet start")
+	--to_log(sModule..":> OnBtnHealthSet start")
 	local value = tonumber(self.health_value:GetText())
 	if not value or value > self.actor_powers_max then value = self.actor_powers_max end
 	if value < self.actor_powers_min then value = self.actor_powers_min end
@@ -345,7 +345,7 @@ end
 
 -- кнопка Плюс пси-здоровье
 function actor:OnBtnPsyPlus()
-	to_log(sModule..":> OnBtnPsyPlus start")
+	--to_log(sModule..":> OnBtnPsyPlus start")
 	local value = tonumber(self.psy_value:GetText()) or self.actor_powers_min
 	if value < self.actor_powers_min then value = self.actor_powers_min else value = value + 0.05 end
 	if value > self.actor_powers_max then value = self.actor_powers_max end
@@ -354,7 +354,7 @@ end
 
 -- кнопка Минус пси-здоровье
 function actor:OnBtnPsyMinus()
-	to_log(sModule..":> OnBtnPsyMinus start")
+	--to_log(sModule..":> OnBtnPsyMinus start")
 	local value = tonumber(self.psy_value:GetText()) or self.actor_powers_max
 	if value > self.actor_powers_max then value = self.actor_powers_max else value = value - 0.05 end
 	if value < self.actor_powers_min then value = self.actor_powers_min end
@@ -363,7 +363,7 @@ end
 
 -- кнопка Установить пси-здоровье
 function actor:OnBtnPsySet()
-	to_log(sModule..":> OnBtnPsySet start")
+	--to_log(sModule..":> OnBtnPsySet start")
 	local value = tonumber(self.psy_value:GetText())
 	if not value or value > self.actor_powers_max then value = self.actor_powers_max end
 	if value < self.actor_powers_min then value = self.actor_powers_min end
@@ -377,7 +377,7 @@ end
 
 -- кнопка Плюс энергия
 function actor:OnBtnPowerPlus()
-	to_log(sModule..":> OnBtnPowerPlus start")
+	--to_log(sModule..":> OnBtnPowerPlus start")
 	local value = tonumber(self.power_value:GetText()) or self.actor_powers_min
 	if value < self.actor_powers_min then value = self.actor_powers_min else value = value + 0.05 end
 	if value > self.actor_powers_max then value = self.actor_powers_max end
@@ -386,7 +386,7 @@ end
 
 -- кнопка Минус энергия
 function actor:OnBtnPowerMinus()
-	to_log(sModule..":> OnBtnPowerMinus start")
+	--to_log(sModule..":> OnBtnPowerMinus start")
 	local value = tonumber(self.power_value:GetText()) or self.actor_powers_max
 	if value > self.actor_powers_max then value = self.actor_powers_max else value = value - 0.05 end
 	if value < self.actor_powers_min then value = self.actor_powers_min end
@@ -395,7 +395,7 @@ end
 
 -- кнопка Установить энергию
 function actor:OnBtnPowerSet()
-	to_log(sModule..":> OnBtnPowerSet start")
+	--to_log(sModule..":> OnBtnPowerSet start")
 	local value = tonumber(self.power_value:GetText())
 	if not value or value > self.actor_powers_max then value = self.actor_powers_max end
 	if value < self.actor_powers_min then value = self.actor_powers_min end
@@ -405,7 +405,7 @@ end
 
 -- кнопка Плюс радиация
 function actor:OnBtnRadiationPlus()
-	to_log(sModule..":> OnBtnRadiationPlus start")
+	--to_log(sModule..":> OnBtnRadiationPlus start")
 	local value = tonumber(self.radiation_value:GetText()) or self.actor_radiation_min
 	if value < self.actor_radiation_min then value = self.actor_radiation_min else value = value + 0.05 end
 	if value > self.actor_radiation_max then value = self.actor_radiation_max end
@@ -414,7 +414,7 @@ end
 
 -- кнопка Минус радиация
 function actor:OnBtnRadiationMinus()
-	to_log(sModule..":> OnBtnRadiationMinus start")
+	--to_log(sModule..":> OnBtnRadiationMinus start")
 	local value = tonumber(self.radiation_value:GetText()) or self.actor_radiation_max
 	if value > self.actor_radiation_max then value = self.actor_radiation_max else value = value - 0.05 end
 	if value < self.actor_radiation_min then value = self.actor_radiation_min end
@@ -423,7 +423,7 @@ end
 
 -- кнопка Установить радиацию
 function actor:OnBtnRadiationSet()
-	to_log(sModule..":> OnBtnRadiationSet start")
+	--to_log(sModule..":> OnBtnRadiationSet start")
 	local value = tonumber(self.radiation_value:GetText())
 	if not value or value > self.actor_radiation_max then value = self.actor_radiation_max end
 	if value < self.actor_radiation_min then value = self.actor_radiation_min end
@@ -458,7 +458,7 @@ end
 
 -- кнопка Читбокс
 function actor:OnBtnCheatSpawn()
-	to_log(sModule..":> OnBtnCheatSpawn start")
+	--to_log(sModule..":> OnBtnCheatSpawn start")
 
 	-- cпавним объекты из списка в инвентарь игрока
 	for _,v in ipairs(self.cheat_spawn) do

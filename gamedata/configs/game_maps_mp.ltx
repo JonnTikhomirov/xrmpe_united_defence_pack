@@ -81,11 +81,13 @@
         weathers                         = dynamic_default;default_np_cloudy; +UP
 		logic_restrictors = defence_logic_restrictor; +UP
 		start_hours_range = 0, 24; +UP
+		lobby_light_offset = 0, 0, 0; +UP
 
 [df_baryer]
         weathers                         = dynamic_default
 		logic_restrictors = defence_logic_restrictor; +UP
 		start_hours_range = 0, 24; +UP
+		lobby_light_offset = 0, 0, 0; +UP
 		
 [df_zastava]
 		weathers                         = dynamic_default
@@ -105,7 +107,13 @@
 [df_polygon]
         weathers                         = dynamic_default;[default]; +UP
 		start_hours_range = 0, 24; +UP
-		logic_restrictors = defence_logic_restrictor; +UP
+		logic_restrictors = defence_logic_restrictor, df_polygon_logic_restrictor; +UP
+		lobby_light_offset = 0, 0, 0; +UP
+
+[df_lesopilka]
+	weathers                         = dynamic_default
+	logic_restrictors = defence_logic_restrictor; +UP
+	lobby_light_offset = 0, 0, 0; +UP
 
 ; +dmr
 [df_yanov_station]
@@ -121,10 +129,6 @@
 	logic_restrictors = defence_logic_restrictor; +UP
 
 [df_mine_coper]
-	weathers                         = dynamic_default
-	logic_restrictors = defence_logic_restrictor; +UP
-
-[df_lesopilka]
 	weathers                         = dynamic_default
 	logic_restrictors = defence_logic_restrictor; +UP
 
@@ -157,7 +161,7 @@
 [df_escape]
 weathers     = dynamic_default; +UP
 minimap_zoom = 2.0
-logic_restrictors = defence_logic_restrictor; +UP
+logic_restrictors = defence_logic_restrictor, df_esc_logic_restrictor_lights; +UP
 start_hours_range = 0, 24; +UP
 
 [df_limansk]
@@ -172,20 +176,10 @@ minimap_zoom = 1.2
 logic_restrictors = defence_logic_restrictor, defence_logic_restrictor_ignitions; +UP
 start_hours_range = 0, 24; +UP
 
-[df_radar]
-weathers     = dynamic_default; +UP
-minimap_zoom = 1.2
-logic_restrictors = defence_logic_restrictor; +UP
-
-[df_tir]
-weathers     = dynamic_default; +UP
-minimap_zoom = 1.4
-logic_restrictors = defence_logic_restrictor; +UP
-
 [df_yantar]
-weathers     = dynamic_default; +UP
+weathers     = weather_df_pripyat_center; +UP
 minimap_zoom = 1.4
-logic_restrictors = defence_logic_restrictor; +UP
+logic_restrictors = defence_logic_restrictor, defence_logic_restrictor_ignitions; +UP
 start_hours_range = 0, 24; +UP
 
 [df_arena]
@@ -199,3 +193,4 @@ logic_restrictors = df_arena_logic_restrictor_tips; +UP
 weathers	= weather_df_pripyat_center
 logic_restrictors = defence_logic_restrictor, defence_logic_restrictor_ignitions
 start_hours_range = 0, 24
+lobby_light_offset = 0, 0, 0; +UP

@@ -14,7 +14,7 @@ local sNoValue = game.translate_string("tool_no_value") --/ стандартный текст дл
 class "misc"
 
 function misc:__init(owner_name)
-	to_log(sModule..":> __init") --/#~#
+	--to_log(sModule..":> __init") --/#~#
 	self.owner_script = _G[owner_name]
 	self.tSubsections = {} -- массив подразделов
 	self.update_time = 0 --/ для апдейта
@@ -33,7 +33,7 @@ function misc:__finalize() end
 
 -- инициализация элементов
 function misc:InitControls(owner, xml)
-	to_log(sModule..":> InitControls") --/#~#
+	--to_log(sModule..":> InitControls") --/#~#
 
 	-- список подразделов слева
 	self.subsection_list = xml:InitListBox("frame_left_misc:subsection_list", owner.frame_left)
@@ -111,7 +111,7 @@ end
 
 -- инициализация событий
 function misc:InitCallbacks(owner)
-	to_log(sModule..":> InitCallbacks") --/#~#
+	--to_log(sModule..":> InitCallbacks") --/#~#
 	owner:AddCallback("misc_subsection_list", ui_events.LIST_ITEM_CLICKED, self.OnSubsectionListItemClicked, self)
 	owner:AddCallback("misc_btn_plus", ui_events.BUTTON_CLICKED, self.OnBtnPlus, self)
 	owner:AddCallback("misc_btn_minus", ui_events.BUTTON_CLICKED, self.OnBtnMinus, self)
@@ -130,7 +130,7 @@ end
 
 -- подготовка данных при загрузке (объекты недоступны)
 function misc:PrepareData(ltx)
-	to_log(sModule..":> PrepareData start")
+	--to_log(sModule..":> PrepareData start")
 	local trim = string.trim
 
 	--/ чтение подгрупп
@@ -143,7 +143,7 @@ function misc:PrepareData(ltx)
 		table.insert(self.tSubsections, { id = subsection, name = game.translate_string("tool_misc_subsection_"..subsection) })
 	end
 
-	to_log(sModule..":> PrepareData subsections=[%d]", iCntSubsections)
+	--to_log(sModule..":> PrepareData subsections=[%d]", iCntSubsections)
 
 	--/ чтение списка музыки
 	local iCntMusic = 0
@@ -161,7 +161,7 @@ function misc:PrepareData(ltx)
 	end
 	self.tMusic = self.owner_script.SortTableByValue(self.tMusic, "asc", "path")
 
-	to_log(sModule..":> PrepareData music=[%d]", iCntMusic)
+	--to_log(sModule..":> PrepareData music=[%d]", iCntMusic)
 
 	--/ чтение списка видео
 	local iCntVideos = 0
@@ -179,7 +179,7 @@ function misc:PrepareData(ltx)
 	end
 	self.tVideos = self.owner_script.SortTableByValue(self.tVideos, "asc", "name")
 
-	to_log(sModule..":> PrepareData videos=[%d]", iCntVideos)
+	--to_log(sModule..":> PrepareData videos=[%d]", iCntVideos)
 end
 
 -- обновление
@@ -209,7 +209,7 @@ end
 
 -- открытие и инициализация раздела
 function misc:OnTabChange()
-	to_log(sModule..":> OnTabChange start")
+	--to_log(sModule..":> OnTabChange start")
 	self.subsection_list:Show(true)
 	-- первый элемент списка добавляем и сразу выбираем по умолчанию
 	for _,subsection in ipairs(self.tSubsections) do
@@ -219,13 +219,13 @@ end
 
 -- выбор подраздела
 function misc:OnSubsectionListItemClicked()
-	to_log(sModule..":> OnSubsectionListItemClicked start")
+	--to_log(sModule..":> OnSubsectionListItemClicked start")
 	self:ClearFields()
 
 	local subsection_id = self.owner:GetListItemSelectedValue(self.subsection_list)
 	if not subsection_id or subsection_id == "null" then return end --/>
 
-	to_log(sModule..":> OnSubsectionListItemClicked subsection_id=[%s]", subsection_id)
+	--to_log(sModule..":> OnSubsectionListItemClicked subsection_id=[%s]", subsection_id)
 
 	self:HideFields()
 	self.owner:SetFrameShowState(true, self[subsection_id.."_frame"], self[subsection_id.."_frame_controls"])
@@ -247,7 +247,7 @@ end
 
 -- двойной клик на элементе списка музыки
 function misc:OnMusicListMouseDblClicked()
-	to_log(sModule..":> OnMusicListMouseDblClicked start")
+	--to_log(sModule..":> OnMusicListMouseDblClicked start")
 
 	local path, oListItem = self.owner:GetListItemSelectedValue(self.music_list)
 	if not path or path == "null" then return end --/>
@@ -271,7 +271,7 @@ end
 
 -- кнопка Проиграть музыку
 function misc:OnBtnMusicStart()
-	to_log(sModule..":> OnBtnMusicStart start")
+	--to_log(sModule..":> OnBtnMusicStart start")
 
 	local path, oListItem = self.owner:GetListItemSelectedValue(self.music_list)
 	if not path or path == "null" then return end --/>
@@ -287,7 +287,7 @@ end
 
 -- кнопка Остановить музыку
 function misc:OnBtnMusicStop()
-	to_log(sModule..":> OnBtnMusicStop start")
+	--to_log(sModule..":> OnBtnMusicStop start")
 
 	-- + UP
 	-- if db.actor and self.current_music and self.current_music.sound_object:playing() then self.current_music.sound_object:stop() end
@@ -311,13 +311,13 @@ end
 
 -- двойной клик на элементе списка видео
 function misc:OnVideoListMouseDblClicked()
-	to_log(sModule..":> OnVideoListMouseDblClicked start")
+	--to_log(sModule..":> OnVideoListMouseDblClicked start")
 	self:OnBtnVideoStart()
 end
 
 -- кнопка Запустить видео
 function misc:OnBtnVideoStart()
-	to_log(sModule..":> OnBtnVideoStart start")
+	--to_log(sModule..":> OnBtnVideoStart start")
 
 	local section = self.owner:GetListItemSelectedValue(self.video_list)
 	if not section or section == "null" then return end --/>
@@ -328,7 +328,7 @@ end
 
 -- очистка полей
 function misc:ClearFields(clear_all)
-	to_log(sModule..":> ClearFields start, clear_all=[%s]", tostring(clear_all))
+	--to_log(sModule..":> ClearFields start, clear_all=[%s]", tostring(clear_all))
 	if clear_all then
 		self.subsection_list:ScrollToBegin()
 		self.subsection_list:RemoveAll()
@@ -349,7 +349,7 @@ end
 
 -- скрытие полей
 function misc:HideFields(hide_all)
-	to_log(sModule..":> HideFields start")
+	--to_log(sModule..":> HideFields start")
 	if hide_all then
 		self.subsection_list:Show(false)
 	end
@@ -362,7 +362,7 @@ end
 
 -- кнопка Плюс
 function misc:OnBtnPlus()
-	to_log(sModule..":> OnBtnPlus start")
+	--to_log(sModule..":> OnBtnPlus start")
 	local value = tonumber(self.timefactor_value:GetText()) or self.base_time_factor
 	if math.floor(value) < value then value = math.floor(value) + 10 else value = value + 10 end
 	if value < 1 then value = 1 end
@@ -372,7 +372,7 @@ end
 
 -- кнопка Минус
 function misc:OnBtnMinus()
-	to_log(sModule..":> OnBtnMinus start")
+	--to_log(sModule..":> OnBtnMinus start")
 	local value = tonumber(self.timefactor_value:GetText()) or self.base_time_factor
 	if math.floor(value) < value then value = math.floor(value) else value = value - 10 end
 	if value < 1 then value = 1 end
@@ -382,7 +382,7 @@ end
 
 -- кнопка Установить
 function misc:OnBtnTimefactorSet()
-	to_log(sModule..":> OnBtnTimefactorSet start")
+	--to_log(sModule..":> OnBtnTimefactorSet start")
 	local time_factor = tonumber(self.timefactor_value:GetText()) or self.base_time_factor
 	if time_factor < 1 then time_factor = 1 end
 	if time_factor > 1000000 then time_factor = 1000000 end
@@ -394,7 +394,7 @@ end
 
 -- кнопка Сбросить
 function misc:OnBtnTimefactorReset()
-	to_log(sModule..":> OnBtnTimefactorReset start")
+	--to_log(sModule..":> OnBtnTimefactorReset start")
 	self.timefactor_coeff_value:SetText(tostring(self.base_time_factor_coeff))
 	level.set_time_factor(self.base_time_factor)
 	get_console():execute("time_factor "..tostring(time_factor))-- +UP
@@ -403,7 +403,7 @@ end
 
 -- кнопка Коэффициент Плюс
 function misc:OnBtnCoeffPlus()
-	to_log(sModule..":> OnBtnCoeffPlus start")
+	--to_log(sModule..":> OnBtnCoeffPlus start")
 	local value = tonumber(self.timefactor_coeff_value:GetText()) or self.base_time_factor_coeff
 	if math.floor(value) < value then value = math.floor(value) + 1 else value = value + 1 end
 	if value < 2 then value = 2 end
@@ -413,7 +413,7 @@ end
 
 -- кнопка Коэффициент Минус
 function misc:OnBtnCoeffMinus()
-	to_log(sModule..":> OnBtnCoeffMinus start")
+	--to_log(sModule..":> OnBtnCoeffMinus start")
 	local value = tonumber(self.timefactor_coeff_value:GetText()) or self.base_time_factor_coeff
 	if math.floor(value) < value then value = math.floor(value) else value = value - 1 end
 	if value < 2 then value = 2 end
@@ -423,7 +423,7 @@ end
 
 -- кнопка Ускорить
 function misc:OnBtnTimefactorIncrease()
-	to_log(sModule..":> OnBtnTimefactorIncrease start")
+	--to_log(sModule..":> OnBtnTimefactorIncrease start")
 	local time_factor_coeff = tonumber(self.timefactor_coeff_value:GetText()) or self.base_time_factor_coeff
 	if time_factor_coeff > 10 then time_factor_coeff = 10 end
 	if time_factor_coeff < 2 then time_factor_coeff = 2 end
@@ -437,7 +437,7 @@ end
 
 -- кнопка Замедлить
 function misc:OnBtnTimefactorDecrease()
-	to_log(sModule..":> OnBtnTimefactorDecrease start")
+	--to_log(sModule..":> OnBtnTimefactorDecrease start")
 	local time_factor_coeff = tonumber(self.timefactor_coeff_value:GetText()) or self.base_time_factor_coeff
 	if time_factor_coeff > 10 then time_factor_coeff = 10 end
 	if time_factor_coeff < 2 then time_factor_coeff = 2 end

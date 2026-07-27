@@ -1,3 +1,9 @@
+[stalker_defence]:stalker
+defence_enemy = true
+
+[stalker_zombied_defence]:stalker_zombied
+defence_enemy = true
+
 [sniper_vision_free]:stalker_vision_danger
 min_view_distance			= 2.0		; коэффициент, который множится на eye_range, в зависимости от угла
 max_view_distance			= 2.5			; коэффициент, который множится на eye_range, в зависимости от угла
@@ -8,59 +14,83 @@ velocity_factor				= 0.5
 luminocity_factor			= 1.7		; фактор освещения (только для Актёра)
 transparency_threshold		= 0.9; видимость всквозь ВСЕ
 
-[stalker_sniper]:stalker
+[stalker_sniper]:stalker_defence
 vision_danger_section			= sniper_vision_free
 vision_free_section				= sniper_vision_free
 
-[neutral_normal]:stalker
+[neutral_weak]:stalker_defence
+$spawn                     = "respawn\neutral_weak"
+character_profile     = neutral_weak
+community = stalker
+spec_rank = novice
+
+[neutral_normal]:stalker_defence
 $spawn                     = "respawn\neutral_normal"
 character_profile     = neutral_normal
 community = stalker
 spec_rank = regular
 
-[neutral_veteran]:stalker
+[neutral_veteran]:stalker_defence
 $spawn                     = "respawn\neutral_veteran"
 character_profile     = neutral_veteran
 community = stalker
 spec_rank = veteran
 
-; [neutral_sniper]:stalker_sniper
-; $spawn                     = "respawn\neutral_sniper"
-; character_profile     = neutral_sniper
-; community = stalker
-; spec_rank = master
-
-[neutral_master]:stalker
+[neutral_master]:stalker_defence
 $spawn                     = "respawn\neutral_master"
 character_profile     = neutral_master
 community = stalker
 spec_rank = master
 
-[bandit_normal]:stalker
+[bandit_weak]:stalker_defence
+$spawn                     = "respawn\bandit_weak"
+character_profile     = bandit_weak
+community = bandit
+spec_rank = novice
+
+[bandit_normal]:stalker_defence
 $spawn                     = "respawn\bandit_normal"
 character_profile     = bandit_normal
 community = bandit
 spec_rank = regular
 
-[bandit_veteran]:stalker
+[bandit_veteran]:stalker_defence
 $spawn                     = "respawn\bandit_veteran"
 character_profile     = bandit_veteran
 community = bandit
 spec_rank = veteran
 
-[bandit_master]:stalker
+[bandit_master]:stalker_defence
 $spawn                     = "respawn\bandit_master"
 character_profile     = bandit_master
 community = bandit
 spec_rank = master
 
-[duty_normal]:stalker
+[csky_normal]:stalker_defence
+$spawn                     = "respawn\csky_normal"
+character_profile     = csky_normal
+community = csky
+spec_rank = regular
+
+[csky_veteran]:stalker_defence
+$spawn                     = "respawn\csky_veteran"
+character_profile     = csky_veteran
+community = csky
+spec_rank = veteran
+
+[csky_master]:stalker_defence
+$spawn                     = "respawn\csky_master"
+character_profile     = csky_master
+community = csky
+spec_rank = master
+
+[duty_normal]:stalker_defence
 $spawn                     = "respawn\duty_normal"
 character_profile     = duty_normal
 community = dolg
 spec_rank = regular
 
-[duty_veteran]:stalker
+[duty_veteran]:stalker_defence
 $spawn                     = "respawn\duty_veteran"
 character_profile     = duty_veteran
 community = dolg
@@ -72,20 +102,19 @@ character_profile     = duty_sniper
 community = dolg
 spec_rank = master
 
-[duty_master]:stalker
+[duty_master]:stalker_defence
 $spawn                     = "respawn\duty_master"
 character_profile     = duty_master
 community = dolg
 spec_rank = master
 
-
-[freedom_normal]:stalker
+[freedom_normal]:stalker_defence
 $spawn                     = "respawn\freedom_normal"
 character_profile     = freedom_normal
 community = freedom
 spec_rank = regular
 
-[freedom_veteran]:stalker
+[freedom_veteran]:stalker_defence
 $spawn                     = "respawn\freedom_veteran"
 character_profile     = freedom_veteran
 community = freedom
@@ -97,19 +126,19 @@ character_profile     = freedom_sniper
 community = freedom
 spec_rank = master
 
-[freedom_master]:stalker
+[freedom_master]:stalker_defence
 $spawn                     = "respawn\freedom_master"
 character_profile     = freedom_master
 community = freedom
 spec_rank = master
 
-[killer_normal]:stalker
+[killer_normal]:stalker_defence
 $spawn                     = "respawn\killer_normal"
 character_profile     = killer_normal
 community = killer
 spec_rank = regular
 
-[killer_veteran]:stalker
+[killer_veteran]:stalker_defence
 $spawn                     = "respawn\killer_veteran"
 character_profile     = killer_veteran
 community = killer
@@ -121,19 +150,19 @@ character_profile     = killer_sniper
 community = killer
 spec_rank = master
 
-[killer_master]:stalker
+[killer_master]:stalker_defence
 $spawn                     = "respawn\killer_master"
 character_profile     = killer_master
 community = killer
 spec_rank = master
 
-[military_normal]:stalker
+[military_normal]:stalker_defence
 $spawn                     = "respawn\military_normal"
 character_profile     = military_normal
 community = army
 spec_rank = regular
 
-[military_veteran]:stalker
+[military_veteran]:stalker_defence
 $spawn                     = "respawn\military_veteran"
 character_profile     = military_veteran
 community = army
@@ -145,19 +174,19 @@ character_profile     = military_sniper
 community = army
 spec_rank = master
 
-[military_master]:stalker
+[military_master]:stalker_defence
 $spawn                     = "respawn\military_master"
 character_profile     = military_master
 community = army
 spec_rank = master
 
-[monolith_normal]:stalker
+[monolith_normal]:stalker_defence
 $spawn                     = "respawn\monolith_normal"
 character_profile     = monolith_normal
 community = monolith
 spec_rank = regular
 
-[monolith_veteran]:stalker
+[monolith_veteran]:stalker_defence
 $spawn                     = "respawn\monolith_veteran"
 character_profile     = monolith_veteran
 community = monolith
@@ -169,25 +198,25 @@ character_profile     = monolith_sniper
 community = monolith
 spec_rank = master
 
-[monolith_master]:stalker
+[monolith_master]:stalker_defence
 $spawn                     = "respawn\monolith_master"
 character_profile     = monolith_master
 community = monolith
 spec_rank = master
 
-[zombied_normal]:stalker_zombied
+[zombied_normal]:stalker_zombied_defence
 $spawn				= "respawn\zombied_normal"
 character_profile	= zombied_normal
 community			= zombied
 spec_rank			= regular
 
-[zombied_veteran]:stalker_zombied
+[zombied_veteran]:stalker_zombied_defence
 $spawn				= "respawn\zombied_veteran"
 character_profile	= zombied_veteran
 community			= zombied
 spec_rank			= veteran
 
-[zombied_master]:stalker_zombied
+[zombied_master]:stalker_zombied_defence
 $spawn				= "respawn\zombied_master"
 character_profile	= zombied_master
 community			= zombied

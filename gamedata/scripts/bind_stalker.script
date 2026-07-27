@@ -100,13 +100,15 @@ function mp_actor_binder:net_spawn(data)
 		if keylogger then keylogger.on_load() end
 		if tool then tool.OnLoad() end
 	else
-		-- +UP ссорим с игроком при возраждении, для нпс которых спавинили скриптово
-		for _,v in ipairs(db.heli_enemies) do
-			if v:character_reputation() == -1000 then
-				SetGoodwillForce(v:id(), self.object:id(), -5000)
+		-- +UP ссорим с игроком при возрождении игрока
+		if db.heli_enemies then
+			for i = 0, db.heli_enemy_count - 1 do
+				local enemy_obj = db.heli_enemies[i]
+				if enemy_obj and is_df_enemy(enemy_obj) then
+					set_df_enemy_relation_to_actor(enemy_obj, self.object)
+				end
 			end
 		end
-		-- -UP
 	end
 	-- - UP
 
@@ -209,8 +211,14 @@ function mp_actor_binder:update(delta)
 					self.weapon_hide = false
 				end
 			end
-			
+
 			xr_sound.update(self.object:id())
+			-- +UP
+			local a_manager = arena_manager.get_manager()
+			if a_manager ~= nil then
+				a_manager:on_mp_actor_update(self.object) -- потому что стартовый лут спавнится после net_spawn
+			end
+			-- -UP
 		end
 		
 		if not IsServerClient() then
@@ -293,6 +301,11 @@ function mp_actor_binder:update(delta)
 		SetGoodwillForce(k, self.object:id(), v)
 	end
 	game_relations.temp_goodwill_table = { }
+	-- +UP
+	if OnClient() then
+		bind_heli.heli_explode_update()
+	end
+	-- -UP
 end
 
 function mp_actor_binder:net_destroy()
@@ -342,7 +355,93 @@ function actor_binder:__init (obj) super(obj)
 	self.loaded_slot_applied = false
 	self.last_detective_achievement_spawn_time 	= nil
 	self.last_mutant_hunter_achievement_spawn_time	= nil
+	-- +UP
+	if OnServer() then
+		local ini = game_ini()
+		if ini:section_exist(level.name()) then
+
+			local section = "start_hours_range"
+			if ini:line_exist(level.name(), section) then
+				
+				local shr = ini:r_string(level.name(), section)
+
+				if shr and shr ~= "" then
+					local range = utils.parse_names(shr)
+					local startHour = tonumber(range[1])
+					local endHour = tonumber(range[2])
+
+					if startHour < endHour then
+						-- Прямой диапазон (например, с 10 до 15)
+						totalMinutes = (endHour - startHour) * 60
+					elseif startHour > endHour then
+						-- Диапазон через полночь (например, с 22 до 6)
+						totalMinutes = (24 - startHour + endHour) * 60
+					else
+						-- Если часы равны (например, 10 до 10), берем случайные минуты внутри 1 часа
+						totalMinutes = 60 
+					end
+
+					-- Генерируем случайное смещение в минутах.
+					-- Вычитаем 1, чтобы время не перешагивало в следующий час 
+					-- (например, для 22-6 максимум будет 05:59, а не 06:00).
+					local randomOffset = math.random(0, math.max(0, totalMinutes - 1))
+
+					-- Считаем итоговое время в минутах от начала суток
+					local totalMinsFromMidnight = startHour * 60 + randomOffset
+
+					-- Вычисляем часы и минуты с учетом перехода через 24:00 (используем остаток от деления на 24)
+					local finalHour = math.floor(totalMinsFromMidnight / 60) % 24
+					local finalMinute = totalMinsFromMidnight % 60
+					
+					get_console():execute(string.format("sv_setenvtime %d:%d", finalHour, finalMinute))
+				end
+			end
+			
+			section = "logic_restrictors"
+			if ini:line_exist(level.name(), section) then
+				local logic_srs = ini:r_string(level.name(), section)
+				if logic_srs ~= "" then
+					for _, sr in ipairs(utils.parse_names(logic_srs)) do
+						if sr ~= "" and system_ini():section_exist(sr) then
+							alife():create(sr, vector(), 0, 0)
+							to_log("! levels logic_restrictor section [%s] create", sr)
+						else
+							to_log("! levels logic_restrictor section [%s] not found", sr)
+						end
+					end
+				end
+			end
+
+			section = "lobby_light_offset"
+			if ini:line_exist(level.name(), section) then
+				self.lobby_light_offset = ini:r_vector(level.name(), section)
+			end
+		end
+	end
+	-- -UP
 end
+-- +UP
+function actor_binder:lobby_light_update()
+	
+	if not self.lobby_light_offset then
+		return
+	end
+
+	if xr_conditions.time_hour_in_range(self.object, self.object, {21,3}) and not has_alife_info("all_players_spawned") then
+		if self.lobby_light_id == nil or alife():object(self.lobby_light_id) == nil then
+			local pos = level.object_by_id(LocalActor()):position()
+			local lobby_light = alife():create("df_lobby_light", pos:add(self.lobby_light_offset), 0, 0)
+			if lobby_light then
+				self.lobby_light_id = lobby_light.id
+			end
+		end
+	elseif self.lobby_light_id and alife():object(self.lobby_light_id) ~= nil then
+		alife():release(alife():object(self.lobby_light_id))
+		self.lobby_light_id = nil
+	end
+
+end
+-- -UP
 ----------------------------------------------------------------------------------------------------------------------
 function actor_binder:net_spawn(data)
 --	printf("actor net spawn")
@@ -374,67 +473,6 @@ function actor_binder:net_spawn(data)
 	self.already_jumped = false
 	self.loaded = false
 	benchmark.main()							          --' Distemper 06.2008 --
-	
-	-- +UP
-	if OnServer() then -- проходит 1 раз
-		local ini = ini_file("game.ltx")
-		if ini:section_exist(level.name()) then
-
-			local section = "start_hours_range"
-			if ini:line_exist(level.name(), section) then
-				
-				local logic_srs = ini:r_string(level.name(), section)
-
-				if logic_srs and logic_srs ~= "" then
-					local range = utils.parse_names(logic_srs)
-					local startHour = tonumber(range[1])
-					local endHour = tonumber(range[2])
-
-					if startHour < endHour then
-						-- Прямой диапазон (например, с 10 до 15)
-						totalMinutes = (endHour - startHour) * 60
-					elseif startHour > endHour then
-						-- Диапазон через полночь (например, с 22 до 6)
-						totalMinutes = (24 - startHour + endHour) * 60
-					else
-						-- Если часы равны (например, 10 до 10), берем случайные минуты внутри 1 часа
-						totalMinutes = 60 
-					end
-
-					-- Генерируем случайное смещение в минутах.
-					-- Вычитаем 1, чтобы время не перешагивало в следующий час 
-					-- (например, для 22-6 максимум будет 05:59, а не 06:00).
-					local randomOffset = math.random(0, math.max(0, totalMinutes - 1))
-
-					-- Считаем итоговое время в минутах от начала суток
-					local totalMinsFromMidnight = startHour * 60 + randomOffset
-
-					-- Вычисляем часы и минуты с учетом перехода через 24:00 (используем остаток от деления на 24)
-					local finalHour = math.floor(totalMinsFromMidnight / 60) % 24
-					local finalMinute = totalMinsFromMidnight % 60
-					
-					get_console():execute(string.format("sv_setenvtime %d:%d", finalHour, finalMinute))
-					self.weather_manager:reset()
-				end
-			end
-
-			section = "logic_restrictors"
-			if ini:line_exist(level.name(), section) then
-				local logic_srs = ini:r_string(level.name(), section)
-				if logic_srs ~= "" then
-					for _, sr in ipairs(utils.parse_names(logic_srs)) do
-						if sr ~= "" and system_ini():section_exist(sr) then
-							alife():create(sr, vector(), 0, 0)
-							to_log("! levels logic_restrictor section [%s] create", sr)
-						else
-							to_log("! levels logic_restrictor section [%s] not found", sr)
-						end
-					end
-				end
-			end
-		end
-	end
-	-- -UP
 	return true
 end
 ----------------------------------------------------------------------------------------------------------------------
@@ -642,7 +680,7 @@ function actor_binder:update(delta)
 	if string.find(command_line(), "-designer") then
 		return
 	end
-	
+
 	if OnServer() then
 		self.weather_manager:update()
 
@@ -705,8 +743,16 @@ function actor_binder:update(delta)
 		self:try_start_game()
 		task_manager.get_task_manager():send_server_objects_target_pos()
 		client_tasks.update_delayed_tasks()
+		bind_heli.heli_explode_update()-- +UP
+		self:lobby_light_update()-- +UP
 	end
-	
+
+	-- +UP
+	if OnClient() and self.weather_repaired ~= true then
+		level.set_weather(level.get_weather(), true) -- при смене времени суток погода иногда застревает в одном состоянии, особенно на старте
+		self.weather_repaired = true
+	end
+	-- -UP
 	if self.already_jumped==false and jump_level.need_jump==true and (device().frame > self.spawn_frame+2000) then
 		jump_level.try_to_jump()
 		self.already_jumped = true

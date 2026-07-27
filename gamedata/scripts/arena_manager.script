@@ -1,0 +1,147 @@
+local arena_manager = nil
+
+class "ArenaManager"
+function ArenaManager:__init()
+	self.path_prefix = "df_arena_enemy_sp_"
+	self.enemy_faction = nil
+	self.enemies_id = {}
+	self.actors_updated_id = {}
+	self.actors_respawn_items = nil
+
+	self.ranks_items = {
+		[0] = { -- weak
+			{ "money_100_rub", 2, 1 },
+			{ "money_200_rub", 3, 1 },
+			{ "money_500_rub", 1, 1 },
+			{ "money_1000_rub", 1, 1 }
+		},
+		[300] = { -- normal
+			{ "money_100_rub", 4, 1 },
+			{ "money_200_rub", 3, 1 },
+			{ "money_500_rub", 2, 1 },
+			{ "money_1000_rub", 1, 1 }
+		},
+		[600] = { -- veteran
+			{ "money_200_rub", 3, 1 },
+			{ "money_500_rub", 2, 1 },
+			{ "money_1000_rub", 2, 1 }
+		},
+		[900] = { -- master
+			{ "money_5000_rub", 1, 1 }
+		},
+	}
+
+	self.removable_items_clsid = {
+		[clsid.wpn_grenade_f1] = true,
+		[clsid.wpn_grenade_f1_s] = true,
+		[clsid.wpn_grenade_fake] = true,
+		[clsid.wpn_grenade_launcher] = true,
+		[clsid.wpn_grenade_launcher_s] = true,
+		[clsid.wpn_grenade_rgd5] = true,
+		[clsid.wpn_grenade_rgd5_s] = true,
+		[clsid.wpn_grenade_rpg7] = true
+	}
+end
+
+function ArenaManager:reload(fractions)
+	self:randomize_enemy_faction(fractions)
+	for _, id in ipairs(self.enemies_id) do -- удаляем трупы
+		alife():release(alife():object(id), true)
+	end
+end
+
+function ArenaManager:randomize_enemy_faction(fractions)
+	local new_index = math.random(1, #fractions)
+	local new_faction = fractions[new_index]
+	if new_faction == self.enemy_faction and #fractions > 1 then
+		new_index = new_index + 1
+		new_faction = fractions[new_index]
+		if new_faction == nil then
+			new_faction = fractions[1]
+		end
+	end
+	self.enemy_faction = new_faction
+end
+
+function ArenaManager:spawn_enemy(rank, path_index)
+
+	if path_index < 10 then
+		path_index = "0"..path_index
+	end
+
+	local path_name = self.path_prefix..path_index
+	if not level.patrol_path_exists(path_name) then
+		abort("Path %s doesnt exist. Function 'arena_spawn'", tostring(path_name))
+	end
+	local ptr = patrol(path_name)
+
+	if self.enemy_faction == nil then
+		abort("Faction is nil. Function 'arena_spawn'")
+	end
+
+	local spawn_sect = "df_arena_"..self.enemy_faction.."_"..rank
+	
+	local se_obj = alife():create(spawn_sect, ptr:point(0), ptr:level_vertex_id(0), ptr:game_vertex_id(0))
+	table.insert(self.enemies_id, se_obj.id)
+end
+
+function ArenaManager:set_actors_respawn_items(sections)
+	self.actors_respawn_items = sections
+end
+
+function ArenaManager:on_mp_actor_update(mp_actor)
+	if self.actors_updated_id[mp_actor:id()] == true then
+		return
+	end
+	self.actors_updated_id[mp_actor:id()] = true
+
+	if self.actors_respawn_items == nil then
+		return
+	end
+
+	local function remove_object_item(item)
+		alife():release(alife():object(item:id()), true)
+	end
+	mp_actor:inventory_for_each(remove_object_item)
+	
+	for _, item in ipairs(self.actors_respawn_items) do
+		alife():create(item, vector(), 0, 0, mp_actor:id())
+	end
+end
+
+function ArenaManager:on_enemy_death(npc)
+	local function remove_object_item(item)
+		if self.removable_items_clsid[item:clsid()] then
+			alife():release(alife():object(item:id()), true)
+		end
+	end
+	npc:inventory_for_each(remove_object_item)
+
+	local items_rank = 0
+	for rank, items in pairs(self.ranks_items) do
+		if npc:rank() >= rank and items_rank < rank then
+			items_rank = rank
+		end
+	end
+
+	local selected_items = self.ranks_items[items_rank]
+	if selected_items then
+		for _, item in ipairs(selected_items) do
+			local count = item[2]
+			local prob = item[3]
+			for i = 1, count do
+				if math.random() < prob then
+					alife():create(item[1], vector(), 0, 0, npc:id())
+				end
+			end
+		end
+	end
+end
+
+--------------------------------------------------------------------------------
+function get_manager()
+	if arena_manager==nil and level.name() == "df_arena" then
+		arena_manager = ArenaManager()
+	end
+	return arena_manager
+end

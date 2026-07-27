@@ -49,7 +49,7 @@ function motivator_binder:reinit()
 ----------------------------------------------------------------------------------------------------------------------
 		db.storage[self.object:id()] = {  followers = {} }
 		self.st = db.storage[self.object:id()]
-
+		self.st.is_df_enemy = utils.cfg_get_bool(system_ini(), self.object:section(), "defence_enemy", obj, false, false)-- +UP
 		--' Создание менеджера контроля положений тела
 		--memusage.collect_info(self.object, "before_statemgr")
 	self.st.state_mgr = state_mgr.bind_manager(self.object)
@@ -174,11 +174,11 @@ function motivator_binder:net_spawn(sobject)
 	if character_community(self.object) ~= "zombied" then
 		post_combat_idle.add_post_combat_idle(self.object)
 	end
-	-- +UP ссорим с игроками + достаем оружие
-	if self.object:character_reputation() == -1000 then
-		sobject.goodwill = -5000 -- отправляется на клиент только когда нпс спавнится обороной, не скриптово
+	-- +UP ссорим с игроками
+	if self.st.is_df_enemy then
+		sobject.goodwill = -10000
 		for v in alife():actors() do
-			SetGoodwillForce(self.object:id(), v.id, -5000) -- если спавним скриптово
+			set_df_enemy_relation_to_actor(self.object, v)
 		end
 	end
 	-- -UP
@@ -286,11 +286,12 @@ function motivator_binder:hit_callback(obj, amount, local_direction, who, bone_i
 	end
 
 	-- Если пришел смертельный хит, с некоторой вероятностью делаем чувака раненым.
-	if bone_index ~= 15 and amount > obj.health*100 then
-		--printf("DEADLY HIT %s %s", amount, self.object.health*100)
-		obj.health = 0.15
-	end
-
+	-- +UP не умирал при низком уроне
+	-- if bone_index ~= 15 and amount > obj.health*100 then
+	-- 	--printf("DEADLY HIT %s %s", amount, self.object.health*100)
+	-- 	obj.health = 0.15
+	-- end
+	-- -UP
 
 	if amount > 0 then
 		printf("HIT_CALLBACK: %s amount=%s bone=%s", obj:name(), amount, tostring(bone_index))

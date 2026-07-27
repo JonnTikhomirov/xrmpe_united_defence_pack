@@ -7,7 +7,7 @@ visual                       = dynamics\outfit\brown_coat_outfit
 actor_visual                 = actors\stalker_mp\df_bandit_3.ogf
 player_hud_section           = actor_hud_01
 
-cost                         = 500
+cost                         = 1500;500;+UP
 ef_equipment_type            = 3
 
 inv_name                     = brown_coat_outfit_name
@@ -20,8 +20,8 @@ inv_grid_x                   = 28
 inv_grid_y                   = 33
 
 artefact_count               = 1
-bones_koeff_protection       = actor_armor_light;actor_armor_absent; +UP
-hit_fraction_actor           = 0.75
+bones_koeff_protection       = brown_coat_outfit_damage;actor_armor_absent; +UP
+hit_fraction_actor           = 0.7;0.75; +UP
 power_loss                   = 0.5
 
 burn_protection              = 0.025
@@ -35,6 +35,9 @@ wound_protection             = 0.1
 
 immunities_sect              = sect_brown_coat_outfit_immunities
 
+[brown_coat_outfit_damage]:actor_head_damage_absent;+UP
+default = 1.0, 0.15;+UP
+
 [sect_brown_coat_outfit_immunities]
 burn_immunity                = 0.05 ;коэффициенты иммунитета самого костюма
 strike_immunity              = 0.0
@@ -46,10 +49,14 @@ chemical_burn_immunity       = 0.05
 explosion_immunity           = 0.1
 fire_wound_immunity          = 0.02
 
-[monolith_exo_outfit]:exo_outfit
+[monolith_exo_outfit]:dolg_exo_outfit
 $spawn                       = "outfit\monolith_exo_outfit"
 visual                       = dynamics\outfit\monolith_exo_outfit
 actor_visual                 = actors\stalker_mp\df_monolith_exo.ogf
+
+inv_name                     = monolith_exo_outfit_name; +UP
+inv_name_short               = monolith_exo_outfit_name; +UP
+description                  = monolith_exo_outfit_description; +UP
 
 inv_grid_x                   = 24
 inv_grid_y                   = 32
@@ -60,8 +67,12 @@ sprint_allowed               = true
 
 radiation_protection         = 0.014
 telepatic_protection         = 0.03
+hit_fraction_actor           = 0.11; +UP
+bones_koeff_protection 		 = monolith_exo_outfit_damage; +UP
 
-; +SP
+[monolith_exo_outfit_damage]:actor_head_damage_battle;+UP
+default = 1.0, 0.65;+UP
+
 ;---------------------------------------------------------------------------------------------
 ;    КОСТЮМ МОНОЛИТА
 ;---------------------------------------------------------------------------------------------
@@ -69,7 +80,9 @@ telepatic_protection         = 0.03
 $spawn                       = "outfit\monolith_outfit"
 visual                       = dynamics\outfit\monolith_outfit
 actor_visual                 = actors\stalker_mp\df_monolith_2.ogf
+player_hud_section           = actor_hud_14; +UP
 
+cost                         = 4000;+UP
 inv_name                     = monolith_outfit_name
 inv_name_short               = monolith_outfit_name
 description                  = monolith_outfit_description
@@ -79,6 +92,12 @@ inv_grid_y                   = 32
 radiation_protection         = 0.009
 telepatic_protection         = 0.03
 
+hit_fraction_actor           = 0.4; +UP
+bones_koeff_protection 		 = monolith_outfit_damage; +UP
+
+[monolith_outfit_damage]:actor_head_damage_absent;+UP
+default = 1.0, 0.33;+UP
+
 ;---------------------------------------------------------------------------------------------
 ;    НАУЧНЫЙ КОСТЮМ МОНОЛИТА
 ;---------------------------------------------------------------------------------------------
@@ -86,9 +105,18 @@ telepatic_protection         = 0.03
 $spawn                       = "outfit\monolith_scientific_outfit"
 visual                       = dynamics\outfit\monolith_scientific_outfit
 actor_visual                 = actors\stalker_mp\df_monolith_sci.ogf
+player_hud_section           = actor_hud_07_monolith; +UP
 
 inv_grid_x                   = 12
 inv_grid_y                   = 32
+
+cost = 8500; +UP
+
+hit_fraction_actor           = 0.25; +UP
+bones_koeff_protection 		 = monolith_scientific_outfit_damage; +UP
+
+[monolith_scientific_outfit_damage]:actor_head_damage_protective;+UP
+default = 1.0, 0.45;+UP
 
 ;---------------------------------------------------------------------------------------------
 ;    СРЕДНИЙ КОСТЮМ БАНДИТА
@@ -101,7 +129,7 @@ visual                       = dynamics\outfit\bandit_mid_outfit
 actor_visual                 = actors\stalker_mp\df_bandit_2.ogf
 player_hud_section           = actor_hud_14 ; temp - dolg hands
 
-cost                         = 1000
+cost                         = 5000;1000; +UP
 ef_equipment_type            = 3
 
 inv_name                     = bandit_mid_outfit_name
@@ -116,8 +144,8 @@ inv_grid_y                   = 29
 additional_inventory_weight  = 5
 additional_inventory_weight2 = 5
 artefact_count               = 1
-bones_koeff_protection       = actor_armor_light
-hit_fraction_actor           = 0.6
+bones_koeff_protection       = bandit_mid_outfit_damage;actor_armor_light; +UP
+hit_fraction_actor           = 0.34;0.6; +UP
 power_loss                   = 0.5
 
 burn_protection              = 0.02
@@ -130,6 +158,9 @@ explosion_protection         = 0.15
 wound_protection             = 0.15
 
 immunities_sect              = sect_bandit_mid_outfit_immunities
+
+[bandit_mid_outfit_damage]:actor_head_damage_absent;+UP
+default = 1.0, 0.36;+UP
 
 [sect_bandit_mid_outfit_immunities]
 burn_immunity                = 0.03 ;коэффициенты иммунитета самого костюма
@@ -153,7 +184,7 @@ visual                       = dynamics\outfit\bandit_heavy_outfit
 actor_visual                 = actors\stalker_mp\df_bandit_5.ogf
 player_hud_section           = actor_hud_14 ; temp - dolg hands
 
-cost                         = 1000
+cost                         = 14000;1000; +UP
 ef_equipment_type            = 3
 
 inv_name                     = bandit_heavy_outfit_name
@@ -168,9 +199,9 @@ inv_grid_y                   = 29
 additional_inventory_weight  = 10
 additional_inventory_weight2 = 10
 artefact_count               = 1
-bones_koeff_protection       = actor_armor_heavy_hardhat
+bones_koeff_protection       = bandit_heavy_outfit_damage;actor_armor_heavy_hardhat; +UP
 helmet_avaliable             = false
-hit_fraction_actor           = 0.45
+hit_fraction_actor           = 0.16;0.45; +UP
 nightvision_sect             = effector_nightvision_2
 power_loss                   = 0.55
 
@@ -184,6 +215,9 @@ explosion_protection         = 0.25
 wound_protection             = 0.25
 
 immunities_sect              = sect_bandit_heavy_outfit_immunities
+
+[bandit_heavy_outfit_damage]:actor_head_damage_tactic;+UP
+default = 1.0, 0.59;+UP
 
 [sect_bandit_heavy_outfit_immunities]
 burn_immunity                = 0.03 ;коэффициенты иммунитета самого костюма
@@ -207,7 +241,7 @@ visual                       = dynamics\outfit\cs_uber_outfit
 actor_visual                 = actors\stalker_mp\df_nebo_4.ogf
 player_hud_section           = actor_hud_04
 
-cost                         = 100000
+cost                         = 16000;100000; +UP
 ef_equipment_type            = 5
 
 inv_name                     = csky_uber_outfit_name
@@ -222,9 +256,9 @@ inv_grid_y                   = 32
 additional_inventory_weight  = 10
 additional_inventory_weight2 = 10
 artefact_count               = 1
-bones_koeff_protection       = actor_armor_exo
+bones_koeff_protection       = cs_uber_outfit_damage;actor_armor_exo; +UP
 helmet_avaliable             = false
-hit_fraction_actor           = 0.4
+hit_fraction_actor           = 0.13;0.4; +UP
 nightvision_sect             = effector_nightvision_2
 power_loss                   = 0.6
 
@@ -239,6 +273,9 @@ wound_protection             = 0.35
 
 immunities_sect              = sect_cs_uber_outfit_immunities
 
+[cs_uber_outfit_damage]:actor_head_damage_battle;+UP
+default = 1.0, 0.63;+UP
+
 [sect_cs_uber_outfit_immunities]
 burn_immunity                = 0.03 ;коэффициенты иммунитета самого костюма
 strike_immunity              = 0.0
@@ -249,3 +286,60 @@ telepatic_immunity           = 0.0
 chemical_burn_immunity       = 0.03
 explosion_immunity           = 0.05
 fire_wound_immunity          = 0.01
+
+; +UP
+[ecolog_green_outfit]:ecolog_outfit
+$spawn 			= "outfit\ecolog_green_outfit"
+visual          = dynamics\outfit\ecolog_outfit_green
+actor_visual	= actors\stalker_mp\stalker_ecolog_military.ogf
+
+inv_name                      = ecolog_green_outfit_name
+inv_name_short                = ecolog_green_outfit_name
+description                   = ecolog_green_outfit_description
+
+inv_grid_width		= 2
+inv_grid_height		= 3
+inv_grid_x			= 12
+inv_grid_y			= 29
+
+inv_weight			= 6.0
+artefact_count          = 3
+
+cost = 6500; +UP
+
+immunities_sect			= sect_scientific_outfit_immunities
+hit_fraction_actor				= 0.31
+bones_koeff_protection 			= ecolog_green_outfit_damage
+
+[ecolog_green_outfit_damage]:actor_head_damage_protective
+default = 1.0, 0.39
+
+[ecolog_exo_outfit]:exo_outfit
+$spawn                        = "outfit\ecolog_exo_outfit"
+visual                        = dynamics\outfit\ecolog_exo_outfit
+actor_visual                  = actors\stalker_ecolog\stalker_nauchniy_exo.ogf
+
+inv_name                      = ecolog_exo_outfit_name
+inv_name_short                = ecolog_exo_outfit_name
+description                   = ecolog_exo_outfit_description
+
+inv_grid_width               = 2
+inv_grid_height              = 3
+inv_grid_x                   = 28
+inv_grid_y                   = 29
+
+hit_fraction_actor			  = 0.16
+bones_koeff_protection        = ecolog_exo_outfit_damage
+
+burn_protection               = 0.0700
+shock_protection              = 1.1000
+radiation_protection          = 0.0295
+chemical_burn_protection      = 0.0480
+telepatic_protection          = 0.0600
+strike_protection             = 0.5
+explosion_protection          = 0.85
+wound_protection              = 0.64
+fire_wound_protection         = 0.48
+
+[ecolog_exo_outfit_damage]:actor_head_damage_tactic
+default = 1.0, 0.62

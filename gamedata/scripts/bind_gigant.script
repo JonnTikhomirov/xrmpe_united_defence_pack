@@ -1,0 +1,675 @@
+-----------------------------------------------------------------------------------
+-- Monster binding
+-----------------------------------------------------------------------------------
+
+--глобальная перменная для определение типа гиганта
+--0 - gigant_boss - обычный босс, невосприимчивый для света
+--1 - gigant_boss_anom - босс, который слабеет при попадании в рестриктор с включенным светом
+gigant_type = 0 
+boss_anom = 1
+boss_def = 0
+--значение, которое отнимет урон от хита, если мутант вне рестриктора (иммунитет)
+immunity_koef = 0.0015
+--рестрикторы, в которых слабеет мутант
+restrictors = {
+	"defence_zone_1", 
+	"defence_zone_1", 
+	"defence_zone_1_0001", 
+	"defence_zone_1_0000"
+	}
+
+projectors = {
+	"projector_1",
+	"projector_2",
+	"projector_3",
+	"projector_4",
+}	
+	
+invul_particle = "monsters\\phantom_death"
+lamp_destroy_particle = "destroy_fx\\destroy_el_box"
+lamp_destroy_particle2 = "hit_fx\\hit_metal_03"
+
+healing_snd_alias = "monsters\\giantleader\\giant_healing"
+roar_snd_alias = "monsters\\giantleader\\giant_scream"
+heal_out_snd_alias = "monsters\\giantleader\\giant_healing_out"
+crash_lamp_snd_alias = "ambient\\spotlights\\spotlight_breaking"
+
+current_restrictor_it = -1
+
+anim_time_roar = 6700
+effector_radius = 30
+
+function gigant_inside_restr(obj)
+	for k,v in pairs(restrictors) do
+		if db.zone_by_name[v]:inside(obj:position()) then
+			current_restrictor_it = k			
+			--переделать на нормальный итератор current_restrictor_it
+			local sid = projectors[current_restrictor_it]
+			if get_story_object(sid):get_hanging_lamp():isOn() then		
+				return true
+			end
+		end
+	end
+	
+	current_restrictor_it = -1
+	return false
+end
+
+function bind(obj)
+	printf("_bp: monster.bind: name='%s', id='%d'", obj:name(), obj:id())
+	
+	if obj:section() == "gigant_boss_anom" then
+		gigant_type = 1
+	end
+	
+	local new_binder = gigant_boss_binder(obj)
+	obj:bind_object(new_binder)
+end
+
+local last_update = 0 -- combat
+------------------------------------------------------------------------------------
+class "gigant_boss_binder" (object_binder)
+
+function gigant_boss_binder:__init(obj) super(obj)
+	self.loaded = false
+end
+
+function gigant_boss_binder:reload(section)
+	object_binder.reload(self, section)
+end
+
+function gigant_boss_binder:reinit()
+	object_binder.reinit(self)
+	
+	if OnClient() then
+		return
+	end
+	
+	db.storage[self.object:id()] = { }
+
+	self.st = db.storage[self.object:id()]
+
+	self.object:set_callback(callback.patrol_path_in_point, self.waypoint_callback, self)
+	self.object:set_callback(callback.hit,					self.hit_callback,		self)
+	self.object:set_callback(callback.death,				self.death_callback,	self)
+	self.object:set_callback(callback.sound, 				self.hear_callback, 	self)
+end
+
+function gigant_boss_binder:update(delta)
+	object_binder.update(self, delta)
+	
+	if not IsDedicatedServer() then
+		self:update_cl()
+		if OnClient() then
+			return
+		end
+	end
+	
+
+	if xr_combat_ignore.fighting_with_actor_npcs[self.object:id()] and self.object:best_enemy() == nil then
+		xr_combat_ignore.fighting_with_actor_npcs[self.object:id()] = nil
+	end
+	
+	local squad = get_object_squad(self.object)
+	local object_alive = self.object:alive()
+	if not object_alive then
+		return
+	end
+		
+	self.object:set_tip_text("")
+	local st = db.storage[self.object:id()]
+	if st ~= nil and st.active_scheme ~= nil then
+		xr_logic.try_switch_to_another_section(self.object, st[st.active_scheme], db.actor)
+	end
+	-- Апдейт отряда
+	if squad ~= nil then
+		if squad:commander_id() == self.object:id() then
+			squad:update()
+		end
+	end
+	
+	self.object:info_clear()
+		
+	local active_section = db.storage[self.object:id()] and db.storage[self.object:id()].active_section
+	if active_section then
+		self.object:info_add("section: " .. active_section)
+	end
+	local best_enemy = self.object:best_enemy()
+	if best_enemy then
+		self.object:info_add("enemy: " .. best_enemy:name())
+	end
+	self.object:info_add(self.object:name().." ["..self.object:team().."]["..self.object:squad().."]["..self.object:group().."]")
+	
+	if alife():object(self.object:id()) == nil then
+		return
+	end
+	
+	if squad ~= nil then
+		self.object:info_add("squad_id: " .. squad:section_name())
+		if squad.current_action ~= nil then
+			local target = squad.assigned_target_id and alife():object(squad.assigned_target_id) and alife():object(squad.assigned_target_id):name()
+			self.object:info_add("current_action: " .. squad.current_action.name .."["..tostring(target).."]")
+		end
+	end
+	
+	--проверим, находимся ли мы внутри рестриктора с включенным светом
+	if self.boss_type == boss_anom then
+		if gigant_inside_restr(self.object) then
+			self.inside_restr = true
+		else
+			self.inside_restr = false
+		end
+	end
+	--проверим, нужно ли нам включить рестор хп
+	if self:check_restore_condition() then
+		self:first_phase()
+		self:second_phase()
+		self:third_phase()
+	end
+	
+	if self.st.active_section ~= nil then
+		xr_logic.issue_event(self.object, self.st[self.st.active_scheme], "update", delta)
+	end
+end
+
+function gigant_boss_binder:extrapolate_callback()
+	-- Проверяем, что объект еще в онлайне
+	if db.storage[self.object:id()] == nil or
+		 db.storage[self.object:id()].object == nil
+	then
+		return
+	end
+
+	local cur_pt = self.object:get_current_point_index()
+	if self.object:get_script()	== false then
+		return false
+	end
+
+	local patrol_path = self.object:patrol()
+	if not level.patrol_path_exists(patrol_path) then
+		return false
+		--abort("bind_monster:extrapolate_callback(). There is no patrol path [%s]", tostring(patrol_path))
+	end
+	if patrol(patrol_path):flags(cur_pt):get() == 0 then
+		--printf("_bp: gigant_boss_binder: extrapolate_callback: cur_pt = %d: true", cur_pt)
+		return true
+	end
+	--printf("_bp: gigant_boss_binder: extrapolate_callback: cur_pt = %d: false", cur_pt)
+	return false
+end
+
+function gigant_boss_binder:waypoint_callback(obj, action_type, index)
+	if self.st.active_section ~= nil then
+		xr_logic.issue_event(self.object, self.st[self.st.active_scheme], "waypoint_callback", obj, action_type, index)
+	end
+end
+
+function gigant_boss_binder:death_callback(victim, who)
+	printf("stop_dead_id"..self.object:id())
+
+	xr_combat_ignore.fighting_with_actor_npcs[self.object:id()] = nil
+
+	self:hit_callback(victim, 1, vector():set(0,0,0), who, "from_death_callback")
+
+	if self.st.mob_death then
+		xr_logic.issue_event(self.object, self.st.mob_death, "death_callback", victim, who)
+	end
+
+	if self.st.active_section then
+		xr_logic.issue_event(self.object, self.st[self.st.active_scheme], "death_callback", victim, who)
+	end
+	
+	for i = 1, #self.tushkano_table do
+		local tush_id = self.tushkano_table[i]
+		df_add_exclude_id(tush_id)
+		df_add_destroy_on_wave_start(tush_id)
+	end
+	
+	--' Наносим небольшой импульс вперед.
+	local h = hit()
+	h.draftsman = self.object
+	h.type = hit.fire_wound
+	h.direction = who:position():sub(self.object:position())
+	h:bone("pelvis")
+	h.power = 1
+	h.impulse = 10
+	self.object:hit(h)
+end
+
+function gigant_boss_binder:hit_callback(obj, amount, local_direction, who, bone_index)
+--	printf("HIT_CALLBACK: [%s] amount[%s]", obj:name(), amount)
+		
+	
+	if self.st.hit then
+		xr_logic.issue_event(self.object, self.st.hit, "hit_callback", obj, amount, local_direction, who, bone_index)
+	end
+
+	if amount > 0 then
+		if self.boss_type == boss_anom then		
+			if not self.inside_restr then
+				self.object.health = amount - immunity_koef
+			else
+				self.object.health = -amount * 1.2
+			end
+		end
+	end
+	
+	printf("HIT_CALLBACK: %s amount=%s bone=%s who:id() = [%s] actor:id() = [%s]", obj:name(), amount, tostring(bone_index), who:id(), db.actor:id())
+end
+
+function gigant_boss_binder:hear_callback(self, who_id, sound_type, sound_position, sound_power)
+	if who_id == self:id() then
+		return
+	end
+	xr_hear.hear_callback(self, who_id, sound_type, sound_position, sound_power)
+end
+
+function gigant_boss_binder:net_spawn(sobject)
+	if not object_binder.net_spawn(self, sobject) then
+		return false
+	end
+	
+	if not IsDedicatedServer() then
+		self:init_cl()
+		
+		if OnClient() then
+			return true
+		end
+	end
+
+	local on_offline_condlist = db.storage[self.object:id()] and db.storage[self.object:id()].overrides and db.storage[self.object:id()].overrides.on_offline_condlist
+	if on_offline_condlist ~= nil then
+		xr_logic.pick_section_from_condlist(db.actor, self.object, on_offline_condlist)
+	end
+
+	if not self.object:alive() then
+		return true
+	end
+	if alife():object(self.object:id()) == nil then
+		return false
+	end
+
+--	local pos = self.object:position()
+--	printf("net_spawn mpos[%s][%s][%s]", tostring(pos.x), tostring(pos.y), tostring(pos.z))
+
+	db.add_obj(self.object)
+	-- +UP
+	db.add_enemy(self.object)
+	self.e_index = db.heli_enemy_count - 1
+	self.st.is_df_enemy = true
+	-- -UP
+--******************************* Телепорт на первую точку пути работы смарттеррейна...*****************************
+	local se_obj = alife():object(self.object:id())
+	if db.spawned_vertex_by_id[se_obj.id] ~= nil then
+		self.object:set_npc_position(level.vertex_position(db.spawned_vertex_by_id[se_obj.id]))
+		db.spawned_vertex_by_id[se_obj.id] = nil
+	elseif db.offline_objects[se_obj.id] ~= nil and db.offline_objects[se_obj.id].level_vertex_id ~= nil then
+		printf("changing position for object[%s] from %s to %s : level vertex [%s] to [%s]", se_obj:name(), vec_to_str(se_obj.position), vec_to_str(level.vertex_position(db.offline_objects[se_obj.id].level_vertex_id)), tostring(se_obj.m_level_vertex_id), tostring(db.offline_objects[se_obj.id].level_vertex_id))
+		self.object:set_npc_position(level.vertex_position(db.offline_objects[se_obj.id].level_vertex_id))
+	elseif se_obj.m_smart_terrain_id ~= 65535 then
+		local smart_terrain = alife():object(se_obj.m_smart_terrain_id)
+		if smart_terrain.arriving_npc[se_obj.id] == nil then
+			local smart_task = smart_terrain.job_data[smart_terrain.npc_info[se_obj.id].job_id].alife_task
+			self.object:set_npc_position(smart_task:position())
+		end
+	end
+--******************************************************************************************************************
+
+
+	smart_terrain.setup_gulag_and_logic_on_spawn( self.object, self.st, sobject, modules.stype_mobile, self.loaded)
+	
+	--Переменные для спешела
+	self.restore_count = 0
+	self.restoring = false
+	self.roar = false
+	
+	self.first_phase_init = true
+	self.second_phase_init = false
+	self.third_phase_init = false
+	self.boss_type = gigant_type
+	
+	self.stomp_time = 0
+	
+	if self.boss_type == boss_anom then		
+		self.inside_restr = false
+		self.lamp_crashed = false
+	end
+	
+	self.tushkano_table = {}
+	
+	return true
+end
+
+function gigant_boss_binder:check_restore_condition()
+	if self.restore_count > 2 then
+		return false
+	end
+	
+	if self.object.health > 0.5 and not self.restoring then
+		return false
+	end
+	
+	return true
+end
+
+function gigant_boss_binder:restore_hp()
+	self.object.health = 0.005
+end
+
+function gigant_boss_binder:gigant_boss_stomp()
+	self.object:set_threaten_execute()
+end
+
+function gigant_boss_binder:first_phase() --крик, спавн тушканов
+	if not self.first_phase_init then
+		return
+	end
+	
+	disable_info("all_third_phase_start")
+				
+	if not self.roar then
+		self.object:invulnerable(true)
+		mob_state_mgr.set_state(self.object, db.actor, "")
+		xr_logic.mob_capture(self.object, true)
+		self.object:set_stomp_enabled(false)
+		--Играем анимацию крика
+		--TODO: Переименовать анимку (иногда играет вместо обычной атаки)
+		self.object:set_override_animation("stand_roar_0")
+		
+		give_info("all_gigant_roar")
+		
+		self.roar = true
+		self.anim_roar_time = time_global()
+		
+		local num_players = get_players_count()
+		if IsDedicatedServer() then
+			num_players = num_players - 1
+		end
+		
+		local v = 4 * (self.restore_count + 1) * (num_players)
+		for i = 1, v do
+			local ang = 65 * math.random() - 65 * 0.5
+			local dir = vector_rotate_y( self.object:direction(), ang )
+			
+			local raw_radius = math.random(50, 100)
+			local turn_to_negative = math.random(0, 1)
+			local radius = raw_radius
+			
+			if turn_to_negative == 1 then
+				radius = -radius
+			end
+			
+			local se_tushkano = alife():create("tushkano_normal", self.object:position():add(dir:mul(radius)), self.object:level_vertex_id(), self.object:game_vertex_id())
+			table.insert(self.tushkano_table, se_tushkano.id)
+		end
+	end
+	
+	if self.anim_roar_time + anim_time_roar < time_global() then
+		self.first_phase_init = false
+		self.second_phase_init = true
+	end	
+end
+
+function gigant_boss_binder:second_phase()
+	if not self.second_phase_init then
+		return
+	end
+	
+	if self.boss_type == boss_anom then 
+		if self.stomp_time == 0 then
+			--нельзя использовать стомп без заданного врага
+			if self.object:get_enemy() ~= nil then
+				self:gigant_boss_stomp()
+				self.stomp_time = time_global()
+			end
+			return
+		end
+		
+		if self.stomp_time + 1350 >= time_global() then
+			return
+		else
+			--разобьём лампочку	
+			if current_restrictor_it ~= -1 and not self.lamp_crashed then
+				gigant_inside_restr(self.object)
+			
+				local sid = projectors[current_restrictor_it]
+				local lamp_obj = get_story_object(sid)
+				lamp_obj:get_hanging_lamp():turn_off()
+				give_info("all_crash_lamp")
+				self.lamp_crashed = true
+			end
+		end
+	end
+		
+	if not self.restoring then
+		give_info("all_second_phase_start")
+		self.restoring = true
+		self.object:clear_override_animation()
+		utils.add_actions(self.object, anim(anim.sleep, 0))
+		-- self.object:set_override_animation("stand_sleep_0")
+	end
+	
+    if self.restoring and self.object.health < 1.0 then
+        self:restore_hp()
+		return
+    end
+	
+	self.second_phase_init = false
+    self.third_phase_init = true
+	disable_info("all_second_phase_start")
+end
+
+function gigant_boss_binder:third_phase() --cleanup
+	if not self.third_phase_init then
+		return
+	end
+	
+	give_info("all_third_phase_start")
+	
+	self.lamp_crashed = false
+	
+	xr_logic.mob_release(self.object)
+	self.object:set_stomp_enabled(true)
+	self.object:invulnerable(false)
+	self.object:clear_override_animation()
+	
+	self.roar = false
+	self.restoring = false
+	
+	self.first_phase_init  = true
+	self.second_phase_init = false
+	self.third_phase_init  = false
+	
+	self.stomp_time = 0
+	
+	self.restore_count = self.restore_count + 1	
+	
+	disable_info("all_crash_lamp")
+	disable_info("all_gigant_roar")
+end
+
+function gigant_boss_binder:net_destroy()
+	if not IsDedicatedServer() then
+		self:cs_remove()
+		if OnClient() then
+			return
+		end
+	end
+	
+	self.object:set_callback(callback.death,				nil)
+	self.object:set_callback(callback.patrol_path_in_point, nil)
+	self.object:set_callback(callback.hit,					nil)
+	self.object:set_callback(callback.sound, 				nil)
+	xr_sound.stop_sounds_by_id(self.object:id())
+
+	xr_combat_ignore.fighting_with_actor_npcs[self.object:id()] = nil
+
+	local st = db.storage[self.object:id()]
+	if st and st.active_scheme then
+		xr_logic.issue_event(self.object, st[st.active_scheme], "net_destroy")
+	end
+
+-- Запоминаем позицию и активную секцию --------
+if db.offline_objects[self.object:id()] then
+	db.offline_objects[self.object:id()].level_vertex_id = self.object:level_vertex_id()
+	db.offline_objects[self.object:id()].active_section = db.storage[self.object:id()].active_section
+end
+------------------------------------------------n
+
+	db.del_obj(self.object)
+	db.delete_enemy(self.e_index)--+UP
+	db.storage[self.object:id()] = nil
+	object_binder.net_destroy(self)
+end
+
+function gigant_boss_binder:reload(section)
+	object_binder.reload(self, section)
+	--printf("gigant_boss_binder:reload(): self.object:name()='%s'", self.object:name())
+end
+
+function gigant_boss_binder:net_save_relevant()
+	--printf("gigant_boss_binder:net_save_relevant(): self.object:name()='%s'", self.object:name())
+	return true
+end
+
+function gigant_boss_binder:save(packet)
+
+	set_save_marker(packet, "save", false, "gigant_boss_binder")
+	object_binder.save(self, packet)
+	xr_logic.save_obj(self.object, packet)
+	set_save_marker(packet, "save", true, "gigant_boss_binder")
+end
+
+function gigant_boss_binder:load(reader)
+	self.loaded = true
+	set_save_marker(reader, "load", false, "gigant_boss_binder")
+	object_binder.load(self, reader)
+	xr_logic.load_obj(self.object, reader)
+	set_save_marker(reader, "load", true, "gigant_boss_binder")
+end
+
+function gigant_boss_binder:init_cl()
+	local hud = get_hud()
+	hud:AddCustomStatic("gigant_boss", true)	
+	self.hp_static = hud:GetCustomStatic("gigant_boss")
+	
+	local xml = CScriptXmlInit()
+    xml:ParseFile("progress_bars.xml")
+	
+	local w = self.hp_static:wnd()
+    self.gigant_progress = xml:InitProgressBar ("boss_health", w )
+
+	self.healing_sound = sound_object(healing_snd_alias)
+	self.roar_sound = sound_object(roar_snd_alias)
+	self.heal_out_sound = sound_object(heal_out_snd_alias)
+	
+	self.base_color = GetColorDef("dark_red_mpe")
+	self.heal_color = GetColorDef("yellow_mpe")
+	
+	self.roar_time = 0
+	self.effector_played = false
+end
+
+function gigant_boss_binder:update_cl()
+	self:set_gigant_boss_progress_health()
+	
+	if not self.object:alive() then	
+		return
+	end
+	
+	local local_actor = getLocalActor()
+	
+	if not local_actor then
+		return
+	end
+
+	if local_actor:has_info("all_gigant_roar") then
+		self.object:stop_sounds() --заглушим все движковые звуки, чтобы не мешались
+		self.object:set_silent_mode(true) --не играем больше никаких звуков
+		self.roar_sound:play_at_pos(self.object, self.object:position(), 0, sound_object.s3d)
+		self.roar_time = time_global()
+		disable_info("all_gigant_roar")
+	end
+	
+	if self.roar_sound:playing() then
+		if not self.effector_played and time_global() - self.roar_time > 1200 then
+			self.roar_sound.volume = 15
+			local dist_to_actor = self.object:position():distance_to(local_actor:position())
+			local power = (effector_radius - dist_to_actor) / effector_radius	
+			level.add_sndshock_effector(anim_time_roar, power) --эффектор взрыва
+			self.effector_played = true
+		end
+	
+		self.roar_sound.volume = self.roar_sound.volume + 0.05
+	else 
+		self.roar_sound.volume = 1.0
+	end
+	
+	if local_actor:has_info("all_crash_lamp") then	
+		if gigant_type == boss_anom then
+			local proj = nil
+			local dist = 65535
+				
+			for k,v in pairs(db.lamps) do
+				local obj = v
+				if obj:position():distance_to(self.object:position()) < dist and obj:get_hanging_lamp():isOn() then
+					proj = obj
+					dist = obj:position():distance_to(self.object:position())
+				end
+			end
+			
+			proj:get_hanging_lamp():turn_off()
+			
+			proj:start_particles(lamp_destroy_particle, "bone_light")
+			proj:start_particles(lamp_destroy_particle2, "bone_light")
+			
+			self.crash_lamp_sond:play_at_pos(proj, proj:position(), 0, sound_object.s3d)
+			
+			disable_info("all_crash_lamp")
+		end
+	end
+	
+	if local_actor:has_info("all_second_phase_start") then
+		self.roar_sound:stop()
+		self.roar_time = 0
+		self.effector_played = false
+		self.healing_sound:play_at_pos(self.object, self.object:position(), 0, sound_object.s3d + sound_object.looped)
+		self.gigant_progress:SetColor(self.heal_color)
+		
+		disable_info("all_second_phase_start")
+	end
+
+	if local_actor:has_info("all_third_phase_start") then
+		self.heal_out_sound:play_at_pos(self.object, self.object:position(), 0, sound_object.s3d)
+		self.healing_sound:stop()
+		self.object:set_silent_mode(false)
+		self.gigant_progress:SetColor(self.base_color)
+		
+		disable_info("all_third_phase_start")
+	end
+end
+
+function gigant_boss_binder:set_gigant_boss_progress_health()
+    local hud = get_hud()
+    local st = hud:GetCustomStatic("gigant_boss")
+	if st ~= nil then
+		local w = st:wnd()
+		local _progr = self.object.health*100
+		if _progr > 0 then
+			self.gigant_progress:Show(true)
+			self.gigant_progress:SetProgressPos(_progr)
+		else
+			self.gigant_progress:Show(false)
+			self:cs_remove()
+		end
+	end
+end
+
+function gigant_boss_binder:cs_remove()
+    local hud = get_hud()
+    local custom_static = hud:GetCustomStatic("gigant_boss")
+    if custom_static then
+        hud:RemoveCustomStatic("gigant_boss")
+		self.hp_static = nil
+    end
+end

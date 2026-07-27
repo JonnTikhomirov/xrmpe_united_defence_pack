@@ -1,4 +1,7 @@
-﻿<character id="neutral_normal">
+﻿<character id="neutral_weak">
+	<class>neutral_weak</class>
+</character>
+<character id="neutral_normal">
 	<class>neutral_normal</class>
 </character>
 <character id="neutral_veteran">
@@ -8,6 +11,9 @@
 	<class>neutral_master</class>
 </character>
 
+<character id="bandit_weak">
+	<class>bandit_weak</class>
+</character>
 <character id="bandit_normal">
 	<class>bandit_normal</class>
 </character>
@@ -16,6 +22,16 @@
 </character>
 <character id="bandit_master">
 	<class>bandit_master</class>
+</character>
+
+<character id="csky_normal">
+	<class>csky_normal</class>
+</character>
+<character id="csky_veteran">
+	<class>csky_veteran</class>
+</character>
+<character id="csky_master">
+	<class>csky_master</class>
 </character>
 
 <character id="duty_normal">

@@ -7,7 +7,7 @@
 <?xml version="1.0" encoding="windows-1251" ?>
 <debug>
 	<background x="0" y="0" width="950" height="1000" stretch="1">
-		<!-- <texture>ui\ui_notepad_2</texture> +UP -->
+		<texture a="180">ui\ui_notepad_2</texture> <!-- <texture>ui\ui_notepad_2</texture> +UP -->
 	</background>
 	<!-- Main buttons background line 1 -->
 	<mbbackground_frame_line x="95" y="556" width="625" height="32">

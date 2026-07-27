@@ -2,11 +2,25 @@
 
 [list_script_sound_up]:list_script_sound_seven_pack
 df_pripyat_center_radio_theme
+df_escape_radio_theme
 df_campfire_ingition
+df_yantar_heli_come
+df_yantar_heli_death_1
+df_yantar_heli_death_2
+df_yantar_heli_death_3
+heli_see_enemy
+heli_kill_enemy
+emi_blowout
 
 [df_pripyat_center_radio_theme]
 type = 3d
 path = music\df_pripyat_center_radio_music_
+shuffle = rnd
+idle = 0,0,100
+
+[df_escape_radio_theme]
+type = 3d
+path = music\df_escape_radio_music_
 shuffle = rnd
 idle = 0,0,100
 
@@ -15,3 +29,45 @@ type = 3d
 path = device\inv_matches
 shuffle = rnd
 idle = 0,0,100
+
+[df_yantar_heli_come]
+type = actor
+path = characters_voice\scenario\yantar\heli_come
+shuffle = rnd
+idle = 5,5,100
+
+[df_yantar_heli_death_1]
+type = actor
+path = vehicles\helicopter\death_1
+shuffle = rnd
+idle = 2,2,100
+
+[df_yantar_heli_death_2]
+type = actor
+path = vehicles\helicopter\death_2
+shuffle = rnd
+idle = 4,4,100
+
+[df_yantar_heli_death_3]
+type = actor
+path = vehicles\helicopter\death_5
+shuffle = rnd
+idle = 2,2,100
+
+[heli_see_enemy]
+type = actor
+path = vehicles\helicopter\see_enemy_
+shuffle = rnd
+idle = 6,6,100
+
+[heli_kill_enemy]
+type = actor
+path = vehicles\helicopter\kill_enemy_
+shuffle = rnd
+idle = 2,4,100
+
+[emi_blowout]
+type = 3d
+path = anomaly\emi_blowout
+shuffle = rnd
+idle = 6,6,100

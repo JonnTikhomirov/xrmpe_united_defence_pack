@@ -1,0 +1,44 @@
+[logic]
+active = heli_move@wait
+
+[heli_move@wait]
+path_move = df_esc_heli_wait
+path_look = df_esc_heli_look
+engine_sound = false
+max_velocity = 100
+invulnerable = true
+immortal = true
+on_info = {+defence_wave_last_start} heli_move@timer
+
+[heli_move@timer]
+path_move = df_esc_heli_wait
+path_look = df_esc_heli_look
+engine_sound = false
+max_velocity = 100
+invulnerable = true
+immortal = true
+on_timer = 40000 | heli_move@come
+
+[heli_move@come]
+path_move = df_esc_heli_come
+path_look = df_esc_heli_look
+max_velocity = 50
+engine_sound = true
+invulnerable = true
+immortal = true
+on_signal = path_end | heli_move@fly
+
+[heli_move@fly]
+path_move = df_esc_heli_fly
+path_look = df_esc_heli_look
+max_velocity = 30
+engine_sound = true
+enemy = defence
+use_rocket = false
+fire_trail = false
+invulnerable = true
+immortal = true
+
+
+
+

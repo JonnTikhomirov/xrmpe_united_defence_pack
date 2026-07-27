@@ -708,13 +708,13 @@ function object_sound:play(obj_id, faction, point, msg, force)
 	if self.sync and OnClient() then
 		return false
 	end
-	
+
 	local obj = db.storage[obj_id] and db.storage[obj_id].object
 
 	if obj == nil then
 		return false
 	end
-	
+
 	local play_anyway = force ~= nil and force == true
 
 	if not play_anyway then 
@@ -751,6 +751,14 @@ function object_sound:play(obj_id, faction, point, msg, force)
 			packet:w_u8(self.local_id) --внутренний кастомный айдишник
 			packet:w_u8(self.played_id) --номер файла
 			u_EventSend(packet)
+		-- +UP
+		elseif db.heli[obj_id] then
+			local packet = game_cl.GenerateGameMessage(GM_SCRIPT_PLAY_OBJ_SOUND)
+			packet:w_u16(obj:id())
+			packet:w_u16(self.local_id) --внутренний кастомный айдишник
+			packet:w_u8(self.played_id) --номер файла
+			u_EventSendReliable(packet)	
+		-- -UP
 		elseif self.sync then
 			local packet = net_packet()
 			u_EventGen(packet, 126, obj:id()) --GE_OBJECT_SND

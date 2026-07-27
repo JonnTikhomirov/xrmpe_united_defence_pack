@@ -14,7 +14,7 @@ local sNoValue = game.translate_string("tool_no_value") --/ стандартный текст дл
 class "clean"
 
 function clean:__init(owner_name)
-	to_log(sModule..":> __init") --/#~#
+	--to_log(sModule..":> __init") --/#~#
 	self.owner_script = _G[owner_name]
 	self.tSmarts = {} --/ массив смартов для поиска удаляемых объектов
 	self.tObjects = {} --/ массив найденных объектов для удаления
@@ -33,7 +33,7 @@ function clean:__finalize() end
 
 -- инициализация элементов
 function clean:InitControls(owner, xml)
-	to_log(sModule..":> InitControls") --/#~#
+	--to_log(sModule..":> InitControls") --/#~#
 
 	-- список поиска объектов
 	self.find_object_frame = xml:InitFrame("frame_right_clean:find_object_frame", owner.frame_right)
@@ -139,7 +139,7 @@ end
 
 -- инициализация событий
 function clean:InitCallbacks(owner)
-	to_log(sModule..":> InitCallbacks") --/#~#
+	--to_log(sModule..":> InitCallbacks") --/#~#
 	owner:AddCallback("clean_find_object_list", ui_events.LIST_ITEM_CLICKED, self.OnFindObjectListItemClicked, self)
 	owner:AddCallback("clean_find_object_list", ui_events.WINDOW_LBUTTON_DB_CLICK, self.OnFindObjectListMouseDblClicked, self)
 	owner:AddCallback("clean_textbox_find", ui_events.EDIT_TEXT_COMMIT, self.OnBtnFind, self)
@@ -170,7 +170,7 @@ end
 
 -- подготовка данных при загрузке (объекты недоступны)
 function clean:PrepareData(ltx)
-	to_log(sModule..":> PrepareData start, IO = [%s]", type(io))
+	--to_log(sModule..":> PrepareData start, IO = [%s]", type(io))
 
 	--/ чтение состояния чекбоксов по умолчанию
 	self.checkbox_current_location_default = Get_Cfg_Bool(ltx, "clean_settings", "checkbox_current_location_default", false)
@@ -183,7 +183,7 @@ function clean:PrepareData(ltx)
 end
 
 function clean:OnLoad(ltx)
-	to_log(sModule..":> OnLoad start")
+	--to_log(sModule..":> OnLoad start")
 
 	-- удаление объектов по их story_id
 	local tRemove = Get_IniSection(ltx, "clean_by_story_id")
@@ -201,7 +201,7 @@ function clean:OnLoad(ltx)
 		iCntAll = iCntAll + 1
 	end
 	tRemove = nil
-	to_log(sModule..":> OnLoad objects_removed_by_story_id=[%s/%s]", iCnt, iCntAll)
+	--to_log(sModule..":> OnLoad objects_removed_by_story_id=[%s/%s]", iCnt, iCntAll)
 
 	-- удаление объектов по их name
 	tRemove = Get_IniSection(ltx, "clean_by_name")
@@ -222,13 +222,13 @@ function clean:OnLoad(ltx)
 	end
 	tRemove = nil
 
-	to_log(sModule..":> OnLoad objects_removed_by_name=[%s/%s]", iCnt, iCntAll)
+	--to_log(sModule..":> OnLoad objects_removed_by_name=[%s/%s]", iCnt, iCntAll)
 end
 
 -- подготовка данных при открытии диалога в игре (объекты доступны)
 function clean:PrepareRuntimeData(ltx)
 	if self.bSmartsLoaded then return end --/>
-	to_log(sModule..":> PrepareRuntimeData start")
+	--to_log(sModule..":> PrepareRuntimeData start")
 
 	local gg, iCntSmarts = game_graph(), 0
 
@@ -246,7 +246,7 @@ function clean:PrepareRuntimeData(ltx)
 		})
 	end
 	self.tSmarts = self.owner_script.SortTableByValue(self.tSmarts, "asc", "id")
-	to_log(sModule..":> PrepareRuntimeData smarts=[%d]", iCntSmarts)
+	--to_log(sModule..":> PrepareRuntimeData smarts=[%d]", iCntSmarts)
 
 	self.bSmartsLoaded = true
 end
@@ -288,7 +288,7 @@ end
 
 -- открытие и инициализация раздела
 function clean:OnTabChange()
-	to_log(sModule..":> OnTabChange start")
+	--to_log(sModule..":> OnTabChange start")
 	-- подраздел "Поиск"
 	self.owner:SetFrameShowState(true, self.find_object_frame, self.find_object_frame_controls)
 	self.owner:SetFrameShowState(true, self.find_object_info, self.find_object_info_controls)
@@ -317,14 +317,14 @@ end
 
 -- кнопка Поиск (фильтр)
 function clean:OnBtnFind()
-	to_log(sModule..":> OnBtnFind start")
+	--to_log(sModule..":> OnBtnFind start")
 	self.find_object_list:ScrollToBegin()
 	self.find_object_list:RemoveAll()
 
 	self.tObjects = {}
 	local iCntObjectsAdded, iCntObjectsAll, obj = 0, 0, nil
 	local sFilter = self.owner_script.StringLowerRus(self.textbox_find:GetText():trim())
-	to_log(sModule..":> OnBtnFind filter=[%s]", sFilter)
+	--to_log(sModule..":> OnBtnFind filter=[%s]", sFilter)
 
 	if sFilter:len() >= 3 then
 		local bFindInBoxes = self.checkbox_in_boxes:GetCheck()
@@ -401,12 +401,12 @@ function clean:OnBtnFind()
 	else
 		self.find_object_list:Enable(true)
 	end
-	to_log(sModule..":> OnBtnFind objects=[%d/%d]", iCntObjectsAdded, iCntObjectsAll)
+	--to_log(sModule..":> OnBtnFind objects=[%d/%d]", iCntObjectsAdded, iCntObjectsAll)
 end
 
 -- кнопка Сброс (фильтр)
 function clean:OnBtnReset()
-	to_log(sModule..":> OnBtnReset start")
+	--to_log(sModule..":> OnBtnReset start")
 	self.textbox_find:SetText("")
 	self:OnBtnFind()
 end
@@ -444,7 +444,7 @@ end
 
 -- очистка полей
 function clean:ClearFields()
-	to_log(sModule..":> ClearFields start")
+	--to_log(sModule..":> ClearFields start")
 	self.find_object_list:ScrollToBegin()
 	self.find_object_list:RemoveAll()
 	self.info_location_text:TextControl():SetText(sNoValue)
@@ -459,7 +459,7 @@ end
 
 -- скрытие полей
 function clean:HideFields()
-	to_log(sModule..":> HideFields start")
+	--to_log(sModule..":> HideFields start")
 	self.owner:SetFrameShowState(false, self.find_object_frame)
 	self.owner:SetFrameShowState(false, self.find_object_info)
 	self.owner:SetFrameShowState(false, self.find_object_buttons)
@@ -470,13 +470,13 @@ end
 
 -- двойной клик на элементе списка объектов
 function clean:OnFindObjectListMouseDblClicked()
-	to_log(sModule..":> OnFindObjectListMouseDblClicked start")
+	--to_log(sModule..":> OnFindObjectListMouseDblClicked start")
 	self:OnBtnRemove()
 end
 
 -- чекбокс На текущей локации
 function clean:OnCheckboxCurrentLocationClick()
-	to_log(sModule..":> OnCheckboxCurrentLocationClick start")
+	--to_log(sModule..":> OnCheckboxCurrentLocationClick start")
 	if not self.checkbox_mode_enabled then
 		self.checkbox_current_location:SetCheck(not self.checkbox_current_location:GetCheck())
 	end
@@ -484,7 +484,7 @@ end
 
 -- чекбокс На других локациях
 function clean:OnCheckboxOtherLocationsClick()
-	to_log(sModule..":> OnCheckboxOtherLocationsClick start")
+	--to_log(sModule..":> OnCheckboxOtherLocationsClick start")
 	if not self.checkbox_mode_enabled then
 		self.checkbox_other_locations:SetCheck(not self.checkbox_other_locations:GetCheck())
 	end
@@ -492,7 +492,7 @@ end
 
 -- чекбокс В контейнерах
 function clean:OnCheckboxInBoxesClick()
-	to_log(sModule..":> OnCheckboxInBoxesClick start")
+	--to_log(sModule..":> OnCheckboxInBoxesClick start")
 	if not self.checkbox_mode_enabled then
 		self.checkbox_in_boxes:SetCheck(not self.checkbox_in_boxes:GetCheck())
 	end
@@ -500,7 +500,7 @@ end
 
 -- чекбокс Вне контейнеров
 function clean:OnCheckboxOutOfBoxesClick()
-	to_log(sModule..":> OnCheckboxOutOfBoxesClick start")
+	--to_log(sModule..":> OnCheckboxOutOfBoxesClick start")
 	if not self.checkbox_mode_enabled then
 		self.checkbox_out_of_boxes:SetCheck(not self.checkbox_out_of_boxes:GetCheck())
 	end
@@ -508,7 +508,7 @@ end
 
 -- кнопка Удалить
 function clean:OnBtnRemove()
-	to_log(sModule..":> OnBtnRemove start")
+	--to_log(sModule..":> OnBtnRemove start")
 
 	-- переход к объекту
 	local item_id = self.owner:GetListItemSelectedValue(self.find_object_list)
@@ -531,13 +531,13 @@ end
 
 -- кнопка Выбрать категории
 function clean:OnBtnSelectCategories()
-	to_log(sModule..":> OnBtnSelectCategories start")
+	--to_log(sModule..":> OnBtnSelectCategories start")
 	self:SetCategoriesDialog(true)
 end
 
 -- чекбокс Все категории
 function clean:OnCheckboxCategoryAllClick()
-	to_log(sModule..":> OnCheckboxCategoryAllClick start")
+	--to_log(sModule..":> OnCheckboxCategoryAllClick start")
 	local check = self.checkbox_category_all:GetCheck()
 	for _,checkbox in ipairs(self.partial_category_checkboxes) do
 		checkbox:SetCheck(check)
@@ -546,7 +546,7 @@ end
 
 -- чекбокс конкретной категории
 function clean:OnCheckboxCategoryClick()
-	to_log(sModule..":> OnCheckboxCategoryClick start")
+	--to_log(sModule..":> OnCheckboxCategoryClick start")
 	local check = true
 	for _,checkbox in ipairs(self.partial_category_checkboxes) do
 		if not checkbox:GetCheck() then
@@ -559,7 +559,7 @@ end
 
 -- кнопка диалога Продолжить
 function clean:OnBtnContinue()
-	to_log(sModule..":> OnBtnContinue start")
+	--to_log(sModule..":> OnBtnContinue start")
 	if self.dlg_clean_category_frame:IsShown() then
 		self:SetCategoriesDialog(false)
 	end
@@ -596,7 +596,7 @@ end
 
 -- кнопка диалога Отменить
 function clean:OnBtnCancel()
-	to_log(sModule..":> OnBtnCancel start")
+	--to_log(sModule..":> OnBtnCancel start")
 	if self.dlg_clean_category_frame:IsShown() then
 		self:SetCategoriesDialog(false)
 	end
@@ -604,7 +604,7 @@ end
 
 -- кнопка Удалить все
 function clean:OnBtnRemoveAll()
-	to_log(sModule..":> OnBtnRemoveAll start")
+	--to_log(sModule..":> OnBtnRemoveAll start")
 
 	-- местная блокировка органов управления под доп. диалогом
 	self:SetControlsState(false)

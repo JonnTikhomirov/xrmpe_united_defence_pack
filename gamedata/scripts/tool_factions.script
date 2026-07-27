@@ -14,7 +14,7 @@ local sNoValue = game.translate_string("tool_no_value") --/ стандартный текст дл
 class "factions"
 
 function factions:__init(owner_name)
-	to_log(sModule..":> __init") --/#~#
+	--to_log(sModule..":> __init") --/#~#
 	self.owner_script = _G[owner_name]
 	self.tFactions = {} -- список группировок
 	self.iGoodwillMin = -3000 --/ минимальное отношение группировки к игроку
@@ -29,7 +29,7 @@ function factions:__finalize() end
 
 -- инициализация элементов
 function factions:InitControls(owner, xml)
-	to_log(sModule..":> InitControls") --/#~#
+	--to_log(sModule..":> InitControls") --/#~#
 
 	-- список группировок
 	self.faction_frame = xml:InitFrame("frame_right_factions:faction_frame", owner.frame_right)
@@ -57,7 +57,7 @@ end
 
 -- инициализация событий
 function factions:InitCallbacks(owner)
-	to_log(sModule..":> InitCallbacks") --/#~#
+	--to_log(sModule..":> InitCallbacks") --/#~#
 	owner:AddCallback("factions_faction_list", ui_events.LIST_ITEM_CLICKED, self.OnFactionListItemClicked, self)
 	owner:AddCallback("factions_btn_goodwill_plus", ui_events.BUTTON_CLICKED, self.OnBtnGoodwillPlus, self)
 	owner:AddCallback("factions_btn_goodwill_minus", ui_events.BUTTON_CLICKED, self.OnBtnGoodwillMinus, self)
@@ -66,7 +66,7 @@ end
 
 -- подготовка данных при загрузке (объекты недоступны)
 function factions:PrepareData(ltx)
-	to_log(sModule..":> PrepareData start")
+	--to_log(sModule..":> PrepareData start")
 	local trim, sini, iCntFaction = string.trim, system_ini(), 0
 
 	-- загрузка лимитов отношения группировки к игроку
@@ -89,7 +89,7 @@ function factions:PrepareData(ltx)
 	end
 	self.tFactions = self.owner_script.SortTableByValue(self.tFactions, "asc", "faction")
 
-	to_log(sModule..":> PrepareData factions=[%d]", iCntFaction)
+	--to_log(sModule..":> PrepareData factions=[%d]", iCntFaction)
 end
 
 -- обновление элементов
@@ -121,7 +121,7 @@ end
 
 -- открытие и инициализация раздела
 function factions:OnTabChange()
-	to_log(sModule..":> OnTabChange start")
+	--to_log(sModule..":> OnTabChange start")
 
 	self.owner:SetFrameShowState(true, self.faction_frame, self.faction_frame_controls)
 
@@ -147,21 +147,21 @@ end
 
 -- очистка полей
 function factions:ClearFields()
-	to_log(sModule..":> ClearFields start")
+	--to_log(sModule..":> ClearFields start")
 	self.faction_list:ScrollToBegin()
 	self.faction_list:RemoveAll()
 end
 
 -- скрытие полей
 function factions:HideFields()
-	to_log(sModule..":> HideFields start")
+	--to_log(sModule..":> HideFields start")
 	self.owner:SetFrameShowState(false, self.faction_frame)
 	self.owner:SetFrameShowState(false, self.faction_buttons_frame)
 end
 
 -- кнопка Плюс
 function factions:OnBtnGoodwillPlus()
-	to_log(sModule..":> OnBtnGoodwillPlus start")
+	--to_log(sModule..":> OnBtnGoodwillPlus start")
 	local value = tonumber(self.textbox_goodwill:GetText()) or -100
 	if math.floor(value) < value then value = math.floor(value) + 100 else value = value + 100 end
 	if value < self.iGoodwillMin then value = self.iGoodwillMin end
@@ -171,7 +171,7 @@ end
 
 -- кнопка Минус
 function factions:OnBtnGoodwillMinus()
-	to_log(sModule..":> OnBtnGoodwillMinus start")
+	--to_log(sModule..":> OnBtnGoodwillMinus start")
 	local value = tonumber(self.textbox_goodwill:GetText()) or 100
 	if math.floor(value) < value then value = math.floor(value) else value = value - 100 end
 	if value < self.iGoodwillMin then value = self.iGoodwillMin end
@@ -181,7 +181,7 @@ end
 
 -- кнопка Установить
 function factions:OnBtnGoodwillSet()
-	to_log(sModule..":> OnBtnGoodwillSet start")
+	--to_log(sModule..":> OnBtnGoodwillSet start")
 
 	local faction = self.owner:GetListItemSelectedValue(self.faction_list)
 	-- + UP

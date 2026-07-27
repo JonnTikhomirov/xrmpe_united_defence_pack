@@ -52,6 +52,9 @@
 		<text>Ignites on impact with the surface</text>
 	</string>
 
+	<string id="st_df_neutral_weak">
+		<text>Novice</text>
+	</string>
 	<string id="st_df_neutral_normal">
 		<text>Stalker</text>
 	</string>
@@ -61,6 +64,9 @@
 	<string id="st_df_neutral_master">
 		<text>Stalker master</text>
 	</string>
+	<string id="st_df_bandit_weak">
+		<text>Lackey</text>
+	</string>
 	<string id="st_df_bandit_normal">
 		<text>Bandit</text>
 	</string>
@@ -69,6 +75,15 @@
 	</string>
 	<string id="st_df_bandit_master">
 		<text>Kingpin</text>
+	</string>
+	<string id="st_df_csky_normal">
+		<text>Clear sky warrior</text>
+	</string>
+	<string id="st_df_csky_veteran">
+		<text>Clear sky veteran</text>
+	</string>
+	<string id="st_df_csky_master">
+		<text>Clear sky master</text>
 	</string>
 	<string id="st_df_duty_normal">
 		<text>Duty warrior</text>
@@ -138,5 +153,36 @@
 	</string>
 	<string id="st_df_zombied_master">
 		<text>Zombied master</text>
+	</string>
+	<string id="df_helicopter">
+		<text>Helicopter</text>
+	</string>
+	<string id="helicopter_missile">
+		<text>Helicopter</text>
+	</string>
+
+	<string id="monolith_exo_outfit_name">
+		<text>Monolith Exoskeleton</text>
+	</string>
+	<string id="monolith_exo_outfit_description">
+		<text>High-tech armor based on an army exoskeleton. Previously unknown elements and alloys were found in the composite materials of which the servos are made, which apparently allows you to run. In addition to the technologically advanced servos, there is a heavy armored suit consisting of three parts.: an exoskeleton, tactical bulletproof vest and protective suit made of ballistic fabric and materials. The comfort of wearing this armored suit can only be compared with being buried under the Sarcophagus itself. Those who managed to capture a captured armored suit complained of terrible claustrophobia, which, however, is not a problem for a real servant of the Monolith</text>
+	</string>
+
+	<string id="ecolog_green_outfit_name">
+		<text>SSP-99M</text>
+	</string>
+	<string id="ecolog_green_outfit_description">
+		<text>High-quality modified SSP-99 jumpsuit. Added torso protection from bullet and shrapnel damage. It is intended for equipping the security of scientific expeditions. Effective protection against radiation and biological anomalies. It is resistant to chemically aggressive environments and other harmful effects on the body.</text>
+	</string>
+
+	<string id="ecolog_exo_outfit_name">
+		<text>Scientific Exoskeleton</text>
+	</string>
+	<string id="ecolog_exo_outfit_description">
+		<text>An exoskeleton designed for use by scientific security personnel. It has excellent bullet protection, and its improved servos, which make it easier to work with heavy weapons, can be a great help in defending a science camp. During the field work, these servos will be sufficient to help transport heavy equipment, batteries, or a large number of SIM card containers that may be useful for scientific expeditions inside the Zone</text>
+	</string>
+
+	<string id="mp_explosive_barrel">
+		<text>Explosive barrel</text>
 	</string>
 </string_table>

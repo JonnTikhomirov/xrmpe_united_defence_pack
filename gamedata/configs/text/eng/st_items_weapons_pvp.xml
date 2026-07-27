@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<string_table>
+	<string id="st_ammo_7.62x51_fmj">
+		<text>7.62x51 NATO</text>
+	</string>	
+	<string id="st_ammo_7.62x51_fmj_descr">
+		<text>The NATO Seven is a fierce cartridge that not only shoots, but hammers. It's not for nothing that the military, snipers and those who know the value of real killing power love him. In the Zone, he is appreciated for his penetrating power – if you need to get someone through the armor or take down a mutant from a long range, this is your choice.</text>
+	</string>
+	<string id="gunsl_wpn_fn2000">
+		<text>FN-2000</text>
+	</string>
+	<string id="gunsl_wpn_fn2000_descr">
+		<text>The FN F2000 is a Belgian automatic rifle developed by FN Herstal, made according to the bullpup scheme. It was introduced in 2001 and is intended for use in modern military conflicts. A distinctive feature is the futuristic design and modular design, which allows you to install various sights and grenade launchers.</text>
+	</string>
+	<string id="st_wpn_rg6">
+		<text>RG-6</text>
+	</string>
+	<string id="st_wpn_rg6_descr">
+		<text>It is designed to destroy the enemy's openly located manpower, lightly armored vehicles and vehicles. Work on the project began in November 1993 by designers V.N. Telesh (creator of GP-25) and V.A. Borzov. At the moment, the grenade launcher is in service with the Russian army and the Airborne Forces. The design of the RG-6 consists of a tube with a handle, aiming devices and a cover, a barrel drum block, a housing with an axle and a power rod, a trigger mechanism with a pistol grip, and a retractable telescopic stock.</text>
+	</string>
+	<string id="st_wpn_vihr">
+		<text>CP3-The Vortex</text>
+	</string>
+	<string id="st_wpn_vihr_descr">
+		<text>The CP-3 "Whirlwind" is a compact Russian submachine gun developed in Klimovsk by Tsniitochmash designers A. D. Borisov and V. N. Levchenko in 1994. It was brought to production by designer A. I. Tashlykov and was put into mass production in 1996. It was created on the basis of the silent automatic rifle AS "Val", with which it is unified in basic details, which has a positive effect on the production and operation of weapons. The CP-3 device is, in general, similar to the Val AC: a gas-discharge automatic and locking the barrel with a bolt on 6 combat stops. The CP-3M was developed later, and is distinguished by the ability to use a silencer, metal magazines for 30 rounds, optical and night sights, a left-folding frame stock (borrowed from the Val AC), an SVD-type safety catch, and a new handguard.</text>
+	</string>
+	<string id="gunsl_wpn_sr25">
+		<text>SR-25</text>
+	</string>
+	<string id="gunsl_wpn_sr25_descr">
+		<text>The SR-25 is a self—loading sniper rifle developed by Eugene Stoner in the 1990s based on the AR-15 rifle design.</text>
+	</string>
+	<string id="st_wpn_rpk">
+		<text>RPK</text>
+	</string>
+	<string id="st_wpn_rpk_descr">
+		<text>The PKK (Kalashnikov light machine gun) is a Soviet light machine gun based on the Kalashnikov assault rifle (AK). It is designed to provide fire support to the rifle squad, providing it with firepower.</text>
+	</string>
+</string_table>

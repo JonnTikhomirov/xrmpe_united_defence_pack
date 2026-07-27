@@ -236,6 +236,25 @@ function TranslateGameMessage(packet)
 			rc.sv_handle_batch(packet)
 		end
 	-- -UP
+	elseif _type == GM_SCRIPT_HELI_UPDATE then
+		if OnClient() then
+			bind_heli.read_script_update(packet)
+		end
+	elseif _type == GM_SCRIPT_PLAY_OBJ_SOUND then
+		if OnClient() then
+			local obj_id = packet:r_u16()
+			local snd_id = packet:r_u16()
+			local file_number = packet:r_u8()
+			to_log("GM_SCRIPT_PLAY_OBJ_SOUND: obj_id=%d snd_id=%d file_number=%d", obj_id, snd_id, file_number)
+			sound_theme.play_snd_obj_on_client(obj_id, snd_id, file_number)
+		end
+	elseif _type == GM_SCRIPT_PLAY_PARTICLE then -- не зацикленные партиклы
+		if OnClient() then
+			local name = packet:r_stringZ()
+			local obj_id = packet:r_u16()
+			local bone = packet:r_stringZ()
+			xr_effects.play_particle_at_npc(getLocalActor(), db.storage[obj_id].object, { name, bone })
+		end
 	end
 end
 
