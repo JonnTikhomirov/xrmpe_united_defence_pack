@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<string_table>
+	<string id="df_yanov_station">
+		<text>Yanov Station</text>
+	</string>
+	<string id="df_school_1">
+		<text>School № 1</text>
+	</string>
+	<string id="df_marsh_hutor">
+		<text>Burnt Farm</text>
+	</string>
+	<string id="df_mine_coper">
+		<text>Mine coper</text>
+	</string>
+	<string id="df_lesopilka">
+		<text>Sawmill</text>
+	</string>
+	<string id="df_ferma">
+		<text>Farm in the valley</text>
+	</string>
+	<string id="df_kpp_swamp">
+		<text>Tuzla checkpoint</text>
+	</string>
+	<string id="df_kpp_escape">
+		<text>Southern Checkpoint</text>
+	</string>
+	<string id="df_volhov">
+		<text>Volkhov AA Complex</text>
+	</string>
+	<string id="df_agroprom">
+		<text>Agro-industry</text>
+	</string>
+	<string id="df_most_smerti">
+		<text>Bridge of Death</text>
+	</string>
+	<string id="radio_on">
+		<text>[$$ACTION_USE$$]TURN ON THE RADIO</text>
+	</string>
+	<string id="radio_off">
+		<text>[$$ACTION_USE$$]TURN OFF THE RADIO</text>
+	</string>	
+	<string id="kniga_use">
+		<text>[$$ACTION_USE$$]USE</text>
+	</string>
+	<string id="st_find_kanistra">
+		<text>NO FUEL</text>
+	</string>
+	<string id="st_kanistra_s_benz_name">
+		<text>Gasoline canister</text>
+	</string>
+		<string id="st_kanistra_s_benz_descr">
+		<text>An ordinary canister, though already a little rusty. And also *shock* it seems it has gasoline, it will come in handy</text>
+	</string>	
+	<string id="st_ferma_zapiska_name">
+		<text>The Stalker's Note</text>
+	</string>
+	<string id="st_ferma_zapiska_descr">
+		<text>It appears that some stalkers lived here, the Gauss gun was sold for 800 fucking rubles, well, I didn't believe them right away and sent them the fuck, and they started waving the barrel, saying you're a stalker from here. Well, I didn't tolerate such rudeness and how I gave him a turn in the head, and the guys fucked him up so they didn't have time to understand how I put a bullet in them too. That's the way it is</text>
+	</string>
+	<string id="killer_outfit_name">
+		<text>A mercenary's jumpsuit</text>
+	</string>
+	<string id="killer_outfit_description">
+		<text>Кthe jumpsuit of a stalker from the group "Mercenaries". The samples of the equipment of the special forces of the Western armies are taken as a basis. Due to the special processing of the fabric, the stability of the armor is enhanced during the physical displacement of the plates. In terms of protective characteristics, it slightly surpasses the army bulletproof vests of the PSZ-7 series.</text>
+	</string>
+	<string id="st_ny_rojki">
+		<text>Deer horns</text>
+	</string>
+	<string id="st_ny_rojki_descr">
+		<text>A good accessory for celebrating the New Year</text>
+	</string>
+	<string id="st_ny_hat">
+		<text>New Year's Hat</text>
+	</string>
+	<string id="st_ny_hat_descr">
+		<text>A good accessory for celebrating the New Year</text>
+	</string>
+	<string id="st_wpn_grenade_salute">
+		<text>Firework</text>
+	</string>
+	<string id="st_wpn_grenade_salute_descr">
+		<text>Throw the grenade as high as possible and you will see the fireworks</text>
+	</string>
+	<!-- <string id="bandit_heavy_outfit_name">
+		<text>Bandit armor suit</text>
+	</string>
+	<string id="bandit_heavy_outfit_description">
+		<text>An armored suit borrowed by bandits from mercenaries. It is similar in most characteristics to its predecessor, however, due to the lack of a closed respiratory system, it is ineffective in some abnormal zones.</text>
+	</string> -->
+	<string id="killer_blue_exoskeleton_name">
+		<text>The exoskeleton of the «Mercenaries»</text>
+	</string>
+	<string id="killer_blue_exoskeleton_description">
+		<text>An experimental sample of a Western-made military exoskeleton. This exoskeleton belongs to the third generation. Used by mercenaries. The emphasis is on combat use, abnormal stability is low.</text>
+	</string>
+	<string id="st_school_pda_stalker_name">
+		<text>Dead Stalker PDA</text>
+	</string>
+	<string id="st_school_pda_stalker_descr">
+		<text>Stalker's diary: June 28, 2017. Semyon and Ilyukha left me wounded in the school basement, said that they would soon come with help, left me a couple of first aid kits and bandages, I think it will do to patch up the wound, it was necessary to run into a pack of wild boars and in the city
+\nJune 30, 2017. Two days have passed, the guys still haven't returned, I tried to contact them, it didn't work, there is no connection in the basement, and I can't crawl outside, the wound has stopped bleeding, there is very little food left, I hope they will return soon
+\nJuly 4, 2017. The wound has started to fester, I am hot, I am already imagining all sorts of nonsense, I can't sleep it is very painful, there are no more first aid kits and antibiotics, it seems no one will come for me
+\nJuly 10, 2017. Voice recording: *indistinct muttering noise*</text>
+	</string>
+</string_table>

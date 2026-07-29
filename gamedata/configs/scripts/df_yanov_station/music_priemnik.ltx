@@ -1,0 +1,101 @@
+[logic]
+active = ph_button@deactivated_1
+
+[ph_button@deactivated_1]
+anim = idle
+on_press = ph_button@active_1 %+radio_on =play_sound(radio_df_music_1)%
+tooltip = radio_on
+
+[ph_button@active_1]
+anim = idle
+on_press = ph_button@deactivated_2 %-radio_on =stop_sound(radio_df_music_1)%
+on_signal = sound_end | ph_button@deactivated_2 %-radio_on =stop_sound(radio_df_music_1)%
+tooltip = radio_off
+
+[ph_button@deactivated_2]
+anim = idle
+on_press = ph_button@active_2 %+radio_on =play_sound(radio_df_music_2)%
+tooltip = radio_on
+
+[ph_button@active_2]
+anim = idle
+on_press = ph_button@deactivated_3 %-radio_on =stop_sound(radio_df_music_2)%
+on_signal = sound_end | ph_button@deactivated_3 %-radio_on =stop_sound(radio_df_music_2)%
+tooltip = radio_off
+
+[ph_button@deactivated_3]
+anim = idle
+on_press = ph_button@active_3 %+radio_on =play_sound(radio_df_music_3)%
+tooltip = radio_on
+
+[ph_button@active_3]
+anim = idle
+on_press = ph_button@deactivated_4 %-radio_on =stop_sound(radio_df_music_3)%
+on_signal = sound_end | ph_button@deactivated_4 %-radio_on =stop_sound(radio_df_music_3)%
+tooltip = radio_off
+
+[ph_button@deactivated_4]
+anim = idle
+on_press = ph_button@active_4 %+radio_on =play_sound(radio_df_music_4)%
+tooltip = radio_on
+
+[ph_button@active_4]
+anim = idle
+on_press = ph_button@deactivated_5 %-radio_on =stop_sound(radio_df_music_4)%
+on_signal = sound_end | ph_button@deactivated_5 %-radio_on =stop_sound(radio_df_music_4)%
+tooltip = radio_off
+
+[ph_button@deactivated_5]
+anim = idle
+on_press = ph_button@active_5 %+radio_on =play_sound(radio_df_music_5)%
+tooltip = radio_on
+
+[ph_button@active_5]
+anim = idle
+on_press = ph_button@deactivated_6 %-radio_on =stop_sound(radio_df_music_5)%
+on_signal = sound_end | ph_button@deactivated_6 %-radio_on =stop_sound(radio_df_music_5)%
+tooltip = radio_off
+
+[ph_button@deactivated_6]
+anim = idle
+on_press = ph_button@active_6 %+radio_on =play_sound(radio_df_music_6)%
+tooltip = radio_on
+
+[ph_button@active_6]
+anim = idle
+on_press = ph_button@deactivated_7 %-radio_on =stop_sound(radio_df_music_6)%
+on_signal = sound_end | ph_button@deactivated_7 %-radio_on =stop_sound(radio_df_music_6)%
+tooltip = radio_off
+
+[ph_button@deactivated_7]
+anim = idle
+on_press = ph_button@active_7 %+radio_on =play_sound(radio_df_music_7)%
+tooltip = radio_on
+
+[ph_button@active_7]
+anim = idle
+on_press = ph_button@deactivated_8 %-radio_on =stop_sound(radio_df_music_7)%
+on_signal = sound_end | ph_button@deactivated_8 %-radio_on =stop_sound(radio_df_music_7)%
+tooltip = radio_off
+
+[ph_button@deactivated_8]
+anim = idle
+on_press = ph_button@active_9 %+radio_on =play_sound(radio_df_music_8)%
+tooltip = radio_on
+
+[ph_button@active_8]
+anim = idle
+on_press = ph_button@deactivated_9 %-radio_on =stop_sound(radio_df_music_8)%
+on_signal = sound_end | ph_button@deactivated_9 %-radio_on =stop_sound(radio_df_music_8)%
+tooltip = radio_off
+
+[ph_button@deactivated_9]
+anim = idle
+on_press = ph_button@active_10 %+radio_on =play_sound(radio_df_music_9)%
+tooltip = radio_on
+
+[ph_button@active_9]
+anim = idle
+on_press = ph_button@deactivated_1 %-radio_on =stop_sound(radio_df_music_9)%
+on_signal = sound_end | ph_button@deactivated_1 %-radio_on =stop_sound(radio_df_music_9)%
+tooltip = radio_off

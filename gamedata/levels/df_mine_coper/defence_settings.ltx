@@ -1,0 +1,97 @@
+;-------------------------------------------------------
+;--------------------GLOBAL SETTINGS--------------------
+;-------------------------------------------------------
+
+[defence_gamedata]
+spawn_delay = 4
+start_time = 9
+
+
+[defence_modifiers]
+surge = true
+phantoms = false
+
+
+[defence_team]
+logo = bandit_medium
+messages_menu_faction = 1
+skins = df_bandit_face_1, df_bandit_face_2, df_bandit_face_3, df_bandit_face_4;stalker_bandit_1, stalker_bandit_1_1, stalker_bandit_3_mask; +UP
+
+;-------------------------------------------------------
+;-----------------------ITEM SPAWN----------------------
+;-------------------------------------------------------
+
+[wave_provisions]
+wave_1 = wave1_variant1, wave1_variant2, wave1_variant3, wave1_variant4
+wave_2 = wave2_variant1, wave2_variant2, wave2_variant3, wave2_variant4, wave2_variant5, wave2_variant6
+wave_3 = wave3_variant1, wave3_variant2, wave3_variant3, wave3_variant4, wave3_variant5, wave3_variant6
+wave_4 = wave4_variant1, wave4_variant2, wave4_variant3, wave4_variant4, wave4_variant5
+wave_5 = wave5_variant1, wave5_variant2, wave5_variant3, wave5_variant4, wave4_variant5
+wave_6 = wave6_variant1, wave6_variant2, wave6_variant3, wave6_variant4, wave4_variant5
+wave_7 = wave7_variant1, wave7_variant2, wave7_variant3, wave7_variant4, wave7_variant5, wave4_variant5, wave6_variant4
+
+
+[wave_provisions_variants]
+wave1_variant1 = mp_ammo_9x19_fmj:2:0.5, mp_wpn_glock17:1:1
+wave1_variant2 = mp_ammo_9x18_fmj:2:0.5, mp_wpn_pb:1:1
+wave1_variant3 = mp_ammo_9x18_fmj:2:0.5, mp_wpn_fort:1:1
+wave1_variant4 = mp_ammo_762x25mm_tt:2:0.5, mp_wpn_tt33:1:1
+wave2_variant1 = mp_ammo_5.45x39_fmj:2:0.75, mp_wpn_ak74u:1:1, mp_wpn_pb:1:0.2, bandit_outfit:1:0.15, mp_af_defence:1:0.4, mp_af_defence_heal:1:0.4, mp_grenade_rgd5:1:0.7, drug_radioprotector:1:0.85, mp_antirad:1:0.6, kolbasa:2:0.6, mp_grenade_flashbang:1:0.2, mp_wpn_addon_scope_rakurs:1:0.5
+wave2_variant2 = mp_ammo_9x19_fmj:2:0.75, mp_wpn_mp5:1:1, mp_wpn_pb:1:0.2, bandit_outfit:1:0.2, mp_af_defence:1:0.4, mp_af_defence_heal:1:0.4, mp_grenade_rgd5:1:0.7, mp_antirad:1:0.6, vodka:1:0.85, bread:3:0.6, mp_grenade_flashbang:1:0.2
+wave2_variant3 = mp_ammo_12x70_buck:2:0.75, mp_ammo_12x76_zhekan:1:0.75, mp_wpn_bm16:1:1, mp_wpn_pb:1:0.2, bandit_outfit:1:0.2, mp_af_defence:1:0.4, mp_af_defence_heal:1:0.4, mp_grenade_rgd5:1:0.7, drug_radioprotector:1:0.85, mp_antirad:1:0.6, conserva:2:0.6, energy_drink:1:0.65
+wave2_variant4 = mp_ammo_9x18_fmj:3:0.7, mp_wpn_fort17:1:1, bandit_outfit:1:0.25, mp_af_defence:1:0.4, mp_af_defence_heal:1:0.4, mp_grenade_rgd5:1:0.7, drug_radioprotector:1:0.75, mp_antirad:1:0.6, conserva:2:0.6, energy_drink:1:0.6
+wave2_variant5 = mp_ammo_9x19_fmj:3:0.7, mp_wpn_glock17:1:1, bandit_outfit:1:0.25, mp_af_defence:1:0.4, mp_af_defence_heal:1:0.4, mp_grenade_rgd5:1:0.7, drug_radioprotector:1:0.75, mp_antirad:1:0.6, conserva:2:0.6, energy_drink:1:0.6, mp_wpn_addon_silencer_919:1:0.42
+wave2_variant6 = mp_ammo_50ae:3:1, mp_wpn_desert_eagle_silver:1:1, bandit_outfit:1:0.25, mp_af_defence:1:0.4, mp_af_defence_heal:1:0.4, mp_grenade_rgd5:1:0.7, drug_radioprotector:1:0.75, mp_antirad:1:0.6, conserva:2:0.6, energy_drink:1:0.6, mp_wpn_addon_silencer_919:1:0.42
+wave3_variant1 = mp_ammo_5.45x39_fmj:3:0.75, mp_wpn_addon_scope_pu:1:0.6, mp_wpn_ak74:1:0.65, mp_wpn_addon_scope:1:0.1, mp_wpn_addon_scope_cobra:1:0.5, mp_wpn_addon_silencer:1:0.3, mp_af_defence:1:0.42, mp_af_defence_heal:1:0.42, bandit_outfit:1:0.4, mp_grenade_rgd5:2:0.4, mp_medkit:1:0.8, drug_radioprotector:1:0.4, mp_antirad:1:0.5, drug_coagulant:1:0.45, bread:1:0.65, kolbasa:1:0.7, drug_psy_blockade:1:0.7, energy_drink:1:0.7
+wave3_variant2 = mp_ammo_9x19_fmj:3:0.75, mp_wpn_mp5:1:0.8, mp_wpn_addon_silencer:1:0.3, mp_af_defence:1:0.42, mp_af_defence_heal:1:0.42, black_coat_outfit:1:0.38, mp_grenade_rgd5:2:0.62, mp_medkit:1:0.6, drug_radioprotector:1:0.4, mp_antirad:1:0.65, drug_coagulant:1:0.45, kolbasa:1:0.6, bread:1:0.55, drug_psy_blockade:1:0.5, mp_grenade_flashbang:1:0.3
+wave3_variant3 = mp_ammo_5.45x39_fmj:3:0.7, mp_wpn_ak74:1:0.78, mp_af_defence:1:0.42, mp_af_defence_heal:1:0.42, bandit_heavy_outfit:1:0.39, mp_grenade_rgd5:2:0.4, mp_medkit:1:0.55, drug_radioprotector:1:0.4, mp_antirad:1:0.7, drug_coagulant:1:0.5, kolbasa:1:0.66, bread:1:0.56, drug_psy_blockade:1:0.4, mp_grenade_flashbang:1:0.3
+wave3_variant4 = mp_ammo_12x70_buck:2:0.7, mp_ammo_12x76_zhekan:1:0.7, mp_wpn_toz34:1:0.7, mp_wpn_addon_scope_pu:1:0.5, mp_af_defence:1:0.45, mp_af_defence_heal:1:0.45, bandit_outfit:1:0.4, mp_grenade_rgd5:2:0.5, mp_medkit:1:0.6, drug_radioprotector:1:0.4, mp_antirad:1:0.5, drug_coagulant:1:0.2, conserva:1:0.5, bread:1:0.9, drug_psy_blockade:1:0.3, energy_drink:2:0.5
+wave3_variant5 = mp_ammo_5.45x39_fmj:1:0.7, mp_wpn_ak74u:1:0.7, mp_wpn_addon_silencer:1:0.35, mp_af_defence:1:0.45, mp_af_defence_heal:1:0.42, bandit_outfit:1:0.4, mp_grenade_rgd5:2:0.5, mp_medkit:1:0.6, drug_radioprotector:1:0.4, mp_antirad:1:0.3, drug_coagulant:1:0.2, bread:1:0.6, conserva:1:0.4, kolbasa:1:0.4, drug_psy_blockade:1:0.3
+wave3_variant6 = mp_ammo_9x39_pab9:5:0.6, mp_wpn_vintorez:1:0.9, mp_wpn_addon_scope:1:0.85, black_coat_outfit:1:0.4, mp_grenade_rgd5:2:0.5, mp_medkit:1:0.6, drug_radioprotector:1:0.4, mp_antirad:1:0.5, drug_coagulant:1:0.2, conserva:1:0.45, kolbasa:1:0.55, drug_psy_blockade:1:0.35, energy_drink:2:0.5
+wave4_variant1 = mp_ammo_5.45x39_fmj:3:0.55, mp_wpn_abakan:1:0.9, mp_wpn_addon_scope:1:0.26, mp_wpn_addon_silencer:1:0.42, mp_af_defence:1:0.45, mp_af_defence_heal:1:0.45, bandit_outfit:1:0.42, mp_grenade_rgd5:2:0.5, mp_medkit:1:0.5, drug_radioprotector:1:0.3, mp_antirad:1:0.3, drug_coagulant:1:0.2, bread:1:0.5, mp_wpn_addon_grenade_launcher:1:0.65, mp_ammo_vog-25:2:0.7, mp_wpn_addon_silencer:1:0.4, drug_psy_blockade:1:0.35, energy_drink:2:0.5
+wave4_variant2 = mp_ammo_11.43x23_hydro:3:0.55, mp_wpn_ump45:1:0.9, mp_wpn_addon_scope_susat_x1.6:1:0.26, mp_wpn_addon_silencer_colt_p220:1:0.42, mp_af_defence:1:0.45, mp_af_defence_heal:1:0.45, bandit_outfit:1:0.42, mp_grenade_rgd5:2:0.5, mp_medkit:1:0.5, drug_radioprotector:1:0.3, mp_antirad:1:0.3, drug_coagulant:1:0.2, bread:1:0.5, drug_psy_blockade:1:0.35, energy_drink:2:0.5
+wave4_variant3 = mp_ammo_9x18_pmm:5:0.55, mp_wpn_bizon:1:0.9, mp_af_defence:1:0.25, mp_af_defence_heal:1:0.25, bandit_outfit:1:0.42, mp_grenade_rgd5:2:0.3, mp_medkit:2:0.45, drug_radioprotector:1:0.2, mp_antirad:1:0.3, drug_coagulant:1:0.3, kolbasa:3:0.5, energy_drink:2:0.45, mp_grenade_flashbang:1:0.3
+wave4_variant4 = mp_ammo_5.45x39_ap:5:0.6, mp_wpn_ak74:1:0.9, mp_wpn_addon_grenade_launcher:1:0.7, mp_ammo_vog-25:3:0.6, mp_wpn_addon_silencer:1:0.5, mp_af_defence:1:0.5, mp_af_defence_heal:1:0.45, mp_grenade_rgd5:2:0.4, mp_medkit:2:0.48, drug_radioprotector:1:0.2, mp_antirad:1:0.3, drug_coagulant:1:0.2, conserva:2:0.45, mp_wpn_addon_scope:1:1, drug_psy_blockade:1:0.3, energy_drink:2:0.5
+wave4_variant5 = mp_ammo_5.56x45_ss190:4:0.6, mp_wpn_lr300:1:0.8, mp_af_defence:1:0.4, mp_af_defence_heal:1:0.4, mp_grenade_rgd5:2:0.45, mp_medkit:1:0.5, drug_radioprotector:1:0.2, mp_antirad:1:0.4, drug_coagulant:1:0.2, kolbasa:1:0.45, mp_wpn_addon_scope_susat_dusk:1:0.6, mp_wpn_addon_grenade_launcher_m203:1:0.6, mp_ammo_m209:3:0.52, mp_grenade_flashbang:1:0.3
+wave5_variant1 = mp_ammo_5.56x45_ss190:3:0.5, mp_wpn_ak101:1:0.85, mp_wpn_addon_silencer:1:0.6, mp_wpn_addon_silencer_tgpa:1:0.6, mp_af_defence:1:0.45, mp_af_defence_heal:1:0.45, black_coat_outfit:1:0.45, mp_grenade_f1:2:0.45, mp_medkit:2:0.5, kolbasa:2:0.5, energy_drink:2:0.5
+wave5_variant2 = mp_ammo_5.45x39_fmj:3:0.55, mp_wpn_abakan:1:0.9, mp_wpn_addon_scope:1:0.26, mp_wpn_addon_silencer:1:0.42, mp_af_defence:1:0.45, mp_af_defence_heal:1:0.45, mp_grenade_f1:2:0.5, mp_medkit:1:0.6, conserva:1:0.5, energy_drink:2:0.5, black_coat_outfit:1:0.45, mp_grenade_flashbang:1:0.3
+wave5_variant3 = mp_ammo_12x70_buck:7:0.5, mp_ammo_12x76_zhekan:1:0.7, mp_wpn_wincheaster1300:1:0.9, bandit_heavy_outfit:1:0.45, mp_grenade_f1:3:0.6, mp_medkit:3:0.6, mp_wpn_desert_eagle:1:0.7, mp_ammo_50ae:3:0.9, kolbasa:1:0.7, conserva:1:0.6, bread:1:0.5, drug_psy_blockade:1:0.1, energy_drink:1:0.8
+wave5_variant4 = mp_ammo_9x18_fmj:3:0.65, mp_wpn_bizon:1:0.85, mp_af_defence:1:0.45, mp_af_defence_heal:1:0.45, bandit_heavy_outfit:1:0.44, mp_grenade_f1:3:0.45, mp_medkit:1:0.5, conserva:2:0.5, bread:1:0.4, energy_drink:2:0.45, mp_grenade_flashbang:1:0.3
+wave6_variant1 = mp_ammo_9x39_pab9:5:0.55, mp_wpn_val:1:0.9, bandit_heavy_outfit:1:0.7, mp_grenade_f1:3:0.35, mp_medkit:2:0.45, bread:1:0.5, conserva:1:0.5, kolbasa:1:0.5, drug_psy_blockade:1:0.2, energy_drink:1:0.8, mp_grenade_flashbang:1:0.4
+wave6_variant2 = mp_ammo_5.56x45_ss190:4:0.55, mp_wpn_ak101:1:0.74, mp_wpn_addon_scope_cobra:1:0.8, mp_wpn_addon_silencer_tgpa:1:0.5, black_coat_outfit:1:0.5, mp_af_defence:1:0.5, mp_af_defence_heal:1:0.45, mp_grenade_f1:3:0.4, mp_medkit:2:0.5, bread:1:0.5, conserva:1:0.45, kolbasa:1:0.46, energy_drink:2:0.46, mp_grenade_flashbang:1:0.4
+wave6_variant3 = mp_ammo_5.56x45_ss190:5:0.6, mp_wpn_sig552:1:0.9, mp_wpn_addon_scope_susat_x1.6:1:0.5, mp_wpn_addon_silencer_m4_2000:1:0.55, bandit_outfit:1:0.75, mp_grenade_f1:4:0.5, mp_medkit:2:0.7, mp_ammo_11.43x23_fmj:4:0.55, mp_wpn_colt1911:1:0.85, bread:1:0.4, conserva:1:0.6, kolbasa:1:0.5, drug_psy_blockade:1:1, energy_drink:1:1
+wave6_variant4 = mp_ammo_12x70_buck:10:0.75, mp_wpn_protecta:1:1, mp_wpn_addon_scope_susat_dusk:1:0.75, bandit_heavy_outfit:1:0.75, mp_af_defence:1:0.5, mp_af_defence_heal:1:0.45, mp_grenade_f1:4:0.3, mp_medkit:2:0.6, bread:1:0.6, conserva:1:0.5, kolbasa:1:0.4, mp_wpn_fiveseven:1:0.67, mp_ammo_5.7x28:2:0.64
+wave7_variant1 = mp_ammo_5.56x45_ss190:5:0.5, mp_wpn_sig550:1:0.8, mp_af_defence:1:0.5, mp_af_defence_heal:1:0.45, bandit_heavy_outfit:1:0.6, mp_grenade_f1:3:0.5, mp_medkit:3:0.5, mp_wpn_addon_grenade_launcher_m203:1:0.6, mp_wpn_addon_scope_susat_x1.6:1:0.7, mp_ammo_m209:4:0.6, kolbasa:2:0.5, conserva:1:0.6, bread:1:0.5, drug_psy_blockade:1:0.2, energy_drink:2:0.6
+wave7_variant2 = mp_ammo_5.56x45_ap:5:0.52, mp_wpn_ak101:1:1, mp_wpn_addon_silencer_tgpa:1:0.55, bandit_heavy_outfit:1:0.5, mp_grenade_f1:3:0.5, mp_medkit:3:0.5, mp_wpn_addon_grenade_launcher:1:0.6, mp_ammo_vog-25:4:0.52, kolbasa:1:0.5, conserva:1:0.6, bread:2:0.5, energy_drink:2:0.6, mp_grenade_flashbang:1:0.4
+wave7_variant3 = mp_ammo_12x70_buck:7:0.5, mp_ammo_12x76_zhekan:1:0.7, mp_wpn_saiga12:1:0.9, bandit_heavy_outfit:1:0.8, mp_grenade_f1:3:0.6, mp_medkit:3:0.6, mp_wpn_desert_eagle:1:0.7, mp_ammo_50ae:3:0.8, kolbasa:1:0.7, conserva:1:0.6, bread:1:0.5, drug_psy_blockade:1:0.1, energy_drink:1:0.8
+wave7_variant4 = mp_ammo_5.45x39_fmj:5:0.6, mp_wpn_rpk:1:0.9, mp_wpn_addon_scope:1:0.85, mp_af_defence:1:0.5, mp_af_defence_heal:1:0.45, bandit_heavy_outfit:1:0.65, mp_grenade_f1:3:0.5, mp_medkit:3:0.6, kolbasa:1:0.5, conserva:1:0.6, bread:1:0.7, energy_drink:2:0.7, mp_grenade_flashbang:1:0.4
+wave7_variant5 = mp_ammo_pkm_100:6:0.55, mp_wpn_pkm:1:0.9, mp_af_defence:1:0.6, mp_af_defence_heal:1:0.45, bandit_heavy_outfit:1:0.7, mp_grenade_f1:3:0.5, mp_medkit:3:0.5, kolbasa:1:0.7, conserva:1:0.6, bread:1:0.5, drug_psy_blockade:1:0.2, drug_radioprotector:1:0.2, energy_drink:2:0.65
+
+;-------------------------------------------------------
+;---------------------MONSTERS SPAWN--------------------
+;-------------------------------------------------------
+
+[monster_waves]
+wave_1 = wave_1_var_1
+wave_2 = wave_2_var_1
+wave_3 = wave_3_var_1
+wave_4 = wave_4_var_1
+wave_5 = wave_5_var_1, wave_5_var_2
+wave_6 = wave_6_var_1
+wave_7 = wave_7_var_1, wave_7_var_2
+wave_8 = wave_8_var_1, wave_8_var_2, wave_8_var_3
+
+
+[monster_wave_variants]
+wave_1_var_1 = flesh_weak:3:1, dog_weak:3:1
+wave_2_var_1 = flesh_normal:3:1, dog_normal:2:1, boar_weak:3:1
+wave_3_var_1 = boar_normal:3:1, dog_strong:2:1, flesh_strong:2:1
+wave_4_var_1 = pseudodog_normal:3:1, boar_strong:1:1, flesh_strong:2:1, bloodsucker_normal:1:1:true
+wave_5_var_1 = boar_strong:3:1, pseudodog_strong:2:1, flesh_strong:2:1, dog_strong:2:1
+wave_5_var_2 = boar_strong:3:1, pseudodog_normal:2:1, snork_weak:2:1, dog_strong:2:1
+wave_6_var_1 = dog_strong:3:1, psy_dog_normal:2:1, snork_normal:2:1, boar_strong:1:1
+wave_7_var_1 = dog_strong:4:1, bloodsucker_normal:1:1:true, chimera_normal:1:1:true, flesh_strong:5:1
+wave_7_var_2 = boar_strong:3:1, dog_strong:2:1, burer_normal:2:1:true, pseudodog_normal:1:1
+wave_8_var_1 = gigant_boss:1:1:true, psy_dog_normal:1:1, pseudodog_strong:1:1, boar_strong:3:1
+wave_8_var_2 = gigant_boss:1:1:true, chimera_normal:1:1:true, boar_strong:4:1, dog_strong:2:1
+wave_8_var_3 = gigant_boss:1:1:true, bloodsucker_normal:1:1:true, dog_strong:3:1, boar_strong:2:1
