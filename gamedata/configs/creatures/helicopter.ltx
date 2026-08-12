@@ -54,9 +54,9 @@ barrel_dir_tolerance		= 2 ; degrees. допустимый угол, когда считаем, что дуло на
 death_angular_vel			= 0.1,6.0,0.2  ; при гибели в воздухе дать угловую скорость модели      
 death_lin_vel_koeff			= 1          ; при гибели в воздухе умножить собственную лин скорость на коэфф
 
-flame_start_health			= 0.5  ; уровень здоровья, ниже которого вертолёт начинает дымить
+flame_start_health			= 0.3;0.5;+UP  ; уровень здоровья, ниже которого вертолёт начинает дымить
 
-fire_time			= 1.5; время очереди, если меньше нуля - таймауты отключаются
+fire_time			= 2;1.5;+UP; время очереди, если меньше нуля - таймауты отключаются
 no_fire_time			= 0.3; время таймаута между очередями, если меньше нуля - таймауты отключаются
 
 
@@ -88,7 +88,7 @@ explode_sound						= weapons\heli_explosion		;звук собственного взрыва
 ;------------------------------все для пулемета
 snd_shoot_rocket					= weapons\heli_rocket_shoot		;звук выстрела ракетой   
 
-fire_dispersion_base	= 5.0;1.0
+fire_dispersion_base	= 4.0;5.0;1.0;+UP
 fire_dispersion_null	= 1.0;0.5
 fire_trace_width		= 1.0
 rpm                     = 1000
@@ -126,7 +126,7 @@ wound_immunity			= 0.0
 radiation_immunity		= 0.0
 telepatic_immunity		= 0.0
 chemical_burn_immunity	= 0.0
-fire_wound_immunity		= 0.01
+fire_wound_immunity		= 0.005;0.01;+UP
 explosion_immunity		= 0.1
 
 
