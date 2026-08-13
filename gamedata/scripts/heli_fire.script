@@ -65,7 +65,7 @@ function heli_fire:update_enemy_state()
 		end
     -- 2. Цель жива
 	elseif self.enemy then
-		local pos = self.enemy:position()
+		local pos = get_pos(self.enemy)
 		-- ПРОПУСК: если текущая цель ушла в мёртвую зону, сбрасываем её
 		if is_in_dead_zone(self.obj, pos) then
 			self.enemy = nil
@@ -86,8 +86,8 @@ function heli_fire:update_enemy_state()
 				self.hidden_time = time_global()
 				self.fire_point = pos
 			end
-            -- Стреляем по позиции 5 секунд
-			if time_global() - self.hidden_time > 5000 then
+            -- Стреляем по позиции 6 секунд
+			if time_global() - self.hidden_time > 6000 then
 				self.fire_point = nil
 				self.enemy = nil
 				self.enemy_die = true
@@ -187,11 +187,15 @@ function heli_fire:set_enemy()
 	local target = nil
 
 	if not self.enemy_die and self.enemy
-		and heli:isVisible(self.enemy)
 		and (self.enemy_ ~= "defence"
-			or is_fire_safe(self.obj:position(), self.enemy:position()))  -- что бы не попадали по игрокам
+			or is_fire_safe(self.obj:position(), get_pos(self.enemy)))  -- что бы не попадали по игрокам
 	then
-		target = self.enemy
+
+		if heli:isVisible(self.enemy) then
+			target = self.enemy
+		else
+			target = get_pos(self.enemy) -- видим противника какое то время сквозь геометрию (вертолет не видит всквозь fake)
+		end
 
 		if math.random() < 0.3 then
 			bind_heli.heli_say(self.obj, "heli_see_enemy", true)
@@ -239,7 +243,7 @@ function heli_fire:update_hit(attacker) -- +UP
 	end
 
 	-- ПРОПУСК: не переключаемся на атакующего, если он в мёртвой зоне
-	if is_in_dead_zone(self.obj, attacker:position()) then return end
+	if is_in_dead_zone(self.obj, get_pos(attacker)) then return end
 	
 	bind_heli.heli_say(self.obj, "heli_hit", true)
 
@@ -300,9 +304,9 @@ function heli_fire:update_enemy_arr()
             if actor_obj 
 				and not is_dead(actor_obj)
 				and heli:isVisible(actor_obj)
-				and not is_in_dead_zone(self.obj, actor_obj:position())
+				and not is_in_dead_zone(self.obj, get_pos(actor_obj))
 				then
-                local dist = distance_2d(self.obj:position(), actor_obj:position())
+                local dist = distance_2d(self.obj:position(), get_pos(actor_obj))
                 if dist < min_dist2D then
                     min_dist2D = dist
                     best_target = actor_obj
@@ -318,9 +322,9 @@ function heli_fire:update_enemy_arr()
             if	enemy_obj
 				and (self.enemy_ == "all" or self.enemy_ == "defence" and is_df_enemy(enemy_obj))
 				and not is_dead(enemy_obj) and heli:isVisible(enemy_obj)
-				and not is_in_dead_zone(self.obj, enemy_obj:position())
+				and not is_in_dead_zone(self.obj, get_pos(enemy_obj))
 				then
-                local dist = distance_2d(self.obj:position(), enemy_obj:position())
+                local dist = distance_2d(self.obj:position(), get_pos(enemy_obj))
                 if dist < min_dist2D then
                     min_dist2D = dist
                     best_target = enemy_obj
@@ -361,7 +365,7 @@ function is_fire_safe(heli_pos, target_pos)
 	
 	for _, actor_obj in pairs(db.mp_actors) do
 		if actor_obj and not is_dead(actor_obj) then
-			local actor_pos = actor_obj:position()
+			local actor_pos = get_pos(actor_obj)
 			-- Вектор от вертолета к игроку
 			local to_actor = vector()
 			to_actor:sub(actor_pos, heli_pos)
@@ -429,4 +433,14 @@ function is_in_dead_zone(heli_obj, target_pos)
     if dot < 0.5 then return true end
     
     return false
+end
+
+function get_pos(obj)
+	if obj:get_bone_id("bip01_spine1") then
+		return obj:bone_position("bip01_spine1")
+	end
+	if obj:get_bone_id("bip01_spine") then
+		return obj:bone_position("bip01_spine")
+	end
+	return obj:position()
 end
