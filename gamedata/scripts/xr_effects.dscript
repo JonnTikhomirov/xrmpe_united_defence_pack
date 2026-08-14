@@ -203,6 +203,10 @@ function stop_sound_by_story(actor, obj, p)
 	xr_sound.stop_sounds_by_id(get_story_object_id(p[1]))
 end
 
+function heli_set_health(actor, obj, p)
+	obj:get_helicopter():SetfHealth(p[1])
+end
+
 -- +SP
 -- Респавн игроков без жизней
 function rs_dead_players()

@@ -1,0 +1,54 @@
+[logic]
+active = heli_move@wait
+
+[heli_move@wait]
+path_move = heli_wait
+path_look = heli_look
+engine_sound = false
+max_velocity = 100
+invulnerable = true
+immortal = true
+on_info = {+defence_wave_last_start} heli_move@timer %=heli_say(df_pripyat_center_army_start)%
+
+[heli_move@timer]
+path_move = heli_wait
+path_look = heli_look
+engine_sound = true
+max_velocity = 100
+invulnerable = true
+immortal = true
+on_timer = 15000 | heli_move@come %=heli_say(df_pripyat_center_heli_start)%
+
+[heli_move@come]
+path_move = heli_come
+path_look = heli_look
+max_velocity = 50
+engine_sound = true
+on_signal = path_end | heli_move@set_hp %=spawn_object(df_pripyat_center_hider:df_hider_walk)%
+invulnerable = true
+immortal = true
+
+[heli_move@set_hp]
+path_move = heli_way
+path_look = heli_look
+max_velocity = 45
+engine_sound = true
+enemy = actor
+use_rocket = false
+fire_trail = false
+show_health = true
+on_info = {=check_players_count(2)} heli_move@fly %=heli_set_health(0.4)%, {=check_players_count(3)} heli_move@fly %=heli_set_health(0.6)%, {=check_players_count(4)} heli_move@fly %=heli_set_health(0.8)%, {=check_players_count(5)} heli_move@fly
+
+[heli_move@fly]
+path_move = heli_way
+path_look = heli_look
+max_velocity = 45
+engine_sound = true
+enemy = actor
+use_rocket = false
+fire_trail = false
+show_health = true
+
+
+
+
