@@ -33,13 +33,39 @@ function init()
 	local ltx = ini_file(sLtxPath)
 	Initialize(ltx)
 	PrepareData(ltx)
-	xr_s.register_callback("game_load", OnLoad)
+	--xr_s.register_callback("game_load", OnLoad) -- +UDP
 	bInit = true
 end
 
 ----------------------------------------
 -- Коллбэки событий
 ----------------------------------------
+
+-- +UDP
+local function TryAuthiruzeAndInit(keyboard_key, show)
+	rc.cl_check_auth(function(authorized, message)
+		if authorized then
+			to_log("Tool Authorized")
+			keylogger.unbind_console_key(keyboard_key)
+			init()
+			OnLoad()
+			if show == true then
+				ShowDebugManagerDialog()
+			end
+		else
+			to_log("Tool Authorize failed: %s", tostring(message))
+			keylogger.unbind_console_key(keyboard_key)
+			keylogger.bind_console_key(keyboard_key, function() TryAuthiruzeAndInit(keyboard_key, true) end)
+		end
+	end)
+end
+
+function TryInit()
+	local ltx = ini_file(sLtxPath)
+	TryAuthiruzeAndInit(string.upper(Get_Cfg_String(ltx, "key_bindings", "tool_manager", "J")))
+end
+
+-- -UDP
 
 -- показ диалога
 function ShowDebugManagerDialog()

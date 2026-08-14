@@ -90,16 +90,7 @@ function mp_actor_binder:net_spawn(data)
 	end
 	
 	-- + UP
-	if OnClient() then
-		-- ++ The Tool
-		lua_helper.attach() -- если вспомогательный модуль Артоса ещё не подключён
-		m_netpk.attach() -- если модуль нет-пакетов Артоса ещё не подключён
-		if keylogger then keylogger.init() end -- если кейлоггер Чарси ещё не подключён
-		if tool then tool.init() end -- обязательно
-		-- -- The Tool	
-		if keylogger then keylogger.on_load() end
-		if tool then tool.OnLoad() end
-	else
+	if OnServer() then
 		-- +UP ссорим с игроком при возрождении игрока
 		if db.heli_enemies then
 			for i = 0, db.heli_enemy_count - 1 do
@@ -747,12 +738,24 @@ function actor_binder:update(delta)
 		self:lobby_light_update()-- +UP
 	end
 
-	-- +UP
-	if OnClient() and self.weather_repaired ~= true then
-		level.set_weather(level.get_weather(), true) -- при смене времени суток погода иногда застревает в одном состоянии, особенно на старте
-		self.weather_repaired = true
+	-- +UDP
+	if OnClient() then
+		if self.weather_repaired ~= true then
+			level.set_weather(level.get_weather(), true) -- при смене времени суток погода иногда застревает в одном состоянии, особенно на старте
+			self.weather_repaired = true
+		end
+		if self.tool_tryInit ~= true then-- LocalActor() не равен 0 только когда начинается update, иначе возврат команды авторизации приходит не тому клиенту
+			-- ++ The Tool
+			lua_helper.attach() -- если вспомогательный модуль Артоса ещё не подключён
+			m_netpk.attach() -- если модуль нет-пакетов Артоса ещё не подключён
+			if keylogger then keylogger.init() end -- если кейлоггер Чарси ещё не подключён
+			if keylogger then keylogger.on_load() end
+			-- -- The Tool
+			if tool then tool.TryInit() end
+			self.tool_tryInit = true
+		end
 	end
-	-- -UP
+	-- -UDP
 	if self.already_jumped==false and jump_level.need_jump==true and (device().frame > self.spawn_frame+2000) then
 		jump_level.try_to_jump()
 		self.already_jumped = true
