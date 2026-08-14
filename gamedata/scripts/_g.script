@@ -63,6 +63,7 @@ GM_REMOTE_COMMAND_BATCH		= 2 + GM_SCRIPT_ADDON_EVENTS
 GM_SCRIPT_HELI_UPDATE		= 3 + GM_SCRIPT_ADDON_EVENTS
 GM_SCRIPT_PLAY_OBJ_SOUND	= 4 + GM_SCRIPT_ADDON_EVENTS
 GM_SCRIPT_PLAY_PARTICLE		= 5 + GM_SCRIPT_ADDON_EVENTS -- не зацикленные партиклы
+GM_REMOTE_COMMAND_RESPONSE	= 6 + GM_SCRIPT_ADDON_EVENTS
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
