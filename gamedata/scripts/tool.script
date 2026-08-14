@@ -62,7 +62,9 @@ end
 
 function TryInit()
 	local ltx = ini_file(sLtxPath)
-	TryAuthiruzeAndInit(string.upper(Get_Cfg_String(ltx, "key_bindings", "tool_manager", "J")))
+	local keyboard_key = string.upper(Get_Cfg_String(ltx, "key_bindings", "tool_manager", "J"))
+	keylogger.bind_console_key(keyboard_key, function() TryAuthiruzeAndInit(keyboard_key, true) end)
+	TryAuthiruzeAndInit(keyboard_key)
 end
 
 -- -UDP
@@ -787,7 +789,7 @@ end
 -- поворот вектора направления direction вокруг оси Y на angle градусов
 -- и сдвиг позиции position в заданном направлении на distance метров
 function MoveAtDirection(position, direction, angle, distance)
-	to_log(sModule..":> MoveAtDirection start")
+	-- to_log(sModule..":> MoveAtDirection start") -- +UDP
 	direction = direction:normalize()
 	if angle == 0 or angle == 360 or angle == -360 then
 		direction = vector():set(direction.x, direction.y, direction.z)

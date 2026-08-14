@@ -739,7 +739,7 @@ function actor_binder:update(delta)
 	end
 
 	-- +UDP
-	if OnClient() then
+	if OnClient() and LocalActor() ~= 0 then
 		if self.weather_repaired ~= true then
 			level.set_weather(level.get_weather(), true) -- при смене времени суток погода иногда застревает в одном состоянии, особенно на старте
 			self.weather_repaired = true
