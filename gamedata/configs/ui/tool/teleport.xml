@@ -159,6 +159,20 @@
 			<texture_h>ui_button_ordinary_h</texture_h>
 			<text font="letterica18" x="0" y="0" align="c" vert_align="c" color="ui_6">tool_teleport_go</text>
 		</btn_go>
+		<!-- +UDP -->
+		<btn_fly x="334" y="3" width="90" height="26">
+			<texture_e>ui_button_ordinary_e</texture_e>
+			<texture_t>ui_button_ordinary_t</texture_t>
+			<texture_h>ui_button_ordinary_h</texture_h>
+			<text font="letterica18" x="0" y="0" align="c" vert_align="c" color="ui_6">tool_fly</text>
+		</btn_fly>
+		<btn_switch_gamezone x="214" y="3" width="120" height="26">
+			<texture_e>ui_button_ordinary_e</texture_e>
+			<texture_t>ui_button_ordinary_t</texture_t>
+			<texture_h>ui_button_ordinary_h</texture_h>
+			<text font="letterica18" x="0" y="0" align="c" vert_align="c" color="ui_6">tool_switch_gamezone</text>
+		</btn_switch_gamezone>
+		<!-- -UDP -->
 	</common_buttons>
 	<find_object_info x="0" y="330" width="518" height="60">
 		<!-- строка 1 -->

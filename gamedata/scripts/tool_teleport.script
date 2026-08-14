@@ -129,7 +129,15 @@ function teleport:InitControls(owner, xml)
 	owner:Register(self.btn_go, "teleport_btn_go")
 
 	self.common_buttons_controls = { self.btn_go }
-
+	-- +UDP
+	self.btn_fly = xml:Init3tButton("frame_right_teleport:common_buttons:btn_fly", self.common_buttons)
+	owner:Register(self.btn_fly, "teleport_btn_fly")
+	table.insert(self.common_buttons_controls, self.btn_fly)
+	
+	self.btn_switch_gamezone = xml:Init3tButton("frame_right_teleport:common_buttons:btn_switch_gamezone", self.common_buttons)
+	owner:Register(self.btn_switch_gamezone, "teleport_btn_switch_gamezone")
+	table.insert(self.common_buttons_controls, self.btn_switch_gamezone)
+	-- -UDP
 	-- раздел поиска объекта, информация
 	self.find_object_info = xml:InitFrame("frame_right_teleport:find_object_info", owner.frame_right)
 	self.info_location_caption = xml:InitStatic("frame_right_teleport:find_object_info:info_location_caption", self.find_object_info)
@@ -192,6 +200,8 @@ function teleport:InitCallbacks(owner)
 	owner:AddCallback("teleport_btn_delete", ui_events.BUTTON_CLICKED, self.OnBtnDelete, self)
 	owner:AddCallback("teleport_btn_current", ui_events.BUTTON_CLICKED, self.OnBtnCurrent, self)
 	owner:AddCallback("teleport_btn_go", ui_events.BUTTON_CLICKED, self.OnBtnGo, self)
+	owner:AddCallback("teleport_btn_fly", ui_events.BUTTON_CLICKED, self.OnBtnFly, self) -- +UDP
+	owner:AddCallback("teleport_btn_switch_gamezone", ui_events.BUTTON_CLICKED, self.OnBtnSwitchGamezone, self) -- +UDP
 	owner:AddCallback("teleport_btn_name_ok", ui_events.BUTTON_CLICKED, self.OnBtnNameOk, self)
 	owner:AddCallback("teleport_btn_name_cancel", ui_events.BUTTON_CLICKED, self.OnBtnNameCancel, self)
 	owner:AddCallback("teleport_textbox_name", ui_events.EDIT_TEXT_COMMIT, self.OnBtnNameOk, self)
@@ -679,6 +689,63 @@ function teleport:OnBtnGo()
 
 	self.owner:OnQuit()
 end
+
+-- +UDP
+function DisableFly()
+	get_console():execute("g_no_clip off")
+	keylogger.unbind_console_key("F6")
+	keylogger.unbind_console_key("F7")
+	keylogger.unbind_console_key("w")
+	keylogger.unbind_console_key("s")
+	keylogger.unbind_console_key("a")
+	keylogger.unbind_console_key("d")
+	keylogger.unbind_console_key("ESCAPE")
+end
+
+function teleport:OnBtnFly()
+
+	if _G.tool_flying == true then
+		DisableFly()
+		_G.tool_flying = false
+	else
+		local value = 2
+		
+		get_console():execute("g_no_clip on")
+		keylogger.bind_console_key("F6", function() get_console():execute("hud_draw off") end)
+		keylogger.bind_console_key("F7", function() get_console():execute("hud_draw on") end)
+		keylogger.bind_console_key("w", 
+			function() 
+				getLocalActor():set_actor_position(tool.MoveAtDirection(getLocalActor():position(), device().cam_dir, 0, value))
+			end)
+		keylogger.bind_console_key("s", 
+			function() 
+				getLocalActor():set_actor_position(tool.MoveAtDirection(getLocalActor():position(), device().cam_dir, 180, value))
+			end)
+		keylogger.bind_console_key("a", 
+			function() 
+				getLocalActor():set_actor_position(tool.MoveAtDirection(getLocalActor():position(), device().cam_dir, -90, value))
+			end)
+		keylogger.bind_console_key("d", 
+			function() 
+				getLocalActor():set_actor_position(tool.MoveAtDirection(getLocalActor():position(), device().cam_dir, 90, value))
+			end)
+		keylogger.bind_console_key("ESCAPE", DisableFly)
+		_G.tool_flying = true
+		
+	end
+	self.owner:OnQuit()
+end
+
+function teleport:OnBtnSwitchGamezone()
+	if xr_conditions.__local_actor_alive == nil then
+		xr_conditions.__local_actor_alive = xr_conditions.local_actor_alive
+		xr_conditions.local_actor_alive = function(actor, npc) return false end
+	else
+		xr_conditions.local_actor_alive = xr_conditions.__local_actor_alive
+		xr_conditions.__local_actor_alive = nil
+	end
+end
+-- -UDP
 
 -- кнопка Сохранить
 function teleport:OnBtnSave()
