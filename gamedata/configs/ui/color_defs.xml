@@ -45,7 +45,7 @@
 	<color name="gray_mpe"    r="151" g="151" b="151"/>
 	<color name="dark_gray_mpe"  r="90" g="90" b="90"/>
 	<color name="dark_red_mpe"    r="185" g="59" b="59"/>
-	<color name="yellow_mpe"    r="255" g="241" b="150"/>
+	<color name="yellow_mpe"    r="230" g="102" b="51"/> <!-- <color name="yellow_mpe"    r="255" g="241" b="150"/> +UDP-->
 	<color name="orange_mpe"    r="218" g="127" b="72"/>
 	<color name="light_green"    r="106" g="216" b="134"/>
 	<color name="orange"    r="255" g="141" b="72"/>
