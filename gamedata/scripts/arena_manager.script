@@ -9,24 +9,24 @@ function ArenaManager:__init()
 	self.actors_respawn_items = nil
 
 	self.ranks_items = {
-		[0] = { -- weak
+		[0] = { -- weak 2100
 			{ "money_100_rub", 2, 1 },
-			{ "money_200_rub", 3, 1 },
+			{ "money_200_rub", 2, 1 },
 			{ "money_500_rub", 1, 1 },
 			{ "money_1000_rub", 1, 1 }
 		},
-		[300] = { -- normal
-			{ "money_100_rub", 4, 1 },
-			{ "money_200_rub", 3, 1 },
+		[300] = { -- normal 2600
+			{ "money_100_rub", 2, 1 },
+			{ "money_200_rub", 2, 1 },
 			{ "money_500_rub", 2, 1 },
 			{ "money_1000_rub", 1, 1 }
 		},
-		[600] = { -- veteran
+		[600] = { -- veteran 3600
 			{ "money_200_rub", 3, 1 },
 			{ "money_500_rub", 2, 1 },
 			{ "money_1000_rub", 2, 1 }
 		},
-		[900] = { -- master
+		[900] = { -- master 5000
 			{ "money_5000_rub", 1, 1 }
 		},
 	}
