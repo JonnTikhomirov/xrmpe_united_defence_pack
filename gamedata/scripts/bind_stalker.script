@@ -805,6 +805,7 @@ function actor_binder:update(delta)
 			local has_playing_sthemes = false
 			for _, v in ipairs(_G.stereo_themes) do
 				if v:playing() then
+					v:update(get_console():get_float("snd_volume_music"))
 					has_playing_sthemes = true
 				end
 			end
