@@ -249,6 +249,7 @@ function has_alife_info(info_id)
 	
 	if OnClient() and db.storage[LocalActor()]  then
 		actor = db.storage[LocalActor()].object
+		return actor:has_info(info_id) or db.actor and db.actor:has_info(info_id)-- +UP
 	else
 		actor = db.actor
 	end
@@ -745,18 +746,7 @@ function start_game_callback()
 	--test_object:test()
 
 	-- +UP
-	print_clsids()
-	-- local ini = ini_file("game.ltx")
-	-- if ini:section_exist(level.name()) and ini:line_exist(level.name(), "logic_restrictor") then
-	-- 	to_log("levels logic_restrictor section [%s] found", level.name())
-	-- 	local logic_restr = ini:r_string(level.name(), "logic_restrictor")
-	-- 	if(logic_restr ~= "") and system_ini():section_exist(logic_restr) then
-	-- 		alife():create(logic_restr, vector(), 0, 0)
-	-- 		to_log("levels logic_restrictor section [%s] create", level.name())
-	-- 	else
-	-- 		to_log("! levels logic_restrictor section [%s] not found", logic_restr)
-	-- 	end
-	-- end
+	--print_clsids()
 	-- -UP
 end
 
