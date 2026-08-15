@@ -569,6 +569,11 @@ function actor_binder:net_destroy()
 	xrs_dyn_music.finish_theme()
 	xr_s.on_actor_destroy()
 	object_binder.net_destroy(self)
+	-- +UDP
+	if self.g_dynamic_music == true then
+		get_console():execute("g_dynamic_music on")
+	end
+	-- -UDP
 end
 ----------------------------------------------------------------------------------------------------------------------
 function actor_binder:reinit()
@@ -792,8 +797,37 @@ function actor_binder:update(delta)
 		self:try_start_game()
 		task_manager.get_task_manager():send_server_objects_target_pos()
 		client_tasks.update_delayed_tasks()
-		bind_heli.heli_explode_update()-- +UP
-		self:lobby_light_update()-- +UP
+	-- +UDP
+		bind_heli.heli_explode_update()
+		self:lobby_light_update()
+	else
+		if _G.stereo_themes ~= nil then
+			local has_playing_sthemes = false
+			for _, v in ipairs(_G.stereo_themes) do
+				if v:playing() then
+					has_playing_sthemes = true
+				end
+			end
+			if has_playing_sthemes then
+				to_log("has_playing_sthemes")
+				if self.g_dynamic_music == nil then
+					self.g_dynamic_music = get_console():get_bool("g_dynamic_music")
+					if self.g_dynamic_music == true then
+						to_log("g_dynamic_music off")
+						get_console():execute("g_dynamic_music off")
+					end
+				end
+			else
+				to_log("has_playing_sthemes false")
+				if self.g_dynamic_music == true then
+					to_log("g_dynamic_music on")
+					get_console():execute("g_dynamic_music on")
+					self.g_dynamic_music = nil
+				end
+				_G.stereo_themes = {}
+			end
+		end
+	-- -UDP
 	end
 
 	-- +UDP

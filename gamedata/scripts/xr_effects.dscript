@@ -207,6 +207,26 @@ function heli_set_health(actor, obj, p)
 	obj:get_helicopter():SetfHealth(p[1])
 end
 
+function play_stereo(actor, obj, p)
+	stop_stereo()
+	theme = xrs_stereo.stereo_sound()
+	local file_name = p[math.random(1, #p)]
+	local volume = get_console():get_float("snd_volume_music")
+	to_log("play_stereo %s %s", file_name, volume)
+	theme:initialize(file_name, volume)
+	theme:play()
+	table.insert(_G.stereo_themes, theme)
+end
+
+function stop_stereo(actor, obj, p)
+	if _G.stereo_themes ~= nil then
+		for _, v in ipairs(_G.stereo_themes) do
+			v:stop()
+		end
+	end
+	_G.stereo_themes = {}
+end
+
 -- +SP
 -- Респавн игроков без жизней
 function rs_dead_players()
