@@ -1,0 +1,13 @@
+[logic]
+active = sr_idle@wait
+type = cl_only
+
+[sr_idle@wait]
+on_info = {+defence_wave_last_start} sr_idle@timer
+
+[sr_idle@timer]
+on_timer = 10000 | nil %=play_stereo(music\df_last_wave_1)%
+
+
+
+
