@@ -1,0 +1,10 @@
+[logic]
+active = ph_button@podnos_1
+
+[ph_button@podnos_1]
+anim = idle
+tooltip  = st_find_cassette
+on_press = ph_button@podnos_2 %=play_sound(coper_podnos_shot) +all_podnos_shot%
+
+[ph_button@podnos_2]
+anim = idle

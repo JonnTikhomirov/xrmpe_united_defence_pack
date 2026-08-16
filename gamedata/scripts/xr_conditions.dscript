@@ -14,6 +14,15 @@ function time_hour_in_range(actor, npc, p)
 	end
 end
 
+function heli_exploded(actor, obj, p)
+	for _, v in pairs(db.heli) do
+		if v then
+			return v:get_helicopter().m_exploded == true
+		end
+	end
+	return false
+end
+
 -- +SP
 function trade_exchanged(actor, npc)
 	return db.storage[npc:id()].trade.exchanged

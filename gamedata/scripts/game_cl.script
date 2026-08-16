@@ -235,6 +235,10 @@ function TranslateGameMessage(packet)
 		if OnServer() then
 			rc.sv_handle_batch(packet)
 		end
+	elseif _type == GM_REMOTE_COMMAND_RESPONSE then
+		if OnClient() then
+			rc.cl_handle(packet)
+		end
 	-- -UP
 	elseif _type == GM_SCRIPT_HELI_UPDATE then
 		if OnClient() then

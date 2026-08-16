@@ -1,6 +1,6 @@
 [logic]
 active = sr_idle@wait_f1
-
+type = cl_only;+UP
 
 [sr_idle@wait_f1]
 on_info = {+DF_ARENA_FIGHT_1_READY +DF_ARENA_FIGHT_START} sr_idle@wait_f11 %=play_sound(df_arena_start_theme) =send_msg(st_df_arena_fight_start)%
@@ -31,7 +31,7 @@ on_info = {+DF_ARENA_FIGHT_4_END} sr_idle@wait_f5 %=play_sound(df_arena_win_them
 
 
 [sr_idle@wait_f5]
-on_info = {+DF_ARENA_FIGHT_5_READY +DF_ARENA_FIGHT_START} sr_idle@wait_f51 %=play_sound(df_arena_start_theme) =send_msg(st_df_arena_fight_start)%
+on_info = {+DF_ARENA_FIGHT_5_READY +DF_ARENA_FIGHT_START} sr_idle@wait_f51 %=play_sound(df_arena_start_theme) =send_msg(st_df_arena_fight_start) =play_stereo(music\df_last_wave_2:music\df_last_wave_3)%; +UP
 
 [sr_idle@wait_f51]
 on_info = {+DF_ARENA_FIGHT_5_END} sr_idle@wait_ff %=play_sound(df_arena_win_theme) =send_msg(st_df_arena_fight_end)%

@@ -647,4 +647,13 @@
 	<string id="tool_video_item_caption">
 		<text>Видео</text>
 	</string>
+
+	<!-- +UDP -->
+	<string id="tool_fly">
+		<text>Полет</text>
+	</string>
+	<string id="tool_switch_gamezone">
+		<text>Вкл/выкл границы</text>
+	</string>
+	<!-- -UDP -->
 </string_table>

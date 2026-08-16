@@ -238,11 +238,18 @@ end
 
 function gigant_boss_binder:hit_callback(obj, amount, local_direction, who, bone_index)
 --	printf("HIT_CALLBACK: [%s] amount[%s]", obj:name(), amount)
-		
-	
+
+
 	if self.st.hit then
 		xr_logic.issue_event(self.object, self.st.hit, "hit_callback", obj, amount, local_direction, who, bone_index)
 	end
+	-- +UDP босс никогда не умрет раньше фаз регена
+	if	self.object.health > 0 and amount > self.object.health and self.restore_count <= 2 then
+		self.object.health = 0.05
+		self.object:invulnerable(true)
+		return
+	end
+	-- -UDP
 
 	if amount > 0 then
 		if self.boss_type == boss_anom then		

@@ -102,7 +102,12 @@ function heli_binder:update( delta )
 	if self.exploded ~= nil and self.exploded ~= self.heliObject.m_exploded then
 		self.need_send_update = true
 	end
-	self.heliObject.m_exploded = self.exploded
+	self.exploded = self.heliObject.m_exploded
+
+	if self.st.show_health ~= nil and self.st.show_health ~= self.heli_fire.show_health then
+		self.need_send_update = true
+	end
+	self.st.show_health = self.heli_fire.show_health
 
 	if self.need_send_update == true then
 		send_script_update(self.object)
@@ -175,13 +180,19 @@ function heli_binder:check_health()
 		if health < self.flame_start_health and not heli.m_flame_started then
 			heli_start_flame( self.object )
 			--xr_sound.set_sound_play(self.object:id(), self.snd_damage)
-			heli_say(self.object, self.snd_damage, true) -- +UP
+			-- +UP
+			if health > 0.005 then
+				heli_stop_say(self.object)
+				heli_say(self.object, self.snd_damage, true)
+			end
+			 -- -UP
 		end
 
 		if health <= 0.005 and not self.st.immortal then
 			heli_die( self.object )
 			self.need_send_update = true-- +UP
 			--xr_sound.set_sound_play(self.object:id(), self.snd_down)
+			heli_stop_say(self.object) -- +UP
 			heli_say(self.object, self.snd_down, true) -- +UP
 		end
 	end
@@ -285,7 +296,6 @@ function heli_binder_cl:net_spawn(data)
 
 	db.add_obj( self.object )
 	db.add_heli( self.object )
-
 	return true
 end
 
@@ -309,6 +319,15 @@ function heli_binder_cl:update(delta)
 	self:update_flame()
 	self:update_sound()
 	self:update_particles()
+
+	if self.st.show_health and self.heli.m_exploded == false then
+		if self.hp_static == nil then
+			self:cs_add()
+		end
+		self:cs_update_progress_health()
+	elseif (not self.st.show_health or self.heli.m_exploded == true) and self.hp_static ~= nil then
+		self:cs_remove()
+	end
 end
 
 function heli_binder_cl:update_flame()
@@ -368,6 +387,47 @@ function heli_binder_cl:update_particles()
 	end
 end
 
+function heli_binder_cl:cs_add()
+	local hud = get_hud()
+	hud:AddCustomStatic("heli_boss", true)	
+	self.hp_static = hud:GetCustomStatic("heli_boss")
+	
+	local xml = CScriptXmlInit()
+	xml:ParseFile("progress_bars.xml")
+	
+	local w = self.hp_static:wnd()
+	self.hp_progress = xml:InitProgressBar("boss_health", w )
+	
+	self.base_color = GetColorDef("dark_red_mpe")
+	self.heal_color = GetColorDef("yellow_mpe")
+
+	self.hp_progress:Show(true)
+end
+
+function heli_binder_cl:cs_remove()
+	local hud = get_hud()
+	local custom_static = hud:GetCustomStatic("heli_boss")
+	if custom_static then
+		hud:RemoveCustomStatic("heli_boss")
+		self.hp_static = nil
+		self.hp_progress:Show(false)
+		self.hp_progress = nil
+	end
+end
+
+function heli_binder_cl:cs_update_progress_health()
+	local hud = get_hud()
+	local st = hud:GetCustomStatic("heli_boss")
+	if st ~= nil and self.hp_progress ~= nil then
+		local w = st:wnd()
+		local _progr = self.heli:GetfHealth()*100
+		if _progr < 0 then
+			_progr = 0
+		end
+		self.hp_progress:SetProgressPos(_progr)
+	end
+end
+
 function send_script_update(npc)
 	local heli = npc:get_helicopter()
 
@@ -377,6 +437,13 @@ function send_script_update(npc)
 	packet:w_bool(heli.m_flame_started)
 	packet:w_bool(heli.m_exploded)
 
+	local show_health = false
+	local st = db.storage[npc:id()]
+	if st then
+		show_health = st.show_health
+	end
+	packet:w_bool(show_health)
+
 	u_EventSendReliable(packet)
 end
 
@@ -385,6 +452,7 @@ function read_script_update(packet)
 	local health = packet:r_float()
 	local burning = packet:r_bool()
 	local exploded = packet:r_bool()
+	local show_health = packet:r_bool()
 
 	local st = db.storage[id]
 
@@ -397,6 +465,8 @@ function read_script_update(packet)
 	if exploded == true then
 		heli:Explode() -- на клиенте ставит флаг разрушения, останавливает апдейт биндера, не взрывает
 	end
+
+	st.show_health = show_health
 end
 
 function heli_explode_update()

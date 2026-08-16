@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<string_table>
+	<string id="df_yanov_station">
+		<text>Станция Янов</text>
+	</string>
+	<string id="df_school_1">
+		<text>Школа №1</text>
+	</string>
+	<string id="df_marsh_hutor">
+		<text>Сгоревший Хутор</text>
+	</string>
+	<string id="df_mine_coper">
+		<text>Шахтный Копер</text>
+	</string>
+	<string id="df_lesopilka">
+		<text>Лесопилка</text>
+	</string>
+	<string id="df_ferma">
+		<text>Ферма в Долине</text>
+	</string>
+	<string id="df_kpp_swamp">
+		<text>КПП Тузла</text>
+	</string>
+	<string id="df_kpp_escape">
+		<text>Южный Блокпост</text>
+	</string>
+	<string id="df_volhov">
+		<text>ЗРК Волхов</text>
+	</string>
+	<string id="df_agroprom">
+		<text>Агропром</text>
+	</string>
+	<string id="df_most_smerti">
+		<text>Мост Смерти</text>
+	</string>
+	<string id="radio_on">
+		<text>[$$ACTION_USE$$]ВКЛЮЧИТЬ РАДИО</text>
+	</string>
+	<string id="radio_off">
+		<text>[$$ACTION_USE$$]ВЫКЛЮЧИТЬ РАДИО</text>
+	</string>	
+	<string id="kniga_use">
+		<text>[$$ACTION_USE$$]ИСПОЛЬЗОВАТЬ</text>
+	</string>	
+	<string id="st_find_kanistra">
+		<text>НЕТ ТОПЛИВА</text>
+	</string>	
+	<string id="st_kanistra_s_benz_name">
+		<text>Канистра с бензином</text>
+	</string>
+	<string id="st_kanistra_s_benz_descr">
+		<text>Обычная канистра, правда уже ржавая немного. А еще *потрес* кажется в ней есть бензин, пригодится</text>
+	</string>
+	<string id="st_ferma_zapiska_name">
+		<text>Записка сталкера</text>
+	</string>
+	<string id="st_ferma_zapiska_descr">
+		<text>Значится обитали тут какие-то сталкера, гаусс-пушку продовали блять за 800 рублей, ну я им сразу же не поверил и нахрен послал, а они начали стволом махать, мол иди-ка ты отсюда сталкер. Ну я такого хамства терпеть не стал и как дал ему очередь в башку, а ребятки его охринели так что и не упели понять как я им тоже пулю всадил. Вот такие вот дела</text>
+	</string>
+	<string id="st_coop_desc">
+		<text>Вы находитесь в очень опасной зоне, вам необходимо дождаться вертолета для эвакуации, но будьте осторожны! В данной зоне очень много противников, которые могут заставить вас в расплох! Достаньте КПК и посмотрите где вы можете раздобыть себе снаряжение</text>
+	</string>
+	<string id="killer_outfit_name">
+		<text>Комбинезон наемника</text>
+	</string>
+	<string id="killer_outfit_description">
+		<text>Комбинезон сталкера из группировки "Наемники". За основу взяты образцы экипировки спецназа западных армий. За счет специальной обработки ткани усилена устойчивость брони при физическом смещении пластин. По защитным характеристикам немного превосходит армейские бронежилеты серии ПСЗ-7.</text>
+	</string>
+	<string id="st_ny_rojki">
+		<text>Оленьи рожки</text>
+	</string>
+	<string id="st_ny_rojki_descr">
+		<text>Неплохой аксессуар для празднования Нового года</text>
+	</string>
+	<string id="st_ny_hat">
+		<text>Новогодняя шапка</text>
+	</string>
+	<string id="st_ny_hat_descr">
+		<text>Неплохой аксессуар для празднования Нового года</text>
+	</string>
+	<string id="st_wpn_grenade_salute">
+		<text>Салют</text>
+	</string>
+	<string id="st_wpn_grenade_salute_descr">
+		<text>Бросьте гранату как можно выше и вы увидите салют</text>
+	</string>
+	<!-- <string id="bandit_heavy_outfit_name">
+		<text>Бандитский бронекостюм</text>
+	</string>
+	<string id="bandit_heavy_outfit_description">
+		<text>Бронекостюм, позаимствованный бандитами у наемников. По большинству характеристик аналогичен своему предшественнику, однако ввиду отсутствия замкнутой системы дыхания неэффективен в некоторых аномальных зонах.</text>
+	</string> -->
+	<string id="killer_blue_exoskeleton_name">
+		<text>Экзоскелет «Наемников»</text>
+	</string>
+	<string id="killer_blue_exoskeleton_description">
+		<text>Экспериментальный образец военного экзоскелета западного производства. Данный экзоскелет относится к третьему поколению. Используется наемниками. Упор сделан на боевое применение, аномальная устойчивость низкая.</text>
+	</string>
+	<string id="st_school_pda_stalker_name">
+		<text>ПДА Мертвого сталкера</text>
+	</string>
+	<string id="st_school_pda_stalker_descr">
+		<text>Дневник сталкера: 28 июня 2017 год. Семен и Илюха оставили меня раненого в школьном подвале, сказали что скоро придут с подмогой, оставили мне пару аптечек и бинтов, думаю для того чтобы латать рану пойдет, это надо же было так напороться на стаю кабанов еще и в городе
+\n30 июня 2017 год. Прошло уже два дня, ребята так и не вернулись, пробовал связаться с ними, не вышло, в подвале нет связи, а на улицу я доползти не могу, рана кровить перестала, еды осталось совсем немного, надеюсь они скоро вернутся
+\n4 июля 2017 год. Рана стала гноить, меня бросает в жар, уже мерещится всякая ерунда, спать не могу очень больно, аптечек и антибиотиков больше нет, похоже за мной никто так и не придет
+\n10 июля 2017 год. Голосовая запись: *невнятный бормотание шум*</text>
+	</string>
+</string_table>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<string_table>
+	<string id="ls_df_tip_24">
+		<text>At night, use lighting artifacts and flyers; you can find them in boxes after the wave</text>
+	</string>
+	<string id="ls_df_tip_25">
+		<text>At night, light fires using matches; you can find them in boxes after the wave</text>
+	</string>
+	<string id="ls_df_tip_26">
+		<text>Armor-piercing cartridges are twice as effective as regular ones against body armor; pay attention to what you’re shooting with</text>
+	</string>
+	<string id="ls_df_tip_27">
+		<text>At night and in foggy weather, opponents also have poor visibility, so take advantage of that</text>
+	</string>
+	<string id="ls_df_tip_28">
+		<text>On some levels, there are random caches; a message in the upper corner indicates that a full search has been completed</text>
+	</string>
+</string_table>

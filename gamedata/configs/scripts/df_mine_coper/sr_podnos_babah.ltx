@@ -1,0 +1,15 @@
+[logic]
+active = sr_idle
+
+[sr_idle]
+on_info = {+all_podnos_shot} sr_idle@podnos_babah_1
+
+[sr_idle@podnos_babah_1]
+on_game_timer = 100 | sr_particle@podnos_babah_2 %=play_sound(coper_podnos_expl)%
+
+[sr_particle@podnos_babah_2]
+name = explosions\expl_benzin_00
+path = podnos_babah
+mode = 2
+looped = false
+on_signal = particle_end | %=destroy_object%

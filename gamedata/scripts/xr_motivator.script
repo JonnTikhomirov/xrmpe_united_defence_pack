@@ -439,6 +439,28 @@ function motivator_binder:update(delta)
 		
 		-- Апдейт безсмертия
 		stalker_generic.update_invulnerability(self.object)
+
+		-- +UDP
+		if self.st.is_df_enemy and object:best_enemy() == nil then
+			local min_dist = 8 -- ближайший игрок в радиусе всегда видим
+			local actor = nil
+			local pos = self.object:bone_position("bip01_spine1")
+			for _, actor_obj in pairs(db.mp_actors) do
+				if actor_obj:death_time() == 0 and actor_obj.health > 0 then
+					local actor_pos = actor_obj:bone_position("bip01_head")
+					local dist = actor_pos:distance_to_xz(pos)
+					if dist < min_dist and math.abs(actor_pos.y - pos.y) < 4 then -- по вертикали видимость 4 метра
+						min_dist = dist
+						actor = actor_obj
+					end
+				end
+			end
+
+			if actor ~= nil then
+				self.object:make_object_visible_somewhen(actor)
+			end
+		end
+		-- -UDP
 	end
 
 

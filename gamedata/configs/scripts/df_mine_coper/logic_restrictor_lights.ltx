@@ -1,0 +1,8 @@
+[logic]
+active = sr_idle@night
+
+[sr_idle@day]
+on_info = {=time_hour_in_range(21:3)} sr_idle@night %=turn_on(light_1:light_2:light_3:light_4:light_5)%
+
+[sr_idle@night]
+on_info = {!time_hour_in_range(21:3)} sr_idle@day %=turn_off(light_1:light_2:light_3:light_4:light_5)%

@@ -90,16 +90,7 @@ function mp_actor_binder:net_spawn(data)
 	end
 	
 	-- + UP
-	if OnClient() then
-		-- ++ The Tool
-		lua_helper.attach() -- если вспомогательный модуль Артоса ещё не подключён
-		m_netpk.attach() -- если модуль нет-пакетов Артоса ещё не подключён
-		if keylogger then keylogger.init() end -- если кейлоггер Чарси ещё не подключён
-		if tool then tool.init() end -- обязательно
-		-- -- The Tool	
-		if keylogger then keylogger.on_load() end
-		if tool then tool.OnLoad() end
-	else
+	if OnServer() then
 		-- +UP ссорим с игроком при возрождении игрока
 		if db.heli_enemies then
 			for i = 0, db.heli_enemy_count - 1 do
@@ -181,7 +172,65 @@ function mp_actor_binder:on_item_take(obj)
 			xr_statistic.inc_founded_artefacts_counter(obj:id(), self.object:id())
 		end
 	end
+	if OnClient() then self:update_quick_slots() end-- +UDP
 end
+
+-- +UDP
+function mp_actor_binder:update_quick_slots()
+	for slot = 0, 3 do
+		local slot_name = "slot_" .. slot
+		local slot_section = get_console():get_string(slot_name)
+
+		if slot_section and slot_section ~= "" then
+			local slot_clsid = system_ini():r_clsid(slot_section, "class")
+
+			if slot_clsid then
+				local same_item = false
+				local best_item = nil
+				local best_cost = -1
+
+				self.object:iterate_inventory(
+					function(dummy, item)
+						local item_section = item:section()
+
+						-- Такой же предмет уже есть в инвентаре
+						if item_section == slot_section then
+							same_item = true
+							return
+						end
+
+						-- Предмет того же класса
+						if item:clsid() == slot_clsid then
+							local cost = item:cost()
+
+							if cost > best_cost then
+								best_cost = cost
+								best_item = item
+							end
+						end
+					end,
+					nil
+				)
+
+				-- Точного предмета нет, но есть замена того же класса
+				if not same_item and best_item then
+					get_console():execute(
+						slot_name .. " " .. best_item:section()
+					)
+				end
+			end
+		end
+	end
+end
+
+function mp_actor_binder:use_inventory_item(obj)
+	if OnClient() then self:update_quick_slots() end
+end
+
+function mp_actor_binder:on_item_drop(obj)
+	if OnClient() then self:update_quick_slots() end
+end
+-- -UDP
 
 function actor_have_items()
 	local n=3 -- количество
@@ -520,6 +569,11 @@ function actor_binder:net_destroy()
 	xrs_dyn_music.finish_theme()
 	xr_s.on_actor_destroy()
 	object_binder.net_destroy(self)
+	-- +UDP
+	if self.g_dynamic_music == true then
+		get_console():execute("g_dynamic_music on")
+	end
+	-- -UDP
 end
 ----------------------------------------------------------------------------------------------------------------------
 function actor_binder:reinit()
@@ -743,16 +797,54 @@ function actor_binder:update(delta)
 		self:try_start_game()
 		task_manager.get_task_manager():send_server_objects_target_pos()
 		client_tasks.update_delayed_tasks()
-		bind_heli.heli_explode_update()-- +UP
-		self:lobby_light_update()-- +UP
+	-- +UDP
+		bind_heli.heli_explode_update()
+		self:lobby_light_update()
+	else
+		if _G.stereo_themes ~= nil then
+			local has_playing_sthemes = false
+			for _, v in ipairs(_G.stereo_themes) do
+				if v:playing() then
+					v:update(get_console():get_float("snd_volume_music"))
+					has_playing_sthemes = true
+				end
+			end
+			if has_playing_sthemes then
+				if self.g_dynamic_music == nil then
+					self.g_dynamic_music = get_console():get_bool("g_dynamic_music")
+					if self.g_dynamic_music == true then
+						get_console():execute("g_dynamic_music off")
+					end
+				end
+			else
+				if self.g_dynamic_music == true then
+					get_console():execute("g_dynamic_music on")
+					self.g_dynamic_music = nil
+				end
+				_G.stereo_themes = {}
+			end
+		end
+	-- -UDP
 	end
 
-	-- +UP
-	if OnClient() and self.weather_repaired ~= true then
-		level.set_weather(level.get_weather(), true) -- при смене времени суток погода иногда застревает в одном состоянии, особенно на старте
-		self.weather_repaired = true
+	-- +UDP
+	if OnClient() and LocalActor() ~= 0 then
+		if self.weather_repaired ~= true then
+			level.set_weather(level.get_weather(), true) -- при смене времени суток погода иногда застревает в одном состоянии, особенно на старте
+			self.weather_repaired = true
+		end
+		if self.tool_tryInit ~= true then-- LocalActor() не равен 0 только когда начинается update, иначе возврат команды авторизации приходит не тому клиенту
+			-- ++ The Tool
+			lua_helper.attach() -- если вспомогательный модуль Артоса ещё не подключён
+			m_netpk.attach() -- если модуль нет-пакетов Артоса ещё не подключён
+			if keylogger then keylogger.init() end -- если кейлоггер Чарси ещё не подключён
+			if keylogger then keylogger.on_load() end
+			-- -- The Tool
+			if tool then tool.TryInit() end
+			self.tool_tryInit = true
+		end
 	end
-	-- -UP
+	-- -UDP
 	if self.already_jumped==false and jump_level.need_jump==true and (device().frame > self.spawn_frame+2000) then
 		jump_level.try_to_jump()
 		self.already_jumped = true

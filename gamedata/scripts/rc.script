@@ -72,6 +72,16 @@ local READERS = {
 		return packet:r_stringZ()
 	end
 }
+local RC_PENDING = {}
+local RC_REQUEST_SEQ = 0
+local RC_RANDOM_SEEDED = false
+
+local RC_CALL_MAGIC  = "__RC_CALL__"
+local RC_RESP_MAGIC  = "__RC_RESP__"
+
+local RC_STATUS_OK     = 0
+local RC_STATUS_ERROR  = 1
+local RC_STATUS_DENIED = 2
 
 function init()
 	local fname = getFS():update_path("$app_data_root$", "radmins.ltx")
@@ -151,6 +161,61 @@ local function read_args(packet, args_meta)
 	return ctx
 end
 
+-------------------------------------------------------------------------------
+-- Значения по умолчанию для возвращаемых полей
+-------------------------------------------------------------------------------
+local function default_ret_value(tp)
+	if tp == "bool" then
+		return false
+	elseif tp == "stringZ" then
+		return ""
+	elseif tp == "vec3" then
+		if vector then
+			return vector(0, 0, 0)
+		end
+		return { x = 0, y = 0, z = 0 }
+	end
+
+	return 0
+end
+
+-------------------------------------------------------------------------------
+-- Запись/чтение возвращаемого результата
+-------------------------------------------------------------------------------
+local function write_ret_values(packet, ret_meta, values)
+	values = values or {}
+
+	for _, r in ipairs(ret_meta or {}) do
+		local val = values[r.name]
+
+		if val == nil then
+			val = default_ret_value(r.type)
+		end
+
+		local writer = WRITTERS[r.type]
+		if not writer then
+			error(string.format("writer for return type '%s' not found", r.type))
+		end
+
+		writer(packet, val)
+	end
+end
+
+local function read_ret_values(packet, ret_meta)
+	local values = {}
+
+	for _, r in ipairs(ret_meta or {}) do
+		local reader = READERS[r.type]
+		if not reader then
+			error(string.format("reader for return type '%s' not found", r.type))
+		end
+
+		values[r.name] = reader(packet)
+	end
+
+	return values
+end
+
 local function register(def)
 	-- детерминированный ID
 	local id = command_key(def)
@@ -166,25 +231,241 @@ end
 
 -- ================= SERVER =================
 
-local function sv_authorize(packet)
-	local key = packet:r_stringZ()
-	local access = RC_ADMIN_KEYS[key]
-	if access == true then
-		return true
-	elseif access == false then
-		return string.exformat("access denied, blocked key '%s'", key)
+-------------------------------------------------------------------------------
+-- Транспорт.
+-- ВАЖНО: это место нужно адаптировать под твой мод/API.
+-- На сервере должен быть способ создать пакет и отправить его клиенту.
+-------------------------------------------------------------------------------
+local function rc_generate_packet(msg_type)
+	if not msg_type then
+		to_log("RC.rc_generate_packet: msg_type is nil")
+		return nil
+	end
+
+	if not game_cl or not game_cl.GenerateGameMessage then
+		to_log("RC.rc_generate_packet: game_cl.GenerateGameMessage not found")
+		return nil
+	end
+
+	return game_cl.GenerateGameMessage(msg_type)
+end
+
+local function rc_send_response_packet(packet, game_id)
+	if not game_id or game_id == 0 then
+		to_log("RC.rc_send_response_packet: target gameID is 0")
+		return
+	end
+
+	u_EventSendToReliable(packet, game_id)
+end
+
+-------------------------------------------------------------------------------
+-- Серверная отправка ответа
+-------------------------------------------------------------------------------
+local function sv_send_response(token, command_id, status, ret_meta, result_or_error, client_id)
+	local packet = rc_generate_packet(GM_REMOTE_COMMAND_RESPONSE)
+	if not packet then
+		to_log("RC.sv_send_response: cannot generate response packet")
+		return
+	end
+
+	packet:w_stringZ(RC_RESP_MAGIC)
+	packet:w_stringZ(tostring(token or ""))
+	packet:w_stringZ(tostring(command_id or ""))
+	packet:w_u8(status)
+
+	if status == RC_STATUS_OK then
+		local ok, err = pcall(write_ret_values, packet, ret_meta, result_or_error)
+		if not ok then
+			to_log("RC.sv_send_response: failed to write result: %s", tostring(err))
+			return
+		end
 	else
-		return string.exformat("access denied, key '%s'", key)
+		packet:w_stringZ(tostring(result_or_error or ""))
+	end
+
+	rc_send_response_packet(packet, client_id)
+end
+
+local function sv_read_auth(packet)
+	local key = packet:r_stringZ() or ""
+
+	local access = RC_ADMIN_KEYS[key]
+	if access == nil then
+		access = RC_ADMIN_KEYS[string.lower(key)]
+	end
+
+	if access == true then
+		return true, nil, key
+	elseif access == false then
+		return false, string.exformat("access denied, blocked key '%s'", key), key
+	else
+		return false, string.exformat("access denied, key '%s'", key), key
 	end
 end
 
-function sv_handle(packet)
-	if not OnServer() then return end
+-- Совместимость со старым sv_handle_batch
+local function sv_authorize(packet)
+	local ok, msg = sv_read_auth(packet)
 
-	result = sv_authorize(packet)
+	if ok then
+		return true
+	end
+
+	return msg
+end
+
+function sv_handle(packet, client_id)
+	if not OnServer() then
+		return
+	end
+
+	local auth_ok, auth_msg, key = sv_read_auth(packet)
 	local id = packet:r_stringZ()
-	if type(result) == "string" then
-		to_log("RC.sv_handle: %s, command: %s", result, id)
+
+	---------------------------------------------------------------------------
+	-- Новый формат: вызов команды с возвратом результата
+	--
+	-- Формат запроса:
+	-- key:stringZ
+	-- RC_CALL_MAGIC:stringZ
+	-- token:stringZ
+	-- gameID:u16
+	-- command_id:stringZ
+	-- args...
+	---------------------------------------------------------------------------
+	if id == RC_CALL_MAGIC then
+		local token = packet:r_stringZ() or ""
+		local requested_game_id = packet:r_u16()
+		local command_id = packet:r_stringZ()
+
+		if not command_id then
+			to_log("RC.sv_handle: call request without command id")
+			return
+		end
+
+		local target_game_id = requested_game_id
+
+		if client_id then
+			client_id = tonumber(client_id)
+
+			if client_id and client_id ~= 0 then
+				target_game_id = client_id
+			end
+		end
+
+		local command = RC_COMMANDS[command_id]
+
+		if not command then
+			sv_send_response(
+				token,
+				command_id,
+				RC_STATUS_ERROR,
+				nil,
+				"unknown command",
+				target_game_id
+			)
+			return
+		end
+
+		if not command.sv_handler then
+			sv_send_response(
+				token,
+				command_id,
+				RC_STATUS_ERROR,
+				nil,
+				"command has no sv_handler",
+				target_game_id
+			)
+			return
+		end
+
+		if not command.ret then
+			sv_send_response(
+				token,
+				command_id,
+				RC_STATUS_ERROR,
+				nil,
+				"command has no return schema",
+				target_game_id
+			)
+			return
+		end
+
+		if not command.allow_unauthorized and not auth_ok then
+			sv_send_response(
+				token,
+				command_id,
+				RC_STATUS_DENIED,
+				nil,
+				auth_msg or "access denied",
+				target_game_id
+			)
+			return
+		end
+
+		local ok, args_or_err = pcall(read_args, packet, command.args or {})
+		if not ok then
+			sv_send_response(
+				token,
+				command_id,
+				RC_STATUS_ERROR,
+				nil,
+				tostring(args_or_err),
+				target_game_id
+			)
+			return
+		end
+
+		local ctx = {
+			key = key,
+			authorized = auth_ok,
+			auth_message = auth_msg,
+			game_id = target_game_id,
+			client_id = target_game_id,
+			token = token,
+		}
+
+		local ok2, result_or_err = pcall(command.sv_handler, args_or_err, ctx)
+		if not ok2 then
+			sv_send_response(
+				token,
+				command_id,
+				RC_STATUS_ERROR,
+				nil,
+				tostring(result_or_err),
+				target_game_id
+			)
+			return
+		end
+
+		if type(result_or_err) ~= "table" then
+			if command.ret and command.ret[1] then
+				result_or_err = {
+					[command.ret[1].name] = result_or_err
+				}
+			else
+				result_or_err = {}
+			end
+		end
+
+		sv_send_response(
+			token,
+			command_id,
+			RC_STATUS_OK,
+			command.ret,
+			result_or_err,
+			target_game_id
+		)
+
+		return
+	end
+
+	---------------------------------------------------------------------------
+	-- Старый формат одиночной команды
+	---------------------------------------------------------------------------
+	if not auth_ok then
+		to_log("RC.sv_handle: %s, command: %s", tostring(auth_msg), id)
 		return
 	end
 
@@ -194,22 +475,34 @@ function sv_handle(packet)
 		to_log("RC.sv_handle: unknown command: %s", id)
 		return
 	end
+
 	if not command.sv_handler then
 		to_log("RC.sv_handle: handlers not found, command: %s", id)
 		return
 	end
+
 	if not command.args then
 		to_log("RC.sv_handle: args not defined, command: %s", id)
 		return
-	end	
-	local ok, args = pcall(read_args, packet, command.args)
+	end
+
+	local ok, args_or_err = pcall(read_args, packet, command.args)
 	if not ok then
-		to_log("RC.sv_handle: read args filed, command: %s", id, tostring(err))
+		to_log(
+			"RC.sv_handle: read args failed, command: %s, error: %s",
+			id,
+			tostring(args_or_err)
+		)
 		return
 	end
-	local ok, err = pcall(command.sv_handler, args)
-	if not ok then
-		to_log("RC.sv_handle: command %s failed: %s", id, tostring(err))
+
+	local ok2, err = pcall(command.sv_handler, args_or_err)
+	if not ok2 then
+		to_log(
+			"RC.sv_handle: command %s failed: %s",
+			id,
+			tostring(err)
+		)
 	else
 		to_log("RC.sv_handle: handler '%s' executed", id)
 	end
@@ -274,6 +567,28 @@ function sv_handle_batch(packet)
 end
 
 -- ================= CLIENT =================
+
+-------------------------------------------------------------------------------
+-- Токен запроса. Нужен, чтобы клиент понял, на какой именно вызов пришёл ответ.
+-- Особенно важно, если сервер шлёт ответ не адресно, а всем клиентам.
+-------------------------------------------------------------------------------
+local function cl_next_request_token()
+	RC_REQUEST_SEQ = RC_REQUEST_SEQ + 1
+
+	local t = time_global and time_global() or os.clock()
+
+	if not RC_RANDOM_SEEDED then
+		math.randomseed(tonumber(t) or 0)
+		RC_RANDOM_SEEDED = true
+	end
+
+	return string.format(
+		"rc_%d_%s_%d",
+		RC_REQUEST_SEQ,
+		tostring(t),
+		math.random(1000000, 9999999)
+	)
+end
 
 local function cl_make_packet(id)
 	local key = get_console():get_string("cdkey")
@@ -393,7 +708,215 @@ function cl_send_batch(commands_array)
 	return true
 end
 
+--------------------------------------------------------------------------------
+-- CLIENT: callable RPC
+--------------------------------------------------------------------------------
+
+local function cl_make_call_packet(require_key)
+	local key = get_console():get_string("cdkey") or ""
+
+	-- Если cdkey пустой, пробуем взять локальный админ-ключ,
+	-- как это делает текущий cl_make_packet.
+	if key == "" then
+		for k, v in pairs(RC_ADMIN_KEYS) do
+			if k ~= "" and v == true then
+				key = k
+				break
+			end
+		end
+	end
+
+	if require_key and key == "" then
+		return nil, "no admin key"
+	end
+
+	local packet = game_cl.GenerateGameMessage(GM_REMOTE_COMMAND)
+
+	packet:w_stringZ(key)
+	packet:w_stringZ(RC_CALL_MAGIC)
+
+	return packet
+end
+
+-------------------------------------------------------------------------------
+-- cl_call(command_id, args, callback)
+--
+-- callback(ok, values, err, status)
+--
+-- ok:
+--   true  -- сервер ответил успешно
+--   false -- ошибка сети/отправки/обработки
+--
+-- values:
+--   таблица возвращаемых полей команды
+--
+-- err:
+--   текст ошибки
+--
+-- status:
+--   RC_STATUS_OK / RC_STATUS_ERROR / RC_STATUS_DENIED
+-------------------------------------------------------------------------------
+function cl_call(command_id, args, callback)
+	if not command_id then
+		to_log("RC.cl_call: error: no command id")
+		return nil
+	end
+
+	local command = RC_COMMANDS[command_id]
+	if not command then
+		to_log("RC.cl_call: error: command not found, id: %s", tostring(command_id))
+		return nil
+	end
+
+	if not command.ret then
+		to_log("RC.cl_call: error: command is not callable, id: %s", tostring(command_id))
+		return nil
+	end
+
+	local token = cl_next_request_token()
+
+	local packet, packet_err = cl_make_call_packet(not command.allow_unauthorized)
+	if not packet then
+		to_log("RC.cl_call: cannot make packet: %s", tostring(packet_err))
+
+		if callback then
+			callback(false, nil, packet_err, RC_STATUS_ERROR)
+		end
+
+		return nil
+	end
+
+	local local_game_id = LocalActor()
+
+	if local_game_id == 0 then
+		to_log("RC.cl_call: warning: local gameID is 0, server may not be able to reply")
+	end
+
+	packet:w_stringZ(token)
+	packet:w_u16(local_game_id)
+	packet:w_stringZ(command_id)
+
+	local ok, err = write_args(packet, command.args or {}, args or {})
+	if not ok then
+		to_log("RC.cl_call: serialize failed: %s", tostring(err))
+
+		if callback then
+			callback(false, nil, err, RC_STATUS_ERROR)
+		end
+
+		return nil
+	end
+
+	RC_PENDING[token] = {
+		command_id = command_id,
+		callback = callback,
+	}
+
+	u_EventSendReliable(packet)
+
+	to_log("RC.cl_call: sent callable command: %s", command_key(command, args))
+
+	return token
+end
+
+-------------------------------------------------------------------------------
+-- CLIENT: обработка ответа от сервера
+--
+-- Эту функцию нужно вызывать из клиентского обработчика того сообщения,
+-- которое указано в GM_REMOTE_COMMAND_RESPONSE.
+-------------------------------------------------------------------------------
+function cl_handle(packet)
+	if not OnClient() then
+		return
+	end
+
+	local magic = packet:r_stringZ()
+	if magic ~= RC_RESP_MAGIC then
+		return
+	end
+
+	local token = packet:r_stringZ()
+	local command_id = packet:r_stringZ()
+	local status = packet:r_u8()
+
+	local pending = RC_PENDING[token]
+	if not pending then
+		return
+	end
+
+	RC_PENDING[token] = nil
+
+	if pending.command_id ~= command_id then
+		return
+	end
+
+	local command = RC_COMMANDS[command_id]
+	if not command then
+		return
+	end
+
+	if status == RC_STATUS_OK then
+		local ok, values_or_err = pcall(read_ret_values, packet, command.ret or {})
+
+		if ok then
+			if pending.callback then
+				pending.callback(true, values_or_err, nil, status)
+			end
+		else
+			if pending.callback then
+				pending.callback(false, nil, tostring(values_or_err), RC_STATUS_ERROR)
+			end
+		end
+	else
+		local msg = packet:r_stringZ()
+
+		if pending.callback then
+			pending.callback(false, nil, msg, status)
+		end
+	end
+end
+
 -- ================= COMMANDS =================
+
+RC_CHECK_AUTH = register {
+	name = "check_auth",
+
+	-- Разрешаем серверу выполнить эту команду даже если ключ не прошёл.
+	-- Иначе сервер просто отбросил бы пакет до выполнения команды.
+	allow_unauthorized = true,
+
+	args = {},
+
+	ret = {
+		{ name = "authorized", type = "bool" },
+		{ name = "message",    type = "stringZ" },
+	},
+
+	sv_handler = function(args, ctx)
+		ctx = ctx or {}
+
+		return {
+			authorized = ctx.authorized == true,
+			message = ctx.authorized and "authorized" or (ctx.auth_message or "access denied"),
+		}
+	end,
+}
+
+-------------------------------------------------------------------------------
+-- Удобная клиентская обёртка
+--
+-- callback(authorized, message, values, status)
+-------------------------------------------------------------------------------
+function cl_check_auth(callback)
+	return cl_call(RC_CHECK_AUTH, {}, function(ok, values, err, status)
+		local authorized = ok and values and values.authorized or false
+		local message = (values and values.message) or err or ""
+
+		if callback then
+			callback(authorized, message, values, status)
+		end
+	end)
+end
 
 RC_SET_ENVTIME = register {
 	name = "set_envtime",
@@ -416,12 +939,12 @@ RC_SET_SURGE = register {
 		{ name = "skip_message", type = "bool" }
 	},
 	sv_handler = function(args)
-		if args.start == 0 then
+		if args.state == 0 then
 			surge_manager.stop_surge()
-		elseif args.start == 1 then
+		elseif args.state == 1 then
 			disable_info("SURGE_NOT_ALLOWED")
-			surge_manager.start_surge()-- TODO: не работает выброс
-		elseif args.start == 2 then
+			surge_manager.start_surge()
+		elseif args.state == 2 then
 			surge_manager.skip_surge(args.skip_message)
 		end
 	end

@@ -1,0 +1,17 @@
+[logic]
+active = sr_idle
+
+[sr_idle]
+on_player_outside = {=local_actor_alive} %=run_postprocess(postprocess_rad_strong:228:true) +all_player_inside% sr_timer
+on_player_outside2 = {!local_actor_alive} %=stop_postprocess(228)% 
+
+[sr_timer]
+type = dec
+start_value = 10000
+string = st_out_game_zone
+timer_id = hud_timer_out_zone
+time_style = s
+sound = df_restricted
+sound_force = true
+on_value = 0 | sr_idle %=kill_me%
+on_player_inside = %=stop_postprocess(228)% sr_idle

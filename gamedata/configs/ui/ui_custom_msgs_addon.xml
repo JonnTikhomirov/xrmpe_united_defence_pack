@@ -4,4 +4,14 @@
     <text font="graffiti22" r="240" g="217" b="182" a="255" align="l"/>
 </cs_debug>
 <!-- The Tool -->
+<heli_boss anchor="top-center" x="0" y="136" width="262" height="28" stretch="1">
+	<auto_lineview anchor="top-center" height="28" items_indent="9">
+		<auto_static width="28" height="28" stretch="1">
+			<texture>ui_ingame_boss_icon</texture>
+		</auto_static>
+		<auto_text height="28">
+			<text vert_align="c" font="din_next17_bold" color="dark_red_mpe" outline="1">df_helicopter</text>
+		</auto_text>
+	</auto_lineview>
+</heli_boss>
 <!-- - UP -->
