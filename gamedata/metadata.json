@@ -1,24 +1,119 @@
 {
-    "name":
-        {
-            "en": "United Defence Pack",
-            "ru": "United Defence Pack",
-            "ua": "United Defence Pack",
-            "by": "United Defence Pack",
-            "pl": "United Defence Pack"
-        },
-    "description":
-        {
-            "en": "Combining other packs, expanding gameplay and content.",
-            "ru": "Объединение других паков, расширение геймплея и контента",
-            "ua": "Объединение других паков, расширение геймплея и контента",
-            "by": "Объединение других паков, расширение геймплея и контента",
-            "pl": "Объединение других паков, расширение геймплея и контента"
-        },
-    "modes": ["defence"],
-    "author": "JohnTikhomirov",
-    "icon": "icon",
-    "addonVersion": "0.5",
-    "coopStartupArgs": ["-noprefetch"],
-    "manifestVersion": "0.9"
-	}
+	"name": {
+		"en": "United Defence Pack",
+		"ru": "United Defence Pack",
+		"ua": "United Defence Pack",
+		"by": "United Defence Pack",
+		"pl": "United Defence Pack"
+	},
+	"description": {
+		"en": "Combining other packs, expanding gameplay and content.",
+		"ru": "Объединение других паков, расширение геймплея и контента",
+		"ua": "Combining other packs, expanding gameplay and content.",
+		"by": "Combining other packs, expanding gameplay and content.",
+		"pl": "Combining other packs, expanding gameplay and content."
+	},
+	"modes": [
+		"defence"
+	],
+	"author": "JohnTikhomirov",
+	"icon": "icon",
+	"addonVersion": "0.5",
+	"coopStartupArgs": [
+		"-noprefetch"
+	],
+	"manifestVersion": "0.9",
+	"availableMaps": [
+		{
+			"devName": "df_pripyat_center",
+			"name": {
+				"en": "Pripyat center",
+				"ru": "Центр Припяти",
+				"ua": "Pripyat center",
+				"by": "Pripyat center",
+				"pl": "Pripyat center"
+			},
+			"modes": [
+				"df"
+			]
+		},
+		{
+			"devName": "df_pripyat",
+			"name": {
+				"en": "Cafe Pripyat",
+				"ru": "Кафе Припять",
+				"ua": "Cafe Pripyat",
+				"by": "Cafe Pripyat",
+				"pl": "Cafe Pripyat"
+			},
+			"modes": [
+				"df"
+			]
+		},
+		{
+			"devName": "df_arena",
+			"name": {
+				"en": "Arena",
+				"ru": "Арена",
+				"ua": "Arena",
+				"by": "Arena",
+				"pl": "Arena"
+			},
+			"modes": [
+				"df"
+			]
+		},
+		{
+			"devName": "df_limansk",
+			"name": {
+				"en": "Limansk",
+				"ru": "Лиманск",
+				"ua": "Limansk",
+				"by": "Limansk",
+				"pl": "Limansk"
+			},
+			"modes": [
+				"df"
+			]
+		},
+		{
+			"devName": "df_yantar",
+			"name": {
+				"en": "Science camp",
+				"ru": "Научный лагерь",
+				"ua": "Science camp",
+				"by": "Science camp",
+				"pl": "Science camp"
+			},
+			"modes": [
+				"df"
+			]
+		},
+		{
+			"devName": "df_escape",
+			"name": {
+				"en": "Blockpost",
+				"ru": "Блокпост",
+				"ua": "Blockpost",
+				"by": "Blockpost",
+				"pl": "Blockpost"
+			},
+			"modes": [
+				"df"
+			]
+		},
+		{
+			"devName": "df_mine_coper",
+			"name": {
+				"en": "Mine coper",
+				"ru": "Шахтный копер",
+				"ua": "Mine coper",
+				"by": "Mine coper",
+				"pl": "Mine coper"
+			},
+			"modes": [
+				"df"
+			]
+		}
+	]
+}
