@@ -78,6 +78,11 @@ df_tips_table = {
 					[21] = "df_derevnya",					
 					[22] = "all",					
 					[23] = "all",					
+					[24] = "all", -- +UDP
+					[25] = "all", -- +UDP
+					[26] = "all", -- +UDP
+					[27] = "all", -- +UDP
+					[28] = "all", -- +UDP
 				}
 function get_common_tip_number(level_name)
 	local tbl = {}
