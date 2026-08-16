@@ -1,0 +1,122 @@
+common_tips_table =	{
+					[1] = "all",
+					[2] = "all",
+					[3] = "all",
+					[4] = "all",
+					[5] = "all",
+					[6] = "all",
+					[7] = "all",
+					[8] = "all",
+					[9] = "all",
+					[10] = "all",
+					[11] = "all",
+					[12] = "all",
+					[13] = "all",
+					[14] = "all",
+					[15] = "all",
+					[16] = "all",
+					[17] = "all",
+					[18] = "all",
+					[19] = "all",
+					[20] = "all",
+					[21] = "all",
+					[22] = "all",
+					[23] = "all",
+					[24] = "all",
+					[25] = "all",
+				}
+				
+main_tips_table =	{
+					[1] = "all",
+					[2] = "all",
+					[3] = "all",
+					[4] = "all",
+					[5] = "all",
+					[6] = "all",
+					[7] = "all",
+					[8] = "all",
+					[9] = "all",
+					[10] = "all",
+					[11] = "all",
+					[12] = "all",
+					[13] = "all",
+					[14] = "all",
+					[15] = "all",
+					[16] = "all",
+					[17] = "all",
+					[18] = "all",
+					[19] = "all",
+					[20] = "all",
+					[21] = "all",
+					[22] = "all",
+					[23] = "all",
+					[24] = "all",
+					[25] = "all",
+				}
+				
+df_tips_table = {
+					[1] = "all",
+					[2] = "all",
+					[3] = "all",
+					[4] = "all",
+					[5] = "all",
+					[6] = "all",
+					[7] = "all",
+					[8] = "all",
+					[9] = "all",
+					[10] = "all",
+					[11] = "all",
+					[12] = "all",
+					[13] = "all",
+					[14] = "all",
+					[15] = "all",
+					[16] = "all",
+					[17] = "df_zastava",
+					[18] = "df_baryer",
+					[19] = "df_derevnya",
+					[20] = "df_prost_anom",
+					[21] = "df_derevnya",					
+					[22] = "all",					
+					[23] = "all",					
+				}
+function get_common_tip_number(level_name)
+	local tbl = {}
+	for i=1,#common_tips_table do
+		if(common_tips_table[i]==level_name or common_tips_table[i]=="all") then
+			table.insert(tbl, i)
+		end
+	end
+	if(#tbl==0) then
+		return 1
+	else
+		return tbl[math.random(#tbl)]
+	end
+end
+
+function get_main_tip_number(level_name)
+	local tbl = {}
+	for i=1,#main_tips_table do
+		if(main_tips_table[i]==level_name or main_tips_table[i]=="all") then
+			table.insert(tbl, i)
+		end
+	end
+	if(#tbl==0) then
+		return 1
+	else
+		return tbl[math.random(#tbl)]
+	end
+end
+
+function get_df_tip_number(level_name)
+	local tbl = {}
+	for i=1,#df_tips_table do
+		if(df_tips_table[i]==level_name or df_tips_table[i]=="all") then
+			table.insert(tbl, i)
+		end
+	end
+	if(#tbl==0) then
+		return 1
+	else
+		return tbl[math.random(#tbl)]
+	end
+end
