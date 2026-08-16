@@ -9,11 +9,11 @@
         },
     "description":
         {
-            "en": "United Defence Pack = Seven pack + DMR Pack + another",
-            "ru": "United Defence Pack = Seven pack + DMR Pack + другой",
-            "ua": "United Defence Pack = Seven pack + DMR Pack + another",
-            "by": "United Defence Pack = Seven pack + DMR Pack + another",
-            "pl": "United Defence Pack = Seven pack + DMR Pack + another"
+            "en": "Combining other packs, expanding gameplay and content.",
+            "ru": "Объединение других паков, расширение геймплея и контента",
+            "ua": "Объединение других паков, расширение геймплея и контента",
+            "by": "Объединение других паков, расширение геймплея и контента",
+            "pl": "Объединение других паков, расширение геймплея и контента"
         },
     "modes": ["defence"],
     "author": "JohnTikhomirov",
