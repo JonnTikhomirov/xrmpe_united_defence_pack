@@ -1,6 +1,6 @@
 # xrMPE United Defence Pack
 
-![xrMPE United Defence Pack](gamedata\icon.webp)
+![xrMPE United Defence Pack](gamedata/icon.webp)
 
 ## Описание
 
