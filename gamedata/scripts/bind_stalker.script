@@ -810,18 +810,14 @@ function actor_binder:update(delta)
 				end
 			end
 			if has_playing_sthemes then
-				to_log("has_playing_sthemes")
 				if self.g_dynamic_music == nil then
 					self.g_dynamic_music = get_console():get_bool("g_dynamic_music")
 					if self.g_dynamic_music == true then
-						to_log("g_dynamic_music off")
 						get_console():execute("g_dynamic_music off")
 					end
 				end
 			else
-				to_log("has_playing_sthemes false")
 				if self.g_dynamic_music == true then
-					to_log("g_dynamic_music on")
 					get_console():execute("g_dynamic_music on")
 					self.g_dynamic_music = nil
 				end
