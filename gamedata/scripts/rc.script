@@ -84,22 +84,25 @@ local RC_STATUS_ERROR  = 1
 local RC_STATUS_DENIED = 2
 
 function init()
-	local fname = getFS():update_path("$app_data_root$", "radmins.ltx")
-	if fname and getFS():exist(fname) then
+	to_log("RC.init")
+	if getFS():exist("$app_data_root$", "radmins.ltx") then
+		local fname = getFS():update_path("$app_data_root$", "radmins.ltx")
 		file = io.open(fname)
-		local str = file:read("*a")
-		file:close()
-		local data = lua_helper.fParse_CustomData(str)
-		if data.rcadmins then
-			for k, v in pairs(data.rcadmins) do
-				if v == "<<no_value>>" then
-					RC_ADMIN_KEYS[k] = true
-				else
-					RC_ADMIN_KEYS[string.lower(k)] = string.toboolean(v or "true")
+		if file then
+			local str = file:read("*a")
+			file:close()
+			local data = lua_helper.fParse_CustomData(str)
+			if data.rcadmins then
+				for k, v in pairs(data.rcadmins) do
+					if v == "<<no_value>>" then
+						RC_ADMIN_KEYS[k] = true
+					else
+						RC_ADMIN_KEYS[string.lower(k)] = string.toboolean(v or "true")
+					end
 				end
+			else
+				to_log("RC.init: section 'rcadmins' not found in 'radmins.ltx'")
 			end
-		else
-			to_log("RC.init: section 'rcadmins' not found in 'radmins.ltx'")
 		end
 	elseif not OnClient() then
 		to_log("RC.init: 'radmins.ltx' not found")

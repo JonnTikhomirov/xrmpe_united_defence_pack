@@ -1344,5 +1344,4 @@ abort = function(fmt,...)
 	-- - UP
 end
 -- -- The Tool
-prefetch("rc")
 -- - UP
