@@ -481,7 +481,7 @@ function Init_ActorPStor(e) --/< from 'bind_actor:reinit'
 		-- + UP
 		-- idActor = alife():actor().id
 		idActor = LocalActor();
-		if not idActor then return end
+		if not idActor or not db.storage[idActor] then return end
 		-- - UP
 	end
 	
