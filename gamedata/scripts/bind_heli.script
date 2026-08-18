@@ -334,7 +334,7 @@ function heli_binder_cl:update_flame()
 
 	if self.heli.m_flame_started == true and self.heli.m_exploded == false then		
 		if self.flame_particle == nil and self.flame_particle_path ~= nil then
-			self.flame_particle = xr_effects.play_particle_at_npc(getLocalActor(), self.object, { self.flame_particle_path, "front_propeller"})
+			self.flame_particle = xr_effects.play_particle_at_npc(db.actor, self.object, { self.flame_particle_path, "front_propeller"})
 		end
 		self.heli:TurnLighting(true)
 	else
