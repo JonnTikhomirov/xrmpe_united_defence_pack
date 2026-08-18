@@ -154,7 +154,7 @@ end
 function mp_actor_binder:on_item_take(obj)
 	--printf_msg("on_item_take [%s]", obj:name())
 	if OnServer() then
-		treasure_manager.get_treasure_manager():on_item_take(obj:id())
+		treasure_manager.get_treasure_manager():on_item_take(obj:id(), self.object)-- +UDP
 	end
 	
 	if isArtefact(obj) then

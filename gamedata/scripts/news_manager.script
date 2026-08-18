@@ -69,13 +69,13 @@ function send_tip(actor, news_id, timeout, sender, showtime, sender_id)
 			local npc = sim:object(get_story_object_id(sender_id))
 			if npc ~= nil then
 				if npc.online then
-					--в онлайне проверяем на раненность
+					--пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 					if xr_wounded.is_heavy_wounded_by_id(npc.id) then
 						printf("[PDA]Cannot send tips [%s], sender is heavy wounded", tostring(news_id))
 						return false
 					end
 				end
-				-- в других случаях только на смерть
+				-- пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 				if npc:alive() == 1 then
 					printf("[PDA]Cannot send tips [%s], sender is dead", tostring(news_id))
 					return false
@@ -87,7 +87,7 @@ function send_tip(actor, news_id, timeout, sender, showtime, sender_id)
 	if timeout == nil then timeout = 0 end
 	if showtime == nil then showtime = 5000 end
 
-	--' Играем дефолтный звук
+	--' пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 	xr_sound.set_sound_play(actor:id(), "pda_tips")
 
 
@@ -141,7 +141,7 @@ function send_sound(npc, faction, point, str, str2, delay_sound)
 
 
 --		callstack()
-		--' Играем дефолтный звук
+		--' пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 --	    xr_sound.set_sound_play(db.actor:id(), "pda_tips")
 
 		local texture = "ui_iconsTotal_grouping"
@@ -225,16 +225,29 @@ function send_task(actor, type, task)
 
 end
 
-function send_treasure(param)
+function send_treasure(param, takers)-- +UDP
 	local news_caption = ""
 	if(param==0) then
 		news_caption = game.translate_string("st_found_new_treasure")
 	elseif(param==1) then
 		news_caption = game.translate_string("st_got_treasure")
+		-- +UDP
+		if takers and #takers > 0 then
+			news_caption = game.translate_string("st_player_got_treasure")
+			local names = ""
+			for _,v in ipairs(takers) do
+				if names ~= "" then
+					names = names.." + "
+				end
+				names = names..v:name()
+			end
+			news_caption = names.." "..news_caption
+		end
+		-- -UDP
 	elseif(param==2) then
 		news_caption = game.translate_string("st_found_old_treasure")
 	end
-
+	
 	if OnServer() then
 		for k,v in pairs(db.mp_actors) do
 			local packet = net_packet()
@@ -262,7 +275,7 @@ function relocate_item(actor, type, item, amount)
 	
 	if _actor == nil then return false end
 	
-	--' Играем дефолтный звук
+	--' пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 	if not amount then
 		amount = 1
 	end
@@ -299,7 +312,7 @@ end
 
 function relocate_money(actor, type, amount)
 	if db.actor == nil then return false end
-	--' Играем дефолтный звук
+	--' пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 	if type == "in" then
 		local news_caption = game.translate_string("general_in_money")
 		local news_text = game.translate_string(tostring(amount))
