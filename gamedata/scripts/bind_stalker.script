@@ -562,6 +562,11 @@ function actor_binder:net_destroy()
 	    get_console():execute("snd_volume_music "..tostring(_G.mus_vol))
 		_G.mus_vol = 0
 	end
+	-- +UDP
+	if self.g_dynamic_music == true then
+		get_console():execute("g_dynamic_music on")
+	end
+	-- -UDP
 	if sr_psy_antenna.psy_antenna then
 		sr_psy_antenna.psy_antenna:destroy()
 		sr_psy_antenna.psy_antenna = false
@@ -569,11 +574,6 @@ function actor_binder:net_destroy()
 	xrs_dyn_music.finish_theme()
 	xr_s.on_actor_destroy()
 	object_binder.net_destroy(self)
-	-- +UDP
-	if self.g_dynamic_music == true then
-		get_console():execute("g_dynamic_music on")
-	end
-	-- -UDP
 end
 ----------------------------------------------------------------------------------------------------------------------
 function actor_binder:reinit()
@@ -858,15 +858,6 @@ function actor_binder:update(delta)
 end
 ----------------------------------------------------------------------------------------------------------------------
 function actor_binder:save(packet)
-
-	-- + UP
-	if OnClient() then
-		-- ++ The Tool
-		xr_s.on_event("actor_save")
-		-- -- The Tool
-	end
-	-- - UP
-
 	set_save_marker(packet, "save", false, "actor_binder")
 	object_binder.save(self, packet)
 	self.weather_manager:save(packet)
