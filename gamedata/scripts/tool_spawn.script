@@ -283,7 +283,7 @@ function spawn:PrepareRuntimeData()
 		iCntSmarts = iCntSmarts + 1
 		table.insert(self.tSmarts, {
 			id = obj_name,
-			location = sim:level_name(gg:vertex(smart.m_game_vertex_id):level_id()),
+			location = level.name(),--sim:level_name(gg:vertex(smart.m_game_vertex_id):level_id()), --+UDP
 			name = smart_names.get_smart_terrain_name(smart),
 			pos = smart.position,
 			lvid = smart.m_level_vertex_id,
@@ -370,16 +370,16 @@ function spawn:OnTabChange()
 	end
 
 	self.textbox_shift:SetText("3")
-	-- + UP
+	-- +UDP
 	-- self.textbox_gv:SetText(string.format("%d", db.actor:game_vertex_id()))
 	-- self.textbox_lv:SetText(string.format("%d", db.actor:level_vertex_id()))
 	-- local pos = db.actor:position()
 	-- local dir = db.actor:direction()
-	self.textbox_gv:SetText(string.format("%d", getLocalActor():game_vertex_id()))
-	self.textbox_lv:SetText(string.format("%d", getLocalActor():level_vertex_id()))
-	local pos = getLocalActor():position()
-	local dir = getLocalActor():direction()
-	-- - UP
+	self.textbox_gv:SetText(string.format("%d", (getLocalActor() or db.actor):game_vertex_id()))
+	self.textbox_lv:SetText(string.format("%d", (getLocalActor() or db.actor):level_vertex_id()))
+	local pos = (getLocalActor() or db.actor):position()
+	local dir = (getLocalActor() or db.actor):direction()
+	-- -UDP
 
 	pos = pos:add(dir:mul(3))
 	self.textbox_x:SetText(string.format("%.3f", pos.x))
@@ -597,10 +597,10 @@ function spawn:SetNewPosition(angle)
 	local pos_z = tonumber(self.textbox_z:GetText())
 	if not (pos_x and pos_y and pos_z) then return end --/>
 	-- сдвигаем позицию в направлении взгляда + угол angle на расстояние dist
-	-- + UP
+	-- +UDP
 	-- local pos = self.owner_script.MoveAtDirection(vector():set(pos_x, pos_y, pos_z), db.actor:direction(), angle, dist)
-	local pos = self.owner_script.MoveAtDirection(vector():set(pos_x, pos_y, pos_z), getLocalActor():direction(), angle, dist)
-	-- - UP
+	local pos = self.owner_script.MoveAtDirection(vector():set(pos_x, pos_y, pos_z), (getLocalActor() or db.actor):direction(), angle, dist)
+	-- -UDP
 	-- получаем вертексы из новой позиции
 	local lvid = lua_helper.Get_Never_idLv_by_Pos(pos)
 	local gvid = lua_helper.Get_idGv_by_Pos(pos, db.idMapNow)
@@ -639,14 +639,14 @@ end
 -- кнопка Центрировать на игроке
 function spawn:OnBtnCurrent()
 	--to_log(sModule..":> OnBtnCurrent start")
-	-- + UP
+	-- +UDP
 	-- self.textbox_gv:SetText(string.format("%d", db.actor:game_vertex_id()))
 	-- self.textbox_lv:SetText(string.format("%d", db.actor:level_vertex_id()))
 	-- local pos = db.actor:position()
-	self.textbox_gv:SetText(string.format("%d", getLocalActor():game_vertex_id()))
-	self.textbox_lv:SetText(string.format("%d", getLocalActor():level_vertex_id()))
-	local pos = getLocalActor():position()
-	-- - UP
+	self.textbox_gv:SetText(string.format("%d", (getLocalActor() or db.actor):game_vertex_id()))
+	self.textbox_lv:SetText(string.format("%d", (getLocalActor() or db.actor):level_vertex_id()))
+	local pos = (getLocalActor() or db.actor):position()
+	-- -UDP
 	self.textbox_x:SetText(string.format("%.3f", pos.x))
 	self.textbox_y:SetText(string.format("%.3f", pos.y))
 	self.textbox_z:SetText(string.format("%.3f", pos.z))
@@ -696,19 +696,19 @@ function spawn:OnBtnSpawn()
 	end
 
 	local number = tonumber(self.textbox_count:GetText()) or (group_id == "anomalies" and 3 or 1)
-	-- + UP
+	-- +UDP
 	-- local gvid = tonumber(self.textbox_gv:GetText()) or db.actor:game_vertex_id()
 	-- local lvid = tonumber(self.textbox_lv:GetText()) or db.actor:level_vertex_id()	
-	local gvid = tonumber(self.textbox_gv:GetText()) or getLocalActor():game_vertex_id()
-	local lvid = tonumber(self.textbox_lv:GetText()) or getLocalActor():level_vertex_id()
-	-- - UP
+	local gvid = tonumber(self.textbox_gv:GetText()) or (getLocalActor() or db.actor):game_vertex_id()
+	local lvid = tonumber(self.textbox_lv:GetText()) or (getLocalActor() or db.actor):level_vertex_id()
+	-- -UDP
 	local pos_x = tonumber(self.textbox_x:GetText())
 	local pos_y = tonumber(self.textbox_y:GetText())
 	local pos_z = tonumber(self.textbox_z:GetText())
-	-- + UP
+	-- +UDP
 	-- local pos = (pos_x and pos_y and pos_z) and vector():set(pos_x, pos_y, pos_z) or db.actor:position()
-	local pos = (pos_x and pos_y and pos_z) and vector():set(pos_x, pos_y, pos_z) or getLocalActor():position()
-	-- - UP
+	local pos = (pos_x and pos_y and pos_z) and vector():set(pos_x, pos_y, pos_z) or (getLocalActor() or db.actor):position()
+	-- -UDP
 
 	if group_id == "anomalies" then
 		-- создание аномалий
@@ -716,10 +716,10 @@ function spawn:OnBtnSpawn()
 	elseif group_id == "ammo" then
 		-- создание патронов
 		if self.checkbox_mode:GetCheck() then -- в инвентаре
-			-- + UP
+			-- +UDP
 			-- self:SpawnAmmo(section, number, db.actor:id(), vector(), 0, 0)
 			self:SpawnAmmo(section, number, LocalActor(), vector(), 0, 0)
-			-- - UP
+			-- -UDP
 		else -- в окр. мире
 			self:SpawnItems(section, number, nil, pos, lvid, gvid)
 			-- self:SpawnAmmo(section, number, db.actor:id(), vector(), 0, 0, true)
@@ -730,10 +730,10 @@ function spawn:OnBtnSpawn()
 	else
 		-- создание предмета(ов)
 		if self.checkbox_mode:GetCheck() then -- в инвентаре
-			-- + UP
+			-- +UDP
 			-- self:SpawnItems(section, number, db.actor:id(), vector(), 0, 0)
 			self:SpawnItems(section, number, LocalActor(), vector(), 0, 0)
-			-- - UP
+			-- -UDP
 		else -- в окр. мире
 			self:SpawnItems(section, number, nil, pos, lvid, gvid)
 		end
@@ -998,8 +998,7 @@ function spawn:SpawnAmmo(section, number, npc_id, pos, lvid, gvid, drop)
 	if drop then -- для варианта спавна через инвентарь с выбросом на землю (не используется в настоящее время)
 		for _, v in ipairs(t) do
 			-- + UP
-			-- level.client_spawn_manager():add(v.id, 65535, function (id, obj) db.actor:drop_item(obj) end)
-			level.client_spawn_manager():add(v.id, 65535, function (id, obj) getLocalActor():drop_item(obj) end)
+			-- level.client_spawn_manager():add(v.id, 65535, function (id, obj) db.actor:drop_item(obj) end) --TODO
 			-- - UP
 		end
 	end

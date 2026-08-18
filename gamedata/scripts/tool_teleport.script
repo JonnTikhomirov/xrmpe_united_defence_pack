@@ -298,7 +298,7 @@ function teleport:PrepareRuntimeData(ltx)
 			iCntSmarts = iCntSmarts + 1
 			table.insert(self.tSmarts, {
 				id = obj_name,
-				location = sim:level_name(gg:vertex(smart.m_game_vertex_id):level_id()),
+				location = level.name(),--sim:level_name(gg:vertex(smart.m_game_vertex_id):level_id()), -- +UDP
 				name = smart_names.get_smart_terrain_name(smart),
 				pos = smart.position,
 				lvid = smart.m_level_vertex_id,
@@ -315,8 +315,8 @@ end
 -- запись редактируемых точек в файл
 function teleport:SaveCustomPoints()
 	-- проверка доступности пространства имён IO (OGSR)
-	--if type(io) ~= "table" then return end --/>--+UP
-	if true then return end --+UP не пишем в VFS
+	--if type(io) ~= "table" then return end --/>--+UDP
+	if true then return end --+UDP не пишем в VFS
 	to_log(sModule..":> SaveCustomPoints start to %s", self.ltx_path_save)
 
 	local iCntPoints = 0
@@ -471,22 +471,33 @@ function teleport:OnBtnFind()
 		local sCurrentLevelName = level.name()
 		local gg = game_graph()
 		for i = 1, 65535 do
-			obj = sim:object(i)
+			-- +UDP
+			--obj = sim:object(i)
+			obj = level.object_by_id(i)
+			-- -UDP
 			if obj then
-				if bFindInBoxes and obj.parent_id ~= 0 or obj.parent_id == 65535 then
+				--if bFindInBoxes and obj.parent_id ~= 0 or obj.parent_id == 65535 then-- +UDP
+				if bFindInBoxes and obj:parent() or not obj:parent() then-- +UDP
 					-- ищем истинные локацию и координаты, если объект находится в контейнере
 					local obj_location, obj_pos = nil, nil
-					if obj.parent_id ~= 65535 then
-						-- объект в контейнере
-						local parent_obj = sim:object(obj.parent_id)
-						if parent_obj then -- если контейнер найден, берём его показатели
-							obj_location = sim:level_name(gg:vertex(parent_obj.m_game_vertex_id):level_id())
-							obj_pos = parent_obj.position
-						end
+					-- +UDP
+					--if obj.parent_id ~= 65535 then
+						-- -- объект в контейнере
+						-- local parent_obj = sim:object(obj.parent_id)
+						-- if parent_obj then -- если контейнер найден, берём его показатели
+						-- 	obj_location = sim:level_name(gg:vertex(parent_obj.m_game_vertex_id):level_id())
+						-- 	obj_pos = parent_obj.position
+						-- end
+					-- else
+					-- 	-- объект не в контейнере
+					-- 	obj_location = sim:level_name(gg:vertex(obj.m_game_vertex_id):level_id())
+					-- 	obj_pos = obj.position
+					obj_location = level.name()
+					if obj:parent() then
+						obj_pos = obj:parent():position()
 					else
-						-- объект не в контейнере
-						obj_location = sim:level_name(gg:vertex(obj.m_game_vertex_id):level_id())
-						obj_pos = obj.position
+						obj_pos = obj:position()
+					-- -UDP
 					end
 					if obj_location and (bFindAtCurrentLocation and sCurrentLevelName == obj_location or bFindAtOtherLocations and sCurrentLevelName ~= obj_location) then
 						-- определяем имя объекта
@@ -496,7 +507,7 @@ function teleport:OnBtnFind()
 						elseif ObjIsMonster(obj) then
 							name = Get_MobClass(obj)
 						elseif ObjIsOutfit(obj) or ObjIsWeapon(obj) or ObjIsAmmo(obj) or ObjIsDetector(obj) or ObjIsFood(obj) or ObjIsMedical(obj) or ObjIsArtefact(obj) then
-							name = Get_InvName(obj:section_name())
+							name = Get_InvName(obj:section())--obj:section_name())--+UDP
 						end
 						if name then
 							name = game.translate_string(name)
@@ -546,7 +557,8 @@ function teleport:OnFindObjectListItemClicked()
 	if not item_id or item_id == "null" then return end --/>
 
 	local item = self.tObjects[tonumber(item_id)]
-	local obj = sim:object(item.object_id) -- ищем исходный объект
+	--local obj = sim:object(item.object_id) -- ищем исходный объект -- +UDP
+	local obj = level.object_by_id(item.object_id)-- +UDP
 	if obj then
 		self.info_location_text:TextControl():SetText(game.translate_string(item.location))
 		-- поиск смарта, ближайшего к текущей позиции выбранного предмета
@@ -645,7 +657,7 @@ function teleport:OnBtnGo()
 		if not (pos_x and pos_y and pos_z) then return end --/>
 		local gvid = tonumber(self.textbox_gv:GetText())
 		local lvid = tonumber(self.textbox_lv:GetText())
-		location = gvid and sim:level_name(game_graph():vertex(gvid):level_id()) or level.name()
+		location = level.name()--location = gvid and sim:level_name(game_graph():vertex(gvid):level_id()) or level.name() -- +UDP
 		self:MakeJump(location, gvid, lvid, vector():set(pos_x, pos_y, pos_z))
 	elseif location == "find_object" then
 		-- переход к объекту
@@ -653,12 +665,15 @@ function teleport:OnBtnGo()
 		if not item_id or item_id == "null" then return end --/>
 
 		local item = self.tObjects[tonumber(item_id)]
-		local obj = sim:object(item.object_id) -- ищем исходный объект
-		if obj and obj.parent_id ~= 65535 then obj = sim:object(obj.parent_id) or obj end -- если объект в контейнере, получаем контейнер
-		if obj then -- если объект или контейнер найден, перемещаемся к нему
-			local location = sim:level_name(game_graph():vertex(obj.m_game_vertex_id):level_id())
-			self:MakeJump(location, obj.m_game_vertex_id, obj.m_level_vertex_id, obj.position)
-		end
+		-- +UDP
+		-- local obj = sim:object(item.object_id) -- ищем исходный объект
+		-- if obj and obj.parent_id ~= 65535 then obj = sim:object(obj.parent_id) or obj end -- если объект в контейнере, получаем контейнер
+		-- if obj then -- если объект или контейнер найден, перемещаемся к нему
+		-- 	local location = sim:level_name(game_graph():vertex(obj.m_game_vertex_id):level_id())
+		-- 	self:MakeJump(location, obj.m_game_vertex_id, obj.m_level_vertex_id, obj.position)
+		-- end
+		self:MakeJump(location, 0, 0, item:position())
+		-- -UDP
 	else
 		-- переход на смарты и сконфигурированные точки
 		local point_id = self.owner:GetListItemSelectedValue(self.point_list)
@@ -683,7 +698,7 @@ function teleport:OnBtnGo()
 			end
 		end
 		if not point then return end --/>
-
+		
 		self:MakeJump(location, point.gvid, point.lvid, point.pos)
 	end
 
@@ -704,6 +719,7 @@ end
 
 function teleport:OnBtnFly()
 
+	if not getLocalActor() then return end
 	if _G.tool_flying == true then
 		DisableFly()
 		_G.tool_flying = false
@@ -832,14 +848,14 @@ end
 -- кнопка Центрировать на игроке
 function teleport:OnBtnCurrent()
 	--to_log(sModule..":> OnBtnCurrent start")
-	-- + UP
+	-- +UDP
 	-- self.textbox_gv:SetText(string.format("%d", db.actor:game_vertex_id()))
 	-- self.textbox_lv:SetText(string.format("%d", db.actor:level_vertex_id()))
 	-- local pos = db.actor:position()
-	self.textbox_gv:SetText(string.format("%d", getLocalActor():game_vertex_id()))
-	self.textbox_lv:SetText(string.format("%d", getLocalActor():level_vertex_id()))
-	local pos = getLocalActor():position()
-	-- - UP
+	self.textbox_gv:SetText(string.format("%d", (getLocalActor() or db.actor):game_vertex_id()))
+	self.textbox_lv:SetText(string.format("%d", (getLocalActor() or db.actor):level_vertex_id()))
+	local pos = (getLocalActor() or db.actor):position()
+	-- -UDP
 	self.textbox_x:SetText(string.format("%.3f", pos.x))
 	self.textbox_y:SetText(string.format("%.3f", pos.y))
 	self.textbox_z:SetText(string.format("%.3f", pos.z))
@@ -860,32 +876,31 @@ function teleport:MakeJump(sMap, idGv, idLv, pos)
 
 	if not sMap or sMap == level.name() then
 		-- перемещение в пределах текущей локации
-		-- + UP
+		-- +UDP
 		-- db.actor:set_actor_position(pos)
-		getLocalActor():set_actor_position(pos)
-		-- - UP
+		(getLocalActor() or db.actor):set_actor_position(pos)
+		-- -UDP
 		return --/>
 	end
 
 	if not (idGv and idLv) then return end --/>
 
 	-- перемещение на другую локацию
-	-- + UP
+	-- +UDP
 	-- local sobj = alife():create("level_changer", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id())
-	local sobj = alife():create("level_changer", getLocalActor():position(), getLocalActor():level_vertex_id(), getLocalActor():game_vertex_id())
-	-- - UP
-	local pk = get_netpk(sobj)
-	local data = pk:get()
-	data.shapes:addSphere(3)
-	data.dest_game_vertex_id = idGv
-	data.dest_level_vertex_id = idLv
-	data.dest_position = pos
-	data.dest_level_name = sMap
-	data.silent_mode = 1
-	pk:set(data)
+	-- local pk = get_netpk(sobj)
+	-- local data = pk:get()
+	-- data.shapes:addSphere(3)
+	-- data.dest_game_vertex_id = idGv
+	-- data.dest_level_vertex_id = idLv
+	-- data.dest_position = pos
+	-- data.dest_level_name = sMap
+	-- data.silent_mode = 1
+	-- pk:set(data)
 
-	-- самоудаление точки перехода при срабатывании
-	xr_s.register_callback("actor_save", function() alife():release(sobj, true) end)
+	-- -- самоудаление точки перехода при срабатывании
+	-- xr_s.register_callback("actor_save", function() alife():release(sobj, true) end)
+	-- -UDP
 end
 
 -- кнопка Прыжок плюс
@@ -911,10 +926,11 @@ function teleport:OnBtnJumpLeft()
 	--to_log(sModule..":> OnBtnJumpLeft start")
 	local value = tonumber(self.textbox_jump:GetText())
 	if not value then return end --/>
-	-- + UP
+	-- +UDP
 	-- db.actor:set_actor_position(self.owner_script.MoveAtDirection(db.actor:position(), db.actor:direction(), -90, value))
-	getLocalActor():set_actor_position(self.owner_script.MoveAtDirection(getLocalActor():position(), getLocalActor():direction(), -90, value))
-	-- - UP	
+	local actor = getLocalActor() or db.actor
+	actor:set_actor_position(self.owner_script.MoveAtDirection(actor:position(), actor:direction(), -90, value))
+	-- -UDP	
 end
 
 -- кнопка Прыжок вперёд
@@ -923,10 +939,11 @@ function teleport:OnBtnJumpForward()
 	local value = tonumber(self.textbox_jump:GetText())
 	if not value then return end --/>
 	-- db.actor:set_actor_position(self.owner_script.MoveAtDirection(db.actor:position(), db.actor:direction(), 0, value))
-	-- + UP
+	-- +UDP
 	-- db.actor:set_actor_position(self.owner_script.MoveAtDirection(db.actor:position(), device().cam_dir, 0, value))
-	getLocalActor():set_actor_position(self.owner_script.MoveAtDirection(getLocalActor():position(), device().cam_dir, 0, value))
-	-- - UP
+	local actor = getLocalActor() or db.actor
+	actor:set_actor_position(self.owner_script.MoveAtDirection(actor:position(), device().cam_dir, 0, value))
+	-- -UDP
 end
 
 -- кнопка Прыжок назад
@@ -934,10 +951,11 @@ function teleport:OnBtnJumpBack()
 	--to_log(sModule..":> OnBtnJumpBack start")
 	local value = tonumber(self.textbox_jump:GetText())
 	if not value then return end --/>
-	-- + UP
+	-- +UDP
 	-- db.actor:set_actor_position(self.owner_script.MoveAtDirection(db.actor:position(), db.actor:direction(), 180, value))
-	getLocalActor():set_actor_position(self.owner_script.MoveAtDirection(getLocalActor():position(), getLocalActor():direction(), 180, value))
-	-- - UP
+	local actor = getLocalActor() or db.actor
+	actor:set_actor_position(self.owner_script.MoveAtDirection(actor:position(), actor:direction(), 180, value))
+	-- -UDP
 end
 
 -- кнопка Прыжок вправо
@@ -945,8 +963,9 @@ function teleport:OnBtnJumpRight()
 	--to_log(sModule..":> OnBtnJumpRight start")
 	local value = tonumber(self.textbox_jump:GetText())
 	if not value then return end --/>
-	-- + UP
+	-- +UDP
 	-- db.actor:set_actor_position(self.owner_script.MoveAtDirection(db.actor:position(), db.actor:direction(), 90, value))
-	getLocalActor():set_actor_position(self.owner_script.MoveAtDirection(getLocalActor():position(), getLocalActor():direction(), 90, value))
-	-- - UP
+	local actor = getLocalActor() or db.actor
+	actor:set_actor_position(self.owner_script.MoveAtDirection(actor:position(), actor:direction(), 90, value))
+	-- -UDP
 end

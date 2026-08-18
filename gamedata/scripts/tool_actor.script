@@ -186,7 +186,7 @@ end
 -- очистка полей
 function actor:ClearFields()
 	--to_log(sModule..":> ClearFields start, clear_all=[%s]", tostring(clear_all))
-	-- + UP
+	-- +UDP
 	-- self.money_value:SetText(tostring(db.actor and db.actor:money() or 0))
 	-- self.rank_value:SetText(tostring(db.actor and db.actor:character_rank() or 0))
 	-- self.reputation_value:SetText(tostring(db.actor and db.actor:character_reputation() or 0))
@@ -201,7 +201,7 @@ function actor:ClearFields()
 	self.psy_value:SetText(string.format("%.2f", getLocalActor() and getLocalActor().psy_health or 1))
 	self.power_value:SetText(string.format("%.2f", getLocalActor() and getLocalActor().power or 1))
 	self.radiation_value:SetText(string.format("%.2f", getLocalActor() and getLocalActor().radiation or 0))
-	-- - UP
+	-- -UDP
 	self.checkbox_health_pin:SetCheck(self.fixed_health ~= nil)
 	self.checkbox_psy_pin:SetCheck(self.fixed_psy ~= nil)
 	self.checkbox_power_pin:SetCheck(self.fixed_power ~= nil)
@@ -237,10 +237,10 @@ function actor:OnBtnMoneySet()
 	if not value or value < 0 then value = 0 end
 	value = math.floor(value)
 	self.money_value:SetText(string.format("%d", value))
-	-- + UP
+	-- +UDP
 	-- db.actor:give_money(value - db.actor:money())
-	getLocalActor():give_money(value - getLocalActor():money())
-	-- - UP
+	--getLocalActor():give_money(value - getLocalActor():money())--TODO
+	-- -UDP
 end
 
 -- кнопка Плюс ранг
@@ -271,10 +271,12 @@ function actor:OnBtnRankSet()
 	if rank > self.rank_max then rank = self.rank_max end
 	rank = math.floor(rank)
 	self.rank_value:SetText(string.format("%d", rank))
-	-- + UP
+	-- +UDP
 	-- db.actor:set_character_rank(rank)
-	getLocalActor():set_character_rank(rank)
-	-- - UP
+	if getLocalActor() then
+		getLocalActor():set_character_rank(rank)
+	end
+	-- -UDP
 end
 
 -- кнопка Плюс репутация
@@ -305,10 +307,12 @@ function actor:OnBtnReputationSet()
 	if reputation > self.reputation_max then reputation = self.reputation_max end
 	reputation = math.floor(reputation)
 	self.reputation_value:SetText(string.format("%d", reputation))
-	-- + UP
+	-- +UDP
 	-- db.actor:change_character_reputation(reputation - db.actor:character_reputation())
-	getLocalActor():change_character_reputation(reputation - getLocalActor():character_reputation())
-	-- - UP
+	if getLocalActor() then
+		getLocalActor():change_character_reputation(reputation - getLocalActor():character_reputation())
+	end
+	-- -UDP
 end
 
 -- кнопка Плюс здоровье
@@ -336,10 +340,12 @@ function actor:OnBtnHealthSet()
 	if not value or value > self.actor_powers_max then value = self.actor_powers_max end
 	if value < self.actor_powers_min then value = self.actor_powers_min end
 	self.health_value:SetText(string.format("%.2f", value))
-	-- + UP
+	-- +UDP
 	-- db.actor.health = value - db.actor.health
-	getLocalActor().health = value - getLocalActor().health
-	-- - UP
+	if getLocalActor() then
+		getLocalActor().health = value - getLocalActor().health
+	end
+	-- -UDP
 	self:SetActorParameterFix("fixed_health", self.checkbox_health_pin:GetCheck(), value)
 end
 
@@ -368,10 +374,12 @@ function actor:OnBtnPsySet()
 	if not value or value > self.actor_powers_max then value = self.actor_powers_max end
 	if value < self.actor_powers_min then value = self.actor_powers_min end
 	self.psy_value:SetText(string.format("%.2f", value))
-	-- + UP
+	-- +UDP
 	-- db.actor.psy_health = value - db.actor.psy_health
-	getLocalActor().psy_health = value - getLocalActor().psy_health
-	-- - UP
+	if getLocalActor() then
+		getLocalActor().psy_health = value - getLocalActor().psy_health
+	end
+	-- -UDP
 	self:SetActorParameterFix("fixed_psy", self.checkbox_psy_pin:GetCheck(), value)
 end
 
@@ -433,16 +441,17 @@ end
 
 -- постоянная фиксация жизненных показателей игрока (апдейт)
 function actor:FixActorPowers()
-	-- + UP
+	-- +UDP
 	-- if self.fixed_health then db.actor.health = self.fixed_health - db.actor.health end
 	-- if self.fixed_psy then db.actor.psy_health = self.fixed_psy - db.actor.psy_health end
 	-- if self.fixed_power then db.actor.power = self.fixed_power - db.actor.power end
 	-- if self.fixed_radiation then db.actor.radiation = self.fixed_radiation - db.actor.radiation end
+	if not getLocalActor() then return end
 	if self.fixed_health then getLocalActor().health = self.fixed_health - getLocalActor().health end
 	if self.fixed_psy then getLocalActor().psy_health = self.fixed_psy - getLocalActor().psy_health end
 	if self.fixed_power then getLocalActor().power = self.fixed_power - getLocalActor().power end
 	if self.fixed_radiation then getLocalActor().radiation = self.fixed_radiation - getLocalActor().radiation end
-	-- - UP
+	-- -UDP
 end
 
 -- установка/снятие постоянной фиксации жизненного показателя игрока
@@ -464,16 +473,15 @@ function actor:OnBtnCheatSpawn()
 	for _,v in ipairs(self.cheat_spawn) do
 		if v.number > 0 then
 			if v.section == "money" then
-				-- + UP
+				-- +UDP
 				-- db.actor:give_money(v.number)
-				getLocalActor():give_money(v.number)
-				-- - UP
+				--getLocalActor():give_money(v.number) --TODO
+				-- -UDP
 			else
 				for i = 1,v.number,1 do
-					-- + UP
-					-- alife():create(v.section, vector(), 0, 0, db.actor:id())
-					alife():create(v.section, vector(), 0, 0, LocalActor())
-					-- - UP
+					-- +UDP
+					-- alife():create(v.section, vector(), 0, 0, db.actor:id())--TODO
+					-- -UDP
 				end
 			end
 		end
