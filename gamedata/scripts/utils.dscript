@@ -56,3 +56,11 @@ function play_particle(path, pos, vel)
 	end
 	return prtcle
 end
+
+function bone_pos(obj, bone)
+	if obj:get_bone_id(bone) ~= 65535 then
+		return obj:bone_position(bone)
+	else 
+		return nil
+	end
+end
