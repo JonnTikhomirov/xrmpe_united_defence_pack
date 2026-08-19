@@ -296,6 +296,7 @@ function heli_binder_cl:net_spawn(data)
 
 	db.add_obj( self.object )
 	db.add_heli( self.object )
+	self.object:set_fastcall(self.fastcall, self)
 	return true
 end
 
@@ -317,8 +318,6 @@ end
 function heli_binder_cl:update(delta)
 	object_binder.update(self, delta)
 	self:update_flame()
-	self:update_sound()
-	self:update_particles()
 
 	if self.st.show_health and self.heli.m_exploded == false then
 		if self.hp_static == nil then
@@ -328,6 +327,14 @@ function heli_binder_cl:update(delta)
 	elseif (not self.st.show_health or self.heli.m_exploded == true) and self.hp_static ~= nil then
 		self:cs_remove()
 	end
+end
+
+function heli_binder_cl:fastcall()
+
+	self:update_particles()
+	self:update_sound()
+
+	return self.heli.m_exploded or not db.heli[self.object:id()]-- снять апдейт если взорвались или удаляемся
 end
 
 function heli_binder_cl:update_flame()
