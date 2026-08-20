@@ -44,7 +44,7 @@ radiation_pp_highest_at		= 	0.02
 ef_creature_type	 = 2							; option for evaluation functions
 ef_weapon_type		 = 2
 ef_detector_type	 = 1
-panic_threshold		= 0.1
+panic_threshold		= 0;0.1; +SP
 
 cform                = skeleton					; collision class
 class                = SM_TUSHK ;AI_TUSH					; AI class
@@ -304,7 +304,7 @@ $spawn				= "monsters\tushkanos\tushkano_normal"
 rank = 100
 spec_rank			= normal
 community			= tushkano
-panic_threshold		= 0.05
+;panic_threshold		= 0.05; +UDP
 
 [tushkano_strong]:m_tushkano_e
 $spawn				= "monsters\tushkanos\tushkano_strong"
@@ -312,7 +312,7 @@ visual				 = monsters\tushkano\tushkano_strong
 rank = 200
 spec_rank			= strong
 community			= tushkano
-panic_threshold		= 0.1
+;panic_threshold		= 0.1; +UDP
 protections_sect 	= tushkano_protections
 immunities_sect		= tushkano_strong_immunities
 

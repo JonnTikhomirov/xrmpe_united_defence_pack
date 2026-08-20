@@ -249,7 +249,7 @@ critical_wound_bones_legs	= boar_critical_wound_bones_legs
 ef_creature_type		= 11						; option for evaluation functions
 ef_weapon_type			= 2
 ef_detector_type		= 1
-panic_threshold			= 0.1
+panic_threshold			= 0;0.1; +SP
 
 cform					 = skeleton					; collision class
 class					 = SM_BOARW					; AI class
@@ -498,7 +498,7 @@ hit_fraction_monster	= 0.3
 $spawn				= "monsters\boars\boar_01_weak"
 visual				= monsters\mutant_boar\mutant_boar_weak
 icon				= ui_npc_monster_mutant_boar
-panic_threshold		= 0.5
+;panic_threshold		= 0.5; +UDP
 rank				= 100
 immunities_sect		= boar_immunities_weak
 attack_params		= boar_attack_params_weak
@@ -551,7 +551,7 @@ $spawn				= "monsters\boars\boar_02_normal"
 visual				= monsters\mutant_boar\mutant_boar
 corpse_visual		= monsters\mutant_boar\mutant_boar_dead
 icon				= ui_npc_monster_mutant_boar
-panic_threshold		= 0.2
+;panic_threshold		= 0.2; +UDP
 rank				= 150
 immunities_sect		= boar_immunities_normal
 attack_params		= boar_attack_params_normal
@@ -589,7 +589,7 @@ stand_attack_run_right_0 =   0.40,		0.65,	      1800,        0.0, 1.0, 2.0,	 -1.
 $spawn				= "monsters\boars\boar_03_strong"
 visual				= monsters\mutant_boar\mutant_boar_strong
 icon				= ui_npc_monster_mutant_boar_strong
-panic_threshold		= 0.05
+;panic_threshold		= 0.05; +UDP
 rank				= 200
 immunities_sect		= boar_immunities_strong
 attack_params		= boar_attack_params_strong
@@ -600,13 +600,13 @@ community			= boar
 ; STRONG PROFILE
 ;*********************************************************************************
 [boar_immunities_strong]
-burn_immunity			= 0.1
+burn_immunity			= 0.5;0.1; +SP
 strike_immunity			= 0.1
 shock_immunity			= 0.1
 wound_immunity			= 0.5
 radiation_immunity		= 0.0
 telepatic_immunity		= 0.0
-chemical_burn_immunity	= 0.1
+chemical_burn_immunity	= 0.5;0.1; +SP
 explosion_immunity		= 0.3
 fire_wound_immunity		= 0.7
 

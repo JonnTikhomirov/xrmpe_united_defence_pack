@@ -25,7 +25,7 @@ Spawn_Inventory_Item_Probability = 0.0
 ef_creature_type	 = 21							; option for evaluation functions
 ef_weapon_type		 = 2
 ef_detector_type	 = 1
-panic_threshold		= 0.1
+panic_threshold		= 0;0.1; +SP
 
 cform                = skeleton					; collision class
 class                = SM_P_DOG					; AI class
@@ -387,7 +387,7 @@ $spawn				= "monsters\pseudodogs\pseudodog_01_weak"
 visual				= monsters\pseudodog\pseudodog
 corpse_visual		 = monsters\pseudodog\pseudodog_dead
 icon				= ui_npc_monster_pseudodog
-panic_threshold		= 0.1
+;panic_threshold		= 0.1; +UDP
 rank				= 200
 immunities_sect		= pseudodog_immunities_weak
 attack_params		= pseudodog_attack_params_weak

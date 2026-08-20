@@ -28,7 +28,7 @@ class                = SM_DOG_S					; AI class
 ef_creature_type	 = 6				; option for evaluation functions
 ef_weapon_type		 = 2
 ef_detector_type			 = 1
-panic_threshold		= 0.1
+panic_threshold		= 0;0.1; +SP
 
 
 script_binding  	= bind_monster.bind
@@ -466,7 +466,7 @@ $spawn				= "monsters\dogs\dog_02_normal"
 visual				= monsters\dog\dog_red
 corpse_visual		= monsters\dog\dog_red_dead
 icon				= ui_npc_monster_dog_red
-panic_threshold		= 0.2
+;panic_threshold		= 0.2; +UDP
 rank				= 150
 immunities_sect		= dog_immunities_normal
 attack_params		= dog_attack_params_normal
@@ -513,7 +513,7 @@ $spawn				= "monsters\dogs\dog_01_weak"
 visual				= monsters\dog\dog_white
 corpse_visual		= monsters\dog\dog_white_dead
 icon				= ui_npc_monster_dog_white
-panic_threshold		= 0.015
+;panic_threshold		= 0.015; +UDP
 rank				= 100
 spec_rank			= strong
 
@@ -522,7 +522,7 @@ $spawn				= "monsters\dogs\dog_03_strong"
 visual				= monsters\dog\dog
 corpse_visual		= monsters\dog\dog_dead
 icon				= ui_npc_monster_dog
-panic_threshold		= 0.010
+;panic_threshold		= 0.010; +UDP
 rank				= 200
 spec_rank			= strong
 
@@ -531,7 +531,7 @@ $spawn				= "monsters\dogs\dog_04_cute"
 visual				= monsters\dog\dog_bulterier
 corpse_visual		= monsters\dog\dog_bulterier_dead
 icon				= ui_npc_monster_dog
-panic_threshold		= 0.1
+;panic_threshold		= 0.1; +UDP
 spec_rank			= normal
 rank				= 100
 
