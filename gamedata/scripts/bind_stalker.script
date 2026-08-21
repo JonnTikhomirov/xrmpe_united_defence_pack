@@ -176,48 +176,71 @@ function mp_actor_binder:on_item_take(obj)
 end
 
 -- +UDP
+local slots_item_replace = nil
+
 function mp_actor_binder:update_quick_slots()
+
+	if not slots_item_replace then
+		local ini = system_ini()
+		if not ini:section_exist("slots_item_replace") then
+			return
+		end
+
+		slots_item_replace = {}
+		for i = 1, 10 do
+			if ini:line_exist("slots_item_replace", "group" .. i) then
+				local group = ini:r_string("slots_item_replace", "group" .. i)
+				if group and group ~= "" then
+					slots_item_replace[i] = parse_names(group)
+				end
+			end
+		end
+	end
+	table.print(slots_item_replace)
+	-- Секции предметов, которые есть в инвентаре
+	local inventory = {}
+
+	self.object:iterate_inventory(
+		function(dummy, item)
+			inventory[item:section()] = true
+		end,
+		nil
+	)
+
 	for slot = 0, 3 do
 		local slot_name = "slot_" .. slot
-		local slot_section = get_console():get_string(slot_name)
+		local current_section = get_console():get_string(slot_name)
 
-		if slot_section and slot_section ~= "" then
-			local slot_clsid = system_ini():r_clsid(slot_section, "class")
+		if current_section and current_section ~= "" then
 
-			if slot_clsid then
-				local same_item = false
-				local best_item = nil
-				local best_cost = -1
+			local group = nil
 
-				self.object:iterate_inventory(
-					function(dummy, item)
-						local item_section = item:section()
-
-						-- Такой же предмет уже есть в инвентаре
-						if item_section == slot_section then
-							same_item = true
-							return
-						end
-
-						-- Предмет того же класса
-						if item:clsid() == slot_clsid then
-							local cost = item:cost()
-
-							if cost > best_cost then
-								best_cost = cost
-								best_item = item
-							end
-						end
-					end,
-					nil
-				)
-
-				-- Точного предмета нет, но есть замена того же класса
-				if not same_item and best_item then
-					get_console():execute(
-						slot_name .. " " .. best_item:section()
-					)
+			-- Определяем группу текущего предмета
+			for _, sections in pairs(slots_item_replace) do
+				for _, section in ipairs(sections) do
+					if section == current_section then
+						group = sections
+						break
+					end
 				end
+
+				if group then
+					break
+				end
+			end
+
+			if group and not inventory[current_section] then
+
+				-- Берём первый доступный предмет по приоритету
+				for _, section in ipairs(group) do
+					if inventory[section] then
+						get_console():execute(
+							slot_name .. " " .. section
+						)
+						break
+					end
+				end
+
 			end
 		end
 	end
