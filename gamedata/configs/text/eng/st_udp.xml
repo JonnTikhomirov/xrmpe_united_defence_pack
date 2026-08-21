@@ -185,4 +185,7 @@
 	<string id="mp_explosive_barrel">
 		<text>Explosive barrel</text>
 	</string>
+	<string id="st_player_got_treasure">
+		<text> found the stash</text>
+	</string>
 </string_table>

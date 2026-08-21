@@ -137,7 +137,7 @@ end
 -- +UP
 
 function CTreasureManager:initialize()
-	-- +UP
+	-- +UDP
 	local ini = self:get_level_ini()
 	if ini then
 		to_log("TreasureManager: level-файл перекрывает misc")
@@ -158,13 +158,14 @@ function CTreasureManager:initialize()
 		self.level_defaults.max_per_chunk = ini:r_u32(defaults_sec,"max_per_chunk")
 		self.level_defaults.max_activated = ini:r_u32(defaults_sec,"max_activated")
 	end
-	-- -UP
+	-- -UDP
 	local n = ini:line_count("list")
 	for i=0,n-1 do
 		local result, id, value	= ini:r_line("list",i,"","")
 		if(ini:section_exist(id)) then
 			self.secrets[id] = {items = {}, given = false, empty = nil, refreshing = false, checked = false, to_find = 0}
-			self.secrets[id].prob = to_number(value) or 1-- +UP
+			self.secrets[id].takers_id = {} -- +UDP
+			self.secrets[id].prob = to_number(value) or 1-- +UDP
 					local items_count = ini:line_count(id)
 					local item_section = ""
 					for i=0,items_count-1 do
@@ -176,7 +177,7 @@ function CTreasureManager:initialize()
 									local parsed_condlist = xr_logic.parse_condlist(nil, "treasure_manager", "refreshing_cond", str)
 					self.secrets[id].refreshing = parsed_condlist
 				else
-					-- +UP
+					-- +UDP
 					-- 				self.secrets[id].items[item_section] = {}
 					-- 				local tbl = utils.parse_spawns(str)
 					-- 				if(#tbl==0) then
@@ -204,7 +205,7 @@ function CTreasureManager:initialize()
 						count = count,
 						prob = prob
 					}
-					-- -UP
+					-- -UDP
 				end
 			end
 		else
@@ -582,29 +583,40 @@ function CTreasureManager:give_random()
 	printf("There are no treasures avaliable!")
 end
 
-function CTreasureManager:on_item_take(obj_id)
+function CTreasureManager:on_item_take(obj_id, taker)-- +UDP
 	local restr_id = self.items_from_secrets[obj_id]
 	local treasure_id = nil
 	for k,v in pairs(self.secret_restrs) do
 		if(restr_id==v) then
 			treasure_id = k
-			break-- +UP
+			break-- +UDP
 		end
 	end
 	if(treasure_id) then
 		self.secrets[treasure_id].to_find = self.secrets[treasure_id].to_find - 1
+		-- +UDP
+		if self.secrets[treasure_id].takers_id[taker:id()] == nil then
+			table.insert(self.secrets[treasure_id].takers_id, taker:id())
+		end
+			-- -UDP
 		if(self.secrets[treasure_id].to_find==0) then
-			if self.secret_restrs[treasure_id] then-- +UP
+			if self.secret_restrs[treasure_id] then-- +UDP
 				level.map_remove_object_spot(self.secret_restrs[treasure_id], "treasure")
-			end-- +UP
-			if db.mp_actors then-- +UP
-				for k,v in pairs(db.mp_actors) do
-					xr_statistic.inc_founded_secrets_counter(v:id())
-				end
-			end-- +UP
+			-- +UDP
+			-- for k,v in pairs(db.mp_actors) do 
+			-- 	xr_statistic.inc_founded_secrets_counter(v:id())
+			-- end
+			end
+			if taker then
+				xr_statistic.inc_founded_secrets_counter(taker:id())
+			end
+			--UDP
 			--printf_msg("Secret [%s] now is empty!", treasure_id)
 			self.secrets[treasure_id].checked = true
-			news_manager.send_treasure(1)
+			-- +UDP
+			--news_manager.send_treasure(1)
+			news_manager.send_treasure(1, { taker })
+			-- -UDP
 		end
 		self.items_from_secrets[obj_id] = nil
 	end

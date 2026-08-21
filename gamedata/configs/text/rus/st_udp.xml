@@ -188,4 +188,8 @@
 	<string id="mp_explosive_barrel">
 		<text>Взрывоопасная бочка</text>
 	</string>
+
+	<string id="st_player_got_treasure">
+		<text> нашел тайник</text>
+	</string>
 </string_table>

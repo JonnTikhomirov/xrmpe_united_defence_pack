@@ -52,23 +52,19 @@ local callbacks={
 	main_menu_off={}
 }
 
--- + UP
--- ++ The Tool
--- function register_callback(name,func,userobj)
---   if callbacks[name]==nil then
---     abort("register_callback: callback name '%s' is unknown.",name)
---   end
---   callbacks[name][func]={userobj=userobj} -- Чтобы можно было регистрировать каллбэки с userobj==nil
--- end
-function register_callback(name,func,userobj) -- + поддержка произвольных событий (замена оригинальной функции)
+
+function register_callback(name,func,userobj)
 	if callbacks[name]==nil then
+		-- +UDP
+		-- ++ The Tool
 		-- abort("register_callback: callback name '%s' is unknown.", name)
 		callbacks[name] = {} -- создаём новый массив для произвольного события с указанным именем
+		-- -- The Tool
+		-- -UDP
 	end
 	callbacks[name][func]={userobj=userobj} -- Чтобы можно было регистрировать каллбэки с userobj==nil
 end
--- -- The Tool
--- - UP
+
 
 function unregister_callback(name,func)
   if callbacks[name]==nil then

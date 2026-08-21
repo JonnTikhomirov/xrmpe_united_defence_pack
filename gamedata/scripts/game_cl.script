@@ -257,7 +257,7 @@ function TranslateGameMessage(packet)
 			local name = packet:r_stringZ()
 			local obj_id = packet:r_u16()
 			local bone = packet:r_stringZ()
-			xr_effects.play_particle_at_npc(getLocalActor(), db.storage[obj_id].object, { name, bone })
+			xr_effects.play_particle_at_npc(db.actor, db.storage[obj_id].object, { name, bone })
 		end
 	end
 end

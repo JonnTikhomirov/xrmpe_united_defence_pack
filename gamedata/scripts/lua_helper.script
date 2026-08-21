@@ -85,7 +85,7 @@ function attach() --/< from _g.start_game_callback()
 	if auto_attach and event then
 		--event("init_tasks"):register(init_maps)
 		--event("load_storehouse"):register(init_maps)
-		event("actor_stor"):register(Init_ActorPStor)
+		--event("actor_stor"):register(Init_ActorPStor)-- +UDP
 	end
 	init_classes()
 	auto_attach = false
@@ -94,11 +94,13 @@ function init_maps() --/< from m_1st.script (Game_Init or Game_Loaded)
 	if idMapNow then return end --/>
 	if not gmg then gmg = game_graph() end
 	if not sim then sim = alife() end
-	-- + UP
-	if not sim then return end
-	-- - UP
-	idMapNow = sim:level_id() --/ ID текущего уровня/карты
-	sMapNow  = sim:level_name(idMapNow) --/ имя текущего уровня/карты (level.name())
+	-- +UDP
+	--game_graph():vertex(alife():actor().m_game_vertex_id):level_id()
+	--idMapNow = sim:level_id() --/ ID текущего уровня/карты
+	--sMapNow  = sim:level_name(idMapNow) --/ имя текущего уровня/карты (level.name())
+	idMapNow = gmg:vertex(0):level_id()
+	sMapNow = level.name()
+	-- -UDP
 	db.idMapNow,db.sMapNow = idMapNow,sMapNow
 	db.tKnowMapId,db.tKnowMapName = {},{} --/ preset: массивы ID и имен 'разведанных' уровней
 	-- local ltx = ini_file("mods\\common.ltx")
@@ -464,7 +466,7 @@ end
 function Check_GameRun()
 	-- + UP
 	-- if level.present() and db.actor and db.actor:alive() then
-	if level.present() and getLocalActor():alive() then
+	if level.present() and has_alife_info("all_players_spawned") then
 	-- - UP
 		return true --/>
 	end
@@ -477,20 +479,23 @@ end
 function Init_ActorPStor(e) --/< from 'bind_actor:reinit'
 	if tPStorA then return end --/>
 	if not sim then this.init_maps() end
-	if not idActor then
-		-- + UP
-		-- idActor = alife():actor().id
-		idActor = LocalActor();
-		if not idActor then return end
-		-- - UP
-	end
+	-- +UDP
+	-- if not idActor then
+	-- 	-- +UDP
+	-- 	-- idActor = alife():actor().id
+	-- 	idActor = LocalActor();
+	-- 	if not idActor then return end
+	-- 	-- -UDP
+	-- end
 	
-	if not db.storage[idActor] then return end -- + UP
+	-- if not db.storage[idActor] then return end
 
-	if not db.storage[idActor].pstor then
-		db.storage[idActor].pstor = {}
-	end
-	tPStorA = db.storage[idActor].pstor
+	-- if not db.storage[idActor].pstor then
+	-- 	db.storage[idActor].pstor = {}
+	-- end
+	-- tPStorA = db.storage[idActor].pstor
+	tPStorA = {}
+	-- -UDP
 end
 --/ --------------------------
 function fHasInPStorActor(sVarName)
@@ -765,28 +770,28 @@ if iSSVer < 7 then
 end
 --/ -----------------------------------------------------------------
 function fGet_Actor(oSpeaker1, oSpeaker2)
-	-- + UP
+	-- +UDP
 	-- if oSpeaker1:id() == (idActor or db.actor:id()) then
-	if oSpeaker1:id() == (idActor or LocalActor()) then
-	-- - UP
+	if oSpeaker1:id() == LocalActor() then
+	-- -UDP
 		return oSpeaker1 --/>
 	end
 	return oSpeaker2 --/>
 end
 function fGet_NPC(oSpeaker1, oSpeaker2)
-	-- + UP
+	-- +UDP
 	-- if oSpeaker2:id() == (idActor or db.actor:id()) then
-	if oSpeaker2:id() == (idActor or LocalActor()) then
-	-- - UP
+	if oSpeaker2:id() == LocalActor() then
+	-- -UDP
 		return oSpeaker1 --/>
 	end
 	return oSpeaker2 --/>
 end
 function fGet_Actor_NPC(oSpeaker1, oSpeaker2)
-	-- + UP
+	-- +UDP
 	-- if oSpeaker1:id() == (idActor or db.actor:id()) then
-	if oSpeaker1:id() == (idActor or LocalActor()) then
-	-- - UP
+	if oSpeaker1:id() == LocalActor() then
+	-- -UDP
 		return oSpeaker1,oSpeaker2
 	end
 	return oSpeaker2,oSpeaker1 --/>
@@ -796,10 +801,10 @@ end
 --/ ------------------------------------------------------------------
 function fSendTip(sText, sHeader, iTimeOut, iTimeShow, sender, sSound)
 --	printf("fSendTip:Header=[%s],Text=[%s],sender=[%s]:(%s)", sHeader, sText, sender, ">") --/#~#
-	-- + UP
+	-- +UDP
 	-- if not (type(sText) == 'string' and db.actor) then return false end --/>
 	if not (type(sText) == 'string' and getLocalActor()) then return false end --/>
-	-- - UP
+	-- -UDP
 	if type(sHeader)   ~= 'string' then sHeader = "st_tip" end
 	if type(iTimeOut)  ~= 'number' then iTimeOut  = 0 end
 	if type(iTimeShow) ~= 'number' then iTimeShow = 5 end
@@ -807,10 +812,7 @@ function fSendTip(sText, sHeader, iTimeOut, iTimeShow, sender, sSound)
 	if iSSVer < 8 then --/SHOC
 		local oSnd = (sSound and news_manager.sounds[sSound]) or news_manager.pda_tips
 		if oSnd then
-			-- + UP
-			-- oSnd:play_no_feedback(db.actor, sound_object.s2d, iTimeOut, vector(), 2.5)
-			oSnd:play_no_feedback(getLocalActor(), sound_object.s2d, iTimeOut, vector(), 2.5)
-			-- - UP
+			oSnd:play_no_feedback(db.actor, sound_object.s2d, iTimeOut, vector(), 2.5)
 		end
 
 		if sHeader == "" then
@@ -841,24 +843,25 @@ function fSendTip(sText, sHeader, iTimeOut, iTimeShow, sender, sSound)
 			sTexFile = "ui\\ui_iconsTotal" --/ общая текстура
 		end
 		tSenders[sender] = {file=sTexFile, rect=uTexRect} --/ запоминаем
-		-- + UP
+		-- +UDP
 		-- if db.actor:is_talking() then
 			-- db.actor:give_talk_message(sText, sTexFile, uTexRect, "iconed_answer_item")
-		if getLocalActor():is_talking() then
+		-- else
+		if getLocalActor() and getLocalActor():is_talking() then
 			getLocalActor():give_talk_message(sText, sTexFile, uTexRect, "iconed_answer_item")
-		-- - UP
-		else
+		elseif getLocalActor() then
+		-- -UDP
 			--/ give_game_news( LPCSTR news, LPCSTR texture_name, Frect, int time_out, int show_time )
-			-- + UP
+			-- +UDP
 			-- db.actor:give_game_news(sText, sTexFile, uTexRect, iTimeOut*1000, iTimeShow*1000)
 			getLocalActor():give_game_news(sText, sTexFile, uTexRect, iTimeOut*1000, iTimeShow*1000)
-			-- - UP
+			-- -UDP
 		end
 	else --/STCS&SCOP
-		-- + UP
+		-- +UDP
 		-- xr_sound.set_sound_play(db.actor:id(), "pda_tips") --/ Играем дефолтный звук
 		xr_sound.set_sound_play(LocalActor(), "pda_tips") --/ Играем дефолтный звук
-		-- - UP
+		-- -UDP
 		local sTexture = "ui_iconsTotal_grouping"
 		if sender then
 			if type(sender) == 'string' and news_manager.tips_icons[sender] then
@@ -874,18 +877,19 @@ function fSendTip(sText, sHeader, iTimeOut, iTimeShow, sender, sSound)
 		if not sText:match('^%%c%[(.+)') then
 			sText = "%c[default]"..game.translate_string(sText)
 		end
-		-- + UP
+		-- +UDP
 		-- if db.actor:is_talking() then
 			-- db.actor:give_talk_message(sText, sTexFile, uTexRect, "iconed_answer_item")
-		if getLocalActor():is_talking() then
+		-- else
+		if getLocalActor() and getLocalActor():is_talking() then
 			getLocalActor():give_talk_message(sText, sTexFile, uTexRect, "iconed_answer_item")
-		-- - UP
-		else
+		elseif getLocalActor() then
+		-- -UDP
 			--/ give_game_news( LPCSTR caption, LPCSTR news, LPCSTR texture_name, int time_out, int show_time, [int sound?] )
-			-- + UP
+			-- +UDP
 			-- db.actor:give_game_news(sHeader, sText, sTexture, iTimeOut*1000, iTimeShow*1000)
 			getLocalActor():give_game_news(sHeader, sText, sTexture, iTimeOut*1000, iTimeShow*1000)
-			-- - UP
+			-- -UDP
 		end
 	end
 	return true --/>
@@ -967,10 +971,11 @@ end
 
 --/ определяем название секции патронов/заряда в активном (под)стволе NPC
 function Get_ActiveAmmoSection(oNPC) --/< (npc or nil)
-	-- + UP
+	-- +UDP
 	-- if not oNPC then oNPC = db.actor end
 	if not oNPC then oNPC = getLocalActor() end
-	-- - UP
+	if not oNPC then return nil end
+	-- -UDP
 	local oItem = oNPC and oNPC:active_item()
 	if oItem and isWeapon(oItem) then
 		return this.Get_ActiveAmmo_FromWeapon(oItem,oItem:id()) --/> "ammo_section"|"grenade_section"
@@ -1059,10 +1064,11 @@ end
 
 --/ определяем кол-во патронов в активном стволе NPC
 function Get_Count_ActiveAmmo(oNPC) --/< (game-object or nil)
-	-- + UP
+	-- +UDP
 	-- if not oNPC then oNPC = db.actor end
 	if not oNPC then oNPC = getLocalActor() end
-	-- - UP
+	if not oNPC then return nil end
+	-- -UDP
 	local oItem = oNPC:active_item()
 	if oItem and isWpn(oItem) then --printf("Get_Count_ActiveAmmo:weapon=[%s],clsid=[%s]",oItem:section(), oItem:clsid() ) --/#~#
 		return oItem:get_ammo_in_magazine() --/> "ammo_count"
@@ -1123,12 +1129,12 @@ end
 function fSpawn_Obj(sSection, vPos, idLv, idGv)
 --	log("fSpawn_Obj:Wrong~>:Section=[%s],[%s][%s][%s]:<%s>", sSection, vPos, idLv, idGv, ">")
 	if type(sSection) == 'string' and sini:section_exist(sSection) then
-		-- + UP
+		-- +UDP
 		-- if type(idGv) ~= 'number' then idGv = db.actor:game_vertex_id() end
 		-- if type(idLv) ~= 'number' then idLv = db.actor:level_vertex_id() end
-		if type(idGv) ~= 'number' then idGv = getLocalActor():game_vertex_id() end
-		if type(idLv) ~= 'number' then idLv = getLocalActor():level_vertex_id() end
-		-- - UP
+		if type(idGv) ~= 'number' and getLocalActor() then idGv = getLocalActor():game_vertex_id() end
+		if type(idLv) ~= 'number' and getLocalActor() then idLv = getLocalActor():level_vertex_id() end
+		-- -UDP
 		if not vPos then vPos = vector():set(level.vertex_position(idLv)) end
 		if idLv >= 0 and idGv >= 0 and game_graph():valid_vertex_id(idGv) then
 			return sim:create(sSection, vPos, idLv, idGv, 65535) --/>
@@ -1167,10 +1173,10 @@ end
 --/ спавн предмета в ящик или в рюкзак ГГ/NPC
 function fSpawn_ItemInv(sSection, Box, idBox)
 	if not idBox then
-		-- + UP
+		-- +UDP
 		-- if not Box then Box = db.actor end
-		if not Box then Box = getLocalActor() end
-		-- - UP
+		if not Box then Box = getLocalActor() or db.actor end
+		-- -UDP
 		idBox = (type(Box.id) == 'number' and Box.id) or Box:id()
 	end
 	if type(sSection) == 'string' and sini:section_exist(sSection) then
@@ -1180,10 +1186,10 @@ end
 
 --/ спавн n-предметов в рюкзак ГГ/NPC или в ящик (включая патроны)
 function fSpawn_ItemsInv(sSection, iNum, Box)
-	-- + UP
+	-- +UDP
 	-- if not Box then Box = db.actor end
-	if not Box then Box = getLocalActor() end
-	-- - UP
+	if not Box then Box = getLocalActor() or db.actor end
+	-- -UDP
 	local idBox = (type(Box.id) == 'number' and Box.id) or Box:id()
 	if type(sSection) == 'string' and idBox then --/ and sini:section_exist(sSection)
 		local soObj,iCnt = nil, iNum or 1
@@ -1201,10 +1207,10 @@ end
 --/ спавн патронов в инвентори
 function Spawn_AmmoInInv(sSection, iNum, Box)
 	if type(sSection) == 'string' and sSection ~= "" and Box then
-		-- + UP
+		-- +UDP
 		-- if not Box then Box = db.actor end
-		if not Box then Box = getLocalActor() end
-		-- - UP
+		if not Box then Box = getLocalActor() or db.actor end
+		-- -UDP
 		local idBox = (type(Box.id) == 'number' and Box.id) or Box:id()
 		return this.fSpawn_Ammo(sSection, vector(), 0, 0, idBox, iNum or 1)
 	end
@@ -1267,12 +1273,12 @@ end
 function DropAndRemove_Item(oItem,oNPC)
 --	printf("DropAndRemove_Item:[>]") --/#~#
 	if oItem then
-		-- + UP
+		-- +UDP
 		-- if not oNPC then oNPC = db.actor end
 		-- if oNPC and oNPC:id() == (idActor or db.actor:id()) then
-		if not oNPC then oNPC = getLocalActor() end
-		if oNPC and oNPC:id() == (idActor or LocalActor():id()) then
-		-- - UP
+		if not oNPC then oNPC = getLocalActor() or db.actor end
+		if oNPC and oNPC:id() == LocalActor() then
+		-- -UDP
 			oNPC:drop_item(oItem)
 		end
 		local soObj = sim:object(oItem:id())
@@ -1286,10 +1292,10 @@ end
 
 --/ удаляем предмет из инвентаря
 function Remove_Item_FromInventory(oDelItem,oNPC)
-	-- + UP
+	-- +UDP
 	-- if not oNPC then oNPC = db.actor end
-	if not oNPC then oNPC = getLocalActor() end
-	-- - UP
+	if not oNPC then oNPC = getLocalActor() or db.actor end
+	-- -UDP
 	if oNPC and oDelItem then
 		local idDelItem = oDelItem:id()
 		local bRemoved = false
@@ -1312,10 +1318,10 @@ end
 --/ проверка наличия предмета
 function fHas_Item(sSection,oNPC)
 --	printf("fHas_Item:Section=[%s]:[%s]", sSection, ">") --/#~#
-	-- + UP
+	-- +UDP
 	-- if not oNPC then oNPC = db.actor end
-	if not oNPC then oNPC = getLocalActor() end
-	-- - UP
+	if not oNPC then oNPC = getLocalActor() or db.actor end
+	-- -UDP
 	if oNPC and sSection and sSection ~= "" then
 		return (oNPC:object(sSection) ~= nil) --/>
 	end
@@ -1331,16 +1337,16 @@ end
 function fHas_Num_Item(sSection,iNum,oNPC)
 	if not oNPC then
 		if not iNum then
-			-- + UP
+			-- +UDP
 			-- oNPC = db.actor
-			oNPC = getLocalActor()
-			-- - UP
+			oNPC = getLocalActor() or db.actor
+			-- -UDP
 			iNum = 1
 		elseif type(iNum) == 'number' then
-			-- + UP
+			-- +UDP
 			-- oNPC = db.actor
-			oNPC = getLocalActor()
-			-- - UP
+			oNPC = getLocalActor() or db.actor
+			-- -UDP
 		elseif type(iNum) == 'userdata' and iNum.fov then
 			oNPC = iNum
 			iNum = 1
@@ -1349,10 +1355,10 @@ function fHas_Num_Item(sSection,iNum,oNPC)
 		end
 	elseif type(iNum) ~= 'number' then
 		iNum = 1
-		-- + UP
+		-- +UDP
 		-- oNPC = db.actor
-		oNPC = getLocalActor()
-		-- - UP
+		oNPC = getLocalActor() or db.actor
+		-- -UDP
 	end
 	local iCnt = 0
 	if oNPC and sSection then
@@ -1387,10 +1393,10 @@ function fHas_Num_AnyItems(tList,iNum,oNPC)
 		for _,v in ipairs(tList) do
 			tItems[v] = true
 		end
-		-- + UP
+		-- +UDP
 		-- if not oNPC then oNPC = db.actor end
-		if not oNPC then oNPC = getLocalActor() end
-		-- - UP
+		if not oNPC then oNPC = getLocalActor()  or db.actor end
+		-- -UDP
 		if iNum and iNum > 1 then --/ проверка наличия нескольких (iNum) предметов из списка (каких-либо)
 			local iCntAll,iCnt = oNPC:object_count(),0
 			for i=0,iCntAll-1 do
@@ -1516,26 +1522,28 @@ function Has_TableItems(tTable, oNPC)
 end
 
 function fGive_Actor_Money(iAmount)
-	-- + UP
+	-- +UDP
 	-- db.actor:give_money(iAmount) --/ добавляем деньги ГГ
+	if not getLocalActor() then return end
 	getLocalActor():give_money(iAmount) --/ добавляем деньги ГГ
-	-- - UP
+	-- -UDP
 	--game_stats.money_quest_update(iAmount,"in") --/#?# статистика ~> в 'news_manager'
-	-- + UP
+	-- +UDP
 	-- news_manager.relocate_money(db.actor, "in", iAmount)
 	news_manager.relocate_money(getLocalActor(), "in", iAmount)
-	-- - UP
+	-- -UDP
 end
 function fLost_Actor_Money(iAmount)
-	-- + UP
+	-- +UDP
 	-- db.actor:give_money(-iAmount) --/ забираем деньги у ГГ
+	if not getLocalActor() then return end
 	getLocalActor():give_money(-iAmount) --/ забираем деньги у ГГ
-	-- - UP
+	-- -UDP
 	--game_stats.money_quest_update(iAmount,"out") --/#?# статистика ~> в 'news_manager'
-	-- + UP
+	-- +UDP
 	-- news_manager.relocate_money(db.actor, "out", iAmount)
 	news_manager.relocate_money(getLocalActor(), "out", iAmount)
-	-- - UP
+	-- -UDP
 end
 
 --/ Передача денег ГГ (oActor) <~> НПС (oVictim)  [sType]: "out" - ГГ отдает (дефолтно), "in" - ГГ получает)
@@ -1543,26 +1551,27 @@ end
 --/ Пример2: fRelocate_Money(oNPC, 500, "in") - актор получает от НПС 500 ruz.
 function fRelocate_Money(oVictim, iAmount, sType)
 --	log("fRelocate_Money:Victim=[%s],Amount=[%s],Type=[%s]:[%s]", oVictim and oVictim:name(), iAmount, sType, ">") --/#~#
-	-- + UP
+	-- +UDP
 	-- local oActor = db.actor
+	if not getLocalActor() then return end
 	local oActor = getLocalActor()
-	-- - UP
+	-- -UDP
 	if oActor and iAmount and iAmount > 0 then
 		if not sType or sType == "out" then --/ по умолчанию:  ГГ отдает деньги
-			-- + UP
+			-- +UDP
 			-- if oVictim and oVictim:id() ~= (idActor or db.actor:id()) then
-			if oVictim and oVictim:id() ~= (idActor or LocalActor()) then
-			-- - UP
+			if oVictim and oVictim:id() ~= LocalActor() then
+			-- -UDP
 				oActor:transfer_money(iAmount, oVictim) --/ ГГ передает деньги НПС
 			else
 				log("fRelocate_Money:Victim=NIL,Amount=[%s],Type=[%s]:<%s>", iAmount, sType, "Warning!") --/#~#
 				oActor:give_money(-iAmount) --/ забираем деньги у ГГ
 			end
 		else --/ sType == "in": ГГ получает деньги
-			-- + UP
+			-- +UDP
 			-- if oVictim and oVictim:id() ~= (idActor or db.actor:id()) then
-			if oVictim and oVictim:id() ~= (idActor or LocalActor()) then
-			-- - UP
+			if oVictim and oVictim:id() ~= LocalActor() then
+			-- -UDP
 				local iMoney = oVictim:money()
 				if iMoney >= iAmount + 250 then
 					oVictim:transfer_money(iAmount, oActor) --/ НПС передает деньги ГГ
@@ -1586,15 +1595,16 @@ end
 --/ Пример2: fRelocate_N_Items(oNPC, sSection, 5, "in") - актор получает от НПС 5 предметов.
 function fRelocate_N_Items(oNPC, sSection, iNum, sType)
 --	printf("fRelocate_N_Items:NPC=[%s],Section=[%s],Num=[%s],Type=[%s]:[%s]", oNPC and oNPC:name(), sSection, iNum, sType, ">") --/#~#
-	-- + UP
+	-- +UDP
 	-- local oActor = db.actor
+	if not getLocalActor() then return end
 	local oActor = getLocalActor()
-	-- - UP
+	-- -UDP
 	if oActor and sSection and sini:section_exist(sSection) then
-		-- + UP
+		-- +UDP
 		-- if not idActor then idActor = db.actor:id() end
 		if not idActor then idActor = LocalActor() end
-		-- - UP
+		-- -UDP
 		if not sType then sType = "out" end --/ по умолчанию: ГГ отдает
 		if not iNum then iNum = 1 end --/ по умолчанию: один предмет
 		local iCnt = iNum
@@ -1672,25 +1682,25 @@ function fRelocate_N_AnyItems(oVictim,tList,iNum,oWho)
 	if oVictim and type(tList) == 'table' and next(tList) then
 		local oNPC,sType = nil,"out" --/ по умолчанию актор отдает
 		if oWho then --/ задано кому отдавать
-			-- + UP
+			-- +UDP
 			-- if oWho:id() == (idActor or db.actor:id()) then
-			if oWho:id() == (idActor or LocalActor()) then
-			-- - UP
+			if oWho:id() == LocalActor() then
+			-- -UDP
 				oNPC = oVictim
 			else
 				oNPC = oWho
 				sType = "in" --/ НПС отдает актору
 			end
 		else --/ задаем кто отдает
-			-- + UP
+			-- +UDP
 			-- if oVictim:id() ~= (idActor or db.actor:id()) then
-			if oVictim:id() ~= (idActor or LocalActor()) then
-			-- - UP
+			if oVictim:id() ~= LocalActor() then
+			-- -UDP
 				oNPC = oVictim
-				-- + UP
+				-- +UDP
 				-- oWho = db.actor --/ отдает актор
-				oWho = getLocalActor() --/ отдает актора
-				-- - UP
+				oWho = getLocalActor() or db.actor --/ отдает актора
+				-- -UDP
 			else
 				return false --/> неизвестно кто отдает
 			end
@@ -1748,10 +1758,10 @@ end
 
 --/ забираем у актора N-предметов (iNum,oNPC - опционально)
 function fLost_Actor_Items(sSection, iNum, oNPC)
-	-- + UP
+	-- +UDP
 	-- local oActor = db.actor
-	local oActor = getLocalActor()
-	-- - UP
+	local oActor = getLocalActor() or db.actor
+	-- -UDP
 	if sim and oActor then
 		if not iNum then iNum = 1 end
 		local bTransfer = oNPC and level.object_by_id(oNPC:id())
@@ -1780,10 +1790,10 @@ end
 local oFakeBox = nil --/ объект фейкового (технологического) 'ящика'
 
 function fReload_Item(oItem, oNPC)
-	-- + UP
+	-- +UDP
 	-- if not oNPC then oNPC = db.actor end
-	if not oNPC then oNPC = getLocalActor() end
-	-- - UP
+	if not oNPC then oNPC = getLocalActor() or db.actor end
+	-- -UDP
 	if not oFakeBox and db.idFakeBox then
 		oFakeBox = level.object_by_id(db.idFakeBox)
 	end
@@ -1799,10 +1809,11 @@ end
 --/ перекладываем (shift) предметы в слотах/рюкзаке ГГ или NPC (НЕ патронов!)
 function Shift_Items(idRemoveItem, idReloadItem, oNPC, bPostponed)
 --	printf("Shift_Items:Id=[%s]~>[%s]:(%s):[%s]", idReloadItem, idRemoveItem, bPostponed, ">") --/#~#
-	-- + UP
+	-- +UDP
 	-- if not oNPC then oNPC = db.actor end
-	if not oNPC then oNPC = getLocalActor() end
-	-- - UP
+	if not oNPC then oNPC = getLocalActor()  or db.actor end
+	if not sim then return end
+	-- -UDP
 	local soRemoveItem = idRemoveItem and sim:object(idRemoveItem)
 	local soReloadItem = idReloadItem and sim:object(idReloadItem)
 	if soRemoveItem and soReloadItem and oNPC then --/ оба предмета в игре
@@ -1837,10 +1848,11 @@ end
 --/ перекладываем предмет из/в слота/рюкзак ГГ или NPC (НЕ патронов!)
 function Shift_Item(idItem, oNPC, bPostponed)
 --	printf("Shift_Item:NPC=[%s],Id=[%s]:[%s]", oNPC and oNPC:name(), idItem, ">") --/#~#
-	-- + UP
+	-- +UDP
 	-- if not oNPC then oNPC = db.actor end
-	if not oNPC then oNPC = getLocalActor() end
-	-- - UP
+	if not oNPC then oNPC = getLocalActor()  or db.actor end
+	if not sim then return end
+	-- -UDP
 	local soItem = idItem and sim:object(idItem)
 	if soItem and oNPC then
 		local oItem = level.object_by_id(idItem)
@@ -2112,12 +2124,12 @@ function fGet_Alife_CharacterCommunity(soObj, iClassId)
 	if isHuman(soObj, iClassId) then
 		if soObj.community then
 			return soObj:community() --/>
-		-- + UP
+		-- +UDP
 		-- elseif soObj.id == (idActor or db.actor:id()) then
 		-- return this.fGet_CharacterCommunity(db.actor, iClassId) --/>
-		elseif soObj.id == (idActor or LocalActor()) then
-			return this.fGet_CharacterCommunity(getLocalActor(), iClassId) --/>
-		-- - UP
+		elseif soObj.id == LocalActor() then
+			return this.fGet_CharacterCommunity(getLocalActor() or db.actor, iClassId) --/>
+		-- -UDP
 		else
 			printf("fGet_Alife_CharacterCommunity:Obj=[%s],ClassId=[%s]:<%s>", soObj.name and soObj:name(), iClassId or soObj:clsid(), "Warning!")
 		end
@@ -2185,6 +2197,12 @@ function is_sobject_object(Obj)
 end
 
 function Get_Server_Object(Obj)
+	-- +UDP
+	if OnClient() then
+		to_log("lua_helper.Get_Server_Object on client !!!")
+		return nil
+	end
+	-- -UDP
 	if isGameObject(Obj) then
 		local id = Obj:id()
 		if id == (idActor or sim:actor().id) then
@@ -2207,6 +2225,12 @@ function isGameObject(Obj)
 end
 --/ получаем Id владельца(родителя)
 function get_parent_id(Obj,idObj)
+	-- +UDP
+	if OnClient() then
+		to_log("lua_helper.get_parent_id on client !!!")
+		return nil
+	end
+	-- -UDP
 	local id = idObj or (Obj and ( (type(Obj.id) == 'number' and Obj.id) or Obj:id() ))
 	if id then
 		local soObj = sim:object(id)
@@ -3258,10 +3282,10 @@ function fAngleDiffDeg(v1,v2)
 end
 --/ перевод вектора из град в рад
 function fVec_DegToRad(vVec)
-	-- + UP
+	-- +UDP
 	-- if not vVec then vVec = db.actor:direction() end
-	if not vVec then vVec = getLocalActor():direction() end
-	-- - UP
+	if not vVec then vVec = (getLocalActor() or db.actor):direction() end
+	-- -UDP
 	local vVecN = vector():set(vVec.x, 0, vVec.z):normalize()
 	local x = vVec.y * 90
 	local y = math.deg(math.acos(vVecN.z))
@@ -3316,10 +3340,10 @@ local tTurnA = {} --/ массив Turn_Actor
 local bTurn_Actived = false
 
 function Turn_Actor(vPos,iErr,iTime)
-	-- + UP
+	-- +UDP
 	-- local oActor = db.actor
-	local oActor = getLocalActor()
-	-- - UP
+	local oActor = getLocalActor() or db.actor
+	-- -UDP
 	if not (oActor and vPos) or bTurn_Actived then return end --/>
 	if not iErr then iErr = 0.05 end --/ погрешность поворота (дефолтно 0.05)
 	local vPosCam = device().cam_pos --/ вектор направления взгляда актора
@@ -3576,15 +3600,16 @@ if not _G["get_clsid"] then -- для модов, где эта функция из _G удалена, таких к
 	_G["get_clsid"] = this.fGet_ClsId
 end
 local FuncByName = {
-	["has_info"]                = this.has_info,
-	["has_info_portions"]       = has_info_portions,
-	["has_any_info_portions"]   = has_any_info_portions,
-	["check_info_portions"]     = check_info_portions,
-	["give_info"]               = give_info,
-	["give_info_portions"]      = give_info_portions,
-	["disable_info"]            = disable_info,
-	["disable_info_portions"]   = disable_info_portions,
-
+	-- +UDP
+	-- ["has_info"]                = this.has_info,
+	-- ["has_info_portions"]       = has_info_portions,
+	-- ["has_any_info_portions"]   = has_any_info_portions,
+	-- ["check_info_portions"]     = check_info_portions,
+	-- ["give_info"]               = give_info,
+	-- ["give_info_portions"]      = give_info_portions,
+	-- ["disable_info"]            = disable_info,
+	-- ["disable_info_portions"]   = disable_info_portions,
+	-- -UDP
 	["HasVar"]                  = fHasInPStorActor,
 	["DelVar"]                  = fDelPStorActor,
 	["SetVar"]                  = fSavePStorActor,
@@ -3627,12 +3652,12 @@ local FuncByName = {
 	["Get_ClassSection"]        = fGet_ClassSection,
 	["Get_CharName"]            = fGet_CharName,
 	["Get_Community"]           = fGet_Object_Community,
-	["get_object_community"]    = fGet_Object_Community,
+	--["get_object_community"]    = fGet_Object_Community, -- +UDP
 	["IsSobjObj"]               = is_sobject_object,
 	["Release_Obj"]             = fRelease_Object,
 	["Spawn_Obj"]               = fSpawn_Obj,
 	["Spawn_NPC"]               = fSpawn_NPC,
-	--["create_ammo"]             = fSpawn_Ammo,;UP
+	--["create_ammo"]             = fSpawn_Ammo,-- +UDP
 	["SendTip"]                 = fSendTip,
 	["Send_ReceivedInfo"]       = fSend_ReceivedInfo,
 	["SpellingBeginning"]       = fSpellingBeginning,

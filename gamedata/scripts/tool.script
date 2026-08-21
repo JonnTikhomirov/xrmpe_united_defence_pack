@@ -63,10 +63,8 @@ end
 function TryInit()
 	local ltx = ini_file(sLtxPath)
 	local keyboard_key = string.upper(Get_Cfg_String(ltx, "key_bindings", "tool_manager", "J"))
-	keylogger.bind_console_key(keyboard_key, function() TryAuthiruzeAndInit(keyboard_key, true) end)
 	TryAuthiruzeAndInit(keyboard_key)
 end
-
 -- -UDP
 
 -- показ диалога
@@ -142,7 +140,8 @@ function OnLoad()
 	local sActiveTab = string.lower(Get_Cfg_String(ltx, "settings", "default_tab", tSettings.sStartTabName))
 	tSettings = {
 		bRememberActiveTab = bRememberActiveTab, -- запоминать или нет активный раздел
-		sStartTabName = bRememberActiveTab and GetVar("tool_active_tab", sActiveTab) or sActiveTab, -- раздел по умолчанию
+		--sStartTabName = bRememberActiveTab and GetVar("tool_active_tab", sActiveTab) or sActiveTab, -- раздел по умолчанию-- +UDP
+		sStartTabName = sActiveTab,-- +UDP
 		y1 = Get_Cfg_Num32(ltx, "settings", "y_line_1", 6), -- расположение по высоте первой линии кнопок
 		y2 = Get_Cfg_Num32(ltx, "settings", "y_line_2", 43), -- расположение по высоте второй линии кнопок
 		dx1 = Get_Cfg_Num32(ltx, "settings", "tab_interval", 105), -- расстояние между кнопками для квадратных мониторов
@@ -165,6 +164,7 @@ function GetDebugManagerDialog(owner)
 	if oDebugManager == nil then
 		oDebugManager = tool_manager(owner)
 	elseif owner ~= nil then
+		to_log("11111111 %s", tSettings.sStartTabName)
 		oDebugManager:OnTabChange(tSettings.sStartTabName)
 	end
 	return oDebugManager --/>
@@ -341,7 +341,7 @@ function tool_manager:OnKeyboard(dik, keyboard_action)
 		end
 	end
 	if keyboard_action == ui_events.WINDOW_KEY_PRESSED then
-		if dik == DIK_keys.DIK_ESCAPE then
+		if dik == DIK_keys.DIK_ESCAPE or  dik == DIK_keys.DIK_J then --then -- +UDP
 			if self.dlg_message:IsShown() then
 				self:CloseMessageDialog(false)
 				return true --/>
@@ -444,7 +444,7 @@ function tool_manager:OnTabChange(tab_id)
 	end
 	tSettings.sActiveTab = sModule.."_"..tab_id
 	if tSettings.bRememberActiveTab then
-		SetVar("tool_active_tab", tab_id)
+		--SetVar("tool_active_tab", tab_id) -- +UDP
 		tSettings.sStartTabName = tab_id
 	end
 	to_log(sModule..":tool_manager:> OnTabChange set tab_id = [%s]", tab_id) --/#~#
@@ -567,17 +567,17 @@ end
 
 -- Актор смотрит в прицел // actor look into optical sight
 function ActorUseScope()
-	-- + UP
+	-- +UDP
 	-- if math.ceil(db.actor:accuracy() * 1000) ~= 1 then return false end --/>
-	if math.ceil(getLocalActor():accuracy() * 1000) ~= 1 then return false end --/>
-	-- - UP
+	if math.ceil((getLocalActor() or db.actor):accuracy() * 1000) ~= 1 then return false end --/>
+	-- -UDP
 	if iSSVer < 8 then --/ для ТЧ
 		return device().fov < 50 --/>
 	else
-		-- + UP
+		-- +UDP
 		-- local item = db.actor:active_item()
-		local item = getLocalActor():active_item()
-		-- - UP
+		local item = (getLocalActor() or db.actor):active_item()
+		-- -UDP
 		return item and item:weapon_is_scope() --/>
 	end
 end
@@ -586,10 +586,10 @@ function UpdateHudStats()
 	hud = get_hud()
 	stHudStat = hud:GetCustomStatic("cs_debug")
 
-	-- + UP
+	-- +UDP
 	-- if not db.actor:alive() then
-	if not getLocalActor():alive() then
-	-- - UP
+	if not getLocalActor() or not getLocalActor():alive() then
+	-- -UDP
 		bShowHudStats = false
 		if stHudStat then
 			hud:RemoveCustomStatic("cs_debug")
@@ -656,22 +656,24 @@ end
 function ShowNpcInfo(e, data)
 	local npc = data and data.obj
 	if not npc then return end --/>
-	-- + UP
+	-- +UDP
 	-- if db.actor:position():distance_to_sqr(npc:position()) > 9 then return end --/> дальше трёх метров от игрока подсказку не меняем
-	if getLocalActor():position():distance_to_sqr(npc:position()) > 9 then return end --/> дальше трёх метров от игрока подсказку не меняем
-	-- - UP	
+	if not getLocalActor() or getLocalActor():position():distance_to_sqr(npc:position()) > 9 then return end --/> дальше трёх метров от игрока подсказку не меняем
+	-- -UDP
 	local text = GetNpcInfo(npc)
 	if text then npc:set_tip_text(text) end
 end
 
 function GetNpcInfo(npc)
 	local npc_id = npc:id()
-	local sobj = sim:object(npc_id)
-	if not sobj then return end --/> объект удалён
+	-- +UDP
+	-- local sobj = sim:object(npc_id)
+	-- if not sobj then return end --/> объект удалён
 
-	local smrt_id, smrt = sobj:smart_terrain_id(), nil
-	if smrt_id and smrt_id ~= 65535 then smrt = sim:object(smrt_id) end
+	-- local smrt_id, smrt = sobj:smart_terrain_id(), nil
+	-- if smrt_id and smrt_id ~= 65535 then smrt = sim:object(smrt_id) end
 	local smrt_name = smrt and smrt:name() or sNoValue
+	-- -UDP
 	local act_sec = db.storage[npc_id].active_section
 	local spawn_ini = npc:spawn_ini()
 	local ini = smrt and db.storage[npc_id].ini or (spawn_ini and xr_logic.get_customdata_or_ini_file(npc, Get_Cfg_String(spawn_ini, "logic", "cfg", "<customdata>")))

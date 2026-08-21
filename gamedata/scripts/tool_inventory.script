@@ -126,29 +126,31 @@ function inventory:FillInventoryList()
 	-- заполнение списка предметов инвентаря
 	local sini = system_ini()
 	self.tInventoryItems = { slot = {}, inventory = {} }
-	-- + UP
+	-- +UDP
 	-- db.actor:iterate_inventory(
-	getLocalActor():iterate_inventory(
-	-- - UP
-		function(dummy, oItem)
-			local sSection = oItem:section()
-			local sName = game.translate_string(Get_Cfg_String(sini, sSection, "inv_name", game.translate_string(sSection)))
-			local fCondition = self:IsConditionChangeable(oItem) and oItem:condition() or nil
-			if sSection ~= "bolt" and sSection ~= "device_torch" and sSection ~= "wpn_binoc" and sSection ~= "device_pda" and sSection ~= "wpn_knife" then
-				for i = 1, 12 do
-					-- + UP
-					-- local oItemInSlot = db.actor:item_in_slot(i)
-					local oItemInSlot = getLocalActor():item_in_slot(i)
-					-- - UP
-					if oItemInSlot ~= nil and oItemInSlot:id() == oItem:id() then
-						table.insert(self.tInventoryItems.slot, { section = sSection, name = sName, id = oItem:id(), condition = fCondition })
-						return
+	if getLocalActor() then
+		getLocalActor():iterate_inventory(
+		-- -UDP
+			function(dummy, oItem)
+				local sSection = oItem:section()
+				local sName = game.translate_string(Get_Cfg_String(sini, sSection, "inv_name", game.translate_string(sSection)))
+				local fCondition = self:IsConditionChangeable(oItem) and oItem:condition() or nil
+				if sSection ~= "bolt" and sSection ~= "device_torch" and sSection ~= "wpn_binoc" and sSection ~= "device_pda" and sSection ~= "wpn_knife" then
+					for i = 1, 12 do
+						-- +UDP
+						-- local oItemInSlot = db.actor:item_in_slot(i)
+						local oItemInSlot = getLocalActor():item_in_slot(i)
+						-- -UDP
+						if oItemInSlot ~= nil and oItemInSlot:id() == oItem:id() then
+							table.insert(self.tInventoryItems.slot, { section = sSection, name = sName, id = oItem:id(), condition = fCondition })
+							return
+						end
 					end
+					table.insert(self.tInventoryItems.inventory, { section = sSection, name = sName, id = oItem:id(), condition = fCondition })
 				end
-				table.insert(self.tInventoryItems.inventory, { section = sSection, name = sName, id = oItem:id(), condition = fCondition })
 			end
-		end
-	,nil)
+		,nil)
+	end-- +UDP
 	--to_log(sModule..":> FillInventoryList slot items = [%d]", table.size(self.tInventoryItems.slot))
 	--to_log(sModule..":> FillInventoryList inventory items = [%d]", table.size(self.tInventoryItems.inventory))
 	self.tInventoryItems.slot = self.owner_script.SortTableByValue(self.tInventoryItems.slot, "asc", "section")
@@ -315,7 +317,7 @@ function inventory:OnBtnRemoveObject()
 	if not obj_id or obj_id == "null" then return end --/>
 	if self.condition_pin[obj_id] then self.condition_pin[obj_id] = nil end
 	if table.size(self.condition_pin) == 0 then xr_s.unregister_callback("update", self.FixCondition) end
-	alife():release(alife():object(tonumber(obj_id)), true)
+	--alife():release(alife():object(tonumber(obj_id)), true)-- +UDP
 
 	-- удаление элемента из списка
 	self.inventory_list:RemoveItem(oListItem)
