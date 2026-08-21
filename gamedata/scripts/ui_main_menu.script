@@ -41,7 +41,7 @@ function main_menu:InitControls()
 
 	local _ver = xml:InitStatic		("static_version",self)
 	local mm						= _G.main_menu.get_main_menu()
-	_ver:TextControl():SetText		(" " .. mm:GetGSVer().. " + United Defence Pack 0.5")-- +UP
+	_ver:TextControl():SetText		(" " .. mm:GetGSVer().. " + United Defence Pack 0.5.2")-- +UDP
 	printf_msg("Game Version: %s", mm:GetGSVer())
 
     self.l_mgr = mm:GetLoginMngr()
