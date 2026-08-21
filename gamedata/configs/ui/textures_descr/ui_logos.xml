@@ -32,7 +32,7 @@
 		<texture id="bandit_medium"   x="330"	y="0"	width="110" height="110" />
 		<texture id="csky_medium"     x="0"		y="0"	width="110" height="110" />
 		<texture id="dolg_medium"     x="220"	y="0"	width="110" height="110" />
-		<texture id="monolith_medium" x="0"  	y="330"	width="110" height="110" />
+		<texture id="monolith_medium" x="0"  	y="220"	width="110" height="110" /><!-- +SP -->
 		<texture id="ecolog_medium"   x="330"	y="110"	width="110" height="110" />	
 		<texture id="army_medium"	  x="110"	y="0"	width="110" height="110" />			
     </file>		
