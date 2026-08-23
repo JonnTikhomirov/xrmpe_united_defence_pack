@@ -6,7 +6,7 @@
 
 Аддон для **[X-Ray Multiplayer Extension](https://www.xrmpe.online/)**, объединяющий несколько аддонов в один, с дополнительными правками, улучшениями и контентом.
 
-Актуальный релиз: [0.5.2](https://github.com/JonnTikhomirov/xrmpe_united_defence_pack/releases/download/v0.5.0/xrMPE_United_Defence_Pack_0.5.2.7z)
+Актуальный релиз: [**СКАЧАТЬ** 0.5.2](https://github.com/JonnTikhomirov/xrmpe_united_defence_pack/releases/download/v0.5.0/xrMPE_United_Defence_Pack_0.5.2.7z)
 
 ## Цели
 
