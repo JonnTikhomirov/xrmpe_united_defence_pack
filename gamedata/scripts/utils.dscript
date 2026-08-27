@@ -142,7 +142,7 @@ function color_from_str_array(color_arr)
         a = math.max(0.0, math.min(1.0, tonumber(color_arr[4]) or 0.0))
     end
 
-	return GetARGB(a, r, g, b)
+	return GetARGB(a * 255, r * 255, g * 255, b * 255)
 end
 
 -- @param default_val number: color ARGB

@@ -375,31 +375,34 @@ function se_lamp:on_register()
 		flags = utils.parse_lamp_flags(self.data.light_flags)
 	end
 
-	self.range 				= utils.cfg_get_number(system_ini(), section, "range", 		self, false, self.data.main_range or 5)
-	self.brightness			= utils.cfg_get_number(system_ini(), section, "brightness", self, false, self.data.main_brightness or 1)
-	self.color				= utils.cfg_get_color(system_ini(), section,  "color", 		self, false, self.data.main_color or GetARGB(1.0,1.0,1.0,1.0))
-	self.color_animator	= utils.cfg_get_string(system_ini(), section, "color_animmator", self, false, "", self.data.main_color_animator or "")
-	self.cone_angle 		= utils.cfg_get_number(system_ini(), section, "cone_angle", self, false, self.data.main_cone_angle or 90)
+	local section = self:section_name()
+	local ini = system_ini()
 
-	self.physic 			= utils.cfg_get_bool(system_ini(), section, "physic", 		self, false, flags.physic or false)
-	self.cast_shadow 		= utils.cfg_get_bool(system_ini(), section, "cast_shadow", 	self, false, flags.cast_shadow or true)
-	self.type_spot 			= utils.cfg_get_bool(system_ini(), section, "type_spot", 	self, false, flags.type_spot or false)
-	self.point_ambient 		= utils.cfg_get_bool(system_ini(), section, "point_ambient", self, false, flags.point_ambient or false)
+	self.range 				= utils.cfg_get_number(ini, section, "range", 			self, false, self.data.main_range or 5)
+	self.brightness			= utils.cfg_get_number(ini, section, "brightness", 		self, false, self.data.main_brightness or 1)
+	self.color				= utils.cfg_get_color(ini, section,  "color", 			self, false, self.data.main_color or GetARGB(1.0,1.0,1.0,1.0))
+	self.color_animator		= utils.cfg_get_string(ini, section, "color_animator", 	self, false, "", self.data.main_color_animator or "")
+	self.cone_angle 		= utils.cfg_get_number(ini, section, "cone_angle", 		self, false, self.data.main_cone_angle or 90)
+
+	self.physic 			= utils.cfg_get_bool(ini, section, "physic", 		self, false, flags.physic or false)
+	self.cast_shadow 		= utils.cfg_get_bool(ini, section, "cast_shadow", 	self, false, flags.cast_shadow or true)
+	self.type_spot 			= utils.cfg_get_bool(ini, section, "type_spot", 	self, false, flags.type_spot or false)
+	self.point_ambient 		= utils.cfg_get_bool(ini, section, "point_ambient", self, false, flags.point_ambient or false)
 	self.r1 = true
 	self.r2 = true
 
-	self.visual_name 		= utils.cfg_get_string(system_ini(), section, "visual_name", 	self, false, "", self.data.visual_name or "")
-	self.bone 				= utils.cfg_get_string(system_ini(), section, "bone",			self, false, "", self.data.main_bone or "")
-	self.fixed_bones		= utils.cfg_get_string(system_ini(), section, "fixed_bones", 	self, false, "", self.data.lamp_fixed_bones or "")
-	self.startup_animation	= utils.cfg_get_string(system_ini(), section, "startup_animation", self, false, "", self.data.startup_animation or "")
+	self.visual_name 		= utils.cfg_get_string(ini, section, "visual_name", 		self, false, "", self.data.visual_name or "")
+	self.bone 				= utils.cfg_get_string(ini, section, "bone",				self, false, "", self.data.main_bone or "")
+	self.fixed_bones		= utils.cfg_get_string(ini, section, "fixed_bones", 		self, false, "", self.data.lamp_fixed_bones or "")
+	self.startup_animation	= utils.cfg_get_string(ini, section, "startup_animation", 	self, false, "", self.data.startup_animation or "")
 
-	self.glow_texture 		= utils.cfg_get_string(system_ini(), section, "glow_texture", 	self, false, "", self.data.glow_texture or "")
-	self.glow_radius 		= utils.cfg_get_number(system_ini(), section, "glow_radius", 	self, false, self.data.glow_radius or 0.25)
+	self.glow_texture 		= utils.cfg_get_string(ini, section, "glow_texture",self, false, "",self.data.glow_texture or "")
+	self.glow_radius 		= utils.cfg_get_number(ini, section, "glow_radius", self, false, 	self.data.glow_radius or 0.25)
 
-	self.ambient_radius 	= utils.cfg_get_number(system_ini(), section, "ambient_radius", self, false, self.data.ambient_radius or 1)
-	self.ambient_power 		= utils.cfg_get_number(system_ini(), section, "ambient_power", 	self, false, self.data.ambient_power or 0.5)
-	self.ambient_texture 	= utils.cfg_get_string(system_ini(), section, "ambient_texture", self, false, "", self.data.ambient_texture or "")
-	self.ambient_bone 		= utils.cfg_get_string(system_ini(), section, "ambient_bone", 	self, false, "", self.data.ambient_bone or "")
+	self.ambient_radius 	= utils.cfg_get_number(ini, section, "ambient_radius", 	self, false, self.data.ambient_radius or 1)
+	self.ambient_power 		= utils.cfg_get_number(ini, section, "ambient_power", 	self, false, self.data.ambient_power or 0.5)
+	self.ambient_texture 	= utils.cfg_get_string(ini, section, "ambient_texture", self, false, "", self.data.ambient_texture or "")
+	self.ambient_bone 		= utils.cfg_get_string(ini, section, "ambient_bone", 	self, false, "", self.data.ambient_bone or "")
 	-- -UDP
 end
 function se_lamp:on_unregister()
