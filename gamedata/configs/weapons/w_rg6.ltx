@@ -22,7 +22,7 @@ hit_power        			= 0.75, 0.75, 0.75, 0.75
 hit_impulse      			= 150
 hit_type 					= fire_wound
 fire_distance       		= 100
-bullet_speed				= 32 ;76
+bullet_speed				= 76;32 ;76;+UDP
 rpm                 		= 100
 
 hud                         = wpn_rg-6_hud
@@ -50,7 +50,7 @@ ammo_elapsed		 		= 6
 ammo_mag_size		 		= 6
 ammo_class		 			= ammo_vog-25
 grenade_bones 				= grenade
-launch_speed				= 32 ;76
+launch_speed				= 76;32 ;76;+UDP
 sprint_allowed				= true
 
 ;------дисперсия------------------------------------------------------------------------
@@ -208,14 +208,8 @@ item_orientation			= 0,0,0
 aim_hud_offset_pos      = -0.100000,-0.103000,0.120000
 aim_hud_offset_rot      = -0.320000,-0.022500,0.000000
 
-aim_hud_offset_pos_16x9 = -0.100000,-0.103000,0.120000
-aim_hud_offset_rot_16x9 = -0.320000,-0.022500,0.000000
-
-gl_hud_offset_pos			= -0.134500,-0.155000,0.120000
-gl_hud_offset_rot			= -0.320000,-0.022500,0.000000
-
-gl_hud_offset_pos_16x9  = -0.134500,-0.155000,0.120000
-gl_hud_offset_rot_16x9  = -0.320000,-0.022500,0.000000
+aim_hud_offset_pos_16x9 = -0.091500,-0.162000,0.120000
+aim_hud_offset_rot_16x9 = -0.312500,-0.007500,0.000000
 
 lean_hud_offset_pos        = 0,0,0
 lean_hud_offset_rot        = 0,0,0
@@ -266,6 +260,9 @@ anm_add_cartridge_preloaded			= rg6_hand_reload_loop, rg6_reload_loop
 anm_close					= rg6_hand_reload_end, rg6_reload_end
 anm_close_empty					= rg6_hand_reload_end, rg6_reload_end
 anm_close_jammed					= rg6_hand_reload_end, rg6_reload_end
+anm_close_preloaded			= rg6_hand_reload_end, rg6_reload_end; +UDP
+anm_close_preloaded_final	= rg6_hand_reload_end, rg6_reload_end; +UDP
+anm_close_empty_preloaded	= rg6_hand_reload_end, rg6_reload_end; +UDP
 
 disable_bore = true                                            ;отключение анимации скуки
 
