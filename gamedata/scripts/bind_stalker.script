@@ -121,14 +121,6 @@ function mp_actor_binder:reinit()
 	self.object:set_callback(callback.take_item_from_box, self.take_item_from_box, self)
 	self.object:set_callback(callback.use_object, self.use_inventory_item, self)
 
-	-- + UP
-	if OnClient() then
-		--/#+# [lua_helper] ------------------------------------------------
-		if lua_helper.Init_ActorPStor then lua_helper.Init_ActorPStor() end
-		--/< ---------------------------------------------------------------
-	end
-	-- - UP
-
 end
 
 function mp_actor_binder:task_callback(_task, _state)
@@ -179,7 +171,12 @@ end
 local slots_item_replace = nil
 
 function mp_actor_binder:update_quick_slots()
-
+	if not self.object
+		or not db.storage[self.object:id()]
+		or LocalActor() ~= self.object:id()
+		or self.object:death_time() > 0 then
+		return
+	end
 	if not slots_item_replace then
 		local ini = system_ini()
 		if not ini:section_exist("slots_item_replace") then
@@ -196,7 +193,7 @@ function mp_actor_binder:update_quick_slots()
 			end
 		end
 	end
-	table.print(slots_item_replace)
+	--table.print(slots_item_replace)
 	-- Секции предметов, которые есть в инвентаре
 	local inventory = {}
 
@@ -489,6 +486,8 @@ function actor_binder:__init (obj) super(obj)
 				self.lobby_light_offset = ini:r_vector(level.name(), section)
 			end
 		end
+	else
+		check_quickslots()
 	end
 	-- -UP
 end
