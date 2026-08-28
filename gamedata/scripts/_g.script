@@ -146,7 +146,7 @@ end
 function printf_msg(fmt, ...)
 	-- + UP надежный вывод сообщений
 	-- print_msg(string.format(fmt, ...))
-	print_msg(string_format_safe_errors(fmt, ...))
+	print_msg(string.exformat(fmt, ...))
 	-- - UP
 end
 
