@@ -3263,11 +3263,11 @@ end
 --/------------------------------------------------------------------
 --/ Angle: Degree to Radian (угол: градус => радиан)
 function fDegreeToRadian(iAngle)
-	return iAngle*math.pi/180 --/*0.017453292519943295769236907684886
+	return iAngle*math.pi/180
 end
 --/ Angle: Radian to Degree (угол: радиан => градус)
 function fRadianToDegree(iAngle)
-	return iAngle*180/math.pi --/*57.2957795
+	return iAngle*180/math.pi
 end
 --/ угол между двумя векторами (в радианах)
 function fAngleDiffRad(vVec1,vVec2)
