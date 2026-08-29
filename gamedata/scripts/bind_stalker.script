@@ -370,11 +370,6 @@ function mp_actor_binder:update(delta)
 		SetGoodwillForce(k, self.object:id(), v)
 	end
 	game_relations.temp_goodwill_table = { }
-	-- +UP
-	if OnClient() then
-		bind_heli.heli_explode_update()
-	end
-	-- -UP
 end
 
 function mp_actor_binder:net_destroy()
