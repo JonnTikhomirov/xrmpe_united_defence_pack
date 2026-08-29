@@ -164,7 +164,6 @@ function GetDebugManagerDialog(owner)
 	if oDebugManager == nil then
 		oDebugManager = tool_manager(owner)
 	elseif owner ~= nil then
-		to_log("11111111 %s", tSettings.sStartTabName)
 		oDebugManager:OnTabChange(tSettings.sStartTabName)
 	end
 	return oDebugManager --/>
