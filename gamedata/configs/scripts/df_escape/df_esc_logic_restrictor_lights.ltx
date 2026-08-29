@@ -2,7 +2,7 @@
 active = sr_idle@night
 
 [sr_idle@day]
-on_info = {=time_hour_in_range(21:3)} sr_idle@night %=turn_on(projector_1) =turn_on(projector_2) =turn_on(projector_3) =turn_on(light_1) =turn_on(light_2) =turn_on(light_3) =turn_on(light_4) =turn_on(light_5)%
+on_info = {=time_hour_in_range(21:4)} sr_idle@night %=turn_on(projector_1) =turn_on(projector_2) =turn_on(projector_3) =turn_on(light_1) =turn_on(light_2) =turn_on(light_3) =turn_on(light_4) =turn_on(light_5)%
 
 [sr_idle@night]
-on_info = {!time_hour_in_range(21:3)} sr_idle@day %=turn_off(projector_1) =turn_off(projector_2) =turn_off(projector_3) =turn_off(light_1) =turn_off(light_2) =turn_off(light_3) =turn_off(light_4) =turn_off(light_5)%
+on_info = {!time_hour_in_range(21:4)} sr_idle@day %=turn_off(projector_1) =turn_off(projector_2) =turn_off(projector_3) =turn_off(light_1) =turn_off(light_2) =turn_off(light_3) =turn_off(light_4) =turn_off(light_5)%
