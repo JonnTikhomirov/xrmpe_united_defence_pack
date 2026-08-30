@@ -174,7 +174,8 @@ function mp_actor_binder:update_quick_slots()
 	if not self.object
 		or not db.storage[self.object:id()]
 		or LocalActor() ~= self.object:id()
-		or self.object:death_time() > 0 then
+		or self.object:death_time() > 0 
+		or self.object:object_count() == 0 then
 		return
 	end
 	if not slots_item_replace then
