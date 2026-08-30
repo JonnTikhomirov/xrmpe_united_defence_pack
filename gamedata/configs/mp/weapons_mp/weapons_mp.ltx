@@ -229,6 +229,7 @@
     use_aim_bullet                    = false      
     tracers                           = off       
 	fire_distance           		  = 50 ; maximum fire distance that bullet can fly
+	allow_sprint_while_reload         = true;+UDP
 
 [mp_wpn_colt1911]:wpn_colt1911
 	def_hide_bones 					  = barrel, barrel_compensator, sight
@@ -304,7 +305,7 @@
     tracers_color_ID                  = 2       
 	; fire_distance                     = 5000 ; maximum fire distance that bullet can fly
 	; grenade_vel						  = 76
-	allow_sprint_while_reload = true
+	;allow_sprint_while_reload = true;+UDP
 	;отдача
 	cam_return				= 0
 	cam_relax_speed         = 5		; скорость возврата в исходное положение
@@ -967,7 +968,8 @@ aim_hud_offset_rot_16x9 = 0.0130,0.000000,0.00000; + SP
     use_aim_bullet                    = false     
     tracers                           = off         
 	fire_distance           		  = 100 ; maximum fire distance that bullet can fly
-	
+	allow_sprint_while_reload         = true;+UDP
+
 [mp_scope_pu_toz34]:scope_pu_toz34
 	scope_name 						  = mp_wpn_addon_scope_pu
 
@@ -1148,8 +1150,8 @@ aim_hud_offset_rot_16x9 = 0.0130,0.000000,0.00000; + SP
     class                    		  = W_SHOTGN
 	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)           
     ammo_class                        = mp_ammo_12x70_buck, mp_ammo_12x76_zhekan, mp_ammo_12x76_dart
-    hit_power                         = 0.34
-	silencer_hit_power				  = 0.32;+UP
+    hit_power                         = 0.37;+UDP
+	silencer_hit_power				  = 0.35;+UDP
 	scopes_sect 					  = mp_scope_eotech_winchester1300, mp_scope_aimpoint_winchester1300, mp_scope_elcan_winchester1300, mp_scope_pn23_winchester1300
     silencer_name                     = mp_wpn_addon_silencer_hexagon12      
     rpm                               = 85     
@@ -1157,7 +1159,10 @@ aim_hud_offset_rot_16x9 = 0.0130,0.000000,0.00000; + SP
     use_aim_bullet                    = false   
     tracers                           = off     
 	fire_distance           		  = 100 ; maximum fire distance that bullet can fly
-	
+	allow_sprint_while_reload         = true;+UDP
+	ammo_elapsed		 			  = 7;+UDP
+	ammo_mag_size		 			  = 7;+UDP
+
 [mp_scope_eotech_winchester1300]:scope_eotech_winchester1300
 	scope_name 						  = mp_wpn_addon_scope_susat_x1.6	
 
