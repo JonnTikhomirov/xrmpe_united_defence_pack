@@ -18,7 +18,7 @@
 	],
 	"author": "JohnTikhomirov",
 	"icon": "icon",
-	"addonVersion": "0.5.2",
+	"addonVersion": "0.5.5",
 	"coopStartupArgs": [
 		"-noprefetch"
 	],
