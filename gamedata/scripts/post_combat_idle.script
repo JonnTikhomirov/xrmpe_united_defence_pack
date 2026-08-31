@@ -18,6 +18,15 @@ function evaluator_combat_enemy:evaluate()
 		return true
 	end
 
+	-- +UDP
+	local has_alife_player = false
+	for _,v in pairs(db.mp_actors) do
+		if v and v:death_time() <= 0 and v.health > 0 and v:alive() then
+			has_alife_player = true
+			break
+		end
+	end
+	-- -UDP
 	if best_enemy == nil and self.st.timer == nil then
 		--printf("object name is [%s]", self.object:name())
 		local overrides = db.storage[self.object:id()].overrides
@@ -29,16 +38,8 @@ function evaluator_combat_enemy:evaluate()
 			self.st.timer = time_global() + math.random(min, max)
 		end
 		-- +UDP
-		local has_alife_player = false
-		for _,v in pairs(db.mp_actors) do
-			if v and v:death_time() <= 0 and v.health > 0 and v:alive() then
-				has_alife_player = true
-				break
-			end
-		end
 		if db.storage[self.object:id()].is_df_enemy
-			and self.st.last_best_enemy_id ~= nil
-			and not has_alife_player then
+			and self.st.last_best_enemy_id ~= nil then
 			self.st.timer = time_global() + math.random(min, max)
 		end
 		-- -UDP
@@ -47,7 +48,10 @@ function evaluator_combat_enemy:evaluate()
 	if self.st.timer == nil then
 		return best_enemy ~= nil
 	end
-
+	-- +UDP
+	if has_alife_player then
+		return false
+	end
 	if time_global() < self.st.timer then
 		return true
 	end 
@@ -101,7 +105,7 @@ function action_post_combat_wait:execute()
 		xr_sound.set_sound_play(self.object:id(), "post_combat_wait")
 	-- +UDP
 	elseif db.storage[self.object:id()].is_df_enemy
-		and math.random() < 0.4 then
+		and math.random() < 0.3 then
 		xr_sound.set_sound_play(self.object:id(), "post_combat_wait")
 	-- -UDP
 	end
