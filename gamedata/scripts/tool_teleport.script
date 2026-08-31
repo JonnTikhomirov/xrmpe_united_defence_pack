@@ -385,15 +385,16 @@ function teleport:OnTabChange()
 	-- первый элемент (телепорт) добавляем и далее выбираем по умолчанию
 	self.owner:AddPrimaryListItem(self.location_list, game.translate_string("tool_teleport_custom"), "custom", self.color[0])
 	-- разделительная пустая строка
-	self.owner:AddPrimaryListItem(self.location_list, "", "null", self.color[0])
+	--self.owner:AddPrimaryListItem(self.location_list, "", "null", self.color[0])-- +UDP
 	-- второй элемент (поиск объекта) добавляем также вручную
 	self.owner:AddPrimaryListItem(self.location_list, game.translate_string("tool_teleport_find_object"), "find_object", self.color[0])
 	-- разделительная пустая строка
-	self.owner:AddPrimaryListItem(self.location_list, "", "null", self.color[0])
+	--self.owner:AddPrimaryListItem(self.location_list, "", "null", self.color[0])-- +UDP
 	-- остальные элементы списка локаций
 	for _,location in ipairs(self.tLocations) do
 		self.owner:AddPrimaryListItem(self.location_list, location.name, location.id, self.color[0])
 	end
+	self:SetLocation("custom")-- +UDP
 end
 
 -- установка выбранной локации
