@@ -76,3 +76,26 @@ point_ambient 	= true
 ambient_radius 	= 20
 ambient_power 	= 1
 custom_data = scripts\df_yantar\heli_anomaly_light.ltx
+
+[grenade_flare_light]:lights_hanging_lamp
+$spawn        = "physics\grenade_flare_light"
+visual_name 	= dynamics\weapons\wpn_grenade_flare\wpn_grenade_flare
+bone 			= cheka
+ambient_bone 	= cheka
+
+script_binding 	= bind_grenade.init_flare_light
+
+range 			= 18.0
+brightness		= 1.5
+color			= 0.604,0.737,0.314
+color_animator	= light_green
+type_spot		= false
+point_ambient 	= true
+ambient_radius 	= 5
+ambient_power 	= 1
+physic 			= true
+
+; special
+particles		= anomaly2\dev_flare
+snd 			= device\dev_flare
+time 			= 58; сек

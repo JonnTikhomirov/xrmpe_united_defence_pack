@@ -164,3 +164,61 @@ function cfg_get_color(char_ini, section, field, object, mandatory, default_val)
 	end
 	return color_from_str_array(parse_names(str))
 end
+
+function get_grenade_velocity(grenade_obj)
+	-- 1. Получаем позицию и направление гранаты
+	local fly_dir = vector()
+	local speed = 0
+	
+	-- Пытаемся получить реальную скорость из физики гранаты
+	local phys_shell = grenade_obj:get_physics_shell()
+	if phys_shell then
+		phys_shell:get_linear_vel(fly_dir)
+		speed = fly_dir:magnitude()
+	end
+	
+	-- Если скорость не получилась или слишком мала (граната только спавнилась)
+	if speed < 1.0 then
+		-- Читаем force_max из конфига секции гранаты
+		local grenade_section = grenade_obj:section()
+		local ini = system_ini()
+		
+		if ini:section_exist(grenade_section) and ini:line_exist(grenade_section, "force_max") then
+			speed = ini:r_float(grenade_section, "force_max")
+		else
+			speed = 30.0 -- Запасное значение
+		end
+		
+		fly_dir = grenade_obj:direction()
+	else
+		fly_dir:normalize()
+	end
+	
+	-- Итоговый вектор скорости
+	return vector():set(fly_dir.x * speed, fly_dir.y * speed, fly_dir.z * speed)
+end
+
+function apply_impulse(obj, velocity_vector)
+	local shell = obj:get_physics_shell()
+	if not shell then
+		to_log("Object %s has not physics shell!", obj:section())
+		return
+	end
+
+	local mass = 1.0
+	local elem = shell:get_element_by_order(0)
+	if elem then
+		mass = elem:get_mass()
+		if mass <= 0 then mass = 0.5 end
+	end
+
+	local h = hit()
+	h.type = hit.strike
+	h.direction = vector():set(velocity_vector.x, velocity_vector.y, velocity_vector.z):normalize()
+	h.impulse = velocity_vector:magnitude() * mass
+	h.power = 0
+	h.draftsman = db.actor
+	
+	obj:hit(h)
+	shell:block_breaking()
+end

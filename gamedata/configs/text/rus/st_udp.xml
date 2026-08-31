@@ -52,7 +52,7 @@
 		<text>Флаер</text>
 	</string>
 	<string id="st_wpn_grenade_flare_descr">
-		<text>Зажигается при ударе о поверхность</text>
+		<text>Зеленый флаер, время горения до 60 секунд</text>
 	</string>
 
 	<string id="st_df_neutral_weak">

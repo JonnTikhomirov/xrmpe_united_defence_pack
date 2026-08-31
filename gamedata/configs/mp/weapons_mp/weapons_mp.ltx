@@ -2266,7 +2266,7 @@ kill_msg_height			= 22
 ; -PVP
 
 ;+UP
-[mp_grenade_flare]:mp_grenade_gd-05
+[mp_grenade_flare]:grenade_gd-05
 $spawn					= "network\ammo\mp_grenade_flare"
 visual					= dynamics\weapons\wpn_grenade_flare\wpn_grenade_flare.ogf
 hud						= mp_grenade_flare_hud
@@ -2274,28 +2274,16 @@ inv_name				= st_wpn_grenade_flare
 inv_name_short			= st_wpn_grenade_flare
 description				= st_wpn_grenade_flare_descr
 
+script_binding 			= bind_grenade.init
+
+inv_weight				= 0.2
 inv_grid_x				= 21
 inv_grid_y				= 21
 
-explode_particles		= anomaly2\dev_flare
-
-destroy_time			= 10000
-explode_duration		= 60000
-light_time				= 60
-lights_enabled			= true
-light_color				= 0.604,0.737,0.314
-light_range				= 18.0
-
-explosion_on_kick 		 	    = true
-safe_time 				 	    = 0
-explosion_on_hit 			    = true
-explosion_hit_types 	 	    = 6, 8 
-explosive_while_not_activated   = false
-help_explosive_info 		    = true
-
-detonation_threshold_hit 	    = 0
-
-snd_explode = device\dev_flare
+force_min				= 20; ~30% от максимума
+force_const				= 45
+force_max				= 60
+force_grow_speed		= 25
 
 [mp_grenade_flare_hud]:bolt_hud
 item_visual				= dynamics\weapons\wpn_grenade_flare\wpn_grenade_flare

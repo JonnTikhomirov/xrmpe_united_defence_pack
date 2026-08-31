@@ -49,7 +49,7 @@
 		<text>Flare</text>
 	</string>
 	<string id="st_wpn_grenade_flare_descr">
-		<text>Ignites on impact with the surface</text>
+		<text>Green flyer, burning time up to 60 seconds</text>
 	</string>
 
 	<string id="st_df_neutral_weak">
