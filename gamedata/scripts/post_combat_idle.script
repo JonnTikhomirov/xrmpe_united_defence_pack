@@ -24,16 +24,30 @@ function evaluator_combat_enemy:evaluate()
 		local min = (overrides and overrides.min_post_combat_time*1000) or 10000
 		local max = (overrides and overrides.max_post_combat_time*1000) or 15000
 		if is_object_actor_by_id(self.st.last_best_enemy_id) then
-			self.st.timer = time_global()
+		 	self.st.timer = time_global()
 		else
 			self.st.timer = time_global() + math.random(min, max)
 		end
+		-- +UDP
+		local has_alife_player = false
+		for _,v in pairs(db.mp_actors) do
+			if v and v:death_time() <= 0 and v.health > 0 and v:alive() then
+				has_alife_player = true
+				break
+			end
+		end
+		if db.storage[self.object:id()].is_df_enemy
+			and self.st.last_best_enemy_id ~= nil
+			and not has_alife_player then
+			self.st.timer = time_global() + math.random(min, max)
+		end
+		-- -UDP
 	end
 
 	if self.st.timer == nil then
 		return best_enemy ~= nil
 	end
-	
+
 	if time_global() < self.st.timer then
 		return true
 	end 
@@ -85,6 +99,11 @@ function action_post_combat_wait:execute()
 	local squad = get_object_squad(self.object)
 	if squad and squad:commander_id() == self.object:id() then
 		xr_sound.set_sound_play(self.object:id(), "post_combat_wait")
+	-- +UDP
+	elseif db.storage[self.object:id()].is_df_enemy
+		and math.random() < 0.4 then
+		xr_sound.set_sound_play(self.object:id(), "post_combat_wait")
+	-- -UDP
 	end
 end
 function action_post_combat_wait:finalize()
