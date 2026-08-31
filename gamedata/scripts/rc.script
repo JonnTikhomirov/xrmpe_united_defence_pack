@@ -85,24 +85,18 @@ local RC_STATUS_DENIED = 2
 
 function init()
 	to_log("RC.init")
-	if getFS():exist("$app_data_root$", "radmins.ltx") then
-		local fname = getFS():update_path("$app_data_root$", "radmins.ltx")
-		file = io.open(fname)
-		if file then
-			local str = file:read("*a")
-			file:close()
-			local data = lua_helper.fParse_CustomData(str)
-			if data.rcadmins then
-				for k, v in pairs(data.rcadmins) do
-					if v == "<<no_value>>" then
-						RC_ADMIN_KEYS[k] = true
-					else
-						RC_ADMIN_KEYS[string.lower(k)] = string.toboolean(v or "true")
-					end
+	local appdata = appdata_inis()
+	if appdata and appdata.radmins then
+		if appdata.radmins.rc_keys then
+			for k, v in pairs(appdata.radmins.rc_keys) do
+				if v == "<<no_value>>" then
+					RC_ADMIN_KEYS[k] = true
+				else
+					RC_ADMIN_KEYS[string.lower(k)] = string.toboolean(v or "true")
 				end
-			else
-				to_log("RC.init: section 'rcadmins' not found in 'radmins.ltx'")
 			end
+		else
+			to_log("RC.init: section 'rc_keys' not found in 'radmins.ltx'")
 		end
 	elseif not OnClient() then
 		to_log("RC.init: 'radmins.ltx' not found")
@@ -503,11 +497,11 @@ function sv_handle(packet, client_id)
 	if not ok2 then
 		to_log(
 			"RC.sv_handle: command %s failed: %s",
-			id,
+			command_key(command, args_or_err),
 			tostring(err)
 		)
 	else
-		to_log("RC.sv_handle: handler '%s' executed", id)
+		to_log("RC.sv_handle: handler '%s' executed", command_key(command, args_or_err))
 	end
 end
 
@@ -561,10 +555,10 @@ function sv_handle_batch(packet)
 
 		local ok2, err = pcall(meta.sv_handler, args_or_err)
 		if not ok2 then
-			to_log("RC.sv_handle_batch: handler '%s' failed at index %d: %s", id, i, tostring(err))
+			to_log("RC.sv_handle_batch: handler '%s' failed at index %d: %s", command_key(meta, args_or_err), i, tostring(err))
 			-- по умолчанию продолжаем обрабатывать дальше; если хочешь атомарности — return тут
 		else
-			to_log("RC.sv_handle_batch: handler '%s' executed at index %d", id, i)
+			to_log("RC.sv_handle_batch: handler '%s' executed at index %d", command_key(meta, args_or_err), i)
 		end
 	end
 end
@@ -1070,4 +1064,28 @@ RC_ADD_ENVTIME = register {
 }
 function cl_add_envtime(hours, minutes)
 	cl_send(RC_ADD_ENVTIME, {hours = hours, minutes = minutes})
+end
+
+RC_SET_INVULNERABLE = register {
+	name = "set_invulnerable",
+	args = {
+		{ name = "id", type = "u16" },
+		{ name = "value", type = "bool" }
+	},
+	sv_handler = function(args)
+		if not args.id or args.id == "" then
+			to_log("RC_SET_INVULNERABLE id not set")
+			return
+		end
+		if args.value == nil then
+			args.value = false
+		end
+		local npc = level.object_by_id(args.id)
+		if npc then
+			npc:invulnerable(args.value)
+		end
+	end
+}
+function cl_set_invulnerable(id, value)
+	cl_send(RC_SET_INVULNERABLE, {id = id, value = value})
 end

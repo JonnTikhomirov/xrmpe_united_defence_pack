@@ -229,6 +229,7 @@
     use_aim_bullet                    = false      
     tracers                           = off       
 	fire_distance           		  = 50 ; maximum fire distance that bullet can fly
+	allow_sprint_while_reload         = true;+UDP
 
 [mp_wpn_colt1911]:wpn_colt1911
 	def_hide_bones 					  = barrel, barrel_compensator, sight
@@ -304,7 +305,7 @@
     tracers_color_ID                  = 2       
 	; fire_distance                     = 5000 ; maximum fire distance that bullet can fly
 	; grenade_vel						  = 76
-	allow_sprint_while_reload = true
+	;allow_sprint_while_reload = true;+UDP
 	;отдача
 	cam_return				= 0
 	cam_relax_speed         = 5		; скорость возврата в исходное положение
@@ -967,7 +968,8 @@ aim_hud_offset_rot_16x9 = 0.0130,0.000000,0.00000; + SP
     use_aim_bullet                    = false     
     tracers                           = off         
 	fire_distance           		  = 100 ; maximum fire distance that bullet can fly
-	
+	allow_sprint_while_reload         = true;+UDP
+
 [mp_scope_pu_toz34]:scope_pu_toz34
 	scope_name 						  = mp_wpn_addon_scope_pu
 
@@ -1148,8 +1150,8 @@ aim_hud_offset_rot_16x9 = 0.0130,0.000000,0.00000; + SP
     class                    		  = W_SHOTGN
 	use_first_bullet				  = false;есть ли эффект первого выстрела (точного)           
     ammo_class                        = mp_ammo_12x70_buck, mp_ammo_12x76_zhekan, mp_ammo_12x76_dart
-    hit_power                         = 0.34
-	silencer_hit_power				  = 0.32;+UP
+    hit_power                         = 0.37;+UDP
+	silencer_hit_power				  = 0.35;+UDP
 	scopes_sect 					  = mp_scope_eotech_winchester1300, mp_scope_aimpoint_winchester1300, mp_scope_elcan_winchester1300, mp_scope_pn23_winchester1300
     silencer_name                     = mp_wpn_addon_silencer_hexagon12      
     rpm                               = 85     
@@ -1157,7 +1159,10 @@ aim_hud_offset_rot_16x9 = 0.0130,0.000000,0.00000; + SP
     use_aim_bullet                    = false   
     tracers                           = off     
 	fire_distance           		  = 100 ; maximum fire distance that bullet can fly
-	
+	allow_sprint_while_reload         = true;+UDP
+	ammo_elapsed		 			  = 7;+UDP
+	ammo_mag_size		 			  = 7;+UDP
+
 [mp_scope_eotech_winchester1300]:scope_eotech_winchester1300
 	scope_name 						  = mp_wpn_addon_scope_susat_x1.6	
 
@@ -1800,7 +1805,9 @@ aim_hud_offset_rot_16x9 = 0.0130,0.000000,0.00000; + SP
     $spawn                            = "network\weapons\heavy_weapons\mp_wpn_rgm-40"
     class                   		  = W_RG6 
     ammo_class                        = mp_ammo_vog-25, mp_ammo_vog-25p
-	
+	bullet_speed					  = 76;+UDP
+	launch_speed					  = 76;+UDP
+
 [mp_grenade_f1]:grenade_f1
 	$spawn							  = "network\ammo\mp_grenade_f1"
 	class							  = G_F1
@@ -2259,7 +2266,7 @@ kill_msg_height			= 22
 ; -PVP
 
 ;+UP
-[mp_grenade_flare]:mp_grenade_gd-05
+[mp_grenade_flare]:grenade_gd-05
 $spawn					= "network\ammo\mp_grenade_flare"
 visual					= dynamics\weapons\wpn_grenade_flare\wpn_grenade_flare.ogf
 hud						= mp_grenade_flare_hud
@@ -2267,28 +2274,16 @@ inv_name				= st_wpn_grenade_flare
 inv_name_short			= st_wpn_grenade_flare
 description				= st_wpn_grenade_flare_descr
 
+script_binding 			= bind_grenade.init
+
+inv_weight				= 0.2
 inv_grid_x				= 21
 inv_grid_y				= 21
 
-explode_particles		= anomaly2\dev_flare
-
-destroy_time			= 10000
-explode_duration		= 60000
-light_time				= 60
-lights_enabled			= true
-light_color				= 0.604,0.737,0.314
-light_range				= 18.0
-
-explosion_on_kick 		 	    = true
-safe_time 				 	    = 0
-explosion_on_hit 			    = true
-explosion_hit_types 	 	    = 6, 8 
-explosive_while_not_activated   = false
-help_explosive_info 		    = true
-
-detonation_threshold_hit 	    = 0
-
-snd_explode = device\dev_flare
+force_min				= 20; ~30% от максимума
+force_const				= 45
+force_max				= 60
+force_grow_speed		= 25
 
 [mp_grenade_flare_hud]:bolt_hud
 item_visual				= dynamics\weapons\wpn_grenade_flare\wpn_grenade_flare

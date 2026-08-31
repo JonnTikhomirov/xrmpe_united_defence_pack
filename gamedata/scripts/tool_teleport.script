@@ -134,9 +134,15 @@ function teleport:InitControls(owner, xml)
 	owner:Register(self.btn_fly, "teleport_btn_fly")
 	table.insert(self.common_buttons_controls, self.btn_fly)
 	
-	self.btn_switch_gamezone = xml:Init3tButton("frame_right_teleport:common_buttons:btn_switch_gamezone", self.common_buttons)
-	owner:Register(self.btn_switch_gamezone, "teleport_btn_switch_gamezone")
-	table.insert(self.common_buttons_controls, self.btn_switch_gamezone)
+	self.checkbox_gamezone = xml:InitCheck("frame_right_teleport:common_buttons:checkbox_gamezone", self.common_buttons)
+	owner:Register(self.checkbox_gamezone, "teleport_checkbox_gamezone")
+	self.checkbox_gamezone:SetCheck(true)
+	table.insert(self.common_buttons_controls, self.checkbox_gamezone)
+	
+	self.checkbox_invulnerable = xml:InitCheck("frame_right_teleport:common_buttons:checkbox_invulnerable", self.common_buttons)
+	owner:Register(self.checkbox_invulnerable, "teleport_checkbox_invulnerable")
+	self.checkbox_invulnerable:SetCheck(false)
+	table.insert(self.common_buttons_controls, self.checkbox_invulnerable)
 	-- -UDP
 	-- раздел поиска объекта, информация
 	self.find_object_info = xml:InitFrame("frame_right_teleport:find_object_info", owner.frame_right)
@@ -201,7 +207,8 @@ function teleport:InitCallbacks(owner)
 	owner:AddCallback("teleport_btn_current", ui_events.BUTTON_CLICKED, self.OnBtnCurrent, self)
 	owner:AddCallback("teleport_btn_go", ui_events.BUTTON_CLICKED, self.OnBtnGo, self)
 	owner:AddCallback("teleport_btn_fly", ui_events.BUTTON_CLICKED, self.OnBtnFly, self) -- +UDP
-	owner:AddCallback("teleport_btn_switch_gamezone", ui_events.BUTTON_CLICKED, self.OnBtnSwitchGamezone, self) -- +UDP
+	owner:AddCallback("teleport_checkbox_gamezone", ui_events.BUTTON_CLICKED, self.OnCheckGamezone, self) -- +UDP
+	owner:AddCallback("teleport_checkbox_invulnerable", ui_events.BUTTON_CLICKED, self.OnCheckInvulnerable, self) -- +UDP
 	owner:AddCallback("teleport_btn_name_ok", ui_events.BUTTON_CLICKED, self.OnBtnNameOk, self)
 	owner:AddCallback("teleport_btn_name_cancel", ui_events.BUTTON_CLICKED, self.OnBtnNameCancel, self)
 	owner:AddCallback("teleport_textbox_name", ui_events.EDIT_TEXT_COMMIT, self.OnBtnNameOk, self)
@@ -385,15 +392,16 @@ function teleport:OnTabChange()
 	-- первый элемент (телепорт) добавляем и далее выбираем по умолчанию
 	self.owner:AddPrimaryListItem(self.location_list, game.translate_string("tool_teleport_custom"), "custom", self.color[0])
 	-- разделительная пустая строка
-	self.owner:AddPrimaryListItem(self.location_list, "", "null", self.color[0])
+	--self.owner:AddPrimaryListItem(self.location_list, "", "null", self.color[0])-- +UDP
 	-- второй элемент (поиск объекта) добавляем также вручную
 	self.owner:AddPrimaryListItem(self.location_list, game.translate_string("tool_teleport_find_object"), "find_object", self.color[0])
 	-- разделительная пустая строка
-	self.owner:AddPrimaryListItem(self.location_list, "", "null", self.color[0])
+	--self.owner:AddPrimaryListItem(self.location_list, "", "null", self.color[0])-- +UDP
 	-- остальные элементы списка локаций
 	for _,location in ipairs(self.tLocations) do
 		self.owner:AddPrimaryListItem(self.location_list, location.name, location.id, self.color[0])
 	end
+	self:SetLocation("custom")-- +UDP
 end
 
 -- установка выбранной локации
@@ -752,14 +760,20 @@ function teleport:OnBtnFly()
 	self.owner:OnQuit()
 end
 
-function teleport:OnBtnSwitchGamezone()
-	if xr_conditions.__local_actor_alive == nil then
+function teleport:OnCheckGamezone()
+	local set = self.checkbox_gamezone:GetCheck()
+	if not set and xr_conditions.__local_actor_alive == nil then
 		xr_conditions.__local_actor_alive = xr_conditions.local_actor_alive
 		xr_conditions.local_actor_alive = function(actor, npc) return false end
-	else
+	elseif xr_conditions.__local_actor_alive ~= nil then
 		xr_conditions.local_actor_alive = xr_conditions.__local_actor_alive
 		xr_conditions.__local_actor_alive = nil
 	end
+end
+
+function teleport:OnCheckInvulnerable()
+	local set = self.checkbox_invulnerable:GetCheck()
+	rc.cl_set_invulnerable(LocalActor(), set)
 end
 -- -UDP
 

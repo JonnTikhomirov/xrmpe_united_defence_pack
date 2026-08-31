@@ -1,3 +1,4 @@
+;+PVP
 [wpn_rpk]:identity_immunities,weapon_probability,default_weapon_params
 GroupControlSection     = spawn_group
 $spawn                  = "weapons\rpk"        ; name and section in level editor
@@ -317,9 +318,9 @@ shell_point			= 0.0,-9.0,0.0
 shell_dir                       = 0.0,0.0,0.0
 shell_bone			= bolt
 
-fire_point			= 0.0,-0.009,0.518
+fire_point			= 0.0,-0.009,0.668;0.518;+UDP
 fire_bone                       = wpn_body
-fire_point2                     = 0.0,-0.078,0.327                       ; глушитель 0.0,-0.009,0.728
+fire_point2                     = 0.0,-0.078,0.477;0.327;+UDP                       ; глушитель 0.0,-0.009,0.728
 fire_bone2                      = wpn_body
 
 disable_bore = true                                            ;отключение анимации скуки

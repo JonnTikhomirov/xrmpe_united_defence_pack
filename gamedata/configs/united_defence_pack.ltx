@@ -1,7 +1,7 @@
 [slots_item_replace]
 ; подставляются предметы из той же группы, в начале приоритетнее
 group1 = mp_medkit_army, mp_medkit_scientic, mp_medkit, medkit, medkit_army, medkit_scientic
-group2 = mp_energy_drink_nonstop, mp_energy_drink, energy_drink, energy_drink_nonstop
+group2 = energy_drink_nonstop, mp_energy_drink, energy_drink
 group3 = mp_antirad, vodka, mp_antirad_old, antirad
 group4 = conserva, kolbasa, bread
 
@@ -48,3 +48,54 @@ custom_data = scripts\df_pripyat_center\df_pripyat_center_logic_restrictor_music
 [df_yantar_logic_restrictor_music]:space_restrictor
 $spawn = "df_yantar_logic_restrictor_music"
 custom_data = scripts\df_yantar\df_yantar_logic_restrictor_music.ltx
+
+[heli_flame_light]:lights_hanging_lamp
+$spawn        = "physics\heli flame lamp"
+range 			= 30
+brightness		= 1.0
+color			= 0.9,0.9,0.5
+color_animator	= koster_00
+type_spot		= false
+point_ambient 	= true
+ambient_radius 	= 10
+ambient_power 	= 1
+
+[heli_crash_light]:heli_flame_light
+$spawn        = "physics\heli crash lamp"
+range 			= 40
+custom_data = scripts\heli_crash_fire_light.ltx
+
+[heli_anomaly_light]:lights_hanging_lamp
+$spawn        = "physics\heli_anomaly_light"
+range 			= 100
+brightness		= 1.0
+color			= 0.7,0.83,1.0
+color_animator	= koster_01_electra
+type_spot		= false
+point_ambient 	= true
+ambient_radius 	= 20
+ambient_power 	= 1
+custom_data = scripts\df_yantar\heli_anomaly_light.ltx
+
+[grenade_flare_light]:lights_hanging_lamp
+$spawn        = "physics\grenade_flare_light"
+visual_name 	= dynamics\weapons\wpn_grenade_flare\wpn_grenade_flare
+bone 			= cheka
+ambient_bone 	= cheka
+
+script_binding 	= bind_grenade.init_flare_light
+
+range 			= 18.0
+brightness		= 1.5
+color			= 0.604,0.737,0.314
+color_animator	= light_green
+type_spot		= false
+point_ambient 	= true
+ambient_radius 	= 5
+ambient_power 	= 1
+physic 			= true
+
+; special
+particles		= anomaly2\dev_flare
+snd 			= device\dev_flare
+time 			= 58; сек

@@ -1,0 +1,150 @@
+-- +UDP
+---------------------------------------------------------------------------------------------------
+-- grenade binder
+----------------------------------------------------------------------------------------------------
+
+function init(obj)
+	if not OnServer() then
+		return
+	end
+	db.storage[obj:id()] = { }
+	local new_binder = grenade_flare_binder(obj)
+	obj:bind_object(new_binder)
+end
+
+function init_flare_light(obj)
+	db.storage[obj:id()] = { }
+	local new_binder = light_flare_binder(obj)
+	obj:bind_object(new_binder)
+end
+
+---------------------------------------------------------------------------------------------
+class "grenade_flare_binder" (object_binder)
+function grenade_flare_binder:__init(obj) super(obj)
+	self.object:set_fastcall(self.fastcall, self)
+end
+
+function grenade_flare_binder:reinit()
+	object_binder.reinit(self)
+end
+
+function grenade_flare_binder:fastcall()
+	if not self.object then
+		return true
+	end
+	if self.parent_id == nil and self.object:parent() and self.object:parent():clsid() == clsid.wpn_grenade_f1_s then
+		self.parent_id = self.object:parent():id()
+	end
+	if self.object:parent() == nil and self.parent_id ~= nil then
+		local vel = utils.get_grenade_velocity(self.object)
+
+		local sobj = alife():create("grenade_flare_light", self.object:position(),0,0)
+
+		level.client_spawn_manager():add(sobj.id, 65535,
+			function (id, obj)
+				utils.apply_impulse(obj, vel)
+			end
+		)
+		
+		local packet = net_packet()
+		u_EventGen(packet, 8, self.object:id()) --GE_DESTROY
+		u_EventSend(packet)
+		return true
+	end
+	return false
+end
+
+class "light_flare_binder" (object_binder)
+function light_flare_binder:__init(obj) super(obj)
+end
+
+function light_flare_binder:net_spawn(sobj)
+	if not object_binder.net_spawn(self, sobj) then
+		return false
+	end
+	db.add_obj(self.object)
+
+	self.lamp = self.object:get_hanging_lamp()
+
+	local ini = system_ini()
+	local sect = self.object:section()
+
+	self.timer_sec = utils.cfg_get_number(ini, sect, "time", self.object, false, nil)
+	if self.timer_sec then
+		self.stop_time = time_global() + self.timer_sec * 1000
+	end
+	
+	if OnClient() then
+		self.bone = "cheka"
+		if sobj.bone and sobj.bone ~= "" then
+			self.bone = sobj.bone
+		end
+
+		self.particle_path 	= utils.cfg_get_string(ini, sect, "particles", self.object, false, "", nil)
+		self.snd_path 		= utils.cfg_get_string(ini, sect, "snd", self.object, false, "", nil)
+
+		if self.particle_path then
+			self.particle = xr_effects.play_particle_at_npc(db.actor, self.object, { self.particle_path, bone })
+		end
+		
+		if self.snd_path then
+			local pos = self.object:position()
+			if self.bone then
+				pos = self.object:bone_position(self.bone)
+			end
+			self.snd = sound_object(self.snd_path)
+			self.snd:play_at_pos(self.object, pos, 0, sound_object.s3d)
+		end
+	end
+	self.object:set_fastcall(self.fastcall, self)
+end
+
+function light_flare_binder:net_destroy()
+	db.del_obj(self.object)
+	object_binder.net_destroy(self)
+end
+
+function light_flare_binder:fastcall()
+	if not self.object then
+		return true
+	end
+
+	if self.stop_time and time_global() > self.stop_time then
+		if OnClient() then
+			if self.snd then
+				self.snd:stop()
+				self.snd = nil
+			end
+			if self.particle then
+				self.particle:stop()
+				self.particle = nil
+			end
+		end
+		self.lamp:turn_off()
+		return true
+	end
+
+	if not self.lamp:isOn() then
+		self.lamp:turn_on()
+	end
+
+	if OnClient() then
+		local pos = self.object:position()
+		if self.bone then
+			pos = self.object:bone_position(self.bone)
+		end
+		if self.particle and self.particle:playing() then
+			local fly_dir = vector()
+			local phys_shell = self.object:get_physics_shell()
+			if phys_shell then
+				phys_shell:get_linear_vel(fly_dir)
+			end
+			self.particle:move_to(pos, fly_dir)
+		end
+		if self.snd then
+			self.snd:set_position(pos)
+		end
+	end
+
+	return false
+end

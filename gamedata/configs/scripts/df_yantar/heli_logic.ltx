@@ -38,7 +38,7 @@ use_rocket = false
 fire_trail = false
 invulnerable = true
 immortal = true
-on_signal = path_end | heli_move@anomaly %=play_particle_at_npc(anomaly2\tornado_00) =play_sound(emi_blowout)%
+on_signal = path_end | heli_move@anomaly %=play_particle_at_npc(anomaly2\tornado_00) =play_sound(emi_blowout) =xrmpe_client_spawn(heli_anomaly_light:df_yan_heli_way_death)%
 
 [heli_move@anomaly]
 path_move = df_yan_heli_way_death

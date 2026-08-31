@@ -146,7 +146,7 @@ end
 function printf_msg(fmt, ...)
 	-- + UP надежный вывод сообщений
 	-- print_msg(string.format(fmt, ...))
-	print_msg(string_format_safe_errors(fmt, ...))
+	print_msg(string.exformat(fmt, ...))
 	-- - UP
 end
 
@@ -1308,6 +1308,62 @@ function set_df_enemy_relation_to_actor(npc, actor)
 		actor_id = actor.id
 	end
 	SetGoodwillForce(npc:id(), actor_id, -10000)
+end
+
+function check_quickslots()
+	to_log("quick slots sections check...")
+	local slot_name = "slot_0"
+	local current_section = get_console():get_string(slot_name)
+	if current_section and not system_ini():section_exist(current_section) then
+		to_log("section in quick slot 0 does not exist")
+		get_console():execute(slot_name .. " mp_medkit")
+	end
+	slot_name = "slot_1"
+	current_section = get_console():get_string(slot_name)
+	if current_section and not system_ini():section_exist(current_section) then
+		to_log("section in quick slot 1 does not exist")
+		get_console():execute(slot_name .. " mp_energy_drink")
+	end
+	slot_name = "slot_2"
+	current_section = get_console():get_string(slot_name)
+	if current_section and not system_ini():section_exist(current_section) then
+		to_log("section in quick slot 2 does not exist")
+		get_console():execute(slot_name .. " mp_antirad")
+	end
+	slot_name = "slot_3"
+	current_section = get_console():get_string(slot_name)
+	if current_section and not system_ini():section_exist(current_section) then
+		to_log("section in quick slot 3 does not exist")
+		get_console():execute(slot_name .. " conserva")
+	end
+end
+
+local appdata_inis_cache = nil
+
+function appdata_inis()
+	
+	if not appdata_inis_cache then
+
+		appdata_inis_cache = {}
+
+		local files = {
+			radmins = "radmins.ltx"
+		}
+
+		for k,v in pairs(files) do
+			if getFS():exist("$app_data_root$", v) then
+				local fname = getFS():update_path("$app_data_root$", v)
+				file = io.open(fname)
+				if file then
+					local str = file:read("*a")
+					file:close()
+					appdata_inis_cache[k] = lua_helper.fParse_CustomData(str)
+				end
+			end
+		end
+	end
+
+	return appdata_inis_cache
 end
 
 -- ++ The Tool

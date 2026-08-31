@@ -63,6 +63,19 @@ function heli_binder:reinit()
 	self.snd_damage = utils.cfg_get_string( object_ini, "helicopter", "snd_damage", self.object, false, "", "heli_damaged")
 	self.snd_down	= utils.cfg_get_string( object_ini, "helicopter", "snd_down", self.object, false, "", "heli_down")
 	
+	-- +UDP
+	self.flame_lamp_section	= utils.cfg_get_string(ltx, self.object:section(), "flame_lamp_section", self.object, false, "", nil)
+	if self.flame_lamp_section and not ltx:section_exist(self.flame_lamp_section) then
+		to_log("heli flame_lamp_section %s does not exist", self.flame_lamp_section)
+		self.flame_lamp_section = nil
+	end
+	self.explode_lamp_section = utils.cfg_get_string(ltx, self.object:section(), "explode_lamp_section", self.object, false, "", nil)
+	if self.explode_lamp_section and not ltx:section_exist(self.explode_lamp_section) then
+		to_log("heli explode_lamp_section %s does not exist", self.explode_lamp_section)
+		self.explode_lamp_section = nil
+	end
+	self.st.explode_lamp_section = self.explode_lamp_section
+	-- -UDP
 	-- на случай загрузки
 	self.st.last_alt       = self.heliObject:GetRealAltitude()
 	self.st.alt_check_time = time_global() + 1000
@@ -92,12 +105,29 @@ function heli_binder:update( delta )
 	self:check_health()
 
 	xr_sound.update(self.object:id())
-	-- +UP
+	-- +UDP
 	if self.m_flame_started ~= nil and self.m_flame_started ~= self.heliObject.m_flame_started then
-		-- alife():create("hanging_lamp", self.object:position(), 0, 0)
 		self.need_send_update = true
 	end
 	self.m_flame_started = self.heliObject.m_flame_started
+
+	if self.flame_lamp_section then
+		if self.m_flame_started and not self.flame_light_id then
+			local sobj = alife():create(self.flame_lamp_section, self.object:bone_position("front_propeller"), 0, 0)
+			if sobj then
+				self.flame_light_id = sobj.id
+				self.st.lights = self.st.lights or {}
+				self.st.lights[self.flame_light_id] = sobj
+			end
+		elseif not self.m_flame_started and self.flame_light_id then
+			alife():release(alife():object(self.flame_light_id))
+		end
+	end
+
+	if self.dead ~= nil and self.dead ~= self.heliObject.m_dead then
+		self.need_send_update = true
+	end
+	self.dead = self.heliObject.m_dead
 
 	if self.exploded ~= nil and self.exploded ~= self.heliObject.m_exploded then
 		self.need_send_update = true
@@ -112,9 +142,60 @@ function heli_binder:update( delta )
 	if self.need_send_update == true then
 		send_script_update(self.object)
 	end
-	-- -UP
-	heli_say_update(self.object)-- +UP
+	heli_say_update(self.object)
+	self:check_lights()
+	-- -UDP
 end
+
+-- +UDP
+function heli_binder:lights_fastcall()
+	if not self.st or not self.st.lights then
+		return true
+	end
+
+	if self.heliObject.m_exploded or not db.heli[self.object:id()] then
+		for id, sobj in pairs(self.st.lights) do
+			alife():release(sobj)
+		end
+		self.st.lights = nil
+	else
+		local keys_to_remove = {}
+		local has_any = false
+		for id, sobj in pairs(self.st.lights) do
+			
+			if alife():object(id) == nil then
+				table.insert(keys_to_remove, id)
+			else
+				has_any = true
+				local threshold = 0.5-- метры разницы клиентского и серверного объекта
+				sobj:set_online_pos(self.object:bone_position("front_propeller"), threshold)
+			end
+		end
+
+		for _, id in ipairs(keys_to_remove) do
+			self.st.lights[id] = nil
+		end
+
+		if not has_any then
+			self.st.lights = nil
+			return true
+		end
+		return false
+	end
+	return true
+end
+
+function heli_binder:check_lights()
+	if self.st.lights then
+		if not self.lights_fastcall_actived then
+			self.object:set_fastcall(self.lights_fastcall, self)
+			self.lights_fastcall_actived = true
+		end
+	else
+		self.lights_fastcall_actived = false
+	end
+end
+-- -UDP
 
 function heli_binder:net_spawn( data )
 	if not object_binder.net_spawn( self, data ) then
@@ -131,6 +212,7 @@ function heli_binder:net_destroy()
 	db.del_obj( self.object )
 	db.del_heli( self.object )
 
+	self:lights_fastcall()-- +UDP в это время уже не вызывается сам
 	object_binder.net_destroy( self )
 end
 
@@ -285,8 +367,10 @@ function heli_binder_cl:reinit()
 
 	self.heli = self.object:get_helicopter()
 
-	self.flame_particle_path = utils.cfg_get_string(system_ini(), "helicopter", "smoke_particle", self.object, false, "", nil)
-	self.flame_snd_path = utils.cfg_get_string(system_ini(), "helicopter", "broken_snd", self.object, false, "", nil)
+	self.flame_particle_path = utils.cfg_get_string(system_ini(), self.object:section(), "smoke_particle", self.object, false, "", nil)
+	self.flame_snd_path = utils.cfg_get_string(system_ini(), self.object:section(), "broken_snd", self.object, false, "", nil)
+	self.to_die_particle_path = utils.cfg_get_string(system_ini(), self.object:section(), "to_die_particle", self.object, false, "", nil)
+	self.to_die_snd_path = utils.cfg_get_string(system_ini(), self.object:section(), "snd_to_die", self.object, false, "", nil)
 end
 
 function heli_binder_cl:net_spawn(data)
@@ -303,15 +387,7 @@ end
 function heli_binder_cl:net_destroy()
 	db.del_obj( self.object )
 	db.del_heli( self.object )
-	if self.flame_particle ~= nil then
-		self.flame_particle:stop()
-		self.flame_particle = nil
-	end
-	self.heli:TurnLighting(false)
-	if self.flame_snd ~= nil then
-		self.flame_snd:stop()
-		self.flame_snd = nil
-	end
+	self:fastcall()
 	object_binder.net_destroy( self )
 end
 
@@ -330,11 +406,30 @@ function heli_binder_cl:update(delta)
 end
 
 function heli_binder_cl:fastcall()
+	
+	if not self.heli or not self.object then
+		to_log("fastcall exit")
+		return true
+	end
 
-	self:update_particles()
-	self:update_sound()
-
-	return self.heli.m_exploded or not db.heli[self.object:id()]-- снять апдейт если взорвались или удаляемся
+	self:particles_fastcall()
+	self:sound_fastcall()
+	if self.heli.m_exploded == true then
+		self:update(0) -- обработчик не работает сам после взрыва
+		return true
+	else
+		-- падает
+		if (self.st and self.st.m_dead or self.heli:GetfHealth() <= 0) then
+			if self.to_die_particle_path and not self.die_particle then
+				self.die_particle = xr_effects.play_particle_at_npc(db.actor, self.object, { self.to_die_particle_path, "root"})
+			end
+			if self.to_die_snd_path and not self.to_die_snd then
+				self.to_die_snd = sound_object(self.to_die_snd_path)
+				self.to_die_snd:play_at_pos(self.object, self.object:position(), 0, sound_object.s3d)
+			end
+		end
+	end
+	return not db.heli[self.object:id()]
 end
 
 function heli_binder_cl:update_flame()
@@ -347,12 +442,13 @@ function heli_binder_cl:update_flame()
 	else
 		if self.flame_particle ~= nil then
 			self.flame_particle:stop()
+			self.flame_particle = nil
 		end
 		self.heli:TurnLighting(false)
 	end
 end
 
-function heli_binder_cl:update_sound()
+function heli_binder_cl:sound_fastcall()
 
 	local set_flame_snd = self.heli.m_flame_started
 
@@ -361,7 +457,7 @@ function heli_binder_cl:update_sound()
 		set_flame_snd = true
 	end
 
-	if set_flame_snd == true and self.heli.m_exploded == false then
+	if set_flame_snd == true and self.heli.m_exploded == false and db.heli[self.object:id()] then
 		local pos = self.object:bone_position("front_propeller")
 
 		if self.flame_snd == nil and self.flame_snd_path ~= nil then
@@ -373,24 +469,40 @@ function heli_binder_cl:update_sound()
 		end
 	elseif self.flame_snd ~= nil then
 		self.flame_snd:stop()
+		self.flame_snd = nil
 	end
 end
 
-function heli_binder_cl:update_particles()
-	if not self.st.particles then
-        return
-    end
-	for i = #self.st.particles, 1, -1 do
-		local v = self.st.particles[i]
+function heli_binder_cl:particles_fastcall()
+	if not self.st or not self.st.particles then
+		return
+	end
+
+	local to_remove = {}
+	local has_any = false
+	for i, v in ipairs(self.st.particles) do
 		if v ~= nil then
-			if v[1]:playing() then
+			if not db.heli[self.object:id()] then
+				v[1]:stop()
+				table.insert(to_remove, i)
+			elseif v[1]:playing() then
 				local pos = self.object:position()
 				if v[2] ~= nil and v[2] ~= "" then
 					pos = self.object:bone_position(v[2])
 				end
 				v[1]:move_to(pos, self.heli:GetCurrVelocityVec())
+				has_any = true
+			else
+				table.insert(to_remove, i)
 			end
 		end
+	end
+
+	for _, i in ipairs(to_remove) do
+		self.st.particles[i] = nil
+	end
+	if not has_any then
+		self.st.particles = nil
 	end
 end
 
@@ -443,6 +555,7 @@ function send_script_update(npc)
 	packet:w_float(heli:GetfHealth())
 	packet:w_bool(heli.m_flame_started)
 	packet:w_bool(heli.m_exploded)
+	packet:w_bool(heli.m_dead)
 
 	local show_health = false
 	local st = db.storage[npc:id()]
@@ -459,6 +572,7 @@ function read_script_update(packet)
 	local health = packet:r_float()
 	local burning = packet:r_bool()
 	local exploded = packet:r_bool()
+	local dead = packet:r_bool()
 	local show_health = packet:r_bool()
 
 	local st = db.storage[id]
@@ -473,6 +587,7 @@ function read_script_update(packet)
 		heli:Explode() -- на клиенте ставит флаг разрушения, останавливает апдейт биндера, не взрывает
 	end
 
+	st.m_dead = dead
 	st.show_health = show_health
 end
 
@@ -480,21 +595,19 @@ function heli_explode_update()
 	for k,v in pairs(db.heli) do
 		if v ~= nil then
 			local st = db.storage[v:id()]
-			if OnServer() then
-				if st.release_time ~= nil and time_global() > st.release_time then
-					st.release_time = nil
-					alife():release(alife():object(v:id()))
-				else
-					local heli = v:get_helicopter()
-					if heli.m_exploded == true and st.exploded ~= true then
-						st.exploded = true
-						st.release_time = time_global() + 20000 -- звук взрыва играет 20 сек
-						send_script_update(v)
+			if st.release_time ~= nil and time_global() > st.release_time then
+				st.release_time = nil
+				alife():release(alife():object(v:id()))
+			else
+				local heli = v:get_helicopter()
+				if heli.m_exploded == true and st.exploded ~= true then
+					st.exploded = true
+					st.release_time = time_global() + 20000 -- звук взрыва играет 20 сек
+					send_script_update(v)
+					
+					if st.explode_lamp_section then
+						alife():create(st.explode_lamp_section, st.object:position(), 0, 0)
 					end
-				end
-			elseif OnClient() and v:get_helicopter().m_exploded == true then
-				if st.binder ~= nil then
-					st.binder:update(0) -- обработчик не работает сам после взрыва
 				end
 			end
 		end

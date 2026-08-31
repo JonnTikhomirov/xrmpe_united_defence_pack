@@ -28,7 +28,7 @@ silencer_bone = wpn_silencer
 def_hide_bones_override_when_gl_attached = handguard, rail_handguard, grip, bayonet
 
 ;--TTX--------------------------------------------------------------------------
-hit_power               = 0.95, 0.95, 0.95, 0.95;1.1, 1.1, 1.1, 1.1; +UP
+hit_power               = 0.9, 0.9, 0.9, 0.9;1.1, 1.1, 1.1, 1.1; +UDP
 hit_impulse             = 100
 hit_type				= fire_wound
 rpm                     = 710;600; +UP
@@ -51,9 +51,9 @@ misfire_start_prob	     	= 0.005
 ;шанс осечки при изношености больше чем misfireEndCondition
 misfire_end_prob	     	= 0.06
 ;увеличение изношености при одиночном выстреле
-condition_shot_dec      	= 0.0001
+condition_shot_dec      	= 0.0004;0.0001;+UDP
 ;увеличение изношености при выстреле очередью
-condition_queue_shot_dec	= 0.0001
+condition_queue_shot_dec	= 0.0007;0.0001;+UDP
 
 ammo_elapsed            = 30
 ammo_mag_size           = 30
@@ -180,7 +180,7 @@ ph_mass                 = 4
 
 ;addons
 scope_status            = 1
-silencer_status         = 2
+silencer_status         = 0;2;+UDP
 grenade_launcher_status = 1
 restricted_gl_and_sil = true
 

@@ -43,6 +43,7 @@ end
 
 -- +UDP
 local function TryAuthiruzeAndInit(keyboard_key, show)
+	to_log("TryAuthiruzeAndInit send")
 	rc.cl_check_auth(function(authorized, message)
 		if authorized then
 			to_log("Tool Authorized")
@@ -54,8 +55,6 @@ local function TryAuthiruzeAndInit(keyboard_key, show)
 			end
 		else
 			to_log("Tool Authorize failed: %s", tostring(message))
-			keylogger.unbind_console_key(keyboard_key)
-			keylogger.bind_console_key(keyboard_key, function() TryAuthiruzeAndInit(keyboard_key, true) end)
 		end
 	end)
 end
@@ -63,7 +62,7 @@ end
 function TryInit()
 	local ltx = ini_file(sLtxPath)
 	local keyboard_key = string.upper(Get_Cfg_String(ltx, "key_bindings", "tool_manager", "J"))
-	TryAuthiruzeAndInit(keyboard_key)
+	keylogger.bind_console_key(keyboard_key, function() TryAuthiruzeAndInit(keyboard_key, true) end)
 end
 -- -UDP
 
@@ -164,7 +163,6 @@ function GetDebugManagerDialog(owner)
 	if oDebugManager == nil then
 		oDebugManager = tool_manager(owner)
 	elseif owner ~= nil then
-		to_log("11111111 %s", tSettings.sStartTabName)
 		oDebugManager:OnTabChange(tSettings.sStartTabName)
 	end
 	return oDebugManager --/>

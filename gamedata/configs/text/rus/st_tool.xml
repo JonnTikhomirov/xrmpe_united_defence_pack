@@ -652,8 +652,11 @@
 	<string id="tool_fly">
 		<text>Полет</text>
 	</string>
-	<string id="tool_switch_gamezone">
-		<text>Вкл/выкл границы</text>
+	<string id="tool_gamezone">
+		<text>Границы уровня</text>
+	</string>
+	<string id="tool_invulnerable">
+		<text>Бессмертие</text>
 	</string>
 	<!-- -UDP -->
 </string_table>
