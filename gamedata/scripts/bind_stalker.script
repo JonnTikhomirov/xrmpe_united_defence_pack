@@ -852,6 +852,15 @@ function actor_binder:update(delta)
 			self.weather_repaired = true
 		end
 		if self.tool_tryInit ~= true then-- LocalActor() не равен 0 только когда начинается update, иначе возврат команды авторизации приходит не тому клиенту
+			local appdata = appdata_inis()
+			if appdata and appdata.radmins and appdata.radmins.radmins then
+				for k, v in pairs(appdata.radmins.radmins) do
+					if k ~= "" and v ~= "<<no_value>>" then
+						get_console():execute("ra login "..k.." "..v)
+						break
+					end
+				end
+			end
 			-- ++ The Tool
 			lua_helper.attach() -- если вспомогательный модуль Артоса ещё не подключён
 			m_netpk.attach() -- если модуль нет-пакетов Артоса ещё не подключён

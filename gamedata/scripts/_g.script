@@ -1338,6 +1338,34 @@ function check_quickslots()
 	end
 end
 
+local appdata_inis_cache = nil
+
+function appdata_inis()
+	
+	if not appdata_inis_cache then
+
+		appdata_inis_cache = {}
+
+		local files = {
+			radmins = "radmins.ltx"
+		}
+
+		for k,v in pairs(files) do
+			if getFS():exist("$app_data_root$", v) then
+				local fname = getFS():update_path("$app_data_root$", v)
+				file = io.open(fname)
+				if file then
+					local str = file:read("*a")
+					file:close()
+					appdata_inis_cache[k] = lua_helper.fParse_CustomData(str)
+				end
+			end
+		end
+	end
+
+	return appdata_inis_cache
+end
+
 -- ++ The Tool
 --/-------------------------------------------------------------------
 --/#+# initialize modules [lua_helper/lua_extensions]
