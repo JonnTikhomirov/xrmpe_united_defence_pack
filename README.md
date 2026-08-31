@@ -8,8 +8,8 @@
 
 Актуальный релиз: [**СКАЧАТЬ** 0.5.5](https://github.com/JonnTikhomirov/xrmpe_united_defence_pack/releases/download/v0.5.5/xrMPE_United_Defence_Pack.7z)
 
-https://disk.yandex.ru/d/_Sxr8kBe3dRXbA
-https://drive.google.com/file/d/1bU5CVuD5unlYgPltQnAH_fUep5tylET_
+[Яндекс Диск](https://disk.yandex.ru/d/_Sxr8kBe3dRXbA)
+[Гугл Диск](https://drive.google.com/file/d/1bU5CVuD5unlYgPltQnAH_fUep5tylET_)
 
 ## Цели
 
