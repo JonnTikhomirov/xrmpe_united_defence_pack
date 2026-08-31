@@ -86,7 +86,6 @@ local RC_STATUS_DENIED = 2
 function init()
 	to_log("RC.init")
 	local appdata = appdata_inis()
-	table.print(appdata)
 	if appdata and appdata.radmins then
 		if appdata.radmins.rc_keys then
 			for k, v in pairs(appdata.radmins.rc_keys) do
