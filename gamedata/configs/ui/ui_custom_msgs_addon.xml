@@ -14,4 +14,8 @@
 		</auto_text>
 	</auto_lineview>
 </heli_boss>
+
+<hud_env_timer x="61" y="1019" width="40" height="20">
+	<text x="0" y="0" font="din_next17_bold" r="255" g="255" b="255" a="255" aling="c" vert_align="c" outline="2"/>
+</hud_env_timer>
 <!-- - UP -->

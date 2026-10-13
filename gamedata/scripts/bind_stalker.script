@@ -868,7 +868,16 @@ function actor_binder:update(delta)
 			if keylogger then keylogger.on_load() end
 			-- -- The Tool
 			if tool then tool.TryInit() end
+
+			local hud = get_hud()
+			hud:AddCustomStatic("hud_env_timer", true)
+			self.env_time_static = hud:GetCustomStatic("hud_env_timer"):wnd()
+
 			self.tool_tryInit = true
+		end
+
+		if self.env_time_static then
+			self.env_time_static:TextControl():SetText(Get_StrTimeOrDate("m"))
 		end
 	end
 	-- -UDP
