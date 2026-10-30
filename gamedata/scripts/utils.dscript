@@ -222,3 +222,52 @@ function apply_impulse(obj, velocity_vector)
 	obj:hit(h)
 	shell:block_breaking()
 end
+
+function alife_create(sect, pos, level_vertex_id, game_vertex_id, npc_id)
+
+	local sobj = nil
+	if npc_id then
+		sobj = alife():create(sect, pos, level_vertex_id, game_vertex_id, npc_id)
+	else
+		sobj = alife():create(sect, pos, level_vertex_id, game_vertex_id)
+	end
+
+	if not IsStalker(sobj) and not IsMonster(sobj) then
+		local pk = get_netpk(sobj, 1)
+		if pk:isOk() then
+			local data = pk:get()
+			local data_change = false
+			
+			if data.object_flags then
+				--data.object_flags = bit_and(data.object_flags, object_flags.UsedAI_Locations)
+				--data.object_flags = bit_and(data.object_flags, object_flags.VisibleForAI)
+				--data.object_flags = bit_and(data.object_flags, object_flags.UsefulForAI)
+				data.object_flags = bit_and(data.object_flags, object_flags.OfflineNoMove)
+				data_change = true
+			end
+
+			if data.shapes and (not data.shapes.count or data.shapes:count() == 0) then
+				
+				local ini = system_ini()
+				local radius = utils.cfg_get_number(ini, sect, "$def_sphere", sobj, false, 3)
+
+				data.shapes = m_netpk.complex_shape()
+				data.shapes:addSphere(radius, vector():set(0,0,0))
+
+				if string.find(sect, "zone_mine_gravitational") or string.find(sect, "field") or string.find(sect, "teleport") or string.find(sect, "death") or string.find(sect, "sarcofag") or string.find(sect, "zone_radioactive") then
+					data.custom_data:setStringRaw('field')
+				elseif string.find(sect, "ameba") or string.find(sect, "rusty") then
+					data.idle_animation = 'idle'
+					data.attack_animation = 'blast'
+				end
+				data_change = true
+			end
+
+			if data_change then
+				pk:set(data)
+			end
+		end
+	end
+	
+	return sobj
+end

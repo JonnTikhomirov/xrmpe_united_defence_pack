@@ -718,7 +718,7 @@ function spawn:OnBtnSpawn()
 		if self.checkbox_mode:GetCheck() then -- в инвентаре
 			-- +UDP
 			-- self:SpawnAmmo(section, number, db.actor:id(), vector(), 0, 0)
-			self:SpawnAmmo(section, number, LocalActor(), vector(), 0, 0)
+			self:SpawnAmmo(section, number, LocalActor(), vector():set(0,0,0), 0, 0)
 			-- -UDP
 		else -- в окр. мире
 			self:SpawnItems(section, number, nil, pos, lvid, gvid)
@@ -732,7 +732,7 @@ function spawn:OnBtnSpawn()
 		if self.checkbox_mode:GetCheck() then -- в инвентаре
 			-- +UDP
 			-- self:SpawnItems(section, number, db.actor:id(), vector(), 0, 0)
-			self:SpawnItems(section, number, LocalActor(), vector(), 0, 0)
+			self:SpawnItems(section, number, LocalActor(), vector():set(0,0,0), 0, 0)
 			-- -UDP
 		else -- в окр. мире
 			self:SpawnItems(section, number, nil, pos, lvid, gvid)
@@ -930,7 +930,7 @@ function spawn:SpawnAnomaly(section, radius, pos, lvid, gvid)
 	-- 		pk:set(data)
 	-- 	end
 	-- end
-	to_log("SpawnAnomaly skip")--TODO: сделать спавн аномалий
+	rc.cl_spawn(section, pos, lvid, gvid, nil, 1)
 	-- - UP
 end
 

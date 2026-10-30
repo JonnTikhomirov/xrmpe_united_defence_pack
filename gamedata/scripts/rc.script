@@ -1004,21 +1004,10 @@ RC_SPAWN = register{
 	sv_handler = function(args)
 		for i = 1,args.count,1 do
 			local sobj = nil
-			if args.npc_id == 0 then
-				sobj = alife():create(args.section, args.pos, args.lvid, args.gvid)
+			if not args.npc_id or args.npc_id == 0  then
+				utils.alife_create(args.section, args.pos, args.lvid, args.gvid)
 			else
-				sobj = alife():create(args.section, args.pos, args.lvid, args.gvid, args.npc_id)
-			end
-			local pk = get_netpk(sobj, 1)
-			if pk:isOk() then
-				local data = pk:get()
-				if data.object_flags then
-					data.object_flags = bit_and(data.object_flags, object_flags.UsedAI_Locations)
-					data.object_flags = bit_and(data.object_flags, object_flags.VisibleForAI)
-					data.object_flags = bit_and(data.object_flags, object_flags.UsefulForAI)
-					data.object_flags = bit_and(data.object_flags, object_flags.OfflineNoMove)
-					pk:set(data)
-				end
+				utils.alife_create(args.section, args.pos, args.lvid, args.gvid, args.npc_id)
 			end
 		end
 	end,
