@@ -202,7 +202,11 @@ function generic_object_binder:death_callback(victim, who)
 	h.power = 1
 	h.impulse = 10
 	self.object:hit(h)
-
+	-- +UDP
+	if self.e_index ~= nil then
+		db.delete_enemy( self.e_index )
+	end
+	-- -UDP
 	local obj_clsid = self.object:clsid()
 	if obj_clsid == clsid.poltergeist_s then
 		printf("releasing object ["..self.object:name().."]")
@@ -218,7 +222,7 @@ function generic_object_binder:hit_callback(obj, amount, local_direction, who, b
 	if(who and is_object_actor_by_id(who:id())) then
 		xr_statistic.set_best_weapon(amount, who)
 	end
-
+	
 	if self.st.hit then
 		xr_logic.issue_event(self.object, self.st.hit, "hit_callback", obj, amount, local_direction, who, bone_index)
 	end
@@ -316,7 +320,11 @@ function generic_object_binder:net_destroy()
 	------------------------------------------------n
 
 	db.del_obj(self.object)
-	db.delete_enemy(self.e_index)--+UP
+	-- +UDP
+	if self.e_index ~= nil then
+		db.delete_enemy( self.e_index )
+	end
+	-- -UDP
 	db.storage[self.object:id()] = nil
 	object_binder.net_destroy(self)
 end
