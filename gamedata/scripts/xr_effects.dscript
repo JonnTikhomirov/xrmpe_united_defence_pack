@@ -175,7 +175,7 @@ function play_particle_at_npc(actor, npc, p)
 	else
 		local pos = npc:position()
 		if bone ~= "" then
-			pos = npc:bone_position(bone)
+			pos = utils.bone_pos(npc, bone)
 		end
 		local prtcle = utils.play_particle(name, pos)
 		local st = db.storage[npc:id()]
