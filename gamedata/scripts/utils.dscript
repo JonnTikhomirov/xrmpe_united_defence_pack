@@ -223,6 +223,30 @@ function apply_impulse(obj, velocity_vector)
 	shell:block_breaking()
 end
 
+function replace_object(obj, new_sect, cl_spawn_func)
+	local m_level_vertex_id = 0
+	local m_game_vertex_id = 0
+	local replaced_sobj = alife():object(obj:id())
+	
+	if replaced_sobj then
+		-- брошенные гранаты не имеют серверного объекта
+		m_level_vertex_id = replaced_sobj.m_level_vertex_id
+		m_game_vertex_id = replaced_sobj.m_game_vertex_id
+	end
+	
+	sobj = utils.alife_create(new_sect, obj:position(), m_level_vertex_id, m_game_vertex_id)
+	
+	if cl_spawn_func then
+		level.client_spawn_manager():add(sobj.id, 65535, cl_spawn_func)
+	end
+
+	local packet = net_packet()
+	u_EventGen(packet, 8, obj:id()) --GE_DESTROY
+	u_EventSend(packet)
+
+	return sobj
+end
+
 function alife_create(sect, pos, level_vertex_id, game_vertex_id, npc_id)
 
 	local sobj = nil
@@ -270,4 +294,43 @@ function alife_create(sect, pos, level_vertex_id, game_vertex_id, npc_id)
 	end
 	
 	return sobj
+end
+
+function hit_ex(obj, whoID, hit_type, power, weaponID, impulse, dir, bone, armor_piercing)
+	local packet = net_packet()
+	--u_EventGen(packet, 53, obj:id()) --GE_HIT_STATISTIC
+	u_EventGen(packet, 5, obj:id()) --GE_HIT
+
+	packet:w_u16(whoID or 0)
+	packet:w_u16(weaponID or 0)
+	packet:w_dir(dir or vector():set(1,1,1))
+	packet:w_float(power or 100)
+
+	local p_in_bone_space = obj:position()
+	local boneID = 0
+	if bone then
+		boneID = obj:get_bone_id(bone)
+		if boneID == 65535 then
+			boneID = 0
+		else
+			p_in_bone_space = obj:bone_position(bone)
+		end
+	end
+
+	packet:w_u16(boneID)
+	packet:w_vec3(p_in_bone_space)
+	packet:w_float(impulse or 0)
+
+	if not hit_type then
+		hit_type = hit.fire_wound
+	end
+
+	packet:w_u16(hit_type)
+	if hit_type == hit.fire_wound then
+		packet:w_float(armor_piercing or 1);
+	end
+
+	-- packet:w_u32(bulletID or 0);
+	-- packet:w_u32(senderID or 0);
+	u_EventSend(packet)
 end

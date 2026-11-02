@@ -1366,6 +1366,39 @@ function appdata_inis()
 	return appdata_inis_cache
 end
 
+local parents_info = {}
+
+function update_parents_info(id, obj)
+	if not obj then
+		return
+	end
+	
+	parents_info[id] = {
+		id = obj:id(),
+		name = obj:name(),
+		section = obj:section(),
+		clsid = obj:clsid()
+	}
+	local parent = obj:parent()
+	-- if not parent then
+	-- 	local parent_info = parents_info[obj:id()]
+	-- 	if parent_info then
+	-- 		if db.storage[parent_info.id] then
+	-- 			parent = db.storage[parent_info.id].object
+	-- 		end
+	-- 		to_log(parent_info.name)
+	-- 	end
+	-- end
+	if parent then
+		update_parents_info(obj:id(), parent)
+	end
+end
+
+function get_parents_info(id)
+	--table.print(parents_info)
+	return parents_info[id]
+end
+
 -- ++ The Tool
 --/-------------------------------------------------------------------
 --/#+# initialize modules [lua_helper/lua_extensions]

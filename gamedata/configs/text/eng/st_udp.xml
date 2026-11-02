@@ -188,4 +188,11 @@
 	<string id="st_player_got_treasure">
 		<text> found the stash</text>
 	</string>
+
+	<string id="st_wpn_grenade_molotov">
+		<text>Molotov Cocktail</text>
+	</string>
+	<string id="st_wpn_grenade_molotov_descr">
+		<text>A glass bottle filled with a mixture of gasoline and thickener, with a cloth wick in the neck.</text>
+	</string>
 </string_table>

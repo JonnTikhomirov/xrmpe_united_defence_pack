@@ -192,4 +192,12 @@
 	<string id="st_player_got_treasure">
 		<text> нашел тайник</text>
 	</string>
+
+	<string id="st_wpn_grenade_molotov">
+		<text>Коктейль Молотова</text>
+	</string>
+
+	<string id="st_wpn_grenade_molotov_descr">
+		<text>Стеклянная бутылка, наполненная смесью бензина и загустителя, с тряпичным фитилём в горлышке.</text>
+	</string>
 </string_table>

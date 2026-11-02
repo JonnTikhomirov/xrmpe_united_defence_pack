@@ -1,0 +1,143 @@
+[dynamic_light]:lights_hanging_lamp
+script_binding 	= bind_dynamic_light.init
+
+range 			= 18.0
+brightness		= 1
+color			= 0.9,0.9,0.5
+color_animator	= koster_00
+type_spot		= false
+point_ambient 	= false
+ambient_radius 	= 5
+ambient_power 	= 1
+physic 			= true
+cast_shadow		= true
+
+; special
+time 			= ; сек время работы
+release_time	= ; сек время удаления объекта
+particles		=
+snd 			=
+
+[explosive_light]:dynamic_light
+script_binding 		= bind_dynamic_light.init_explosive
+
+; special
+particles_explode	=
+snd_explode			=
+explode_on_kick		= false
+
+throwable_part		=
+parts_count 		= 6
+parts_impulse 		= 10.0
+parts_impulse_rand 	= 0.0; 0.2 означает разброс силы импульса от -20% до +20%
+
+;Общий наклон вектора вверх.
+;0 — чисто горизонтальный разлет.
+;0.3 — умеренно вверх.
+parts_vertical_bias = 0.35
+
+parts_vertical_rand = 0.0; Случайный разброс вертикальной составляющей.
+
+;0 — идеально равномерный радиальный разброс.
+;Например, 0.15 — небольшой случайный сдвиг углов.
+parts_angle_jitter = 0.0
+
+;Смещение и высота спавна частей относительно точки взрыва.
+parts_spawn_offset = 0.03
+parts_spawn_height = 0.05
+
+[heli_flame_light]:lights_hanging_lamp
+$spawn        = "physics\heli flame lamp"
+range 			= 30
+brightness		= 1.0
+color			= 0.9,0.9,0.5
+color_animator	= koster_00
+type_spot		= false
+point_ambient 	= true
+ambient_radius 	= 10
+ambient_power 	= 1
+
+[heli_crash_light]:heli_flame_light
+$spawn        = "physics\heli crash lamp"
+range 			= 40
+custom_data = scripts\heli_crash_fire_light.ltx
+
+[heli_anomaly_light]:lights_hanging_lamp
+$spawn        = "physics\heli_anomaly_light"
+range 			= 100
+brightness		= 1.0
+color			= 0.7,0.83,1.0
+color_animator	= koster_01_electra
+type_spot		= false
+point_ambient 	= true
+ambient_radius 	= 20
+ambient_power 	= 1
+custom_data = scripts\df_yantar\heli_anomaly_light.ltx
+
+[grenade_flare_light]:dynamic_light
+$spawn        	= "physics\grenade_flare_light"
+visual_name 	= dynamics\weapons\wpn_grenade_flare\wpn_grenade_flare
+bone 			= cheka
+ambient_bone 	= cheka
+brightness		= 1.5
+point_ambient 	= true
+
+time 			= 58; сек время работы
+release_time	= 160; сек время удаления объекта
+
+color			= 0.604,0.737,0.314
+color_animator	= light_green
+
+particles		= anomaly2\dev_flare
+snd 			= device\dev_flare
+
+[grenade_molotov_light]:explosive_light
+$spawn        	= "physics\grenade_molotov_light"
+visual_name 	= dynamics\weapons\wpn_grenade_molotov\wpn_molotov
+bone 			= cloth_3
+ambient_bone 	= cloth_3
+range 			= 8
+
+time 			= 10; сек время работы
+release_time	= 12; сек время удаления объекта
+
+explode_on_kick			= true
+explosive_replacement 	= grenade_molotov_light_fire
+throwable_part			= grenade_molotov_light_part
+parts_impulse 			= 9.5
+
+particles				= damage_fx\burn_creatures_small_fast
+particles_explode 		= explosions\molotov_explosion
+snd 					= anomaly\fire2
+snd_explode				= weapons\molotov\molotov_boom
+
+[grenade_molotov_light_part]:explosive_light
+$spawn					= "physics\grenade_molotov_light_fire"
+visual_name 			= dynamics\light\light_signal
+
+bone					= bone_lamp
+ambient_bone			= bone_lamp
+range					= 5
+time					= 10; сек время работы
+release_time			= 12; сек время удаления объекта
+
+particles				= damage_fx\burn_creatures_fast
+snd 					= anomaly\fire2
+explode_on_kick			= true
+explosive_replacement	= grenade_molotov_light_fire
+
+[grenade_molotov_light_fire]:dynamic_light
+$spawn			= "physics\grenade_molotov_light_fire"
+
+script_binding	= bind_dynamic_light.init_molotov_fire
+
+physic			= false
+range 			= 12
+brightness		= 0.5
+cast_shadow		= false
+
+time 			= 29.5; сек время работы
+release_time	= 32; сек время удаления объекта
+
+particles		= explosions\molotov_fire
+snd 			= anomaly\fire2

@@ -2274,7 +2274,7 @@ inv_name				= st_wpn_grenade_flare
 inv_name_short			= st_wpn_grenade_flare
 description				= st_wpn_grenade_flare_descr
 
-script_binding 			= bind_grenade.init
+script_binding 			= bind_grenade.init_replaceable
 
 inv_weight				= 0.2
 inv_grid_x				= 21
@@ -2285,6 +2285,51 @@ force_const				= 45
 force_max				= 60
 force_grow_speed		= 25
 
+replacement_sect 		= grenade_flare_light
+
 [mp_grenade_flare_hud]:bolt_hud
 item_visual				= dynamics\weapons\wpn_grenade_flare\wpn_grenade_flare
 item_position			= 0.01,-0.1,0.01
+
+[mp_grenade_molotov]:grenade_gd-05
+$spawn					= "network\ammo\mp_grenade_molotov"
+visual					= dynamics\weapons\wpn_grenade_molotov\wpn_molotov.ogf
+hud						= mp_grenade_molotov_hud
+inv_name				= st_wpn_grenade_molotov
+inv_name_short			= st_wpn_grenade_molotov
+description				= st_wpn_grenade_molotov_descr
+
+script_binding 			= bind_grenade.init_replaceable
+
+inv_weight				= 0.5
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x				= 20
+inv_grid_y				= 22
+
+kill_msg_x				= 489
+kill_msg_y				= 218
+kill_msg_width			= 20
+kill_msg_height			= 20
+
+force_min				= 20; ~30% от максимума
+force_const				= 45
+force_max				= 60
+force_grow_speed		= 25
+
+hit_type_blast			= light_burn
+hit_type_frag			= light_burn
+
+snd_checkout 			= weapons\molotov\molotov_throw_start
+snd_draw				= weapons\molotov\molotov_draw
+snd_holster				= weapons\molotov\molotov_holster
+snd_throw				= weapons\molotov\molotov_throw_start
+
+explosion_on_kick 				= true
+
+replacement_sect 		= grenade_molotov_light
+
+[mp_grenade_molotov_hud]:grenade_gd-05_hud
+item_visual				= dynamics\weapons\wpn_grenade_molotov\molotov_hud
+item_position               = 0.0,0.05,0.0
+

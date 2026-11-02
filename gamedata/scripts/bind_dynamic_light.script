@@ -1,0 +1,622 @@
+-- +UDP
+---------------------------------------------------------------------------------------------------
+-- dynamic light binder
+----------------------------------------------------------------------------------------------------
+
+function init(obj)
+	db.storage[obj:id()] = { }
+	local new_binder = dynamic_light_binder(obj)
+	obj:bind_object(new_binder)
+	db.storage[obj:id()].binder = new_binder
+end
+
+function init_explosive(obj)
+	db.storage[obj:id()] = { }
+	local new_binder = light_explosive_binder(obj)
+	obj:bind_object(new_binder)
+	db.storage[obj:id()].binder = new_binder
+end
+
+function init_molotov_fire(obj)
+	db.storage[obj:id()] = { }
+	local new_binder = light_molotov_fire(obj)
+	obj:bind_object(new_binder)
+	db.storage[obj:id()].binder = new_binder
+end
+
+class "dynamic_light_binder" (object_binder)
+function dynamic_light_binder:__init(obj) super(obj)
+	self.disabled = false
+	self.released = false
+end
+
+function dynamic_light_binder:net_spawn(sobj)
+	if not object_binder.net_spawn(self, sobj) then
+		return false
+	end
+	db.add_obj(self.object)
+
+	local ini = system_ini()
+	local sect = self.object:section()
+
+	self.timer_sec = utils.cfg_get_number(ini, sect, "time", self.object, false, nil)
+	if self.timer_sec then
+		self.stop_time = time_global() + self.timer_sec * 1000
+	end
+
+	self.release_timer_sec = utils.cfg_get_number(ini, sect, "release_time", self.object, false, nil)
+	if self.release_timer_sec then
+		if self.timer_sec and self.timer_sec > self.release_timer_sec then
+			self.release_timer_sec = self.timer_sec + 5
+		end
+		self.release_time = time_global() + self.release_timer_sec * 1000
+	end
+	
+	if OnClient() then
+		if sobj.bone and sobj.bone ~= "" then
+			self.bone = sobj.bone
+		end
+
+		self.particle_path 	= utils.cfg_get_string(ini, sect, "particles", self.object, false, "", nil)
+		self.snd_path 		= utils.cfg_get_string(ini, sect, "snd", self.object, false, "", nil)
+	end
+	self.object:set_fastcall(self.fastcall, self)
+	return true
+end
+
+function dynamic_light_binder:net_destroy()
+	to_log("net_destroy %s", self.object:name())
+	self.released = true
+	self:disable_effects()
+	db.del_obj(self.object)
+	object_binder.net_destroy(self)
+end
+
+function dynamic_light_binder:update(delta)
+	object_binder.update(self, delta)
+
+	if self.released then
+		return
+	end
+
+	if not self.disabled and self.stop_time and time_global() > self.stop_time then
+		self:disable_effects()
+		self.object:get_hanging_lamp():turn_off()
+		to_log("turn_off %s", self.object:name())
+		self.disabled = true
+	end
+
+	if OnServer() then
+		if self.release_time and time_global() > self.release_time then
+			self.released = true
+			alife():release(alife():object(self.object:id()))
+		end
+	end
+
+end
+
+function dynamic_light_binder:disable_effects()
+	if OnClient() then
+		if self.snd then
+			self.snd:stop()
+			self.snd = nil
+		end
+		if self.particle then
+			self.particle:stop()
+			self.particle = nil
+		end
+	end
+end
+
+function dynamic_light_binder:update_effects()
+	if OnClient() then
+		local pos = self.object:position()
+		if self.bone then
+			local bpos = utils.bone_pos(self.object, self.bone)
+			if bpos then
+				pos = bpos
+			end
+		end
+		
+		if self.particle then
+			if self.particle:playing() then
+				local fly_dir = vector()
+				local phys_shell = self.object:get_physics_shell()
+				if phys_shell then
+					phys_shell:get_linear_vel(fly_dir)
+				end
+				self.particle:move_to(pos, fly_dir)
+			end
+		elseif self.particle_path and self.particle_path ~= "" then
+			self.particle = xr_effects.play_particle_at_npc(db.actor, self.object, { self.particle_path, self.bone })
+		end
+		
+		if self.snd then
+			if self.snd:playing() then
+				self.snd:set_position(pos)
+			else
+				self.snd:play_at_pos(self.object, pos, 0, sound_object.looped)
+			end
+		elseif self.snd_path and self.snd_path ~= "" then
+			self.snd = sound_object(self.snd_path)
+			self.snd:play_at_pos(self.object, pos, 0, sound_object.looped)
+		end
+	end
+end
+
+function dynamic_light_binder:fastcall()
+	if self.disabled 
+		or self.released 
+		or not self.object 
+		or not db.storage[self.object:id()] then
+		return true
+	end
+
+	self:update_effects()
+	return false
+end
+
+class "light_explosive_binder" (dynamic_light_binder)
+function light_explosive_binder:__init(obj) super(obj)
+	self.func_fastcall = self.fastcall
+end
+
+function light_explosive_binder:net_spawn(sobj)
+	if not dynamic_light_binder.net_spawn(self, sobj) then
+		return false
+	end
+
+	local ini = system_ini()
+	local sect = self.object:section()
+	if OnClient() then
+		self.particles_explode_path = utils.cfg_get_string(ini, sect, "particles_explode", self.object, false, "", nil)
+		self.snd_explode_path 		= utils.cfg_get_string(ini, sect, "snd_explode", self.object, false, "", nil)
+	end
+	self.explosive_replacement 	= utils.cfg_get_string(ini, sect, "explosive_replacement", self.object, false, "", nil)
+	self.throwable_part 		= utils.cfg_get_string(ini, sect, "throwable_part", self.object, false, "", nil)
+	self.explode_on_kick 		= utils.cfg_get_bool(ini, sect, "explode_on_kick", self.object, false, false)
+
+	self.parts_count 			= utils.cfg_get_number(ini, sect, "parts_count", self.object, false, 5)
+	self.parts_impulse 			= utils.cfg_get_number(ini, sect, "parts_impulse", self.object, false, 10.0)
+
+	-- 0.2 означает разброс силы импульса от -20% до +20%
+	self.parts_impulse_rand 	= utils.cfg_get_number(ini, sect, "parts_impulse_rand", self.object, false, 0)
+
+	-- Общий наклон вектора вверх.
+	-- 0 — чисто горизонтальный разлет.
+	-- 0.3 — умеренно вверх.
+	self.parts_vertical_bias 	= utils.cfg_get_number(ini, sect, "parts_vertical_bias", self.object, false, 0.3)
+
+	-- Случайный разброс вертикальной составляющей.
+	self.parts_vertical_rand 	= utils.cfg_get_number(ini, sect, "parts_vertical_rand", self.object, false, 0)
+
+	-- 0 — идеально равномерный радиальный разброс.
+	-- Например, 0.15 — небольшой случайный сдвиг углов.
+	self.parts_angle_jitter 	= utils.cfg_get_number(ini, sect, "parts_angle_jitter", self.object, false, 0)
+
+	-- Смещение и высота спавна частей относительно точки взрыва.
+	self.parts_spawn_offset 	= utils.cfg_get_number(ini, sect, "parts_spawn_offset", self.object, false, 0)
+	self.parts_spawn_height 	= utils.cfg_get_number(ini, sect, "parts_spawn_height", self.object, false, 0)
+
+	self.object:set_fastcall(self.fastcall, self)
+end
+
+local explode_particles = {}
+local explode_sounds = {}
+function light_explosive_binder:net_destroy()
+	self.released = true
+	if OnClient() then
+		if self.snd_explode_path and self.snd_explode_path ~= "" and not self.snd_explode then
+			self.snd_explode = sound_object(self.snd_explode_path)
+			self.snd_explode:play_at_pos(self.object, self.object:position(), 0, sound_object.s3d)
+			explode_sounds[self.object:id()] = self.snd_explode -- что бы не исчезали раньше времени
+		end
+		if self.particles_explode_path and self.particles_explode_path ~= "" and not self.particle_explode then
+			self.particle_explode = xr_effects.play_particle_at_npc(db.actor, self.object, { self.particles_explode_path })
+			explode_particles[self.object:id()] = self.particle_explode -- что бы не исчезали раньше времени
+		end
+	end
+	dynamic_light_binder.net_destroy(self)
+end
+
+function light_explosive_binder:fastcall()
+
+	if dynamic_light_binder.fastcall(self) or self.exploded then
+		return true
+	end
+
+	if self.do_explode then
+		self:explode()
+		return true
+	end
+
+	if OnServer() and self:need_explode() then
+		self.do_explode = true; -- следующим кадром, что бы не проваливался в стену
+	end
+
+	return false
+end
+
+function light_explosive_binder:need_explode()
+	return not self.exploded and self.explode_on_kick and self:detect_impact()
+end
+
+function light_explosive_binder:explode()
+	if self.exploded or self.released then
+		return
+	end
+	self.exploded = true
+
+	self:throw_parts()
+	self:explode_replacement()
+end
+
+function light_explosive_binder:explode_replacement()
+	if self.released or not self.explosive_replacement or self.explosive_replacement == "" then
+		return
+	end
+
+	self.released = true
+	local sobj = utils.replace_object(self.object, self.explosive_replacement, function (id, obj) obj:explode(0) end)
+	if sobj then
+		update_parents_info(sobj.id, self.object)
+	end
+end
+
+function light_explosive_binder:throw_parts()
+	if not self.throwable_part or self.throwable_part == "" then
+		return
+	end
+
+	local count = math.floor(self.parts_count or 8)
+	if count <= 0 then
+		return
+	end
+
+	local impulse        = self.parts_impulse        or 6.0
+	local impulse_rand   = self.parts_impulse_rand   or 0.2
+	local vertical_bias  = self.parts_vertical_bias  or 0.3
+	local vertical_rand  = self.parts_vertical_rand  or 0.15
+	local angle_jitter   = self.parts_angle_jitter   or 0.0
+	local spawn_offset   = self.parts_spawn_offset   or 0.05
+	local spawn_height   = self.parts_spawn_height   or 0.08
+
+	local base_pos = self.object:position()
+
+	for i = 1, count do
+		-- Равномерное распределение по окружности.
+		local angle = 2 * math.pi * (i - 1) / count
+
+		-- Опциональный небольшой разброс углов, чтобы разлет не был слишком идеальным.
+		if angle_jitter > 0 then
+			angle = angle + (math.random() * 2 - 1) * angle_jitter
+		end
+
+		local dir_x = math.cos(angle)
+		local dir_z = math.sin(angle)
+		local dir_y = vertical_bias
+
+		-- Опциональный разброс по вертикали.
+		if vertical_rand > 0 then
+			dir_y = dir_y + (math.random() * 2 - 1) * vertical_rand
+		end
+
+		-- Нормализация направления, чтобы длина вектора была равна 1.
+		local len = math.sqrt(dir_x * dir_x + dir_y * dir_y + dir_z * dir_z)
+		if len > 1e-5 then
+			dir_x = dir_x / len
+			dir_y = dir_y / len
+			dir_z = dir_z / len
+		else
+			dir_x = 0
+			dir_y = 1
+			dir_z = 0
+		end
+
+		-- Итоговая сила импульса с возможным случайным отклонением.
+		local power = impulse
+		if impulse_rand > 0 then
+			power = power * (1 + (math.random() * 2 - 1) * impulse_rand)
+		end
+
+		local vel = vector()
+		vel:set(dir_x * power, dir_y * power, dir_z * power)
+
+		-- Смещаем точку спавна по направлению разброса,
+		-- чтобы части меньше слипались в одной точке.
+		local spawn_pos = vector()
+		spawn_pos:set(
+			base_pos.x + dir_x * spawn_offset,
+			base_pos.y + spawn_height,
+			base_pos.z + dir_z * spawn_offset
+		)
+		local m_level_vertex_id = 0
+		local m_game_vertex_id = 0
+		local self_sobj = alife():object(self.object:id())
+		if self_sobj then
+			m_level_vertex_id = self_sobj.m_level_vertex_id
+			m_game_vertex_id = self_sobj.m_game_vertex_id
+		end
+		local sobj = utils.alife_create(self.throwable_part, spawn_pos, m_level_vertex_id, m_game_vertex_id)
+		if sobj then
+			level.client_spawn_manager():add(sobj.id, 65535, function(id, obj)
+				utils.apply_impulse(obj, vel)
+			end)
+			update_parents_info(sobj.id, self.object)
+		end
+	end
+
+end
+
+function light_explosive_binder:detect_impact()
+	local shell = self.object:get_physics_shell()
+	if not shell then
+		return false
+	end
+
+	if not self.impact_tmp then
+		self.impact_tmp = {
+			lin = vector(),
+			ang = vector(),
+			d_lin = vector(),
+			d_ang = vector()
+		}
+	end
+
+	if not self.impact_state then
+		self.impact_state = {
+			initialized = false,
+			armed = false,
+			last_time = 0,
+			cooldown_until = 0,
+			prev_lin = vector(),
+			prev_ang = vector()
+		}
+	end
+
+	local tmp = self.impact_tmp
+	local st = self.impact_state
+
+	shell:get_linear_vel(tmp.lin)
+	shell:get_angular_vel(tmp.ang)
+
+	local now = time_global()
+
+	if not st.initialized then
+		st.prev_lin:set(tmp.lin)
+		st.prev_ang:set(tmp.ang)
+		st.last_time = now
+		st.initialized = true
+		return false
+	end
+
+	local dt_ms = now - st.last_time
+
+	if dt_ms <= 0 then
+		st.last_time = now
+		return false
+	end
+
+	if dt_ms > 100 then
+		st.prev_lin:set(tmp.lin)
+		st.prev_ang:set(tmp.ang)
+		st.last_time = now
+		return false
+	end
+
+	local dt = dt_ms / 1000.0
+
+	if dt < 0.001 then
+		dt = 0.001
+	end
+
+	local speed = tmp.lin:magnitude()
+	local prev_speed = st.prev_lin:magnitude()
+	local ang_speed = tmp.ang:magnitude()
+
+	if not st.armed then
+		if speed >= 2.0 or prev_speed >= 2.0 then
+			st.armed = true
+		end
+	end
+
+	local hit = false
+
+	if st.armed and now >= st.cooldown_until then
+		tmp.d_lin:sub(tmp.lin, st.prev_lin)
+		tmp.d_ang:sub(tmp.ang, st.prev_ang)
+
+		local delta_speed = tmp.d_lin:magnitude()
+		local delta_ang = tmp.d_ang:magnitude()
+
+		local lin_shock = delta_speed / dt
+		local ang_shock = delta_ang / dt
+
+		local active_after = speed
+
+		if ang_speed > active_after then
+			active_after = ang_speed
+		end
+
+		if prev_speed >= 3.0
+			and active_after >= 0.2
+			and (lin_shock >= 700.0 or ang_shock >= 500.0) then
+
+			hit = true
+			st.cooldown_until = now + 250
+		end
+	end
+
+	st.prev_lin:set(tmp.lin)
+	st.prev_ang:set(tmp.ang)
+	st.last_time = now
+
+	return hit
+end
+
+class "light_molotov_fire" (dynamic_light_binder)
+function light_molotov_fire:__init(obj) super(obj)
+	self.radius = 2.6
+	self.radius_threshold = self.radius * self.radius
+end
+
+local fake_weapons_ids = {}
+
+function light_molotov_fire:net_spawn(sobj)
+	if not dynamic_light_binder.net_spawn(self, sobj) then
+		return false
+	end
+
+	self.weapon_id = self.object:id()
+	self.weapon_sect = nil
+	self.hit_source = self.object
+	self.hit_power = 0.028--0.05
+	self.hit_delta = 0
+	self.min_hit_delta = 0--200
+
+	if OnClient() then
+		return true
+	end
+
+	local info = get_parents_info(sobj.id) -- летящий осколок или летящая бутылка
+	if info and db.mp_actors then
+		local actor = db.mp_actors[info.id]
+		if actor then
+			self.hit_source = actor
+		else
+			info = get_parents_info(info.id) -- летящая бутылка или летящая граната
+			if info then
+				if info.clsid == clsid.wpn_grenade_f1_s then
+					self.weapon_sect = info.section
+				end
+				actor = db.mp_actors[info.id]
+				if actor then
+					self.hit_source = actor
+				else
+					info = get_parents_info(info.id) -- летящая граната или граната
+					if info then
+						if info.clsid == clsid.wpn_grenade_f1_s and not self.weapon_sect then
+							self.weapon_sect = info.section
+						end
+						actor = db.mp_actors[info.id]
+						if actor then
+							self.hit_source = actor
+						else
+							info = get_parents_info(info.id) -- граната или игрок
+							if info then
+								if info.clsid == clsid.wpn_grenade_f1_s and not self.weapon_sect then
+									self.weapon_sect = info.section
+								end
+								actor = db.mp_actors[info.id]
+								if actor then
+									self.hit_source = actor
+								else
+									info = get_parents_info(info.id) -- игрок
+									if info then
+										actor = db.mp_actors[info.id]
+										if actor then
+											self.hit_source = actor
+										end
+									end
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+	end
+	
+	if self.weapon_sect then
+		if not fake_weapons_ids[self.weapon_sect] then
+			local w_sobj = utils.alife_create(self.weapon_sect, vector():set(0,0,0),0,0, db.actor:id())
+			if w_sobj then
+				fake_weapons_ids[self.weapon_sect] = w_sobj.id
+			end
+		end
+		self.weapon_id = fake_weapons_ids[self.weapon_sect];
+	end
+	return true
+end
+
+local function is_dead(npc)
+	return not npc or npc:death_time() > 0 or npc.health <= 0 or not npc:alive()
+end
+
+local function get_bone(obj)
+	if obj:get_bone_id("bip01_spine1") ~= 65535 then
+		return "bip01_spine1"
+	elseif obj:get_bone_id("bip01_spine") ~= 65535 then
+		return "bip01_spine"
+	end
+	return "link"
+end
+
+local function get_pos(obj)
+	return utils.bone_pos(obj, get_bone(obj)) or obj:position()
+end
+
+function light_molotov_fire:update(delta)
+	dynamic_light_binder.update(self, delta)
+	
+	if self.released then
+		return
+	end
+
+	if not self.disabled then
+		self.hit_delta = self.hit_delta + delta
+		if self.hit_delta >= self.min_hit_delta then
+			self.hit_delta = 0
+			local pos = self.object:position()
+			local enemies = {}
+			table.copy(db.heli_enemies, enemies)
+			for i, obj in pairs(enemies) do
+				if not is_dead(obj) and pos:distance_to_sqr(get_pos(obj)) <= self.radius_threshold then
+					self:hit_to(obj)
+				end
+			end
+
+			for _, actor_obj in pairs(db.mp_actors) do
+				if not is_dead(actor_obj) and pos:distance_to_sqr(get_pos(actor_obj)) <= self.radius_threshold then
+					self:hit_to(actor_obj)
+				end
+			end
+			if not self.campfires_checked then
+				for i, binder in pairs(bind_campfire.spawned_names) do
+					if binder and binder.campfire and not binder.campfire:is_on()
+						and pos:distance_to_sqr(binder.object:position()) <= self.radius_threshold then
+
+						binder.campfire:turn_on()
+						local end_time = time_global() + 180000
+						binder.object:set_fastcall(
+							function(obj_binder)
+								if time_global() > end_time then
+									obj_binder.campfire:turn_off()
+									return true
+								end
+							end, binder)
+
+					end
+				end
+				self.campfires_checked = true
+			end
+		end
+	end
+end 
+
+function light_molotov_fire:hit_to(obj)
+	if OnServer() then
+		utils.hit_ex(obj, self.hit_source:id(), hit.light_burn, self.hit_power, self.weapon_id)
+	else
+		local fx = "damage_fx\\burn_creatures00";
+		if obj:get_bone_id("bip01_pelvis") ~= 65535 then
+			obj:start_particles(fx, "bip01_pelvis")
+		end
+		if obj:get_bone_id("bip01_spine1") ~= 65535 then
+			obj:start_particles(fx, "bip01_spine1")
+		end
+		if obj:get_bone_id("bip01_spine") ~= 65535 then
+			obj:start_particles(fx, "bip01_spine")
+		end
+	end
+end
