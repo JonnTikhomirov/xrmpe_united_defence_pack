@@ -470,7 +470,7 @@ function light_molotov_fire:net_spawn(sobj)
 	self.weapon_id = self.object:id()
 	self.weapon_sect = nil
 	self.hit_source = self.object
-	self.hit_power = 0.028--0.05
+	self.hit_power = 0.029--0.05
 	self.hit_delta = 0
 	self.min_hit_delta = 0--200
 
