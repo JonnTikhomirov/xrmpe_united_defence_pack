@@ -279,6 +279,8 @@ mp_grenade_flashbang
 mp_grenade_rgo
 mp_grenade_rgn
 mp_grenade_rgd5
+mp_grenade_flare
+mp_grenade_molotov
 grenade_f1
 grenade_gd-05
 grenade_rgd5
@@ -484,7 +486,6 @@ detector_elite
 detector_scientific
 detector_simple
 detector_deactivator
-device_flare
 device_pda
 device_torch
 device_lockpick_1
@@ -504,7 +505,6 @@ medkit_scientic
 guitar_a
 harmonica_a
 df_ignition
-mp_grenade_flare
 
 [quest_items]
 toolkit_1
@@ -524,6 +524,7 @@ df_les_mystery_note
 bloodsucker_normal
 bloodsucker_strong
 bloodsucker_weak
+boar_weak
 boar_normal
 boar_strong
 burer_normal
@@ -533,26 +534,27 @@ dog_cute
 dog_normal
 dog_strong
 dog_weak
+flesh_weak
 flesh_normal
 flesh_strong
 gigant_normal
 labx8_poltergeist
-m_bloodsucker_e
-m_boar_e
-m_burer_e
-m_chimera_e
-m_controller_e
+;m_bloodsucker_e
+;m_boar_e
+;m_burer_e
+;m_chimera_e
+;m_controller_e
 m_controller_normal
-m_dog_e
-m_flesh_e
-m_gigant_e
+;m_dog_e
+;m_flesh_e
+;m_gigant_e
 m_phantom
-m_poltergeist_e
+;m_poltergeist_e
 m_poltergeist_normal_flame
 m_poltergeist_normal_tele
-m_pseudodog_e
-m_snork_e
-m_tushkano_e
+;m_pseudodog_e
+;m_snork_e
+;m_tushkano_e
 pri_a25_poltergeist
 pseudodog_normal
 psy_dog
@@ -588,9 +590,9 @@ gigant_boss_anom
 
 [anomalies]
 campfire
-fireball_acidic_zone
-fireball_electric_zone
-fireball_zone
+; fireball_acidic_zone;+UDP
+; fireball_electric_zone;+UDP
+; fireball_zone;+UDP
 zone_burning_fuzz
 zone_burning_fuzz_average
 zone_burning_fuzz_strong
@@ -634,10 +636,10 @@ zone_mine_gravitational_average
 zone_mine_gravitational_big
 zone_mine_gravitational_strong
 zone_mine_gravitational_weak
-zone_mine_static
-zone_mine_static_average
-zone_mine_static_strong
-zone_mine_static_weak
+; zone_mine_static; +UDP
+; zone_mine_static_average; +UDP
+; zone_mine_static_strong; +UDP
+; zone_mine_static_weak; +UDP
 zone_mine_steam
 zone_mine_steam_average
 zone_mine_steam_strong
@@ -713,3 +715,4 @@ explosive_hide
 explosive_mobiltank
 explosive_particle
 explosive_tank
+helicopter_missile
