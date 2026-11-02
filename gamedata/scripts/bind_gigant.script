@@ -234,6 +234,13 @@ function gigant_boss_binder:death_callback(victim, who)
 	h.power = 1
 	h.impulse = 10
 	self.object:hit(h)
+
+	--+UDP
+	if self.e_index ~= nil then
+		db.delete_enemy(self.e_index)
+		self.e_index = nil
+	end
+	---UDP
 end
 
 function gigant_boss_binder:hit_callback(obj, amount, local_direction, who, bone_index)
@@ -524,7 +531,11 @@ end
 ------------------------------------------------n
 
 	db.del_obj(self.object)
-	db.delete_enemy(self.e_index)--+UP
+	--+UDP
+	if self.e_index ~= nil then
+		db.delete_enemy(self.e_index)
+	end
+	---UDP
 	db.storage[self.object:id()] = nil
 	object_binder.net_destroy(self)
 end

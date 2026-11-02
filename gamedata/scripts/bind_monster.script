@@ -368,6 +368,11 @@ function bind_monster_cl:net_spawn(data)
 	self.object:set_callback(callback.death, bind_monster_cl.death_callback, self)
 	self.object:set_callback(callback.hit, bind_monster_cl.hit_callback, self)
 
+	-- +UDP
+	db.add_enemy(self.object)
+	self.e_index = db.heli_enemy_count - 1
+	-- -UDP
+
 	return true
 end
 
@@ -383,6 +388,11 @@ function bind_monster_cl:update(delta)
 end
 
 function bind_monster_cl:net_destroy()
+	-- +UDP
+	if self.e_index ~= nil then
+		db.delete_enemy(self.e_index)
+	end
+	-- -UDP
 	db.del_obj(self.object)
 	db.storage[self.object:id()] = nil
 	object_binder.net_destroy(self)

@@ -1027,7 +1027,10 @@ function bind_stalker_cl:net_spawn(data)
 			game_relations.temp_goodwill_table[self.object:id()] = goodwill
 		end
 	end
-	
+	-- +UDP
+	db.add_enemy(self.object)
+	self.e_index = db.heli_enemy_count - 1
+	-- -UDP
 	return true
 end
 
@@ -1063,6 +1066,12 @@ function bind_stalker_cl:update(delta)
 end
 
 function bind_stalker_cl:net_destroy()
+	-- +UDP
+	if self.e_index ~= nil then
+		db.delete_enemy(self.e_index)
+		self.e_index = nil
+	end
+	-- -UDP
 	db.del_obj(self.object)
 	db.storage[self.object:id()] = nil
 	object_binder.net_destroy(self)
