@@ -71,7 +71,7 @@ end
 function CTreasureManager:scan_level_objects()
 	if self.objects_scanned then return end
 	
-	to_log("CTreasureManager:scan_level_objects() - сканирование всех объектов уровня")
+	--to_log("CTreasureManager:scan_level_objects() - сканирование всех объектов уровня")
 	
 	-- Проходим по всем возможным ID серверных объектов (0-65535)
 	for i = 0, 65535 do
@@ -122,7 +122,7 @@ function CTreasureManager:scan_level_objects()
 					
 					if not already_exists then
 						table.insert(self.scanned_objects[value][sect_name], se_obj.id)
-						to_log(string.format("Добавлен объект %s (ID=%d) в тайник %s", sect_name, se_obj.id, value))
+						--to_log(string.format("Добавлен объект %s (ID=%d) в тайник %s", sect_name, se_obj.id, value))
 					else
 						to_log(string.format("ПРОПУЩЕН дубликат объекта %s (ID=%d)", sect_name, se_obj.id))
 					end
@@ -360,7 +360,7 @@ function CTreasureManager:activate_level_secrets()
 		local is_activated = table_has_value(activated, id)
 		self:spawn_treasure(id, is_activated)
 	end
-	to_log("TreasureManager:activate_level_secrets: items_from_secrets")
+	--to_log("TreasureManager:activate_level_secrets: items_from_secrets")
 	-- table.print(self.items_from_secrets)
 	self.activated_on_level = true
 
@@ -460,7 +460,7 @@ function CTreasureManager:spawn_treasure(treasure_id, is_activated)
 	
 	if not scanned_items then
 		if use_level_mode then
-			to_log("spawn_treasure: нет объектов для тайника " .. treasure_id)
+			to_log("spawn_treasure: objects not found for treasure " .. treasure_id)
 		end
 		return
 	end
@@ -469,7 +469,7 @@ function CTreasureManager:spawn_treasure(treasure_id, is_activated)
 	local released_ids = {}
 	
 	if not is_activated then
-		to_log("spawn_treasure: тайник " .. treasure_id .. " НЕ активирован, удаляем все предметы")
+		--to_log("spawn_treasure: тайник " .. treasure_id .. " НЕ активирован, удаляем все предметы")
 		
 		for item_section, objects in pairs(scanned_items) do
 			for _, obj_id in ipairs(objects) do
@@ -477,7 +477,7 @@ function CTreasureManager:spawn_treasure(treasure_id, is_activated)
 				if se_obj then
 					alife():release(se_obj, true)
 					table.insert(released_ids, obj_id)
-					to_log("  Удалён объект " .. obj_id .. " (" .. item_section .. ")")
+					--to_log("  Удалён объект " .. obj_id .. " (" .. item_section .. ")")
 				end
 			end
 		end
@@ -540,7 +540,7 @@ function CTreasureManager:spawn_treasure(treasure_id, is_activated)
 	-- Сохраняем ID выключенных объектов для save/load
 	secret_data.disabled_ids = disabled_ids
 	
-	to_log("spawn_treasure: " .. treasure_id .. " активировано " .. total_spawned .. " предметов")
+	--to_log("spawn_treasure: " .. treasure_id .. " активировано " .. total_spawned .. " предметов")
 end
 -- -UP
 
