@@ -65,7 +65,7 @@ function dynamic_light_binder:net_spawn(sobj)
 end
 
 function dynamic_light_binder:net_destroy()
-	to_log("net_destroy %s", self.object:name())
+	--to_log("net_destroy %s", self.object:name())
 	self.released = true
 	self:disable_effects()
 	db.del_obj(self.object)
@@ -82,7 +82,7 @@ function dynamic_light_binder:update(delta)
 	if not self.disabled and self.stop_time and time_global() > self.stop_time then
 		self:disable_effects()
 		self.object:get_hanging_lamp():turn_off()
-		to_log("turn_off %s", self.object:name())
+		--to_log("turn_off %s", self.object:name())
 		self.disabled = true
 	end
 
@@ -582,20 +582,11 @@ function light_molotov_fire:update(delta)
 				end
 			end
 			if not self.campfires_checked then
-				for i, binder in pairs(bind_campfire.spawned_names) do
-					if binder and binder.campfire and not binder.campfire:is_on()
-						and pos:distance_to_sqr(binder.object:position()) <= self.radius_threshold then
-
-						binder.campfire:turn_on()
-						local end_time = time_global() + 180000
-						binder.object:set_fastcall(
-							function(obj_binder)
-								if time_global() > end_time then
-									obj_binder.campfire:turn_off()
-									return true
-								end
-							end, binder)
-
+				for id, button_id in pairs(bind_campfire.campfires_buttons_id) do
+					local cb_st = db.storage[button_id]
+					if cb_st and cb_st.object and cb_st.binder and cb_st.binder.turn_on
+						and pos:distance_to_sqr(cb_st.object:position()) <= self.radius_threshold then
+						cb_st.binder:turn_on()
 					end
 				end
 				self.campfires_checked = true

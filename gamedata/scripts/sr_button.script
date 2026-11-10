@@ -10,8 +10,12 @@ function change_button_state_on_client(id)
 		if button ~= nil then
 			button:try_switch()
 		end
+	-- +UDP
+	elseif db.storage[id].binder and db.storage[id].binder.use_callback then
+		db.storage[id].binder:use_callback(level.object_by_id(id), nil)
+	-- -UDP
 	end
-	
+
 end
 
 class "sr_button"
@@ -113,16 +117,6 @@ function sr_button:try_switch()
 			self:complete_hold()
 		end
 		
-		-- +UP
-		local tooltip = ""
-		if self.st.tooltip then
-			tooltip = xr_logic.pick_section_from_condlist(db.actor, self.object, self.st.tooltip.condlist)
-			if not tooltip then
-				tooltip = ""
-			end
-		end
-		self.object:set_tip_text(tooltip)
-		-- -UP
 		self.object:set_tip_text("")
 
 		if self.st.local_use then

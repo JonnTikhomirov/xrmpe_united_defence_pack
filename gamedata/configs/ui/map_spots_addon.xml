@@ -1,0 +1,9 @@
+<!-- +UDP -->
+<campfire_pointer hint="st_ui_campfire" layer="8">
+	<!-- <level_map spot="treasure_spot" pointer="quest_pointer"/> -->
+	<mini_map spot="campfire_spot_mini"/>
+</campfire_pointer>
+<campfire_spot_mini width="22" height="22" alignment="c" stretch="1">
+	<texture x="327" y="0" width="36" height="36">ui\ui_map_spots</texture>
+</campfire_spot_mini>
+<!-- -UDP -->

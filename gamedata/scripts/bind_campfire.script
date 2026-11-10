@@ -1,7 +1,6 @@
 --'******************************************************
 --'*	Биндер объекта костра .
 --'******************************************************
-spawned_names = {} -- +UP
 campfire_table_by_smart_names = {}
 function bind(obj)
 	obj:bind_object(campfire_binder(obj))
@@ -23,13 +22,27 @@ function campfire_binder:net_spawn(server_object)
 		end
 		campfire_table_by_smart_names[smart_name][self.object:id()] = self.campfire
 	end
-	 -- +UP
-	local spawn_ini = self.object:spawn_ini()
-	if spawn_ini and spawn_ini:section_exist("disabled") then
-		self.campfire:turn_off()
+	-- +UDP
+	if OnServer() then
+		local spawn_ini = self.object:spawn_ini()
+		if spawn_ini and spawn_ini:section_exist("disabled") then
+			self.campfire:turn_off()
+		end
+		-- размер шейпа костра слишком большой, поэтому отдельный рестрикор меньше
+		self.button_sobj = utils.alife_create("campfire_button_restrictor", vector():set(self.object:position().x,self.object:position().y + 0.5, self.object:position().z))
+		local pk = get_netpk(self.button_sobj, 1)
+		if pk:isOk() then
+			local data = pk:get()
+			data.story_id = self.object:id()
+			if self.campfire:is_on() then -- синхронизируем состояния у клиентов при подключении
+				data.custom_data:setStringRaw("[enabled]")
+			else
+				data.custom_data:setStringRaw("[disabled]")
+			end
+			pk:set(data)
+		end
 	end
-	spawned_names[self.object:name()] = self
-	 -- -UP
+	-- -UDP
 	return true
 end
 function campfire_binder:update(delta)
@@ -77,29 +90,191 @@ function turn_off_campfires_by_smart_name(smart_name)
 	end
 end
 
--- +UP
-function turn(actor, id, set_on)
-	cf = spawned_names[id]
-	if not cf then
-		to_log("bind_campfire.turn: campfire not found with name %s", id)
+-- +UDP
+function campfire_binder:net_destroy()
+	local smart_name = string.gsub(self.object:name(), "_campfire_%d*", "")
+	if sim_board.get_sim_board().smarts_by_names[smart_name] then
+		campfire_table_by_smart_names[smart_name][self.object:id()] = nil
+	end
+	if OnServer() and self.button_sobj then
+		alife():release(self.button_sobj)
+	end
+	object_binder.net_destroy(self)
+end
+
+campfires_buttons_id = {}
+function bind_button(obj)
+	if not level.object_by_id(obj:story_id()) then
 		return
 	end
-	if set_on == nil then
-		set_on = true
+	local binder = campfire_button_binder(obj)
+	db.storage[obj:id()] = { binder = binder }
+	obj:bind_object(binder)
+	campfires_buttons_id[obj:story_id()] = obj:id()
+end
+
+class "campfire_button_binder" ( object_binder )
+
+function campfire_button_binder:__init(obj, sect) super(obj)
+	self.turn_on_snd_path 	= "device\\inv_matches"
+	self.turn_off_snd_path 	= "anomaly\\buzz_hit"
+	self.key_sect 			= "df_ignition"
+	self.map_spot 			= "campfire_pointer"
+	self.map_spot_hour_range= {20,4}
+	self.need_key 			= false
+	self.time 				= 80000
+	self.spotted			= false
+end
+
+function campfire_button_binder:net_spawn(sobj)
+	if not object_binder.net_spawn(self, sobj) then
+		return false
 	end
-	if cf.campfire:is_on() then
-		if not set_on then
-			cf.campfire:turn_off()
+
+	db.add_zone(self.object)
+	db.add_obj(self.object)
+	
+	self.obj_campfire = level.object_by_id(self.object:story_id())
+	self.campfire = self.obj_campfire:get_campfire()
+	self.object:set_callback(callback.use_object, campfire_button_binder.use_callback, self)
+	if self.obj_campfire:spawn_ini() and self.obj_campfire:spawn_ini():section_exist("disabled") then
+		self.need_key = true
+	end
+
+	if OnClient() then
+		local ini = self.object:spawn_ini()
+		if ini:section_exist("disabled") then
+			self.campfire:turn_off()
+		elseif ini:section_exist("enabled") then
+			if not self.campfire:is_on() then
+				self.campfire:turn_on()
+			end
+			if self.need_key then
+				self.stop_time = time_global() + self.time
+			end
+		elseif self.need_key then
+			self.campfire:turn_off()
 		end
-	elseif set_on then
-		cf.campfire:turn_on()
+	end
+
+	return true
+end
+
+function campfire_button_binder:net_destroy()
+	db.del_zone( self.object )
+	db.del_obj(self.object)
+
+	db.storage[self.object:id()] = nil
+
+	object_binder.net_destroy(self)
+end
+
+function campfire_button_binder:update(delta)
+	object_binder.update(self, delta)
+
+	if not self.init then
+		self.init = true
+		self.object:set_shape_flag(true)
+		self.object:set_local_use(false)
+	end
+
+	if OnClient() then
+		if self.need_key then
+			if xr_conditions.time_hour_in_range(nil,nil, self.map_spot_hour_range) then
+				if not self.spotted then
+					self.spotted = true
+					level.map_add_object_spot(self.object:id(), self.map_spot, "")
+				end
+			else
+				if self.spotted then
+					self.spotted = false
+					level.map_remove_object_spot(self.object:id(), self.map_spot)
+				end
+			end
+		end
+		if self.campfire:is_on() then
+			self.object:set_tip_text("st_fire_turn_off")
+		else
+			local actor = getLocalActor()
+			if not self.need_key or actor and actor:object(self.key_sect) then
+				self.object:set_tip_text("st_fire_turn_on")
+			else
+				self.object:set_tip_text("st_need_matches")
+			end
+		end
+	else
+		if self.campfire:is_on() and self.stop_time and time_global() > self.stop_time then
+			self:use_callback(self.object, nil)
+		end
 	end
 end
 
+function campfire_button_binder:use_callback(obj, who)
+	if self.campfire:is_on() then
+		self.campfire:turn_off()
 
+		if OnServer() then
+			local packet = net_packet()
+			u_EventGen(packet, 124, self.object:id()) --GE_BUTTON_CHANGE_STATE
+			u_EventSend(packet)
 
+			self:set_state(false)
 
+		elseif not self.stop_time or self.stop_time - time_global() > 1000 then -- что бы не шипел когда тухнет сам
+			-- только когда сервер выдал GE_BUTTON_CHANGE_STATE
+			if not self.turn_off_snd then
+				self.turn_off_snd = sound_object(self.turn_off_snd_path)
+			end
+			self.turn_off_snd:play_at_pos(self.object, self.object:position(), 0, sound_object.s3d)
+		end
+		self.stop_time = nil
+	else
+		if OnServer() then
+			local ingition = nil
+			if who and self.need_key then -- сервер знает кто, если нажал игрок
+				ingition = who:object(self.key_sect)
+			end
+			
+			if not self.need_key or ingition or not who then
+				self:turn_on()
 
+				self:set_state(true)
 
+				local packet = net_packet()
+				u_EventGen(packet, 124, self.object:id()) --GE_BUTTON_CHANGE_STATE
+				u_EventSend(packet)
 
+				if ingition then
+					alife():release(alife():object(ingition:id()), true)
+				end
+			end
+		else -- только когда сервер выдал GE_BUTTON_CHANGE_STATE
+			self:turn_on()
 
+			if not self.turn_on_snd then
+				self.turn_on_snd = sound_object(self.turn_on_snd_path)
+			end
+			self.turn_on_snd:play_at_pos(self.object, self.object:position(), 0, sound_object.s3d)
+		end
+	end
+end
+
+function campfire_button_binder:turn_on()
+	if self.need_key then
+		self.stop_time = time_global() + self.time
+	end
+	self.campfire:turn_on()
+end
+
+function campfire_button_binder:set_state(state)
+	self.pk = get_netpk(alife():object(self.object:id()), 1)
+	if self.pk:isOk() then
+		self.data = self.pk:get()
+		if state == true then
+			self.data.custom_data:setStringRaw("[enabled]")
+		else
+			self.data.custom_data:setStringRaw("[disabled]")
+		end
+		self.pk:set(self.data)
+	end
+end

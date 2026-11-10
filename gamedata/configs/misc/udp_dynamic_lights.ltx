@@ -124,7 +124,7 @@ release_time			= 12; сек время удаления объекта
 particles				= damage_fx\burn_creatures_fast
 snd 					= anomaly\fire2
 explode_on_kick			= true
-explosive_replacement	= grenade_molotov_light_fire
+explosive_replacement	= grenade_molotov_light_fire_no_shadow
 
 [grenade_molotov_light_fire]:dynamic_light
 $spawn			= "physics\grenade_molotov_light_fire"
@@ -134,10 +134,13 @@ script_binding	= bind_dynamic_light.init_molotov_fire
 physic			= false
 range 			= 12
 brightness		= 0.5
-cast_shadow		= false
 
 time 			= 29.5; сек время работы
 release_time	= 32; сек время удаления объекта
 
 particles		= explosions\molotov_fire
 snd 			= anomaly\fire2
+
+[grenade_molotov_light_fire_no_shadow]:grenade_molotov_light_fire
+$spawn	= "physics\grenade_molotov_light_fire_no_shadow"
+cast_shadow		= false

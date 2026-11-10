@@ -251,9 +251,9 @@ function alife_create(sect, pos, level_vertex_id, game_vertex_id, npc_id)
 
 	local sobj = nil
 	if npc_id then
-		sobj = alife():create(sect, pos, level_vertex_id, game_vertex_id, npc_id)
+		sobj = alife():create(sect, pos, level_vertex_id or 0, game_vertex_id or 0, npc_id)
 	else
-		sobj = alife():create(sect, pos, level_vertex_id, game_vertex_id)
+		sobj = alife():create(sect, pos, level_vertex_id or 0, game_vertex_id or 0)
 	end
 
 	if not IsStalker(sobj) and not IsMonster(sobj) then
