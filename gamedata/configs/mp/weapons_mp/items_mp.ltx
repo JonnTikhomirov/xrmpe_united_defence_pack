@@ -445,7 +445,7 @@ immunities_sect = mp_explosive_barrel_immunities_sect
 time_to_explode		= 0.f
 explode_on_contact  = true
 
-;+UP
+;+UDP
 [mp_af_defence_lumen]:af_electra_moonlight
 $spawn				= "artefacts\DF_LUMEN_ART"
 class				= AF_DF
@@ -562,9 +562,14 @@ attach_position_offset  = 0.105, -0.004, 0.003
 attach_bone_name    	= bip01_l_hand
 auto_attach       		= false
 
-;-UP
+[df_lobby_light]:mp_af_defence_lumen_sun
+custom_data = scripts\df_lobby_light.ltx
+snd_idle = $silent
+
+;-UDP
 
 ; +SP
+
 [mp_af_battery]:af_dummy_battery
 $spawn                       = "network\artefacts\mp_af_battery"
 class                        = SCRPTART
@@ -586,6 +591,45 @@ trail_light_color            = 0.698,0.8,1
 trail_light_range            = 16.0
 can_take                     = false ; можно ли взять предмет
 
-[df_lobby_light]:mp_af_defence_lumen_sun
-custom_data = scripts\df_lobby_light.ltx
-snd_idle = $silent
+; -SP
+
+; +DP
+
+[zone_af_defence_revive_fake]:zone_field_radioactive
+script_binding      		= bind_af_revive.fake_anom_init
+
+[mp_af_defence_revive]:mp_af_defence
+$spawn						= "artefacts\DF_REVIVE_ART"
+artefact_activation_seq		= af_activation_defence_revive
+description					= st_af_defence_revive_descr
+inv_name					= st_af_defence_revive
+inv_name_short				= st_af_defence_revive
+trail_light_color 			= 0.4,0.4,0.4
+artefact_activation_gravity_range = 8
+hud							= artefact_hud_defence_revive
+visual						= dynamics\artefacts\artefact_defence_revive.ogf
+
+inv_grid_x         = 20
+inv_grid_y         = 28
+
+;звуки
+snd_draw                = device\oasisheart\oasisheart_draw
+snd_holster             = device\oasisheart\oasisheart_hide
+snd_idle             	= device\darkwater\darkwater_idle
+snd_activation          = device\oasisheart\oasisheart_activation
+
+particles					= artefact\af_thermal_idle
+det_show_particles			= artefact\af_thermal_show
+det_hide_particles			= artefact\af_thermal_hide
+
+[af_activation_defence_revive]
+;-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+;format:				time(sec),	is_looped_snd,		sound_name,	         			light_R,G,B,  	light_range,    	particle_name,							af_animation_name
+;-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+starting				=	0.5,	false,		"",													0.8, 0.8, 0.8,  	5.0,		"anomaly2\artefact_bold_blast_start",		"idle"
+flying					=	5.0,	true,		"ambient\artifacts\darkwater\darkwater_loop",		0.8, 0.8, 0.8,  	5.0,		"artefact\artefact_ameba",					"idle"
+idle_before_spawning	=	0.0,	false,		"",													0.8, 0.8, 0.8,  	5.0,		"anomaly2\artefact_bold_blast_start",		"idle"
+spawning				=	0.1,	false,		"ambient\artifacts\oasisheart\oasisheart_blowout", 	0.8, 0.8, 0.8,  	5.0,		"artefact\af_thermal_hide",					"idle"
+
+[artefact_hud_defence_revive]:artefact_hud
+item_visual                  	= dynamics\artefacts\artefact_defence_revive_hud
