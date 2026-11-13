@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<string_table>
+	<string id="st_af_defence_revive">
+		<text>«Black Woter»</text>
+	</string>
+	<string id="st_af_defence_revive_descr">
+		<text>There are often tales among stalkers about a mysterious artifact that can affect the noosphere and bring life back to dead bodies, but convincing studies of such an anomalous phenomenon are still missing, since, according to eyewitnesses, after activation, the artifact disappears without a trace.</text>
+	</string>
+</string_table>
+

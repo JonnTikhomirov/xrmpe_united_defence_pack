@@ -1,0 +1,16 @@
+-- +DP
+-------------------------------------------------------
+--			Воскрешающий артефакт		 			 --
+-------------------------------------------------------
+
+function fake_anom_init(obj)
+	if OnClient() then return end
+	local new_binder = fake_anom_binder(obj)
+	obj:bind_object(new_binder)
+end
+
+class "fake_anom_binder" (object_binder)
+function fake_anom_binder:__init(obj) super(obj)
+	game.respawn_dead_players()
+	alife():release(alife():object(self.object:id()), true)
+end
