@@ -195,4 +195,19 @@
 	<string id="st_wpn_grenade_molotov_descr">
 		<text>A glass bottle filled with a mixture of gasoline and thickener, with a cloth wick in the neck.</text>
 	</string>
+
+	<string id="st_wpn_m82">
+		<text>Barrett M82</text>
+	</string>
+	<string id="st_wpn_m82_descr">
+		<text>American large-caliber self-loading rifle with a powerful 12.7 x 99 mm cartridge. It is used in the Zone to fight pseudo-giants and equipment. Fourteen kilograms of weight, the rarest ammunition and a roar per kilometer around — this is the price of power that no creature in the Zone can resist. Can you hold it?</text>
+	</string>
+
+	<string id="ammo_50_bmg">
+		<text>.50 BMG</text>
+	</string>
+	<string id="ammo_50_bmg_descr">
+		<text>The .50 Browning Machine Gun (12.7x99mm NATO and designated as the 50 Browning by the C.I.P.) is a cartridge developed for the Browning .50 caliber machine gun in the late 1910s, entering official service in 1921. Under STANAG 4383, it is a standard cartridge for NATO forces as well as many non-NATO countries. The cartridge itself has been made in many variants: multiple generations of regular ball, tracer, armor-piercing (AP), incendiary, and saboted sub-caliber rounds. The rounds intended for machine guns are made into a continuous belt using metallic links. 
+		\nThe .50 BMG cartridge is also used in long-range target and anti-materiel rifles, as well as other .50-caliber machine guns.</text>
+	</string>
 </string_table>

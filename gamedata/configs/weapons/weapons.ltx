@@ -123,8 +123,12 @@
 #include "w_vihr.ltx"
 ; -PVP
 
+; +UDP
+#include "w_m82.ltx"
+; -UDP
+
 [weapons_global_settings]
-grenade_types_order = mp_grenade_rgd5, mp_grenade_rgn, mp_grenade_rgo, mp_grenade_f1, mp_grenade_flashbang, mp_grenade_gd-05, grenade_rgd5, grenade_rgn, grenade_rgo, grenade_f1, grenade_flashbang, grenade_gd-05, mp_grenade_flare;+UP
+grenade_types_order = mp_grenade_rgd5, mp_grenade_rgn, mp_grenade_rgo, mp_grenade_f1, mp_grenade_flashbang, mp_grenade_gd-05, grenade_rgd5, grenade_rgn, grenade_rgo, grenade_f1, grenade_flashbang, grenade_gd-05, mp_grenade_flare, mp_grenade_molotov;+UDP
 activated_item_types_order = mp_af_defence, mp_af_defence_heal, landmine_pmn2, mp_af_defence_lumen, mp_af_defence_lumen_sun; +UP
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -3013,3 +3017,37 @@ wm_size         = 0.05
 explosive		= off
 k_ap			= 0.8; +UP
 k_air_resistance = 0.7; +UP
+
+; +UDP
+[ammo_50_bmg]:ammo_base
+GroupControlSection	= spawn_group
+discovery_dependency	= 
+$spawn			= "weapons\ammo\ammo_50_bmg" ; option for Level Editor
+class			= AMMO
+cform           = skeleton
+visual          = dynamics\weapons\wpn_ammo\ammo_50_bmg.ogf
+description		= ammo_50_bmg_descr
+$prefetch 		= 64
+
+cost			= 2000
+box_size		= 20
+
+inv_name		= ammo_50_bmg
+inv_name_short	= ammo_50_bmg
+inv_weight		= 0.75
+
+inv_grid_width     = 2
+inv_grid_height    = 1
+inv_grid_x         = 24
+inv_grid_y         = 35
+
+k_disp			= 1
+k_hit			= 1.0 ;  2.0
+k_impulse		= 2.0
+k_ap			= 0.5
+tracer_color_ID	= 1
+wm_size         = 0.086
+k_air_resistance = 0.8
+tracer			= on
+explosive		= off
+tier			= 4
